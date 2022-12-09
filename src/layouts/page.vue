@@ -1,4 +1,0 @@
-<template>
-    <TheMenu />
-    <slot />
-</template>
