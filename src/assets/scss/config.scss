@@ -1,0 +1,41 @@
+@import url('./variables.scss');
+
+// Global styles
+
+*, :after, :before {
+    box-sizing: border-box;
+    line-height: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+ul,ol {
+    list-style: none;
+}
+
+body{
+    font-size: $font-size;
+    background-color: $color-white;
+    font-family: $font-family-default;
+}
+
+.container {
+    max-width: 1450px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: $color-white;
+    transition: all .65s ease-in-out;
+
+    &:hover {
+        color: $color-blue-accent;
+    }
+}
+
+.ltr-spacing {
+    letter-spacing: 3px;
+}

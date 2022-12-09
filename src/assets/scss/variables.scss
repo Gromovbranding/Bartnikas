@@ -1,0 +1,21 @@
+// Colors
+$color-blue-accent: #1b61cb;
+$color-white: #fff;
+$color-black: #000000;
+$color-black-via: #0a0a0a;
+$color-black-via-alpha: #050404;
+$color-gray: #999999;
+$color-gray-via: #a8a8a8;
+$color-gray-via-alpha:#eceae8;
+
+// Size
+$font-size-default: 16px;
+$font-size-scale: 1.0;
+$font-size: calc($font-size-default * $font-size-scale);
+
+// Font
+$font-family-default: 'HelveticaNeue', Arial, sans-serif;
+
+// Settings
+
+$border-radius: 5px;
