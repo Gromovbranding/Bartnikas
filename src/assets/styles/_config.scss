@@ -8,9 +8,27 @@
     padding: 0;
 }
 
-.container {
-    max-width: 1714px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin: 0 auto;
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.scale {
+    overflow: hidden;
+}
+
+.scale img {
+    transition: transform 1s ease-in-out;
+}
+
+.scale:hover img {
+    transform: scale(1.2);
+}
+
+img {
+    border-radius: $borderRadiusMain;
+}
+
+p,span,small h1,h2,h3,h4,h5,h6 {
+    color: $colorTextDark;
 }

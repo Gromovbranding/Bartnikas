@@ -1,61 +1,26 @@
-import pkg from './package.json'
 const APP_NAME = "Bartnikas";
 
 export default defineNuxtConfig({
     srcDir: "src",
     modules: [
-        "@nuxt/image-edge",
         "nuxt-purgecss",
         [
-            "@nuxtjs/i18n",
-            {
-                locales: ['ru', 'en'],
-                defaultLocale: 'ru',
-                vueI18n: {
-                    fallbackLocale: 'ru',
-                    messages: {
-                        ru: {
-                            greeting: 'Тест i18n ru'
-                        },
-                        en: {
-                            greeting: 'Test i18n en'
-                        }
-                    }
-                }
-            }
-        ],
-        [
             "@nuxtjs/google-fonts", {
-                families: {
-                    Roboto: {
-                        wght: [400, 500, 600],
-                    },
-                    Rubik: {
-                        wght: [600, 700],
-                    },
-                },
+                // families: {
+                //     'HelveticaNeue': {
+                //         wght: [400, 500, 600],
+                //     },
+                // },
             }
         ],
-        [
-            'nuxt-security',
-            {
-                hidePoweredBy: false
-            }
-        ]
     ],
 
     runtimeConfig: {
         public: {
             app: {
-                APP_NAME,
                 DEBUG: process.env.NODE_ENV === "development",
-                VERSION: pkg.version,
             },
         },
-    },
-
-    routeRules: {
-        "/_nuxt/**": { headers: { "cache-control": "s-maxage=0" } },
     },
 
     app: {
