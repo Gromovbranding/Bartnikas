@@ -35,13 +35,13 @@
           </a>
           <a>
             <img
-              src="	https://static.tildacdn.com/tild3230-3634-4135-a664-336339666464/Telegram.png"
+              src="https://static.tildacdn.com/tild3230-3634-4135-a664-336339666464/Telegram.png"
               alt=""
             />
           </a>
           <a>
             <img
-              src="	https://static.tildacdn.com/tild6532-3366-4438-b836-356537633761/VK.png"
+              src="https://static.tildacdn.com/tild6532-3366-4438-b836-356537633761/VK.png"
               alt=""
             />
           </a>
@@ -93,7 +93,7 @@
 
       a {
         color: #ffff;
-        transition: color .3s ease , transform 0.4s ease-in;
+        transition: color 0.3s ease, transform 0.4s ease-in;
         display: block;
         font-weight: bold;
         font-size: 30px;
@@ -140,7 +140,7 @@
         font-size: 10px;
         color: #fff;
         a {
-          color:#fff;
+          color: #fff;
         }
       }
 
