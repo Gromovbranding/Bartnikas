@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="awards">
-      <AppSectionHeader to-caption="170"> AWARDS </AppSectionHeader>
+      <AppSectionHeader to-caption=">170"> AWARDS </AppSectionHeader>
       <div class="awards__content">
         <div>
           <a>

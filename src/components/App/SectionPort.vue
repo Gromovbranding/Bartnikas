@@ -30,7 +30,7 @@ withDefaults(defineProps<Props>(), {
           />
         </div>
         <div class="port__text">
-          <a href="#">
+          <a href="javascript:void(0)">
             <div>
               <img
                 src="https://static.tildacdn.com/tild3763-3936-4434-a163-353739653437/photo_camera.svg"
@@ -79,7 +79,7 @@ withDefaults(defineProps<Props>(), {
  
     img{
       width: 100%;
-      height: 650px;
+      height: 550px;
     }
   }
 
@@ -87,7 +87,7 @@ withDefaults(defineProps<Props>(), {
     border-radius: $borderRadiusMain;
     background-color: $colorBackgroundGrey;
     padding-bottom: 90px;
-    padding-left: 50px;
+    padding-left: 60px;
     padding-top: 40px;
 
     small {
@@ -96,7 +96,7 @@ withDefaults(defineProps<Props>(), {
 
     
     h2 {
-      font-size: 40px;
+      font-size: 45px;
     }
 
     > a > div {
@@ -104,26 +104,28 @@ withDefaults(defineProps<Props>(), {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
-        gap: 5px;
+        gap: 10px;
 
 
         img {
-          width: 45px;
-          height: 45px;
+          width: 25px;
+          height: 25px;
         }
 
         p {
-          font-size: 22px;
+          font-size: 35px;
+          font-weight: 300;
         }
       }
 
       &:last-child {
-        max-width: 600px;
-        margin-top: 45px;
+        max-width: 900px;
+        margin-top: 95px;
 
         p {
-          font-size: 18px;
-          line-height: 28px;
+          font-size:30px;
+          line-height: 40px;
+          font-weight: 300;
         }
       }
     }

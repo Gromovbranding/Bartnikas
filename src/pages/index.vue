@@ -43,8 +43,6 @@
     <AppSectionPort direction="row-reverse"/>
     <AppSectionAwards />
     <AppSectionNews />
-
-    <TheFooter />
   </div>
 </template>
 
@@ -107,10 +105,10 @@
         width: 50%;
         p {
             color: $colorTextDark;
-            font-size: 18px;
+            font-size: 30px;
             line-height: 1.55;
             word-break: normal;
-            font-weight: 400;
+            font-weight: 300;
         }
     }
 }

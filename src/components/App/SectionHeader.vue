@@ -16,7 +16,7 @@ withDefaults(defineProps<Props>(), {
         {{ toCaption }}
       </span>
     </h2>
-    <a href="">
+    <a href="javascript:void(0)">
       View all <span><slot /></span>
     </a>
   </div>
@@ -28,8 +28,10 @@ withDefaults(defineProps<Props>(), {
   margin-bottom: 120px;
 
   h2 {
-    font-size: 180px;
+    font-size: 230px;
     display: flex;
+    text-transform: uppercase;
+    font-weight: bold;
 
     span {
       font-size: 33px;
@@ -39,8 +41,11 @@ withDefaults(defineProps<Props>(), {
   }
 
   a {
+    display: block;
     color: $colorTextGrey;
-    font-size: 22px;
+    font-size: 32px;
+    font-weight: 400;
+    margin-top: 30px;
     span {
       color: $colorTextGrey;
       text-transform: lowercase;

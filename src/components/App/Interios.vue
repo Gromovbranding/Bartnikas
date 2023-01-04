@@ -34,7 +34,7 @@
   &__img {
     img {
       width: 100%;
-      height: 500px;
+      height: 550px;
       object-fit: cover;
     }
   }
@@ -43,7 +43,7 @@
     display: flex;
     gap: 20px;
     margin-top: 30px;
-    padding: 0 40px;
+    padding: 0 10px;
 
 
     > div {
@@ -58,22 +58,23 @@
       &:last-child {
         h3 {
           color: $colorTextDark;
-          font-size: 80px;
-          font-weight: 600;
+          font-size: 50px;
+          font-weight: 700;
           line-height: 1.1;
         }
         p {
-          font-size: 36px;
+          font-size: 28px;
           color: #000;
-          margin-top: 20px;
+          margin-top: 15px;
           line-height: 1.3;
-          font-weight: normal;
+          font-weight: 300;
+          letter-spacing: 1px;
         }
         span {
-            display: block;
-          margin-top: 60px;
+          display: block;
+          margin-top: 40px;
           color: $colorTextGrey;
-          font-size: 26px;
+          font-size: 20px;
           font-weight: 400;
         }
       }

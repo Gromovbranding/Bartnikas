@@ -49,7 +49,7 @@
       </div>
       <div class="footer__gromov">
         <div>
-          <p>Designed by <a href="#">Gromov Branding</a></p>
+          <p>Designed by <a href="javascript:void(0)">Gromov Branding</a></p>
         </div>
         <div>
           <img

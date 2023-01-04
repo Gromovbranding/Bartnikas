@@ -10,10 +10,11 @@
   border-radius: $borderRadiusMain;
 
   h2 {
-    font-size: 120px;
+    font-size: 250px;
     text-transform: uppercase;
     color: #fff;
-    padding: 60px 40px;
+    padding: 60px 80px;
+    font-weight: bold;
   }
 }
 </style>
