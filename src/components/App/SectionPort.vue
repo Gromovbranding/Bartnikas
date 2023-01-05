@@ -5,7 +5,7 @@ interface Props {
   // title: string;
   // desciption: string;
   // photoCounter: number | string;
-  direction: "row" | "row-reverse";
+  direction?: "row" | "row-reverse";
 }
 
 withDefaults(defineProps<Props>(), {
@@ -18,24 +18,17 @@ withDefaults(defineProps<Props>(), {
     <div class="port">
       <div class="port__img">
         <div class="scale">
-          <img
-            src="https://static.tildacdn.com/tild3938-6661-4930-b962-343337353537/IMGP9984_1.jpg"
-          />
+          <img src="https://static.tildacdn.com/tild3938-6661-4930-b962-343337353537/IMGP9984_1.jpg" />
         </div>
       </div>
       <div class="port__content">
         <div class="scale">
-          <img
-            src="https://static.tildacdn.com/tild3664-3366-4532-b637-363135333132/CF003255_1.jpg"
-          />
+          <img src="https://static.tildacdn.com/tild3664-3366-4532-b637-363135333132/CF003255_1.jpg" />
         </div>
         <div class="port__text">
           <a href="javascript:void(0)">
             <div>
-              <img
-                src="https://static.tildacdn.com/tild3763-3936-4434-a163-353739653437/photo_camera.svg"
-                alt=""
-              />
+              <img src="https://static.tildacdn.com/tild3763-3936-4434-a163-353739653437/photo_camera.svg" alt="" />
               <p>72</p>
             </div>
             <h2>Urban</h2>
@@ -63,7 +56,8 @@ withDefaults(defineProps<Props>(), {
 
   &__img {
     flex: 0 0 790px;
-    > div {
+
+    >div {
       height: 100%;
     }
 
@@ -76,8 +70,8 @@ withDefaults(defineProps<Props>(), {
 
   &__content {
     width: 100%;
- 
-    img{
+
+    img {
       width: 100%;
       height: 550px;
     }
@@ -94,12 +88,12 @@ withDefaults(defineProps<Props>(), {
       font-size: 18px;
     }
 
-    
+
     h2 {
       font-size: 45px;
     }
 
-    > a > div {
+    >a>div {
       &:first-child {
         display: flex;
         align-items: center;
@@ -123,7 +117,7 @@ withDefaults(defineProps<Props>(), {
         margin-top: 95px;
 
         p {
-          font-size:30px;
+          font-size: 30px;
           line-height: 40px;
           font-weight: 300;
         }

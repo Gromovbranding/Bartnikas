@@ -1,18 +1,7 @@
-const APP_NAME = "Bartnikas";
-
 export default defineNuxtConfig({
     srcDir: "src",
     modules: [
         "nuxt-purgecss",
-        [
-            "@nuxtjs/google-fonts", {
-                // families: {
-                //     'HelveticaNeue': {
-                //         wght: [400, 500, 600],
-                //     },
-                // },
-            }
-        ],
     ],
 
     runtimeConfig: {
@@ -25,8 +14,7 @@ export default defineNuxtConfig({
 
     app: {
         head: {
-            title: APP_NAME,
-            titleTemplate: `%s | ${APP_NAME}`,
+            titleTemplate: `%s | Bartnikas`,
             meta: [
                 { "http-equiv": "x-ua-compatible", content: "true" },
                 {
@@ -38,7 +26,7 @@ export default defineNuxtConfig({
                 {
                     hid: "description",
                     name: "description",
-                    content: APP_NAME,
+                    content: '',
                 },
             ],
             link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],

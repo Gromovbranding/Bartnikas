@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 interface Props {
-  toCaption: string;
+  toCaption?: string;
+  isLink?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   toCaption: "",
+  isLink: true
 });
 </script>
 
@@ -16,8 +18,10 @@ withDefaults(defineProps<Props>(), {
         {{ toCaption }}
       </span>
     </h2>
-    <a href="javascript:void(0)">
-      View all <span><slot /></span>
+    <a href="javascript:void(0)" v-if="isLink">
+      View all <span>
+        <slot />
+      </span>
     </a>
   </div>
 </template>
@@ -25,10 +29,10 @@ withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .caption {
   padding-left: 35px;
-  margin-bottom: 120px;
+  margin-bottom: 90px;
 
   h2 {
-    font-size: 230px;
+    font-size: 13vw;
     display: flex;
     text-transform: uppercase;
     font-weight: bold;
@@ -36,7 +40,6 @@ withDefaults(defineProps<Props>(), {
     span {
       font-size: 33px;
       padding-top: 44px;
-      font-weight: 400;
     }
   }
 
@@ -44,8 +47,9 @@ withDefaults(defineProps<Props>(), {
     display: block;
     color: $colorTextGrey;
     font-size: 32px;
-    font-weight: 400;
     margin-top: 30px;
+    font-weight: 300;
+
     span {
       color: $colorTextGrey;
       text-transform: lowercase;

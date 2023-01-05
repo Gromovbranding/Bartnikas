@@ -1,13 +1,13 @@
 <template>
     <div class="interios-order">
-        <AppSectionHeader>
-           IN INTERIORS
+        <AppSectionHeader :is-link="false">
+            IN INTERIORS
         </AppSectionHeader>
         <div class="interios-order__content">
             <div>
                 <div class="interios-order__project-select">
                     <span>Project:</span>
-                    <AppUISelect :list="[
+                    <UISelect :list="[
                         {
                             label: 'xPalienko',
                             value: 'xPalienko',
@@ -37,9 +37,9 @@
                     </div>
                 </div>
                 <div class="interios-order__project-order">
-                    <AppUIButton>
+                    <UIButton style="width: 100%;">
                         Order
-                    </AppUIButton>
+                    </UIButton>
                 </div>
             </div>
             <div>
@@ -51,38 +51,50 @@
 
 <style lang="scss" scoped>
 .interios-order {
+    background-color: $colorBackgroundGrey;
+    padding: 80px 40px;
+
     &__content {
         display: flex;
         gap: 30px;
 
-        > div {
+        >div {
             &:first-child {
                 .interios-order__project {
                     &-select {
                         display: flex;
                         align-items: center;
-                        gap: 10px;
+                        gap: 25px;
+
+                        span {
+                            font-size: 32px;
+                            font-weight: 400;
+                        }
                     }
 
                     &-name {
                         margin-top: 60px;
-                        margin-bottom: 80px;
+                        margin-bottom: 90px;
+                        font-size: 42px;
+                        font-weight: 600;
                     }
 
                     &-colors {
                         h4 {
-                            margin-bottom: 10px;
+                            margin-bottom: 30px;
+                            font-size: 32px;
                         }
 
-                        > div {
+                        >div {
                             display: flex;
                             flex-wrap: wrap;
                             gap: 15px;
+                            max-width: 380px;
 
-                            > div {
+                            >div {
                                 background-color: transparent;
-                                width: 55px;
-                                height: 30px;
+                                width: 80px;
+                                height: 45px;
                                 border-radius: 5px;
 
                                 &:nth-child(1) {
@@ -126,9 +138,7 @@
                 }
             }
 
-            &:last-child {
-                
-            }
+            &:last-child {}
         }
     }
 }

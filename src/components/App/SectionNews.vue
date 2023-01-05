@@ -1,7 +1,7 @@
 <template>
     <div class="news">
         <AppSectionHeader>
-          News
+            News
         </AppSectionHeader>
         <div class="news__content">
             <AppInterios />
@@ -12,7 +12,8 @@
 
 <style lang="scss" scoped>
 .news {
-    padding: 0 50px;
+    padding: 80px 40px;
+
     &__content {
         display: flex;
         flex-wrap: wrap;

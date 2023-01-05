@@ -6,11 +6,11 @@
 
 <style lang="scss" scoped>
 .btn-default {
-    padding: 25px 120px;
+    padding: 30px;
     border-radius: 50px;
     cursor: pointer;
     border: none;
-    font-size: 30px;
+    font-size: 36px;
     color: #fff;
     background-color: $colorAccentBlue;
     transform: translateY(0);

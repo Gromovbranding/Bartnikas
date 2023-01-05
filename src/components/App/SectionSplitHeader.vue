@@ -1,6 +1,8 @@
 <template>
   <section class="split-block-caption">
-    <h2><slot /></h2>
+    <h2>
+      <slot />
+    </h2>
   </section>
 </template>
 
@@ -10,7 +12,7 @@
   border-radius: $borderRadiusMain;
 
   h2 {
-    font-size: 250px;
+    font-size: 14vw;
     text-transform: uppercase;
     color: #fff;
     padding: 60px 80px;
