@@ -74,6 +74,7 @@ onMounted(() => {
 
     &__head {
         border: 1px solid #242424;
+        background-color: $colorBackgroundGrey;
         border-radius: 5px;
         font-size: 32px;
         padding: 12px 25px;
@@ -94,6 +95,7 @@ onMounted(() => {
         margin-top: -4px;
         position: absolute;
         border: 1px solid #242424;
+        background-color: $colorBackgroundGrey;
         border-top: none;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
@@ -104,7 +106,6 @@ onMounted(() => {
         gap: 20px;
         font-size: 20px;
         z-index: 5;
-        background-color: #fff;
         opacity: 0;
         transition: opacity .3s ease-out;
     }

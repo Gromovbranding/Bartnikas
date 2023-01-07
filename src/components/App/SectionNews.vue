@@ -1,5 +1,5 @@
 <template>
-    <div class="news">
+    <section class="news">
         <AppSectionHeader>
             News
         </AppSectionHeader>
@@ -7,7 +7,7 @@
             <AppInterios />
             <AppInterios />
         </div>
-    </div>
+    </section>
 </template>
 
 <style lang="scss" scoped>

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 const isMenuVisible = ref(false)
+
+onBeforeRouteUpdate(() => {
+    isMenuVisible.value = false
+})
 </script>
 
 
@@ -63,21 +67,19 @@ const isMenuVisible = ref(false)
                 <div class="menu__terms">
                     <ul class="menu__terms-menu">
                         <li>
-                            <a href="javascript:void(0)">
+                            <NuxtLink to="/terms">
                                 Terms and Conditions
-                            </a>
+                            </NuxtLink>
                         </li>
-
                         <li>
-                            <a href="javascript:void(0)">
+                            <NuxtLink to="/blog">
                                 Blog
-                            </a>
+                            </NuxtLink>
                         </li>
-
                         <li>
-                            <a href="javascript:void(0)">
-                                FAQ
-                            </a>
+                            <NuxtLink to="/faq">
+                                Faq
+                            </NuxtLink>
                         </li>
                     </ul>
                 </div>

@@ -24,6 +24,11 @@
 .interios {
   width: 100%;
   display: block;
+  transition: transform .6s ease-in-out;
+
+  &:hover {
+    transform: translateY(-30px);
+  }
 
   &__img {
     img {

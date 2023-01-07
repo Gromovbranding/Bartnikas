@@ -84,7 +84,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    padding: 0 85px;
 
     >div {
       display: flex;

@@ -1,5 +1,5 @@
 <template>
-    <div class="interios-order">
+    <section class="interios-order">
         <AppSectionHeader :is-link="false">
             IN INTERIORS
         </AppSectionHeader>
@@ -46,7 +46,7 @@
 
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <style lang="scss" scoped>
