@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 const isMenuVisible = ref(false)
-
-onBeforeRouteUpdate(() => {
-    isMenuVisible.value = false
-})
 </script>
 
 

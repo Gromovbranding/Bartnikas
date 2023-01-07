@@ -12,9 +12,8 @@ withDefaults(defineProps<Props>(), {
 <template>
     <header :class="['page-headline', `page-headline--${bgColor}`]">
         <div class="page-headline__logo">
-            <img 
-                :src="bgColor === 'grey' ? 'https://static.tildacdn.com/tild6232-3135-4763-a338-393933393531/Logo_Micro_Full_Blue.svg' : 'https://static.tildacdn.com/tild6165-3965-4466-a564-663133393534/Logo_Micro_Mono_Whit.svg'" 
-            />
+            <img
+                :src="bgColor === 'grey' ? 'https://static.tildacdn.com/tild6232-3135-4763-a338-393933393531/Logo_Micro_Full_Blue.svg' : 'https://static.tildacdn.com/tild6165-3965-4466-a564-663133393534/Logo_Micro_Mono_Whit.svg'" />
         </div>
         <ul class="page-headline__breadcrumb">
             <li>
@@ -40,22 +39,35 @@ withDefaults(defineProps<Props>(), {
     justify-content: center;
     border-radius: 5px;
 
-    &--grey {
-        background-color: $colorBackgroundGrey;
-        * {
-            color: $colorTextDark!important;
-        }
-    }
-
     &--blue {
         background-color: $colorAccentBlue;
+    }
+
+    &--grey {
+        background-color: $colorBackgroundGrey;
+
+        .page-headline {
+            &__caption {
+                color: $colorTextDark;
+            }
+
+            &__breadcrumb {
+                li {
+                    a {
+                        color: $colorTextDark;
+
+                    }
+
+                    color: $colorTextDark;
+                }
+            }
+        }
     }
 
     &__caption {
         font-size: 13vw;
         font-weight: bold;
         color: #fff;
-        line-height: 1;
         text-transform: uppercase;
         margin-left: 25px;
     }
@@ -65,6 +77,7 @@ withDefaults(defineProps<Props>(), {
         justify-content: center;
         align-items: center;
         margin-bottom: 100px;
+
         img {
             width: 500px;
             height: 100%;
@@ -81,7 +94,7 @@ withDefaults(defineProps<Props>(), {
             font-weight: 300;
             color: #fff;
 
-            > a {
+            a {
                 color: #fff;
             }
 
