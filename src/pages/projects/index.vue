@@ -1,12 +1,8 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
     <Title>
         Projects
     </Title>
-    <AppPageHeadline title="PROJECTS" />
+    <AppPageHeadline title="Projects" />
     <section class="projects">
         <AppSectionPort />
         <AppSectionPort direction="row-reverse" />
@@ -17,6 +13,6 @@
 
 <style lang="scss" scoped>
 .projects {
-    margin: 30px 0;
+    margin-bottom: 30px;
 }
 </style>

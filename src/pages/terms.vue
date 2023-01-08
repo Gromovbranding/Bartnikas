@@ -17,6 +17,6 @@ const list = ref([
     <Title>
         Terms & Conditions
     </Title>
-    <AppPageHeadline title="TERMS & CONDITIONS" bgColor="grey" />
+    <AppPageHeadline title="Terms & Conditions" bgColor="grey" />
     <AppSectionTermCollection :list="list" />
 </template>

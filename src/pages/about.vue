@@ -1,6 +1,6 @@
 <template>
     <Title>
-        Video Collection
+        Biography
     </Title>
     <AppPageHeadline title="Biography" />
 </template>

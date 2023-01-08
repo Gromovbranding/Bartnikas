@@ -1,6 +1,6 @@
 <template>
   <Title>
-    Главная
+    Home
   </Title>
   <header class="header">
     <div class="header__main">
