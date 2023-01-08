@@ -17,41 +17,41 @@ watch(() => route.path, () => {
             <div>
                 <ul class="menu__item-main">
                     <li>
-                        <a href="javascript:void(0)">
+                        <NuxtLink to="/projects">
                             PROJECTS
-                        </a>
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <NuxtLink to="/awards">
                             AWARDS <sup>>170</sup>
-                        </a>
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            ABOUT
-                        </a>
+                        <NuxtLink to="/about">
+                            About
+                        </NuxtLink>
                     </li>
                 </ul>
                 <ul class="menu__item-sub">
                     <li>
-                        <a href="javascript:void(0)">
-                            MEDIA
-                        </a>
+                        <NuxtLink to="/media">
+                            Media
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <NuxtLink to="/about">
                             VIDEO COLLECTION
-                        </a>
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <NuxtLink to="/payment">
                             PAYMENT/DELIVERY
-                        </a>
+                        </NuxtLink>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <NuxtLink to="/contacts">
                             CONTACTS
-                        </a>
+                        </NuxtLink>
                     </li>
                 </ul>
             </div>
@@ -271,6 +271,7 @@ watch(() => route.path, () => {
             gap: 20px;
 
             a {
+                text-transform: uppercase;
                 @include hoverLink();
                 letter-spacing: 3px;
             }

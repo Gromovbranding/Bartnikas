@@ -45,6 +45,10 @@ img {
     border-radius: $borderRadiusMain;
 }
 
-p,span,small h1,h2,h3,h4,h5,h6 {
+p,span,small h1,h2,h3,h4,h5,h6, strong {
     color: $colorTextDark;
+}
+
+strong {
+    font-weight: bold;
 }
