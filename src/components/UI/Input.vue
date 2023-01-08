@@ -34,8 +34,8 @@ const inputState = computed({
 
 <style lang="scss" scoped>
 .input {
-  border-radius: 5px;
-  padding: 25px 30px;
+  border-radius: 10px;
+  padding: 23px 32px;
   font-size: 24px;
   font-weight: 300;
   width: 100%;

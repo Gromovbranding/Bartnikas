@@ -13,10 +13,10 @@
             </p>
             <div>
                 <p>
-                    Press inquiry <a href="javascript:void(0)">sb@stasbart.com</a>
+                    Press inquiry <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
                 </p>
                 <p>
-                    Gallery representation <a href="javascript:void(0)">sb@stasbart.com</a>
+                    Gallery representation <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
                 </p>
             </div>
             <h3>
@@ -65,7 +65,7 @@
         }
 
         &:last-child {
-            max-width: 620px;
+            max-width: 580px;
             margin-left: 90px;
             padding-top: 40px;
             padding-bottom: 40px;
@@ -76,7 +76,7 @@
             }
 
             h3 {
-                font-size: 36px;
+                font-size: 34px;
                 font-weight: bold;
                 margin-bottom: 30px;
                 line-height: 1.6;
