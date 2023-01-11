@@ -1,6 +1,6 @@
 <template>
     <section class="news">
-        <AppSectionHeader>
+        <AppSectionHeader to="/media">
             News
         </AppSectionHeader>
         <div class="news__content">

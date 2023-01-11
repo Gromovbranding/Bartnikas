@@ -22,7 +22,9 @@ withDefaults(defineProps<Props>(), {
                 </NuxtLink>
             </li>
             <li>
-                {{ title }}
+                <span>
+                    {{ title }}
+                </span>
             </li>
         </ul>
         <h1 class="page-headline__caption">
@@ -33,7 +35,7 @@ withDefaults(defineProps<Props>(), {
 
 <style lang="scss" scoped>
 .page-headline {
-    padding: 20px 40px 40px 40px;
+    padding: 20px 70px 40px 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,12 +55,13 @@ withDefaults(defineProps<Props>(), {
 
             &__breadcrumb {
                 li {
-                    a {
+                    > * {
                         color: $colorTextDark;
-
                     }
 
-                    color: $colorTextDark;
+                    &::after {
+                        color: $colorTextDark;
+                    }
                 }
             }
         }
@@ -69,7 +72,6 @@ withDefaults(defineProps<Props>(), {
         font-weight: bold;
         color: #fff;
         text-transform: uppercase;
-        margin-left: 25px;
     }
 
     &__logo {
@@ -86,15 +88,13 @@ withDefaults(defineProps<Props>(), {
 
     &__breadcrumb {
         display: flex;
-        margin-left: 40px;
         margin-bottom: 20px;
 
         li {
-            font-size: 22px;
-            font-weight: 300;
-            color: #fff;
-
-            a {
+            *, &::after {
+                font-size: 1.1vw;
+                letter-spacing: 3px;
+                font-weight: 300;
                 color: #fff;
             }
 
@@ -104,8 +104,7 @@ withDefaults(defineProps<Props>(), {
 
             &:not(:last-child)::after {
                 content: ">";
-                padding: 0 11px 0 6px;
-                font-size: 22px;
+                padding-right: 11px;
             }
         }
     }

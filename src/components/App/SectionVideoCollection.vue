@@ -1,6 +1,6 @@
 <template>
     <section class="video-collections">
-        <AppSectionHeader>
+        <AppSectionHeader to="/video-collection">
             Video Collection
         </AppSectionHeader>
         <div class="video-collections__content">

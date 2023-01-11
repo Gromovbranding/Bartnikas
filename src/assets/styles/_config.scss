@@ -1,6 +1,7 @@
 @import './_reset.scss';
 @import './_colors.scss';
 @import './_fonts.scss';
+
 *,
 *:after,
 *:before {
@@ -31,14 +32,27 @@ a {
 
 .scale {
     overflow: hidden;
+
+    img {
+        transition: transform 1s ease-in-out;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.2);
+        }
+    }
 }
 
-.scale img {
-    transition: transform 1s ease-in-out;
-}
 
-.scale:hover img {
-    transform: scale(1.2);
+.upper-slide {
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-10px);
+    }
 }
 
 img {

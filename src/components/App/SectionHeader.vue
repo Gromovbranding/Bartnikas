@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 interface Props {
   toCaption?: string;
-  isLink?: boolean
+  isLink?: boolean;
+  to?: string;
 }
 
 withDefaults(defineProps<Props>(), {
   toCaption: "",
-  isLink: true
+  isLink: true,
+  to: '/'
 });
 </script>
 
@@ -18,11 +20,11 @@ withDefaults(defineProps<Props>(), {
         {{ toCaption }}
       </span>
     </h2>
-    <a href="javascript:void(0)" v-if="isLink">
+    <NuxtLink :to="to" v-if="isLink">
       View all <span>
         <slot />
       </span>
-    </a>
+    </NuxtLink>
   </div>
 </template>
 
