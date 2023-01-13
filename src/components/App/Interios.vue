@@ -1,11 +1,17 @@
 <template>
   <a class="interios">
     <div class="interios__img">
-      <img src="https://static.tildacdn.com/tild3332-3036-4664-a462-353037666335/0651.jpg" alt="" />
+      <img
+        src="https://static.tildacdn.com/tild3332-3036-4664-a462-353037666335/0651.jpg"
+        alt=""
+      />
     </div>
     <div class="interios__content">
       <div>
-        <img src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg" alt="" />
+        <img
+          src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
+          alt=""
+        />
       </div>
       <div>
         <h3>Capturing the power of the earth</h3>
@@ -24,7 +30,7 @@
 .interios {
   width: 100%;
   display: block;
-  transition: transform .6s ease-in-out;
+  transition: transform 0.6s ease-in-out;
 
   &:hover {
     transform: translateY(-30px);
@@ -44,8 +50,7 @@
     margin-top: 30px;
     padding: 0 10px;
 
-
-    >div {
+    > div {
       &:first-child {
         img {
           margin-top: 18px;

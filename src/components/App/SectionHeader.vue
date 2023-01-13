@@ -8,7 +8,7 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   toCaption: "",
   isLink: true,
-  to: '/'
+  to: "/",
 });
 </script>
 
@@ -20,8 +20,9 @@ withDefaults(defineProps<Props>(), {
         {{ toCaption }}
       </span>
     </h2>
-    <NuxtLink :to="to" v-if="isLink">
-      View all <span>
+    <NuxtLink v-if="isLink" :to="to">
+      View all
+      <span>
         <slot />
       </span>
     </NuxtLink>

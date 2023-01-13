@@ -1,13 +1,17 @@
 <template>
-  <Title>
-    Home
-  </Title>
+  <Title> Home </Title>
   <header class="header">
     <div class="header__main">
-      <img src="https://static.tildacdn.com/tild3936-3864-4236-a165-333964376561/Logo_Main_Full_Blue_.svg" alt="" />
+      <img
+        src="https://static.tildacdn.com/tild3936-3864-4236-a165-333964376561/Logo_Main_Full_Blue_.svg"
+        alt=""
+      />
     </div>
     <div class="header__img-sticky">
-      <img src="https://static.tildacdn.com/tild6231-3534-4137-a162-393461373730/DSCF4802.jpg" alt="" />
+      <img
+        src="https://static.tildacdn.com/tild6231-3534-4137-a162-393461373730/DSCF4802.jpg"
+        alt=""
+      />
     </div>
   </header>
   <AppSectionSplitHeader> CONCEPT </AppSectionSplitHeader>
@@ -22,16 +26,18 @@
   <AppSectionInteriosOrderSlider />
   <section class="home-info-project-paralax">
     <div>
-      <img src="https://static.tildacdn.com/tild3666-3463-4234-a233-633365653434/inner-strength.jpg" alt="">
+      <img
+        src="https://static.tildacdn.com/tild3666-3463-4234-a233-633365653434/inner-strength.jpg"
+        alt=""
+      />
     </div>
     <div>
-      <h3>Obvious
-        &amp; StasBartnikas Collaboration
-      </h3>
+      <h3>Obvious &amp; StasBartnikas Collaboration</h3>
       <p>
-        Stas and Obvious want to bring the beauty of nature together with the science and technology of AI.
-        They demonstrate how the program develops natural looking images based on 1000s of aerial photographs of
-        scenic Iceland.
+        Stas and Obvious want to bring the beauty of nature together with the
+        science and technology of AI. They demonstrate how the program develops
+        natural looking images based on 1000s of aerial photographs of scenic
+        Iceland.
       </p>
       <UIButton>View the project</UIButton>
     </div>
@@ -45,7 +51,7 @@
   position: relative;
   border-radius: 5px;
 
-  >div {
+  > div {
     &:first-child {
       position: sticky;
       top: 0;

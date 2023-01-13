@@ -1,6 +1,4 @@
 <template>
-    <Title>
-        Video Collection
-    </Title>
-    <AppPageHeadline title="Video Collection" />
+  <Title> Video Collection </Title>
+  <AppPageHeadline title="Video Collection" />
 </template>

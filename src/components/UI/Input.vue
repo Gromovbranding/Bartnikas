@@ -7,6 +7,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: "",
+  modelValue: "",
   type: "text",
 });
 
@@ -25,10 +26,10 @@ const inputState = computed({
 </script>
 <template>
   <input
+    v-model="inputState"
     class="input"
     :type="type"
     :placeholder="placeholder"
-    v-model="inputState"
   />
 </template>
 
