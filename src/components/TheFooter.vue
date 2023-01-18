@@ -21,10 +21,7 @@
       </div>
       <div class="footer__logo">
         <div>
-          <img
-            src="https://static.tildacdn.com/tild3334-3963-4561-b762-653931396637/_2.svg"
-            alt=""
-          />
+          <IconLogo is-full-white />
         </div>
         <div>
           <a href="javascript:void(0)">

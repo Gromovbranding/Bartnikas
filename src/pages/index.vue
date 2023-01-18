@@ -3,10 +3,7 @@
     <Title>Home</Title>
     <header class="header">
       <div class="header__main">
-        <img
-          src="https://static.tildacdn.com/tild3936-3864-4236-a165-333964376561/Logo_Main_Full_Blue_.svg"
-          alt=""
-        />
+        <IconLogo is-full-black />
       </div>
       <div class="header__img-sticky">
         <img
@@ -121,7 +118,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
-    img {
+    &:deep(svg) {
       max-width: 575px;
       width: 100%;
     }

@@ -29,13 +29,11 @@ const handleBack = () => {
 <template>
   <header :class="['page-head', `page-head--${onlyLogo ? 'white' : bgColor}`]">
     <div class="page-head__logo">
-      <img
-        :src="
-          ['grey', 'white'].includes(bgColor) || onlyLogo
-            ? 'https://static.tildacdn.com/tild6232-3135-4763-a338-393933393531/Logo_Micro_Full_Blue.svg'
-            : 'https://static.tildacdn.com/tild6165-3965-4466-a564-663133393534/Logo_Micro_Mono_Whit.svg'
-        "
+      <IconLogo
+        v-if="['grey', 'white'].includes(bgColor) || onlyLogo"
+        is-only-author-black
       />
+      <IconLogo v-else is-only-author-white />
     </div>
     <div v-if="back" class="page-head__back" @click="handleBack">
       <span> ← Back </span>
@@ -126,7 +124,7 @@ const handleBack = () => {
     justify-content: center;
     align-items: center;
 
-    > img {
+    &:deep(svg) {
       width: 500px;
       height: 100%;
     }

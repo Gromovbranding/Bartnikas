@@ -115,9 +115,10 @@ watch(
     height: 100vh;
     width: 100%;
     z-index: 9;
-    transition: transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     transform: translateX(120%);
     padding: 40px;
+    opacity: 0;
   }
 
   &__cart {
@@ -359,6 +360,7 @@ watch(
 
     > .menu__nav {
       transform: translateX(0%);
+      opacity: 1;
     }
   }
 }
