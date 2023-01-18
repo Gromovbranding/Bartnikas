@@ -32,7 +32,9 @@ const list = ref([
 </script>
 
 <template>
-  <Title> Payment & Delivery </Title>
-  <AppPageHeadline title="Payment & Delivery" bg-color="grey" />
-  <AppSectionTermCollection :list="list" />
+  <main>
+    <Title> Payment & Delivery </Title>
+    <AppPageHead title="Payment & Delivery" bg-color="grey" />
+    <AppSectionTermCollection :list="list" />
+  </main>
 </template>

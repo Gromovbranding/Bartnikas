@@ -1,5 +1,25 @@
+<script lang="ts" setup>
+interface Props {
+  isGrey?: boolean;
+  isTextUppercase?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  isGrey: false,
+  isTextUppercase: true,
+});
+</script>
+
 <template>
-  <button class="btn-default">
+  <button
+    :class="[
+      'btn-default',
+      {
+        'btn-default--grey': isGrey,
+        'btn-default--uppercase': isTextUppercase,
+      },
+    ]"
+  >
     <slot />
   </button>
 </template>
@@ -16,11 +36,19 @@
   transform: translateY(0);
   transition: transform 0.5s ease-in-out;
   font-weight: bold;
-  text-transform: uppercase;
   text-align: center;
 
   &:hover {
     transform: translateY(-20px);
+  }
+
+  &--grey {
+    background-color: $colorBackgroundGreyDarken;
+    color: #000;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
   }
 }
 </style>

@@ -1,5 +1,15 @@
+<script lang="ts" setup>
+interface Props {
+  to?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  to: "/media/1",
+});
+</script>
+
 <template>
-  <a class="interios">
+  <NuxtLink :to="to" class="interios">
     <div class="interios__img">
       <img
         src="https://static.tildacdn.com/tild3332-3036-4664-a462-353037666335/0651.jpg"
@@ -8,10 +18,7 @@
     </div>
     <div class="interios__content">
       <div>
-        <img
-          src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-          alt=""
-        />
+        <IconArrow is-arrow30-deg />
       </div>
       <div>
         <h3>Capturing the power of the earth</h3>
@@ -23,7 +30,7 @@
         <span>17.06.2022</span>
       </div>
     </div>
-  </a>
+  </NuxtLink>
 </template>
 
 <style lang="scss" scoped>
@@ -52,8 +59,8 @@
 
     > div {
       &:first-child {
-        img {
-          margin-top: 18px;
+        margin-top: 18px;
+        svg {
           width: 60px;
           height: 40px;
         }
@@ -72,7 +79,7 @@
           color: #000;
           margin-top: 15px;
           line-height: 1.3;
-          font-weight: 300;
+          font-weight: 400;
           letter-spacing: 1px;
         }
 

@@ -3,17 +3,19 @@ interface Props {
   toCaption?: string;
   isLink?: boolean;
   to?: string;
+  white?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   toCaption: "",
   isLink: true,
   to: "/",
+  white: false,
 });
 </script>
 
 <template>
-  <div class="caption">
+  <div :class="['caption', { 'caption--white': white }]">
     <h2>
       <slot />
       <span>
@@ -46,12 +48,18 @@ withDefaults(defineProps<Props>(), {
     }
   }
 
+  &--white {
+    h2 {
+      color: #fff;
+    }
+  }
+
   a {
     display: block;
     color: $colorTextGrey;
     font-size: 32px;
     margin-top: 30px;
-    font-weight: 300;
+    font-weight: 400;
 
     span {
       color: $colorTextGrey;

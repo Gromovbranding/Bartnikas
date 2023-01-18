@@ -15,7 +15,9 @@ const list = ref([
 </script>
 
 <template>
-  <Title> Terms & Conditions </Title>
-  <AppPageHeadline title="Terms & Conditions" bg-color="grey" />
-  <AppSectionTermCollection :list="list" />
+  <main>
+    <Title> Terms & Conditions </Title>
+    <AppPageHead title="Terms & Conditions" bg-color="grey" />
+    <AppSectionTermCollection :list="list" />
+  </main>
 </template>

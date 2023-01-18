@@ -21,7 +21,7 @@
       width: 100%;
       height: 20vw;
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: $borderRadiusMain;
     }
   }
 
@@ -33,9 +33,10 @@
       margin-top: 25px;
     }
 
-    p {
+    time {
       color: #5c5c5c;
       font-size: 20px;
+      font-weight: 400;
     }
   }
 }

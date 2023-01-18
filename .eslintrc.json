@@ -18,7 +18,6 @@
   "plugins": ["@typescript-eslint", "vue", "nuxt"],
   "ignorePatterns": ["./.nuxt/**", "./.output/**", "useDebug.ts", "./.vscode/**"],
   "rules": {
-    "vue/no-multiple-template-root": 0,
     "vue/multi-word-component-names": "off",
     "no-console": "warn",
     "no-debugger": "warn"

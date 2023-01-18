@@ -89,7 +89,7 @@ onMounted(() => {
   &__head {
     border: 1px solid #242424;
     background-color: $colorBackgroundGrey;
-    border-radius: 5px;
+    border-radius: $borderRadiusMain;
     font-size: 32px;
     padding: 12px 25px;
     min-width: 270px;
@@ -97,7 +97,7 @@ onMounted(() => {
     align-content: center;
     justify-content: space-between;
     cursor: pointer;
-    font-weight: 300;
+    font-weight: 400;
 
     svg {
       transition: transform 0.3s ease;
@@ -111,8 +111,8 @@ onMounted(() => {
     border: 1px solid #242424;
     background-color: $colorBackgroundGrey;
     border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: $borderRadiusMain;
+    border-bottom-right-radius: $borderRadiusMain;
     width: 100%;
     display: flex;
     flex-direction: column;

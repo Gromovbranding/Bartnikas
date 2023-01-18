@@ -91,7 +91,7 @@
                 background-color: transparent;
                 width: 80px;
                 height: 45px;
-                border-radius: 5px;
+                border-radius: $borderRadiusMain;
 
                 &:nth-child(1) {
                   background-color: #1a1c28;

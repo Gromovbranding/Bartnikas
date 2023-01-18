@@ -1,370 +1,312 @@
 <template>
-  <Title> Awards </Title>
-  <AppPageHeadline bg-color="grey" title="Awards" />
-  <section class="awards">
-    <div class="awards__item">
-      <div class="awards__circle">
-        <a href="#">
-          <img
-            src="https://static.tildacdn.com/tild6165-3638-4538-a364-373730316566/image.png"
-            alt=""
-          />
-        </a>
-      </div>
-      <div class="awards__text">
-        <div>
-          <b> Moscow International Photo Awards </b>
+  <main>
+    <Title> Awards </Title>
+    <AppPageHead bg-color="grey" title="Awards" />
+    <section class="awards">
+      <div class="awards__item">
+        <div class="awards__circle">
+          <a href="#">
+            <img
+              src="https://static.tildacdn.com/tild6165-3638-4538-a364-373730316566/image.png"
+              alt=""
+            />
+          </a>
         </div>
-        <div>
-          <p>
-            Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur.
-          </p>
-        </div>
-      </div>
-      <div class="awards__link">
-        <div class="awards__list">
+        <div class="awards__text">
           <div>
-            <b>2021</b>
+            <b> Moscow International Photo Awards </b>
           </div>
           <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+            <p>
+              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        </div>
+        <div class="awards__link">
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
             </div>
             <div>
-              <p>2 Silver:</p>
-            </div>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <small>
-                1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="awards__list">
-          <div>
-            <b>2021</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
             </div>
             <div>
-              <p>2 Silver:</p>
+              <div class="upper-slide">
+                <small>
+                  1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
             </div>
           </div>
-          <div>
-            <div class="upper-slide">
-              <small>
-                1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="awards__list">
-          <div>
-            <b>2021</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
             </div>
             <div>
-              <p>2 Silver:</p>
-            </div>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <small>
-                1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="awards__item">
-      <div class="awards__circle">
-        <a href="#">
-          <img
-            src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
-            alt=""
-          />
-        </a>
-      </div>
-      <div class="awards__text">
-        <div>
-          <b>Natgeo Photo Travel Contest </b>
-        </div>
-        <div>
-          <p>
-            Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur.
-          </p>
-        </div>
-      </div>
-      <div class="awards__link">
-        <div class="awards__list">
-          <div>
-            <b>2019</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                People’s choice Award
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="awards__item">
-      <div class="awards__circle">
-        <a href="#">
-          <img
-            src="https://static.tildacdn.com/tild6331-6235-4631-b933-616434363331/PX3.png"
-            alt=""
-          />
-        </a>
-      </div>
-      <div class="awards__text">
-        <div>
-          <b>PX3 Paris Photo Awards: </b>
-        </div>
-        <div>
-          <p>
-            Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur.
-          </p>
-        </div>
-      </div>
-      <div class="awards__link">
-        <div class="awards__list">
-          <div>
-            <b>2021</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
             </div>
             <div>
-              <p>2 Silver:</p>
+              <div class="upper-slide">
+                <small>
+                  1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
             </div>
           </div>
-          <div>
-            <div class="upper-slide">
-              <small
-                >1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="awards__list">
-          <div>
-            <b>2021</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
             </div>
             <div>
-              <p>2 Silver:</p>
-            </div>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <small>
-                1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="awards__list">
-          <div>
-            <b>2021</b>
-          </div>
-          <div>
-            <div class="upper-slide">
-              <p>
-                1 Gold
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
             </div>
             <div>
-              <p>2 Silver:</p>
+              <div class="upper-slide">
+                <small>
+                  1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="awards__item">
+        <div class="awards__circle">
+          <a href="#">
+            <img
+              src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="awards__text">
+          <div>
+            <b>Natgeo Photo Travel Contest </b>
           </div>
           <div>
-            <div class="upper-slide">
-              <small>
-                1 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
+            <p>
+              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        </div>
+        <div class="awards__link">
+          <div class="awards__list">
+            <div>
+              <b>2019</b>
             </div>
-            <div class="upper-slide">
-              <small>
-                2 Photo
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </small>
+            <div>
+              <div class="upper-slide">
+                <p>
+                  People’s choice Award
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="awards__item">
-      <div class="awards__circle">
-        <a href="#">
-          <img
-            src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
-            alt=""
-          />
-        </a>
-      </div>
-      <div class="awards__text">
-        <div>
-          <b>Natgeo Photo Travel Contest </b>
+      <div class="awards__item">
+        <div class="awards__circle">
+          <a href="#">
+            <img
+              src="https://static.tildacdn.com/tild6331-6235-4631-b933-616434363331/PX3.png"
+              alt=""
+            />
+          </a>
         </div>
-        <div>
-          <p>
-            Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur.
-          </p>
-        </div>
-      </div>
-      <div class="awards__link">
-        <div class="awards__list">
+        <div class="awards__text">
           <div>
-            <b>2019</b>
+            <b>PX3 Paris Photo Awards: </b>
           </div>
           <div>
-            <div class="upper-slide">
-              <p>
-                People’s choice Award
-                <img
-                  src="https://static.tildacdn.com/tild3165-3535-4565-a164-303232636632/blaclarrow.svg"
-                  alt=""
-                />
-              </p>
+            <p>
+              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        </div>
+        <div class="awards__link">
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <small
+                  >1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <small>
+                  1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="awards__list">
+            <div>
+              <b>2021</b>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <p>
+                  1 Gold
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+              <div>
+                <p>2 Silver:</p>
+              </div>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <small>
+                  1 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
+              <div class="upper-slide">
+                <small>
+                  2 Photo
+                  <IconArrow is-arrow30-deg />
+                </small>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="awards__item">
+        <div class="awards__circle">
+          <a href="#">
+            <img
+              src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="awards__text">
+          <div>
+            <b>Natgeo Photo Travel Contest </b>
+          </div>
+          <div>
+            <p>
+              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
+        </div>
+        <div class="awards__link">
+          <div class="awards__list">
+            <div>
+              <b>2019</b>
+            </div>
+            <div>
+              <div class="upper-slide">
+                <p>
+                  People’s choice Award
+                  <IconArrow is-arrow30-deg />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -421,7 +363,7 @@
       font-size: 1.125vw;
       line-height: 1.8;
       text-align: left;
-      font-weight: 300;
+      font-weight: 400;
     }
   }
 
@@ -434,10 +376,10 @@
 
     p {
       font-size: 2.2vw;
-      font-weight: 300;
+      font-weight: 400;
     }
 
-    img {
+    svg {
       width: 1.25vw;
       height: 100%;
     }
@@ -464,7 +406,7 @@
         align-items: flex-end;
         font-size: 2vw;
         gap: 2.5vw;
-        font-weight: 300;
+        font-weight: 400;
       }
     }
   }

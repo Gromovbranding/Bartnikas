@@ -1,14 +1,16 @@
 <template>
-  <Title> Blog </Title>
-  <AppPageHeadline title="Blog" />
-  <section class="blog">
-    <AppInterios />
-    <AppInterios />
-    <AppInterios />
-    <AppInterios />
-    <AppInterios />
-    <AppInterios />
-  </section>
+  <main>
+    <Title> Blog </Title>
+    <AppPageHead title="Blog" />
+    <section class="blog">
+      <AppMediaItem to="/blog/1" />
+      <AppMediaItem to="/blog/1" />
+      <AppMediaItem to="/blog/1" />
+      <AppMediaItem to="/blog/1" />
+      <AppMediaItem to="/blog/1" />
+      <AppMediaItem to="/blog/1" />
+    </section>
+  </main>
 </template>
 
 <style lang="scss" scoped>

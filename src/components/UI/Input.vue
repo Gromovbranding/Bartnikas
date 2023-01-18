@@ -38,7 +38,7 @@ const inputState = computed({
   border-radius: 10px;
   padding: 23px 32px;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
   width: 100%;
   color: $colorTextDark;
   background: transparent;

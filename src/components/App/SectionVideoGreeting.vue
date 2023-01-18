@@ -35,7 +35,7 @@
     iframe {
       height: 100%;
       width: 100%;
-      border-radius: 5px;
+      border-radius: $borderRadiusMain;
     }
   }
 
@@ -51,7 +51,7 @@
       font-size: 30px;
       line-height: 1.55;
       word-break: normal;
-      font-weight: 300;
+      font-weight: 400;
     }
   }
 }

@@ -5,7 +5,7 @@ export default defineNuxtConfig({
       "nuxt-purgecss",
       {
         enabled: true,
-        safelist: ["page-headline--grey", "page-headline--blue"],
+        safelist: [/.*--.*/],
       },
     ],
   ],
@@ -19,8 +19,8 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: true,
-    rootTag: "main",
+    pageTransition: { name: "page", mode: "out-in" },
+    rootTag: "div",
     head: {
       titleTemplate: `%s | Bartnikas`,
       meta: [

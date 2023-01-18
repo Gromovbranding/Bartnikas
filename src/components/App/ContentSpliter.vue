@@ -1,5 +1,5 @@
 <template>
-  <section class="split-block-caption">
+  <section class="spliter">
     <h2>
       <slot />
     </h2>
@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
-.split-block-caption {
+.spliter {
   background-color: $colorAccentBlue;
   border-radius: $borderRadiusMain;
 

@@ -2,8 +2,8 @@
   <section class="news">
     <AppSectionHeader to="/media"> News </AppSectionHeader>
     <div class="news__content">
-      <AppInterios />
-      <AppInterios />
+      <AppMediaItem />
+      <AppMediaItem />
     </div>
   </section>
 </template>

@@ -4,9 +4,9 @@
       Video Collection
     </AppSectionHeader>
     <div class="video-collections__content">
-      <AppVideoCollection />
-      <AppVideoCollection />
-      <AppVideoCollection />
+      <AppVideoItem />
+      <AppVideoItem />
+      <AppVideoItem />
     </div>
   </section>
 </template>

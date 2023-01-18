@@ -58,7 +58,7 @@ defineProps<Props>();
         p {
           font-size: 28px;
           line-height: 1.8;
-          font-weight: 300;
+          font-weight: 400;
         }
       }
     }

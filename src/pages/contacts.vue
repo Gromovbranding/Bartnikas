@@ -1,45 +1,47 @@
 <template>
-  <Title> Contacts </Title>
-  <AppPageHeadline title="Contacts" />
-  <section class="contacts">
-    <div>
-      <img
-        src="https://static.tildacdn.com/tild3732-6663-4065-b837-366432646264/Contact.jpg"
-        alt=""
-      />
-    </div>
-    <div>
-      <p>Stas Bartnikas resides in Moscow, Russia</p>
+  <main>
+    <Title> Contacts </Title>
+    <AppPageHead title="Contacts" />
+    <section class="contacts">
       <div>
-        <p>
-          Press inquiry <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
-        </p>
-        <p>
-          Gallery representation
-          <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
-        </p>
+        <img
+          src="https://static.tildacdn.com/tild3732-6663-4065-b837-366432646264/Contact.jpg"
+          alt=""
+        />
       </div>
-      <h3>
-        For corporate or personal purchase of prints please contact us through
-        the form
-      </h3>
-      <form @submit.prevent>
+      <div>
+        <p>Stas Bartnikas resides in Moscow, Russia</p>
         <div>
-          <label for=""> Your Name </label>
-          <UIInput placeholder="John Smith" />
+          <p>
+            Press inquiry <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
+          </p>
+          <p>
+            Gallery representation
+            <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
+          </p>
         </div>
-        <div>
-          <label for=""> Your email </label>
-          <UIInput type="email" placeholder="mail@example.com" />
-        </div>
-        <div>
-          <label for=""> Comment </label>
-          <UIInput placeholder="Comment text" />
-        </div>
-        <UIButton style="width: 100%"> Submit </UIButton>
-      </form>
-    </div>
-  </section>
+        <h3>
+          For corporate or personal purchase of prints please contact us through
+          the form
+        </h3>
+        <form @submit.prevent>
+          <div>
+            <label for=""> Your Name </label>
+            <UIInput placeholder="John Smith" />
+          </div>
+          <div>
+            <label for=""> Your email </label>
+            <UIInput type="email" placeholder="mail@example.com" />
+          </div>
+          <div>
+            <label for=""> Comment </label>
+            <UIInput placeholder="Comment text" />
+          </div>
+          <UIButton style="width: 100%"> Submit </UIButton>
+        </form>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -53,7 +55,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 5px;
+        border-radius: $borderRadiusMain;
       }
     }
 
@@ -77,7 +79,7 @@
 
       p {
         font-size: 26px;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1.55;
       }
 
@@ -87,7 +89,7 @@
 
           label {
             font-size: 24px;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 10px;
             display: block;
           }

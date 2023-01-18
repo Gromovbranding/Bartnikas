@@ -41,31 +41,33 @@ const handleQuestionClick = (item: IItem) => {
 </script>
 
 <template>
-  <Title> FAQ </Title>
-  <AppPageHeadline title="FAQ" />
-  <section class="faq">
-    <div class="faq__list">
-      <div
-        v-for="item in list"
-        :key="item.question + item.id"
-        :class="['faq__item', { 'faq__item--acitve': item.visible }]"
-      >
-        <div class="faq__question" @click="handleQuestionClick(item)">
-          <div>
-            <h3>{{ item.question }}</h3>
+  <main>
+    <Title> FAQ </Title>
+    <AppPageHead title="FAQ" />
+    <section class="faq">
+      <div class="faq__list">
+        <div
+          v-for="item in list"
+          :key="item.question + item.id"
+          :class="['faq__item', { 'faq__item--acitve': item.visible }]"
+        >
+          <div class="faq__question" @click="handleQuestionClick(item)">
+            <div>
+              <h3>{{ item.question }}</h3>
+            </div>
+            <div>
+              <span>{{ item.visible ? "-" : "+" }}</span>
+            </div>
           </div>
-          <div>
-            <span>{{ item.visible ? "-" : "+" }}</span>
+          <div v-if="item.visible" class="faq__answer">
+            <p>
+              {{ item.answer }}
+            </p>
           </div>
-        </div>
-        <div v-if="item.visible" class="faq__answer">
-          <p>
-            {{ item.answer }}
-          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -146,7 +148,7 @@ const handleQuestionClick = (item: IItem) => {
     p {
       max-width: 1250px;
       font-size: 32px;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.4;
     }
   }

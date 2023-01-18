@@ -1,12 +1,14 @@
 <template>
-  <Title> Projects </Title>
-  <AppPageHeadline title="Projects" />
-  <section class="projects">
-    <AppSectionPort />
-    <AppSectionPort direction="row-reverse" />
-    <AppSectionPort />
-    <AppSectionPort direction="row-reverse" />
-  </section>
+  <main>
+    <Title> Projects </Title>
+    <AppPageHead title="Projects" />
+    <section class="projects">
+      <AppPortItem />
+      <AppPortItem direction="row-reverse" />
+      <AppPortItem />
+      <AppPortItem direction="row-reverse" />
+    </section>
+  </main>
 </template>
 
 <style lang="scss" scoped>
