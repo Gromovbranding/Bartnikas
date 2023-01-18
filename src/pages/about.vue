@@ -46,7 +46,7 @@
         <div class="testimonials__person">
           <div>
             <img
-              src="	https://static.tildacdn.com/tild6636-3061-4466-a238-353661613865/nussbaum-law-IOvsEAE.jpg"
+              src="https://static.tildacdn.com/tild6636-3061-4466-a238-353661613865/nussbaum-law-IOvsEAE.jpg"
               alt=""
             />
           </div>
