@@ -33,8 +33,7 @@ withDefaults(defineProps<Props>(), {
 
 <style lang="scss" scoped>
 .caption {
-  padding-left: 35px;
-  margin-bottom: 90px;
+  margin-bottom: 80px;
 
   h2 {
     font-size: 13vw;

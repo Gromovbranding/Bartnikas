@@ -5,6 +5,9 @@
         src="https://static.tildacdn.com/tild3862-3835-4337-a633-633563333830/20210401_-_Art_0152.jpg"
         alt=""
       />
+      <div class="video-collection__play">
+        <IconPlay />
+      </div>
     </div>
     <div class="video-collection__info">
       <h4>Art Russia fair 2021</h4>
@@ -17,11 +20,25 @@
 .video-collection {
   &__img {
     width: 100%;
+    position: relative;
     img {
       width: 100%;
       height: 20vw;
       object-fit: cover;
       border-radius: $borderRadiusMain;
+    }
+  }
+
+  &__play {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 30px;
+    transition: transform 1s ease-in-out;
+    bottom: 30px;
+
+    &:hover {
+      transform: scale(1.2);
     }
   }
 

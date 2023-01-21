@@ -10,9 +10,3 @@
     </section>
   </main>
 </template>
-
-<style lang="scss" scoped>
-.projects {
-  margin-bottom: 30px;
-}
-</style>

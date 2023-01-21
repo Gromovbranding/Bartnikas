@@ -1,13 +1,13 @@
 <template>
   <section class="video-greeting">
     <div class="video-greeting__video">
-      <iframe
-        src="https://www.youtube.com/embed/X8W-6RDHqxM"
-        title="ТЕОРИЯ ВЕРОЯТНОСТЕЙ ДЛЯ ПРОГРАММИСТА"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+      <img
+        src="https://static.tildacdn.com/tild3732-3239-4133-a563-343830613365/noroot.png"
+        alt=""
+      />
+      <div class="video-greeting__play">
+        <IconPlay />
+      </div>
     </div>
     <div class="video-greeting__text">
       <p>
@@ -29,6 +29,8 @@
 
   &__video {
     width: 50%;
+    position: relative;
+    cursor: pointer;
 
     video,
     img,
@@ -36,6 +38,20 @@
       height: 100%;
       width: 100%;
       border-radius: $borderRadiusMain;
+      object-fit: cover;
+    }
+  }
+
+  &__play {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: 80px;
+    transition: transform 1s ease-in-out;
+    bottom: 60px;
+
+    &:hover {
+      transform: scale(1.2);
     }
   }
 

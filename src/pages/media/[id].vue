@@ -2,6 +2,7 @@
   <main>
     <Title>Article</Title>
     <AppPageHead only-logo back />
+
     <article class="article">
       <div class="article__headline">
         <h1>How dystopias can save the world</h1>
@@ -38,16 +39,14 @@
         </p>
       </div>
     </article>
+
     <AppMediaNextPrev />
   </main>
 </template>
 
 <style lang="scss" scoped>
 .article {
-  margin-top: 50px;
   width: 100%;
-  padding: 0 40px;
-  margin-bottom: 120px;
 
   &__headline {
     display: flex;

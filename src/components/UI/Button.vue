@@ -1,25 +1,39 @@
 <script lang="ts" setup>
+import { RouteLocationRaw } from "vue-router";
+
 interface Props {
   isGrey?: boolean;
+  isWhite?: boolean;
   isTextUppercase?: boolean;
+  isLink?: boolean;
+  href?: RouteLocationRaw;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
   isTextUppercase: true,
+  isWhite: false,
+  isLink: false,
+  href: "",
+});
+
+const classes = computed(() => {
+  return [
+    "btn-default",
+    {
+      "btn-default--grey": props.isGrey,
+      "btn-default--white": props.isWhite,
+      "btn-default--uppercase": props.isTextUppercase,
+    },
+  ];
 });
 </script>
 
 <template>
-  <button
-    :class="[
-      'btn-default',
-      {
-        'btn-default--grey': isGrey,
-        'btn-default--uppercase': isTextUppercase,
-      },
-    ]"
-  >
+  <NuxtLink v-if="isLink" :to="href" :class="classes">
+    <slot />
+  </NuxtLink>
+  <button v-else :class="classes">
     <slot />
   </button>
 </template>
@@ -45,6 +59,11 @@ withDefaults(defineProps<Props>(), {
   &--grey {
     background-color: $colorBackgroundGreyDarken;
     color: #000;
+  }
+
+  &--white {
+    background-color: #fff;
+    color: $colorAccentBlue;
   }
 
   &--uppercase {

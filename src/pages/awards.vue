@@ -315,7 +315,7 @@
   flex-direction: column;
   gap: 200px;
   background-color: $colorBackgroundGreyDarken;
-  padding: 80px 40px 80px 80px;
+  padding: 80px 40px;
 
   &__item {
     background-color: $colorBackgroundGreyDarken;

@@ -2,6 +2,7 @@
   <main>
     <Title> Landscape </Title>
     <AppPageHead sub="projects" title="Landscape" />
+
     <section class="author-quote">
       <div class="author-quote__person">
         <div>
@@ -60,6 +61,7 @@
         </div>
       </div>
     </section>
+
     <section class="port-list">
       <AppPortOrder v-for="i in 8" :key="`port-item${i}`" />
     </section>
@@ -69,8 +71,8 @@
 <style lang="scss" scoped>
 .author-quote {
   display: flex;
-  padding: 50px 40px 100px 80px;
   gap: 100px;
+  margin-bottom: 100px;
 
   &__person {
     display: flex;
@@ -136,6 +138,5 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 120px 15px;
-  padding: 80px 30px;
 }
 </style>

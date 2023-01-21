@@ -2,6 +2,7 @@
   <main>
     <Title> Contacts </Title>
     <AppPageHead title="Contacts" />
+
     <section class="contacts">
       <div>
         <img

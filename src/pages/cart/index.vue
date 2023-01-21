@@ -2,6 +2,7 @@
   <main>
     <Title>Cart</Title>
     <AppPageHead only-logo back />
+
     <section class="checkout">
       <div class="checkout__list">
         <div class="checkout__item">
@@ -80,7 +81,7 @@
 .checkout {
   display: flex;
   gap: 85px;
-  margin: 60px 0;
+  padding: 80px 40px;
 
   &__list {
     width: 100%;

@@ -2,38 +2,101 @@
   <main>
     <Title> Video Collection </Title>
     <AppPageHead title="Video Collection" />
-    <section id="backstage" class="collection">
-      <AppSectionHeader :is-link="false"> BACKSTAGES </AppSectionHeader>
-      <div class="grid">
-        <AppVideoItem v-for="i in 8" :key="`backstage-item-${i}`" />
-      </div>
+    <section class="filter">
+      <UIButton :to="{ hash: '#backstage' }" is-white is-link>
+        BACKSTAGES
+      </UIButton>
+      <UIButton :to="{ hash: '#exhibition' }" is-white is-link>
+        EXHIBITIONS
+      </UIButton>
+      <UIButton :to="{ hash: '#interview' }" is-white is-link>
+        INTERVIEW
+      </UIButton>
     </section>
-    <section id="exhibition" class="collection">
-      <AppSectionHeader :is-link="false"> EXHIBITIONS </AppSectionHeader>
-      <div class="grid">
-        <AppVideoItem v-for="i in 8" :key="`exhibition-item-${i}`" />
-      </div>
-    </section>
-    <section id="interview" class="collection">
-      <AppSectionHeader :is-link="false"> INTERVIEW </AppSectionHeader>
-      <div class="grid">
-        <AppVideoItem v-for="i in 8" :key="`interview-item-${i}`" />
-      </div>
-    </section>
+    <div class="collection">
+      <section id="backstage" class="collection__item">
+        <AppSectionHeader :is-link="false"> BACKSTAGES </AppSectionHeader>
+        <div class="collection__select">
+          <span>Project:</span>
+          <UISelect
+            :list="[
+              {
+                label: 'xPalienko',
+                value: 'xPalienko',
+              },
+              {
+                label: 'xPalienko2',
+                value: 'xPalienko2',
+              },
+              {
+                label: 'xPalienko3',
+                value: 'xPalienko3',
+              },
+            ]"
+          />
+        </div>
+        <div class="grid">
+          <AppVideoItem v-for="i in 8" :key="`backstage-item-${i}`" />
+        </div>
+      </section>
+      <section id="exhibition" class="collection__item">
+        <AppSectionHeader :is-link="false"> EXHIBITIONS </AppSectionHeader>
+        <div class="grid">
+          <AppVideoItem v-for="i in 8" :key="`exhibition-item-${i}`" />
+        </div>
+      </section>
+      <section id="interview" class="collection__item">
+        <AppSectionHeader :is-link="false"> INTERVIEW </AppSectionHeader>
+        <div class="grid">
+          <AppVideoItem v-for="i in 8" :key="`interview-item-${i}`" />
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
 main {
   background-color: $colorBackgroundGreyDarken;
-  padding-bottom: 120px;
 }
 .collection {
-  margin-top: 180px;
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  &__select {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 50px;
+
+    span {
+      font-size: 32px;
+      font-weight: 400;
+    }
+  }
+}
+
+.filter {
+  position: sticky;
+  top: 0;
+  padding: 20px 40px;
+  background-color: $colorAccentBlue;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  border-bottom-left-radius: $borderRadiusMain;
+  border-bottom-right-radius: $borderRadiusMain;
+  z-index: 8;
+
+  > :deep(.btn-default) {
+    padding: 35px 90px;
+    font-weight: 500;
+  }
 }
 
 .grid {
-  padding: 0 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 70px;

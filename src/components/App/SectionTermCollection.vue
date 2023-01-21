@@ -36,7 +36,7 @@ defineProps<Props>();
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 60px 70px 120px 70px;
+    padding: 60px 40px 120px 40px;
 
     &:nth-child(even) {
       background-color: $colorBackgroundGrey;

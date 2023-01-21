@@ -144,8 +144,9 @@
 
 .testimonials {
   display: flex;
-  padding: 50px 40px 100px 40px;
   gap: 100px;
+  margin: 80px 0;
+  padding: 0 40px;
 
   &__item {
     display: flex;

@@ -1,10 +1,12 @@
 <template>
   <div class="port-order">
     <div class="port-order__img">
-      <img
-        src="https://static.tildacdn.com/tild3731-3032-4536-b165-626635373937/CF001765_1.jpg"
-        alt=""
-      />
+      <UIZoom zoom-icon-position="center-center" zoom-icon-fill="#fff">
+        <img
+          src="https://static.tildacdn.com/tild3731-3032-4536-b165-626635373937/CF001765_1.jpg"
+          alt=""
+        />
+      </UIZoom>
     </div>
     <div class="port-order__info">
       <div>

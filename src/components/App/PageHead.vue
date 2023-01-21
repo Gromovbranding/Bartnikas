@@ -142,11 +142,7 @@ const handleBack = () => {
         letter-spacing: 3px;
         font-weight: 400;
         color: #fff;
-        text-transform: lowercase;
-      }
-
-      &::first-letter {
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
 
       &:not(:last-child)::after {

@@ -15,6 +15,7 @@
 </template>
 <style lang="scss" scoped>
 .switching {
+  margin-top: 180px;
   display: flex;
 
   &__item {

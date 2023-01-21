@@ -17,21 +17,11 @@
     <AppContentSpliter> PROJECTS </AppContentSpliter>
     <section class="projects">
       <AppPortItem />
+      <AppPortItem direction="row-reverse" />
       <AppPortItem />
-      <AppPortItem />
+      <AppPortItem direction="row-reverse" />
     </section>
-    <section class="hot-news">
-      <AppSectionHeader :is-link="false" white> HOT NEWS </AppSectionHeader>
-      <div class="hot-news__marquee-container">
-        <p
-          class="hot-news__marquee-text"
-          data-marquee="New York — Exhibition — 20.12.2022"
-        >
-          — 20.12.2022 — New York — Exhibition — 20.12.2022 — New York —
-          Exhibition
-        </p>
-      </div>
-    </section>
+    <AppSectionHotNews />
     <AppAwardsSection />
     <AppMediaSection />
     <AppSectionInteriosOrderSlider />
@@ -134,36 +124,6 @@
       top: 0;
       width: 100%;
       height: 100vh;
-    }
-  }
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(-150%);
-  }
-}
-
-.hot-news {
-  margin-top: 40px;
-  background: $colorAccentBlue;
-  &__marquee {
-    &-container {
-      margin: 0 auto;
-      overflow: hidden;
-    }
-
-    &-text {
-      width: 100%;
-      font-size: 62px;
-      text-align: center;
-      color: #fff;
-      animation: marquee 10s infinite linear;
-      white-space: nowrap;
     }
   }
 }

@@ -290,12 +290,11 @@ watch(
   &__bar {
     position: fixed;
     z-index: 10;
-    right: 40px;
+    right: 50px;
     top: 20px;
     height: 60px;
     width: 60px;
     text-align: center;
-    line-height: 60px;
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;

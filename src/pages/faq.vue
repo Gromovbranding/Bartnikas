@@ -72,8 +72,8 @@ const handleQuestionClick = (item: IItem) => {
 
 <style lang="scss" scoped>
 .faq {
-  padding: 80px 40px;
   background-color: $colorBackgroundGrey;
+  padding: 80px 40px;
 
   &__list {
     display: flex;

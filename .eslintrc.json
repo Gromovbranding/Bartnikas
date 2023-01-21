@@ -20,6 +20,7 @@
   "rules": {
     "vue/multi-word-component-names": "off",
     "no-console": "warn",
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "vue/no-v-html": "off"
   }
 }

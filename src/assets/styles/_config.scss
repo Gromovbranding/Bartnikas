@@ -10,6 +10,13 @@
     padding: 0;
 }
 
+#__nuxt, .wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+
 html {
     scroll-behavior: smooth;
 }
@@ -33,13 +40,15 @@ a {
 
 .scale {
     overflow: hidden;
+    border-radius: $borderRadiusMain;
 
-    img {
+    > * {
         transition: transform 1s ease-in-out;
     }
 
+
     &:hover {
-        img {
+        > * {
             transform: scale(1.2);
         }
     }

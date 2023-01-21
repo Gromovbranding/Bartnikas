@@ -1,51 +1,38 @@
 <script lang="ts" setup>
-import {
-  LazyAppMediaTabLastest,
-  LazyAppMediaTabKit,
-  LazyAppMediaTabPresentation,
-  LazyAppMediaTabCV,
-  LazyAppMediaTabPublications,
-  LazyAppMediaTabExhibitions,
-} from "#components";
-
-interface ITab {
-  component: string;
-  label: string;
-}
-
-const mediaTabs = ref<ITab[]>([
+const mediaTabs = ref([
   {
-    component: LazyAppMediaTabLastest,
+    component: shallowRef(resolveComponent("AppMediaTabLastest")),
     label: "Lastest News",
   },
   {
-    component: LazyAppMediaTabKit,
+    component: shallowRef(resolveComponent("AppMediaTabKit")),
     label: "Media Kit",
   },
   {
-    component: LazyAppMediaTabPresentation,
+    component: shallowRef(resolveComponent("AppMediaTabPresentation")),
     label: "Presentation",
   },
   {
-    component: LazyAppMediaTabCV,
+    component: shallowRef(resolveComponent("AppMediaTabCV")),
     label: "CV",
   },
   {
-    component: LazyAppMediaTabPublications,
+    component: shallowRef(resolveComponent("AppMediaTabPublications")),
     label: "Publications",
   },
   {
-    component: LazyAppMediaTabExhibitions,
+    component: shallowRef(resolveComponent("AppMediaTabExhibitions")),
     label: "Exhibitions",
   },
 ]);
 
-const selectedTab = ref<ITab>(mediaTabs.value[0] as ITab);
+const selectedTab = ref(mediaTabs.value[0]);
 </script>
 <template>
   <main>
     <Title> Media </Title>
     <AppPageHead title="Media" />
+
     <section class="media">
       <div class="media__menu">
         <UIButton
@@ -60,7 +47,10 @@ const selectedTab = ref<ITab>(mediaTabs.value[0] as ITab);
       </div>
       <div class="media__content">
         <Transition name="fade">
-          <component :is="selectedTab.component" :key="selectedTab.component" />
+          <component
+            :is="selectedTab.component"
+            :key="JSON.stringify(selectedTab.component)"
+          />
         </Transition>
       </div>
     </section>
@@ -80,11 +70,10 @@ const selectedTab = ref<ITab>(mediaTabs.value[0] as ITab);
   position: absolute;
 }
 .media {
-  margin: 80px 0;
-  padding: 0 40px;
   display: flex;
   gap: 80px;
   position: relative;
+  padding: 80px 40px;
   height: 100%;
 
   &__menu {

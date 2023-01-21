@@ -2,6 +2,7 @@
   <main>
     <Title> Article of blog </Title>
     <AppPageHead only-logo back />
+
     <article class="article">
       <div class="article__headline">
         <time> 19.02.2022 </time>
@@ -67,6 +68,7 @@
         </p>
       </div>
     </article>
+
     <AppMediaNextPrev />
   </main>
 </template>
@@ -76,8 +78,6 @@
   display: grid;
   grid-template-columns: 40% 1fr;
   grid-gap: 50px 120px;
-  padding: 70px 30px;
-  margin-bottom: 100px;
 
   &__headline {
     grid-column-start: 2;
