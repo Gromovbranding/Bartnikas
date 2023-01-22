@@ -1,6 +1,6 @@
 <template>
   <section class="spliter">
-    <h2>
+    <h2 v-scroll-scale-text>
       <slot />
     </h2>
   </section>
@@ -11,6 +11,8 @@
   background-color: $colorAccentBlue;
   border-radius: $borderRadiusMain;
   padding: 80px 40px;
+  transition: transform 4s ease-in;
+  will-change: transform;
 
   h2 {
     font-size: 14vw;
