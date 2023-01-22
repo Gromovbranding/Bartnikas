@@ -48,7 +48,7 @@ const selectedTab = ref<ITab>(mediaTabs.value[0] as ITab);
     <AppPageHead title="Media" />
     <section class="media">
       <div class="media__menu">
-        <UIButton
+        <UIButtonmedia
           v-for="tab in mediaTabs"
           :key="`media-tab-${tab.label}`"
           :is-text-uppercase="false"
@@ -56,7 +56,7 @@ const selectedTab = ref<ITab>(mediaTabs.value[0] as ITab);
           @click="selectedTab = tab"
         >
           {{ tab.label }}
-        </UIButton>
+        </UIButtonmedia>
       </div>
       <div class="media__content">
         <Transition name="fade">

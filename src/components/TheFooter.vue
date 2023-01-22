@@ -56,6 +56,7 @@
     background-color: #000000;
     border-radius: $borderRadiusMain;
     padding: 80px 40px;
+    padding-right: 100px;
     display: flex;
     justify-content: space-between;
   }
@@ -93,6 +94,7 @@
   }
 
   &__logo {
+    margin-left: -100px;
     > div {
       &:first-child {
         width: 470px;

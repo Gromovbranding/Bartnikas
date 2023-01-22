@@ -1,9 +1,9 @@
 <template>
   <div class="grid">
-    <AppMediaItem />
-    <AppMediaItem />
-    <AppMediaItem />
-    <AppMediaItem />
+    <AppMediaItemmedia />
+    <AppMediaItemmedia />
+    <AppMediaItemmedia />
+    <AppMediaItemmedia />
   </div>
 </template>
 

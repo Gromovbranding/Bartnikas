@@ -33,6 +33,7 @@ a {
 
 .scale {
     overflow: hidden;
+    border-radius: 10px;
 
     img {
         transition: transform 1s ease-in-out;
@@ -40,7 +41,7 @@ a {
 
     &:hover {
         img {
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
 }
@@ -48,7 +49,7 @@ a {
 
 .upper-slide {
     transform: translateY(0);
-    transition: transform 0.3s ease-out;
+    transition: transform 0.1s ease-out;
     cursor: pointer;
 
     &:hover {

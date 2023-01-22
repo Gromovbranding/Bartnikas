@@ -46,7 +46,7 @@ defineProps<Props>();
       &:first-child {
         max-width: 600px;
         h3 {
-          font-size: 62px;
+          font-size: 100px;
           letter-spacing: 3px;
           line-height: 1.3;
           font-weight: bold;

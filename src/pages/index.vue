@@ -17,7 +17,7 @@
     <AppContentSpliter> PROJECTS </AppContentSpliter>
     <section class="projects">
       <AppPortItem />
-      <AppPortItem />
+      <AppPortItem direction="row-reverse" />
       <AppPortItem />
     </section>
     <section class="hot-news">
@@ -71,13 +71,14 @@
       img {
         height: 100vh;
         width: 100%;
+        object-fit: cover;
       }
     }
 
     &:last-child {
       position: absolute;
       bottom: 200px;
-      padding: 40px;
+      padding: 80px 40px;
       max-width: 800px;
       left: 40px;
       border-radius: $borderRadiusMain;
@@ -101,7 +102,11 @@
     }
   }
 }
-
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 .header {
   &__main {
     width: 100%;
