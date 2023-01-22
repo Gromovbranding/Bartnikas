@@ -76,6 +76,7 @@ withDefaults(defineProps<Props>(), {
     img {
       width: 100%;
       height: 550px;
+      margin-bottom: -15px;
     }
   }
 

@@ -78,6 +78,7 @@
   display: grid;
   grid-template-columns: 40% 1fr;
   grid-gap: 50px 120px;
+  padding: 80px 40px;
 
   &__headline {
     grid-column-start: 2;

@@ -14,11 +14,17 @@
         <p>Stas Bartnikas resides in Moscow, Russia</p>
         <div>
           <p>
-            Press inquiry <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
+            <span>Press inquiry</span>
+            <a class="upper-slide" href="mailto:sb@stasbart.com">
+              <span>sb@stasbart.com</span> <IconArrow is-arrow30-deg />
+            </a>
           </p>
           <p>
-            Gallery representation
-            <a href="mailto:sb@stasbart.com">sb@stasbart.com</a>
+            <span>Gallery representation</span>
+            <a class="upper-slide" href="mailto:sb@stasbart.com">
+              <span>sb@stasbart.com</span>
+              <IconArrow is-arrow30-deg />
+            </a>
           </p>
         </div>
         <h3>
@@ -69,6 +75,19 @@
       > div {
         margin-top: 30px;
         margin-bottom: 60px;
+
+        a {
+          color: $colorTextDark;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          :deep(svg) {
+            width: 16px;
+            height: 16px;
+            margin-bottom: 10px;
+          }
+        }
       }
 
       h3 {
@@ -76,6 +95,8 @@
         font-weight: bold;
         margin-bottom: 30px;
         line-height: 1.6;
+        display: flex;
+        gap: 5px;
       }
 
       p {

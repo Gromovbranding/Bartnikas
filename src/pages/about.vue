@@ -134,7 +134,7 @@
     }
 
     small {
-      color: $colorTextGrey;
+      color: $colorTextDark;
       font-size: 1.2vw;
       font-weight: 400;
       line-height: 1.5;

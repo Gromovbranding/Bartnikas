@@ -47,6 +47,7 @@
 <style lang="scss" scoped>
 .article {
   width: 100%;
+  padding: 80px 40px;
 
   &__headline {
     display: flex;
