@@ -10,3 +10,11 @@
     </section>
   </main>
 </template>
+
+<style lang="scss" scoped>
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+</style>

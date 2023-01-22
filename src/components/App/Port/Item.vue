@@ -54,7 +54,6 @@ withDefaults(defineProps<Props>(), {
   display: flex;
   width: 100%;
   flex-direction: v-bind(direction);
-  margin-top: 30px;
 
   &__img {
     flex: 0 0 790px;
