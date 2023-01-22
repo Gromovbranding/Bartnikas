@@ -38,24 +38,22 @@ const handleBack = () => {
     <div v-if="back" class="page-head__back" @click="handleBack">
       <span> ← Back </span>
     </div>
-    <template v-if="!onlyLogo">
-      <ul class="page-head__breadcrumb">
-        <li>
-          <NuxtLink to="/">Home</NuxtLink>
-        </li>
-        <li v-if="sub">
-          <NuxtLink :to="`/${sub.toLowerCase()}`">{{ sub }}</NuxtLink>
-        </li>
-        <li>
-          <span>
-            {{ title }}
-          </span>
-        </li>
-      </ul>
-      <h1 class="page-head__caption">
-        {{ title }}
-      </h1>
-    </template>
+    <ul v-if="!back && title" class="page-head__breadcrumb">
+      <li>
+        <NuxtLink to="/">Home</NuxtLink>
+      </li>
+      <li v-if="sub">
+        <NuxtLink :to="`/${sub.toLowerCase()}`">{{ sub }}</NuxtLink>
+      </li>
+      <li>
+        <span>
+          {{ title }}
+        </span>
+      </li>
+    </ul>
+    <h1 v-if="!onlyLogo && title" class="page-head__caption">
+      {{ title }}
+    </h1>
   </header>
 </template>
 
@@ -73,6 +71,24 @@ const handleBack = () => {
 
   &--white {
     background-color: #fff;
+    & .page-head {
+      &__caption {
+        color: $colorTextDark;
+      }
+
+      &__breadcrumb {
+        li {
+          * {
+            color: $colorTextDark;
+          }
+
+          &::after {
+            content: "";
+            color: $colorTextDark;
+          }
+        }
+      }
+    }
   }
 
   &--grey {
@@ -138,8 +154,8 @@ const handleBack = () => {
     li {
       *,
       &::after {
-        font-size: 20px;
-        letter-spacing: 3px;
+        font-size: 22px;
+        letter-spacing: 2px;
         font-weight: 400;
         color: #fff;
         text-transform: capitalize;
@@ -147,7 +163,7 @@ const handleBack = () => {
 
       &:not(:last-child)::after {
         content: ">";
-        padding: 0 12px;
+        padding: 0 6px;
       }
     }
   }

@@ -60,9 +60,17 @@ const isVisible = ref(false);
   &__container {
     position: relative;
     cursor: pointer;
+    &:hover {
+      .zoom__container-icon {
+        opacity: 1;
+      }
+    }
+
     &-icon {
       position: absolute;
       z-index: 7;
+      transition: opacity 0.3s ease-out;
+      opacity: 0;
 
       &--center {
         &-center {

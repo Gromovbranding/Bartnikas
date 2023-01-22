@@ -3,72 +3,77 @@
     <Title> Landscape </Title>
     <AppPageHead sub="projects" title="Landscape" />
 
-    <section class="author-quote">
-      <div class="author-quote__person">
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3635-6361-4035-a631-393037653235/0651.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>Stanislav Bartnikas</h3>
-        </div>
-      </div>
-      <div class="author-quote__text">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            clip-rule="evenodd"
-            width="30"
-            height="30"
-            fill-rule="evenodd"
-            stroke-linejoin="round"
-            stroke-miterlimit="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-              fill-rule="nonzero"
+    <div class="project">
+      <section class="author-quote">
+        <div class="author-quote__person">
+          <div>
+            <img
+              src="https://static.tildacdn.com/tild3635-6361-4035-a631-393037653235/0651.jpg"
+              alt=""
             />
-          </svg>
+          </div>
+          <div>
+            <h3>Stanislav Bartnikas</h3>
+          </div>
         </div>
-        <div>
-          <p>
-            To me this isn’t only a photo, it’s a work of art. It’s painterly
-            quality plus the graphic nature of the landscape takes this beyond
-            the ordinary aerial. Yes, it’s right place right time, but it’s
-            technically great because it’s absolutely sharp and crisp. Hope to
-            see more of your photos!
-          </p>
+        <div class="author-quote__text">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              clip-rule="evenodd"
+              width="30"
+              height="30"
+              fill-rule="evenodd"
+              stroke-linejoin="round"
+              stroke-miterlimit="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
+                fill-rule="nonzero"
+              />
+            </svg>
+          </div>
+          <div>
+            <p>
+              To me this isn’t only a photo, it’s a work of art. It’s painterly
+              quality plus the graphic nature of the landscape takes this beyond
+              the ordinary aerial. Yes, it’s right place right time, but it’s
+              technically great because it’s absolutely sharp and crisp. Hope to
+              see more of your photos!
+            </p>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              clip-rule="evenodd"
+              width="30"
+              height="30"
+              fill-rule="evenodd"
+              stroke-linejoin="round"
+              stroke-miterlimit="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
+                fill-rule="nonzero"
+              />
+            </svg>
+          </div>
         </div>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            clip-rule="evenodd"
-            width="30"
-            height="30"
-            fill-rule="evenodd"
-            stroke-linejoin="round"
-            stroke-miterlimit="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-              fill-rule="nonzero"
-            />
-          </svg>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="port-list">
-      <AppPortOrder v-for="i in 8" :key="`port-item${i}`" />
-    </section>
+      <section class="port-list">
+        <AppPortOrder v-for="i in 8" :key="`port-item${i}`" />
+      </section>
+    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
+.project {
+  padding: 80px 40px;
+}
 .author-quote {
   display: flex;
   gap: 100px;

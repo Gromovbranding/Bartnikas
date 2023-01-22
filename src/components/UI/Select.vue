@@ -88,7 +88,7 @@ onMounted(() => {
 
   &__head {
     border: 1px solid #242424;
-    background-color: $colorBackgroundGrey;
+    background-color: inherit;
     border-radius: $borderRadiusMain;
     font-size: 32px;
     padding: 12px 25px;
@@ -109,7 +109,7 @@ onMounted(() => {
     margin-top: -4px;
     position: absolute;
     border: 1px solid #242424;
-    background-color: $colorBackgroundGrey;
+    background-color: inherit;
     border-top: none;
     border-bottom-left-radius: $borderRadiusMain;
     border-bottom-right-radius: $borderRadiusMain;
