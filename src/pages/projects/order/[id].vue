@@ -76,18 +76,19 @@
         <div>
           <AppFormQuanity />
         </div>
-        <div classs="order__info-colorlist">
+        <div class="order__info-colorlist">
           <b> Interior best collors: </b>
           <div>
             <ul class="order__info-colors">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li style="background-color: #07343d"></li>
+              <li style="background-color: #63aebd"></li>
+              <li style="background-color: #b99766"></li>
+              <li style="background-color: #ffd73e"></li>
             </ul>
+            <div class="order__info-interior upper-slide">In Interior</div>
           </div>
         </div>
-        <UIButton>ORDER</UIButton>
+        <UIButton href="/">ORDER</UIButton>
       </div>
     </section>
   </main>
@@ -135,7 +136,7 @@
     small,
     p {
       font-size: 13px;
-      font-weight: 400;
+      font-weight: 500;
     }
 
     b {
@@ -151,12 +152,49 @@
     &-checklist {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
       margin-bottom: 40px;
 
       :deep(.select) {
-        margin: 15px 0;
+        margin: 20px 0;
       }
+    }
+
+    &-colorlist {
+      margin-bottom: 40px;
+      margin-top: 40px;
+
+      > div {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    &-colors {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      li {
+        width: 48px;
+        height: 48px;
+        border-radius: $borderRadiusMain;
+      }
+    }
+
+    &-interior {
+      border-radius: $borderRadiusMain;
+      font-size: 24px;
+      background-color: #f5f4f4;
+      line-height: 1.55;
+      padding: 8px 25px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    > :deep(.btn-default) {
+      width: 100%;
     }
   }
 }

@@ -109,16 +109,14 @@ watch(
     display: flex;
     justify-content: space-between;
     position: fixed;
-    left: 0;
     top: 0;
     background-color: #050404;
     height: 100vh;
     width: 100%;
     z-index: 9;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateX(120%);
+    transition: transform 900ms cubic-bezier(0.77, 0, 0.175, 1) 120ms;
+    right: -100vw;
     padding: 40px;
-    opacity: 0;
   }
 
   &__cart {
@@ -238,6 +236,7 @@ watch(
         text-transform: uppercase;
         @include hoverLink();
         letter-spacing: 3px;
+        font-weight: bold;
       }
     }
 
@@ -249,7 +248,7 @@ watch(
           font-size: 9vw;
           color: #fff;
           position: relative;
-          font-weight: bold;
+          font-weight: bolder;
 
           &::before {
             content: ">";
@@ -358,8 +357,7 @@ watch(
     }
 
     > .menu__nav {
-      transform: translateX(0%);
-      opacity: 1;
+      transform: translateX(-100vw);
     }
   }
 }

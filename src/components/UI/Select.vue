@@ -73,6 +73,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .select {
   position: relative;
+  background-color: #fff;
 
   &--active {
     > .select__list {
@@ -80,6 +81,8 @@ onMounted(() => {
     }
 
     > .select__head {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
       svg {
         transform: rotate(0deg);
       }
@@ -88,7 +91,6 @@ onMounted(() => {
 
   &__head {
     border: 1px solid #242424;
-    background-color: inherit;
     border-radius: $borderRadiusMain;
     font-size: 32px;
     padding: 12px 25px;
