@@ -34,6 +34,7 @@ defineProps<Props>();
 .terms {
   &__item {
     display: flex;
+    gap: 15px;
     align-items: flex-start;
     justify-content: space-between;
     padding: 60px 40px 120px 40px;
@@ -44,21 +45,23 @@ defineProps<Props>();
 
     > div {
       &:first-child {
-        max-width: 600px;
+        flex: 0 0 55%;
         h3 {
-          font-size: 100px;
+          font-size: 7.5vw;
           letter-spacing: 3px;
-          line-height: 1.3;
+          line-height: 1.4;
           font-weight: bold;
         }
       }
 
       &:last-child {
-        max-width: 1000px;
+        flex: 0 0 45%;
+
         p {
-          font-size: 28px;
-          line-height: 1.8;
+          font-size: 24px;
+          line-height: 1.4;
           font-weight: 400;
+          max-width: 90%;
         }
       }
     }

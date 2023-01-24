@@ -3,15 +3,9 @@
     <Title> Video Collection </Title>
     <AppPageHead title="Video Collection" />
     <section class="filter">
-      <UIButton :to="{ hash: '#backstage' }" is-white is-link>
-        BACKSTAGES
-      </UIButton>
-      <UIButton :to="{ hash: '#exhibition' }" is-white is-link>
-        EXHIBITIONS
-      </UIButton>
-      <UIButton :to="{ hash: '#interview' }" is-white is-link>
-        INTERVIEW
-      </UIButton>
+      <UIButton :to="{ hash: '#backstage' }" is-white> BACKSTAGES </UIButton>
+      <UIButton :to="{ hash: '#exhibition' }" is-white> EXHIBITIONS </UIButton>
+      <UIButton :to="{ hash: '#interview' }" is-white> INTERVIEW </UIButton>
     </section>
     <div class="collection">
       <section id="backstage" class="collection__item">

@@ -19,13 +19,64 @@ watch(
       <div>
         <ul class="menu__item-main">
           <li>
-            <NuxtLink to="/projects"> PROJECTS </NuxtLink>
+            <NuxtLink to="/projects">
+              PROJECTS
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 37 40.3"
+                style="enable-background: new 0 0 37 40.3"
+                xml:space="preserve"
+              >
+                <path
+                  class="st0"
+                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
+                />
+              </svg>
+            </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/awards"> AWARDS <sup>>170</sup> </NuxtLink>
+            <NuxtLink to="/awards">
+              AWARDS <sup>>170</sup>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 37 40.3"
+                style="enable-background: new 0 0 37 40.3"
+                xml:space="preserve"
+              >
+                <path
+                  class="st0"
+                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
+                />
+              </svg>
+            </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/about"> About </NuxtLink>
+            <NuxtLink to="/about">
+              About
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 37 40.3"
+                style="enable-background: new 0 0 37 40.3"
+                xml:space="preserve"
+              >
+                <path
+                  class="st0"
+                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
+                />
+              </svg>
+            </NuxtLink>
           </li>
         </ul>
         <ul class="menu__item-sub">
@@ -117,6 +168,7 @@ watch(
     transition: transform 900ms cubic-bezier(0.77, 0, 0.175, 1) 120ms;
     right: -100vw;
     padding: 40px;
+    overflow: hidden;
   }
 
   &__cart {
@@ -203,23 +255,19 @@ watch(
 
       li {
         a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          transition: background-color 0.3s ease-in-out;
+          display: block;
+
+          > :deep(svg) {
+            width: 64px;
+            height: 64px;
+            fill: #fff;
+          }
 
           &:hover {
-            background-color: $colorAccentBlue;
+            > :deep(svg) {
+              fill: $colorAccentBlue;
+            }
           }
-        }
-
-        svg {
-          width: 24px;
-          height: 24px;
         }
       }
     }
@@ -248,22 +296,23 @@ watch(
           font-size: 9vw;
           color: #fff;
           position: relative;
-          font-weight: bolder;
+          font-weight: 900;
 
-          &::before {
-            content: ">";
+          svg {
             position: absolute;
-            left: -65px;
-            opacity: 0;
-            font-size: 5.5vw;
-            font-weight: 400;
-            transition: opacity 0.3s ease;
+            width: 64px;
+            fill: $colorAccentBlue;
+            left: -75px;
             top: 50%;
-            transform: translateY(-65%);
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
           }
 
-          &:hover::before {
-            opacity: 1;
+          &:hover {
+            svg {
+              opacity: 1;
+            }
           }
 
           sup {

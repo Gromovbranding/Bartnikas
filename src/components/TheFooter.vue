@@ -108,26 +108,22 @@
       &:last-child {
         display: flex;
         justify-content: center;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
 
         a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          transition: background-color 0.3s ease-in-out;
+          display: block;
 
-          &:hover {
-            background-color: $colorAccentBlue;
+          > :deep(svg) {
+            width: 64px;
+            height: 64px;
+            fill: #fff;
           }
 
-          svg {
-            width: 24px;
-            height: 24px;
+          &:hover {
+            > :deep(svg) {
+              fill: $colorAccentBlue;
+            }
           }
         }
       }
