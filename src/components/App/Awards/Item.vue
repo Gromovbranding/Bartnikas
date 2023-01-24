@@ -10,16 +10,6 @@
         <p>People’s choice Award</p>
       </div>
     </a>
-    <a>
-      <img
-        src="https://static.tildacdn.com/tild3636-6263-4164-b564-646465646536/main-logo.png"
-        alt=""
-      />
-      <div>
-        <h4>Natgeo Photo Travel Contest</h4>
-        <p>People’s choice Award</p>
-      </div>
-    </a>
   </div>
 </template>
 
@@ -28,7 +18,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 180px;
 
   > a {
     display: flex;
