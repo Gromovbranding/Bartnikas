@@ -1,9 +1,21 @@
 <script lang="ts" setup>
-// import "swiper/css";
-const thumbsSwiper = ref(null);
+import type { Swiper } from "swiper/types";
 
-const setThumbsSwiper = (swiper) => {
+const thumbsSwiper = ref<Swiper | null>(null);
+const mainSwiper = ref<Swiper | null>(null);
+
+const initThumbsSwiper = (swiper: Swiper) => {
   thumbsSwiper.value = swiper;
+};
+
+const initMainSwiper = (swiper: Swiper) => {
+  mainSwiper.value = swiper;
+};
+
+const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
+  if (mainSwiper.value) {
+    mainSwiper.value[direction]();
+  }
 };
 </script>
 
@@ -52,20 +64,15 @@ const setThumbsSwiper = (swiper) => {
         </div>
         <div class="swiper-slider__main">
           <Swiper
-            :modules="[SwiperNavigation, SwiperThumbs]"
+            navigation
+            centered-slides
+            :modules="[SwiperThumbs]"
             :slides-per-view="1"
-            :centered-slides="true"
             :space-between="10"
-            :navigation="true"
             :thumbs="{ swiper: thumbsSwiper }"
+            @swiper="initMainSwiper"
           >
-            <SwiperSlide v-for="slide in 3" :key="slide">
-              <img
-                src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
-                alt=""
-              />
-            </SwiperSlide>
-            <SwiperSlide v-for="slide in 3" :key="slide">
+            <SwiperSlide v-for="slide in 6" :key="`swiper-slide-main-${slide}`">
               <img
                 src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
                 alt=""
@@ -75,25 +82,27 @@ const setThumbsSwiper = (swiper) => {
         </div>
         <div class="swiper-slider__thumb">
           <Swiper
-            slides-per-view="auto"
-            :slide-to-clicked-slide="true"
-            :watch-slides-visibility="true"
-            :watch-slides-progress="true"
-            @swiper="setThumbsSwiper"
+            slide-to-clicked-slide
+            watch-slides-visibility
+            watch-slides-progress
+            :slides-per-view="2"
+            @swiper="initThumbsSwiper"
           >
-            <SwiperSlide v-for="slide in 3" :key="slide">
-              <img
-                src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
-                alt=""
-              />
-            </SwiperSlide>
-            <SwiperSlide v-for="slide in 3" :key="slide">
+            <SwiperSlide
+              v-for="slide in 6"
+              :key="`swiper-slide-thumb-${slide}`"
+            >
               <img
                 src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
                 alt=""
               />
             </SwiperSlide>
           </Swiper>
+
+          <div class="swiper-slider__main-navigation">
+            <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
+            <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
+          </div>
         </div>
       </div>
     </section>
@@ -107,8 +116,8 @@ const setThumbsSwiper = (swiper) => {
 
   &__content {
     display: grid;
-    grid-template-columns: minmax(max-content, 465px) minmax(320px, 1fr) 320px;
-    column-gap: 45px;
+    grid-template-columns: minmax(max-content, 395px) minmax(320px, 1fr) 200px;
+    column-gap: 70px;
     height: 100%;
 
     .interios-order__sl {
@@ -135,6 +144,7 @@ const setThumbsSwiper = (swiper) => {
           h4 {
             margin-bottom: 30px;
             font-size: 32px;
+            font-weight: 500;
           }
 
           > div {
@@ -177,7 +187,7 @@ const setThumbsSwiper = (swiper) => {
         }
 
         &-order {
-          margin-top: 50px;
+          margin-top: 31.5%;
         }
       }
     }
@@ -189,7 +199,7 @@ const setThumbsSwiper = (swiper) => {
 
           :deep(.swiper-wrapper) {
             display: flex;
-            max-height: 600px;
+            max-height: 650px;
           }
 
           :deep(.swiper-slide) {
@@ -197,15 +207,33 @@ const setThumbsSwiper = (swiper) => {
             img {
               width: 100%;
               height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          &-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+
+            :deep(.btn-default) {
+              padding: 20px 22px;
             }
           }
         }
 
         &__thumb {
+          position: relative;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
 
           :deep(.swiper-wrapper) {
             display: flex;
+            gap: 10px;
+            max-height: 94px;
           }
 
           :deep(.swiper-slide-thumb-active) {
@@ -213,11 +241,13 @@ const setThumbsSwiper = (swiper) => {
           }
 
           :deep(.swiper-slide) {
-            flex: 0 0 33.3%;
+            flex: 0 0 calc(50% - 9px);
             border-radius: $borderRadiusMain;
+            width: 100% !important;
             img {
               width: 100%;
               height: 100%;
+              object-fit: cover;
             }
           }
         }
