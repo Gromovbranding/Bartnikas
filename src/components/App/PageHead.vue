@@ -149,7 +149,7 @@ const handleBack = () => {
   &__breadcrumb {
     display: flex;
     margin-bottom: 20px;
-    margin-top: 100px;
+    margin-top: 50px;
 
     li {
       *,

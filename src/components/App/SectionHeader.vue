@@ -16,7 +16,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div :class="['caption', { 'caption--white': white }]">
-    <h2>
+    <h2 v-scroll-scale-text>
       <slot />
       <span>
         {{ toCaption }}

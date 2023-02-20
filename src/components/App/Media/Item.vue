@@ -46,7 +46,8 @@ withDefaults(defineProps<Props>(), {
   &__img {
     img {
       width: 100%;
-      height: 550px;
+      height: 100%;
+      max-height: 550px;
       object-fit: cover;
     }
   }
@@ -54,8 +55,7 @@ withDefaults(defineProps<Props>(), {
   &__content {
     display: flex;
     gap: 20px;
-    margin-top: 30px;
-    padding: 0 10px;
+    margin-top: 20px;
 
     > div {
       &:first-child {
@@ -69,16 +69,16 @@ withDefaults(defineProps<Props>(), {
       &:last-child {
         h3 {
           color: $colorTextDark;
-          font-size: 50px;
+          font-size: 40px;
           font-weight: 700;
           line-height: 1.1;
         }
 
         p {
-          font-size: 28px;
+          font-size: 24px;
           color: #000;
           margin-top: 15px;
-          line-height: 1.3;
+          line-height: 1.5;
           font-weight: 400;
           letter-spacing: 1px;
         }

@@ -5,14 +5,14 @@ interface Props {
   isGrey?: boolean;
   isWhite?: boolean;
   isTextUppercase?: boolean;
-  href?: RouteLocationRaw;
+  to?: RouteLocationRaw;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
   isTextUppercase: true,
   isWhite: false,
-  href: "",
+  to: "",
 });
 
 const classes = computed(() => {
@@ -28,7 +28,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <NuxtLink v-if="href" :to="href" :class="classes">
+  <NuxtLink v-if="props.to" :to="props.to" :class="classes">
     <slot />
   </NuxtLink>
   <button v-else :class="classes">

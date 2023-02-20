@@ -144,7 +144,7 @@ const isVisible = ref(false);
     }
 
     &-content {
-      width: 100%;
+      width: max-content;
       padding: 40px;
       max-height: 850px;
       overflow: hidden;

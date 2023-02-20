@@ -103,6 +103,9 @@
         font-size: 26px;
         font-weight: 400;
         line-height: 1.55;
+        display: flex;
+        align-items: center;
+        gap: 5px;
       }
 
       form {

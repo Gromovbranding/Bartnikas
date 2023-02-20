@@ -17,7 +17,7 @@
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
-        <NuxtLink>
+        <NuxtLink to="/projects/order/1">
           <span>Order</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>

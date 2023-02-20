@@ -38,6 +38,7 @@ const selectedTab = ref(mediaTabs.value[0]);
         <UIButton
           v-for="tab in mediaTabs"
           :key="`media-tab-${tab.label}`"
+          style="transform: translate(0) !important"
           :is-text-uppercase="false"
           :is-grey="tab.label !== selectedTab.label"
           @click="selectedTab = tab"

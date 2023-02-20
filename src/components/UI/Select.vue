@@ -73,7 +73,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .select {
   position: relative;
-  background-color: #fff;
+  background-color: $colorBackgroundGreyDarken;
 
   &--active {
     > .select__list {

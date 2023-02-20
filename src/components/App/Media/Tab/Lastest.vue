@@ -12,5 +12,8 @@
   display: grid;
   grid-gap: 120px 80px;
   grid-template-columns: 1fr 1fr;
+  :deep(img) {
+    max-height: 420px;
+  }
 }
 </style>
