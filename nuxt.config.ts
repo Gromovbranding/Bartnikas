@@ -1,14 +1,17 @@
 export default defineNuxtConfig({
   srcDir: "src",
   modules: [
-    [
-      "nuxt-purgecss",
-      {
-        enabled: true,
-        safelist: [/.*--.*/],
-      },
-    ],
+    // [
+    //   "nuxt-purgecss",
+    //   {
+    //     enabled: true,
+    //     safelist: [/.*--.*/],
+    //   },
+    // ],
     "nuxt-swiper",
+    "@element-plus/nuxt",
+    "@pinia/nuxt",
+    "nuxt-icon",
   ],
 
   runtimeConfig: {
@@ -20,7 +23,8 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: "page", mode: "out-in" }, // Вызывает баг при быстром переключении страниц: https://github.com/nuxt/nuxt/issues/12735
+    // pageTransition: { name: "fade", mode: "default" }, // Оставлю предыдущую настройку, посмотреть, будет ли баг на серваке. В противном случае заменить pageTransition на default
     rootTag: "div",
     head: {
       titleTemplate: `%s | Bartnikas`,
