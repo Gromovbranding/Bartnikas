@@ -19,6 +19,7 @@ export default defineNuxtConfig({
       app: {
         DEBUG: process.env.NODE_ENV === "development",
       },
+      apiBaseUrl: process.env.API_BASE_URL,
     },
   },
 

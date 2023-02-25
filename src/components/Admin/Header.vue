@@ -1,6 +1,11 @@
 <script lang="ts" setup>
-const logout = () => {
-  console.log("logout");
+import { useAdminStore } from "~/stores/admin";
+
+const adminStore = useAdminStore();
+
+const logout = async () => {
+  adminStore.clearAccessToken();
+  await navigateTo("/admin/login");
 };
 </script>
 

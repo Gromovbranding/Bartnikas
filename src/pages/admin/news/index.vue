@@ -3,10 +3,12 @@ import { useAdminStore } from "~/stores/admin";
 
 definePageMeta({
   layout: "admin",
+  middleware: ["admin-auth"],
 });
 
 const adminStore = useAdminStore();
 adminStore.setPageName("News");
+const config = useRuntimeConfig();
 
 const dialogVisible = ref(false);
 const deleteId = ref(null);
@@ -29,15 +31,18 @@ const handleDeleteCancel = () => {
 };
 
 const fetch = async () => {
-  const { data } = await useFetch("http://localhost:8080/news");
+  const { data } = await useFetch(`${config.apiBaseUrl}/news`);
   entites.value = data.value;
 };
 
 const handleDeleteConfirm = async () => {
   dialogVisible.value = false;
   try {
-    await $fetch(`http://localhost:8080/news/${deleteId.value}`, {
+    await $fetch(`${config.apiBaseUrl}/news/${deleteId.value}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${adminStore.accessToken}`,
+      },
     });
     fetch();
   } catch (e) {
@@ -46,6 +51,10 @@ const handleDeleteConfirm = async () => {
       message: e,
       position: "bottom-right",
     });
+    if (e.status === 401) {
+      adminStore.clearAccessToken();
+      await navigateTo("/admin/login");
+    }
   }
   deleteId.value = null;
 };

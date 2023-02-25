@@ -6,5 +6,19 @@ export const useAdminStore = defineStore("admin", () => {
     pageName.value = name;
   };
 
-  return { pageName, setPageName };
+  const accessToken = ref("");
+  const setAccessToken = (token: string) => {
+    accessToken.value = token;
+  };
+  const clearAccessToken = () => {
+    accessToken.value = "";
+  };
+
+  return {
+    pageName,
+    setPageName,
+    accessToken,
+    setAccessToken,
+    clearAccessToken,
+  };
 });

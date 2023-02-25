@@ -1,10 +1,28 @@
 <script lang="ts" setup>
+import { useAdminStore } from "~/stores/admin";
+
 definePageMeta({
   layout: "admin-auth",
 });
 
-const onSubmit = () => {
-  console.log("onSubmit");
+const adminStore = useAdminStore();
+const config = useRuntimeConfig();
+
+const username = ref(null);
+const password = ref(null);
+
+const onSubmit = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/auth/login`, {
+    method: "POST",
+    body: {
+      username: username.value,
+      password: password.value,
+    },
+  });
+  if (data.value?.access_token) {
+    adminStore.setAccessToken(data.value.access_token);
+    await navigateTo("/admin");
+  }
 };
 </script>
 
@@ -18,15 +36,11 @@ const onSubmit = () => {
           name="ep:user-filled"
           size="20px"
         />
-        <input placeholder="Username" />
+        <input v-model="username" placeholder="Username" />
       </div>
       <div class="login__form-input">
-        <Icon
-          class="login__form-input-icon"
-          name="ic:round-lock"
-          size="20px"
-        />
-        <input type="password" placeholder="Password" />
+        <Icon class="login__form-input-icon" name="ic:round-lock" size="20px" />
+        <input v-model="password" type="password" placeholder="Password" />
       </div>
       <el-button
         class="login__form-submit"
@@ -61,8 +75,8 @@ const onSubmit = () => {
       align-items: center;
       height: 52px;
       margin-bottom: 22px;
-      border: 1px solid hsla(0,0%,100%,.1);
-      background: rgba(0,0,0,.1);
+      border: 1px solid hsla(0, 0%, 100%, 0.1);
+      background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #889aa4;
 

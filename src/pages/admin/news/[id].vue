@@ -2,7 +2,10 @@
 import type { FormInstance, FormRules, ElNotification } from "element-plus";
 import { useAdminStore } from "~/stores/admin";
 
-definePageMeta({ layout: "admin" });
+definePageMeta({
+  layout: "admin",
+  middleware: ["admin-auth"],
+});
 
 const route = useRoute();
 const entityId = route.params.id;
@@ -10,6 +13,7 @@ const isCreate = entityId === "create";
 
 const adminStore = useAdminStore();
 adminStore.setPageName("News " + isCreate ? "Create" : "Edit");
+const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -21,7 +25,7 @@ const form = reactive({
 });
 
 if (!isCreate) {
-  const { data } = await useFetch(`http://localhost:8080/news/${entityId}`);
+  const { data } = await useFetch(`${config.apiBaseUrl}/news/${entityId}`);
   Object.assign(form, data.value);
 }
 
@@ -68,16 +72,22 @@ const toBack = async () => {
 };
 
 const submitSave = async (form: object) => {
-  await $fetch("http://localhost:8080/news", {
+  await $fetch(`${config.apiBaseUrl}/news`, {
     method: "POST",
     body: form,
+    headers: {
+      Authorization: `Bearer ${adminStore.accessToken}`,
+    },
   });
 };
 
 const submitEdit = async (id: number, form: object) => {
-  await $fetch(`http://localhost:8080/news/${id}`, {
+  await $fetch(`${config.apiBaseUrl}/news/${id}`, {
     method: "PATCH",
     body: form,
+    headers: {
+      Authorization: `Bearer ${adminStore.accessToken}`,
+    },
   });
 };
 
@@ -96,6 +106,10 @@ const submitForm = async (valid) => {
         message: e,
         position: "bottom-right",
       });
+      if (e.status === 401) {
+        adminStore.clearAccessToken();
+        await navigateTo("/admin/login");
+      }
     }
   } else {
     ElNotification.error({
