@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+const config = useRuntimeConfig();
+const news = ref([]);
+
+const fetchNews = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/news`);
+  news.value = data.value;
+};
+
+Promise.allSettled([
+  fetchNews(),
+  //
+]);
+</script>
+
 <template>
   <main>
     <Title>Home</Title>
@@ -23,7 +38,7 @@
     </section>
     <AppSectionHotNews />
     <AppAwardsSection />
-    <AppMediaSection />
+    <AppMediaSection v-if="news.length" :news="news" />
     <AppSectionInteriosOrderSlider />
     <section class="home-info-project-paralax">
       <div>
