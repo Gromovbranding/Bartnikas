@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import type { FormInstance, FormRules, ElNotification, ElMessage, UploadFile } from "element-plus";
+import type {
+  FormInstance,
+  FormRules,
+  ElNotification,
+  ElMessage,
+  UploadFile,
+} from "element-plus";
 import { useAdminStore } from "~/stores/admin";
 
 definePageMeta({
@@ -143,12 +149,16 @@ const disabled = ref(false);
 
 const handleRemoveImage = async (file: UploadFile) => {
   if (isCreate && file.response?.id) {
-    form.images = form.images.filter((img: any) => img.response?.id !== file.response.id);
+    form.images = form.images.filter(
+      (img: any) => img.response?.id !== file.response.id
+    );
     return;
   }
 
   try {
-    const { data } = await useFetch(`${config.apiBaseUrl}/news/${entityId}/image/${file?.id}`, {
+    const { data } = await useFetch(
+      `${config.apiBaseUrl}/news/${entityId}/image/${file?.id}`,
+      {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${adminStore.accessToken}`,
@@ -221,13 +231,23 @@ const handleDownloadImage = async (file: UploadFile) => {
     </el-form-item>
     <el-form-item class="input-container" label="Image" prop="img">
       <!-- <el-input v-model="form.img" /> -->
-      
-      <el-upload action="http://localhost:8080/files/image" list-type="picture-card" v-model:file-list="form.images" :limit="1" :on-exceed="handleExceed">
+
+      <el-upload
+        v-model:file-list="form.images"
+        action="http://localhost:8080/files/image"
+        list-type="picture-card"
+        :limit="1"
+        :on-exceed="handleExceed"
+      >
         <el-icon><Icon name="ep:plus" /></el-icon>
 
         <template #file="{ file }">
           <div>
-            <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+              alt=""
+            />
             <span class="el-upload-list__item-actions">
               <span
                 class="el-upload-list__item-preview"
@@ -260,11 +280,14 @@ const handleDownloadImage = async (file: UploadFile) => {
       </el-upload>
 
       <client-only>
-        <el-dialog v-model="dialogVisible" width="fit-content" :append-to-body="true">
+        <el-dialog
+          v-model="dialogVisible"
+          width="fit-content"
+          :append-to-body="true"
+        >
           <img :src="dialogImageUrl" alt="Preview Image" />
         </el-dialog>
       </client-only>
-
     </el-form-item>
     <el-form-item>
       <div class="button-container">
