@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FormInstance, FormRules, ElNotification } from "element-plus";
+import type { FormInstance, FormRules, ElNotification, ElMessage, UploadFile } from "element-plus";
 import { useAdminStore } from "~/stores/admin";
 
 definePageMeta({
@@ -12,7 +12,7 @@ const entityId = route.params.id;
 const isCreate = entityId === "create";
 
 const adminStore = useAdminStore();
-adminStore.setPageName("News " + isCreate ? "Create" : "Edit");
+adminStore.setPageName(`News ${isCreate ? "Create" : "Edit"}`);
 const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
@@ -21,7 +21,11 @@ const form = reactive({
   date: null,
   desc: "",
   text: "",
-  img: "",
+  images: [] as UploadUserFile[],
+});
+
+const imgIds = computed(() => {
+  return form.images.map((i: any) => i.response?.id);
 });
 
 if (!isCreate) {
@@ -58,13 +62,6 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  img: [
-    {
-      required: true,
-      message: "Please input Image",
-      trigger: "change",
-    },
-  ],
 });
 
 const toBack = async () => {
@@ -74,7 +71,7 @@ const toBack = async () => {
 const submitSave = async (form: object) => {
   await $fetch(`${config.apiBaseUrl}/news`, {
     method: "POST",
-    body: form,
+    body: { ...form, images: imgIds.value },
     headers: {
       Authorization: `Bearer ${adminStore.accessToken}`,
     },
@@ -84,7 +81,7 @@ const submitSave = async (form: object) => {
 const submitEdit = async (id: number, form: object) => {
   await $fetch(`${config.apiBaseUrl}/news/${id}`, {
     method: "PATCH",
-    body: form,
+    body: { ...form, images: imgIds.value },
     headers: {
       Authorization: `Bearer ${adminStore.accessToken}`,
     },
@@ -93,6 +90,15 @@ const submitEdit = async (id: number, form: object) => {
 
 const submitForm = async (valid) => {
   if (valid) {
+    if (!imgIds.value?.length) {
+      ElNotification.error({
+        title: "Error",
+        message: "Please upload image",
+        position: "bottom-right",
+      });
+      return;
+    }
+
     try {
       isCreate ? await submitSave(form) : await submitEdit(entityId, form);
       toBack();
@@ -129,6 +135,67 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
+
+// Upload Image
+const dialogImageUrl = ref("");
+const dialogVisible = ref(false);
+const disabled = ref(false);
+
+const handleRemoveImage = async (file: UploadFile) => {
+  if (isCreate && file.response?.id) {
+    form.images = form.images.filter((img: any) => img.response?.id !== file.response.id);
+    return;
+  }
+
+  try {
+    const { data } = await useFetch(`${config.apiBaseUrl}/news/${entityId}/image/${file?.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${adminStore.accessToken}`,
+        },
+      }
+    );
+    Object.assign(form, data.value);
+  } catch (e) {
+    ElNotification.error({
+      title: "Error",
+      message: e,
+      position: "bottom-right",
+    });
+    if (e.status === 401) {
+      adminStore.clearAccessToken();
+      await navigateTo("/admin/login");
+    }
+  }
+};
+
+const handlePictureCardPreview = (file: UploadFile) => {
+  dialogImageUrl.value = file.url;
+  dialogVisible.value = true;
+};
+
+const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
+  ElMessage.warning(
+    `The limit is 1, you selected ${files.length} files this time, add up to ${
+      files.length + uploadFiles.length
+    } totally`
+  );
+};
+
+const imageToDataURL = async (url) => {
+  const blob = await fetch(url).then((res: any) => res.blob());
+  return URL.createObjectURL(blob);
+};
+
+const handleDownloadImage = async (file: UploadFile) => {
+  const link = document.createElement("a");
+  link.download = name;
+  link.href = await imageToDataURL(file.url);
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 </script>
 
 <template>
@@ -153,7 +220,51 @@ const resetForm = (formEl: FormInstance | undefined) => {
       <el-input v-model="form.text" :rows="5" type="textarea" />
     </el-form-item>
     <el-form-item class="input-container" label="Image" prop="img">
-      <el-input v-model="form.img" />
+      <!-- <el-input v-model="form.img" /> -->
+      
+      <el-upload action="http://localhost:8080/files/image" list-type="picture-card" v-model:file-list="form.images" :limit="1" :on-exceed="handleExceed">
+        <el-icon><Icon name="ep:plus" /></el-icon>
+
+        <template #file="{ file }">
+          <div>
+            <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+            <span class="el-upload-list__item-actions">
+              <span
+                class="el-upload-list__item-preview"
+                @click="handlePictureCardPreview(file)"
+              >
+                <el-icon><Icon name="ep:zoom-in" /></el-icon>
+              </span>
+              <span
+                v-if="!disabled"
+                class="el-upload-list__item-delete"
+                @click="handleDownloadImage(file)"
+              >
+                <el-icon><Icon name="ep:download" /></el-icon>
+              </span>
+              <span
+                v-if="!disabled"
+                class="el-upload-list__item-delete"
+                @click="handleRemoveImage(file)"
+              >
+                <el-icon><Icon name="ep:delete" /></el-icon>
+              </span>
+            </span>
+          </div>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            limit 1 file, new file will cover the old file
+          </div>
+        </template>
+      </el-upload>
+
+      <client-only>
+        <el-dialog v-model="dialogVisible" width="fit-content" :append-to-body="true">
+          <img :src="dialogImageUrl" alt="Preview Image" />
+        </el-dialog>
+      </client-only>
+
     </el-form-item>
     <el-form-item>
       <div class="button-container">

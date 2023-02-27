@@ -40,7 +40,7 @@ const adminStore = useAdminStore();
     bottom: 0;
     left: 0;
     overflow: hidden;
-    z-index: 10000;
+    z-index: 1000;
   }
 
   &__header {
@@ -50,7 +50,7 @@ const adminStore = useAdminStore();
     left: 210px;
     right: 0;
     overflow: hidden;
-    z-index: 10001;
+    z-index: 1001;
   }
 
   &__main {
