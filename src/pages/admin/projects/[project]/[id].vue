@@ -163,7 +163,7 @@ const handlePictureCardPreview = (file: UploadFile) => {
 
 const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
   ElMessage.warning(
-    `The limit is 1, you selected ${files.length} files this time, add up to ${
+    `The limit is 10, you selected ${files.length} files this time, add up to ${
       files.length + uploadFiles.length
     } totally`
   );
@@ -199,9 +199,9 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
         v-model:file-list="form.files"
         :action="imageUploadUrl"
         list-type="picture-card"
-        :limit="1"
+        :limit="10"
         :on-exceed="handleExceed"
-        :class="{ upload_disabled: form.files?.length }"
+        :class="{ upload_disabled: form.files?.length >= 10 }"
       >
         <el-icon><Icon name="ep:plus" /></el-icon>
 
@@ -238,7 +238,7 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
         </template>
         <template #tip>
           <div class="el-upload__tip text-red">
-            limit 1 file, new file will cover the old file
+            limit 10 file, new file will cover the old file
           </div>
         </template>
       </el-upload>

@@ -1,21 +1,23 @@
 <script lang="ts" setup>
 interface Props {
+  projectId?: number;
   name?: string;
-  img?: string;
-  orderId?: number;
+  url?: string;
+  id?: number;
 }
 
 withDefaults(defineProps<Props>(), {
+  projectId: 1,
   name: "Name Photo",
-  img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-  orderId: 1,
+  url: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+  id: 1,
 });
 </script>
 
 <template>
   <div class="more-order">
     <div class="more-order__img">
-      <img :src="img" alt="" />
+      <img :src="url" alt="" />
     </div>
     <div class="more-order__info">
       <div>
@@ -26,7 +28,7 @@ withDefaults(defineProps<Props>(), {
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
-        <NuxtLink :to="`/projects/order/${orderId}`">
+        <NuxtLink :to="`/projects/${projectId}/order/${id}`">
           <span>Order</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
@@ -40,6 +42,7 @@ withDefaults(defineProps<Props>(), {
   &__img {
     img {
       width: 100%;
+      min-height: 556px;
       max-height: 556px;
       object-fit: cover;
       border-radius: 7px;

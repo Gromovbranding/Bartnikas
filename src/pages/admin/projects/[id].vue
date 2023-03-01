@@ -220,6 +220,7 @@ const handleDeleteConfirm = async () => {
               />
             </template>
           </el-table-column>
+          <el-table-column label="id" prop="id" />
           <el-table-column label="Name" prop="name" />
           <el-table-column align="right">
             <template #header>

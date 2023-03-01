@@ -1,14 +1,21 @@
 <script lang="ts" setup>
 const config = useRuntimeConfig();
-const news = ref([]);
 
+const news = ref([]);
 const fetchNews = async () => {
   const { data } = await useFetch(`${config.apiBaseUrl}/news`);
   news.value = data.value;
 };
 
+const projects = ref([]);
+const fetchProjects = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/projects`);
+  projects.value = data.value;
+};
+
 Promise.allSettled([
   fetchNews(),
+  fetchProjects(),
   //
 ]);
 
@@ -34,11 +41,13 @@ const hotNews = computed(() => {
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting />
     <AppContentSpliter> PROJECTS </AppContentSpliter>
-    <section class="projects">
-      <AppPortItem />
-      <AppPortItem direction="row-reverse" />
-      <AppPortItem />
-      <AppPortItem direction="row-reverse" />
+    <section v-if="projects.length" class="projects">
+      <AppPortItem
+        v-for="(project, idx) in projects"
+        :key="project?.id"
+        :project="project"
+        :direction="idx % 2 ? 'row-reverse' : 'row'"
+      />
     </section>
     <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppAwardsSection />
