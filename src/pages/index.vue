@@ -11,6 +11,10 @@ Promise.allSettled([
   fetchNews(),
   //
 ]);
+
+const hotNews = computed(() => {
+  return news.value?.find((n: any) => n.is_hot);
+});
 </script>
 
 <template>
@@ -36,7 +40,7 @@ Promise.allSettled([
       <AppPortItem />
       <AppPortItem direction="row-reverse" />
     </section>
-    <AppSectionHotNews />
+    <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppAwardsSection />
     <AppMediaSection v-if="news.length" :news="news" />
     <AppSectionInteriosOrderSlider />

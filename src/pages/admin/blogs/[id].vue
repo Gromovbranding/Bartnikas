@@ -18,7 +18,7 @@ const entityId = route.params.id;
 const isCreate = entityId === "create";
 
 const adminStore = useAdminStore();
-adminStore.setPageName(`News ${isCreate ? "Create" : "Edit"}`);
+adminStore.setPageName(`Blog ${isCreate ? "Create" : "Edit"}`);
 const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
@@ -35,7 +35,7 @@ const imgIds = computed(() => {
 });
 
 if (!isCreate) {
-  const { data } = await useFetch(`${config.apiBaseUrl}/news/${entityId}`);
+  const { data } = await useFetch(`${config.apiBaseUrl}/blogs/${entityId}`);
   Object.assign(form, data.value);
 }
 
@@ -71,11 +71,11 @@ const rules = reactive<FormRules>({
 });
 
 const toBack = async () => {
-  await navigateTo("/admin/news");
+  await navigateTo("/admin/blogs");
 };
 
 const submitSave = async (form: object) => {
-  await $fetch(`${config.apiBaseUrl}/news`, {
+  await $fetch(`${config.apiBaseUrl}/blogs`, {
     method: "POST",
     body: { ...form, images: imgIds.value },
     headers: {
@@ -85,7 +85,7 @@ const submitSave = async (form: object) => {
 };
 
 const submitEdit = async (id: number, form: object) => {
-  await $fetch(`${config.apiBaseUrl}/news/${id}`, {
+  await $fetch(`${config.apiBaseUrl}/blogs/${id}`, {
     method: "PATCH",
     body: { ...form, images: imgIds.value },
     headers: {
@@ -157,7 +157,7 @@ const handleRemoveImage = async (file: UploadFile) => {
 
   try {
     const { data } = await useFetch(
-      `${config.apiBaseUrl}/news/${entityId}/image/${file?.id}`,
+      `${config.apiBaseUrl}/blogs/${entityId}/image/${file?.id}`,
       {
         method: "DELETE",
         headers: {

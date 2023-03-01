@@ -60,14 +60,60 @@ const handleDeleteConfirm = async () => {
 };
 
 fetch();
+
+const dateToCorrect = (date: string) => {
+  if (!date) return "28.02.2023";
+  const d = new Date(date);
+  const year = d.toLocaleString("default", { year: "numeric" });
+  const month = d.toLocaleString("default", { month: "2-digit" });
+  const day = d.toLocaleString("default", { day: "2-digit" });
+  return `${day}.${month}.${year}`;
+};
+
+const entitesСorrected = computed(() => {
+  return entites.value.map((e: any) => ({ ...e, date: dateToCorrect(e.date) }));
+});
+
+// TODO тут шлется лишний запрос, если is_hot у новости уже true
+const setHot = async (id: number) => {
+  try {
+    await $fetch(`${config.apiBaseUrl}/news/${id}/set-hot`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${adminStore.accessToken}`,
+      },
+    });
+    fetch();
+  } catch (e) {
+    ElNotification.error({
+      title: "Error",
+      message: e,
+      position: "bottom-right",
+    });
+    if (e.status === 401) {
+      adminStore.clearAccessToken();
+      await navigateTo("/admin/login");
+    }
+  }
+};
 </script>
 
 <template>
   <div>
     <client-only>
-      <el-table :data="entites" style="width: 100%">
+      <el-table :data="entitesСorrected" style="width: 100%">
         <el-table-column label="id" prop="id" />
         <el-table-column label="Title" prop="title" />
+        <el-table-column label="Date" prop="date" />
+        <el-table-column label="Is Hot">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.is_hot"
+              @change="setHot(scope.row.id)"
+              size="small"
+          />
+          </template>
+        </el-table-column>
         <el-table-column align="right">
           <template #header>
             <el-button type="success" size="small" @click="handleCreate">

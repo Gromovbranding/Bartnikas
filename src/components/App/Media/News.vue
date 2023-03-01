@@ -31,7 +31,7 @@ const date = computed(() => {
 </script>
 
 <template>
-  <NuxtLink v-if="news" :to="`/news/${news?.id}`" class="interios">
+  <NuxtLink :to="`/news/${news?.id}`" class="interios">
     <div class="interios__img">
       <img :src="news.images[0]?.url" alt="" />
     </div>

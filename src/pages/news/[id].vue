@@ -14,7 +14,7 @@ const fetchNews = async () => {
 fetchNews();
 
 const date = computed(() => {
-  if (!news.value.date) return "19.02.2022";
+  if (!news.value.date) return "28.02.2023";
   const d = new Date(news.value.date);
   const year = d.toLocaleString("default", { year: "numeric" });
   const month = d.toLocaleString("default", { month: "2-digit" });
@@ -50,7 +50,7 @@ const imageCover = computed(() => {
       </div>
     </article>
 
-    <AppMediaNextPrev />
+    <AppMediaNextPrev :prev="news?.prev" :next="news?.next" slug="news" />
   </main>
 </template>
 
