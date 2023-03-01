@@ -13,7 +13,7 @@
 
 <style lang="scss" scoped>
 .video-collections {
-  margin-top: 120px;
+  margin-top: -3px;
   padding: 80px 40px;
 
   background-color: $colorBackgroundGrey;

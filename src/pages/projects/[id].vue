@@ -163,4 +163,23 @@ fetchProject();
   grid-template-columns: 1fr 1fr;
   grid-gap: 120px 15px;
 }
+
+@media screen and (max-width: 479px) {
+  .project {
+    padding: 80px 12px;
+  }
+  .author-quote {
+    flex-direction: column;
+    &__text p {
+      font-size: 16px;
+    }
+    &__text svg {
+      width: 24px!important;
+    }
+  }
+  .port-list {
+    grid-template-columns: 1fr;
+    grid-gap: 60px 15px;
+  }
+}
 </style>

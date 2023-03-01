@@ -102,4 +102,42 @@ const defaultImg =
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .port-order {
+    &__img {
+      img {
+        height: 222px;
+      }
+    }
+    &__info {
+      margin-top: 16px;
+      > div {
+        padding: 0 30px;
+        &:first-child {
+          align-self: flex-start;
+          padding: 0 20px;
+          h3 {
+            font-size: 26px;
+            font-weight: bold;
+          }
+        }
+        &:last-child {
+          flex-direction: column-reverse;
+          gap: 20px;
+
+          > a {
+            span {
+              font-size: 20px;
+              font-weight: 600;
+            }
+            svg {
+              width: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>

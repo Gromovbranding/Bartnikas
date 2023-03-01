@@ -53,6 +53,7 @@ const title = computed(() => {
   margin-top: 40px;
   padding: 80px 40px;
   background: $colorAccentBlue;
+  overflow-x: hidden;
 
   &__content {
     display: block;
@@ -76,6 +77,12 @@ const title = computed(() => {
         fill: #fff;
       }
     }
+  }
+
+  :deep(.marquee-text-wrap) {
+    position: relative;
+    left: -40px;
+    width: calc(100% + 80px);
   }
 }
 </style>

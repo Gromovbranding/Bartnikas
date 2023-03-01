@@ -205,6 +205,7 @@ const moreProjectImages = computed(() => {
 
       :deep(.select) {
         margin: 20px 0;
+        background-color: #fff;
       }
     }
 

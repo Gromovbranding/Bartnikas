@@ -16,6 +16,7 @@ withDefaults(defineProps<Props>(), {
 });
 
 const router = useRouter();
+const route = useRoute();
 
 const handleBack = () => {
   if (window.history.length > 2) {
@@ -24,11 +25,16 @@ const handleBack = () => {
     router.push("/");
   }
 };
+
+const onClickLogo = () => {
+  if (route.path === "/") return;
+  navigateTo("/");
+};
 </script>
 
 <template>
   <header :class="['page-head', `page-head--${onlyLogo ? 'white' : bgColor}`]">
-    <div class="page-head__logo">
+    <div class="page-head__logo" @click="onClickLogo">
       <IconLogo
         v-if="['grey', 'white'].includes(bgColor) || onlyLogo"
         is-only-author-black
@@ -59,6 +65,7 @@ const handleBack = () => {
 
 <style lang="scss" scoped>
 .page-head {
+  position: relative;
   padding: 20px 40px;
   display: flex;
   flex-direction: column;
@@ -139,6 +146,7 @@ const handleBack = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     &:deep(svg) {
       width: 500px;
@@ -165,6 +173,20 @@ const handleBack = () => {
         content: ">";
         padding: 0 6px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .page-head {
+    &__logo {
+      margin-top: 16px;
+      height: 7vw;
+      position: relative;
+      right: calc(16%);
+    }
+    &__breadcrumb {
+      margin-top: 40px;
     }
   }
 }
