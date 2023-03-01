@@ -174,7 +174,7 @@ fetchProject();
       font-size: 16px;
     }
     &__text svg {
-      width: 24px!important;
+      width: 24px !important;
     }
   }
   .port-list {
