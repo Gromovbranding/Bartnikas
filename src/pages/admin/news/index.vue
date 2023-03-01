@@ -18,10 +18,10 @@ const entites = ref([]);
 const handleCreate = async () => {
   await navigateTo("/admin/news/create");
 };
-const handleEdit = async (row: User) => {
+const handleEdit = async (row: any) => {
   await navigateTo(`/admin/news/${row.id}`);
 };
-const handleDelete = (row: User) => {
+const handleDelete = (row: any) => {
   deleteId.value = row.id;
   dialogVisible.value = true;
 };
@@ -71,7 +71,10 @@ const dateToCorrect = (date: string) => {
 };
 
 const entitesСorrected = computed(() => {
-  return entites.value.map((e: any) => ({ ...e, date: dateToCorrect(e.date) }));
+  return entites.value?.map((e: any) => ({
+    ...e,
+    date: dateToCorrect(e?.date),
+  }));
 });
 
 // TODO тут шлется лишний запрос, если is_hot у новости уже true

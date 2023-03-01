@@ -31,7 +31,7 @@ const form = reactive({
 });
 
 const imgIds = computed(() => {
-  return form.images.map((i: any) => i.response?.id);
+  return form.images.map((i: any) => (i.response ? i.response?.id : i.id));
 });
 
 if (!isCreate) {
@@ -206,6 +206,8 @@ const handleDownloadImage = async (file: UploadFile) => {
   link.click();
   document.body.removeChild(link);
 };
+
+const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
 </script>
 
 <template>
@@ -234,7 +236,7 @@ const handleDownloadImage = async (file: UploadFile) => {
 
       <el-upload
         v-model:file-list="form.images"
-        action="http://localhost:8080/files/image"
+        :action="imageUploadUrl"
         list-type="picture-card"
         :limit="1"
         :on-exceed="handleExceed"

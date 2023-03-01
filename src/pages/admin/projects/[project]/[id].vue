@@ -7,77 +7,54 @@ import type {
   UploadFile,
 } from "element-plus";
 import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin",
   middleware: ["admin-auth"],
 });
 
 const route = useRoute();
-const entityId = route.params.id;
-const isCreate = entityId === "create";
-
+const projectId = route.params.project;
+const imageId = route.params.id;
+const isCreate = imageId === "create";
 const adminStore = useAdminStore();
-adminStore.setPageName(`News ${isCreate ? "Create" : "Edit"}`);
+adminStore.setPageName(`Project Image ${isCreate ? "Create" : "Edit"}`);
 const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
 const form = reactive({
-  title: "",
-  date: null,
-  desc: "",
-  text: "",
-  images: [] as UploadUserFile[],
+  name: "",
+  files: [] as UploadUserFile[],
 });
 
 const imgIds = computed(() => {
-  return form.images.map((i: any) => (i.response ? i.response?.id : i.id));
+  return form.files.map((i: any) => (i.response ? i.response?.id : i.id));
 });
 
 if (!isCreate) {
-  const { data } = await useFetch(`${config.apiBaseUrl}/news/${entityId}`);
+  const { data } = await useFetch(
+    `${config.apiBaseUrl}/projects/${projectId}/image/${imageId}`
+  );
   Object.assign(form, data.value);
 }
 
 const rules = reactive<FormRules>({
-  title: [
+  name: [
     {
       required: true,
       message: "Please input Title",
       trigger: "change",
     },
   ],
-  date: [
-    {
-      required: true,
-      message: "Please input Date",
-      trigger: "change",
-    },
-  ],
-  desc: [
-    {
-      required: true,
-      message: "Please input Desc",
-      trigger: "change",
-    },
-  ],
-  text: [
-    {
-      required: true,
-      message: "Please input Text",
-      trigger: "change",
-    },
-  ],
 });
 
 const toBack = async () => {
-  await navigateTo("/admin/news");
+  await navigateTo(`/admin/projects/${projectId}`);
 };
 
 const submitSave = async (form: object) => {
-  await $fetch(`${config.apiBaseUrl}/news`, {
+  await $fetch(`${config.apiBaseUrl}/projects/${projectId}/image`, {
     method: "POST",
-    body: { ...form, images: imgIds.value },
+    body: { ...form, files: imgIds.value },
     headers: {
       Authorization: `Bearer ${adminStore.accessToken}`,
     },
@@ -85,9 +62,9 @@ const submitSave = async (form: object) => {
 };
 
 const submitEdit = async (id: number, form: object) => {
-  await $fetch(`${config.apiBaseUrl}/news/${id}`, {
+  await $fetch(`${config.apiBaseUrl}/projects/${projectId}/image/${id}`, {
     method: "PATCH",
-    body: { ...form, images: imgIds.value },
+    body: { ...form, files: imgIds.value },
     headers: {
       Authorization: `Bearer ${adminStore.accessToken}`,
     },
@@ -106,7 +83,7 @@ const submitForm = async (valid) => {
     }
 
     try {
-      isCreate ? await submitSave(form) : await submitEdit(entityId, form);
+      isCreate ? await submitSave(form) : await submitEdit(imageId, form);
       toBack();
       ElNotification.success({
         title: "Success",
@@ -149,7 +126,7 @@ const disabled = ref(false);
 
 const handleRemoveImage = async (file: UploadFile) => {
   if (isCreate && file.response?.id) {
-    form.images = form.images.filter(
+    form.files = form.files.filter(
       (img: any) => img.response?.id !== file.response.id
     );
     return;
@@ -157,7 +134,7 @@ const handleRemoveImage = async (file: UploadFile) => {
 
   try {
     const { data } = await useFetch(
-      `${config.apiBaseUrl}/news/${entityId}/image/${file?.id}`,
+      `${config.apiBaseUrl}/projects/${imageId}/image-remove/${file?.id}`,
       {
         method: "DELETE",
         headers: {
@@ -212,35 +189,19 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
 
 <template>
   <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-    <el-form-item class="input-container" label="Title" prop="title">
-      <el-input v-model="form.title" />
-    </el-form-item>
-    <el-form-item class="input-container" label="Date" prop="date">
-      <el-col :span="11">
-        <el-date-picker
-          v-model="form.date"
-          type="date"
-          placeholder="Pick a date"
-          style="width: 100%"
-        />
-      </el-col>
-    </el-form-item>
-    <el-form-item class="input-container" label="Description" prop="desc">
-      <el-input v-model="form.desc" type="textarea" />
-    </el-form-item>
-    <el-form-item class="input-container" label="Text" prop="text">
-      <el-input v-model="form.text" :rows="5" type="textarea" />
+    <el-form-item class="input-container" label="Name" prop="name">
+      <el-input v-model="form.name" />
     </el-form-item>
     <el-form-item class="input-container" label="Image" prop="img">
       <!-- <el-input v-model="form.img" /> -->
 
       <el-upload
-        v-model:file-list="form.images"
+        v-model:file-list="form.files"
         :action="imageUploadUrl"
         list-type="picture-card"
         :limit="1"
         :on-exceed="handleExceed"
-        :class="{ upload_disabled: form.images.length }"
+        :class="{ upload_disabled: form.files?.length }"
       >
         <el-icon><Icon name="ep:plus" /></el-icon>
 
