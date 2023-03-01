@@ -109,9 +109,9 @@ const setHot = async (id: number) => {
           <template #default="scope">
             <el-switch
               v-model="scope.row.is_hot"
-              @change="setHot(scope.row.id)"
               size="small"
-          />
+              @change="setHot(scope.row.id)"
+            />
           </template>
         </el-table-column>
         <el-table-column align="right">

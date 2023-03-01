@@ -10,7 +10,7 @@ const fetchNews = async () => {
 fetchNews();
 
 const sortedNews = computed(() => {
-  return news.value.sort((a: any, b: any) => b?.id - a?.id);;
+  return news.value.sort((a: any, b: any) => b?.id - a?.id);
 });
 </script>
 
