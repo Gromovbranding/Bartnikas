@@ -1,6 +1,6 @@
 <template>
   <form class="form" @submit.prevent>
-    <small>Quantity</small>
+    <small>Quantity:</small>
     <div class="form__control">
       <input type="number" value="1" />
       <div>
@@ -63,6 +63,30 @@
         width: 1.4vw;
         &:last-child {
           transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .form {
+    small {
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 32px;
+      margin-bottom: 20px;
+    }
+    .form__control {
+      > input {
+        width: 70px;
+        height: 40px;
+        font-size: 20px;
+        border-radius: 5px;
+      }
+      > div {
+        svg {
+          width: 30px;
         }
       }
     }

@@ -152,4 +152,44 @@ const img2 = computed(() => {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .port {
+    flex-direction: "row";
+    height: unset;
+    &__img {
+      display: none;
+    }
+    &__content {
+      img {
+        object-fit: cover;
+        height: 400px;
+      }
+    }
+    &__text {
+      padding: 28px 16px 50px;
+      h2 {
+        font-size: 32px;
+      }
+      > a > div {
+        &:first-child {
+          margin-bottom: 20px;
+          svg {
+          }
+          p {
+            font-size: 28px;
+          }
+        }
+
+        &:last-child {
+          margin-top: 40px;
+          p {
+            word-break: break-word;
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

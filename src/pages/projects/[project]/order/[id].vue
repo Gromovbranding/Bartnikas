@@ -25,6 +25,11 @@ const moreProjectImages = computed(() => {
     ?.filter((i: any) => i.id !== imageId)
     ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
 });
+
+const { type: typeScreen } = useBreakpoints();
+const slidesPerView = computed(() => {
+  return typeScreen.value === "xs" ? 1 : 2;
+});
 </script>
 
 <template>
@@ -36,6 +41,7 @@ const moreProjectImages = computed(() => {
       :sub="`projects/${projectImage?.project?.id}`"
     />
     <section class="order">
+      <h3 class="order__title_mobile">{{ projectImage?.name }}</h3>
       <div class="order__gallery">
         <img :src="projectImage?.files[0]?.url" alt="" />
         <div class="order__gallery-list">
@@ -49,7 +55,7 @@ const moreProjectImages = computed(() => {
         </div>
       </div>
       <div class="order__info">
-        <h3>Name Photo</h3>
+        <h3>{{ projectImage?.name }}</h3>
         <ul class="order__info-checklist">
           <li>
             <b>Preferred size:</b>
@@ -95,19 +101,21 @@ const moreProjectImages = computed(() => {
             <small> free worldwide (DHL Express) </small>
           </li>
         </ul>
-        <div>
-          <AppFormQuanity />
-        </div>
-        <div class="order__info-colorlist">
-          <b> Interior best collors: </b>
-          <div>
-            <ul class="order__info-colors">
-              <li style="background-color: #07343d"></li>
-              <li style="background-color: #63aebd"></li>
-              <li style="background-color: #b99766"></li>
-              <li style="background-color: #ffd73e"></li>
-            </ul>
-            <div class="order__info-interior upper-slide">In Interior</div>
+        <div class="order__info-control">
+          <div class="order__info-quanity">
+            <AppFormQuanity />
+          </div>
+          <div class="order__info-colorlist">
+            <b> Interior best collors: </b>
+            <div class="order__info-color-interior">
+              <ul class="order__info-colors">
+                <li style="background-color: #07343d"></li>
+                <li style="background-color: #63aebd"></li>
+                <li style="background-color: #b99766"></li>
+                <li style="background-color: #ffd73e"></li>
+              </ul>
+              <div class="order__info-interior upper-slide">In Interior</div>
+            </div>
           </div>
         </div>
         <UIButton href="/">ORDER</UIButton>
@@ -122,7 +130,8 @@ const moreProjectImages = computed(() => {
         class="more__slider"
         :modules="[SwiperMousewheel]"
         :mousewheel="true"
-        :slides-per-view="2"
+        :slides-per-view="slidesPerView"
+        :space-between="40"
         :speed="1000"
         @swiper="initMoreOrdersSwiper"
       >
@@ -148,6 +157,10 @@ const moreProjectImages = computed(() => {
   padding: 0 40px;
   margin-bottom: 80px;
   height: 100%;
+
+  &__title_mobile {
+    display: none;
+  }
 
   &__gallery {
     flex: 1 1 60%;
@@ -269,12 +282,108 @@ const moreProjectImages = computed(() => {
   &__slider {
     margin-top: 54px;
     :deep(.swiper-wrapper) {
-      display: flex;
-      gap: 50px;
+      // display: flex;
+      // gap: 50px;
     }
 
     &-item {
-      width: 888px;
+      //width: 888px;
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .order {
+    flex-direction: column;
+    padding: 0px 16px;
+    gap: 28px;
+
+    &__title_mobile {
+      display: block;
+      font-size: 36px;
+      font-weight: 600;
+    }
+    &__gallery {
+      > img {
+        min-height: 320px;
+        max-height: 320px;
+      }
+      &-list {
+        margin-top: 12px;
+        > img {
+          max-width: 80px;
+          min-height: 58px;
+          max-height: 58px;
+          border-radius: 10px;
+        }
+      }
+    }
+    &__info {
+      > h3 {
+        display: none;
+      }
+      b,
+      small,
+      p {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 32px;
+      }
+
+      b {
+        font-weight: bold;
+      }
+
+      &-control {
+        display: flex;
+        margin-bottom: 40px;
+        justify-content: space-between;
+        padding-right: 50px;
+      }
+      &-quanity {
+        :deep(.form__control) {
+          margin-top: 8px;
+        }
+      }
+      &-colorlist {
+        margin: 0;
+      }
+      &-color-interior {
+        flex-direction: column;
+        gap: 30px;
+      }
+      &-colors {
+        li {
+          width: 44px;
+          height: 44px;
+        }
+      }
+      &-interior {
+        padding: 6px 40px;
+        font-size: 20px;
+        align-self: flex-start;
+      }
+    }
+  }
+
+  .more {
+    padding: 65px 16px 108px;
+    &__title {
+      font-size: 60px;
+      line-height: 80px;
+      margin-left: 0;
+    }
+    &__subtitle {
+      font-size: 26px;
+      margin-top: 10px;
+    }
+    &__slider {
+      :deep(.swiper-wrapper) {
+        //gap: 0;
+      }
+      &-item {
+        //width: 100%;
+      }
     }
   }
 }

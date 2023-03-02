@@ -178,6 +178,12 @@
           }
         }
       }
+      > div {
+        small {
+          position: relative;
+          bottom: 24px;
+        }
+      }
     }
     &__logo {
       order: 1;
