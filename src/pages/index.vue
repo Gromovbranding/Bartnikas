@@ -39,8 +39,8 @@ const hotNews = computed(() => {
       </div>
     </header>
     <AppContentSpliter> CONCEPT </AppContentSpliter>
-    <AppSectionVideoGreeting />
-    <AppContentSpliter> PROJECTS </AppContentSpliter>
+    <AppSectionVideoGreeting class="app-video-greeting" />
+    <AppContentSpliter v-if="projects.length"> PROJECTS </AppContentSpliter>
     <section v-if="projects.length" class="projects">
       <AppPortItem
         v-for="(project, idx) in projects"
@@ -159,6 +159,58 @@ const hotNews = computed(() => {
       top: 0;
       width: 100%;
       height: 100vh;
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .header {
+    &__main {
+      height: 530px;
+      &:deep(svg) {
+        width: 88%;
+      }
+    }
+    &__img-sticky {
+      height: 167vh;
+      img {
+        object-fit: none;
+      }
+    }
+  }
+
+  .app-video-greeting {
+    margin-bottom: 80px;
+  }
+
+  .home-info-project-paralax {
+    height: 2000px;
+
+    > div {
+      &:first-child {
+        img {
+        }
+      }
+
+      &:last-child {
+        padding: 60px 16px;
+        left: 16px;
+        right: 16px;
+        h3 {
+          font-size: 50px;
+          word-wrap: break-word;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-size: 20px;
+          line-height: 1.6;
+        }
+
+        button {
+          font-size: 32px;
+        }
+      }
     }
   }
 }

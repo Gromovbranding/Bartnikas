@@ -72,4 +72,34 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .awards__item {
+    > a {
+      width: 55vw;
+      height: 55vw;
+      > div {
+        opacity: 1;
+        h4 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+
+      &:hover {
+        > img {
+        }
+
+        > div {
+        }
+      }
+
+      > img {
+      }
+    }
+  }
+}
 </style>

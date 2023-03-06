@@ -24,4 +24,26 @@
     column-gap: 45px;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .video-collections {
+    padding: 60px 16px;
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0 12px;
+    }
+  }
+
+  :deep(.caption) {
+    h2 {
+      font-size: 11vw;
+      line-height: 1.3;
+    }
+    a {
+      font-size: 26px;
+    }
+  }
+}
 </style>

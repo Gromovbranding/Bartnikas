@@ -52,4 +52,19 @@ const renderedNews = computed(() => {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .news {
+    padding: 50px 16px;
+
+    &__content {
+      flex-direction: column;
+      margin-top: 70px;
+      gap: 60px;
+      &:deep(.interios) {
+        width: 100%;
+      }
+    }
+  }
+}
 </style>

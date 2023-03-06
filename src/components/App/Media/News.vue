@@ -110,4 +110,46 @@ const date = computed(() => {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .interios {
+    &:hover {
+    }
+
+    &__img {
+      img {
+        min-height: 260px;
+        max-height: 260px;
+      }
+    }
+
+    &__content {
+      gap: 10px;
+      > div {
+        &:first-child {
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        &:last-child {
+          h3 {
+            font-size: 38px;
+          }
+
+          p {
+            font-size: 22px;
+            line-height: 1.4;
+          }
+
+          span {
+            margin-top: 24px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

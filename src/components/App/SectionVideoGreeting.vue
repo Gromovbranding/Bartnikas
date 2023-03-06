@@ -71,4 +71,32 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .video-greeting {
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+    &__video {
+      width: 100%;
+      video,
+      img,
+      iframe {
+      }
+    }
+
+    &__play {
+      &:hover {
+      }
+    }
+
+    &__text {
+      width: 100%;
+      padding: 0px 16px;
+      p {
+        font-size: 22px;
+      }
+    }
+  }
+}
 </style>

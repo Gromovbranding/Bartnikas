@@ -25,4 +25,25 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .awards {
+    padding: 50px 16px;
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+      margin-top: 60px;
+      padding: 0 26px 140px;
+      > div {
+        &:nth-child(odd) {
+          margin-top: 0;
+        }
+        &:nth-child(even) {
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}
 </style>

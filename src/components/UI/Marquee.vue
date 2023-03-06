@@ -3,7 +3,7 @@ import MarqueeText from "vue-marquee-text-component";
 </script>
 <template>
   <ClientOnly>
-    <MarqueeText class="marquee-text">
+    <MarqueeText class="marquee-text" :duration="30">
       <slot />
     </MarqueeText>
   </ClientOnly>

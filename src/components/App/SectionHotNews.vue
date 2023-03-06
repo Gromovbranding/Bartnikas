@@ -85,4 +85,28 @@ const title = computed(() => {
     width: calc(100% + 80px);
   }
 }
+
+@media screen and (max-width: 479px) {
+  .hot-news {
+    margin-top: 0;
+    padding: 60px 16px 50px;
+    &__content {
+      margin-top: 32px;
+      img {
+        min-height: 230px;
+        max-height: 230px;
+      }
+      > div {
+        &:deep(svg) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+
+    :deep(.marquee-text-wrap) {
+      font-size: 28px;
+    }
+  }
+}
 </style>
