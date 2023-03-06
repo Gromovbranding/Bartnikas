@@ -27,4 +27,17 @@ fetchBlogs();
   grid-gap: 180px 80px;
   padding: 80px 40px;
 }
+
+@media screen and (max-width: 479px) {
+  .blog {
+    padding: 50px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    &:deep(.interios) {
+      width: 100%;
+    }
+  }
+}
 </style>

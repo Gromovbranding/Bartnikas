@@ -86,6 +86,7 @@ const imageCover = computed(() => {
       position: sticky;
       top: 50px;
       border-radius: $borderRadiusMain;
+      object-fit: cover;
     }
   }
 
@@ -101,6 +102,50 @@ const imageCover = computed(() => {
       }
       &:not(:first-child) {
         margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .article {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 16px;
+    gap: 0;
+    &__headline {
+      flex-direction: column;
+      align-items: flex-start;
+      > h1 {
+        font-size: 8vw;
+        line-height: 1.4;
+      }
+
+      > time {
+        font-size: 4.5vw;
+      }
+    }
+
+    &__img {
+      margin: 50px 0 30px;
+      img {
+        max-height: 280px;
+      }
+    }
+
+    &__text {
+      flex-direction: column;
+      padding: 0;
+      gap: 30px;
+      > p {
+        &:first-child {
+          font-size: 5vw;
+          line-height: 1.5;
+        }
+
+        &:last-child {
+          font-size: 4.5vw;
+        }
       }
     }
   }

@@ -103,4 +103,44 @@ const handleTo = async (id: number) => {
     text-transform: uppercase;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .switching {
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 16px;
+    &__item {
+      width: 100%;
+      height: 250px;
+      background-color: $colorAccentBlue;
+      padding: 70px 30px 0;
+      display: block;
+      &_empty {
+        width: 50%;
+        display: none;
+      }
+
+      > h3 {
+        max-width: 100%;
+        color: #fff;
+        font-size: 7vw;
+      }
+
+      &:last-child {
+        & .switching__sup {
+        }
+      }
+
+      &:first-child {
+        & .switching__sup {
+        }
+      }
+    }
+
+    &__sup {
+      color: $colorTextGrey2;
+      font-size: 5vw;
+    }
+  }
+}
 </style>

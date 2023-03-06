@@ -65,13 +65,13 @@ const imageCover = computed(() => {
     gap: 15px;
     justify-content: space-between;
 
-    h1 {
+    > h1 {
       font-size: 40px;
       font-weight: bold;
     }
 
-    time {
-      color: #5c5c5c;
+    > time {
+      color: #8a8a8a;
       font-size: 24px;
     }
   }
@@ -103,6 +103,48 @@ const imageCover = computed(() => {
         font-size: 23px;
         font-weight: 400;
         line-height: 1.5;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .article {
+    padding: 4px 16px;
+    &__headline {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 12px;
+      > h1 {
+        font-size: 8vw;
+        line-height: 1.3;
+      }
+
+      > time {
+        font-size: 4.5vw;
+      }
+    }
+
+    &__img {
+      margin-bottom: 20px;
+      img {
+        max-height: 230px;
+      }
+    }
+
+    &__content {
+      flex-direction: column;
+      padding: 0;
+      gap: 30px;
+      p {
+        &:first-child {
+          font-size: 5vw;
+          line-height: 1.5;
+        }
+
+        &:last-child {
+          font-size: 4.5vw;
+        }
       }
     }
   }

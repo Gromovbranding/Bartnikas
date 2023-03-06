@@ -179,14 +179,24 @@ const onClickLogo = () => {
 
 @media screen and (max-width: 479px) {
   .page-head {
+    padding: 20px 28px;
     &__logo {
-      margin-top: 16px;
-      height: 7vw;
+      margin-top: 7px;
+      height: 7.5vw;
       position: relative;
-      right: calc(16%);
+      right: 4%;
     }
     &__breadcrumb {
       margin-top: 40px;
+    }
+    &__back {
+      margin-top: 40px;
+      > span {
+        font-size: 6vw;
+      }
+
+      &:hover {
+      }
     }
   }
 }

@@ -67,4 +67,33 @@ defineProps<Props>();
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .terms {
+    &__item {
+      flex-direction: column;
+      padding: 40px 25px 70px;
+      gap: 25px;
+      &:nth-child(even) {
+      }
+
+      > div {
+        &:first-child {
+          h3 {
+            font-size: 13vw;
+            line-height: 1.3;
+          }
+        }
+
+        &:last-child {
+          p {
+            font-size: 6vw;
+            max-width: 100%;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
