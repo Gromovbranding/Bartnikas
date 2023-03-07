@@ -143,7 +143,7 @@
             <div>
               <b>2019</b>
             </div>
-            <div>
+            <div class="single">
               <div class="upper-slide">
                 <p>
                   People’s choice Award
@@ -294,7 +294,7 @@
             <div>
               <b>2019</b>
             </div>
-            <div>
+            <div class="single">
               <div class="upper-slide">
                 <p>
                   People’s choice Award
@@ -415,6 +415,97 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .awards {
+    padding: 80px 16px;
+    &__item {
+      flex-direction: column;
+    }
+
+    &__circle {
+      position: relative;
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        width: 80%;
+        height: 80%;
+      }
+
+      &:hover {
+        img {
+        }
+      }
+    }
+
+    &__text {
+      width: 100%;
+      margin-top: 40px;
+      b {
+        font-size: 9.4vw;
+        font-weight: 800;
+      }
+
+      p {
+        margin-top: 16px;
+        font-size: 4.4vw;
+        line-height: 1.6;
+      }
+    }
+
+    &__list {
+      width: 100%;
+      padding: 0 0 6vw;
+      p {
+        font-size: 9vw;
+      }
+
+      svg {
+        width: 4vw;
+      }
+
+      > div {
+        &:first-child {
+          justify-content: flex-start;
+          padding-top: 6px;
+          b {
+            font-size: 6vw;
+            font-weight: 800;
+          }
+        }
+
+        &:nth-child(2) {
+          gap: 5vw;
+        }
+
+        &:last-child {
+          gap: 5vw;
+          font-size: 7vw;
+          margin-top: 14.5vw;
+          flex-direction: column;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    &__link {
+      margin-top: 60px;
+      width: 100%;
+    }
+  }
+  .single {
+    margin-top: 0!important;
+    margin-left: 9vw;
   }
 }
 </style>

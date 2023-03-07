@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+const { type: typeScreen } = useBreakpoints();
+const videoGreetingStyle = computed(() => {
+  return {
+    "flex-direction":
+      typeScreen.value === "xs" ? "column-reverse" : "row-reverse",
+  };
+});
+</script>
+
 <template>
   <main>
     <Title> Biography </Title>
@@ -100,7 +110,7 @@
     </section>
     <AppAwardsSection />
     <AppContentSpliter> STATEMENT </AppContentSpliter>
-    <AppSectionVideoGreeting style="flex-direction: row-reverse" />
+    <AppSectionVideoGreeting :style="videoGreetingStyle" />
   </main>
 </template>
 
@@ -216,6 +226,89 @@
     p {
       font-size: 26px;
       line-height: 1.5;
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .biography-about {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    &__img {
+      img {
+      }
+    }
+
+    &__text {
+      p {
+        font-size: 5vw;
+      }
+
+      small {
+        font-size: 4vw;
+      }
+    }
+  }
+
+  .testimonials {
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 180px;
+    &__item {
+    }
+
+    &__person {
+      > div {
+        &:first-child {
+          width: fit-content;
+          height: fit-content;
+          img {
+            width: 96px;
+            height: 96px;
+          }
+        }
+
+        &:last-child {
+          h3 {
+            font-size: 6vw;
+          }
+
+          p {
+            font-size: 6vw;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+
+    &__text {
+      gap: 16px;
+      > div {
+        &:first-child {
+          svg {
+          }
+        }
+
+        &:nth-child(odd) {
+          svg {
+            width: 32px;
+          }
+        }
+
+        &:last-child {
+        }
+      }
+
+      p {
+        font-size: 5vw;
+      }
+    }
+  }
+
+  :deep(.video-greeting) {
+    .video-greeting__text {
+      margin-top: 40px;
     }
   }
 }

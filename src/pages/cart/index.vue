@@ -4,6 +4,7 @@
     <AppPageHead only-logo title="Cart" />
 
     <section class="checkout">
+      <h1 class="checkout__title_mobile">CART</h1>
       <div class="checkout__list">
         <div class="checkout__item">
           <div class="checkout__close">
@@ -34,7 +35,7 @@
       </div>
       <div class="checkout__total">
         <div>
-          <h1>CART</h1>
+          <h1 class="checkout__title">CART</h1>
           <div>
             <p>Subtotal:</p>
             <b>8 000 $</b>
@@ -139,6 +140,126 @@
       border-radius: 0.5vw;
       width: 100%;
       height: 100%;
+    }
+  }
+
+  &__title_mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .checkout {
+    flex-direction: column;
+    padding: 16px 14px 60px;
+    gap: 40px;
+    &__list {
+    }
+
+    &__close {
+      right: 2vw;
+      top: 2vw;
+      svg {
+        width: 12vw;
+      }
+    }
+
+    &__item {
+      flex-direction: column;
+      flex-direction: column;
+      height: fit-content;
+      padding: 15vw 20px 12vw;
+      gap: 7.5vw;
+    }
+
+    &__header {
+      > h3 {
+        font-weight: 800;
+        font-size: 6.5vw;
+      }
+    }
+
+    &__total {
+      width: 100%;
+      > div {
+        padding: 16px;
+        > button {
+          width: 100%;
+          letter-spacing: 4px;
+        }
+
+        > div {
+          margin: 0 0 40px;
+          > p {
+            font-size: 6.5vw;
+          }
+          > b {
+            font-size: 9.5vw;
+          }
+        }
+
+        > h1 {
+        }
+      }
+    }
+
+    &__price {
+      margin-top: 10vw;
+      > * {
+        flex: 1;
+      }
+    }
+
+    &__purchase {
+      font-size: 6.5vw;
+      font-weight: 800;
+      padding-top: 4vw;
+    }
+
+    &__info {
+      width: 100%;
+      padding: 0px 8px;
+    }
+
+    &__main-img {
+      width: 100%;
+      img {
+        height: 63vw;
+      }
+    }
+
+    &__title {
+      display: none;
+      &_mobile {
+        display: block;
+        font-size: 16vw;
+        font-weight: bold;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  // AppFormQuanity
+  :deep(.form) {
+    small {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 0;
+      margin-bottom: 0;
+    }
+    .form__control {
+      > input {
+        width: 56px;
+        height: 35px;
+        font-size: 20px;
+        border-radius: 7px;
+      }
+      > div {
+        svg {
+          width: 30px;
+        }
+      }
     }
   }
 }

@@ -285,4 +285,64 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 50px;
+    padding: 30px 12vw 0;
+  }
+
+  .media {
+    &__publications {
+      > div {
+        &:first-child {
+          img {
+            max-height: 220px;
+          }
+        }
+
+        &:nth-child(2) {
+          margin-bottom: 20px;
+          margin-top: 16px;
+          > h3 {
+            font-size: 3.1vw;
+            font-weight: 800;
+            margin-bottom: 8px;
+          }
+
+          > small {
+            font-size: 3.2vw;
+          }
+        }
+
+        &:last-child {
+          svg {
+            width: 3vw;
+            height: 3vw;
+          }
+
+          span {
+            font-size: 3vw;
+          }
+        }
+      }
+    }
+
+    &__links {
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      margin-top: 80px;
+      flex-direction: column;
+      padding: 0 12vw;
+      &-item {
+      }
+      p {
+        font-size: 22px;
+      }
+    }
+  }
+}
 </style>

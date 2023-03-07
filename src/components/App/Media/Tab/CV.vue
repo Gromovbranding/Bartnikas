@@ -37,4 +37,15 @@
     }
   }
 }
+@media screen and (max-width: 479px) {
+  .media__cv {
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      img {
+      }
+    }
+  }
+}
 </style>

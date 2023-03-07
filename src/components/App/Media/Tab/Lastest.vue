@@ -34,4 +34,16 @@ const sortedNews = computed(() => {
     max-height: 420px;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 60px;
+    :deep(img) {
+      min-height: 420px;
+      max-height: 420px;
+    }
+  }
+}
 </style>
