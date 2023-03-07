@@ -504,7 +504,7 @@
     }
   }
   .single {
-    margin-top: 0!important;
+    margin-top: 0 !important;
     margin-left: 9vw;
   }
 }
