@@ -26,9 +26,13 @@ const defaultImg =
 <template>
   <div class="port-order">
     <div class="port-order__img">
-      <UIZoom zoom-icon-position="center-center" zoom-icon-fill="#fff">
+      <AppPortZoom
+        :project-id="projectId"
+        :project-image-name="projectImage?.name"
+        :project-image-id="projectImage?.id"
+      >
         <img :src="projectImage?.files[0]?.url ?? defaultImg" alt="" />
-      </UIZoom>
+      </AppPortZoom>
     </div>
     <div class="port-order__info">
       <div>
