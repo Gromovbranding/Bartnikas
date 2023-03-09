@@ -272,4 +272,52 @@ const isVisible = ref(false);
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .zoom__modal-arrow {
+    flex: 1;
+    > :deep(svg) {
+      top: 19%;
+      width: 40px;
+    }
+  }
+  .zoom__modal-main {
+    padding-top: 100px;
+    flex: 10;
+  }
+  .zoom__modal-close {
+    right: 24px;
+    top: 30px;
+  }
+  .zoom__modal-bottom {
+    flex: 11;
+  }
+  .zoom__modal-bottom-info {
+    > div {
+      padding: 0 30px;
+      &:first-child {
+        align-self: flex-start;
+        padding: 0 20px;
+        h3 {
+          font-size: 26px;
+          font-weight: bold;
+        }
+      }
+      &:last-child {
+        flex-direction: column-reverse;
+        gap: 20px;
+
+        > a {
+          span {
+            font-size: 20px;
+            font-weight: 600;
+          }
+          svg {
+            width: 14px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

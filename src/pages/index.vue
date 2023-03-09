@@ -72,6 +72,7 @@ const hotNews = computed(() => {
       </div>
     </section>
     <AppVideoSection />
+    <AppTestimonialsSection />
   </main>
 </template>
 
