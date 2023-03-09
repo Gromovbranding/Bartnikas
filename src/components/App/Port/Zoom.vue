@@ -237,7 +237,11 @@ const isVisible = ref(false);
         cursor: pointer;
       }
       &:hover {
-        background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(20, 20, 20, 1) 100%
+        );
         > :deep(svg) {
           background-color: transparent;
           fill: rgba(255, 255, 255);
@@ -245,7 +249,11 @@ const isVisible = ref(false);
       }
       &_left {
         &:hover {
-          background: linear-gradient(270deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 100%);
+          background: linear-gradient(
+            270deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(20, 20, 20, 1) 100%
+          );
         }
       }
     }
