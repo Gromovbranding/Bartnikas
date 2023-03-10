@@ -69,4 +69,11 @@ const classes = computed(() => {
     text-transform: uppercase;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .btn-default {
+    padding: 25px 30px;
+    font-size: 7vw;
+  }
+}
 </style>

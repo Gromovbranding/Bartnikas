@@ -93,4 +93,28 @@ const selectedTab = ref(mediaTabs.value[0]);
     flex: 1 1 100%;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .media {
+    flex-direction: column;
+    padding: 0px 16px 80px;
+    &__menu {
+      position: relative;
+      flex: 1;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0;
+      row-gap: 16px;
+      :deep(.btn-default) {
+        width: calc(50% - 3.3vw);
+        font-size: 5.6vw;
+        padding: 20px 0;
+      }
+    }
+
+    &__content {
+    }
+  }
+}
 </style>

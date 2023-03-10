@@ -1,18 +1,49 @@
+<script lang="ts" setup>
+interface News {
+  id: number;
+  title: string;
+}
+interface Props {
+  slug?: string;
+  prev?: News;
+  next?: News;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  slug: "media",
+  prev: () => ({
+    id: 1,
+    title: "How dystopias can save the world",
+  }),
+  next: () => ({
+    id: 3,
+    title:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, vitae",
+  }),
+});
+
+const handleTo = async (id: number) => {
+  await navigateTo(`/${props.slug}/${id}`);
+};
+</script>
+
 <template>
   <section class="switching">
-    <div class="switching__item">
+    <!-- Previous -->
+    <div v-if="prev" class="switching__item" @click="handleTo(prev.id)">
       <span class="switching__sup">previous</span>
-      <h3>How dystopias can save the world</h3>
+      <h3>{{ prev.title }}</h3>
     </div>
-    <div class="switching__item">
+    <div v-else class="switching__item_empty"></div>
+    <!-- Next -->
+    <div v-if="next" class="switching__item" @click="handleTo(next.id)">
       <span class="switching__sup">next</span>
-      <h3>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur,
-        vitae
-      </h3>
+      <h3>{{ next.title }}</h3>
     </div>
+    <div v-else class="switching__item_empty"></div>
   </section>
 </template>
+
 <style lang="scss" scoped>
 .switching {
   margin-top: 180px;
@@ -29,6 +60,10 @@
     align-items: center;
     cursor: pointer;
     transition: background-color 0.3s ease-out;
+
+    &_empty {
+      width: 50%;
+    }
 
     > h3 {
       max-width: 85%;
@@ -66,6 +101,46 @@
     top: 20px;
     letter-spacing: 3.2px;
     text-transform: uppercase;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .switching {
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 16px;
+    &__item {
+      width: 100%;
+      height: 250px;
+      background-color: $colorAccentBlue;
+      padding: 70px 30px 0;
+      display: block;
+      &_empty {
+        width: 50%;
+        display: none;
+      }
+
+      > h3 {
+        max-width: 100%;
+        color: #fff;
+        font-size: 7vw;
+      }
+
+      &:last-child {
+        & .switching__sup {
+        }
+      }
+
+      &:first-child {
+        & .switching__sup {
+        }
+      }
+    }
+
+    &__sup {
+      color: $colorTextGrey2;
+      font-size: 5vw;
+    }
   }
 }
 </style>

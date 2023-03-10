@@ -66,4 +66,34 @@ withDefaults(defineProps<Props>(), {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .caption {
+    margin-bottom: 40px;
+
+    h2 {
+      font-size: 16vw;
+      letter-spacing: 3px;
+      span {
+        padding-top: 10px;
+        font-size: 4.6vw;
+        letter-spacing: 0;
+        padding-left: 6px;
+        font-weight: 500;
+      }
+    }
+
+    &--white {
+      h2 {
+      }
+    }
+
+    a {
+      font-size: 20px;
+      margin-top: 8px;
+      span {
+      }
+    }
+  }
+}
 </style>

@@ -410,4 +410,169 @@ watch(
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .menu {
+    &__nav {
+      flex-direction: column;
+      padding: 110px 16px 0;
+    }
+
+    &__cart {
+      position: absolute;
+      top: -7px;
+      a {
+        &::before {
+          width: 28px;
+          height: 28px;
+          font-size: 14px;
+          font-weight: bold;
+          top: -9px;
+        }
+
+        &:hover {
+          svg {
+          }
+
+          &::before {
+          }
+        }
+      }
+
+      svg {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    &__additional-info {
+      display: grid;
+      grid-template-columns: 170px auto;
+    }
+
+    &__email {
+      grid-row: 3;
+      a {
+        font-size: 28px;
+      }
+    }
+    &__terms {
+      grid-row: 1/6;
+      &-menu {
+        margin-bottom: 25px;
+        li {
+          a {
+            width: 100%;
+            font-size: 24px;
+            line-height: 1.1;
+            word-break: break-word;
+          }
+        }
+      }
+    }
+
+    &__socials {
+      margin-top: 20px;
+      grid-row: 4;
+      > ul {
+        gap: 14px;
+        li {
+          a {
+            > :deep(svg) {
+              width: 58px;
+              height: 58px;
+            }
+
+            &:hover {
+              > :deep(svg) {
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__item {
+      &-main {
+        gap: 20px;
+      }
+      &-sub {
+        gap: 10px;
+      }
+
+      &-main {
+        li {
+          a {
+            font-size: 15vw;
+            svg {
+            }
+
+            &:hover {
+              svg {
+              }
+            }
+
+            sup {
+              font-size: 5vw;
+              letter-spacing: 0;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      &-sub {
+        li {
+          a {
+            font-size: 6vw;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+
+    &__bar {
+      right: 16px;
+      top: 16px;
+      &:hover {
+        &::before,
+        &::after,
+        span {
+        }
+      }
+
+      &::before,
+      &::after,
+      span {
+      }
+
+      &::before {
+      }
+
+      &::after {
+      }
+    }
+
+    &--active {
+      > .menu__bar {
+        &::before,
+        &::after,
+        span {
+        }
+
+        &::before {
+        }
+
+        span {
+        }
+
+        &::after {
+        }
+      }
+
+      > .menu__nav {
+      }
+    }
+  }
+}
 </style>

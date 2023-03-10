@@ -1,33 +1,48 @@
 <script lang="ts" setup>
+interface BlogImage {
+  id?: number;
+  name?: string;
+  url?: string;
+}
+interface Blog {
+  id?: number;
+  title?: string;
+  desc?: string;
+  text?: string;
+  date?: Date;
+  images?: BlogImage[];
+}
 interface Props {
-  to?: string;
+  blog?: Blog;
 }
 
-withDefaults(defineProps<Props>(), {
-  to: "/media/1",
+const props = withDefaults(defineProps<Props>(), {
+  blog: null,
+});
+
+const date = computed(() => {
+  if (!props.blog?.date) return "";
+  const d = new Date(props.blog?.date);
+  const year = d.toLocaleString("default", { year: "numeric" });
+  const month = d.toLocaleString("default", { month: "2-digit" });
+  const day = d.toLocaleString("default", { day: "2-digit" });
+  return `${day}.${month}.${year}`;
 });
 </script>
 
 <template>
-  <NuxtLink :to="to" class="interios">
+  <NuxtLink :to="`/blog/${blog?.id}`" class="interios">
     <div class="interios__img">
-      <img
-        src="https://static.tildacdn.com/tild3332-3036-4664-a462-353037666335/0651.jpg"
-        alt=""
-      />
+      <img :src="blog.images[0]?.url" alt="" />
     </div>
     <div class="interios__content">
       <div>
         <IconArrow is-arrow30-deg />
       </div>
       <div>
-        <h3>Capturing the power of the earth</h3>
-        <p>
-          Welcome to Art Russia Fair presents, Stas Bartnikas X Obvious: Aerial
-          Art Meets AI. This behind the scenes look presents features from our
-          latest exhibit of the crossroads between Art and AI.
-        </p>
-        <span>17.06.2022</span>
+        <h3>{{ blog?.title }}</h3>
+        <p>{{ blog?.desc }}</p>
+        <span>{{ date }}</span>
       </div>
     </div>
   </NuxtLink>
@@ -47,6 +62,7 @@ withDefaults(defineProps<Props>(), {
     img {
       width: 100%;
       height: 100%;
+      min-height: 550px;
       max-height: 550px;
       object-fit: cover;
     }
@@ -89,6 +105,50 @@ withDefaults(defineProps<Props>(), {
           color: $colorTextGrey;
           font-size: 20px;
           font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .interios {
+    &:hover {
+    }
+
+    &__img {
+      img {
+        min-height: 260px;
+        max-height: 260px;
+      }
+    }
+
+    &__content {
+      gap: 10px;
+      > div {
+        &:first-child {
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        &:last-child {
+          padding-right: 30px;
+          h3 {
+            font-size: 6vw;
+            line-height: 1.3;
+          }
+
+          p {
+            font-size: 4.5vw;
+            letter-spacing: 0;
+          }
+
+          span {
+            margin-top: 24px;
+            font-size: 18px;
+          }
         }
       }
     }

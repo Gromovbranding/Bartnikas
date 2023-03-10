@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import type { Swiper } from "swiper/types";
+
+const moreOrdersSwiper = ref<Swiper | null>(null);
+
+const initMoreOrdersSwiper = (swiper: Swiper) => {
+  moreOrdersSwiper.value = swiper;
+};
+
+const moreOrders = ref([
+  {
+    name: "Name Photo1",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 1,
+  },
+  {
+    name: "Name Photo2",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 2,
+  },
+  {
+    name: "Name Photo3",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 3,
+  },
+  {
+    name: "Name Photo4",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 4,
+  },
+  {
+    name: "Name Photo5",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 5,
+  },
+  {
+    name: "Name Photo6",
+    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
+    orderId: 6,
+  },
+]);
+</script>
+
 <template>
   <main>
     <Title> Карта фото </Title>
@@ -90,6 +133,27 @@
         </div>
         <UIButton href="/">ORDER</UIButton>
       </div>
+    </section>
+
+    <!-- Раздел "More Abstract" -->
+    <section class="more">
+      <h2 class="more__title">MORE ABSTRACT</h2>
+      <p class="more__subtitle">View the entire collection</p>
+      <Swiper
+        class="more__slider"
+        :modules="[SwiperMousewheel]"
+        :mousewheel="true"
+        :slides-per-view="2"
+        :speed="1000"
+        @swiper="initMoreOrdersSwiper"
+      >
+        <SwiperSlide
+          v-for="moreOrder in moreOrders"
+          :key="`more__slider-item-${moreOrder.id}`"
+        >
+          <AppPortMoreOrder v-bind="moreOrder" class="more__slider-item" />
+        </SwiperSlide>
+      </Swiper>
     </section>
   </main>
 </template>
@@ -195,6 +259,37 @@
 
     > :deep(.btn-default) {
       width: 100%;
+    }
+  }
+}
+
+.more {
+  padding: 65px 65px 108px;
+  background-color: #eceae8;
+
+  &__title {
+    margin-left: -12px;
+    color: #000000;
+    font-size: 190px;
+    font-weight: bold;
+    letter-spacing: 5px;
+  }
+
+  &__subtitle {
+    color: #999999;
+    font-size: 33px;
+    margin-top: 23px;
+  }
+
+  &__slider {
+    margin-top: 54px;
+    :deep(.swiper-wrapper) {
+      display: flex;
+      gap: 50px;
+    }
+
+    &-item {
+      width: 888px;
     }
   }
 }

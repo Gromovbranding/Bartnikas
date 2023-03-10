@@ -1,14 +1,21 @@
+<script lang="ts" setup>
+const config = useRuntimeConfig();
+const blogs = ref([]);
+
+const fetchBlogs = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/blogs`);
+  blogs.value = data.value;
+};
+
+fetchBlogs();
+</script>
+
 <template>
   <main>
     <Title> Blog </Title>
     <AppPageHead title="Blog" />
-    <section class="blog">
-      <AppMediaItem to="/blog/1" />
-      <AppMediaItem to="/blog/1" />
-      <AppMediaItem to="/blog/1" />
-      <AppMediaItem to="/blog/1" />
-      <AppMediaItem to="/blog/1" />
-      <AppMediaItem to="/blog/1" />
+    <section v-if="blogs.length" class="blog">
+      <AppMediaItem v-for="blog in blogs" :key="blog.id" :blog="blog" />
     </section>
   </main>
 </template>
@@ -19,5 +26,18 @@
   grid-template-columns: repeat(2, minmax(450px, 100%));
   grid-gap: 180px 80px;
   padding: 80px 40px;
+}
+
+@media screen and (max-width: 479px) {
+  .blog {
+    padding: 50px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    &:deep(.interios) {
+      width: 100%;
+    }
+  }
 }
 </style>

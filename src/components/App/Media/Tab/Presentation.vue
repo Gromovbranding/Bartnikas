@@ -79,4 +79,32 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 60px;
+  }
+  .media__presentation {
+    > div {
+      &:first-child {
+        img {
+        }
+      }
+
+      &:last-child {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        h3 {
+          font-size: 7vw;
+        }
+
+        &:deep(button) {
+        }
+      }
+    }
+  }
+}
 </style>

@@ -95,4 +95,42 @@ main {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 70px;
 }
+
+@media screen and (max-width: 479px) {
+  main {
+  }
+  .collection {
+    padding: 80px 16px;
+    &__select {
+      span {
+      }
+    }
+  }
+
+  .filter {
+    align-items: flex-start;
+    padding: 20px 16px;
+    gap: 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    > :deep(.btn-default) {
+      width: calc(50% - 6px);
+      padding: 18px 0;
+      font-size: 5vw;
+    }
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // AppSectionHeader
+  :deep(.caption) {
+    h2 {
+      font-size: 12vw;
+    }
+  }
+}
 </style>

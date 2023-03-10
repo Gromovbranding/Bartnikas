@@ -255,4 +255,130 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .interios-order {
+    padding: 50px 16px;
+    &__content {
+      display: flex;
+      flex-direction: column;
+      height: 800px;
+      .interios-order__sl {
+        position: relative;
+        .interios-order__project {
+          &-select {
+            gap: 14px;
+            span {
+              font-size: 26px;
+            }
+          }
+
+          &-name {
+            position: absolute;
+            top: 470px;
+            margin: 0;
+            font-size: 34px;
+          }
+
+          &-colors {
+            position: absolute;
+            top: 530px;
+            margin: 0;
+            h4 {
+              font-size: 24px;
+              margin-bottom: 20px;
+            }
+
+            > div {
+              max-width: 50%;
+              > div {
+                width: 45px;
+                &:nth-child(1) {
+                }
+
+                &:nth-child(2) {
+                }
+
+                &:nth-child(3) {
+                }
+
+                &:nth-child(4) {
+                }
+
+                &:nth-child(5) {
+                }
+
+                &:nth-child(6) {
+                }
+              }
+            }
+          }
+
+          &-order {
+            position: absolute;
+            top: 720px;
+            width: 100%;
+            margin: 0;
+          }
+        }
+      }
+
+      .swiper {
+        &-slider {
+          &__main {
+            margin-top: 30px;
+            :deep(.swiper-button-prev) {
+              display: none;
+            }
+            :deep(.swiper-button-next) {
+              display: none;
+            }
+            :deep(.swiper-wrapper) {
+              min-height: 264px;
+              max-height: 264px;
+            }
+
+            :deep(.swiper-slide) {
+              img {
+                height: 250px;
+              }
+            }
+
+            &-navigation {
+              margin-top: 200px;
+              justify-content: flex-end;
+              gap: 22px;
+              :deep(.btn-default) {
+                padding: 8px 10px;
+              }
+            }
+          }
+
+          &__thumb {
+            :deep(.swiper-wrapper) {
+            }
+
+            :deep(.swiper-slide-thumb-active) {
+            }
+
+            :deep(.swiper-slide) {
+              flex: 0 0 calc(58px);
+              img {
+                min-height: 58px;
+                max-height: 58px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  :deep(.caption) {
+    margin-bottom: 60px;
+    h2 {
+      font-size: 12vw;
+    }
+  }
+}
 </style>

@@ -1,3 +1,36 @@
+<script lang="ts" setup>
+const config = useRuntimeConfig();
+
+const route = useRoute();
+const blogId = route.params.id;
+
+const blog = ref({});
+
+const fetchBlog = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/blogs/${blogId}`);
+  blog.value = data.value;
+};
+
+fetchBlog();
+
+const date = computed(() => {
+  if (!blog.value.date) return "28.02.2023";
+  const d = new Date(blog.value.date);
+  const year = d.toLocaleString("default", { year: "numeric" });
+  const month = d.toLocaleString("default", { month: "2-digit" });
+  const day = d.toLocaleString("default", { day: "2-digit" });
+  return `${day}.${month}.${year}`;
+});
+
+const imageCover = computed(() => {
+  if (!blog.value.images?.length || !blog.value.images[0].url) {
+    return "https://static.tildacdn.com/tild6633-3138-4831-b566-343130343938/20210401_-_Art_0152.jpg";
+  }
+
+  return blog.value.images[0].url;
+});
+</script>
+
 <template>
   <main>
     <Title> Article of blog </Title>
@@ -5,71 +38,18 @@
 
     <article class="article">
       <div class="article__headline">
-        <time> 19.02.2022 </time>
-        <h1>
-          Obvious x Stas Bartnikas: A Collaboration of Aerial Photography and
-          Artificial Intelligence
-        </h1>
+        <time> {{ date }} </time>
+        <h1>{{ blog.title }}</h1>
       </div>
       <div class="article__img">
-        <img
-          src="https://static.tildacdn.com/tild6633-3138-4831-b566-343130343938/20210401_-_Art_0152.jpg"
-          alt=""
-        />
+        <img :src="imageCover" alt="" />
       </div>
       <div class="article__text">
-        <p>
-          The technological capabilities of artificial intelligence (AI) offer
-          new touchstones for understanding and acting on climate change.
-          <a href="#">OBVIOUS</a>, a collective of three artist friends in
-          Paris, create art using AI. For the Human/Nature exhibition, they
-          collaborated with aerial nature photographer
-          <a href="#">Stas Bartnikas</a>, who has taken many thousands of aerial
-          photographs of landscapes around the world, including of sensitive
-          ecosystems, to create <a href="#">The DoomsdAI Clock</a>.
-        </p>
-        <p>
-          Adapting the imagery of the Bulletin’s Doomsday Clock to convey
-          "criticism and a message of hope" in addressing climate change, the
-          piece is an evolving, evocative artwork displaying an AI-generated
-          video within a frame of aluminum and wood. The time displayed on the
-          clock coordinates with the official time announced by the Bulletin of
-          Atomic Scientists.
-        </p>
-        <p>
-          For The DoomsdAI Clock, OBVIOUS created an algorithm primarily using
-          the landscapes of Iceland, along with photos of other remote places on
-          Earth, to project a composite of landscape images in a process of
-          rapid transformation. Just over 5,000 photos were required to produce
-          an algorithm with high-definition results in 24 hours—a significant
-          advance over what was possible a few years ago.
-        </p>
-        <p>
-          Today, AI research, or machine learning with the universal Python
-          programming language, is used to predict changes to the earth’s
-          ecosystems as a consequence of climate change; and to devise ways to
-          repair ecological damage, for example, to the barrier reefs, and to
-          preserve the habitats of endangered species. Morphing images of
-          landscapes in The DoomsdAI Clock, not representative of a particular
-          place, but deeply evocative of Earth’s magical beauty, suggest unknown
-          possibilities for imminent changes to the earth’s surface; and remind
-          us that AI may reflect back to us something different, something more
-          than human awareness is currently capable of perceiving or imagining.
-          As <a href="#">Misho Ceko</a>, Harris COO who oversees art
-          installations at the Keller Center, notes, "AI promises seemingly
-          limitless potential for predicting environmental conditions and
-          testing solutions to the climate crisis in ways that are safe and
-          efficient, accurate and cost effective — they're not invasive or
-          dangerous, nor constrained by time and physical resources. The AI work
-          being done by OBVIOUS exemplifies the power and potential of art to
-          convey complex scientific data to diverse public audiences—communities
-          who urgently need to be educated and engaged in new ways about climate
-          change."
-        </p>
+        <p>{{ blog?.text }}</p>
       </div>
     </article>
 
-    <AppMediaNextPrev />
+    <AppMediaNextPrev :prev="blog?.prev" :next="blog?.next" slug="blog" />
   </main>
 </template>
 
@@ -106,6 +86,7 @@
       position: sticky;
       top: 50px;
       border-radius: $borderRadiusMain;
+      object-fit: cover;
     }
   }
 
@@ -121,6 +102,50 @@
       }
       &:not(:first-child) {
         margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .article {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 16px;
+    gap: 0;
+    &__headline {
+      flex-direction: column;
+      align-items: flex-start;
+      > h1 {
+        font-size: 8vw;
+        line-height: 1.4;
+      }
+
+      > time {
+        font-size: 4.5vw;
+      }
+    }
+
+    &__img {
+      margin: 50px 0 30px;
+      img {
+        max-height: 280px;
+      }
+    }
+
+    &__text {
+      flex-direction: column;
+      padding: 0;
+      gap: 30px;
+      > p {
+        &:first-child {
+          font-size: 5vw;
+          line-height: 1.5;
+        }
+
+        &:last-child {
+          font-size: 4.5vw;
+        }
       }
     }
   }

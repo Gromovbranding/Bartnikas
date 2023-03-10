@@ -20,4 +20,14 @@
     will-change: transform;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .spliter {
+    padding: 42px 30px;
+
+    h2 {
+      letter-spacing: 3px;
+    }
+  }
+}
 </style>

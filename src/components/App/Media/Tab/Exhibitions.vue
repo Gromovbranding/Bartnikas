@@ -90,4 +90,29 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 50px;
+    margin-top: 30px;
+  }
+  .media__exhibitions {
+    img {
+      max-height: 240px;
+    }
+    > div {
+      padding: 0 16px;
+      h3 {
+        margin-bottom: 5px;
+        font-size: 22px;
+        font-weight: 800;
+      }
+      p {
+        font-size: 22px;
+      }
+    }
+  }
+}
 </style>

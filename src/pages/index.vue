@@ -1,3 +1,29 @@
+<script lang="ts" setup>
+const config = useRuntimeConfig();
+
+const news = ref([]);
+const fetchNews = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/news`);
+  news.value = data.value;
+};
+
+const projects = ref([]);
+const fetchProjects = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/projects`);
+  projects.value = data.value;
+};
+
+Promise.allSettled([
+  fetchNews(),
+  fetchProjects(),
+  //
+]);
+
+const hotNews = computed(() => {
+  return news.value?.find((n: any) => n.is_hot);
+});
+</script>
+
 <template>
   <main>
     <Title>Home</Title>
@@ -13,17 +39,19 @@
       </div>
     </header>
     <AppContentSpliter> CONCEPT </AppContentSpliter>
-    <AppSectionVideoGreeting />
-    <AppContentSpliter> PROJECTS </AppContentSpliter>
-    <section class="projects">
-      <AppPortItem />
-      <AppPortItem direction="row-reverse" />
-      <AppPortItem />
-      <AppPortItem direction="row-reverse" />
+    <AppSectionVideoGreeting class="app-video-greeting" />
+    <AppContentSpliter v-if="projects.length"> PROJECTS </AppContentSpliter>
+    <section v-if="projects.length" class="projects">
+      <AppPortItem
+        v-for="(project, idx) in projects"
+        :key="project?.id"
+        :project="project"
+        :direction="idx % 2 ? 'row-reverse' : 'row'"
+      />
     </section>
-    <AppSectionHotNews />
+    <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppAwardsSection />
-    <AppMediaSection />
+    <AppMediaSection v-if="news.length" :news="news" />
     <AppSectionInteriosOrderSlider />
     <section class="home-info-project-paralax">
       <div>
@@ -44,6 +72,7 @@
       </div>
     </section>
     <AppVideoSection />
+    <AppTestimonialsSection />
   </main>
 </template>
 
@@ -131,6 +160,58 @@
       top: 0;
       width: 100%;
       height: 100vh;
+    }
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .header {
+    &__main {
+      height: 530px;
+      &:deep(svg) {
+        width: 88%;
+      }
+    }
+    &__img-sticky {
+      height: 167vh;
+      img {
+        object-fit: none;
+      }
+    }
+  }
+
+  .app-video-greeting {
+    margin-bottom: 80px;
+  }
+
+  .home-info-project-paralax {
+    height: 2000px;
+
+    > div {
+      &:first-child {
+        img {
+        }
+      }
+
+      &:last-child {
+        padding: 60px 16px;
+        left: 16px;
+        right: 16px;
+        h3 {
+          font-size: 50px;
+          word-wrap: break-word;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-size: 20px;
+          line-height: 1.6;
+        }
+
+        button {
+          font-size: 32px;
+        }
+      }
     }
   }
 }

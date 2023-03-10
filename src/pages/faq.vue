@@ -153,4 +153,61 @@ const handleQuestionClick = (item: IItem) => {
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .faq {
+    padding: 30px 16px 100px;
+    &__list {
+      gap: 30px;
+    }
+
+    &__item {
+      &--acitve {
+        .faq__question {
+          padding: 30px 16px;
+          > div {
+            &:first-child {
+              h3 {
+              }
+            }
+
+            &:last-child {
+              span {
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__question {
+      padding: 30px 16px;
+      gap: 38px;
+      > div {
+        &:first-child {
+          h3 {
+            font-size: 6vw;
+            line-height: 1.5;
+          }
+        }
+
+        &:last-child {
+          flex: 1 0 auto;
+          width: 72px;
+          height: 72px;
+          span {
+          }
+        }
+      }
+    }
+
+    &__answer {
+      padding: 30px 16px 40px;
+      p {
+        font-size: 5vw;
+        line-height: 1.5;
+      }
+    }
+  }
+}
 </style>

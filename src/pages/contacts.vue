@@ -123,4 +123,44 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .contacts {
+    flex-direction: column;
+    > div {
+      &:first-child {
+        img {
+        }
+      }
+
+      &:last-child {
+        max-width: 100%;
+        margin-left: 0;
+        padding: 16px 16px 80px;
+        > div {
+          margin-bottom: 40px;
+          a {
+            :deep(svg) {
+            }
+          }
+        }
+
+        h3 {
+          font-size: 6.5vw;
+        }
+
+        p {
+          font-size: 5vw;
+        }
+
+        form {
+          > div {
+            label {
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>

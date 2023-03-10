@@ -57,4 +57,28 @@
     }
   }
 }
+
+@media screen and (max-width: 479px) {
+  .video-collection {
+    &__img {
+      img {
+        height: 260px;
+      }
+    }
+
+    &__play {
+      &:hover {
+      }
+    }
+
+    &__info {
+      h4 {
+      }
+
+      time {
+        font-size: 18px;
+      }
+    }
+  }
+}
 </style>

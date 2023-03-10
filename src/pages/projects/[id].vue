@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+const config = useRuntimeConfig();
+const route = useRoute();
+const projectId = route.params.id;
+
+const project = ref(null);
+const fetchProject = async () => {
+  const { data } = await useFetch(`${config.apiBaseUrl}/projects/${projectId}`);
+  project.value = data.value;
+};
+
+fetchProject();
+</script>
+
 <template>
   <main>
     <Title> Landscape </Title>
@@ -64,7 +78,12 @@
       </section>
 
       <section class="port-list">
-        <AppPortOrder v-for="i in 8" :key="`port-item${i}`" />
+        <AppPortOrder
+          v-for="img in project?.project_images"
+          :key="`port-item${img.id}`"
+          :project-id="project?.id"
+          :project-image="img"
+        />
       </section>
     </div>
   </main>
@@ -143,5 +162,24 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 120px 15px;
+}
+
+@media screen and (max-width: 479px) {
+  .project {
+    padding: 80px 12px;
+  }
+  .author-quote {
+    flex-direction: column;
+    &__text p {
+      font-size: 16px;
+    }
+    &__text svg {
+      width: 24px !important;
+    }
+  }
+  .port-list {
+    grid-template-columns: 1fr;
+    grid-gap: 60px 15px;
+  }
 }
 </style>
