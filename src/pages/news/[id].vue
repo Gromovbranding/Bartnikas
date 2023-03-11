@@ -23,7 +23,7 @@ const date = computed(() => {
 });
 
 const imageCover = computed(() => {
-  if (!news.value.images?.length || !news.value.images[0].url) {
+  if (!news?.value?.images?.length || !news?.value?.images[0]?.url) {
     return "https://static.tildacdn.com/tild3565-3534-4961-b036-643938396163/noroot.png";
   }
 

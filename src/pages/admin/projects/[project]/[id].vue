@@ -163,9 +163,8 @@ const handlePictureCardPreview = (file: UploadFile) => {
 
 const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
   ElMessage.warning(
-    `The limit is 10, you selected ${files.length} files this time, add up to ${
-      files.length + uploadFiles.length
-    } totally`
+    `The limit is 10, you selected ${files?.length} files this time, add up to
+    ${files?.length + uploadFiles?.length} totally`
   );
 };
 
@@ -201,7 +200,7 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
         list-type="picture-card"
         :limit="10"
         :on-exceed="handleExceed"
-        :class="{ upload_disabled: form.files?.length >= 10 }"
+        :class="{ upload_disabled: form?.files?.length >= 10 }"
       >
         <el-icon><Icon name="ep:plus" /></el-icon>
 

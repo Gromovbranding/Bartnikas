@@ -96,7 +96,7 @@ const submitEdit = async (id: number, form: object) => {
 
 const submitForm = async (valid) => {
   if (valid) {
-    if (!imgIds.value?.length) {
+    if (!imgIds?.value?.length) {
       ElNotification.error({
         title: "Error",
         message: "Please upload image",
@@ -186,8 +186,8 @@ const handlePictureCardPreview = (file: UploadFile) => {
 
 const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
   ElMessage.warning(
-    `The limit is 1, you selected ${files.length} files this time, add up to ${
-      files.length + uploadFiles.length
+    `The limit is 1, you selected ${files?.length} files this time, add up to ${
+      files?.length + uploadFiles?.length
     } totally`
   );
 };
@@ -240,7 +240,7 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
         list-type="picture-card"
         :limit="1"
         :on-exceed="handleExceed"
-        :class="{ upload_disabled: form.images.length }"
+        :class="{ upload_disabled: form?.images?.length }"
       >
         <el-icon><Icon name="ep:plus" /></el-icon>
 

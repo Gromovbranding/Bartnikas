@@ -40,8 +40,8 @@ const hotNews = computed(() => {
     </header>
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
-    <AppContentSpliter v-if="projects.length"> PROJECTS </AppContentSpliter>
-    <section v-if="projects.length" class="projects">
+    <AppContentSpliter v-if="projects?.length"> PROJECTS </AppContentSpliter>
+    <section v-if="projects?.length" class="projects">
       <AppPortItem
         v-for="(project, idx) in projects"
         :key="project?.id"
@@ -51,7 +51,7 @@ const hotNews = computed(() => {
     </section>
     <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppAwardsSection />
-    <AppMediaSection v-if="news.length" :news="news" />
+    <AppMediaSection v-if="news?.length" :news="news" />
     <AppSectionInteriosOrderSlider />
     <section class="home-info-project-paralax">
       <div>

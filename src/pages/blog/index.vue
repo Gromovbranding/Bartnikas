@@ -14,7 +14,7 @@ fetchBlogs();
   <main>
     <Title> Blog </Title>
     <AppPageHead title="Blog" />
-    <section v-if="blogs.length" class="blog">
+    <section v-if="blogs?.length" class="blog">
       <AppMediaItem v-for="blog in blogs" :key="blog.id" :blog="blog" />
     </section>
   </main>

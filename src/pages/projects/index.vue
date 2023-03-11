@@ -14,7 +14,7 @@ fetchProjects();
   <main>
     <Title> Projects </Title>
     <AppPageHead title="Projects" />
-    <section v-if="projects.length" class="projects">
+    <section v-if="projects?.length" class="projects">
       <AppPortItem
         v-for="(project, idx) in projects"
         :key="project?.id"

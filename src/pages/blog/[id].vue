@@ -23,7 +23,7 @@ const date = computed(() => {
 });
 
 const imageCover = computed(() => {
-  if (!blog.value.images?.length || !blog.value.images[0].url) {
+  if (!blog?.value?.images?.length || !blog?.value?.images[0]?.url) {
     return "https://static.tildacdn.com/tild6633-3138-4831-b566-343130343938/20210401_-_Art_0152.jpg";
   }
 
