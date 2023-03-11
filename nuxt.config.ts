@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       app: {
-        DEBUG: process.env.NODE_ENV === "development",
+        // DEBUG: process.env.NODE_ENV === "development",
+        DEBUG: true,
       },
       apiBaseUrl: process.env.API_BASE_URL,
     },
