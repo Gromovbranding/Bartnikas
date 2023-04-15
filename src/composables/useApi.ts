@@ -57,7 +57,7 @@ export const useApi = () => {
     username: string;
     password: string;
   }) => {
-    return await fetchApi<{ access_token?: string }>("/auth/login", "POST", {
+    return await fetchApi("/auth/login", "POST", {
       username,
       password,
     });
