@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 const blogs = ref([]);
 
 const fetchBlogs = async () => {

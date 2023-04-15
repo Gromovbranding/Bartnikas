@@ -12,7 +12,7 @@ const isCreate = computed(() => entityId.value === "create");
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 
 setPageName(`Project ${isCreate.value ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({

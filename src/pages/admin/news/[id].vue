@@ -17,7 +17,7 @@ const isCreate = entityId === "create";
 
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 setPageName(`News ${isCreate ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({

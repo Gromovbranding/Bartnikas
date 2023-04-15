@@ -17,7 +17,7 @@ const imageId = route.params.id;
 const isCreate = imageId === "create";
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 setPageName(`Project Image ${isCreate ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({

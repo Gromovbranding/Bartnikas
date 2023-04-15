@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const route = useRoute();
 const newsId = route.params.id;

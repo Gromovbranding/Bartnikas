@@ -1,5 +1,5 @@
 export const useApi = () => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig().public;
   const { accessToken, setAccessToken, clearAccessToken } = useAdmin();
 
   const fetchApi = async <T>(
