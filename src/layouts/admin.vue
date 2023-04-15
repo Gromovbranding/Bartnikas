@@ -2,6 +2,8 @@
 definePageMeta({
   middleware: ["admin-auth"],
 });
+
+const { pageName } = useAdmin();
 </script>
 
 <template>
@@ -13,7 +15,7 @@ definePageMeta({
         <template #header>
           <div class="admin-layout__main-header">
             <client-only>
-              <!-- <h1>{{ adminStore.pageName }}</h1> -->
+              <h1>{{ pageName }}</h1>
             </client-only>
           </div>
         </template>
