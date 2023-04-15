@@ -2,55 +2,52 @@ export const useApi = () => {
   const config = useRuntimeConfig();
   const { accessToken, setAccessToken, clearAccessToken } = useAdmin();
 
-  const fetchApi = async (
+  const fetchApi = async <T>(
     path: string,
     method: "POST" | "GET" | "DELETE" | "PATCH",
     body: any = {}
   ) => {
-    try {
-      return await $fetch(`${config.apiBaseUrl}${path}`, {
-        method,
-        body,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-    } catch (exc) {
-      ElNotification.error({
-        title: "Error",
-        message: exc,
-        position: "bottom-right",
-      });
+    return await useFetch<T>(`${config.apiBaseUrl}${path}`, {
+      method,
+      body,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
 
-      if (exc.status === 401) {
-        clearAccessToken();
-        await navigateTo("/admin/login");
-      }
-    }
+      async onResponse({ response }) {
+        if (response._data.access_token) {
+          setAccessToken(response._data.access_token);
+          await navigateTo("/admin");
+        }
+
+        return response._data;
+      },
+
+      async onResponseError({ response }) {
+        ElNotification.error({
+          title: "Error",
+          message: response.statusText,
+          position: "bottom-right",
+        });
+
+        if (response.status === 401) {
+          clearAccessToken();
+          await navigateTo("/admin/login");
+        }
+      },
+    });
   };
 
   const fetchDelete = async (path: string) => {
-    try {
-      await fetchApi(path, "DELETE");
-    } catch (exc) {
-      console.log(exc);
-    }
+    return await fetchApi(path, "DELETE");
   };
 
   const fetchPost = async (path: string) => {
-    try {
-      await fetchApi(path, "POST");
-    } catch (exc) {
-      console.log(exc);
-    }
+    return await fetchApi(path, "POST");
   };
 
   const fetchUpdate = async (path: string) => {
-    try {
-      return await fetchApi(path, "GET");
-    } catch (exc) {
-      console.log(exc);
-    }
+    return await fetchApi(path, "GET");
   };
 
   const login = async ({
@@ -60,19 +57,10 @@ export const useApi = () => {
     username: string;
     password: string;
   }) => {
-    try {
-      const { data } = await fetchApi("/auth/login", "POST", {
-        username,
-        password,
-      });
-
-      if (data.value?.access_token) {
-        setAccessToken(data.value.access_token);
-        await navigateTo("/admin");
-      }
-    } catch (exc) {
-      console.log(exc);
-    }
+    return await fetchApi<{ access_token?: string }>("/auth/login", "POST", {
+      username,
+      password,
+    });
   };
 
   return {

@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+import type {
+  FormInstance,
+  FormRules,
+  UploadFile,
+  UploadProps,
+  UploadUserFile,
+} from "element-plus";
+
 definePageMeta({
   layout: "admin",
 });

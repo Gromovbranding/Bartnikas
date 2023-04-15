@@ -1,5 +1,5 @@
-export const useDateFormat = (date: string) => {
-  const makeDateCorrect = () => {
+export const useDateFormat = () => {
+  const makeDateCorrect = (date: string) => {
     if (!date) return "28.02.2023";
     const d = new Date(date);
     const year = d.toLocaleString("default", { year: "numeric" });

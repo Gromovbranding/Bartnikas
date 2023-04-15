@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FormInstance, FormRules, ElNotification } from "element-plus";
+import type { FormInstance, FormRules } from "element-plus";
 
 definePageMeta({
   layout: "admin",
