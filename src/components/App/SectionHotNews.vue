@@ -20,18 +20,13 @@ const props = withDefaults(defineProps<Props>(), {
   news: null,
 });
 
-const dateCorrect = computed(() => {
-  if (!props.news?.date) return "";
-  const d = new Date(props.news?.date);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
-});
+const { makeDateCorrect } = useDateFormat();
 
 const title = computed(() => {
   if (!props.news?.title || !props.news?.date) return "";
-  return ` — ${dateCorrect.value} — ${props.news.title}`.repeat(3);
+  return ` — ${makeDateCorrect(props.news.date.toString())} — ${
+    props.news.title
+  }`.repeat(3);
 });
 </script>
 
