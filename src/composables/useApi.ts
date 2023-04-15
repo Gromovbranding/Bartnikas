@@ -42,8 +42,8 @@ export const useApi = () => {
     return await fetchApi(path, "DELETE");
   };
 
-  const fetchPost = async (path: string) => {
-    return await fetchApi(path, "POST");
+  const fetchPost = async (path: string, body: any = {}) => {
+    return await fetchApi(path, "POST", body);
   };
 
   const fetchUpdate = async (path: string) => {
@@ -57,7 +57,7 @@ export const useApi = () => {
     username: string;
     password: string;
   }) => {
-    return await fetchApi("/auth/login", "POST", {
+    return await fetchPost("/auth/login", {
       username,
       password,
     });
