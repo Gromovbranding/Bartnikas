@@ -1,10 +1,5 @@
 <script lang="ts" setup>
-const { clearAccessToken } = useAdmin();
-
-const logout = async () => {
-  clearAccessToken();
-  await navigateTo("/admin/login");
-};
+const { logout } = useAdmin();
 </script>
 
 <template>

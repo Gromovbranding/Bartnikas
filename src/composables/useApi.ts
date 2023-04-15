@@ -50,21 +50,7 @@ export const useApi = () => {
     return await fetchApi(path, "GET");
   };
 
-  const login = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    return await fetchPost("/auth/login", {
-      username,
-      password,
-    });
-  };
-
   return {
-    login,
     fetchDelete,
     fetchPost,
     fetchUpdate,

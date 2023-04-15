@@ -3,7 +3,7 @@ definePageMeta({
   layout: "admin-auth",
 });
 
-const { login } = useApi();
+const { login } = useAdmin();
 
 const username = ref("");
 const password = ref("");
