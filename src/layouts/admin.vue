@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { useAdminStore } from "~/stores/admin";
-const adminStore = useAdminStore();
+definePageMeta({
+  middleware: ["admin-auth"],
+});
 </script>
 
 <template>
@@ -12,7 +13,7 @@ const adminStore = useAdminStore();
         <template #header>
           <div class="admin-layout__main-header">
             <client-only>
-              <h1>{{ adminStore.pageName }}</h1>
+              <!-- <h1>{{ adminStore.pageName }}</h1> -->
             </client-only>
           </div>
         </template>

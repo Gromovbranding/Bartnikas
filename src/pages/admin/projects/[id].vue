@@ -1,18 +1,17 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules, ElNotification } from "element-plus";
-import { useAdminStore } from "~/stores/admin";
 
 definePageMeta({
   layout: "admin",
-  middleware: ["admin-auth"],
 });
 
 const route = useRoute();
 const entityId = ref(route.params.id);
 const isCreate = computed(() => entityId.value === "create");
 
-const adminStore = useAdminStore();
-adminStore.setPageName(`Project ${isCreate.value ? "Create" : "Edit"}`);
+const { setPageName, accessToken, clearAccessToken } = useAdmin();
+
+setPageName(`Project ${isCreate.value ? "Create" : "Edit"}`);
 const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
@@ -64,7 +63,7 @@ const submitSave = async (form: object) => {
     body: { ...form },
     // body: { ...form, images: imgIds.value },
     headers: {
-      Authorization: `Bearer ${adminStore.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
   entityId.value = data.id;
@@ -76,7 +75,7 @@ const submitEdit = async (id: number, form: object) => {
     body: { ...form },
     // body: { ...form, images: imgIds.value },
     headers: {
-      Authorization: `Bearer ${adminStore.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
   entityId.value = data.id;
@@ -111,7 +110,7 @@ const submitForm = async (valid, notice) => {
         position: "bottom-right",
       });
       if (e.status === 401) {
-        adminStore.clearAccessToken();
+        clearAccessToken();
         await navigateTo("/admin/login");
       }
       return false;
@@ -174,7 +173,7 @@ const handleDeleteConfirm = async () => {
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${adminStore.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
@@ -186,7 +185,7 @@ const handleDeleteConfirm = async () => {
       position: "bottom-right",
     });
     if (e.status === 401) {
-      adminStore.clearAccessToken();
+      clearAccessToken();
       await navigateTo("/admin/login");
     }
   }

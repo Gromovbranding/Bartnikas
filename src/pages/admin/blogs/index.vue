@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin",
-  middleware: ["admin-auth"],
 });
 
-const adminStore = useAdminStore();
-adminStore.setPageName("Blogs");
-const config = useRuntimeConfig();
+const { setPageName } = useAdmin();
+const { makeDateCorrect } = useDateFormat();
+const { fetchDelete, fetchUpdate } = useApi();
+
+setPageName("Blogs");
 
 const dialogVisible = ref(false);
 const deleteId = ref(null);
@@ -18,62 +17,44 @@ const entites = ref([]);
 const handleCreate = async () => {
   await navigateTo("/admin/blogs/create");
 };
+
 const handleEdit = async (row: any) => {
   await navigateTo(`/admin/blogs/${row.id}`);
 };
+
 const handleDelete = (row: any) => {
   deleteId.value = row.id;
   dialogVisible.value = true;
 };
+
 const handleDeleteCancel = () => {
   dialogVisible.value = false;
   deleteId.value = null;
 };
 
-const fetch = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/blogs`);
+const updateBlogs = async () => {
+  const { data } = await fetchUpdate("/blogs");
   entites.value = data.value;
 };
 
 const handleDeleteConfirm = async () => {
-  dialogVisible.value = false;
   try {
-    await $fetch(`${config.apiBaseUrl}/blogs/${deleteId.value}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${adminStore.accessToken}`,
-      },
-    });
-    fetch();
+    dialogVisible.value = false;
+    await fetchDelete(`/blogs/${deleteId.value}`);
+    await updateBlogs();
   } catch (e) {
-    ElNotification.error({
-      title: "Error",
-      message: e,
-      position: "bottom-right",
-    });
-    if (e.status === 401) {
-      adminStore.clearAccessToken();
-      await navigateTo("/admin/login");
-    }
+    console.log(e);
+  } finally {
+    deleteId.value = null;
   }
-  deleteId.value = null;
 };
 
-fetch();
-
-const dateToCorrect = (date: string) => {
-  if (!date) return "28.02.2023";
-  const d = new Date(date);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
-};
+await updateBlogs();
 
 const entitesСorrected = computed(() => {
   return entites.value?.map((e: any) => ({
     ...e,
-    date: dateToCorrect(e?.date),
+    date: makeDateCorrect(e?.date),
   }));
 });
 </script>

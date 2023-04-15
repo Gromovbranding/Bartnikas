@@ -16,7 +16,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "vue", "nuxt"],
-  "ignorePatterns": [".nuxt/**", ".output/**", "useDebug.ts", ".vscode/**", "src/packages/**"],
+  "ignorePatterns": [".nuxt/**", ".output/**", ".vscode/**", "src/packages/**"],
   "rules": {
     "vue/multi-word-component-names": "off",
     "no-console": "warn",

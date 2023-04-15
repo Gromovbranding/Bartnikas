@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin",
-  middleware: ["admin-auth"],
 });
 
-const adminStore = useAdminStore();
-adminStore.setPageName("News");
-const config = useRuntimeConfig();
+const { setPageName } = useAdmin();
+const { makeDateCorrect } = useDateFormat();
+const { fetchDelete, fetchPost, fetchUpdate } = useApi();
+
+setPageName("News");
 
 const dialogVisible = ref(false);
 const deleteId = ref(null);
@@ -18,87 +17,56 @@ const entites = ref([]);
 const handleCreate = async () => {
   await navigateTo("/admin/news/create");
 };
+
 const handleEdit = async (row: any) => {
   await navigateTo(`/admin/news/${row.id}`);
 };
+
 const handleDelete = (row: any) => {
   deleteId.value = row.id;
   dialogVisible.value = true;
 };
+
 const handleDeleteCancel = () => {
   dialogVisible.value = false;
   deleteId.value = null;
 };
 
-const fetch = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/news`);
+const updateNews = async () => {
+  const { data } = await fetchUpdate("/news");
   entites.value = data.value;
 };
 
 const handleDeleteConfirm = async () => {
-  dialogVisible.value = false;
   try {
-    await $fetch(`${config.apiBaseUrl}/news/${deleteId.value}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${adminStore.accessToken}`,
-      },
-    });
-    fetch();
+    dialogVisible.value = false;
+    await fetchDelete(`/news/${deleteId.value}`);
+    await updateNews();
   } catch (e) {
-    ElNotification.error({
-      title: "Error",
-      message: e,
-      position: "bottom-right",
-    });
-    if (e.status === 401) {
-      adminStore.clearAccessToken();
-      await navigateTo("/admin/login");
-    }
+    console.log(e);
+  } finally {
+    deleteId.value = null;
   }
-  deleteId.value = null;
 };
-
-fetch();
-
-const dateToCorrect = (date: string) => {
-  if (!date) return "28.02.2023";
-  const d = new Date(date);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
-};
-
-const entitesСorrected = computed(() => {
-  return entites.value?.map((e: any) => ({
-    ...e,
-    date: dateToCorrect(e?.date),
-  }));
-});
 
 // TODO тут шлется лишний запрос, если is_hot у новости уже true
 const setHot = async (id: number) => {
   try {
-    await $fetch(`${config.apiBaseUrl}/news/${id}/set-hot`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${adminStore.accessToken}`,
-      },
-    });
-    fetch();
+    await fetchPost(`/news/${id}/set-hot`);
+    await updateNews();
   } catch (e) {
-    ElNotification.error({
-      title: "Error",
-      message: e,
-      position: "bottom-right",
-    });
-    if (e.status === 401) {
-      adminStore.clearAccessToken();
-      await navigateTo("/admin/login");
-    }
+    console.log(e);
   }
 };
+
+await updateNews();
+
+const entitesСorrected = computed(() => {
+  return entites.value?.map((e: any) => ({
+    ...e,
+    date: makeDateCorrect(e?.date),
+  }));
+});
 </script>
 
 <template>

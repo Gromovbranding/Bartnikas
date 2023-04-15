@@ -1,24 +1,14 @@
 <script lang="ts" setup>
-import type {
-  FormInstance,
-  FormRules,
-  ElNotification,
-  ElMessage,
-  UploadFile,
-} from "element-plus";
-import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin",
-  middleware: ["admin-auth"],
 });
 
 const route = useRoute();
 const entityId = route.params.id;
 const isCreate = entityId === "create";
 
-const adminStore = useAdminStore();
-adminStore.setPageName(`News ${isCreate ? "Create" : "Edit"}`);
+const { setPageName, accessToken, clearAccessToken } = useAdmin();
+setPageName(`News ${isCreate ? "Create" : "Edit"}`);
 const config = useRuntimeConfig();
 
 const formRef = ref<FormInstance>();
@@ -79,7 +69,7 @@ const submitSave = async (form: object) => {
     method: "POST",
     body: { ...form, images: imgIds.value },
     headers: {
-      Authorization: `Bearer ${adminStore.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 };
@@ -89,7 +79,7 @@ const submitEdit = async (id: number, form: object) => {
     method: "PATCH",
     body: { ...form, images: imgIds.value },
     headers: {
-      Authorization: `Bearer ${adminStore.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 };
@@ -119,7 +109,7 @@ const submitForm = async (valid) => {
         position: "bottom-right",
       });
       if (e.status === 401) {
-        adminStore.clearAccessToken();
+        clearAccessToken();
         await navigateTo("/admin/login");
       }
     }
@@ -161,7 +151,7 @@ const handleRemoveImage = async (file: UploadFile) => {
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${adminStore.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
@@ -173,7 +163,7 @@ const handleRemoveImage = async (file: UploadFile) => {
       position: "bottom-right",
     });
     if (e.status === 401) {
-      adminStore.clearAccessToken();
+      clearAccessToken();
       await navigateTo("/admin/login");
     }
   }

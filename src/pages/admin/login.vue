@@ -1,28 +1,18 @@
 <script lang="ts" setup>
-import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin-auth",
 });
 
-const adminStore = useAdminStore();
-const config = useRuntimeConfig();
+const { login } = useApi();
 
-const username = ref(null);
-const password = ref(null);
+const username = ref("");
+const password = ref("");
 
 const onSubmit = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/auth/login`, {
-    method: "POST",
-    body: {
-      username: username.value,
-      password: password.value,
-    },
+  await login({
+    username: username.value,
+    password: password.value,
   });
-  if (data.value?.access_token) {
-    adminStore.setAccessToken(data.value.access_token);
-    await navigateTo("/admin");
-  }
 };
 </script>
 

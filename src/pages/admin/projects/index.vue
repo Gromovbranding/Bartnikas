@@ -1,14 +1,12 @@
 <script lang="ts" setup>
-import { useAdminStore } from "~/stores/admin";
-
 definePageMeta({
   layout: "admin",
-  middleware: ["admin-auth"],
 });
 
-const adminStore = useAdminStore();
-adminStore.setPageName("Projects");
-const config = useRuntimeConfig();
+const { setPageName } = useAdmin();
+const { fetchDelete, fetchUpdate } = useApi();
+
+setPageName("Projects");
 
 const dialogVisible = ref(false);
 const deleteId = ref(null);
@@ -18,48 +16,39 @@ const entites = ref([]);
 const handleCreate = async () => {
   await navigateTo("/admin/projects/create");
 };
+
 const handleEdit = async (row: any) => {
   await navigateTo(`/admin/projects/${row.id}`);
 };
+
 const handleDelete = (row: any) => {
   deleteId.value = row.id;
   dialogVisible.value = true;
 };
+
 const handleDeleteCancel = () => {
   dialogVisible.value = false;
   deleteId.value = null;
 };
 
-const fetch = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/projects`);
+const updateProjects = async () => {
+  const { data } = await fetchUpdate("/projects");
   entites.value = data.value;
 };
 
 const handleDeleteConfirm = async () => {
-  dialogVisible.value = false;
   try {
-    await $fetch(`${config.apiBaseUrl}/projects/${deleteId.value}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${adminStore.accessToken}`,
-      },
-    });
-    fetch();
+    dialogVisible.value = false;
+    await fetchDelete(`/projects/${deleteId.value}`);
+    await updateProjects();
   } catch (e) {
-    ElNotification.error({
-      title: "Error",
-      message: e,
-      position: "bottom-right",
-    });
-    if (e.status === 401) {
-      adminStore.clearAccessToken();
-      await navigateTo("/admin/login");
-    }
+    console.log(e);
+  } finally {
+    deleteId.value = null;
   }
-  deleteId.value = null;
 };
 
-fetch();
+await updateProjects();
 </script>
 
 <template>
