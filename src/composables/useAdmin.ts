@@ -1,5 +1,5 @@
 export const useAdmin = () => {
-  const accessToken = ref("");
+  const accessToken = useCookie<string>("accessToken");
   const pageName = ref("Admin Panel");
 
   const setPageName = (name: string) => {

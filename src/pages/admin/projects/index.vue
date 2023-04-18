@@ -29,6 +29,8 @@ const handleDeleteCancel = () => {
 
 const updateProjects = async () => {
   const { data } = await fetchUpdate("/projects");
+
+  console.log(data.value);
   entites.value = data.value;
 };
 
@@ -49,11 +51,11 @@ await updateProjects();
 
 <template>
   <div>
-    <client-only>
-      <el-table :data="entites" style="width: 100%">
-        <el-table-column label="id" prop="id" />
-        <el-table-column label="Title" prop="title" />
-        <el-table-column align="right">
+    <ClientOnly>
+      <ElTable :data="entites" style="width: 100%">
+        <ElTableColumn label="id" prop="id" />
+        <ElTableColumn label="Title" prop="title" />
+        <ElTableColumn align="right">
           <template #header>
             <el-button type="success" size="small" @click="handleCreate">
               Create
@@ -70,11 +72,11 @@ await updateProjects();
               >Delete</el-button
             >
           </template>
-        </el-table-column>
-      </el-table>
+        </ElTableColumn>
+      </ElTable>
 
       <!-- Модалка с предупреждением об удалении -->
-      <el-dialog v-model="dialogVisible" title="Attention!" width="30%">
+      <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
         <span>Delete project with id {{ deleteId }}?</span>
         <template #footer>
           <span class="dialog-footer">
@@ -84,7 +86,7 @@ await updateProjects();
             </el-button>
           </span>
         </template>
-      </el-dialog>
-    </client-only>
+      </ElDialog>
+    </ClientOnly>
   </div>
 </template>
