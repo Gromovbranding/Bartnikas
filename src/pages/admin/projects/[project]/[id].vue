@@ -7,10 +7,6 @@ import type {
   UploadUserFile,
 } from "element-plus";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const route = useRoute();
 const projectId = route.params.project;
 const imageId = route.params.id;

@@ -7,10 +7,6 @@ import type {
   UploadUserFile,
 } from "element-plus";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const route = useRoute();
 const entityId = route.params.id;
 const isCreate = entityId === "create";

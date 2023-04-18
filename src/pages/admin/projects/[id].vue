@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from "element-plus";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const route = useRoute();
 const entityId = ref(route.params.id);
 const isCreate = computed(() => entityId.value === "create");

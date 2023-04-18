@@ -14,44 +14,53 @@ export const useApi = () => {
         Authorization: `Bearer ${accessToken}`,
       },
 
-      async onResponse({ response }) {
-        if (response._data.access_token) {
-          setAccessToken(response._data.access_token);
-          await navigateTo("/admin");
-        }
-
-        return response._data;
-      },
-
-      async onResponseError({ response }) {
-        ElNotification.error({
-          title: "Error",
-          message: response.statusText,
-          position: "bottom-right",
-        });
-
+      onResponseError({ response }) {
         if (response.status === 401) {
           clearAccessToken();
-          await navigateTo("/admin/login");
         }
       },
     });
   };
 
-  const fetchDelete = async (path: string) => {
-    return await fetchApi(path, "DELETE");
+  const fetchDelete = async <T>(path: string) => {
+    return await fetchApi<T>(path, "DELETE");
   };
 
-  const fetchGet = async (path: string) => {
-    return await fetchApi(path, "GET");
+  const fetchGet = async <T>(path: string) => {
+    return await fetchApi<T>(path, "GET");
   };
 
-  const fetchPost = async (path: string, body: any = {}) => {
-    return await fetchApi(path, "POST", body);
+  const fetchPost = async <T>(path: string, body: any = {}) => {
+    return await fetchApi<T>(path, "POST", body);
   };
 
-  const fetchUpdate = async (path: string) => {
-    return await fetchApi(path, "GET");
+  const fetchUpdate = async <T>(path: string) => {
+    return await fetchApi<T>(path, "GET");
+  };
+
+  const logout = async () => {
+    clearAccessToken();
+    await navigateTo("/admin/login");
+  };
+
+  const login = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    const { data } = await fetchPost<{ access_token: string } | null>(
+      "/auth/login",
+      {
+        username,
+        password,
+      }
+    );
+
+    if (data.value?.access_token) {
+      setAccessToken(data.value.access_token);
+    }
   };
 
   return {
@@ -59,5 +68,7 @@ export const useApi = () => {
     fetchPost,
     fetchUpdate,
     fetchGet,
+    logout,
+    login,
   };
 };

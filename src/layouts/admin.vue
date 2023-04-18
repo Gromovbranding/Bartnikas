@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-definePageMeta({
-  middleware: ["admin-auth"],
-});
-
 const { pageName } = useAdmin();
 </script>
 

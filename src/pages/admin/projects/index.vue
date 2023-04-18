@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-definePageMeta({
-  layout: "admin",
-});
-
 const { setPageName } = useAdmin();
 const { fetchDelete, fetchUpdate } = useApi();
 

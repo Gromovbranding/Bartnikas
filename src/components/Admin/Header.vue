@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { logout } = useAdmin();
+const { logout } = useApi();
 </script>
 
 <template>
