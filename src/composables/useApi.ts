@@ -42,6 +42,10 @@ export const useApi = () => {
     return await fetchApi(path, "DELETE");
   };
 
+  const fetchGet = async (path: string) => {
+    return await fetchApi(path, "GET");
+  };
+
   const fetchPost = async (path: string, body: any = {}) => {
     return await fetchApi(path, "POST", body);
   };
@@ -54,5 +58,6 @@ export const useApi = () => {
     fetchDelete,
     fetchPost,
     fetchUpdate,
+    fetchGet,
   };
 };

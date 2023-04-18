@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig().public;
+const { fetchGet } = useApi();
+
 const blogs = ref([]);
 
 const fetchBlogs = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/blogs`);
-  blogs.value = data.value;
+  const { data } = await fetchGet("/blogs");
+  blogs.value = data.value as [];
 };
 
 fetchBlogs();

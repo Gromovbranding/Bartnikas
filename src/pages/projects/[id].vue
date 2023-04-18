@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig().public;
+const { fetchGet } = useApi();
+
 const route = useRoute();
 const projectId = route.params.id;
 
 const project = ref(null);
 const fetchProject = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/projects/${projectId}`);
+  const { data } = await fetchGet(`/projects/${projectId}`);
   project.value = data.value;
 };
 
