@@ -128,7 +128,7 @@ const moreOrders = ref([
               <li style="background-color: #b99766"></li>
               <li style="background-color: #ffd73e"></li>
             </ul>
-            <div class="order__info-interior upper-slide">In Interior</div>
+            <!-- <div class="order__info-interior upper-slide">In Interior</div> -->
           </div>
         </div>
         <UIButton href="/">ORDER</UIButton>
@@ -200,7 +200,7 @@ const moreOrders = ref([
     small,
     p {
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     b {

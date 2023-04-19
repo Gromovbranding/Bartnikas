@@ -184,7 +184,7 @@ const isVisible = ref(false);
               gap: 10px;
               span {
                 font-size: 28px;
-                font-weight: 500;
+                font-weight: 400;
                 color: #fff;
               }
               svg {

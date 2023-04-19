@@ -63,7 +63,7 @@ const sidebarItems: Array<SidebarItem> = [
     padding-left: 20px;
     line-height: 56px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     background-color: #1f2d3d;
   }

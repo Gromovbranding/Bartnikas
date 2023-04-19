@@ -150,7 +150,7 @@ watch(
   display: block;
 
   &:hover {
-    transform: translateX(15px);
+    transform: translateX(35px);
     color: $colorAccentBlue;
   }
 }

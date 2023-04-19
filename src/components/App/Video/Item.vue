@@ -45,7 +45,7 @@
   &__info {
     h4 {
       font-size: 32px;
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 10px;
       margin-top: 25px;
     }

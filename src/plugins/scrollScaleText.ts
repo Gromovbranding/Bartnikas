@@ -1,7 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const getScrollCoef = (element: HTMLElement) => {
     const elementRect = element.getBoundingClientRect();
-    const windowOffsetBottom = document.documentElement.clientHeight / 1.5;
+    const windowOffsetBottom = document.documentElement.clientHeight;
     const elementOffsetTop = elementRect.top - windowOffsetBottom;
     const elementOffsetBottom = elementRect.bottom;
 
@@ -15,7 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("scroll-scale-text", {
     beforeMount(el) {
       el.__scrollScaleText__ = () => {
-        el.style.transform = `scale(${Math.max(0.7, getScrollCoef(el))})`;
+        el.style.transform = `scale(${Math.max(0.8, getScrollCoef(el))})`;
       };
 
       window.addEventListener("scroll", el.__scrollScaleText__);

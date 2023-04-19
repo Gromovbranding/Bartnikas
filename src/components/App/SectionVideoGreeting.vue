@@ -47,7 +47,8 @@
     height: 48px;
     position: absolute;
     right: 80px;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.4s ease-in-out;
+    animation-fill-mode: forwards;
     bottom: 60px;
 
     &:hover {

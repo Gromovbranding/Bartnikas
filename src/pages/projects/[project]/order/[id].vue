@@ -114,7 +114,7 @@ const slidesPerView = computed(() => {
                 <li style="background-color: #b99766"></li>
                 <li style="background-color: #ffd73e"></li>
               </ul>
-              <div class="order__info-interior upper-slide">In Interior</div>
+              <!-- <div class="order__info-interior upper-slide">In Interior</div> -->
             </div>
           </div>
         </div>
@@ -197,7 +197,7 @@ const slidesPerView = computed(() => {
     small,
     p {
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     b {

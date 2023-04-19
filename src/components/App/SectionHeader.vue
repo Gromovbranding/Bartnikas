@@ -42,8 +42,9 @@ withDefaults(defineProps<Props>(), {
     font-weight: bold;
 
     span {
-      font-size: 33px;
-      padding-top: 44px;
+      font-size: 40px;
+      line-height: 45px;
+      font-weight: 500;
     }
   }
 
@@ -79,7 +80,7 @@ withDefaults(defineProps<Props>(), {
         font-size: 4.6vw;
         letter-spacing: 0;
         padding-left: 6px;
-        font-weight: 500;
+        font-weight: 400;
       }
     }
 

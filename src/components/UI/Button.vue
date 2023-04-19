@@ -45,9 +45,10 @@ const classes = computed(() => {
   border: none;
   font-size: 36px;
   color: #fff;
+  font-weight: 500;
   background-color: $colorAccentBlue;
   transform: translateY(0);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   font-weight: bold;
   text-align: center;
 

@@ -52,7 +52,7 @@ const date = computed(() => {
 .interios {
   width: 100%;
   display: block;
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
     transform: translateY(-30px);
@@ -86,7 +86,7 @@ const date = computed(() => {
         h3 {
           color: $colorTextDark;
           font-size: 40px;
-          font-weight: 700;
+          font-weight: 500;
           line-height: 1.1;
         }
 

@@ -13,11 +13,11 @@ interface News {
   images?: NewsImage[];
 }
 interface Props {
-  news?: News;
+  news?: News[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  news: null,
+  news: () => [],
 });
 
 const { makeDateCorrect } = useDateFormat();

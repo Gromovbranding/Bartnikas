@@ -86,7 +86,7 @@ main {
 
   > :deep(.btn-default) {
     padding: 35px 90px;
-    font-weight: 500;
+    font-weight: 400;
   }
 }
 

@@ -53,7 +53,7 @@ const onSubmit = async () => {
 
   &__header {
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 500;
     color: #eee;
     margin-bottom: 40px;
     text-align: center;

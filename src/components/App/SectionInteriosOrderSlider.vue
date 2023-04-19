@@ -144,7 +144,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
           h4 {
             margin-bottom: 30px;
             font-size: 32px;
-            font-weight: 500;
+            font-weight: 400;
           }
 
           > div {

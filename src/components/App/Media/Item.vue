@@ -86,7 +86,7 @@ const date = computed(() => {
         h3 {
           color: $colorTextDark;
           font-size: 40px;
-          font-weight: 700;
+          font-weight: 500;
           line-height: 1.1;
         }
 

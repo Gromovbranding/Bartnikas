@@ -307,7 +307,7 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
 <style lang="scss" scoped>
 .input-container {
   :deep(.el-form-item__label) {
-    font-weight: 700;
+    font-weight: 500;
   }
 }
 .button-container {
