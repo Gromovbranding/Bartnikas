@@ -1,15 +1,10 @@
 <script lang="ts" setup>
 import type {
   FormInstance,
-  FormRules,
   UploadFile,
   UploadProps,
   UploadUserFile,
 } from "element-plus";
-
-definePageMeta({
-  layout: "admin",
-});
 
 const route = useRoute();
 const projectId = route.params.project;
@@ -17,7 +12,7 @@ const imageId = route.params.id;
 const isCreate = imageId === "create";
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 setPageName(`Project Image ${isCreate ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -36,7 +31,7 @@ if (!isCreate) {
   Object.assign(form, data.value);
 }
 
-const rules = reactive<FormRules>({
+const rules = reactive({
   name: [
     {
       required: true,
@@ -186,22 +181,21 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
 </script>
 
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-    <el-form-item class="input-container" label="Name" prop="name">
-      <el-input v-model="form.name" />
-    </el-form-item>
-    <el-form-item class="input-container" label="Image" prop="img">
-      <!-- <el-input v-model="form.img" /> -->
+  <ElForm ref="formRef" :model="form" :rules="rules" label-width="120px">
+    <ElFormItem class="input-container" label="Name" prop="name">
+      <ElInput v-model="form.name" />
+    </ElFormItem>
 
-      <el-upload
-        v-model:file-list="form.files"
+    <ElFormItem class="input-container" label="Image" prop="img">
+      <ElUpload
+        v-model:fileList="form.files"
         :action="imageUploadUrl"
         list-type="picture-card"
         :limit="10"
         :on-exceed="handleExceed"
         :class="{ upload_disabled: form?.files?.length >= 10 }"
       >
-        <el-icon><Icon name="ep:plus" /></el-icon>
+        <ElIcon><Icon name="ep:plus" /></ElIcon>
 
         <template #file="{ file }">
           <div>
@@ -215,21 +209,21 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
                 class="el-upload-list__item-preview"
                 @click="handlePictureCardPreview(file)"
               >
-                <el-icon><Icon name="ep:zoom-in" /></el-icon>
+                <ElIcon><Icon name="ep:zoom-in" /></ElIcon>
               </span>
               <span
                 v-if="!disabled"
                 class="el-upload-list__item-delete"
                 @click="handleDownloadImage(file)"
               >
-                <el-icon><Icon name="ep:download" /></el-icon>
+                <ElIcon><Icon name="ep:download" /></ElIcon>
               </span>
               <span
                 v-if="!disabled"
                 class="el-upload-list__item-delete"
                 @click="handleRemoveImage(file)"
               >
-                <el-icon><Icon name="ep:delete" /></el-icon>
+                <ElIcon><Icon name="ep:delete" /></ElIcon>
               </span>
             </span>
           </div>
@@ -239,30 +233,31 @@ const imageUploadUrl = `${config.apiBaseUrl}/files/image`;
             limit 10 file, new file will cover the old file
           </div>
         </template>
-      </el-upload>
+      </ElUpload>
 
-      <client-only>
-        <el-dialog
+      <ClientOnly>
+        <ElDialog
           v-model="dialogVisible"
           width="fit-content"
           :append-to-body="true"
         >
           <img :src="dialogImageUrl" alt="Preview Image" />
-        </el-dialog>
-      </client-only>
-    </el-form-item>
-    <el-form-item>
+        </ElDialog>
+      </ClientOnly>
+    </ElFormItem>
+
+    <ElFormItem>
       <div class="button-container">
         <div>
-          <el-button type="primary" @click="submitValidate(formRef)">
+          <ElButton type="primary" @click="submitValidate(formRef)">
             Save
-          </el-button>
-          <el-button @click="resetForm(formRef)">Reset</el-button>
+          </ElButton>
+          <ElButton @click="resetForm(formRef)">Reset</ElButton>
         </div>
-        <el-button type="info" plain @click="toBack">Back</el-button>
+        <ElButton type="info" plain @click="toBack">Back</ElButton>
       </div>
-    </el-form-item>
-  </el-form>
+    </ElFormItem>
+  </ElForm>
 </template>
 
 <style lang="scss" scoped>

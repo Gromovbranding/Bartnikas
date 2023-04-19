@@ -1,20 +1,19 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig();
+// const config = useRuntimeConfig();
 const headerMain = ref<HTMLDivElement>();
 const imgSize = ref("115%");
+const { fetchGet } = useApi();
 
 const news = ref<any[]>([]);
 const fetchNews = async () => {
-  const { data } = await useFetch<any[]>(`${config.apiBaseUrl}/news`);
-  if (!data.value) return (news.value = []);
-  news.value = data.value;
+  const { data } = await fetchGet("/news");
+  news.value = data.value as [];
 };
 
 const projects = ref<any>([]);
 const fetchProjects = async () => {
-  const { data } = await useFetch<any[]>(`${config.apiBaseUrl}/projects`);
-  if (!data.value) return (projects.value = []);
-  projects.value = data.value;
+  const { data } = await fetchGet("/projects");
+  projects.value = data.value as [];
 };
 
 Promise.allSettled([

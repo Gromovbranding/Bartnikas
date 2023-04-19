@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "^14.18.0 || >=16.0.0"
+    "node": ">=16.10.0"
   },
   "scripts": {
     "prepare": "husky install",
@@ -21,7 +21,7 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
-    "nuxt": "3.0.0",
+    "nuxt": "^3.4.1",
     "nuxt-icon": "^0.3.2",
     "nuxt-purgecss": "^2.0.0",
     "nuxt-swiper": "^0.1.9",

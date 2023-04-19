@@ -1,58 +1,81 @@
 export const useApi = () => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig().public;
   const { accessToken, setAccessToken, clearAccessToken } = useAdmin();
+  const route = useRoute();
 
-  const fetchApi = async <T>(
-    path: string,
-    method: "POST" | "GET" | "DELETE" | "PATCH",
-    body: any = {}
-  ) => {
+  const fetchApi = async <T>(path: string, method: string, body: any = {}) => {
+    const headers: HeadersInit = {};
+
+    if (accessToken.value) {
+      headers.Authorization = `Bearer ${accessToken.value}`;
+    }
+
     return await useFetch<T>(`${config.apiBaseUrl}${path}`, {
       method,
       body,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-
-      async onResponse({ response }) {
-        if (response._data.access_token) {
-          setAccessToken(response._data.access_token);
-          await navigateTo("/admin");
-        }
-
-        return response._data;
-      },
+      headers,
 
       async onResponseError({ response }) {
-        ElNotification.error({
-          title: "Error",
-          message: response.statusText,
-          position: "bottom-right",
-        });
+        // ElNotification.error({
+        //   title: "Error",
+        //   message: response.statusText,
+        //   position: "bottom-right",
+        // });
 
         if (response.status === 401) {
           clearAccessToken();
-          await navigateTo("/admin/login");
+          route.name !== "admin-login" && (await navigateTo("/admin/login"));
         }
       },
     });
   };
 
-  const fetchDelete = async (path: string) => {
-    return await fetchApi(path, "DELETE");
+  const fetchDelete = async <T>(path: string) => {
+    return await fetchApi<T>(path, "DELETE");
   };
 
-  const fetchPost = async (path: string, body: any = {}) => {
-    return await fetchApi(path, "POST", body);
+  const fetchGet = async <T>(path: string) => {
+    return await fetchApi<T>(path, "GET");
   };
 
-  const fetchUpdate = async (path: string) => {
-    return await fetchApi(path, "GET");
+  const fetchPost = async <T>(path: string, body: any = {}) => {
+    return await fetchApi<T>(path, "POST", body);
+  };
+
+  const fetchUpdate = async <T>(path: string) => {
+    return await fetchApi<T>(path, "GET");
+  };
+
+  const logout = async () => {
+    clearAccessToken();
+    await navigateTo("/admin/login");
+  };
+
+  const login = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    const { data } = await fetchPost<{ access_token: string }>("/auth/login", {
+      username,
+      password,
+    });
+
+    if (data.value?.access_token) {
+      setAccessToken(data.value.access_token);
+
+      await navigateTo("/admin/projects");
+    }
   };
 
   return {
     fetchDelete,
     fetchPost,
     fetchUpdate,
+    fetchGet,
+    logout,
+    login,
   };
 };

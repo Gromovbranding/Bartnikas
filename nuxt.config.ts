@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.API_BASE_URL,
+      apiBaseUrl: "http://localhost:8080",
     },
   },
 
@@ -48,7 +48,9 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/styles/_colors.scss" as *;',
+          additionalData: `
+            @use "@/assets/styles/_colors.scss" as *;
+          `,
         },
       },
     },

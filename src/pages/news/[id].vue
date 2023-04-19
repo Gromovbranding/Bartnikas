@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-const config = useRuntimeConfig();
+const { fetchGet } = useApi();
+const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
 const newsId = route.params.id;
@@ -7,19 +8,14 @@ const newsId = route.params.id;
 const news = ref({});
 
 const fetchNews = async () => {
-  const { data } = await useFetch(`${config.apiBaseUrl}/news/${newsId}`);
+  const { data } = await fetchGet(`/news/${newsId}`);
   news.value = data.value;
 };
 
 fetchNews();
 
 const date = computed(() => {
-  if (!news.value.date) return "28.02.2023";
-  const d = new Date(news.value.date);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
+  return makeDateCorrect(news.value.date);
 });
 
 const imageCover = computed(() => {

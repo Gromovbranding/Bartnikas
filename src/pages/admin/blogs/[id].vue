@@ -7,10 +7,6 @@ import type {
   UploadUserFile,
 } from "element-plus";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const route = useRoute();
 const entityId = route.params.id;
 const isCreate = entityId === "create";
@@ -18,7 +14,7 @@ const isCreate = entityId === "create";
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 
 setPageName(`Blog ${isCreate ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({

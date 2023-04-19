@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from "element-plus";
-
-definePageMeta({
-  layout: "admin",
-});
+import type { FormInstance } from "element-plus";
 
 const route = useRoute();
 const entityId = ref(route.params.id);
@@ -12,7 +8,7 @@ const isCreate = computed(() => entityId.value === "create");
 const { setPageName, accessToken, clearAccessToken } = useAdmin();
 
 setPageName(`Project ${isCreate.value ? "Create" : "Edit"}`);
-const config = useRuntimeConfig();
+const config = useRuntimeConfig().public;
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -194,80 +190,80 @@ const handleDeleteConfirm = async () => {
 </script>
 
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-    <el-form-item class="input-container" label="Title" prop="title">
-      <el-input v-model="form.title" />
-    </el-form-item>
-    <el-form-item class="input-container" label="Description" prop="desc">
-      <el-input v-model="form.desc" :rows="5" type="textarea" />
-    </el-form-item>
+  <ElForm ref="formRef" :model="form" :rules="rules" label-width="120px">
+    <ElFormItem class="input-container" label="Title" prop="title">
+      <ElInput v-model="form.title" />
+    </ElFormItem>
+    <ElFormItem class="input-container" label="Description" prop="desc">
+      <ElInput v-model="form.desc" :rows="5" type="textarea" />
+    </ElFormItem>
     <!-- Project Images -->
-    <el-form-item class="input-container" label="Project Images">
-      <client-only>
-        <el-table
+    <ElFormItem class="input-container" label="Project Images">
+      <ClientOnly>
+        <ElTable
           class="images-table"
           :data="form.project_images"
           style="width: 100%"
         >
           <!-- <el-table-column label="id" prop="id" /> -->
-          <el-table-column label="image">
+          <ElTableColumn label="image">
             <template #default="scope">
-              <el-image
+              <ElImage
                 style="width: 100px; height: 100px"
                 :src="scope.row.files[0].url"
                 fit="fill"
               />
             </template>
-          </el-table-column>
-          <el-table-column label="id" prop="id" />
-          <el-table-column label="Name" prop="name" />
-          <el-table-column align="right">
+          </ElTableColumn>
+          <ElTableColumn label="id" prop="id" />
+          <ElTableColumn label="Name" prop="name" />
+          <ElTableColumn align="right">
             <template #header>
-              <el-button type="success" size="small" @click="handleCreate">
+              <ElButton type="success" size="small" @click="handleCreate">
                 Add
-              </el-button>
+              </ElButton>
             </template>
             <template #default="scope">
-              <el-button size="small" @click="handleEdit(scope.row)">
+              <ElButton size="small" @click="handleEdit(scope.row)">
                 Edit
-              </el-button>
-              <el-button
+              </ElButton>
+              <ElButton
                 type="danger"
                 size="small"
                 @click="handleDelete(scope.row)"
               >
                 Delete
-              </el-button>
+              </ElButton>
             </template>
-          </el-table-column>
-        </el-table>
+          </ElTableColumn>
+        </ElTable>
 
         <!-- Модалка с предупреждением об удалении -->
-        <el-dialog v-model="dialogVisible" title="Attention!" width="30%">
+        <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
           <span>Delete project with id {{ deleteId }}?</span>
           <template #footer>
             <span class="dialog-footer">
-              <el-button @click="handleDeleteCancel">Cancel</el-button>
-              <el-button type="primary" @click="handleDeleteConfirm">
+              <ElButton @click="handleDeleteCancel">Cancel</ElButton>
+              <ElButton type="primary" @click="handleDeleteConfirm">
                 Confirm
-              </el-button>
+              </ElButton>
             </span>
           </template>
-        </el-dialog>
-      </client-only>
-    </el-form-item>
-    <el-form-item>
+        </ElDialog>
+      </ClientOnly>
+    </ElFormItem>
+    <ElFormItem>
       <div class="button-container">
         <div>
-          <el-button type="primary" @click="submitValidate(formRef)">
+          <ElButton type="primary" @click="submitValidate(formRef)">
             Save
-          </el-button>
-          <el-button @click="resetForm(formRef)">Clear</el-button>
+          </ElButton>
+          <ElButton @click="resetForm(formRef)">Clear</ElButton>
         </div>
-        <el-button type="info" plain @click="toBack">Back</el-button>
+        <ElButton type="info" plain @click="toBack">Back</ElButton>
       </div>
-    </el-form-item>
-  </el-form>
+    </ElFormItem>
+  </ElForm>
 </template>
 
 <style lang="scss" scoped>

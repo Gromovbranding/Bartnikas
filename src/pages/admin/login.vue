@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 definePageMeta({
-  layout: "admin-auth",
+  layout: false,
 });
 
-const { login } = useAdmin();
+const { login } = useApi();
 
 const username = ref("");
 const password = ref("");
@@ -17,35 +17,61 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="login">
-    <h3 class="login__header">Login Form</h3>
-    <form class="login__form">
-      <div class="login__form-input">
-        <Icon
-          class="login__form-input-icon"
-          name="ep:user-filled"
-          size="20px"
-        />
-        <input v-model="username" placeholder="Username" />
-      </div>
-      <div class="login__form-input">
-        <Icon class="login__form-input-icon" name="ic:round-lock" size="20px" />
-        <input v-model="password" type="password" placeholder="Password" />
-      </div>
-      <el-button
-        class="login__form-submit"
-        size="large"
-        type="primary"
-        @click="onSubmit"
-      >
-        Login
-      </el-button>
-    </form>
+  <div class="admin-auth-layout">
+    <ClientOnly>
+      <main class="admin-auth-layout__main">
+        <div class="login">
+          <h3 class="login__header">Login Form</h3>
+          <form class="login__form">
+            <div class="login__form-input">
+              <Icon
+                class="login__form-input-icon"
+                name="ep:user-filled"
+                size="20px"
+              />
+              <input v-model="username" placeholder="Username" />
+            </div>
+            <div class="login__form-input">
+              <Icon
+                class="login__form-input-icon"
+                name="ic:round-lock"
+                size="20px"
+              />
+              <input
+                v-model="password"
+                autocomplete="true"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <ElButton
+              class="login__form-submit"
+              size="large"
+              type="primary"
+              @click="onSubmit"
+            >
+              Login
+            </ElButton>
+          </form>
+        </div>
+      </main>
+    </ClientOnly>
   </div>
 </template>
 
 <style lang="scss">
 @import "@/assets/styles/admin/config-reset.scss";
+
+.admin-auth-layout {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2d3a4b;
+}
+
 .login {
   position: relative;
   width: 448px;
