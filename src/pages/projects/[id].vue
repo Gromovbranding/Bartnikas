@@ -101,7 +101,7 @@ fetchProject();
 
   &__person {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 40px;
 
     > div {

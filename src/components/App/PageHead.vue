@@ -58,7 +58,7 @@ const onClickLogo = () => {
       </li>
     </ul>
     <h1 v-if="!onlyLogo && title" class="page-head__caption">
-      {{ title }}
+      {{ title }}<sup>87</sup>
     </h1>
   </header>
 </template>
@@ -66,7 +66,7 @@ const onClickLogo = () => {
 <style lang="scss" scoped>
 .page-head {
   position: relative;
-  padding: 20px 40px;
+  padding: 10px 60px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,10 +136,18 @@ const onClickLogo = () => {
   }
 
   &__caption {
-    font-size: 13vw;
+    font-size: 170px;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
+    margin-left: -10px;
+    letter-spacing: 3px;
+    line-height: 150px;
+    sup {
+      vertical-align: top;
+      font-size: 29px;
+      line-height: 45px;
+    }
   }
 
   &__logo {
@@ -149,7 +157,7 @@ const onClickLogo = () => {
     cursor: pointer;
 
     &:deep(svg) {
-      width: 500px;
+      width: 360px;
       height: 100%;
     }
   }
@@ -162,7 +170,7 @@ const onClickLogo = () => {
     li {
       *,
       &::after {
-        font-size: 22px;
+        font-size: 14px;
         letter-spacing: 2px;
         font-weight: 400;
         color: #fff;

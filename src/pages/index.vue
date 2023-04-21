@@ -46,7 +46,7 @@ function onScroll() {
   <main>
     <Title>Home</Title>
     <header class="header">
-      <div ref="header_main" class="header__main">
+      <div ref="headerMain" class="header__main">
         <IconLogo is-full-black />
       </div>
       <div class="header__img-sticky"></div>

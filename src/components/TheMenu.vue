@@ -340,8 +340,8 @@ watch(
     z-index: 10;
     right: 50px;
     top: 20px;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     text-align: center;
     border-radius: 50%;
     font-size: 20px;
