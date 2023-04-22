@@ -1,92 +1,78 @@
 <script lang="ts" setup>
 const { setPageName } = useAdmin();
-const { fetchDelete, fetchUpdate } = useApi();
+const { fetchDelete, fetchGet } = useApi();
 
 setPageName("Projects");
 
-const dialogVisible = ref(false);
-const deleteId = ref(null);
+const dialogVisible = ref<boolean>(false);
+const deleteId = ref<string | number | null>(null);
 
-const entites = ref([]);
+const { data: entites, refresh } = useAsyncData(
+  async () => await fetchGet("/projects")
+);
 
-const handleCreate = async () => {
-  await navigateTo("/admin/projects/create");
+const handleCreate = async (row: { id: string }) => {
+  await navigateTo(`/admin/projects/${row.id}/create`);
 };
 
-const handleEdit = async (row: any) => {
-  await navigateTo(`/admin/projects/${row.id}`);
+const handleEdit = async (row: { id: string }) => {
+  await navigateTo(`/admin/projects/${row.id}/edit`);
 };
 
-const handleDelete = (row: any) => {
+const handleDelete = (row: { id: string }) => {
   deleteId.value = row.id;
   dialogVisible.value = true;
 };
 
 const handleDeleteCancel = () => {
-  dialogVisible.value = false;
   deleteId.value = null;
-};
-
-const updateProjects = async () => {
-  const { data } = await fetchUpdate("/projects");
-
-  console.log(data.value);
-  entites.value = data.value;
 };
 
 const handleDeleteConfirm = async () => {
   try {
-    dialogVisible.value = false;
     await fetchDelete(`/projects/${deleteId.value}`);
-    await updateProjects();
+    await refresh();
   } catch (e) {
     console.log(e);
   } finally {
     deleteId.value = null;
+    dialogVisible.value = false;
   }
 };
-
-await updateProjects();
 </script>
 
 <template>
   <div>
-    <ClientOnly>
-      <ElTable :data="entites" style="width: 100%">
-        <ElTableColumn label="id" prop="id" />
-        <ElTableColumn label="Title" prop="title" />
-        <ElTableColumn align="right">
-          <template #header>
-            <el-button type="success" size="small" @click="handleCreate">
-              Create
-            </el-button>
-          </template>
-          <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.row)">
-              Edit
-            </el-button>
-            <el-button
-              type="danger"
-              size="small"
-              @click="handleDelete(scope.row)"
-              >Delete</el-button
-            >
-          </template>
-        </ElTableColumn>
-      </ElTable>
+    <ElTable :data="entites" border style="width: 100%">
+      <ElTableColumn label="id" prop="id" width="120" />
+      <ElTableColumn label="Title" prop="title" width="120" />
 
-      <!-- Модалка с предупреждением об удалении -->
-      <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
-        <span>Delete project with id {{ deleteId }}?</span>
-        <template #footer>
-          <span class="dialog-footer">
-            <el-button @click="handleDeleteCancel">Cancel</el-button>
-            <el-button type="primary" @click="handleDeleteConfirm">
-              Confirm
-            </el-button>
-          </span>
+      <ElTableColumn align="right" label="Operations">
+        <template #header="{ row }">
+          <ElButton type="success" size="small" @click="handleCreate(row)">
+            Create
+          </ElButton>
         </template>
-      </ElDialog>
-    </ClientOnly>
+        <template #default="{ row }">
+          <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
+          <ElButton type="danger" size="small" @click="handleDelete(row)">
+            Delete
+          </ElButton>
+        </template>
+      </ElTableColumn>
+    </ElTable>
+
+    <!-- Модалка с предупреждением об удалении -->
+    <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
+      <span>Delete project ?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <ElButton @click="handleDeleteCancel">Cancel</ElButton>
+          <ElButton type="primary" @click="handleDeleteConfirm">
+            Confirm
+          </ElButton>
+        </span>
+      </template>
+    </ElDialog>
   </div>
 </template>

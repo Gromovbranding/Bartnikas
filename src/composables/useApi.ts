@@ -3,17 +3,15 @@ export const useApi = () => {
   const { accessToken, setAccessToken, clearAccessToken } = useAdmin();
   const route = useRoute();
 
-  const fetchApi = async <T>(path: string, method: string, body: any = {}) => {
-    const headers: HeadersInit = {};
-
-    if (accessToken.value) {
-      headers.Authorization = `Bearer ${accessToken.value}`;
-    }
-
-    return await useFetch<T>(`${config.apiBaseUrl}${path}`, {
+  const fetchApi = async <T>(
+    path: string,
+    method: "GET" | "POST" | "DELETE" | "PATCH",
+    body: any = {}
+  ) => {
+    const fetchConfig = {
+      baseURL: config.apiBaseUrl,
       method,
-      body,
-      headers,
+      headers: {},
 
       async onResponseError({ response }) {
         // ElNotification.error({
@@ -27,7 +25,17 @@ export const useApi = () => {
           route.name !== "admin-login" && (await navigateTo("/admin/login"));
         }
       },
-    });
+    };
+
+    if (accessToken.value) {
+      fetchConfig.headers.Authorization = `Bearer ${accessToken.value}`;
+    }
+
+    if (Object.keys(body).length > 0) {
+      fetchConfig.body = body;
+    }
+
+    return await $fetch<T>(path, fetchConfig);
   };
 
   const fetchDelete = async <T>(path: string) => {
@@ -58,13 +66,13 @@ export const useApi = () => {
     username: string;
     password: string;
   }) => {
-    const { data } = await fetchPost<{ access_token: string }>("/auth/login", {
+    const data = await fetchPost<{ access_token: string }>("/auth/login", {
       username,
       password,
     });
 
-    if (data.value?.access_token) {
-      setAccessToken(data.value.access_token);
+    if (data.access_token) {
+      setAccessToken(data.access_token);
 
       await navigateTo("/admin/projects");
     }

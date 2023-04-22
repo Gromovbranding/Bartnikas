@@ -25,7 +25,8 @@ const { pageName } = useAdmin();
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/admin/config-reset.scss";
+@import "@/assets/styles/admin/_config.scss";
+
 .admin-layout {
   position: relative;
   min-height: 100vh;

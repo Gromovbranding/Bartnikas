@@ -8,9 +8,13 @@ export default defineNuxtConfig({
         safelist: [/.*--.*/],
       },
     ],
+    [
+      "@element-plus/nuxt",
+      {
+        importStyle: "scss",
+      },
+    ],
     "nuxt-swiper",
-    "@element-plus/nuxt",
-    "nuxt-icon",
   ],
 
   runtimeConfig: {
@@ -41,8 +45,6 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
-
-  css: ["@/assets/styles/_config.scss"],
 
   vite: {
     css: {
