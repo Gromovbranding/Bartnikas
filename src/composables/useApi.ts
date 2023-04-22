@@ -1,6 +1,6 @@
 export const useApi = () => {
   const config = useRuntimeConfig().public;
-  const { accessToken, setAccessToken, clearAccessToken } = useAdmin();
+  const { accessToken } = useAdmin();
   const route = useRoute();
 
   const fetchApi = async <T>(
@@ -21,7 +21,7 @@ export const useApi = () => {
         // });
 
         if (response.status === 401) {
-          clearAccessToken();
+          accessToken.value = "";
           route.name !== "admin-login" && (await navigateTo("/admin/login"));
         }
       },
@@ -55,7 +55,7 @@ export const useApi = () => {
   };
 
   const logout = async () => {
-    clearAccessToken();
+    accessToken.value = "";
     await navigateTo("/admin/login");
   };
 
@@ -72,8 +72,7 @@ export const useApi = () => {
     });
 
     if (data.access_token) {
-      setAccessToken(data.access_token);
-
+      accessToken.value = data.access_token;
       await navigateTo("/admin/projects");
     }
   };

@@ -1,26 +1,13 @@
-<script lang="ts" setup>
-const { pageName } = useAdmin();
-</script>
-
 <template>
   <div class="admin-layout">
     <AdminSidebar class="admin-layout__sidebar" />
     <AdminHeader class="admin-layout__header" />
     <main class="admin-layout__main">
-      <el-card>
-        <template #header>
-          <div class="admin-layout__main-header">
-            <client-only>
-              <h1>{{ pageName }}</h1>
-            </client-only>
-          </div>
-        </template>
-        <slot />
-      </el-card>
-      <span class="admin-layout__main-footer">
-        Stanislav Bartnikas♥ Art. Energy. Earth.
-      </span>
+      <slot />
     </main>
+    <footer class="admin-layout__main-footer">
+      <p>Stanislav Bartnikas♥ Art. Energy. Earth.</p>
+    </footer>
   </div>
 </template>
 
@@ -59,11 +46,6 @@ const { pageName } = useAdmin();
     margin: 50px 0 0 210px;
     padding: 20px 20px 60px;
     background: #f5f7f9;
-
-    &-header {
-      font-size: 18px;
-      font-weight: bold;
-    }
 
     &-footer {
       position: absolute;

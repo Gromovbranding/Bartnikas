@@ -1,62 +1,63 @@
 <script lang="ts" setup>
-const { setPageName } = useAdmin();
+useHeadSafe({
+  title: "Projects",
+});
+
 const { fetchDelete, fetchGet } = useApi();
 
-setPageName("Projects");
+const isDialogDelete = ref<boolean>(false);
+const projectIdDelete = ref<string | null>(null);
 
-const dialogVisible = ref<boolean>(false);
-const deleteId = ref<string | number | null>(null);
-
-const { data: entites, refresh } = useAsyncData(
+const { data: entites } = useAsyncData(
+  "entites",
   async () => await fetchGet("/projects")
 );
 
-const handleCreate = async (row: { id: string }) => {
-  await navigateTo(`/admin/projects/${row.id}/create`);
+const handleCreate = async () => {
+  await navigateTo(`/admin/projects/create`);
 };
 
 const handleEdit = async (row: { id: string }) => {
   await navigateTo(`/admin/projects/${row.id}/edit`);
 };
 
-const handleDelete = (row: { id: string }) => {
-  deleteId.value = row.id;
-  dialogVisible.value = true;
-};
-
-const handleDeleteCancel = () => {
-  deleteId.value = null;
-  dialogVisible.value = false;
-};
-
-const handleDeleteConfirm = async () => {
+const handleDelete = async () => {
   try {
-    await fetchDelete(`/projects/${deleteId.value}`);
-    await refresh();
-  } catch (e) {
-    console.log(e);
+    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await refreshNuxtData("entites");
   } finally {
-    deleteId.value = null;
-    dialogVisible.value = false;
+    isDialogDelete.value = false;
+    projectIdDelete.value = null;
   }
 };
 </script>
 
 <template>
-  <div>
+  <ElCard>
+    <template #header>
+      <h1>Projects</h1>
+    </template>
+
     <ElTable :data="entites" border style="width: 100%">
       <ElTableColumn label="id" prop="id" width="120" />
       <ElTableColumn label="Title" prop="title" width="120" />
 
       <ElTableColumn align="right" label="Operations">
-        <template #header="{ row }">
-          <ElButton type="success" size="small" @click="handleCreate(row)">
+        <template #header>
+          <ElButton type="success" size="small" @click="handleCreate">
             Create
           </ElButton>
         </template>
         <template #default="{ row }">
           <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
-          <ElButton type="danger" size="small" @click="handleDelete(row)">
+          <ElButton
+            type="danger"
+            size="small"
+            @click="
+              isDialogDelete = true;
+              projectIdDelete = row.id;
+            "
+          >
             Delete
           </ElButton>
         </template>
@@ -64,16 +65,25 @@ const handleDeleteConfirm = async () => {
     </ElTable>
 
     <!-- Модалка с предупреждением об удалении -->
-    <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
+    <ElDialog
+      v-model="isDialogDelete"
+      title="Attention!"
+      width="30%"
+      @close="projectIdDelete = null"
+    >
       <span>Delete project ?</span>
       <template #footer>
         <span class="dialog-footer">
-          <ElButton @click="handleDeleteCancel">Cancel</ElButton>
-          <ElButton type="primary" @click="handleDeleteConfirm">
-            Confirm
-          </ElButton>
+          <ElButton
+            @click="
+              isDialogDelete = false;
+              projectIdDelete = null;
+            "
+            >Cancel</ElButton
+          >
+          <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
         </span>
       </template>
     </ElDialog>
-  </div>
+  </ElCard>
 </template>
