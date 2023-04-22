@@ -10,26 +10,23 @@ useHeadSafe({
   <div>
     <ClientOnly>
       <AdminCardCreate
-        :form="[
-          {
+        :form="{
+          title: {
             value: '',
-            prop: 'title',
             label: 'Title',
             type: 'input',
           },
-          {
+          desc: {
             value: '',
-            prop: 'desc',
             label: 'Description',
             type: 'textarea',
           },
-          {
+          text: {
             value: '',
-            prop: 'text',
             label: 'Text',
             type: 'textarea',
           },
-        ]"
+        }"
         :name="name"
         back="blogs"
       />

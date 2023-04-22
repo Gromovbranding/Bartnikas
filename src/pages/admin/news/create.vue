@@ -5,32 +5,28 @@ useHeadSafe({
   title: name.value,
 });
 
-const form = reactive([
-  {
+const form = reactive({
+  title: {
     value: "",
-    prop: "title",
     label: "Title",
     type: "input",
   },
-  {
+  desc: {
     value: "",
-    prop: "desc",
     label: "Description",
     type: "textarea",
   },
-  {
+  text: {
     value: "",
-    prop: "text",
     label: "text",
     type: "textarea",
   },
-  {
+  is_hot: {
     value: false,
-    prop: "is_hot",
     label: "Is Hot",
     type: "checkbox",
   },
-]);
+});
 </script>
 
 <template>

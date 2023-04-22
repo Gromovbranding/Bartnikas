@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { FormRules, UploadUserFile } from "element-plus";
+import { FormInstance, FormRules, UploadUserFile } from "element-plus";
 
 const props = defineProps<{
   name: string;
   back: string;
+  cbCreate: (body: any, images: UploadUserFile[]) => Promise<void>;
   form: {
-    value: string | boolean | number;
-    prop: string;
-    label: string;
-    type: string;
-  }[];
+    [x: string]: {
+      value: string | boolean | number;
+      label: string;
+      type: string;
+    };
+  };
 }>();
 
 const rules = reactive<FormRules>({
@@ -42,14 +44,22 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const formModel = reactive({});
+const formModel = reactive(props.form);
 const filesModel = reactive<UploadUserFile[]>([]);
+const formRef = ref<FormInstance>();
 
-onBeforeMount(() => {
-  props.form.forEach((item) => {
-    formModel[item.prop] = item;
-  });
-});
+const create = async () => {
+  const isValid = formRef.value?.validate();
+  if (isValid) {
+    const formattedFormModel: typeof formModel = {};
+
+    Object.keys(formModel).forEach((prop) => {
+      formattedFormModel[prop] = formModel[prop].value;
+    });
+
+    await props.cbCreate(formattedFormModel, filesModel);
+  }
+};
 </script>
 
 <template>
@@ -64,12 +74,17 @@ onBeforeMount(() => {
     </template>
 
     <ClientOnly>
-      <ElForm :model="formModel" :rules="rules" label-width="120px">
+      <ElForm
+        ref="formRef"
+        :model="formModel"
+        :rules="rules"
+        label-width="120px"
+      >
         <ElFormItem
-          v-for="item in formModel"
-          :key="item.prop"
+          v-for="(item, prop) in formModel"
+          :key="prop"
           :label="item.label"
-          :prop="item.prop"
+          :prop="prop"
         >
           <ElCheckbox
             v-if="item.type === 'checkbox'"
@@ -84,7 +99,7 @@ onBeforeMount(() => {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Create </ElButton>
+          <ElButton type="primary" @click="create"> Create </ElButton>
           <ElButton>Clear</ElButton>
         </ElFormItem>
       </ElForm>
