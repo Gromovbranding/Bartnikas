@@ -5,6 +5,7 @@ interface Props {
   onlyLogo?: boolean;
   title?: string;
   back?: boolean;
+  number?: number;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -58,7 +59,7 @@ const onClickLogo = () => {
       </li>
     </ul>
     <h1 v-if="!onlyLogo && title" class="page-head__caption">
-      {{ title }}<sup>87</sup>
+      {{ title }}<sup>{{ number }}</sup>
     </h1>
   </header>
 </template>
@@ -136,13 +137,13 @@ const onClickLogo = () => {
   }
 
   &__caption {
-    font-size: 170px;
+    font-size: 12.5rem;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
     margin-left: -10px;
-    letter-spacing: 3px;
-    line-height: 150px;
+    letter-spacing: 0.21rem;
+    line-height: 1em;
     sup {
       vertical-align: top;
       font-size: 29px;
@@ -170,8 +171,8 @@ const onClickLogo = () => {
     li {
       *,
       &::after {
-        font-size: 14px;
-        letter-spacing: 2px;
+        font-size: 1.25rem;
+        letter-spacing: 0.07rem;
         font-weight: 400;
         color: #fff;
         text-transform: capitalize;

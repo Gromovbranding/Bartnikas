@@ -1,10 +1,42 @@
+<script setup lang="ts">
+const input = ref<HTMLInputElement>();
+
+const props = defineProps<{
+  modelValue: number;
+}>();
+
+const emit = defineEmits<{
+  (e: "update:modelValue", val: number): void;
+}>();
+
+const value = computed({
+  set(val: number) {
+    emit("update:modelValue", val);
+  },
+  get() {
+    return props.modelValue;
+  },
+});
+
+function updateValue(e: "+" | "-") {
+  if (e === "+") return value.value++;
+  if (value.value === 1) return;
+  value.value--;
+}
+</script>
+
 <template>
   <form class="form" @submit.prevent>
     <small>Quantity:</small>
     <div class="form__control">
-      <input type="number" value="1" />
+      <input ref="input" v-model.number="value" type="number" />
       <div>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          @click="updateValue('+')"
+        >
           <path
             clip-rule="evenodd"
             d="M19.3536 15.3536C19.1583 15.5488 18.8417 15.5488 18.6464 15.3536L12 8.70711L5.35355 15.3536C5.15829 15.5488 4.84171 15.5488 4.64645 15.3536C4.45118 15.1583 4.45118 14.8417 4.64645 14.6464L11.6464 7.64645C11.8417 7.45118 12.1583 7.45118 12.3536 7.64645L19.3536 14.6464C19.5488 14.8417 19.5488 15.1583 19.3536 15.3536Z"
@@ -12,7 +44,12 @@
             fill-rule="evenodd"
           />
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          @click="updateValue('-')"
+        >
           <path
             clip-rule="evenodd"
             d="M19.3536 15.3536C19.1583 15.5488 18.8417 15.5488 18.6464 15.3536L12 8.70711L5.35355 15.3536C5.15829 15.5488 4.84171 15.5488 4.64645 15.3536C4.45118 15.1583 4.45118 14.8417 4.64645 14.6464L11.6464 7.64645C11.8417 7.45118 12.1583 7.45118 12.3536 7.64645L19.3536 14.6464C19.5488 14.8417 19.5488 15.1583 19.3536 15.3536Z"

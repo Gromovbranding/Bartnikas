@@ -378,7 +378,9 @@
       font-size: 2.2vw;
       font-weight: 400;
     }
-
+    b {
+      font-weight: 500;
+    }
     svg {
       width: 1.25vw;
       height: 100%;

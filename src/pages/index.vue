@@ -91,7 +91,7 @@ function onScroll() {
 
 <style lang="scss" scoped>
 .home-info-project-paralax {
-  height: 2500px;
+  height: 250vh;
   position: relative;
   border-radius: $borderRadiusMain;
 
