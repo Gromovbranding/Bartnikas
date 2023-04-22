@@ -1,118 +1,95 @@
 <script lang="ts" setup>
-const { setPageName } = useAdmin();
-const { makeDateCorrect } = useDateFormat();
-const { fetchDelete, fetchPost, fetchUpdate } = useApi();
+useHeadSafe({
+  title: "News",
+});
 
-setPageName("News");
+const { fetchDelete, fetchGet } = useApi();
 
-const dialogVisible = ref(false);
-const deleteId = ref(null);
+const isDialogDelete = ref<boolean>(false);
+const projectIdDelete = ref<string | null>(null);
 
-const entites = ref([]);
+const { data: entites } = useAsyncData(
+  "entites",
+  async () => await fetchGet("/news")
+);
 
 const handleCreate = async () => {
-  await navigateTo("/admin/news/create");
+  await navigateTo(`/admin/news/create`);
 };
 
-const handleEdit = async (row: any) => {
-  await navigateTo(`/admin/news/${row.id}`);
+const handleEdit = async (row: { id: string }) => {
+  await navigateTo(`/admin/news/${row.id}/edit`);
 };
 
-const handleDelete = (row: any) => {
-  deleteId.value = row.id;
-  dialogVisible.value = true;
-};
-
-const handleDeleteCancel = () => {
-  dialogVisible.value = false;
-  deleteId.value = null;
-};
-
-const updateNews = async () => {
-  const { data } = await fetchUpdate("/news");
-  entites.value = data.value;
-};
-
-const handleDeleteConfirm = async () => {
+const handleDelete = async () => {
   try {
-    dialogVisible.value = false;
-    await fetchDelete(`/news/${deleteId.value}`);
-    await updateNews();
-  } catch (e) {
-    console.log(e);
+    await fetchDelete(`/news/${projectIdDelete.value}`);
+    await refreshNuxtData("entites");
   } finally {
-    deleteId.value = null;
+    isDialogDelete.value = false;
+    projectIdDelete.value = null;
   }
 };
-
-// TODO тут шлется лишний запрос, если is_hot у новости уже true
-const setHot = async (id: number) => {
-  try {
-    await fetchPost(`/news/${id}/set-hot`);
-    await updateNews();
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-await updateNews();
-
-const entitesСorrected = computed(() => {
-  return entites.value?.map((e: any) => ({
-    ...e,
-    date: makeDateCorrect(e?.date),
-  }));
-});
 </script>
 
 <template>
-  <div>
-    <client-only>
-      <el-table :data="entitesСorrected" style="width: 100%">
-        <el-table-column label="id" prop="id" />
-        <el-table-column label="Title" prop="title" />
-        <el-table-column label="Date" prop="date" />
-        <el-table-column label="Is Hot">
-          <template #default="scope">
-            <el-switch
-              v-model="scope.row.is_hot"
-              size="small"
-              @change="setHot(scope.row.id)"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column align="right">
+  <ElCard>
+    <template #header>
+      <div class="card-header">
+        <span> News </span>
+      </div>
+    </template>
+    <ClientOnly>
+      <ElTable :data="entites" border style="width: 100%">
+        <ElTableColumn label="id" prop="id" width="120" />
+        <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Text" prop="text" width="820" />
+        <ElTableColumn label="Is Hot" prop="is_hot" width="90" />
+        <ElTableColumn label="Date" prop="date" width="120" />
+
+        <ElTableColumn align="right" label="Operations">
           <template #header>
-            <el-button type="success" size="small" @click="handleCreate">
+            <ElButton type="success" size="small" @click="handleCreate">
               Create
-            </el-button>
+            </ElButton>
           </template>
-          <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.row)">
-              Edit
-            </el-button>
-            <el-button
+          <template #default="{ row }">
+            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
+            <ElButton
               type="danger"
               size="small"
-              @click="handleDelete(scope.row)"
-              >Delete</el-button
+              @click="
+                isDialogDelete = true;
+                projectIdDelete = row.id;
+              "
             >
+              Delete
+            </ElButton>
           </template>
-        </el-table-column>
-      </el-table>
+        </ElTableColumn>
+      </ElTable>
 
       <!-- Модалка с предупреждением об удалении -->
-      <el-dialog v-model="dialogVisible" title="Attention!" width="30%">
-        <span>Delete news with id {{ deleteId }}?</span>
+      <ElDialog
+        v-model="isDialogDelete"
+        title="Attention!"
+        width="30%"
+        @close="projectIdDelete = null"
+      >
+        <span>Delete project ?</span>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="handleDeleteCancel">Cancel</el-button>
-            <el-button type="primary" @click="handleDeleteConfirm">
-              Confirm
-            </el-button>
+            <ElButton
+              @click="
+                isDialogDelete = false;
+                projectIdDelete = null;
+              "
+              >Cancel</ElButton
+            >
+            <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
           </span>
         </template>
-      </el-dialog>
-    </client-only>
-  </div>
+      </ElDialog>
+    </ClientOnly>
+  </ElCard>
 </template>

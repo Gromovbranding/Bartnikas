@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { UploadUserFile } from "element-plus";
+import type { FormRules, UploadUserFile } from "element-plus";
 
 definePageMeta({
   validate(route) {
@@ -12,10 +12,10 @@ const route = useRoute();
 
 const { data: entity } = useAsyncData(
   "entity",
-  async () => await fetchGet(`/projects/${route.params.id}`)
+  async () => await fetchGet(`/news/${route.params.id}`)
 );
 
-const rules = reactive({
+const rules = reactive<FormRules>({
   title: [
     {
       required: true,
@@ -30,13 +30,27 @@ const rules = reactive({
       trigger: "change",
     },
   ],
+  text: [
+    {
+      required: true,
+      message: "Please input Text",
+      trigger: "change",
+    },
+  ],
+  is_hot: [
+    {
+      trigger: "change",
+    },
+  ],
 });
 
-const fileList = ref<UploadUserFile[]>(entity.value?.project_images ?? []);
+const fileList = ref<UploadUserFile[]>(entity.value?.images ?? []);
 
 const form = reactive({
   title: entity.value?.title ?? "",
   desc: entity.value?.desc ?? "",
+  text: entity.value?.text ?? "",
+  is_hot: entity.value?.is_hot ?? false,
 });
 </script>
 
@@ -44,8 +58,8 @@ const form = reactive({
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Project {{ form.title }} </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/projects')">
+        <span> Article: "{{ form.title }}" </span>
+        <ElButton type="default" plain @click="navigateTo('/admin/news')">
           Back
         </ElButton>
       </div>
@@ -61,8 +75,17 @@ const form = reactive({
           <ElInput v-model="form.desc" :rows="5" type="textarea" />
         </ElFormItem>
 
+        <ElFormItem label="Text" prop="text">
+          <ElInput v-model="form.text" :rows="5" type="textarea" />
+        </ElFormItem>
+
+        <ElFormItem label="Activity type">
+          <ElCheckbox v-model="form.is_hot" label="Is Hot" size="large" />
+        </ElFormItem>
+
         <!-- Project Images -->
-        <ElFormItem required label="Project Images">
+
+        <ElFormItem required label="Images">
           <AdminUploadImage v-model="fileList" />
         </ElFormItem>
 

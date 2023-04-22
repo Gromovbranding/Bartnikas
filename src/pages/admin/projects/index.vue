@@ -42,7 +42,7 @@ const handleDelete = async () => {
     <ClientOnly>
       <ElTable :data="entites" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
-        <ElTableColumn label="Title" prop="title" width="120" />
+        <ElTableColumn label="Title" prop="title" width="220" />
 
         <ElTableColumn align="right" label="Operations">
           <template #header>

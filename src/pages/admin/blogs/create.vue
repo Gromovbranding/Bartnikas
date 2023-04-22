@@ -16,6 +16,13 @@ const rules = reactive({
       trigger: "change",
     },
   ],
+  text: [
+    {
+      required: true,
+      message: "Please input Text",
+      trigger: "change",
+    },
+  ],
 });
 
 const fileList = ref<UploadUserFile[]>([]);
@@ -23,6 +30,7 @@ const fileList = ref<UploadUserFile[]>([]);
 const form = reactive({
   title: "",
   desc: "",
+  text: "",
 });
 </script>
 
@@ -30,8 +38,8 @@ const form = reactive({
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Projects {{ form.title }} </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/projects')">
+        <span> Article {{ form.title }} </span>
+        <ElButton type="default" plain @click="navigateTo('/admin/blogs')">
           Back
         </ElButton>
       </div>
@@ -45,6 +53,10 @@ const form = reactive({
 
         <ElFormItem label="Description" prop="desc">
           <ElInput v-model="form.desc" :rows="5" type="textarea" />
+        </ElFormItem>
+
+        <ElFormItem label="Text" prop="text">
+          <ElInput v-model="form.text" :rows="5" type="textarea" />
         </ElFormItem>
 
         <!-- Project Images -->

@@ -1,99 +1,94 @@
 <script lang="ts" setup>
-const { setPageName } = useAdmin();
-const { makeDateCorrect } = useDateFormat();
-const { fetchDelete, fetchUpdate } = useApi();
+useHeadSafe({
+  title: "Blog",
+});
 
-setPageName("Blogs");
+const { fetchDelete, fetchGet } = useApi();
 
-const dialogVisible = ref(false);
-const deleteId = ref(null);
+const isDialogDelete = ref<boolean>(false);
+const projectIdDelete = ref<string | null>(null);
 
-const entites = ref([]);
+const { data: entites } = useAsyncData(
+  "entites",
+  async () => await fetchGet("/blogs")
+);
 
 const handleCreate = async () => {
-  await navigateTo("/admin/blogs/create");
+  await navigateTo(`/admin/blogs/create`);
 };
 
-const handleEdit = async (row: any) => {
-  await navigateTo(`/admin/blogs/${row.id}`);
+const handleEdit = async (row: { id: string }) => {
+  await navigateTo(`/admin/blogs/${row.id}/edit`);
 };
 
-const handleDelete = (row: any) => {
-  deleteId.value = row.id;
-  dialogVisible.value = true;
-};
-
-const handleDeleteCancel = () => {
-  dialogVisible.value = false;
-  deleteId.value = null;
-};
-
-const updateBlogs = async () => {
-  const { data } = await fetchUpdate("/blogs");
-  entites.value = data.value;
-};
-
-const handleDeleteConfirm = async () => {
+const handleDelete = async () => {
   try {
-    dialogVisible.value = false;
-    await fetchDelete(`/blogs/${deleteId.value}`);
-    await updateBlogs();
-  } catch (e) {
-    console.log(e);
+    await fetchDelete(`/blogs/${projectIdDelete.value}`);
+    await refreshNuxtData("entites");
   } finally {
-    deleteId.value = null;
+    isDialogDelete.value = false;
+    projectIdDelete.value = null;
   }
 };
-
-await updateBlogs();
-
-const entitesСorrected = computed(() => {
-  return entites.value?.map((e: any) => ({
-    ...e,
-    date: makeDateCorrect(e?.date),
-  }));
-});
 </script>
 
 <template>
-  <div>
-    <client-only>
-      <el-table :data="entitesСorrected" style="width: 100%">
-        <el-table-column label="id" prop="id" />
-        <el-table-column label="Title" prop="title" />
-        <el-table-column label="Date" prop="date" />
-        <el-table-column align="right">
+  <ElCard>
+    <template #header>
+      <div class="card-header">
+        <span> Blogs </span>
+      </div>
+    </template>
+    <ClientOnly>
+      <ElTable :data="entites" border style="width: 100%">
+        <ElTableColumn label="id" prop="id" width="120" />
+        <ElTableColumn label="Title" prop="title" width="320" />
+        <ElTableColumn label="Text" prop="text" width="820" />
+        <ElTableColumn label="Date" prop="date" width="120" />
+
+        <ElTableColumn align="right" label="Operations">
           <template #header>
-            <el-button type="success" size="small" @click="handleCreate">
+            <ElButton type="success" size="small" @click="handleCreate">
               Create
-            </el-button>
+            </ElButton>
           </template>
-          <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.row)">
-              Edit
-            </el-button>
-            <el-button
+          <template #default="{ row }">
+            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
+            <ElButton
               type="danger"
               size="small"
-              @click="handleDelete(scope.row)"
-              >Delete</el-button
+              @click="
+                isDialogDelete = true;
+                projectIdDelete = row.id;
+              "
             >
+              Delete
+            </ElButton>
           </template>
-        </el-table-column>
-      </el-table>
+        </ElTableColumn>
+      </ElTable>
 
       <!-- Модалка с предупреждением об удалении -->
-      <el-dialog v-model="dialogVisible" title="Attention!" width="30%">
-        <span>Delete blog with id {{ deleteId }}?</span>
+      <ElDialog
+        v-model="isDialogDelete"
+        title="Attention!"
+        width="30%"
+        @close="projectIdDelete = null"
+      >
+        <span>Delete project ?</span>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="handleDeleteCancel">Cancel</el-button>
-            <el-button type="primary" @click="handleDeleteConfirm">
-              Confirm
-            </el-button>
+            <ElButton
+              @click="
+                isDialogDelete = false;
+                projectIdDelete = null;
+              "
+              >Cancel</ElButton
+            >
+            <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
           </span>
         </template>
-      </el-dialog>
-    </client-only>
-  </div>
+      </ElDialog>
+    </ClientOnly>
+  </ElCard>
 </template>
