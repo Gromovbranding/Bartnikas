@@ -35,55 +35,58 @@ const handleDelete = async () => {
 <template>
   <ElCard>
     <template #header>
-      <h1>Projects</h1>
+      <div class="card-header">
+        <span> Projects </span>
+      </div>
     </template>
+    <ClientOnly>
+      <ElTable :data="entites" border style="width: 100%">
+        <ElTableColumn label="id" prop="id" width="120" />
+        <ElTableColumn label="Title" prop="title" width="120" />
 
-    <ElTable :data="entites" border style="width: 100%">
-      <ElTableColumn label="id" prop="id" width="120" />
-      <ElTableColumn label="Title" prop="title" width="120" />
+        <ElTableColumn align="right" label="Operations">
+          <template #header>
+            <ElButton type="success" size="small" @click="handleCreate">
+              Create
+            </ElButton>
+          </template>
+          <template #default="{ row }">
+            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
+            <ElButton
+              type="danger"
+              size="small"
+              @click="
+                isDialogDelete = true;
+                projectIdDelete = row.id;
+              "
+            >
+              Delete
+            </ElButton>
+          </template>
+        </ElTableColumn>
+      </ElTable>
 
-      <ElTableColumn align="right" label="Operations">
-        <template #header>
-          <ElButton type="success" size="small" @click="handleCreate">
-            Create
-          </ElButton>
+      <!-- Модалка с предупреждением об удалении -->
+      <ElDialog
+        v-model="isDialogDelete"
+        title="Attention!"
+        width="30%"
+        @close="projectIdDelete = null"
+      >
+        <span>Delete project ?</span>
+        <template #footer>
+          <span class="dialog-footer">
+            <ElButton
+              @click="
+                isDialogDelete = false;
+                projectIdDelete = null;
+              "
+              >Cancel</ElButton
+            >
+            <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
+          </span>
         </template>
-        <template #default="{ row }">
-          <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
-          <ElButton
-            type="danger"
-            size="small"
-            @click="
-              isDialogDelete = true;
-              projectIdDelete = row.id;
-            "
-          >
-            Delete
-          </ElButton>
-        </template>
-      </ElTableColumn>
-    </ElTable>
-
-    <!-- Модалка с предупреждением об удалении -->
-    <ElDialog
-      v-model="isDialogDelete"
-      title="Attention!"
-      width="30%"
-      @close="projectIdDelete = null"
-    >
-      <span>Delete project ?</span>
-      <template #footer>
-        <span class="dialog-footer">
-          <ElButton
-            @click="
-              isDialogDelete = false;
-              projectIdDelete = null;
-            "
-            >Cancel</ElButton
-          >
-          <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
-        </span>
-      </template>
-    </ElDialog>
+      </ElDialog>
+    </ClientOnly>
   </ElCard>
 </template>

@@ -38,11 +38,11 @@ const sidebarItems: Array<SidebarItem> = [
           active-class="sidebar__menu-item_active"
           :to="sidebarItem.url"
         >
-          <Icon
+          <!-- <Icon
             class="sidebar__menu-item-icon"
             :name="sidebarItem.icon"
             size="18px"
-          />
+          /> -->
           {{ sidebarItem.text }}
         </NuxtLink>
       </li>

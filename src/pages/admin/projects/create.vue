@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { UploadProps, UploadUserFile } from "element-plus";
+
 const rules = reactive({
   title: [
     {
@@ -16,87 +18,73 @@ const rules = reactive({
   ],
 });
 
+const fileList = ref<UploadUserFile[]>([]);
+
 const form = reactive({
   title: "",
   desc: "",
 });
+
+const isPreviewImageVisible = ref<boolean>(false);
+const previewImageUrl = ref<string | null>(null);
+
+const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
+  previewImageUrl.value = uploadFile.url!;
+  isPreviewImageVisible.value = true;
+};
 </script>
 
 <template>
   <ElCard>
     <template #header>
-      <h1>Projects</h1>
+      <div class="card-header">
+        <span> Projects {{ form.title }} </span>
+        <ElButton type="default" plain @click="navigateTo('/admin/projects')">
+          Back
+        </ElButton>
+      </div>
     </template>
 
-    <ElForm :model="form" :rules="rules" label-width="120px">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
-      </ElFormItem>
+    <ClientOnly>
+      <ElForm :model="form" :rules="rules" label-width="120px">
+        <ElFormItem label="Title" prop="title">
+          <ElInput v-model="form.title" />
+        </ElFormItem>
 
-      <ElFormItem label="Description" prop="desc">
-        <ElInput v-model="form.desc" :rows="5" type="textarea" />
-      </ElFormItem>
+        <ElFormItem label="Description" prop="desc">
+          <ElInput v-model="form.desc" :rows="5" type="textarea" />
+        </ElFormItem>
 
-      <!-- Project Images -->
-      <!-- <ElFormItem class="input-container" label="Project Images">
-          <ElTable
-            class="images-table"
-            :data="form.project_images"
+        <!-- Project Images -->
+        <ElFormItem required label="Project Images">
+          <ElUpload
+            v-model:file-list="fileList"
             style="width: 100%"
+            list-type="picture"
+            drag
+            accept="image/png, image/jpeg, image/jpg"
+            :auto-upload="false"
+            :on-preview="handlePictureCardPreview"
           >
-            <ElTableColumn label="image">
-              <template #default="scope">
-                <ElImage
-                  style="width: 100px; height: 100px"
-                  :src="scope.row.files[0].url"
-                  fit="fill"
-                />
-              </template>
-            </ElTableColumn>
-            <ElTableColumn label="id" prop="id" />
-            <ElTableColumn label="Name" prop="name" />
-
-            <ElTableColumn align="right">
-              <template #header>
-                <ElButton type="success" size="small" @click="handleCreate">
-                  Add
-                </ElButton>
-              </template>
-              <template #default="scope">
-                <ElButton size="small" @click="handleEdit(scope.row)">
-                  Edit
-                </ElButton>
-                <ElButton
-                  type="danger"
-                  size="small"
-                  @click="handleDelete(scope.row)"
-                >
-                  Delete
-                </ElButton>
-              </template>
-            </ElTableColumn>
-          </ElTable>
-
-          <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
-            <span>Delete project ?</span>
-            <template #footer>
-              <span class="dialog-footer">
-                <ElButton>Cancel</ElButton>
-                <ElButton type="primary"> Confirm </ElButton>
-              </span>
+            <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+              <div>jpg/png files with a size less than 500kb</div>
             </template>
-          </ElDialog>
-      </ElFormItem> -->
+          </ElUpload>
+        </ElFormItem>
 
-      <ElFormItem>
-        <div class="button-container">
-          <div>
-            <ElButton type="primary"> Save </ElButton>
-            <ElButton>Clear</ElButton>
-          </div>
-          <ElButton type="info" plain>Back</ElButton>
-        </div>
-      </ElFormItem>
-    </ElForm>
+        <ElFormItem>
+          <ElButton type="primary"> Save </ElButton>
+          <ElButton>Clear</ElButton>
+        </ElFormItem>
+      </ElForm>
+
+      <ElDialog v-model="isPreviewImageVisible">
+        <ElImage :src="previewImageUrl" alt="Preview Image" />
+      </ElDialog>
+    </ClientOnly>
   </ElCard>
 </template>
