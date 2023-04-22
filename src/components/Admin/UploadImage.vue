@@ -34,7 +34,7 @@ const previewImageUrl = ref<string | null>(null);
         Drop file here or <em>click to upload</em>
       </div>
       <template #tip>
-        <div>jpg/png files with a size less than 500kb</div>
+        <div>jpg/jpeg/png files with a size less than 500kb</div>
       </template>
     </ElUpload>
 
