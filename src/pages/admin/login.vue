@@ -60,8 +60,6 @@ const onSubmit = async () => {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/admin/config-reset.scss";
-
 .admin-auth-layout {
   position: relative;
   height: 100vh;

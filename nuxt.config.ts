@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     [
       "@element-plus/nuxt",
       {
-        importStyle: "scss",
+        importStyle: "css",
       },
     ],
     "nuxt-swiper",
