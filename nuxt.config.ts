@@ -2,13 +2,6 @@ export default defineNuxtConfig({
   srcDir: "src",
   modules: [
     [
-      "nuxt-purgecss",
-      {
-        enabled: true,
-        safelist: [/.*--.*/],
-      },
-    ],
-    [
       "@element-plus/nuxt",
       {
         importStyle: "css",

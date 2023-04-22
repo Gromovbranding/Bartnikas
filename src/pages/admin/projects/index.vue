@@ -26,6 +26,7 @@ const handleDelete = (row: { id: string }) => {
 
 const handleDeleteCancel = () => {
   deleteId.value = null;
+  dialogVisible.value = false;
 };
 
 const handleDeleteConfirm = async () => {
