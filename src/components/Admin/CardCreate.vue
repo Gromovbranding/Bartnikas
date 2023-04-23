@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { FormInstance, FormRules, UploadUserFile } from "element-plus";
 
+interface IForm {
+  [x: string]: {
+    value: string | boolean | number;
+    label: string;
+    type: string;
+  };
+}
+
 const props = defineProps<{
   name: string;
   back: string;
   cbCreate: (body: any, images: UploadUserFile[]) => Promise<void>;
-  form: {
-    [x: string]: {
-      value: string | boolean | number;
-      label: string;
-      type: string;
-    };
-  };
+  form: IForm;
 }>();
 
 const rules = reactive<FormRules>({
@@ -44,21 +46,37 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const formModel = reactive(props.form);
-const filesModel = reactive<UploadUserFile[]>([]);
+const formModel = ref<IForm>({});
+const filesModel = ref<UploadUserFile[]>([]);
 const formRef = ref<FormInstance>();
 
-const create = async () => {
-  const isValid = formRef.value?.validate();
-  if (isValid) {
-    const formattedFormModel: typeof formModel = {};
+onMounted(() => {
+  formModel.value = props.form;
+});
 
-    Object.keys(formModel).forEach((prop) => {
-      formattedFormModel[prop] = formModel[prop].value;
-    });
+const create = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
 
-    await props.cbCreate(formattedFormModel, filesModel);
-  }
+  await formEl.validate(async (isValid) => {
+    if (isValid) {
+      const formattedFormModel: any = {};
+
+      Object.keys(formModel.value).forEach((prop) => {
+        formattedFormModel[prop] = formModel.value[prop].value;
+      });
+
+      await props.cbCreate(formattedFormModel, filesModel.value);
+    }
+  });
+};
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.resetFields();
+};
+
+const handleUpload = (files: UploadUserFile[]) => {
+  filesModel.value = files;
 };
 </script>
 
@@ -95,12 +113,12 @@ const create = async () => {
         </ElFormItem>
 
         <ElFormItem required label="Images">
-          <AdminUploadImage v-model="filesModel" />
+          <AdminUploadImage :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="create"> Create </ElButton>
-          <ElButton>Clear</ElButton>
+          <ElButton type="primary" @click="create(formRef)"> Create </ElButton>
+          <ElButton @click="resetForm(formRef)">Clear</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>
