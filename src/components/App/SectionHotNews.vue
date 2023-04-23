@@ -16,7 +16,7 @@ interface Props {
   news: News;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const { makeDateCorrect } = useDateFormat();
 
@@ -31,20 +31,26 @@ const title = computed(() => {
 <template>
   <section class="hot-news">
     <div class="hot-news__wrapper">
-      <AppSectionHeader :is-link="false" white style="margin-bottom: 0;"> HOT NEWS </AppSectionHeader>
-    <div class="hot-news__ticker">
-      <UIMarquee><span>{{ title }}</span></UIMarquee>
-    </div>
-    <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
-      <img :src="news.images[0]?.url" alt="" />
-      <div>
-        <IconArrow is-arrow30-deg />
+      <AppSectionHeader :is-link="false" white style="margin-bottom: 0">
+        HOT NEWS
+      </AppSectionHeader>
+      <div class="hot-news__ticker">
+        <UIMarquee
+          ><span>{{ title }}</span></UIMarquee
+        >
       </div>
-    </NuxtLink>
-  </div>
-  <div class="hot-news__ticker hot-news__ticker--bottom">
-    <UIMarquee><span>{{ title }}</span></UIMarquee>
-  </div>
+      <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
+        <img :src="news.images[0]?.url" alt="" />
+        <div>
+          <IconArrow is-arrow30-deg />
+        </div>
+      </NuxtLink>
+    </div>
+    <div class="hot-news__ticker hot-news__ticker--bottom">
+      <UIMarquee
+        ><span>{{ title }}</span></UIMarquee
+      >
+    </div>
   </section>
 </template>
 

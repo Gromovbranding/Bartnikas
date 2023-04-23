@@ -140,11 +140,11 @@ const img2 = computed(() => {
 
     > a > div {
       p {
-          font-size: 1.5rem;
-          font-weight: 400;
-          line-height: 1.5em;
-          margin-top: auto;
-        }
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.5em;
+        margin-top: auto;
+      }
       &:first-child {
         display: flex;
         align-items: center;
@@ -155,13 +155,11 @@ const img2 = computed(() => {
           width: 25px;
           height: 25px;
         }
-
       }
 
       &:last-child {
         // max-width: 900px;
         // margin-top: 95px;
-
       }
     }
   }

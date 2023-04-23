@@ -130,8 +130,15 @@ function onPointerDown(e: PointerEvent) {
     <AppAwardsSection />
     <AppContentSpliter> STATEMENT </AppContentSpliter>
     <AppSectionVideoGreeting :style="videoGreetingStyle">
-Aerial photography gives me scope for creativity and innovation. In the city, we don't often see the natural energy of the planet, but we can all feel that energy through these images and appreciate the beauty of nature. In the past few years I traveled over 20 countries actively capturing the breathtaking landscapes below by boarding light aircraft and helicopters wherever I went. <br>
-I wanted to capture the energetic details and picturesque scenes perfected by Mother Nature. That is why I decided to do an aerial photography as aero-art.
+      Aerial photography gives me scope for creativity and innovation. In the
+      city, we don't often see the natural energy of the planet, but we can all
+      feel that energy through these images and appreciate the beauty of nature.
+      In the past few years I traveled over 20 countries actively capturing the
+      breathtaking landscapes below by boarding light aircraft and helicopters
+      wherever I went. <br />
+      I wanted to capture the energetic details and picturesque scenes perfected
+      by Mother Nature. That is why I decided to do an aerial photography as
+      aero-art.
     </AppSectionVideoGreeting>
   </main>
 </template>

@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import {news, projects} from '~/assets/data'
+import { news, projects } from "~/assets/data";
 // const config = useRuntimeConfig();
 const headerMain = ref<HTMLDivElement>();
 const imgSize = ref("115%");
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 
 // const news = ref<any[]>([]);
 const fetchNews = async () => {
-  const { data } = await fetchGet("/news");
+  // const { data } = await fetchGet("/news");
   // news.value = data.value as [];
 };
 
 // const projects = ref<any>([]);
 const fetchProjects = async () => {
-  const { data } = await fetchGet("/projects");
+  // const { data } = await fetchGet("/projects");
   // projects.value = data.value as [];
 };
 

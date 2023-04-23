@@ -4,7 +4,7 @@ const config = useRuntimeConfig().public;
 const route = useRoute();
 const projectId = route.params.project;
 const imageId = Number(route.params.id);
-const quantity = ref(1)
+const quantity = ref(1);
 
 const projectImage = ref(null);
 const fetch = async () => {

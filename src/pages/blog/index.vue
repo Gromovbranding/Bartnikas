@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { blogs } from '~/assets/data'
-const { fetchGet } = useApi();
+import { blogs } from "~/assets/data";
+// const { fetchGet } = useApi();
 
 // const blogs = ref([]);
 
-const fetchBlogs = async () => {
-  const { data } = await fetchGet("/blogs");
-  blogs.value = data.value as [];
-};
+// const fetchBlogs = async () => {
+//   const { data } = await fetchGet("/blogs");
+//   blogs.value = data.value as [];
+// };
 
 // fetchBlogs();
 </script>

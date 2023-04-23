@@ -73,7 +73,6 @@
       }
 
       > div {
-
         a {
           color: $colorTextDark;
           display: flex;
