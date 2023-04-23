@@ -2,15 +2,12 @@ export default defineNuxtConfig({
   srcDir: "src",
   modules: [
     [
-      "nuxt-purgecss",
+      "@element-plus/nuxt",
       {
-        enabled: true,
-        safelist: [/.*--.*/],
+        importStyle: "css",
       },
     ],
     "nuxt-swiper",
-    "@element-plus/nuxt",
-    "nuxt-icon",
   ],
 
   runtimeConfig: {
@@ -20,7 +17,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    // pageTransition: { name: "page", mode: "out-in" },
     rootTag: "div",
     head: {
       titleTemplate: `%s | Bartnikas`,
@@ -41,8 +38,6 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
-
-  css: ["@/assets/styles/_config.scss"],
 
   vite: {
     css: {

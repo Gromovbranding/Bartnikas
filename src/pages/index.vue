@@ -1,47 +1,19 @@
 <script lang="ts" setup>
-import { news, projects } from "~/assets/data";
-// const config = useRuntimeConfig();
-const headerMain = ref<HTMLDivElement>();
-const imgSize = ref("115%");
-// const { fetchGet } = useApi();
+const { fetchGet } = useApi();
 
-// const news = ref<any[]>([]);
-const fetchNews = async () => {
-  // const { data } = await fetchGet("/news");
-  // news.value = data.value as [];
-};
+const { data: news } = useAsyncData(
+  "news",
+  async () => await fetchGet("/news")
+);
 
-// const projects = ref<any>([]);
-const fetchProjects = async () => {
-  // const { data } = await fetchGet("/projects");
-  // projects.value = data.value as [];
-};
-
-Promise.allSettled([
-  fetchNews(),
-  fetchProjects(),
-  //
-]);
+const { data: projects } = useAsyncData(
+  "projects",
+  async () => await fetchGet("/projects")
+);
 
 const hotNews = computed(() => {
-  // return news.value?.find((n: any) => n.is_hot);
-  return news.find((n: any) => n.is_hot);
+  return news.value?.find((n: any) => n.is_hot);
 });
-
-onMounted(() => {
-  window.addEventListener("scroll", useThrottle(onScroll, 50));
-});
-
-onUnmounted(() => {
-  window.removeEventListener("scroll", useThrottle(onScroll, 50));
-});
-
-function onScroll() {
-  const height = headerMain.value?.offsetHeight || 0;
-  const res = (window.scrollY / height) * 15;
-  if (res > 15) return;
-  imgSize.value = `${115 - res}%`;
-}
 </script>
 
 <template>
@@ -83,7 +55,7 @@ function onScroll() {
           develops natural looking images based on 1000s of aerial photographs
           of scenic Iceland.
         </p>
-        <UIButton>View the project</UIButton>
+        <UIButton to="/projects">View the projects</UIButton>
       </div>
     </section>
     <AppVideoSection />
@@ -130,7 +102,7 @@ function onScroll() {
         line-height: 1.7;
       }
 
-      button {
+      a {
         margin-top: 60px;
       }
     }

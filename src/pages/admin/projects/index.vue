@@ -1,92 +1,92 @@
 <script lang="ts" setup>
-const { setPageName } = useAdmin();
-const { fetchDelete, fetchUpdate } = useApi();
+useHeadSafe({
+  title: "Projects",
+});
 
-setPageName("Projects");
+const { fetchDelete, fetchGet } = useApi();
 
-const dialogVisible = ref(false);
-const deleteId = ref(null);
+const isDialogDelete = ref<boolean>(false);
+const projectIdDelete = ref<string | null>(null);
 
-const entites = ref([]);
+const { data: entites } = useAsyncData(
+  "entites",
+  async () => await fetchGet("/projects")
+);
 
 const handleCreate = async () => {
-  await navigateTo("/admin/projects/create");
+  await navigateTo(`/admin/projects/create`);
 };
 
-const handleEdit = async (row: any) => {
-  await navigateTo(`/admin/projects/${row.id}`);
+const handleEdit = async (row: { id: string }) => {
+  await navigateTo(`/admin/projects/${row.id}/edit`);
 };
 
-const handleDelete = (row: any) => {
-  deleteId.value = row.id;
-  dialogVisible.value = true;
-};
-
-const handleDeleteCancel = () => {
-  dialogVisible.value = false;
-  deleteId.value = null;
-};
-
-const updateProjects = async () => {
-  const { data } = await fetchUpdate("/projects");
-
-  console.log(data.value);
-  entites.value = data.value;
-};
-
-const handleDeleteConfirm = async () => {
+const handleDelete = async () => {
   try {
-    dialogVisible.value = false;
-    await fetchDelete(`/projects/${deleteId.value}`);
-    await updateProjects();
-  } catch (e) {
-    console.log(e);
+    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await refreshNuxtData("entites");
   } finally {
-    deleteId.value = null;
+    isDialogDelete.value = false;
+    projectIdDelete.value = null;
   }
 };
-
-await updateProjects();
 </script>
 
 <template>
-  <div>
+  <ElCard>
+    <template #header>
+      <div class="card-header">
+        <span> Projects </span>
+      </div>
+    </template>
     <ClientOnly>
-      <ElTable :data="entites" style="width: 100%">
-        <ElTableColumn label="id" prop="id" />
-        <ElTableColumn label="Title" prop="title" />
-        <ElTableColumn align="right">
+      <ElTable :data="entites" border style="width: 100%">
+        <ElTableColumn label="id" prop="id" width="120" />
+        <ElTableColumn label="Title" prop="title" width="220" />
+
+        <ElTableColumn align="right" label="Operations">
           <template #header>
-            <el-button type="success" size="small" @click="handleCreate">
+            <ElButton type="success" size="small" @click="handleCreate">
               Create
-            </el-button>
+            </ElButton>
           </template>
-          <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.row)">
-              Edit
-            </el-button>
-            <el-button
+          <template #default="{ row }">
+            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
+            <ElButton
               type="danger"
               size="small"
-              @click="handleDelete(scope.row)"
-              >Delete</el-button
+              @click="
+                isDialogDelete = true;
+                projectIdDelete = row.id;
+              "
             >
+              Delete
+            </ElButton>
           </template>
         </ElTableColumn>
       </ElTable>
 
       <!-- Модалка с предупреждением об удалении -->
-      <ElDialog v-model="dialogVisible" title="Attention!" width="30%">
-        <span>Delete project with id {{ deleteId }}?</span>
+      <ElDialog
+        v-model="isDialogDelete"
+        title="Attention!"
+        width="30%"
+        @close="projectIdDelete = null"
+      >
+        <span>Delete project ?</span>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="handleDeleteCancel">Cancel</el-button>
-            <el-button type="primary" @click="handleDeleteConfirm">
-              Confirm
-            </el-button>
+            <ElButton
+              @click="
+                isDialogDelete = false;
+                projectIdDelete = null;
+              "
+              >Cancel</ElButton
+            >
+            <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
           </span>
         </template>
       </ElDialog>
     </ClientOnly>
-  </div>
+  </ElCard>
 </template>

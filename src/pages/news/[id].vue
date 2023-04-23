@@ -5,14 +5,10 @@ const { makeDateCorrect } = useDateFormat();
 const route = useRoute();
 const newsId = route.params.id;
 
-const news = ref({});
-
-const fetchNews = async () => {
-  const { data } = await fetchGet(`/news/${newsId}`);
-  news.value = data.value;
-};
-
-fetchNews();
+const { data: news } = useAsyncData(
+  "news",
+  async () => await fetchGet(`/news/${newsId}`)
+);
 
 const date = computed(() => {
   return makeDateCorrect(news.value.date);

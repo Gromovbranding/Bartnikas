@@ -3,12 +3,6 @@ definePageMeta({
   layout: "admin",
   middleware: "admin-auth",
 });
-
-const { pageName } = useAdmin();
-
-useHead({
-  title: pageName,
-});
 </script>
 
 <template>

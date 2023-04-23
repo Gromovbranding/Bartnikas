@@ -25,6 +25,12 @@ const sidebarItems: Array<SidebarItem> = [
     url: "/admin/blogs",
     icon: "ep:chat-line-square",
   },
+  {
+    sortId: 4,
+    text: "Contacts",
+    url: "/admin/contacts",
+    icon: "ep:chat-line-square",
+  },
 ].sort((a, b) => a.sortId - b.sortId);
 </script>
 
@@ -38,11 +44,9 @@ const sidebarItems: Array<SidebarItem> = [
           active-class="sidebar__menu-item_active"
           :to="sidebarItem.url"
         >
-          <Icon
-            class="sidebar__menu-item-icon"
-            :name="sidebarItem.icon"
-            size="18px"
-          />
+          <ElIcon size="18">
+            <ElIconTickets class="sidebar__menu-item-icon" />
+          </ElIcon>
           {{ sidebarItem.text }}
         </NuxtLink>
       </li>
@@ -78,12 +82,10 @@ const sidebarItems: Array<SidebarItem> = [
       font-size: 14px;
       transition: border-color 0.3s, background-color 0.3s, color 0.3s;
       color: #bfcbd9;
+      gap: 16px;
 
       &:hover {
         background-color: #263445;
-      }
-      &-icon {
-        margin-right: 16px;
       }
       &_active {
         background-color: #409eff;

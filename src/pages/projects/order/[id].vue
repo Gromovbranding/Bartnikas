@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
+const { fetchGet } = useApi();
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
 
@@ -7,43 +8,15 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
   moreOrdersSwiper.value = swiper;
 };
 
-const moreOrders = ref([
-  {
-    name: "Name Photo1",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 1,
-  },
-  {
-    name: "Name Photo2",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 2,
-  },
-  {
-    name: "Name Photo3",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 3,
-  },
-  {
-    name: "Name Photo4",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 4,
-  },
-  {
-    name: "Name Photo5",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 5,
-  },
-  {
-    name: "Name Photo6",
-    img: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-    orderId: 6,
-  },
-]);
+const { data: moreOrders } = useAsyncData(
+  "projects",
+  async () => await fetchGet("/projects")
+);
 </script>
 
 <template>
   <main>
-    <Title> Карта фото </Title>
+    <Title> Photo Card </Title>
     <AppPageHead only-logo title="Name Photo" sub="projects/1" />
     <section class="order">
       <div class="order__gallery">

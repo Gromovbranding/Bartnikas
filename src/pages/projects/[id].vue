@@ -1,17 +1,14 @@
 <script lang="ts" setup>
-import { projects as list } from "~/assets/data";
+// import { projects as list } from "~/assets/data";
 const { fetchGet } = useApi();
 
 const route = useRoute();
 const projectId = route.params.id;
 
-const project = ref(null);
-const fetchProject = async () => {
-  const { data } = await fetchGet(`/projects/${projectId}`);
-  project.value = data.value;
-};
-
-fetchProject();
+const { data: project } = useAsyncData(
+  "project",
+  async () => await fetchGet(`/projects/${projectId}`)
+);
 </script>
 
 <template>
@@ -81,9 +78,9 @@ fetchProject();
 
       <section class="port-list">
         <AppPortOrder
-          v-for="img in list[0]?.project_images"
+          v-for="img in project?.project_images"
           :key="`port-item${img.id}`"
-          :project-id="list[0]?.id"
+          :project-id="project?.id"
           :project-image="img"
         />
       </section>
