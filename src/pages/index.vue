@@ -1,23 +1,15 @@
 <script lang="ts" setup>
 const { fetchGet } = useApi();
 
-const news = ref([]);
-const fetchNews = async () => {
-  const { data } = await fetchGet("/news");
-  news.value = data.value as [];
-};
+const { data: news } = useAsyncData(
+  "news",
+  async () => await fetchGet("/news")
+);
 
-const projects = ref([]);
-const fetchProjects = async () => {
-  const { data } = await fetchGet("/projects");
-  projects.value = data.value as [];
-};
-
-Promise.allSettled([
-  fetchNews(),
-  fetchProjects(),
-  //
-]);
+const { data: projects } = useAsyncData(
+  "projects",
+  async () => await fetchGet("/projects")
+);
 
 const hotNews = computed(() => {
   return news.value?.find((n: any) => n.is_hot);

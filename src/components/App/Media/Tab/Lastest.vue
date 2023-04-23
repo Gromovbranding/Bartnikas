@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 const { fetchGet } = useApi();
 
-const news = ref([]);
-
-const fetchNews = async () => {
-  const { data } = await fetchGet("/news");
-  news.value = data.value as [];
-};
-
-fetchNews();
+const { data: news } = useAsyncData(
+  "news",
+  async () => await fetchGet("/news")
+);
 
 const sortedNews = computed(() => {
   return news?.value?.sort((a: any, b: any) => b?.id - a?.id);
