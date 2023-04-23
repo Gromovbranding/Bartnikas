@@ -1,3 +1,27 @@
+<script setup lang="ts">
+const { fetchPost } = useApi();
+
+const form = ref<{
+  name: string;
+  email: string;
+  comment: string;
+}>({
+  name: "",
+  email: "",
+  comment: "",
+});
+
+const handleAddContact = async () => {
+  await fetchPost("/contacts", form.value);
+
+  form.value = {
+    name: "",
+    email: "",
+    comment: "",
+  };
+};
+</script>
+
 <template>
   <main>
     <Title> Contacts </Title>
@@ -34,17 +58,23 @@
         <form @submit.prevent>
           <div>
             <label for=""> Your Name </label>
-            <UIInput placeholder="John Smith" />
+            <UIInput v-model="form.name" placeholder="John Smith" />
           </div>
           <div>
             <label for=""> Your email </label>
-            <UIInput type="email" placeholder="mail@example.com" />
+            <UIInput
+              v-model="form.email"
+              type="email"
+              placeholder="mail@example.com"
+            />
           </div>
           <div>
             <label for=""> Comment </label>
-            <UIInput placeholder="Comment text" />
+            <UIInput v-model="form.comment" placeholder="Comment text" />
           </div>
-          <UIButton style="width: 100%"> Submit </UIButton>
+          <UIButton style="width: 100%" @click="handleAddContact">
+            Submit
+          </UIButton>
         </form>
       </div>
     </section>
