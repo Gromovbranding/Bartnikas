@@ -1,18 +1,14 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-const config = useRuntimeConfig().public;
+const { fetchGet } = useApi();
 const route = useRoute();
 const projectId = route.params.project;
 const imageId = Number(route.params.id);
 
-const projectImage = ref(null);
-const fetch = async () => {
-  const { data } = await useFetch(
-    `${config.apiBaseUrl}/projects/${projectId}/image/${imageId}`
-  );
-  projectImage.value = data.value;
-};
-fetch();
+const { data: projectImage } = useAsyncData(
+  "projectImage",
+  async () => await fetchGet(`/projects/${projectId}/image/${imageId}`)
+);
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
 
@@ -34,7 +30,7 @@ const slidesPerView = computed(() => {
 
 <template>
   <main>
-    <Title> Карта фото </Title>
+    <Title> Photo Card </Title>
     <AppPageHead
       only-logo
       :title="projectImage?.name"

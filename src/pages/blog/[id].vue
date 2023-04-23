@@ -5,14 +5,10 @@ const { makeDateCorrect } = useDateFormat();
 const route = useRoute();
 const blogId = route.params.id;
 
-const blog = ref({});
-
-const fetchBlog = async () => {
-  const { data } = await fetchGet(`/blogs/${blogId}`);
-  blog.value = data.value;
-};
-
-fetchBlog();
+const { data: blog } = useAsyncData(
+  "blog",
+  async () => await fetchGet(`/blogs/${blogId}`)
+);
 
 const date = computed(() => {
   return makeDateCorrect(blog.value.date);

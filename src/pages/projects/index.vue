@@ -1,23 +1,20 @@
 <script lang="ts" setup>
 const { fetchGet } = useApi();
 
-const projects = ref([]);
-const fetchProjects = async () => {
-  const { data } = await fetchGet("/projects");
-  projects.value = data.value as [];
-};
-
-fetchProjects();
+const { data: projects } = useAsyncData(
+  "projects",
+  async () => await fetchGet("/projects")
+);
 </script>
 
 <template>
   <main>
     <Title> Projects </Title>
     <AppPageHead title="Projects" />
-    <section v-if="projects?.length" class="projects">
+    <section class="projects">
       <AppPortItem
         v-for="(project, idx) in projects"
-        :key="project?.id"
+        :key="project.id"
         :project="project"
         :direction="idx % 2 ? 'row-reverse' : 'row'"
       />

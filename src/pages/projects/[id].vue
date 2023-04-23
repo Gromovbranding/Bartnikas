@@ -4,13 +4,10 @@ const { fetchGet } = useApi();
 const route = useRoute();
 const projectId = route.params.id;
 
-const project = ref(null);
-const fetchProject = async () => {
-  const { data } = await fetchGet(`/projects/${projectId}`);
-  project.value = data.value;
-};
-
-fetchProject();
+const { data: project } = useAsyncData(
+  "project",
+  async () => await fetchGet(`/projects/${projectId}`)
+);
 </script>
 
 <template>
