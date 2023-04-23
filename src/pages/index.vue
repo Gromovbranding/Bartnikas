@@ -60,7 +60,7 @@ const hotNews = computed(() => {
           develops natural looking images based on 1000s of aerial photographs
           of scenic Iceland.
         </p>
-        <UIButton>View the project</UIButton>
+        <UIButton to="/projects">View the projects</UIButton>
       </div>
     </section>
     <AppVideoSection />
@@ -107,7 +107,7 @@ const hotNews = computed(() => {
         line-height: 1.7;
       }
 
-      button {
+      a {
         margin-top: 60px;
       }
     }
