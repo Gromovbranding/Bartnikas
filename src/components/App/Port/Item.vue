@@ -22,12 +22,11 @@ interface Props {
   // desciption: string;
   // photoCounter: number | string;
   direction?: "row" | "row-reverse";
-  project?: Project;
+  project: Project;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   direction: "row",
-  project: null,
 });
 
 const img1 = computed(() => {
@@ -46,7 +45,7 @@ const img2 = computed(() => {
 </script>
 
 <template>
-  <div class="port">
+  <div class="port" :class="{ reverse: direction === 'row-reverse' }">
     <div class="port__img">
       <div class="scale">
         <img :src="img1" alt="" />
@@ -63,7 +62,7 @@ const img2 = computed(() => {
             <p>{{ props.project?.project_images?.length || "" }}</p>
           </div>
           <h2>{{ project?.title }}</h2>
-          <div>
+          <div class="port__text__desc">
             <p>{{ project?.desc }}</p>
           </div>
         </NuxtLink>
@@ -74,13 +73,16 @@ const img2 = computed(() => {
 
 <style lang="scss" scoped>
 .port {
-  display: flex;
+  // display: flex;
+  display: grid;
+  grid-template-columns: 1fr 60rem;
+  grid-template-rows: auto auto;
   width: 100%;
-  height: 1013px;
   flex-direction: v-bind(direction);
 
   &__img {
     flex: 0 0 790px;
+    padding: 3rem 2rem;
 
     > div {
       height: 100%;
@@ -95,33 +97,54 @@ const img2 = computed(() => {
 
   &__content {
     width: 100%;
-    background-color: rgb(232, 232, 232);
     border-radius: 8px;
+    .scale {
+      margin: 2rem;
+      max-height: 25rem;
+    }
 
     img {
       width: 100%;
       height: 550px;
-      margin-bottom: -15px;
+      // margin-bottom: -15px;
     }
   }
 
   &__text {
     border-radius: $borderRadiusMain;
     background-color: $colorBackgroundGrey;
-    padding-bottom: 90px;
-    padding-left: 60px;
-    padding-top: 40px;
+    padding: 2rem;
+    height: 27rem;
+    display: flex;
+    flex-direction: column;
+    &__desc {
+      margin-block: auto;
+    }
+
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      width: 100%;
+      flex-grow: 1;
+    }
 
     small {
       font-size: 18px;
     }
 
     h2 {
-      font-size: 45px;
+      font-size: 2.6rem;
       font-weight: bold;
     }
 
     > a > div {
+      p {
+          font-size: 1.5rem;
+          font-weight: 400;
+          line-height: 1.5em;
+          margin-top: auto;
+        }
       &:first-child {
         display: flex;
         align-items: center;
@@ -133,27 +156,29 @@ const img2 = computed(() => {
           height: 25px;
         }
 
-        p {
-          font-size: 35px;
-          font-weight: 400;
-        }
       }
 
       &:last-child {
-        max-width: 900px;
-        margin-top: 95px;
+        // max-width: 900px;
+        // margin-top: 95px;
 
-        p {
-          font-size: 30px;
-          line-height: 40px;
-          font-weight: 400;
-        }
       }
     }
   }
 }
 
-@media screen and (max-width: 479px) {
+.reverse {
+  grid-template-columns: 60rem 1fr;
+  .port__content {
+    order: -1;
+  }
+}
+
+.scale {
+  // margin: 2rem;
+}
+
+@media screen and (max-width: 549px) {
   .port {
     flex-direction: "row";
     height: unset;

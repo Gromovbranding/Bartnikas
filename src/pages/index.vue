@@ -1,19 +1,20 @@
 <script lang="ts" setup>
+import {news, projects} from '~/assets/data'
 // const config = useRuntimeConfig();
 const headerMain = ref<HTMLDivElement>();
 const imgSize = ref("115%");
 const { fetchGet } = useApi();
 
-const news = ref<any[]>([]);
+// const news = ref<any[]>([]);
 const fetchNews = async () => {
   const { data } = await fetchGet("/news");
-  news.value = data.value as [];
+  // news.value = data.value as [];
 };
 
-const projects = ref<any>([]);
+// const projects = ref<any>([]);
 const fetchProjects = async () => {
   const { data } = await fetchGet("/projects");
-  projects.value = data.value as [];
+  // projects.value = data.value as [];
 };
 
 Promise.allSettled([
@@ -23,7 +24,8 @@ Promise.allSettled([
 ]);
 
 const hotNews = computed(() => {
-  return news.value?.find((n: any) => n.is_hot);
+  // return news.value?.find((n: any) => n.is_hot);
+  return news.find((n: any) => n.is_hot);
 });
 
 onMounted(() => {
@@ -139,6 +141,7 @@ function onScroll() {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-bottom: 30px;
 }
 
 .header {
@@ -185,7 +188,7 @@ function onScroll() {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .header {
     &__main {
       height: 530px;

@@ -94,7 +94,7 @@ const selectedTab = ref(mediaTabs.value[0]);
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .media {
     flex-direction: column;
     padding: 0px 16px 80px;

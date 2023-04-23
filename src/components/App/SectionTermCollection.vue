@@ -33,11 +33,12 @@ defineProps<Props>();
 <style lang="scss" scoped>
 .terms {
   &__item {
-    display: flex;
-    gap: 15px;
+    display: grid;
+    gap: 2rem;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 60px 40px 120px 40px;
+    padding: 3rem;
+    grid-template-columns: 1fr 60%;
 
     &:nth-child(even) {
       background-color: $colorBackgroundGrey;
@@ -47,7 +48,7 @@ defineProps<Props>();
       &:first-child {
         flex: 0 0 55%;
         h3 {
-          font-size: 7.5vw;
+          font-size: 3.3rem;
           letter-spacing: 3px;
           line-height: 1.4;
           font-weight: bold;
@@ -58,7 +59,7 @@ defineProps<Props>();
         flex: 0 0 45%;
 
         p {
-          font-size: 24px;
+          font-size: 1.5rem;
           line-height: 1.4;
           font-weight: 400;
           max-width: 90%;
@@ -68,7 +69,7 @@ defineProps<Props>();
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .terms {
     &__item {
       flex-direction: column;

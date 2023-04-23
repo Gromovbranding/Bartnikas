@@ -39,7 +39,7 @@ const renderedNews = computed(() => {
 
 <style lang="scss" scoped>
 .news {
-  padding: 80px 40px;
+  padding: 40px;
 
   &__content {
     display: flex;
@@ -53,7 +53,7 @@ const renderedNews = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .news {
     padding: 50px 16px;
 

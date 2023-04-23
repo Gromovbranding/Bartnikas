@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { projects as list } from '~/assets/data';
 const { fetchGet } = useApi();
 
 const route = useRoute();
@@ -80,9 +81,9 @@ fetchProject();
 
       <section class="port-list">
         <AppPortOrder
-          v-for="img in project?.project_images"
+          v-for="img in list[0]?.project_images"
           :key="`port-item${img.id}`"
-          :project-id="project?.id"
+          :project-id="list[0]?.id"
           :project-image="img"
         />
       </section>
@@ -92,11 +93,10 @@ fetchProject();
 
 <style lang="scss" scoped>
 .project {
-  padding: 80px 40px;
+  padding: 4rem;
 }
 .author-quote {
   display: flex;
-  gap: 100px;
   margin-bottom: 100px;
 
   &__person {
@@ -153,7 +153,7 @@ fetchProject();
     }
 
     p {
-      font-size: 42px;
+      font-size: 2rem;
       line-height: 1.5;
     }
   }
@@ -165,7 +165,7 @@ fetchProject();
   grid-gap: 120px 15px;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .project {
     padding: 80px 12px;
   }

@@ -15,18 +15,19 @@
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 70px;
+    grid-template-columns: repeat(4, min-content);
+    column-gap: 1rem;
+    justify-content: space-between;
 
     > div {
       &:nth-child(odd) {
-        margin-top: 220px;
+        margin-top: 9rem;
       }
     }
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .awards {
     padding: 50px 16px;
     &__content {

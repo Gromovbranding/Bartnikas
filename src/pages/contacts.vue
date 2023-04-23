@@ -54,10 +54,10 @@
 <style lang="scss" scoped>
 .contacts {
   background-color: $colorBackgroundGrey;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   > div {
     &:first-child {
-      max-width: 990px;
       img {
         width: 100%;
         height: 100%;
@@ -67,14 +67,12 @@
     }
 
     &:last-child {
-      max-width: 580px;
-      margin-left: 90px;
-      padding-top: 40px;
-      padding-bottom: 40px;
+      padding: 3rem 4rem;
+      > * {
+        max-width: 33.3rem;
+      }
 
       > div {
-        margin-top: 30px;
-        margin-bottom: 60px;
 
         a {
           color: $colorTextDark;
@@ -91,21 +89,22 @@
       }
 
       h3 {
-        font-size: 34px;
+        font-size: 1.9rem;
         font-weight: bold;
-        margin-bottom: 30px;
-        line-height: 1.6;
+        margin-bottom: 2rem;
+        line-height: 1.32;
         display: flex;
-        gap: 5px;
+        font-weight: 600;
+        gap: 0.5rem;
       }
 
       p {
-        font-size: 26px;
+        font-size: 1.34rem;
         font-weight: 400;
-        line-height: 1.55;
+        line-height: 1.56;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 0.5rem;
       }
 
       form {
@@ -124,7 +123,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .contacts {
     flex-direction: column;
     > div {

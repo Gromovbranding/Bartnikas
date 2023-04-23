@@ -186,7 +186,7 @@ const onClickLogo = () => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .page-head {
     padding: 20px 28px;
     &__logo {

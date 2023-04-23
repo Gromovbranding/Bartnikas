@@ -4,6 +4,7 @@ const config = useRuntimeConfig().public;
 const route = useRoute();
 const projectId = route.params.project;
 const imageId = Number(route.params.id);
+const quantity = ref(1)
 
 const projectImage = ref(null);
 const fetch = async () => {
@@ -103,7 +104,7 @@ const slidesPerView = computed(() => {
         </ul>
         <div class="order__info-control">
           <div class="order__info-quanity">
-            <AppFormQuanity />
+            <AppFormQuanity v-model="quantity" />
           </div>
           <div class="order__info-colorlist">
             <b> Interior best collors: </b>
@@ -292,7 +293,7 @@ const slidesPerView = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .order {
     flex-direction: column;
     padding: 0px 16px;

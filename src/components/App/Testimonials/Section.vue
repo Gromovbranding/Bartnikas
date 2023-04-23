@@ -164,7 +164,7 @@ const items = ref([
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .testimonials {
     padding: 30px 16px 50px;
   }

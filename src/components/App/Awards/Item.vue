@@ -73,7 +73,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .awards__item {
     > a {
       width: 55vw;

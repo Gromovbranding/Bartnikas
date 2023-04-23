@@ -34,7 +34,7 @@
     height: 36px;
     position: absolute;
     right: 30px;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     bottom: 30px;
 
     &:hover {
@@ -58,7 +58,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .video-collection {
     &__img {
       img {

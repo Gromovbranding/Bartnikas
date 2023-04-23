@@ -111,7 +111,7 @@ const date = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .interios {
     &:hover {
     }

@@ -103,7 +103,7 @@ const imageCover = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .article {
     display: flex;
     flex-direction: column;

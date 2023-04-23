@@ -85,6 +85,7 @@ const defaultImg =
         > a {
           display: flex;
           gap: 10px;
+          position: relative;
           span {
             font-size: 24px;
             font-weight: 400;
@@ -107,7 +108,7 @@ const defaultImg =
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .port-order {
     &__img {
       img {

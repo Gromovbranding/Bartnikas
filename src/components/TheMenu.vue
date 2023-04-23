@@ -411,7 +411,7 @@ watch(
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .menu {
     &__nav {
       flex-direction: column;

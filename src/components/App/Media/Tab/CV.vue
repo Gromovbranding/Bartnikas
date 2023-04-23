@@ -37,7 +37,7 @@
     }
   }
 }
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .media__cv {
     > div {
       display: flex;

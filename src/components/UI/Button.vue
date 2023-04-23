@@ -71,7 +71,7 @@ const classes = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .btn-default {
     padding: 25px 30px;
     font-size: 7vw;

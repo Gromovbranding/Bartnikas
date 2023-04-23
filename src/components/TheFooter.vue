@@ -156,7 +156,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .footer {
     position: relative;
     &__content {

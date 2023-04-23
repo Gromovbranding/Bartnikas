@@ -231,7 +231,7 @@ const isVisible = ref(false);
       > :deep(svg) {
         transition: 0.4s;
         position: relative;
-        top: 30%;
+        top: 33%;
         width: 120px;
         fill: rgba(255, 255, 255, 0.1);
         cursor: pointer;
@@ -273,7 +273,7 @@ const isVisible = ref(false);
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .zoom__modal-arrow {
     flex: 1;
     > :deep(svg) {

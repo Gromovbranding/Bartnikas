@@ -21,7 +21,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .spliter {
     padding: 42px 30px;
 

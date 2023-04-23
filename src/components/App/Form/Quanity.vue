@@ -106,7 +106,7 @@ function updateValue(e: "+" | "-") {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .form {
     small {
       font-size: 22px;

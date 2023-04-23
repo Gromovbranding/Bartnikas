@@ -96,7 +96,7 @@ main {
   grid-gap: 70px;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   main {
   }
   .collection {

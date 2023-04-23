@@ -70,7 +70,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .testimonial {
     width: 90vw;
     &__img {

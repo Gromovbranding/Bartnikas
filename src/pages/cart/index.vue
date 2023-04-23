@@ -155,7 +155,7 @@ const quantity = ref(1);
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .checkout {
     flex-direction: column;
     padding: 16px 14px 60px;

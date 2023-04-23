@@ -98,7 +98,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .article {
     padding: 4px 16px;
     &__headline {

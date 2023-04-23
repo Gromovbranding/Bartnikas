@@ -1,14 +1,15 @@
 <script lang="ts" setup>
+import { blogs } from '~/assets/data'
 const { fetchGet } = useApi();
 
-const blogs = ref([]);
+// const blogs = ref([]);
 
 const fetchBlogs = async () => {
   const { data } = await fetchGet("/blogs");
   blogs.value = data.value as [];
 };
 
-fetchBlogs();
+// fetchBlogs();
 </script>
 
 <template>
@@ -25,11 +26,11 @@ fetchBlogs();
 .blog {
   display: grid;
   grid-template-columns: repeat(2, minmax(450px, 100%));
-  grid-gap: 180px 80px;
-  padding: 80px 40px;
+  grid-gap: 4rem;
+  padding: 4rem 2rem;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .blog {
     padding: 50px 16px;
     display: flex;

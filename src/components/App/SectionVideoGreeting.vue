@@ -11,12 +11,12 @@
     </div>
     <div class="video-greeting__text">
       <p>
-        Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        <slot>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
         exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</slot>
       </p>
     </div>
   </section>
@@ -65,15 +65,15 @@
 
     p {
       color: $colorTextDark;
-      font-size: 30px;
+      font-size: 1.5rem;
       line-height: 1.55;
       word-break: normal;
-      font-weight: 400;
+      font-weight: 500;
     }
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .video-greeting {
     flex-direction: column;
     gap: 20px;

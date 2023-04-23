@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { projects as list } from '~/assets/data';
 const { fetchGet } = useApi();
 
 const projects = ref([]);
@@ -14,9 +15,9 @@ fetchProjects();
   <main>
     <Title> Projects </Title>
     <AppPageHead title="Projects" />
-    <section v-if="projects?.length" class="projects">
+    <section v-if="list?.length" class="projects">
       <AppPortItem
-        v-for="(project, idx) in projects"
+        v-for="(project, idx) in list"
         :key="project?.id"
         :project="project"
         :direction="idx % 2 ? 'row-reverse' : 'row'"

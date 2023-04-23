@@ -62,7 +62,7 @@ const date = computed(() => {
     img {
       width: 100%;
       height: 100%;
-      min-height: 550px;
+      // min-height: 550px;
       max-height: 550px;
       object-fit: cover;
     }
@@ -85,17 +85,16 @@ const date = computed(() => {
       &:last-child {
         h3 {
           color: $colorTextDark;
-          font-size: 40px;
-          font-weight: 500;
+          font-size: 2rem;
+          font-weight: 600;
           line-height: 1.1;
         }
 
         p {
-          font-size: 24px;
+          font-size: 1.1rem;
           color: #000;
-          margin-top: 15px;
+          margin-top: 1rem;
           line-height: 1.5;
-          font-weight: 400;
           letter-spacing: 1px;
         }
 
@@ -103,7 +102,7 @@ const date = computed(() => {
           display: block;
           margin-top: 40px;
           color: $colorTextGrey;
-          font-size: 20px;
+          font-size: 0.8rem;
           font-weight: 400;
         }
       }
@@ -111,7 +110,7 @@ const date = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .interios {
     &:hover {
     }

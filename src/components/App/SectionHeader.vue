@@ -36,10 +36,11 @@ withDefaults(defineProps<Props>(), {
   margin-bottom: 80px;
 
   h2 {
-    font-size: 13vw;
+    font-size: 12.5rem;
     display: flex;
     text-transform: uppercase;
     font-weight: bold;
+    line-height: 1em;
 
     span {
       font-size: 40px;
@@ -68,7 +69,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .caption {
     margin-bottom: 40px;
 

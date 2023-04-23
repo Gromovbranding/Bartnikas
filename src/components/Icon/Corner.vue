@@ -1,26 +1,3 @@
 <template>
-  <svg
-    id="Layer_1"
-    fill="#000000"
-    height="200px"
-    width="200px"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 330 330"
-    xml:space="preserve"
-  >
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-    <g
-      id="SVGRepo_tracerCarrier"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    ></g>
-    <g id="SVGRepo_iconCarrier">
-      <path
-        id="XMLID_225_"
-        d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
-      ></path>
-    </g>
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 70.46 39.04"><g id="Layer_2" data-name="Layer 2"> <g id="Layer_1-2" data-name="Layer 1"> <path class="cls-1" d="M35.5,39,.73,4.27A2.5,2.5,0,0,1,4.27.73L35.5,32,66.19,1.27a2.5,2.5,0,1,1,3.54,3.54Z"/> </g> </g> </svg>
 </template>

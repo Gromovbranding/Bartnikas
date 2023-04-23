@@ -36,7 +36,7 @@ const sortedNews = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .grid {
     display: flex;
     flex-direction: column;

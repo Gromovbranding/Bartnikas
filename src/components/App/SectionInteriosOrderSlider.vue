@@ -229,11 +229,18 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
           overflow: hidden;
           display: flex;
           flex-direction: column;
+          img {
+            aspect-ratio: 1;
+          }
 
           :deep(.swiper-wrapper) {
             display: flex;
-            gap: 10px;
-            max-height: 94px;
+            gap: 0.5rem;
+            max-height: 4.25rem;
+          }
+
+          :deep(.swiper-thumbs) {
+            margin-right: 4.5rem;
           }
 
           :deep(.swiper-slide-thumb-active) {
@@ -241,7 +248,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
           }
 
           :deep(.swiper-slide) {
-            flex: 0 0 calc(50% - 9px);
+            flex: 0 0 4.25rem;
             border-radius: $borderRadiusMain;
             width: 100% !important;
             img {
@@ -256,7 +263,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 549px) {
   .interios-order {
     padding: 50px 16px;
     &__content {
