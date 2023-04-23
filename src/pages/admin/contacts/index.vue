@@ -10,20 +10,12 @@ const projectIdDelete = ref<string | null>(null);
 
 const { data: entites } = useAsyncData(
   "entites",
-  async () => await fetchGet("/projects")
+  async () => await fetchGet("/contacts")
 );
-
-const handleCreate = async () => {
-  await navigateTo(`/admin/projects/create`);
-};
-
-const handleEdit = async (row: { id: string }) => {
-  await navigateTo(`/admin/projects/${row.id}/edit`);
-};
 
 const handleDelete = async () => {
   try {
-    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await fetchDelete(`/contacts/${projectIdDelete.value}`);
     await refreshNuxtData("entites");
   } finally {
     isDialogDelete.value = false;
@@ -42,16 +34,13 @@ const handleDelete = async () => {
     <ClientOnly>
       <ElTable :data="entites" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
-        <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Name" prop="name" width="220" />
+        <ElTableColumn label="Email" prop="email" width="220" />
+        <ElTableColumn label="Comment" prop="comment" width="720" />
+        <ElTableColumn label="Created" prop="created_at" width="220" />
 
         <ElTableColumn align="right" label="Operations">
-          <template #header>
-            <ElButton type="success" size="small" @click="handleCreate">
-              Create
-            </ElButton>
-          </template>
           <template #default="{ row }">
-            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
             <ElButton
               type="danger"
               size="small"
