@@ -28,7 +28,7 @@ const handleDelete = async () => {
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Projects </span>
+        <span> Contacts </span>
       </div>
     </template>
     <ClientOnly>
@@ -62,7 +62,7 @@ const handleDelete = async () => {
         width="30%"
         @close="projectIdDelete = null"
       >
-        <span>Delete project ?</span>
+        <span>Delete contact ?</span>
         <template #footer>
           <span class="dialog-footer">
             <ElButton
@@ -70,8 +70,9 @@ const handleDelete = async () => {
                 isDialogDelete = false;
                 projectIdDelete = null;
               "
-              >Cancel</ElButton
             >
+              Cancel
+            </ElButton>
             <ElButton type="primary" @click="handleDelete"> Confirm </ElButton>
           </span>
         </template>
