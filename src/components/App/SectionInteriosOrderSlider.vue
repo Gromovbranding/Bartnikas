@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
 
+const { fetchGet } = useApi();
+
 const thumbsSwiper = ref<Swiper | null>(null);
 const mainSwiper = ref<Swiper | null>(null);
 
@@ -17,6 +19,25 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
     mainSwiper.value[direction]();
   }
 };
+
+const { data: slider } = useAsyncData(
+  "slider",
+  async () => await fetchGet(`/index-slider`)
+);
+
+const colors = [
+  "#1a1c28",
+  "#353736",
+  "#545c20",
+  "#a66456",
+  "#a49484",
+  "#8a88a0",
+];
+
+function copyColor(idx: number) {
+  navigator.clipboard.writeText(colors[idx]);
+}
+console.log("slider", slider.value);
 </script>
 
 <template>
@@ -50,12 +71,18 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
           <div class="interios-order__project-colors">
             <h4>Best Colors Of Interior:</h4>
             <div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+              <div
+                v-for="(color, idx) in colors"
+                :key="color"
+                :style="{ 'background-color': color }"
+                title="copy HEX code to clipboard"
+                @click="copyColor(idx)"
+              ></div>
+            </div>
+            <div class="controls">
+              <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
+              <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
+              <UIButton> Order </UIButton>
             </div>
           </div>
           <div class="interios-order__project-order">
@@ -158,30 +185,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
               width: 80px;
               height: 45px;
               border-radius: $borderRadiusMain;
-
-              &:nth-child(1) {
-                background-color: #1a1c28;
-              }
-
-              &:nth-child(2) {
-                background-color: #353736;
-              }
-
-              &:nth-child(3) {
-                background-color: #545c20;
-              }
-
-              &:nth-child(4) {
-                background-color: #a66456;
-              }
-
-              &:nth-child(5) {
-                background-color: #a49484;
-              }
-
-              &:nth-child(6) {
-                background-color: #8a88a0;
-              }
+              cursor: pointer;
             }
           }
         }
@@ -263,7 +267,115 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .interios-order {
+    &__content {
+      display: flex;
+      flex-direction: column;
+      .interios-order__sl {
+        position: relative;
+        .interios-order__project {
+          &-select {
+            gap: 1rem;
+            span {
+              font-size: 1.7rem;
+            }
+          }
+
+          &-name {
+            margin: 0;
+            font-size: 34px;
+          }
+
+          &-colors {
+            margin: 0;
+            display: grid;
+            grid-template-columns: 30% 1fr;
+            grid-template-rows: auto auto;
+            h4 {
+              font-size: 24px;
+              margin-bottom: 20px;
+              grid-column: span 2;
+            }
+            .controls {
+              display: flex;
+              justify-content: space-between;
+              max-width: 100%;
+              align-items: flex-end;
+              > :first-child {
+                margin-left: auto;
+                width: 5rem;
+                height: 5rem;
+                padding: 0;
+                font-size: 2rem;
+              }
+              > :nth-child(2) {
+                margin-right: auto;
+                width: 5rem;
+                height: 5rem;
+                padding: 0;
+                font-size: 2rem;
+              }
+              > :last-child {
+                width: 21.5rem !important;
+              }
+            }
+          }
+
+          &-order {
+            display: none;
+          }
+        }
+      }
+
+      .swiper {
+        &-slider {
+          &__main {
+            margin-top: 2rem;
+            order: -1;
+
+            :deep(.swiper-slide) {
+              img {
+                height: 36rem;
+              }
+            }
+
+            &-navigation {
+              display: none;
+            }
+          }
+          &__thumb {
+            order: -1;
+            :deep(.swiper-wrapper) {
+              max-height: initial;
+            }
+
+            :deep(.swiper-thumbs) {
+              margin-right: 4.5rem;
+            }
+          }
+        }
+      }
+    }
+    &__project-select {
+      margin-block: 2rem;
+    }
+    &__project-name {
+      h3 {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  :deep(.caption) {
+    margin-bottom: 60px;
+    h2 {
+      font-size: 12vw;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .interios-order {
     padding: 50px 16px;
     &__content {
@@ -369,14 +481,21 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
             }
 
             :deep(.swiper-slide) {
-              flex: 0 0 calc(58px);
+              // flex: 0 0 calc(58px);
               img {
-                min-height: 58px;
-                max-height: 58px;
+                // min-height: 58px;
+                // max-height: 58px;
               }
             }
           }
         }
+      }
+    }
+  }
+  .swiper-slider {
+    &__main {
+      &-navigation {
+        padding-right: 3px;
       }
     }
   }
@@ -386,6 +505,15 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
     h2 {
       font-size: 12vw;
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.interios-order {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
   }
 }
 </style>

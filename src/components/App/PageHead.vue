@@ -186,9 +186,20 @@ const onClickLogo = () => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
+  .page-head {
+    &__caption {
+      font-size: 9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .page-head {
     padding: 20px 28px;
+    &__caption {
+      font-size: 5rem;
+    }
     &__logo {
       margin-top: 7px;
       height: 7.5vw;

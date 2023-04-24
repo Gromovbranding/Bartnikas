@@ -69,7 +69,15 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
+  .caption {
+    h2 {
+      font-size: 9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .caption {
     margin-bottom: 40px;
 
@@ -77,11 +85,11 @@ withDefaults(defineProps<Props>(), {
       font-size: 16vw;
       letter-spacing: 3px;
       span {
-        padding-top: 10px;
+        // padding-top: 10px;
         font-size: 4.6vw;
         letter-spacing: 0;
         padding-left: 6px;
-        font-weight: 400;
+        // font-weight: 400;
       }
     }
 

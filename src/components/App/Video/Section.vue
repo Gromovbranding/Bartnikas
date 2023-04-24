@@ -25,7 +25,7 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .video-collections {
     padding: 60px 16px;
     &__content {

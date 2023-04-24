@@ -155,7 +155,56 @@ const quantity = ref(1);
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .checkout {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+    &__main-img {
+      width: 34rem;
+      height: 25.2rem;
+    }
+    &__item {
+      height: auto;
+    }
+    &__title {
+      display: none;
+      &_mobile {
+        display: block;
+        font-size: 11rem;
+        font-weight: 600;
+      }
+    }
+    &__total {
+      width: 100%;
+      display: flex;
+      > div {
+        margin-left: auto;
+        width: 50%;
+        > div {
+          margin-top: 1rem;
+          b {
+            font-size: 3rem;
+          }
+          p {
+            font-size: 2.15rem;
+          }
+        }
+      }
+      h1 {
+        display: none;
+      }
+    }
+    &__purchase {
+      font-size: 2.15rem;
+    }
+    h3 {
+      font-size: 2.15rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .checkout {
     flex-direction: column;
     padding: 16px 14px 60px;

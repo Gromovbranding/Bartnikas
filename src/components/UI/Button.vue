@@ -71,9 +71,16 @@ const classes = computed(() => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
   .btn-default {
-    padding: 25px 30px;
+    padding: 1.5rem 1rem;
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .btn-default {
+    padding: 1.74rem 2rem;
     font-size: 7vw;
   }
 }

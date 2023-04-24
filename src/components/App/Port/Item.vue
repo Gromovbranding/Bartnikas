@@ -75,7 +75,7 @@ const img2 = computed(() => {
 .port {
   // display: flex;
   display: grid;
-  grid-template-columns: 1fr 60rem;
+  grid-template-columns: 1fr 60%;
   grid-template-rows: auto auto;
   width: 100%;
   flex-direction: v-bind(direction);
@@ -166,7 +166,7 @@ const img2 = computed(() => {
 }
 
 .reverse {
-  grid-template-columns: 60rem 1fr;
+  grid-template-columns: 60% 1fr;
   .port__content {
     order: -1;
   }
@@ -176,7 +176,28 @@ const img2 = computed(() => {
   // margin: 2rem;
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
+  .port {
+    grid-template-columns: 1fr;
+    &__content {
+      .scale {
+        margin: 4rem;
+        max-height: 25rem;
+        max-width: 70%;
+        margin-inline: auto;
+      }
+    }
+    &__text {
+      padding: 4rem;
+      height: 30rem;
+    }
+    &__img {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .port {
     flex-direction: "row";
     height: unset;
@@ -186,11 +207,15 @@ const img2 = computed(() => {
     &__content {
       img {
         object-fit: cover;
-        height: 400px;
+        height: 35rem;
+      }
+      .scale {
+        max-height: initial;
       }
     }
     &__text {
-      padding: 28px 16px 50px;
+      padding: 2rem 1rem 3rem;
+      height: auto;
       h2 {
         font-size: 32px;
       }

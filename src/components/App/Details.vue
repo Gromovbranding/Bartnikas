@@ -129,6 +129,7 @@ summary {
   line-height: 123%;
   font-weight: 600;
   transition-duration: 200ms;
+  gap: 2rem;
   span {
     display: inline-flex;
     justify-content: center;
@@ -140,6 +141,7 @@ summary {
     background-color: #fff;
     color: #000;
     font-weight: 400;
+    flex-shrink: 0;
   }
   &.closed {
     background-color: #fff;
@@ -157,5 +159,14 @@ p {
   font-size: 1.52rem;
   line-height: 155%;
   max-width: 61rem;
+}
+
+@media screen and (max-width: 550px) {
+  summary {
+    font-size: 1.7rem;
+  }
+  p {
+    font-size: 1.4rem;
+  }
 }
 </style>

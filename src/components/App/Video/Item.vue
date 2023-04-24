@@ -58,7 +58,17 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .video-collection {
+    &__img {
+      img {
+        height: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .video-collection {
     &__img {
       img {

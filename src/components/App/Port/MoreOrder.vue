@@ -93,7 +93,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .more-order {
     &__img {
       img {

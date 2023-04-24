@@ -1,8 +1,18 @@
+<script setup lang="ts">
+const { type: typeScreen } = useBreakpoints();
+
+const awards = ref(0);
+
+onMounted(() => {
+  awards.value = typeScreen.value === "xs" ? 5 : 16;
+});
+</script>
+
 <template>
   <section class="awards">
     <AppSectionHeader to-caption=">170" to="/awards"> AWARDS </AppSectionHeader>
     <div class="awards__content">
-      <AppAwardsItem v-for="i in 16" :key="`award-item-${i}`" />
+      <AppAwardsItem v-for="i in awards" :key="`award-item-${i}`" />
     </div>
   </section>
 </template>
@@ -11,7 +21,7 @@
 .awards {
   background-color: $colorBackgroundGrey;
   border-radius: $borderRadiusMain;
-  padding: 80px 40px;
+  padding: 6rem 3rem;
 
   &__content {
     display: grid;
@@ -27,7 +37,16 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
+  .awards {
+    &__content {
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: space-around;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .awards {
     padding: 50px 16px;
     &__content {
@@ -35,7 +54,7 @@
       flex-direction: column;
       gap: 100px;
       margin-top: 60px;
-      padding: 0 26px 140px;
+      padding: 0 0 10rem;
       > div {
         &:nth-child(odd) {
           margin-top: 0;

@@ -91,7 +91,21 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .media__exhibitions {
+    > div {
+      padding: 0;
+      h3 {
+        font-size: 1.74rem;
+      }
+      p {
+        font-size: 1.55rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .grid {
     display: flex;
     flex-direction: column;

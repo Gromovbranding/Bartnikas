@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// import { projects as list } from "~/assets/data";
 const { fetchGet } = useApi();
 
 const route = useRoute();
@@ -13,8 +12,8 @@ const { data: project } = useAsyncData(
 
 <template>
   <main>
-    <Title> Landscape </Title>
-    <AppPageHead sub="projects" title="Landscape" />
+    <Title> {{ project?.title || "" }} </Title>
+    <AppPageHead sub="projects" :title="project?.title || ''" />
 
     <div class="project">
       <section class="author-quote">
@@ -49,11 +48,7 @@ const { data: project } = useAsyncData(
           </div>
           <div>
             <p>
-              To me this isn’t only a photo, it’s a work of art. It’s painterly
-              quality plus the graphic nature of the landscape takes this beyond
-              the ordinary aerial. Yes, it’s right place right time, but it’s
-              technically great because it’s absolutely sharp and crisp. Hope to
-              see more of your photos!
+              {{ project.desc }}
             </p>
           </div>
           <div>
@@ -162,7 +157,7 @@ const { data: project } = useAsyncData(
   grid-gap: 120px 15px;
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .project {
     padding: 80px 12px;
   }

@@ -145,7 +145,7 @@ const list = ref([
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .faq {
     padding: 30px 16px 100px;
     &__list {

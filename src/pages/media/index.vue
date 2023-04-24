@@ -2,7 +2,7 @@
 const mediaTabs = ref([
   {
     component: shallowRef(resolveComponent("AppMediaTabLastest")),
-    label: "Lastest News",
+    label: "Latest News",
   },
   {
     component: shallowRef(resolveComponent("AppMediaTabKit")),
@@ -88,13 +88,22 @@ const selectedTab = ref(mediaTabs.value[0]);
   }
 
   &__content {
-    overflow: hidden;
     position: relative;
     flex: 1 1 100%;
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .media {
+    padding: 4rem 2rem;
+    &__menu {
+      flex-basis: 15rem;
+      gap: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .media {
     flex-direction: column;
     padding: 0px 16px 80px;

@@ -1,13 +1,28 @@
 <script lang="ts" setup>
+interface NewsImage {
+  id?: number;
+  name?: string;
+  url?: string;
+}
+interface News {
+  id?: number;
+  title?: string;
+  desc?: string;
+  text?: string;
+  date?: Date;
+  images?: NewsImage[];
+}
+
 const { fetchGet } = useApi();
 
-const { data: news } = useAsyncData(
+const { data: news } = await useAsyncData(
   "news",
-  async () => await fetchGet("/news")
+  async () => await fetchGet<News[]>("/news")
 );
 
 const sortedNews = computed(() => {
-  return news?.value?.sort((a: any, b: any) => b?.id - a?.id);
+  if (!news.value?.length) return [];
+  return news.value.sort((a: any, b: any) => b?.id - a?.id);
 });
 </script>
 
@@ -32,7 +47,14 @@ const sortedNews = computed(() => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
   .grid {
     display: flex;
     flex-direction: column;

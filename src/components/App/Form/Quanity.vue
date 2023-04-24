@@ -106,7 +106,31 @@ function updateValue(e: "+" | "-") {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .form {
+    small {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    .form__control {
+      > input {
+        width: 4rem;
+        height: 2.4rem;
+        font: inherit;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      > div {
+        svg {
+          width: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .form {
     small {
       font-size: 22px;

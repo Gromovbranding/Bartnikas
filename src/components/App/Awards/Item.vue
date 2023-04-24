@@ -25,6 +25,7 @@
     justify-content: center;
     width: 20vw;
     height: 20vw;
+    margin-inline: auto;
     border-radius: 50%;
     border: none;
     background-color: #fff;
@@ -73,11 +74,31 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
+  .awards__item {
+    > a {
+      width: 22rem;
+      height: 22rem;
+      > img {
+        filter: grayscale(0);
+      }
+      > div {
+        bottom: -70px;
+        opacity: 1;
+        h4 {
+          font-size: 1.7rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .awards__item {
     > a {
       width: 55vw;
       height: 55vw;
+      margin: 0;
       > div {
         opacity: 1;
         h4 {

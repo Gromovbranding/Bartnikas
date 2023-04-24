@@ -420,7 +420,7 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .awards {
     padding: 80px 16px;
     &__item {

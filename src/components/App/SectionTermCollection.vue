@@ -69,7 +69,7 @@ defineProps<Props>();
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .terms {
     &__item {
       flex-direction: column;

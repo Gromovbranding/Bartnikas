@@ -152,7 +152,7 @@ const handleAddContact = async () => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .contacts {
     flex-direction: column;
     > div {

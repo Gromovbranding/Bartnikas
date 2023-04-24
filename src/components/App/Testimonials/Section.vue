@@ -91,28 +91,15 @@ const items = ref([
 <template>
   <section ref="root" class="testimonials">
     <AppSectionHeader :is-link="false">Testimonials</AppSectionHeader>
-    <!-- <div class="testimonials__content">
-      <Swiper
-        class="more__slider"
-        :modules="[SwiperMousewheel]"
-        :mousewheel="true"
-        :slides-per-view="slidesPerView"
-        :space-between="spaceBetween"
-        :speed="1000"
-        @swiper="initMoreOrdersSwiper"
-      >
-        <SwiperSlide
-          v-for="item in items"
-          :key="`testimonials-slider-item-${item.id}`"
-        >
-          <AppTestimonialsItem
-            :img="item.img"
-            :name="item.name"
-            :profession="item.profession"
-          />
-        </SwiperSlide>
-      </Swiper>
-    </div> -->
+    <div class="testimonials__content">
+      <AppTestimonialsItem
+        v-for="item in items"
+        :key="item.id"
+        :img="item.img"
+        :name="item.name"
+        :profession="item.profession"
+      />
+    </div>
     <div
       ref="wrapper"
       class="sticky-wrapper"
@@ -142,7 +129,7 @@ const items = ref([
   margin-inline: -40px;
 }
 .testimonials {
-  padding: 60px 40px 80px;
+  padding: 4rem 3rem 6rem;
   min-height: 200vh;
   &__content {
   }
@@ -164,9 +151,33 @@ const items = ref([
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
   .testimonials {
-    padding: 30px 16px 50px;
+    min-height: initial;
+    padding-bottom: 0;
+    &__content {
+      display: flex;
+      gap: 2rem;
+      overflow: auto;
+      margin-inline: -3rem;
+      padding-bottom: 4rem;
+      padding-left: 10rem;
+      padding-right: 2rem;
+    }
+  }
+  .sticky-wrapper {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .testimonials {
+    padding: 2rem 2rem 0;
+    &__content {
+      margin-inline: 0;
+      padding-inline: 0;
+      margin-right: -2rem;
+    }
   }
 
   :deep(.caption) {

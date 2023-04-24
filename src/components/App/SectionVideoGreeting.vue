@@ -28,7 +28,7 @@
 <style lang="scss" scoped>
 .video-greeting {
   display: flex;
-  height: 650px;
+  // height: 650px;
 
   &__video {
     width: 50%;
@@ -71,12 +71,29 @@
       font-size: 1.5rem;
       line-height: 1.55;
       word-break: normal;
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .video-greeting {
+    flex-direction: column;
+    &__video {
+      width: 100%;
+    }
+    &__text {
+      width: 100%;
+      padding: 2.5rem;
+      padding-bottom: 5rem;
+      p {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .video-greeting {
     flex-direction: column;
     gap: 20px;

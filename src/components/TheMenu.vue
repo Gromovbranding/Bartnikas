@@ -411,7 +411,20 @@ watch(
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .menu {
+    &__additional-info {
+      padding-right: 0;
+      margin-top: 0;
+    }
+    &__cart {
+      // position: absolute;
+      // top: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .menu {
     &__nav {
       flex-direction: column;

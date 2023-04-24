@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 const { fetchGet } = useApi();
+const { type: typeScreen } = useBreakpoints();
+
+const headerMain = ref<HTMLDivElement>();
+const defImgSize = typeScreen.value === "xs" ? 250 : 115;
+const imgSize = ref(`${defImgSize}%`);
 
 const { data: news } = useAsyncData(
   "news",
@@ -14,6 +19,23 @@ const { data: projects } = useAsyncData(
 const hotNews = computed(() => {
   return news.value?.find((n: any) => n.is_hot);
 });
+
+onMounted(() => {
+  window.addEventListener("scroll", throttledListener);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", throttledListener);
+});
+
+const throttledListener = useThrottle(onScroll, 50);
+
+function onScroll() {
+  const height = headerMain.value?.offsetHeight || 0;
+  const res = (window.scrollY / height) * 15;
+  if (res > 15) return;
+  imgSize.value = `${defImgSize - res}%`;
+}
 </script>
 
 <template>
@@ -160,19 +182,27 @@ const hotNews = computed(() => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 1000px) {
   .header {
     &__main {
-      height: 530px;
+      height: calc(100vh + 10px);
+      &:deep(svg) {
+        max-width: 30rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .header {
+    &__main {
+      height: 50vh;
       &:deep(svg) {
         width: 88%;
       }
     }
     &__img-sticky {
-      height: 167vh;
-      img {
-        object-fit: none;
-      }
+      // height: 100vh;
     }
   }
 

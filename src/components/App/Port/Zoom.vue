@@ -273,7 +273,7 @@ const isVisible = ref(false);
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .zoom__modal-arrow {
     flex: 1;
     > :deep(svg) {

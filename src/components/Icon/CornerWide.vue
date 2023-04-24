@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 interface Props {
-  left: boolean;
+  left?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {

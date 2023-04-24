@@ -26,7 +26,7 @@ const { data: blogs } = useAsyncData(
   padding: 4rem 2rem;
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .blog {
     padding: 50px 16px;
     display: flex;

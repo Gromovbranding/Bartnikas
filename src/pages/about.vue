@@ -16,6 +16,7 @@ function onPointerMove(e: PointerEvent) {
 }
 
 function onPointerDown(e: PointerEvent) {
+  if (typeScreen.value === "lg") return;
   scrollActive.value = true;
   scrollStart.value = e.screenX;
 }
@@ -265,7 +266,48 @@ function onPointerDown(e: PointerEvent) {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .biography-about {
+    &__text {
+      p {
+        font-size: 1.3rem;
+      }
+      small {
+        font-size: 1.1rem;
+      }
+    }
+  }
+  .testimonials {
+    &__person {
+      > div {
+        &:first-child {
+          width: 7.22rem;
+          height: 7.22rem;
+        }
+
+        &:last-child {
+          max-width: 16rem;
+
+          h3 {
+            font-size: 1.52rem;
+            font-weight: bold;
+          }
+          p {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+    &__text {
+      p {
+        line-height: 1.3;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .biography-about {
     display: flex;
     flex-direction: column;
@@ -277,20 +319,21 @@ function onPointerDown(e: PointerEvent) {
 
     &__text {
       p {
-        font-size: 5vw;
+        font-size: 4vw;
       }
 
       small {
-        font-size: 4vw;
+        font-size: 3vw;
       }
     }
   }
 
   .testimonials {
-    padding: 0 16px;
+    padding: 0 1rem 5rem;
     flex-direction: column;
     gap: 180px;
     &__item {
+      flex-basis: 100%;
     }
 
     &__person {

@@ -108,7 +108,7 @@ const defaultImg =
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .port-order {
     &__img {
       img {

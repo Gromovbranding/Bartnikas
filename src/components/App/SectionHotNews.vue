@@ -57,7 +57,7 @@ const title = computed(() => {
 <style lang="scss" scoped>
 .hot-news {
   &__wrapper {
-    padding: 0 40px 80px;
+    padding: 3rem 3rem 5rem;
     overflow-x: hidden;
     border-radius: 10px;
     background: $colorAccentBlue;
@@ -109,10 +109,13 @@ const title = computed(() => {
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .hot-news {
     margin-top: 0;
-    padding: 60px 16px 50px;
+    padding: 0;
+    &__wrapper {
+      padding: 3rem 1rem;
+    }
     &__content {
       margin-top: 32px;
       img {

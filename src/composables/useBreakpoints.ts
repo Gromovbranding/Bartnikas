@@ -12,8 +12,8 @@ export const useBreakpoints = () => {
 
   const type = computed(() => {
     if (windowWidth.value <= 550) return "xs";
-    if (windowWidth.value > 550 && windowWidth.value <= 1200) return "md";
-    if (windowWidth.value > 1200) return "lg";
+    if (windowWidth.value > 550 && windowWidth.value <= 1000) return "md";
+    if (windowWidth.value > 1000) return "lg";
     return null; // This is an unreachable line, simply to keep eslint happy.
   });
 

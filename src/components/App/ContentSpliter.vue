@@ -10,7 +10,7 @@
 .spliter {
   background-color: $colorAccentBlue;
   border-radius: $borderRadiusMain;
-  padding: 40px 40px;
+  padding: 3rem 3rem;
 
   h2 {
     font-size: 150px;
@@ -21,12 +21,13 @@
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 550px) {
   .spliter {
-    padding: 42px 30px;
+    padding: 3rem 2rem;
 
     h2 {
       letter-spacing: 3px;
+      font-size: 4rem;
     }
   }
 }
