@@ -25,7 +25,7 @@ const imageCover = computed(() => {
 
 <template>
   <main>
-    <Title>Article</Title>
+    <Title>{{ news.title }}</Title>
     <AppPageHead only-logo back />
 
     <article class="article">
@@ -100,7 +100,7 @@ const imageCover = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .article {
     padding: 4px 16px;
     &__headline {

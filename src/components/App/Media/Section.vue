@@ -39,13 +39,13 @@ const renderedNews = computed(() => {
 
 <style lang="scss" scoped>
 .news {
-  padding: 80px 40px;
+  padding: 3rem;
 
   &__content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 40px;
+    gap: 3rem;
 
     &:deep(.interios) {
       width: calc(50% - 40px);
@@ -53,7 +53,18 @@ const renderedNews = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 1000px) {
+  .news {
+    &__content {
+      flex-direction: column;
+      &:deep(.interios) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .news {
     padding: 50px 16px;
 

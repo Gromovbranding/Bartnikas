@@ -36,14 +36,16 @@ withDefaults(defineProps<Props>(), {
   margin-bottom: 80px;
 
   h2 {
-    font-size: 13vw;
+    font-size: 12.5rem;
     display: flex;
     text-transform: uppercase;
     font-weight: bold;
+    line-height: 1em;
 
     span {
-      font-size: 33px;
-      padding-top: 44px;
+      font-size: 40px;
+      line-height: 45px;
+      font-weight: 500;
     }
   }
 
@@ -67,7 +69,15 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 1000px) {
+  .caption {
+    h2 {
+      font-size: 9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .caption {
     margin-bottom: 40px;
 
@@ -75,11 +85,11 @@ withDefaults(defineProps<Props>(), {
       font-size: 16vw;
       letter-spacing: 3px;
       span {
-        padding-top: 10px;
+        // padding-top: 10px;
         font-size: 4.6vw;
         letter-spacing: 0;
         padding-left: 6px;
-        font-weight: 500;
+        // font-weight: 400;
       }
     }
 

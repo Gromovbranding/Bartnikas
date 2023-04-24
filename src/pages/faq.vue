@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-interface IItem {
-  visible: boolean;
-  answer: string;
-  question: string;
-  id: number;
-}
+// interface IItem {
+//   visible: boolean;
+//   answer: string;
+//   question: string;
+//   id: number;
+// }
 
 const list = ref([
   {
@@ -27,17 +27,17 @@ const list = ref([
   },
 ]);
 
-const handleQuestionClick = (item: IItem) => {
-  list.value = list.value.map((el) => {
-    if (el.id === item.id)
-      return {
-        ...el,
-        visible: !el.visible,
-      };
+// const handleQuestionClick = (item: IItem) => {
+//   list.value = list.value.map((el) => {
+//     if (el.id === item.id)
+//       return {
+//         ...el,
+//         visible: !el.visible,
+//       };
 
-    return el;
-  });
-};
+//     return el;
+//   });
+// };
 </script>
 
 <template>
@@ -46,25 +46,16 @@ const handleQuestionClick = (item: IItem) => {
     <AppPageHead title="FAQ" />
     <section class="faq">
       <div class="faq__list">
-        <div
-          v-for="item in list"
-          :key="item.question + item.id"
-          :class="['faq__item', { 'faq__item--acitve': item.visible }]"
-        >
-          <div class="faq__question" @click="handleQuestionClick(item)">
-            <div>
-              <h3>{{ item.question }}</h3>
-            </div>
-            <div>
-              <span>{{ item.visible ? "-" : "+" }}</span>
-            </div>
-          </div>
-          <div v-if="item.visible" class="faq__answer">
-            <p>
-              {{ item.answer }}
-            </p>
-          </div>
-        </div>
+        <AppDetails v-for="item in list" :key="item.question + item.id">
+          <template #summary
+            >If I want to purchase a print where should I go?</template
+          >
+          You choose a photo that arouses your interest and resonates with you,
+          then send a request form (or a link to sb@stasbart.com), indicating
+          your wishes in size and design. We agree on the size, paper, price,
+          and you pay for the work with a bank card using the payment link that
+          will come to your email.
+        </AppDetails>
       </div>
     </section>
   </main>
@@ -154,7 +145,7 @@ const handleQuestionClick = (item: IItem) => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .faq {
     padding: 30px 16px 100px;
     &__list {

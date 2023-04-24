@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const quantity = ref(1);
+</script>
+
 <template>
   <main>
     <Title>Cart</Title>
@@ -6,7 +10,7 @@
     <section class="checkout">
       <h1 class="checkout__title_mobile">CART</h1>
       <div class="checkout__list">
-        <div class="checkout__item">
+        <div v-for="i in 3" :key="i" class="checkout__item">
           <div class="checkout__close">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
@@ -25,7 +29,7 @@
               <h3>Name Photo</h3>
             </div>
             <div class="checkout__price">
-              <AppFormQuanity />
+              <AppFormQuanity v-model="quantity" />
               <div class="checkout__purchase">
                 <b>8 000 $</b>
               </div>
@@ -50,11 +54,14 @@
 <style lang="scss" scoped>
 .checkout {
   display: flex;
-  gap: 85px;
-  padding: 80px 40px;
+  gap: 4rem;
+  padding-bottom: 5rem;
 
   &__list {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   &__close {
@@ -108,7 +115,7 @@
       }
 
       > h1 {
-        font-size: 12vw;
+        font-size: 12.5rem;
         font-weight: bold;
         letter-spacing: 3px;
       }
@@ -148,7 +155,56 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .checkout {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+    &__main-img {
+      width: 34rem;
+      height: 25.2rem;
+    }
+    &__item {
+      height: auto;
+    }
+    &__title {
+      display: none;
+      &_mobile {
+        display: block;
+        font-size: 11rem;
+        font-weight: 600;
+      }
+    }
+    &__total {
+      width: 100%;
+      display: flex;
+      > div {
+        margin-left: auto;
+        width: 50%;
+        > div {
+          margin-top: 1rem;
+          b {
+            font-size: 3rem;
+          }
+          p {
+            font-size: 2.15rem;
+          }
+        }
+      }
+      h1 {
+        display: none;
+      }
+    }
+    &__purchase {
+      font-size: 2.15rem;
+    }
+    h3 {
+      font-size: 2.15rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .checkout {
     flex-direction: column;
     padding: 16px 14px 60px;

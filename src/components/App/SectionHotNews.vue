@@ -10,15 +10,13 @@ interface News {
   desc?: string;
   text?: string;
   date?: Date;
-  images?: NewsImage[];
+  images: NewsImage[];
 }
 interface Props {
-  news?: News;
+  news: News;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  news: null,
-});
+const props = defineProps<Props>();
 
 const { makeDateCorrect } = useDateFormat();
 
@@ -32,28 +30,58 @@ const title = computed(() => {
 
 <template>
   <section class="hot-news">
-    <AppSectionHeader :is-link="false" white> HOT NEWS </AppSectionHeader>
-    <UIMarquee>{{ title }}</UIMarquee>
-    <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
-      <img :src="news.images[0]?.url" alt="" />
-      <div>
-        <IconArrow is-arrow30-deg />
+    <div class="hot-news__wrapper">
+      <AppSectionHeader :is-link="false" white style="margin-bottom: 0">
+        HOT NEWS
+      </AppSectionHeader>
+      <div class="hot-news__ticker">
+        <UIMarquee
+          ><span>{{ title }}</span></UIMarquee
+        >
       </div>
-    </NuxtLink>
+      <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
+        <img :src="news.images[0]?.url" alt="" />
+        <div>
+          <IconArrow is-arrow30-deg />
+        </div>
+      </NuxtLink>
+    </div>
+    <div class="hot-news__ticker hot-news__ticker--bottom">
+      <UIMarquee
+        ><span>{{ title }}</span></UIMarquee
+      >
+    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .hot-news {
-  margin-top: 40px;
-  padding: 80px 40px;
-  background: $colorAccentBlue;
-  overflow-x: hidden;
+  &__wrapper {
+    padding: 3rem 3rem 5rem;
+    overflow-x: hidden;
+    border-radius: 10px;
+    background: $colorAccentBlue;
+  }
+  &__ticker {
+    margin-bottom: 3rem;
+    overflow-x: hidden;
+    &--bottom {
+      border-radius: 10px;
+      background: $colorAccentBlue;
+      margin-block: 2rem;
+      padding: 2rem 0;
+    }
+    span {
+      font-size: 3.3rem;
+      color: #fff;
+      display: block;
+      overflow: hidden;
+    }
+  }
 
   &__content {
     display: block;
     width: 100%;
-    margin-top: 120px;
     position: relative;
     img {
       width: 100%;
@@ -67,8 +95,8 @@ const title = computed(() => {
       right: 15px;
 
       &:deep(svg) {
-        width: 128px;
-        height: 128px;
+        width: 6.66rem;
+        height: 6.66rem;
         fill: #fff;
       }
     }
@@ -81,10 +109,13 @@ const title = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .hot-news {
     margin-top: 0;
-    padding: 60px 16px 50px;
+    padding: 0;
+    &__wrapper {
+      padding: 3rem 1rem;
+    }
     &__content {
       margin-top: 32px;
       img {

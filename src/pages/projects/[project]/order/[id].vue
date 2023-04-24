@@ -4,6 +4,7 @@ const { fetchGet } = useApi();
 const route = useRoute();
 const projectId = route.params.project;
 const imageId = Number(route.params.id);
+// const quantity = ref(1);
 
 const { data: projectImage } = useAsyncData(
   "projectImage",
@@ -98,9 +99,9 @@ const slidesPerView = computed(() => {
           </li>
         </ul>
         <div class="order__info-control">
-          <div class="order__info-quanity">
-            <AppFormQuanity />
-          </div>
+          <!-- <div class="order__info-quanity">
+            <AppFormQuanity v-model="quantity" />
+          </div> -->
           <div class="order__info-colorlist">
             <b> Interior best collors: </b>
             <div class="order__info-color-interior">
@@ -110,7 +111,7 @@ const slidesPerView = computed(() => {
                 <li style="background-color: #b99766"></li>
                 <li style="background-color: #ffd73e"></li>
               </ul>
-              <div class="order__info-interior upper-slide">In Interior</div>
+              <!-- <div class="order__info-interior upper-slide">In Interior</div> -->
             </div>
           </div>
         </div>
@@ -120,7 +121,7 @@ const slidesPerView = computed(() => {
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">MORE ABSTRACT</h2>
+      <h2 class="more__title">MORE {{ projectImage.project.title }}</h2>
       <p class="more__subtitle">View the entire collection</p>
       <Swiper
         class="more__slider"
@@ -193,7 +194,7 @@ const slidesPerView = computed(() => {
     small,
     p {
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     b {
@@ -267,6 +268,7 @@ const slidesPerView = computed(() => {
     font-size: 190px;
     font-weight: bold;
     letter-spacing: 5px;
+    text-transform: uppercase;
   }
 
   &__subtitle {
@@ -288,7 +290,7 @@ const slidesPerView = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .order {
     flex-direction: column;
     padding: 0px 16px;

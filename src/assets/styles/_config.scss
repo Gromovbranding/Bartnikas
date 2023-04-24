@@ -19,6 +19,7 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 1vw;
 }
 
 body {
@@ -75,4 +76,16 @@ p,span,small h1,h2,h3,h4,h5,h6, strong {
 
 strong {
     font-weight: 900;
+}
+
+@media (max-width: 1000px) {
+    html {
+        font-size: 1.44vw;
+    }
+}
+
+@media (max-width: 550px) {
+    html {
+        font-size: 2.62vw;
+    }
 }

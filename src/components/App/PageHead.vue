@@ -5,6 +5,7 @@ interface Props {
   onlyLogo?: boolean;
   title?: string;
   back?: boolean;
+  number?: number;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -58,7 +59,7 @@ const onClickLogo = () => {
       </li>
     </ul>
     <h1 v-if="!onlyLogo && title" class="page-head__caption">
-      {{ title }}
+      {{ title }}<sup>{{ number }}</sup>
     </h1>
   </header>
 </template>
@@ -66,7 +67,7 @@ const onClickLogo = () => {
 <style lang="scss" scoped>
 .page-head {
   position: relative;
-  padding: 20px 40px;
+  padding: 10px 60px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,10 +137,18 @@ const onClickLogo = () => {
   }
 
   &__caption {
-    font-size: 13vw;
+    font-size: 12.5rem;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
+    margin-left: -10px;
+    letter-spacing: 0.21rem;
+    line-height: 1em;
+    sup {
+      vertical-align: top;
+      font-size: 29px;
+      line-height: 45px;
+    }
   }
 
   &__logo {
@@ -149,7 +158,7 @@ const onClickLogo = () => {
     cursor: pointer;
 
     &:deep(svg) {
-      width: 500px;
+      width: 360px;
       height: 100%;
     }
   }
@@ -162,8 +171,8 @@ const onClickLogo = () => {
     li {
       *,
       &::after {
-        font-size: 22px;
-        letter-spacing: 2px;
+        font-size: 1.25rem;
+        letter-spacing: 0.07rem;
         font-weight: 400;
         color: #fff;
         text-transform: capitalize;
@@ -177,9 +186,20 @@ const onClickLogo = () => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 1000px) {
+  .page-head {
+    &__caption {
+      font-size: 9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .page-head {
     padding: 20px 28px;
+    &__caption {
+      font-size: 5rem;
+    }
     &__logo {
       margin-top: 7px;
       height: 7.5vw;

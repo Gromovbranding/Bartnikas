@@ -12,8 +12,8 @@ const { data: project } = useAsyncData(
 
 <template>
   <main>
-    <Title> Landscape </Title>
-    <AppPageHead sub="projects" title="Landscape" />
+    <Title> {{ project?.title || "" }} </Title>
+    <AppPageHead sub="projects" :title="project?.title || ''" />
 
     <div class="project">
       <section class="author-quote">
@@ -48,11 +48,7 @@ const { data: project } = useAsyncData(
           </div>
           <div>
             <p>
-              To me this isn’t only a photo, it’s a work of art. It’s painterly
-              quality plus the graphic nature of the landscape takes this beyond
-              the ordinary aerial. Yes, it’s right place right time, but it’s
-              technically great because it’s absolutely sharp and crisp. Hope to
-              see more of your photos!
+              {{ project.desc }}
             </p>
           </div>
           <div>
@@ -89,16 +85,15 @@ const { data: project } = useAsyncData(
 
 <style lang="scss" scoped>
 .project {
-  padding: 80px 40px;
+  padding: 4rem;
 }
 .author-quote {
   display: flex;
-  gap: 100px;
   margin-bottom: 100px;
 
   &__person {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 40px;
 
     > div {
@@ -150,7 +145,7 @@ const { data: project } = useAsyncData(
     }
 
     p {
-      font-size: 42px;
+      font-size: 2rem;
       line-height: 1.5;
     }
   }
@@ -162,7 +157,7 @@ const { data: project } = useAsyncData(
   grid-gap: 120px 15px;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .project {
     padding: 80px 12px;
   }

@@ -150,7 +150,7 @@ watch(
   display: block;
 
   &:hover {
-    transform: translateX(15px);
+    transform: translateX(35px);
     color: $colorAccentBlue;
   }
 }
@@ -340,8 +340,8 @@ watch(
     z-index: 10;
     right: 50px;
     top: 20px;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     text-align: center;
     border-radius: 50%;
     font-size: 20px;
@@ -411,7 +411,20 @@ watch(
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .menu {
+    &__additional-info {
+      padding-right: 0;
+      margin-top: 0;
+    }
+    &__cart {
+      // position: absolute;
+      // top: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .menu {
     &__nav {
       flex-direction: column;

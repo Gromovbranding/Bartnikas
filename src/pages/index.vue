@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 const { fetchGet } = useApi();
+const { type: typeScreen } = useBreakpoints();
+
+const headerMain = ref<HTMLDivElement>();
+const defImgSize = typeScreen.value === "xs" ? 250 : 115;
+const imgSize = ref(`${defImgSize}%`);
 
 const { data: news } = useAsyncData(
   "news",
@@ -14,22 +19,35 @@ const { data: projects } = useAsyncData(
 const hotNews = computed(() => {
   return news.value?.find((n: any) => n.is_hot);
 });
+
+onMounted(() => {
+  window.addEventListener("scroll", throttledListener);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", throttledListener);
+});
+
+const throttledListener = useThrottle(onScroll, 50);
+
+function onScroll() {
+  const height = headerMain.value?.offsetHeight || 0;
+  const res = (window.scrollY / height) * 15;
+  if (res > 15) return;
+  imgSize.value = `${defImgSize - res}%`;
+}
 </script>
 
 <template>
   <main>
     <Title>Home</Title>
     <header class="header">
-      <div class="header__main">
+      <div ref="headerMain" class="header__main">
         <IconLogo is-full-black />
       </div>
-      <div class="header__img-sticky">
-        <img
-          src="https://static.tildacdn.com/tild6231-3534-4137-a162-393461373730/DSCF4802.jpg"
-          alt=""
-        />
-      </div>
+      <div class="header__img-sticky"></div>
     </header>
+    <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
     <AppContentSpliter v-if="projects?.length"> PROJECTS </AppContentSpliter>
@@ -41,7 +59,6 @@ const hotNews = computed(() => {
         :direction="idx % 2 ? 'row-reverse' : 'row'"
       />
     </section>
-    <AppSectionHotNews v-if="hotNews" :news="hotNews" />
     <AppAwardsSection />
     <AppMediaSection v-if="news?.length" :news="news" />
     <AppSectionInteriosOrderSlider />
@@ -70,7 +87,7 @@ const hotNews = computed(() => {
 
 <style lang="scss" scoped>
 .home-info-project-paralax {
-  height: 2500px;
+  height: 250vh;
   position: relative;
   border-radius: $borderRadiusMain;
 
@@ -118,6 +135,7 @@ const hotNews = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-bottom: 30px;
 }
 
 .header {
@@ -128,7 +146,7 @@ const hotNews = computed(() => {
     justify-content: center;
     align-content: center;
 
-    position: absolute;
+    // position: absolute;
     width: 100%;
     left: 0;
     top: 0;
@@ -143,32 +161,48 @@ const hotNews = computed(() => {
   }
 
   &__img-sticky {
-    position: relative;
-    height: 175vh;
+    position: sticky;
+    bottom: -10px;
+    height: calc(100vh + 20px);
     z-index: -1;
+    background-image: url(@/assets/img/header_bg.jpg);
+    transform: translateY(-10px);
+    margin-bottom: -10px;
+    background-repeat: no-repeat;
+    background-size: v-bind(imgSize);
+    background-position: bottom center;
+    transition-duration: 200ms;
 
-    img {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 100vh;
+    // img {
+    //   position: sticky;
+    //   top: 0;
+    //   width: 100%;
+    //   height: 100vh;
+    // }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    &__main {
+      height: calc(100vh + 10px);
+      &:deep(svg) {
+        max-width: 30rem;
+      }
     }
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .header {
     &__main {
-      height: 530px;
+      height: 50vh;
       &:deep(svg) {
         width: 88%;
       }
     }
     &__img-sticky {
-      height: 167vh;
-      img {
-        object-fit: none;
-      }
+      // height: 100vh;
     }
   }
 

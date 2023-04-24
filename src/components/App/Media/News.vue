@@ -52,7 +52,7 @@ const date = computed(() => {
 .interios {
   width: 100%;
   display: block;
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
     transform: translateY(-30px);
@@ -75,35 +75,34 @@ const date = computed(() => {
 
     > div {
       &:first-child {
-        margin-top: 18px;
         svg {
-          width: 60px;
-          height: 40px;
+          width: 1.5rem;
+          height: 1.5rem;
         }
       }
 
       &:last-child {
         h3 {
           color: $colorTextDark;
-          font-size: 40px;
-          font-weight: 700;
+          font-size: 1.8rem;
+          font-weight: 500;
           line-height: 1.1;
         }
 
         p {
-          font-size: 24px;
+          font-size: 1.16rem;
           color: #000;
-          margin-top: 15px;
+          margin-top: 1rem;
           line-height: 1.5;
           font-weight: 400;
-          letter-spacing: 1px;
+          letter-spacing: 0.07rem;
         }
 
         span {
           display: block;
           margin-top: 40px;
           color: $colorTextGrey;
-          font-size: 20px;
+          font-size: 1.08rem;
           font-weight: 400;
         }
       }
@@ -111,7 +110,42 @@ const date = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .interios {
+    &__img {
+      img {
+        width: 100%;
+        height: 100%;
+        min-height: 550px;
+        max-height: 550px;
+      }
+    }
+
+    &__content {
+      > div {
+        &:first-child {
+          svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-top: 0.5rem;
+          }
+        }
+        &:last-child {
+          h3 {
+            color: $colorTextDark;
+            font-size: 2.5rem;
+          }
+          p {
+            font-size: 1.45rem;
+            line-height: 1.2;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .interios {
     &:hover {
     }

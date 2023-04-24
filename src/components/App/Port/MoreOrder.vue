@@ -73,7 +73,7 @@ withDefaults(defineProps<Props>(), {
           gap: 10px;
           span {
             font-size: 22px;
-            font-weight: 500;
+            font-weight: 400;
           }
           svg {
             width: 18px;
@@ -93,7 +93,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .more-order {
     &__img {
       img {

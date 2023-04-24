@@ -1,7 +1,7 @@
 <template>
   <section class="spliter">
     <h2 v-scroll-scale-text>
-      <slot />
+      <slot></slot>
     </h2>
   </section>
 </template>
@@ -10,10 +10,10 @@
 .spliter {
   background-color: $colorAccentBlue;
   border-radius: $borderRadiusMain;
-  padding: 80px 40px;
+  padding: 3rem 3rem;
 
   h2 {
-    font-size: 14vw;
+    font-size: 150px;
     text-transform: uppercase;
     color: #fff;
     font-weight: bold;
@@ -21,12 +21,13 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .spliter {
-    padding: 42px 30px;
+    padding: 3rem 2rem;
 
     h2 {
       letter-spacing: 3px;
+      font-size: 4rem;
     }
   }
 }

@@ -85,8 +85,8 @@ main {
   z-index: 8;
 
   > :deep(.btn-default) {
-    padding: 35px 90px;
-    font-weight: 500;
+    padding: 2rem 4rem;
+    font-weight: 400;
   }
 }
 
@@ -96,7 +96,20 @@ main {
   grid-gap: 70px;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  .filter {
+    > :deep(.btn-default) {
+      padding: 2rem 4rem;
+      font-weight: 500;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   main {
   }
   .collection {

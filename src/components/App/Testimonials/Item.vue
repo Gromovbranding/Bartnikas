@@ -70,12 +70,23 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 1000px) {
   .testimonial {
-    width: 90vw;
     &__img {
+      width: 29rem;
       img {
-        height: 75vh;
+        height: 44rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .testimonial {
+    &__img {
+      width: 25rem;
+      img {
+        height: 38.89rem;
       }
     }
   }

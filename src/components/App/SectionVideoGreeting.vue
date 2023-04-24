@@ -11,12 +11,15 @@
     </div>
     <div class="video-greeting__text">
       <p>
-        Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <slot
+          >Sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum.</slot
+        >
       </p>
     </div>
   </section>
@@ -25,7 +28,7 @@
 <style lang="scss" scoped>
 .video-greeting {
   display: flex;
-  height: 650px;
+  // height: 650px;
 
   &__video {
     width: 50%;
@@ -47,7 +50,8 @@
     height: 48px;
     position: absolute;
     right: 80px;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.4s ease-in-out;
+    animation-fill-mode: forwards;
     bottom: 60px;
 
     &:hover {
@@ -64,7 +68,7 @@
 
     p {
       color: $colorTextDark;
-      font-size: 30px;
+      font-size: 1.5rem;
       line-height: 1.55;
       word-break: normal;
       font-weight: 400;
@@ -72,7 +76,24 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .video-greeting {
+    flex-direction: column;
+    &__video {
+      width: 100%;
+    }
+    &__text {
+      width: 100%;
+      padding: 2.5rem;
+      padding-bottom: 5rem;
+      p {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .video-greeting {
     flex-direction: column;
     gap: 20px;

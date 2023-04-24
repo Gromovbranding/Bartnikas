@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// import { blogs } from "~/assets/data";
 const { fetchGet } = useApi();
 
 const { data: blogs } = useAsyncData(
@@ -21,11 +22,11 @@ const { data: blogs } = useAsyncData(
 .blog {
   display: grid;
   grid-template-columns: repeat(2, minmax(450px, 100%));
-  grid-gap: 180px 80px;
-  padding: 80px 40px;
+  grid-gap: 4rem;
+  padding: 4rem 2rem;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .blog {
     padding: 50px 16px;
     display: flex;

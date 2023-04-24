@@ -156,7 +156,21 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .footer {
+    &__logo {
+      > div {
+        &:first-child {
+          width: 18rem;
+          height: 12rem;
+          margin-bottom: 3rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .footer {
     position: relative;
     &__content {

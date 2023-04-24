@@ -14,7 +14,7 @@
 <style lang="scss" scoped>
 .video-collections {
   margin-top: -3px;
-  padding: 80px 40px;
+  padding: 40px;
 
   background-color: $colorBackgroundGrey;
 
@@ -25,7 +25,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .video-collections {
     padding: 60px 16px;
     &__content {

@@ -104,7 +104,7 @@ const handleTo = async (id: number) => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .switching {
     margin-top: 50px;
     flex-direction: column;

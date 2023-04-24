@@ -89,6 +89,7 @@ const imageCover = computed(() => {
       line-height: 1.45;
       font-weight: 400;
       font-size: 27px;
+      white-space: pre-line;
       &:first-child {
         margin-bottom: 100px;
       }
@@ -99,7 +100,24 @@ const imageCover = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .article {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    &__headline {
+      > h1 {
+        font-size: 1.8rem;
+      }
+    }
+    &__text {
+      > p {
+        font-size: 1.15rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .article {
     display: flex;
     flex-direction: column;

@@ -45,9 +45,10 @@ const classes = computed(() => {
   border: none;
   font-size: 36px;
   color: #fff;
+  font-weight: 500;
   background-color: $colorAccentBlue;
   transform: translateY(0);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   font-weight: bold;
   text-align: center;
 
@@ -70,9 +71,16 @@ const classes = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
   .btn-default {
-    padding: 25px 30px;
+    padding: 1.5rem 1rem;
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .btn-default {
+    padding: 1.74rem 2rem;
     font-size: 7vw;
   }
 }

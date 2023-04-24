@@ -85,9 +85,10 @@ const defaultImg =
         > a {
           display: flex;
           gap: 10px;
+          position: relative;
           span {
             font-size: 24px;
-            font-weight: 500;
+            font-weight: 400;
           }
           svg {
             width: 18px;
@@ -107,7 +108,7 @@ const defaultImg =
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .port-order {
     &__img {
       img {

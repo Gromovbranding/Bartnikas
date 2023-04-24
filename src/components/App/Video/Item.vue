@@ -34,7 +34,7 @@
     height: 36px;
     position: absolute;
     right: 30px;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     bottom: 30px;
 
     &:hover {
@@ -45,7 +45,7 @@
   &__info {
     h4 {
       font-size: 32px;
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 10px;
       margin-top: 25px;
     }
@@ -58,7 +58,17 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .video-collection {
+    &__img {
+      img {
+        height: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .video-collection {
     &__img {
       img {

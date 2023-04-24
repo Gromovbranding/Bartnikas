@@ -378,7 +378,9 @@
       font-size: 2.2vw;
       font-weight: 400;
     }
-
+    b {
+      font-weight: 500;
+    }
     svg {
       width: 1.25vw;
       height: 100%;
@@ -418,7 +420,7 @@
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 550px) {
   .awards {
     padding: 80px 16px;
     &__item {

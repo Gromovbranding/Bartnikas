@@ -1,15 +1,29 @@
 <script lang="ts" setup>
 const { type: typeScreen } = useBreakpoints();
+const scrollActive = ref(false);
+const scrollStart = ref(0);
+const scroll = ref<HTMLDivElement>();
 const videoGreetingStyle = computed(() => {
   return {
     "flex-direction":
       typeScreen.value === "xs" ? "column-reverse" : "row-reverse",
   };
 });
+
+function onPointerMove(e: PointerEvent) {
+  if (!scrollActive.value || !scroll.value) return;
+  scroll.value.scrollLeft -= e.movementX;
+}
+
+function onPointerDown(e: PointerEvent) {
+  if (typeScreen.value === "lg") return;
+  scrollActive.value = true;
+  scrollStart.value = e.screenX;
+}
 </script>
 
 <template>
-  <main>
+  <main @pointerup="scrollActive = false">
     <Title> Biography </Title>
     <AppPageHead title="Biography" />
 
@@ -51,72 +65,89 @@ const videoGreetingStyle = computed(() => {
       </div>
     </section>
 
-    <section class="testimonials">
-      <div v-for="i in 2" :key="`item-${i}`" class="testimonials__item">
-        <div class="testimonials__person">
-          <div>
-            <img
-              src="https://static.tildacdn.com/tild6636-3061-4466-a238-353661613865/nussbaum-law-IOvsEAE.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <h3>Jeanne Modderman</h3>
-            <p>National geographic photo producer</p>
-          </div>
-        </div>
-        <div class="testimonials__text">
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              clip-rule="evenodd"
-              fill-rule="evenodd"
-              stroke-linejoin="round"
-              stroke-miterlimit="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-                fill-rule="nonzero"
+    <section ref="scroll" class="testimonials">
+      <div
+        class="testimonials__wrapper"
+        @pointerdown.prevent="onPointerDown"
+        @pointermove="onPointerMove"
+      >
+        <div v-for="i in 4" :key="`item-${i}`" class="testimonials__item">
+          <div class="testimonials__person">
+            <div>
+              <img
+                src="https://static.tildacdn.com/tild6636-3061-4466-a238-353661613865/nussbaum-law-IOvsEAE.jpg"
+                alt=""
               />
-            </svg>
+            </div>
+            <div>
+              <h3>Jeanne Modderman</h3>
+              <p>National geographic photo producer</p>
+            </div>
           </div>
-          <div>
-            <p>
-              To me this isn’t only a photo, it’s a work of art. It’s painterly
-              quality plus the graphic nature of the landscape takes this beyond
-              the ordinary aerial. Yes, it’s right place right time, but it’s
-              technically great because it’s absolutely sharp and crisp. Hope to
-              see more of your photos!
-            </p>
-          </div>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              clip-rule="evenodd"
-              fill-rule="evenodd"
-              stroke-linejoin="round"
-              stroke-miterlimit="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-                fill-rule="nonzero"
-              />
-            </svg>
+          <div class="testimonials__text">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
+                  fill-rule="nonzero"
+                />
+              </svg>
+            </div>
+            <div>
+              <p>
+                To me this isn’t only a photo, it’s a work of art. It’s
+                painterly quality plus the graphic nature of the landscape takes
+                this beyond the ordinary aerial. Yes, it’s right place right
+                time, but it’s technically great because it’s absolutely sharp
+                and crisp. Hope to see more of your photos!
+              </p>
+            </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                stroke-linejoin="round"
+                stroke-miterlimit="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
+                  fill-rule="nonzero"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <AppAwardsSection />
     <AppContentSpliter> STATEMENT </AppContentSpliter>
-    <AppSectionVideoGreeting :style="videoGreetingStyle" />
+    <AppSectionVideoGreeting :style="videoGreetingStyle">
+      Aerial photography gives me scope for creativity and innovation. In the
+      city, we don't often see the natural energy of the planet, but we can all
+      feel that energy through these images and appreciate the beauty of nature.
+      In the past few years I traveled over 20 countries actively capturing the
+      breathtaking landscapes below by boarding light aircraft and helicopters
+      wherever I went. <br />
+      I wanted to capture the energetic details and picturesque scenes perfected
+      by Mother Nature. That is why I decided to do an aerial photography as
+      aero-art.
+    </AppSectionVideoGreeting>
   </main>
 </template>
 
 <style lang="scss" scoped>
 .biography-about {
   display: flex;
+  align-items: flex-start;
 
   &__img {
     flex: 0 0 50%;
@@ -153,15 +184,20 @@ const videoGreetingStyle = computed(() => {
 }
 
 .testimonials {
-  display: flex;
-  gap: 100px;
-  margin: 80px 0;
-  padding: 0 40px;
+  margin-block: 80px 0;
+  padding: 0 40px 80px;
+  overflow: scroll auto;
+  &__wrapper {
+    display: flex;
+    gap: 100px;
+    cursor: grab;
+  }
 
   &__item {
     display: flex;
     flex-direction: column;
     gap: 50px;
+    flex: 0 0 40vw;
   }
 
   &__person {
@@ -230,7 +266,48 @@ const videoGreetingStyle = computed(() => {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 551px) and (max-width: 1000px) {
+  .biography-about {
+    &__text {
+      p {
+        font-size: 1.3rem;
+      }
+      small {
+        font-size: 1.1rem;
+      }
+    }
+  }
+  .testimonials {
+    &__person {
+      > div {
+        &:first-child {
+          width: 7.22rem;
+          height: 7.22rem;
+        }
+
+        &:last-child {
+          max-width: 16rem;
+
+          h3 {
+            font-size: 1.52rem;
+            font-weight: bold;
+          }
+          p {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+    &__text {
+      p {
+        line-height: 1.3;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
   .biography-about {
     display: flex;
     flex-direction: column;
@@ -242,20 +319,21 @@ const videoGreetingStyle = computed(() => {
 
     &__text {
       p {
-        font-size: 5vw;
+        font-size: 4vw;
       }
 
       small {
-        font-size: 4vw;
+        font-size: 3vw;
       }
     }
   }
 
   .testimonials {
-    padding: 0 16px;
+    padding: 0 1rem 5rem;
     flex-direction: column;
     gap: 180px;
     &__item {
+      flex-basis: 100%;
     }
 
     &__person {
