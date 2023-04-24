@@ -173,6 +173,9 @@ console.log("slider", slider.value);
             font-size: 32px;
             font-weight: 400;
           }
+          .controls {
+            display: none;
+          }
 
           > div {
             display: flex;
@@ -241,6 +244,7 @@ console.log("slider", slider.value);
             display: flex;
             gap: 0.5rem;
             max-height: 4.25rem;
+            width: 9.5rem;
           }
 
           :deep(.swiper-thumbs) {

@@ -132,6 +132,7 @@ const items = ref([
   padding: 4rem 3rem 6rem;
   min-height: 200vh;
   &__content {
+    display: none;
   }
   &__content2 {
     display: flex;
