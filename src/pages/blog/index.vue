@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// import { blogs } from "~/assets/data";
 const { fetchGet } = useApi();
 
 const { data: blogs } = useAsyncData(
