@@ -17,8 +17,8 @@ export const useApi = () => {
 
       async onResponseError({ response }) {
         ElNotification.error({
-          title: "Error",
-          message: response.statusText,
+          title: response._data.error,
+          message: response._data.message,
           position: "bottom-right",
         });
 

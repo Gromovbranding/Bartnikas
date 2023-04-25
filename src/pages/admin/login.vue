@@ -3,6 +3,10 @@ definePageMeta({
   layout: false,
 });
 
+useHeadSafe({
+  title: "Login",
+});
+
 const { login } = useApi();
 
 const username = ref("");
