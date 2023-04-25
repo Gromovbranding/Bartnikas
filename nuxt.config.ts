@@ -16,6 +16,10 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/admin/": { redirect: "/admin/projects" },
+  },
+
   app: {
     // pageTransition: { name: "page", mode: "out-in" },
     rootTag: "div",

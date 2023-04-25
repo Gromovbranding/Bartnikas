@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// import { projects as list } from "~/assets/data";
 const { fetchGet } = useApi();
 
 const { data: projects } = useAsyncData(

@@ -1,52 +1,51 @@
 <script setup lang="ts">
-import { FormInstance, FormRules, UploadUserFile } from "element-plus";
+import { FormInstance, UploadUserFile } from "element-plus";
 
 interface IForm {
-  [x: string]: {
-    value: string | boolean | number;
-    label: string;
-    type: string;
-  };
+  value: string;
+  label: string;
+  type: string;
+  prop: string;
 }
 
 const props = defineProps<{
   name: string;
   back: string;
   cbCreate: (body: any, images: UploadUserFile[]) => Promise<void>;
-  form: IForm;
+  form: IForm[];
 }>();
 
-const rules = reactive<FormRules>({
-  title: [
-    {
-      required: true,
-      message: "Please input Title",
-      trigger: "change",
-    },
-  ],
-  desc: [
-    {
-      required: true,
-      message: "Please input Desc",
-      trigger: "change",
-    },
-  ],
-  text: [
-    {
-      required: true,
-      message: "Please input Text",
-      trigger: "change",
-    },
-  ],
-  is_hot: [
-    {
-      type: "boolean",
-      trigger: "change",
-    },
-  ],
-});
+// const rules = reactive<FormRules>({
+//   title: [
+//     {
+//       required: true,
+//       message: "Please input Title",
+//       trigger: "change",
+//     },
+//   ],
+//   desc: [
+//     {
+//       required: true,
+//       message: "Please input Desc",
+//       trigger: "change",
+//     },
+//   ],
+//   text: [
+//     {
+//       required: true,
+//       message: "Please input Text",
+//       trigger: "change",
+//     },
+//   ],
+//   is_hot: [
+//     {
+//       type: "boolean",
+//       trigger: "change",
+//     },
+//   ],
+// });
 
-const formModel = ref<IForm>({});
+const formModel = ref<IForm[]>([]);
 const filesModel = ref<UploadUserFile[]>([]);
 const formRef = ref<FormInstance>();
 
@@ -59,10 +58,10 @@ const create = async (formEl: FormInstance | undefined) => {
 
   await formEl.validate(async (isValid) => {
     if (isValid) {
-      const formattedFormModel: any = {};
+      const formattedFormModel: { [x: string]: string } = {};
 
-      Object.keys(formModel.value).forEach((prop) => {
-        formattedFormModel[prop] = formModel.value[prop].value;
+      formModel.value.forEach((item) => {
+        formattedFormModel[item.prop] = item.value;
       });
 
       await props.cbCreate(formattedFormModel, filesModel.value);
@@ -92,17 +91,12 @@ const handleUpload = (files: UploadUserFile[]) => {
     </template>
 
     <ClientOnly>
-      <ElForm
-        ref="formRef"
-        :model="formModel"
-        :rules="rules"
-        label-width="120px"
-      >
+      <ElForm ref="formRef" status-icon :model="formModel" label-width="120px">
         <ElFormItem
-          v-for="(item, prop) in formModel"
-          :key="prop"
+          v-for="item in formModel"
+          :key="item.prop"
           :label="item.label"
-          :prop="prop"
+          :prop="item.prop"
         >
           <ElCheckbox
             v-if="item.type === 'checkbox'"

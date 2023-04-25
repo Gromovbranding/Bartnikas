@@ -7,13 +7,12 @@ useHeadSafe({
   title: name.value,
 });
 
-// const { fetchPost } = useApi();
+// const { fetchPost, fetchUploadImages } = useApi();
 
-const create = async (body: any, images: UploadUserFile[]) => {
+const handleCreate = async (body: any, images: UploadUserFile[]) => {
   await console.log(body, images);
-  // return;
-  // const response = await fetchPost<{ id: string }>("/projects", body);
-  // await fetchPost(`${response.id}/image`, images);
+  // const ids = await fetchUploadImages(images);
+  // await fetchPost("/projects", body);
 };
 </script>
 
@@ -21,21 +20,23 @@ const create = async (body: any, images: UploadUserFile[]) => {
   <div>
     <ClientOnly>
       <AdminCardCreate
-        :form="{
-          title: {
+        :form="[
+          {
             value: '',
             label: 'Title',
             type: 'input',
+            prop: 'title',
           },
-          desc: {
+          {
             value: '',
             label: 'Description',
             type: 'textarea',
+            prop: 'desc',
           },
-        }"
+        ]"
         :name="name"
+        :cb-create="handleCreate"
         back="projects"
-        :cb-create="create"
       />
     </ClientOnly>
   </div>

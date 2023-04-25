@@ -50,7 +50,6 @@ const form = reactive({
   title: entity.value?.title ?? "",
   desc: entity.value?.desc ?? "",
   text: entity.value?.text ?? "",
-  is_hot: entity.value?.is_hot ?? false,
 });
 </script>
 
@@ -78,12 +77,6 @@ const form = reactive({
         <ElFormItem label="Text" prop="text">
           <ElInput v-model="form.text" :rows="5" type="textarea" />
         </ElFormItem>
-
-        <ElFormItem label="Activity type">
-          <ElCheckbox v-model="form.is_hot" label="Is Hot" size="large" />
-        </ElFormItem>
-
-        <!-- Project Images -->
 
         <ElFormItem required label="Images">
           <AdminUploadImage v-model="fileList" />

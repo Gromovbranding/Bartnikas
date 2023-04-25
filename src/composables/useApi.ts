@@ -1,3 +1,5 @@
+import { UploadUserFile } from "element-plus";
+
 export const useApi = () => {
   const config = useRuntimeConfig().public;
   const { accessToken } = useAdmin();
@@ -6,7 +8,7 @@ export const useApi = () => {
   const fetchApi = async <T>(
     path: string,
     method: "GET" | "POST" | "DELETE" | "PATCH",
-    body: any = {}
+    body: any = null
   ) => {
     const fetchConfig = {
       baseURL: config.apiBaseUrl,
@@ -14,11 +16,11 @@ export const useApi = () => {
       headers: {},
 
       async onResponseError({ response }) {
-        // ElNotification.error({
-        //   title: "Error",
-        //   message: response.statusText,
-        //   position: "bottom-right",
-        // });
+        ElNotification.error({
+          title: "Error",
+          message: response.statusText,
+          position: "bottom-right",
+        });
 
         if (response.status === 401) {
           accessToken.value = "";
@@ -31,7 +33,7 @@ export const useApi = () => {
       fetchConfig.headers.Authorization = `Bearer ${accessToken.value}`;
     }
 
-    if (Object.keys(body).length > 0) {
+    if (body) {
       fetchConfig.body = body;
     }
 
@@ -46,7 +48,7 @@ export const useApi = () => {
     return await fetchApi<T>(path, "GET");
   };
 
-  const fetchPost = async <T>(path: string, body: any = {}) => {
+  const fetchPost = async <T>(path: string, body: any = null) => {
     return await fetchApi<T>(path, "POST", body);
   };
 
@@ -77,6 +79,13 @@ export const useApi = () => {
     }
   };
 
+  const fetchUploadImages = async (images: UploadUserFile[]) => {
+    await console.log(images);
+    // images.forEach((image) => {
+    //   // fetchPost("/files/image");
+    // });
+  };
+
   return {
     fetchDelete,
     fetchPost,
@@ -84,5 +93,6 @@ export const useApi = () => {
     fetchGet,
     logout,
     login,
+    fetchUploadImages,
   };
 };
