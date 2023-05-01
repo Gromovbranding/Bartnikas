@@ -7,10 +7,9 @@ const { makeDateCorrect } = useDateFormat();
 const route = useRoute();
 const newsId = route.params.id;
 
-const { data: news } = useAsyncData<IArticle>(
-  "news",
-  async () => await fetchGet(`/news/${newsId}`)
-);
+const { data: news } = useAsyncData<
+  IArticle & { next: IArticle; prev: IArticle }
+>("news", async () => await fetchGet(`/news/${newsId}`));
 
 const date = computed(() => {
   return makeDateCorrect(news.value?.created_at);
@@ -28,7 +27,7 @@ const date = computed(() => {
         <time> {{ date }} </time>
       </div>
       <div class="article__img">
-        <img :src="`/files/${news?.images?.[0].name}`" alt="" />
+        <img :src="news?.images?.[0].url" alt="" />
       </div>
       <div class="article__content">
         <p>{{ news?.description }}</p>
