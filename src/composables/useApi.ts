@@ -29,6 +29,16 @@ export const useApi = () => {
           route.name !== "admin-login" && (await navigateTo("/admin/login"));
         }
       },
+
+      onResponse({ response }) {
+        if (response.status === 201 && !response.url.match(/multiple/)) {
+          ElNotification.success({
+            title: "Success",
+            message: response.statusText,
+            position: "bottom-right",
+          });
+        }
+      },
     };
 
     if (accessToken.value) {
