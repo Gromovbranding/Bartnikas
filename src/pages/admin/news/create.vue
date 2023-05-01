@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
+import { IArticle } from "~/types/admin-api";
 
 const name = ref("Create Article");
 
@@ -30,7 +31,10 @@ const form = reactive([
   },
 ]);
 
-const handleCreate = async (body: any = null, images: UploadUserFile[]) => {
+const handleCreate = async (
+  body: IArticle | null = null,
+  images: UploadUserFile[]
+) => {
   await fetchPostCreateByRouteWithImages("/news", body, images);
 };
 </script>

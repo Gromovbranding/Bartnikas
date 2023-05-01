@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { IProject } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 
-const { data: projects } = useAsyncData(
+const { data: projects } = useAsyncData<IProject[]>(
   "projects",
   async () => await fetchGet("/projects")
 );

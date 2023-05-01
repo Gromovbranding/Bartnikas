@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IContact } from "~/types/admin-api";
+
 useHeadSafe({
   title: "Contacts",
 });
@@ -8,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData(
+const { data: entites } = useAsyncData<IContact[]>(
   "entites",
   async () => await fetchGet("/contacts")
 );

@@ -1,23 +1,9 @@
 <script lang="ts" setup>
-interface NewsImage {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface News {
-  id?: number;
-  title?: string;
-  desc?: string;
-  text?: string;
-  date?: Date;
-  images?: NewsImage[];
-}
-interface Props {
-  news?: News[];
-}
-const props = withDefaults(defineProps<Props>(), {
-  news: () => [],
-});
+import { IArticle } from "~/types/admin-api";
+
+const props = defineProps<{
+  news: IArticle[];
+}>();
 
 const renderedNews = computed(() => {
   return props.news.slice(0, 2);

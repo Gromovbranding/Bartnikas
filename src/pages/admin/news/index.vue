@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IArticle } from "~/types/admin-api";
+
 useHeadSafe({
   title: "News",
 });
@@ -8,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData(
+const { data: entites } = useAsyncData<IArticle[]>(
   "entites",
   async () => await fetchGet("/news")
 );

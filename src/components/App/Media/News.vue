@@ -1,39 +1,20 @@
 <script lang="ts" setup>
-interface NewsImage {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface News {
-  id?: number;
-  title?: string;
-  description?: string;
-  text?: string;
-  date?: Date;
-  images?: NewsImage[];
-}
-interface Props {
-  news?: News;
-}
+import { IArticle } from "~/types/admin-api";
+const { makeDateCorrect } = useDateFormat();
 
-const props = withDefaults(defineProps<Props>(), {
-  news: null,
-});
+const props = defineProps<{
+  news: IArticle;
+}>();
 
 const date = computed(() => {
-  if (!props.news?.created_at) return "";
-  const d = new Date(props.news?.created_at);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
+  return makeDateCorrect(props.news?.created_at);
 });
 </script>
 
 <template>
   <NuxtLink :to="`/news/${news?.id}`" class="interios">
     <div class="interios__img">
-      <img :src="news.images[0]?.url" alt="" />
+      <img :src="`files/${news.images?.[0].name}`" alt="" />
     </div>
     <div class="interios__content">
       <div>

@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { IBlog } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 
-const { data: blogs } = useAsyncData(
+const { data: blogs } = useAsyncData<IBlog[]>(
   "blogs",
   async () => await fetchGet("/blogs")
 );
@@ -11,7 +13,7 @@ const { data: blogs } = useAsyncData(
   <main>
     <Title> Blog </Title>
     <AppPageHead title="Blog" />
-    <section v-if="blogs?.length" class="blog">
+    <section v-if="blogs?.length ?? 0" class="blog">
       <AppMediaItem v-for="blog in blogs" :key="blog.id" :blog="blog" />
     </section>
   </main>

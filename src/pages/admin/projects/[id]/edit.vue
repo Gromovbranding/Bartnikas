@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IProject } from "~/types/admin-api";
+
 definePageMeta({
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
@@ -8,7 +10,7 @@ definePageMeta({
 const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData(
+const { data: entity } = useAsyncData<IProject>(
   "entity",
   async () => await fetchGet(`/projects/${route.params.id}`)
 );

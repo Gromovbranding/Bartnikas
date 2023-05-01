@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
+import { IIndexSlider } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -20,7 +21,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
   }
 };
 
-const { data: slider } = useAsyncData(
+const { data: slider } = useAsyncData<IIndexSlider>(
   "slider",
   async () => await fetchGet(`/index-slider`)
 );
@@ -37,7 +38,6 @@ const colors = [
 function copyColor(idx: number) {
   navigator.clipboard.writeText(colors[idx]);
 }
-console.log("slider", slider.value);
 </script>
 
 <template>
@@ -99,11 +99,11 @@ console.log("slider", slider.value);
             :thumbs="{ swiper: thumbsSwiper }"
             @swiper="initMainSwiper"
           >
-            <SwiperSlide v-for="slide in 6" :key="`swiper-slide-main-${slide}`">
-              <img
-                src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
-                alt=""
-              />
+            <SwiperSlide
+              v-for="slide in slider?.images"
+              :key="`swiper-slide-main-${slide.name}`"
+            >
+              <img :src="`/files/${slide.name}`" alt="" />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -116,13 +116,10 @@ console.log("slider", slider.value);
             @swiper="initThumbsSwiper"
           >
             <SwiperSlide
-              v-for="slide in 6"
-              :key="`swiper-slide-thumb-${slide}`"
+              v-for="slide in slider?.images"
+              :key="`swiper-slide-thumb-${slide.name}`"
             >
-              <img
-                src="https://static.tildacdn.com/tild3235-3732-4330-a537-333065613437/Ice-Sprout-Iceland-0.jpg"
-                alt=""
-              />
+              <img :src="`/files/${slide.name}`" alt="" />
             </SwiperSlide>
           </Swiper>
 

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IBlog } from "~/types/admin-api";
+
 useHeadSafe({
   title: "Blog",
 });
@@ -8,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData(
+const { data: entites } = useAsyncData<IBlog[]>(
   "entites",
   async () => await fetchGet("/blogs")
 );

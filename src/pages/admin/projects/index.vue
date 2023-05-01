@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IProject } from "~/types/admin-api";
+
 useHeadSafe({
   title: "Projects",
 });
@@ -8,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData(
+const { data: entites } = useAsyncData<IProject[]>(
   "entites",
   async () => await fetchGet("/projects")
 );

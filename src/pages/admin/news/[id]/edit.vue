@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { FormRules } from "element-plus";
+import { IArticle } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -10,7 +11,7 @@ definePageMeta({
 const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData(
+const { data: entity } = useAsyncData<IArticle>(
   "entity",
   async () => await fetchGet(`/news/${route.params.id}`)
 );

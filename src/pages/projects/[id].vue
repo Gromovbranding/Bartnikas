@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import { IProject } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 
 const route = useRoute();
 const projectId = route.params.id;
 
-const { data: project } = useAsyncData(
+const { data: project } = useAsyncData<IProject>(
   "project",
   async () => await fetchGet(`/projects/${projectId}`)
 );
@@ -12,8 +14,8 @@ const { data: project } = useAsyncData(
 
 <template>
   <main>
-    <Title> {{ project.title }} </Title>
-    <AppPageHead sub="projects" :title="project.title" />
+    <Title> {{ project?.title }} </Title>
+    <AppPageHead sub="projects" :title="project?.title" />
 
     <div class="project">
       <section class="author-quote">
@@ -48,7 +50,7 @@ const { data: project } = useAsyncData(
           </div>
           <div>
             <p>
-              {{ project.description }}
+              {{ project?.description }}
             </p>
           </div>
           <div>

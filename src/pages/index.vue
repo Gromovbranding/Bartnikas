@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IArticle, IProject } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 const { type: typeScreen } = useBreakpoints();
 
@@ -6,12 +8,12 @@ const headerMain = ref<HTMLDivElement>();
 const defImgSize = typeScreen.value === "xs" ? 250 : 115;
 const imgSize = ref(`${defImgSize}%`);
 
-const { data: news } = useAsyncData(
+const { data: news } = useAsyncData<IArticle[]>(
   "news",
   async () => await fetchGet("/news")
 );
 
-const { data: projects } = useAsyncData(
+const { data: projects } = useAsyncData<IProject[]>(
   "projects",
   async () => await fetchGet("/projects")
 );

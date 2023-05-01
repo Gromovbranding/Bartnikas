@@ -1,15 +1,9 @@
 <script lang="ts" setup>
+import { IProject } from "~/types/admin-api";
+
 interface Props {
   direction?: "row" | "row-reverse";
-  project: {
-    id: number;
-    title: string;
-    description: string;
-    images: {
-      id: number;
-      name: string;
-    }[];
-  };
+  project: IProject;
 }
 
 const props = withDefaults(defineProps<Props>(), {

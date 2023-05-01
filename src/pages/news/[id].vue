@@ -1,44 +1,38 @@
 <script lang="ts" setup>
+import { IArticle } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
 const newsId = route.params.id;
 
-const { data: news } = useAsyncData(
+const { data: news } = useAsyncData<IArticle>(
   "news",
   async () => await fetchGet(`/news/${newsId}`)
 );
 
 const date = computed(() => {
-  return makeDateCorrect(news.value.created_at);
-});
-
-const imageCover = computed(() => {
-  if (!news?.value?.images?.length || !news?.value?.images[0]?.url) {
-    return "https://static.tildacdn.com/tild3565-3534-4961-b036-643938396163/noroot.png";
-  }
-
-  return news.value.images[0].url;
+  return makeDateCorrect(news.value?.created_at);
 });
 </script>
 
 <template>
   <main>
-    <Title>{{ news.title }}</Title>
+    <Title>{{ news?.title }}</Title>
     <AppPageHead only-logo back />
 
     <article class="article">
       <div class="article__headline">
-        <h1>{{ news.title }}</h1>
+        <h1>{{ news?.title }}</h1>
         <time> {{ date }} </time>
       </div>
       <div class="article__img">
-        <img :src="imageCover" alt="" />
+        <img :src="`/files/${news?.images?.[0].name}`" alt="" />
       </div>
       <div class="article__content">
-        <p>{{ news.description }}</p>
-        <p>{{ news.text }}</p>
+        <p>{{ news?.description }}</p>
+        <p>{{ news?.text }}</p>
       </div>
     </article>
 

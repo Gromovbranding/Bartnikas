@@ -1,25 +1,18 @@
 <script lang="ts" setup>
+import { IBlog } from "~/types/admin-api";
+
 const { fetchGet } = useApi();
 const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
-const blogId = route.params.id;
 
-const { data: blog } = useAsyncData(
+const { data: blog } = useAsyncData<IBlog>(
   "blog",
-  async () => await fetchGet(`/blogs/${blogId}`)
+  async () => await fetchGet(`/blogs/${route.params.id}`)
 );
 
 const date = computed(() => {
-  return makeDateCorrect(blog.value.created_at);
-});
-
-const imageCover = computed(() => {
-  if (!blog?.value?.images?.length || !blog?.value?.images[0]?.url) {
-    return "https://static.tildacdn.com/tild6633-3138-4831-b566-343130343938/20210401_-_Art_0152.jpg";
-  }
-
-  return blog.value.images[0].url;
+  return makeDateCorrect(blog.value?.created_at);
 });
 </script>
 
@@ -31,10 +24,10 @@ const imageCover = computed(() => {
     <article class="article">
       <div class="article__headline">
         <time> {{ date }} </time>
-        <h1>{{ blog.title }}</h1>
+        <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="imageCover" alt="" />
+        <img :src="`files/${blog?.images[0].name}`" alt="" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>

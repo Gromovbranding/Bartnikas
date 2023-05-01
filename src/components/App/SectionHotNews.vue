@@ -1,22 +1,9 @@
 <script lang="ts" setup>
-interface NewsImage {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface News {
-  id?: number;
-  title?: string;
-  desc?: string;
-  text?: string;
-  created_at?: Date;
-  images: NewsImage[];
-}
-interface Props {
-  news: News;
-}
+import { IArticle } from "~/types/admin-api";
 
-const props = defineProps<Props>();
+const props = defineProps<{
+  news: IArticle;
+}>();
 
 const { makeDateCorrect } = useDateFormat();
 

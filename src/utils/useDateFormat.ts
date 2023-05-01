@@ -1,6 +1,6 @@
 export const useDateFormat = () => {
-  const makeDateCorrect = (date: string) => {
-    if (!date) return "28.02.2023";
+  const makeDateCorrect = (date: string | Date | undefined) => {
+    if (!date) return "";
     const d = new Date(date);
     const year = d.toLocaleString("default", { year: "numeric" });
     const month = d.toLocaleString("default", { month: "2-digit" });

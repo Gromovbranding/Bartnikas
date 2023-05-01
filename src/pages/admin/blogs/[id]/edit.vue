@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IBlog } from "~/types/admin-api";
+
 definePageMeta({
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
@@ -8,7 +10,7 @@ definePageMeta({
 const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData(
+const { data: entity } = useAsyncData<IBlog>(
   "entity",
   async () => await fetchGet(`/blogs/${route.params.id}`)
 );

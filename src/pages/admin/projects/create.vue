@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
+import { IProject } from "~/types/admin-api";
 
 const name = ref("Create Project");
 
@@ -9,7 +10,10 @@ useHeadSafe({
 
 const { fetchPostCreateByRouteWithImages } = useApi();
 
-const handleCreate = async (body: any = null, images: UploadUserFile[]) => {
+const handleCreate = async (
+  body: IProject | null = null,
+  images: UploadUserFile[]
+) => {
   await fetchPostCreateByRouteWithImages("/projects", body, images);
 };
 </script>
