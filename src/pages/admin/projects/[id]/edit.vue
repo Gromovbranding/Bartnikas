@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { UploadUserFile } from "element-plus";
-
 definePageMeta({
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
@@ -9,6 +7,7 @@ definePageMeta({
 
 const { fetchGet } = useApi();
 const route = useRoute();
+const { apiFilesUrl } = useRuntimeConfig().public;
 
 const { data: entity } = useAsyncData(
   "entity",
@@ -32,7 +31,14 @@ const rules = reactive({
   ],
 });
 
-const fileList = ref<UploadUserFile[]>(entity.value?.project_images ?? []);
+const fileList = ref([]);
+
+onBeforeMount(() => {
+  fileList.value = (entity.value?.images ?? []).map(async ({ name }) => {
+    const result = await $fetch(`${apiFilesUrl}/${name}`);
+    return await result.blob();
+  });
+});
 
 const form = reactive({
   title: entity.value?.title ?? "",

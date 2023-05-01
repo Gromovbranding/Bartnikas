@@ -7,12 +7,18 @@ useHeadSafe({
   title: name.value,
 });
 
-// const { fetchPost, fetchUploadImages } = useApi();
+const { fetchPost } = useApi();
 
 const handleCreate = async (body: any, images: UploadUserFile[]) => {
-  await console.log(body, images);
-  // const ids = await fetchUploadImages(images);
-  // await fetchPost("/projects", body);
+  const formData = new FormData();
+  formData.append("file", images[0].raw);
+
+  const imagesSaved = await fetchPost("/files", formData);
+
+  await fetchPost("/projects", {
+    ...body,
+    images: [imagesSaved],
+  });
 };
 </script>
 
