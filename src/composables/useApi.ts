@@ -8,12 +8,14 @@ export const useApi = () => {
   const fetchApi = async <T>(
     path: string,
     method: "GET" | "POST" | "DELETE" | "PATCH",
-    body: any = null
+    body: any = null,
+    customConfigFetch: any = {}
   ) => {
     const fetchConfig = {
       baseURL: config.apiBaseUrl,
       method,
       headers: {},
+      ...customConfigFetch,
 
       async onResponseError({ response }) {
         ElNotification.error({
@@ -54,6 +56,12 @@ export const useApi = () => {
 
   const fetchUpdate = async <T>(path: string) => {
     return await fetchApi<T>(path, "GET");
+  };
+
+  const fetchGetImage = async (name: string) => {
+    return await fetchApi<Blob>(`/files/${name}`, "GET", null, {
+      responseType: "blob",
+    });
   };
 
   const logout = async () => {
@@ -100,10 +108,18 @@ export const useApi = () => {
 
   const fetchGetImages = async (images: { name: string }[]) => {
     return await Promise.all(
-      (images ?? []).map(async ({ name }) => ({
-        name,
-        raw: await fetchGet<Blob>(`/files/${name}`),
-      }))
+      (images ?? []).map(async ({ name }) => {
+        const blob = await fetchGetImage(name);
+        const file = new File([blob], name, {
+          type: blob.type,
+        });
+
+        return {
+          raw: file,
+          name,
+          size: file.size,
+        };
+      })
     );
   };
 
