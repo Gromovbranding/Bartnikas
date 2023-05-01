@@ -1,4 +1,5 @@
 import { UploadUserFile } from "element-plus";
+import { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
   const config = useRuntimeConfig().public;
@@ -108,7 +109,7 @@ export const useApi = () => {
       formData.append("files", image.raw as Blob, image.name);
     });
 
-    const imagesSaved = await fetchPost("/files/multiple", formData);
+    const imagesSaved = await fetchPost<IFile[]>("/files/multiple", formData);
 
     await fetchPost(url, {
       ...body,
