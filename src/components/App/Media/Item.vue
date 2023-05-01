@@ -7,7 +7,7 @@ interface BlogImage {
 interface Blog {
   id?: number;
   title?: string;
-  desc?: string;
+  description?: string;
   text?: string;
   date?: Date;
   images?: BlogImage[];
@@ -21,8 +21,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const date = computed(() => {
-  if (!props.blog?.date) return "";
-  const d = new Date(props.blog?.date);
+  if (!props.blog?.created_at) return "";
+  const d = new Date(props.blog?.created_at);
   const year = d.toLocaleString("default", { year: "numeric" });
   const month = d.toLocaleString("default", { month: "2-digit" });
   const day = d.toLocaleString("default", { day: "2-digit" });
@@ -41,7 +41,7 @@ const date = computed(() => {
       </div>
       <div>
         <h3>{{ blog?.title }}</h3>
-        <p>{{ blog?.desc }}</p>
+        <p>{{ blog?.description }}</p>
         <span>{{ date }}</span>
       </div>
     </div>

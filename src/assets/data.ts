@@ -70,7 +70,7 @@ export const projects = [
     id: 1,
     title: "Abstract",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptates placeat ipsam tenetur voluptate facere modi necessitatibus odio delectus atque ratione, incidunt, quasi dignissimos vero?",
-    project_images: [
+    images: [
       {
         id: 1,
         name: "img",
@@ -99,7 +99,7 @@ export const projects = [
     id: 2,
     title: "Urban",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptates placeat ipsam tenetur voluptate facere modi necessitatibus odio delectus atque ratione, incidunt, quasi dignissimos vero?",
-    project_images: [
+    images: [
       {
         id: 1,
         name: "img",

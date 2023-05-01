@@ -7,7 +7,7 @@ useHeadSafe({
   title: name.value,
 });
 
-const { fetchUploadImages } = useApi();
+const { fetchPostCreateByRouteWithImages } = useApi();
 
 const form = reactive([
   {
@@ -20,7 +20,7 @@ const form = reactive([
     value: "",
     label: "Description",
     type: "textarea",
-    prop: "desc",
+    prop: "description",
   },
   {
     value: "",
@@ -30,13 +30,8 @@ const form = reactive([
   },
 ]);
 
-const handleCreate = async (body: any, images: UploadUserFile[]) => {
-  const ids = await fetchUploadImages(images);
-  console.log(body, ids);
-  // await fetchPost("/news", {
-  //   ...body,
-  //   images: ids,
-  // });
+const handleCreate = async (body: any = null, images: UploadUserFile[]) => {
+  await fetchPostCreateByRouteWithImages("/news", body, images);
 };
 </script>
 

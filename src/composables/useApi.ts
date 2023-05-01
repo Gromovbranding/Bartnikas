@@ -79,11 +79,32 @@ export const useApi = () => {
     }
   };
 
-  const fetchUploadImages = async (images: UploadUserFile[]) => {
-    await console.log(images);
-    // images.forEach((image) => {
-    //   // fetchPost("/files/image");
-    // });
+  const fetchPostCreateByRouteWithImages = async (
+    url: string,
+    body: any = null,
+    images: UploadUserFile[]
+  ) => {
+    const formData = new FormData();
+
+    images.forEach((image) => {
+      formData.append("files", image.raw as Blob, image.name);
+    });
+
+    const imagesSaved = await fetchPost("/files/multiple", formData);
+
+    await fetchPost(url, {
+      ...body,
+      images: imagesSaved,
+    });
+  };
+
+  const fetchGetImages = async (images: { name: string }[]) => {
+    return await Promise.all(
+      (images ?? []).map(async ({ name }) => ({
+        name,
+        raw: await fetchGet<Blob>(`/files/${name}`),
+      }))
+    );
   };
 
   return {
@@ -93,6 +114,7 @@ export const useApi = () => {
     fetchGet,
     logout,
     login,
-    fetchUploadImages,
+    fetchPostCreateByRouteWithImages,
+    fetchGetImages,
   };
 };

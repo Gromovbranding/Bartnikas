@@ -13,7 +13,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: "http://localhost:8080",
-      apiFilesUrl: "http://localhost:8080/uploads/files",
     },
   },
 

@@ -9,16 +9,12 @@ const emit = defineEmits<{
   (e: "uploadFile", files: UploadUserFile[]): void;
 }>();
 
-const fileList = ref<UploadUserFile[]>([]);
+const fileList = ref<UploadUserFile[]>(props.list ?? []);
 
 const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
   previewImageUrl.value = uploadFile.url!;
   isPreviewImageVisible.value = true;
 };
-
-onBeforeMount(() => {
-  fileList.value = props.list;
-});
 
 const isPreviewImageVisible = ref<boolean>(false);
 const previewImageUrl = ref<string>();

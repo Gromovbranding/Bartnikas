@@ -7,14 +7,10 @@ useHeadSafe({
   title: name.value,
 });
 
-const { fetchPost } = useApi();
+const { fetchPostCreateByRouteWithImages } = useApi();
 
-const handleCreate = async (body: any, images: UploadUserFile[]) => {
-  console.log(images);
-  await fetchPost("/blogs", {
-    ...body,
-    images: [],
-  });
+const handleCreate = async (body: any = null, images: UploadUserFile[]) => {
+  await fetchPostCreateByRouteWithImages("/blogs", body, images);
 };
 </script>
 
@@ -33,7 +29,7 @@ const handleCreate = async (body: any, images: UploadUserFile[]) => {
             value: '',
             label: 'Description',
             type: 'textarea',
-            prop: 'desc',
+            prop: 'description',
           },
           {
             value: '',

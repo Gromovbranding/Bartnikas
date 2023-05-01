@@ -7,7 +7,7 @@ interface NewsImage {
 interface News {
   id?: number;
   title?: string;
-  desc?: string;
+  description?: string;
   text?: string;
   date?: Date;
   images?: NewsImage[];
@@ -21,8 +21,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const date = computed(() => {
-  if (!props.news?.date) return "";
-  const d = new Date(props.news?.date);
+  if (!props.news?.created_at) return "";
+  const d = new Date(props.news?.created_at);
   const year = d.toLocaleString("default", { year: "numeric" });
   const month = d.toLocaleString("default", { month: "2-digit" });
   const day = d.toLocaleString("default", { day: "2-digit" });
@@ -41,7 +41,7 @@ const date = computed(() => {
       </div>
       <div>
         <h3>{{ news?.title }}</h3>
-        <p>{{ news?.desc }}</p>
+        <p>{{ news?.description }}</p>
         <span>{{ date }}</span>
       </div>
     </div>

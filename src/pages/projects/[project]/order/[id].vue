@@ -18,7 +18,7 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
 };
 
 const moreProjectImages = computed(() => {
-  return projectImage.value?.project?.project_images
+  return projectImage.value?.project?.images
     ?.filter((i: any) => i.id !== imageId)
     ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
 });

@@ -12,8 +12,8 @@ const { data: project } = useAsyncData(
 
 <template>
   <main>
-    <Title> {{ project?.title || "" }} </Title>
-    <AppPageHead sub="projects" :title="project?.title || ''" />
+    <Title> {{ project.title }} </Title>
+    <AppPageHead sub="projects" :title="project.title" />
 
     <div class="project">
       <section class="author-quote">
@@ -48,7 +48,7 @@ const { data: project } = useAsyncData(
           </div>
           <div>
             <p>
-              {{ project.desc }}
+              {{ project.description }}
             </p>
           </div>
           <div>
@@ -73,7 +73,7 @@ const { data: project } = useAsyncData(
 
       <section class="port-list">
         <AppPortOrder
-          v-for="img in project?.project_images"
+          v-for="img in project?.images"
           :key="`port-item${img.id}`"
           :project-id="project?.id"
           :project-image="img"

@@ -11,7 +11,7 @@ const { data: news } = useAsyncData(
 );
 
 const date = computed(() => {
-  return makeDateCorrect(news.value.date);
+  return makeDateCorrect(news.value.created_at);
 });
 
 const imageCover = computed(() => {
@@ -37,8 +37,8 @@ const imageCover = computed(() => {
         <img :src="imageCover" alt="" />
       </div>
       <div class="article__content">
-        <p>{{ news?.desc }}</p>
-        <p>{{ news?.text }}</p>
+        <p>{{ news.description }}</p>
+        <p>{{ news.text }}</p>
       </div>
     </article>
 

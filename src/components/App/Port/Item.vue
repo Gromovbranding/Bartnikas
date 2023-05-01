@@ -1,69 +1,46 @@
 <script lang="ts" setup>
-interface ProjectImageFile {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface ProjectImage {
-  id?: number;
-  name?: string;
-  files?: ProjectImageFile[];
-}
-interface Project {
-  id?: number;
-  title?: string;
-  desc?: string;
-  project_images?: ProjectImage[];
-}
 interface Props {
-  // bigImg: string;
-  // smallImg: string;
-  // title: string;
-  // desciption: string;
-  // photoCounter: number | string;
   direction?: "row" | "row-reverse";
-  project: Project;
+  project: {
+    id: number;
+    title: string;
+    description: string;
+    images: {
+      id: number;
+      name: string;
+    }[];
+  };
 }
 
 const props = withDefaults(defineProps<Props>(), {
   direction: "row",
 });
-
-const img1 = computed(() => {
-  const url = props.project?.project_images[0]?.files[0].url;
-  const defaultImg =
-    "https://static.tildacdn.com/tild3938-6661-4930-b962-343337353537/IMGP9984_1.jpg";
-  return url ?? defaultImg;
-});
-
-const img2 = computed(() => {
-  const url = props.project?.project_images[1]?.files[0].url;
-  const defaultImg =
-    "https://static.tildacdn.com/tild3664-3366-4532-b637-363135333132/CF003255_1.jpg";
-  return url ?? defaultImg;
-});
 </script>
 
 <template>
-  <div class="port" :class="{ reverse: direction === 'row-reverse' }">
-    <div class="port__img">
+  <div
+    v-if="project.images.length >= 2"
+    class="port"
+    :class="{ reverse: direction === 'row-reverse' }"
+  >
+    <div v-if="project.images[0]" class="port__img">
       <div class="scale">
-        <img :src="img1" alt="" />
+        <img :src="`/files/${project.images[0].name}`" alt="" />
       </div>
     </div>
-    <div class="port__content">
+    <div v-if="project.images[1]" class="port__content">
       <div class="scale">
-        <img :src="img2" alt="" />
+        <img :src="`/files/${project.images[1].name}`" alt="" />
       </div>
       <div class="port__text">
         <NuxtLink :to="`/projects/${project?.id}`">
           <div>
             <IconPhotoCamera />
-            <p>{{ props.project?.project_images?.length || "" }}</p>
+            <p>{{ props.project.images.length }}</p>
           </div>
-          <h2>{{ project?.title }}</h2>
+          <h2>{{ project.title }}</h2>
           <div class="port__text__desc">
-            <p>{{ project?.desc }}</p>
+            <p>{{ project.description }}</p>
           </div>
         </NuxtLink>
       </div>
@@ -73,7 +50,6 @@ const img2 = computed(() => {
 
 <style lang="scss" scoped>
 .port {
-  // display: flex;
   display: grid;
   grid-template-columns: 1fr 60%;
   grid-template-rows: auto auto;
@@ -106,7 +82,6 @@ const img2 = computed(() => {
     img {
       width: 100%;
       height: 550px;
-      // margin-bottom: -15px;
     }
   }
 
@@ -156,11 +131,6 @@ const img2 = computed(() => {
           height: 25px;
         }
       }
-
-      &:last-child {
-        // max-width: 900px;
-        // margin-top: 95px;
-      }
     }
   }
 }
@@ -170,10 +140,6 @@ const img2 = computed(() => {
   .port__content {
     order: -1;
   }
-}
-
-.scale {
-  // margin: 2rem;
 }
 
 @media screen and (max-width: 1000px) {

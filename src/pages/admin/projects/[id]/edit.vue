@@ -5,9 +5,8 @@ definePageMeta({
   },
 });
 
-const { fetchGet } = useApi();
+const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
-const { apiFilesUrl } = useRuntimeConfig().public;
 
 const { data: entity } = useAsyncData(
   "entity",
@@ -31,18 +30,11 @@ const rules = reactive({
   ],
 });
 
-const fileList = ref([]);
-
-onBeforeMount(() => {
-  fileList.value = (entity.value?.images ?? []).map(async ({ name }) => {
-    const result = await $fetch(`${apiFilesUrl}/${name}`);
-    return await result.blob();
-  });
-});
+const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
 
 const form = reactive({
   title: entity.value?.title ?? "",
-  desc: entity.value?.desc ?? "",
+  description: entity.value?.description ?? "",
 });
 </script>
 
@@ -64,12 +56,11 @@ const form = reactive({
         </ElFormItem>
 
         <ElFormItem label="Description" prop="desc">
-          <ElInput v-model="form.desc" :rows="5" type="textarea" />
+          <ElInput v-model="form.description" :rows="5" type="textarea" />
         </ElFormItem>
 
-        <!-- Project Images -->
         <ElFormItem required label="Project Images">
-          <AdminUploadImage v-model="fileList" />
+          <AdminUploadImage :list="fileList" />
         </ElFormItem>
 
         <ElFormItem>

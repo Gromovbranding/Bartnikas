@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FormRules, UploadUserFile } from "element-plus";
+import type { FormRules } from "element-plus";
 
 definePageMeta({
   validate(route) {
@@ -7,7 +7,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet } = useApi();
+const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
 
 const { data: entity } = useAsyncData(
@@ -44,11 +44,11 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const fileList = ref<UploadUserFile[]>(entity.value?.images ?? []);
+const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
 
 const form = reactive({
   title: entity.value?.title ?? "",
-  desc: entity.value?.desc ?? "",
+  description: entity.value?.description ?? "",
   text: entity.value?.text ?? "",
 });
 </script>
@@ -71,7 +71,7 @@ const form = reactive({
         </ElFormItem>
 
         <ElFormItem label="Description" prop="desc">
-          <ElInput v-model="form.desc" :rows="5" type="textarea" />
+          <ElInput v-model="form.description" :rows="5" type="textarea" />
         </ElFormItem>
 
         <ElFormItem label="Text" prop="text">
@@ -79,7 +79,7 @@ const form = reactive({
         </ElFormItem>
 
         <ElFormItem required label="Images">
-          <AdminUploadImage v-model="fileList" />
+          <AdminUploadImage :list="fileList" />
         </ElFormItem>
 
         <ElFormItem>

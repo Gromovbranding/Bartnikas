@@ -11,7 +11,7 @@ const { data: blog } = useAsyncData(
 );
 
 const date = computed(() => {
-  return makeDateCorrect(blog.value.date);
+  return makeDateCorrect(blog.value.created_at);
 });
 
 const imageCover = computed(() => {

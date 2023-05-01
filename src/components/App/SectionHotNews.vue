@@ -9,7 +9,7 @@ interface News {
   title?: string;
   desc?: string;
   text?: string;
-  date?: Date;
+  created_at?: Date;
   images: NewsImage[];
 }
 interface Props {
@@ -21,8 +21,8 @@ const props = defineProps<Props>();
 const { makeDateCorrect } = useDateFormat();
 
 const title = computed(() => {
-  if (!props.news?.title || !props.news?.date) return "";
-  return ` — ${makeDateCorrect(props.news.date.toString())} — ${
+  if (!props.news?.title || !props.news?.created_at) return "";
+  return ` — ${makeDateCorrect(props.news.created_at.toString())} — ${
     props.news.title
   }`.repeat(3);
 });

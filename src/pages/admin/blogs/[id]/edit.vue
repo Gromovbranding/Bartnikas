@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import type { UploadUserFile } from "element-plus";
-
 definePageMeta({
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
   },
 });
 
-const { fetchGet } = useApi();
+const { fetchGet, fetchGetImages } = useApi();
 const route = useRoute();
 
 const { data: entity } = useAsyncData(
@@ -39,11 +37,11 @@ const rules = reactive({
   ],
 });
 
-const fileList = ref<UploadUserFile[]>(entity.value?.images ?? []);
+const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
 
 const form = reactive({
   title: entity.value?.title ?? "",
-  desc: entity.value?.desc ?? "",
+  description: entity.value?.description ?? "",
   text: entity.value?.text ?? "",
 });
 </script>
@@ -61,21 +59,20 @@ const form = reactive({
 
     <ClientOnly>
       <ElForm :model="form" :rules="rules" label-width="120px">
-        <ElFormItem label="Title" prop="title">
+        <ElFormItem required label="Title" prop="title">
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Description" prop="desc">
-          <ElInput v-model="form.desc" :rows="5" type="textarea" />
+        <ElFormItem required label="Description" prop="desc">
+          <ElInput v-model="form.description" :rows="5" type="textarea" />
         </ElFormItem>
 
-        <ElFormItem label="Text" prop="text">
+        <ElFormItem required label="Text" prop="text">
           <ElInput v-model="form.text" :rows="5" type="textarea" />
         </ElFormItem>
 
-        <!-- Project Images -->
         <ElFormItem required label="Images">
-          <AdminUploadImage v-model="fileList" />
+          <AdminUploadImage :list="fileList" />
         </ElFormItem>
 
         <ElFormItem>
