@@ -109,10 +109,14 @@ export const useApi = () => {
     });
 
     const imagesSaved = await fetchPost("/files/multiple", formData);
+    const details = imagesSaved.map((image) => ({
+      image,
+      price: 100,
+    }));
 
     await fetchPost(url, {
       ...body,
-      images: imagesSaved,
+      details,
     });
   };
 
