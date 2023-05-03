@@ -1,26 +1,10 @@
 <script lang="ts" setup>
-interface ProjectImageFile {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface ProjectImage {
-  id?: number;
-  name?: string;
-  files?: ProjectImageFile[];
-}
-interface Props {
-  projectId?: number;
-  projectImage?: ProjectImage;
-}
+import { IFile } from "~/types/admin-api";
 
-withDefaults(defineProps<Props>(), {
-  projectId: null,
-  projectImage: null,
-});
-
-const defaultImg =
-  "https://static.tildacdn.com/tild3731-3032-4536-b165-626635373937/CF001765_1.jpg";
+defineProps<{
+  projectId: number;
+  image: IFile;
+}>();
 </script>
 
 <template>
@@ -28,22 +12,22 @@ const defaultImg =
     <div class="port-order__img">
       <AppPortZoom
         :project-id="projectId"
-        :project-image-name="projectImage?.name"
-        :project-image-id="projectImage?.id"
+        :image-name="String(image.custom_name)"
+        :image-id="image.id"
       >
-        <img :src="projectImage?.files[0]?.url ?? defaultImg" alt="" />
+        <img :src="image.url" alt="" />
       </AppPortZoom>
     </div>
     <div class="port-order__info">
       <div>
-        <h3>{{ projectImage?.name }}</h3>
+        <h3>{{ image.custom_name }}</h3>
       </div>
       <div>
         <NuxtLink>
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
-        <NuxtLink :to="`/projects/${projectId}/order/${projectImage?.id}`">
+        <NuxtLink :to="`/projects/${projectId}/order/${image.id}`">
           <span>Order</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
