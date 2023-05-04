@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
+import { IFile } from "~/types/admin-api";
+
+const { fetchRemoveImage } = useApi();
+const { accessToken } = useAdmin();
 
 const props = defineProps<{
   list: UploadProps["fileList"];
@@ -16,6 +20,10 @@ const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
   isPreviewImageVisible.value = true;
 };
 
+const handleRemove: UploadProps["onRemove"] = async (file) => {
+  return Boolean(await fetchRemoveImage((file.response as IFile).id));
+};
+
 const isPreviewImageVisible = ref<boolean>(false);
 const previewImageUrl = ref<string>();
 
@@ -28,10 +36,14 @@ watchEffect(() => {
   <div style="width: 100%">
     <ElUpload
       v-model:file-list="fileList"
+      action="http://localhost:8080/files"
       list-type="picture"
       drag
+      :headers="{
+        Authorization: `Bearer ${accessToken}`,
+      }"
       accept="image/png, image/jpeg, image/jpg"
-      :auto-upload="false"
+      :on-remove="handleRemove"
       :on-preview="handlePictureCardPreview"
     >
       <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>

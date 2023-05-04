@@ -2,7 +2,6 @@ export interface IFile {
   id: number;
   name: string;
   url: string;
-  custom_name: string | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -14,6 +13,7 @@ export interface IBlog {
   text: string;
   images: IFile[];
   created_at: Date;
+  updated_at: Date;
 }
 
 enum ListUnitSuze {
@@ -26,6 +26,7 @@ export interface IProjectImageSizes {
   height: number;
   unit: ListUnitSuze;
   created_at: Date;
+  updated_at: Date;
 }
 
 export interface IProjectImageDetail {
@@ -34,6 +35,7 @@ export interface IProjectImageDetail {
   sizes: IProjectImageSizes[];
   image: IFile;
   created_at: Date;
+  updated_at: Date;
 }
 
 export interface IProject {
@@ -42,6 +44,7 @@ export interface IProject {
   description: string;
   details: IProjectImageDetail[];
   created_at: Date;
+  updated_at: Date;
 }
 
 export interface IArticle {
@@ -52,6 +55,7 @@ export interface IArticle {
   is_hot: boolean;
   images: IFile[];
   created_at: Date;
+  updated_at: Date;
 }
 
 export interface IContact {
@@ -60,6 +64,7 @@ export interface IContact {
   email: string;
   comment: string;
   created_at: Date;
+  updated_at: Date;
 }
 
 export interface IIndexSlider {
@@ -68,4 +73,5 @@ export interface IIndexSlider {
   active: boolean;
   images: IFile[];
   created_at: Date;
+  updated_at: Date;
 }

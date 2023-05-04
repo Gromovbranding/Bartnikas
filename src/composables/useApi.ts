@@ -1,4 +1,4 @@
-import { UploadUserFile } from "element-plus";
+import type { NitroFetchOptions } from "nitropack";
 import { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
@@ -12,10 +12,12 @@ export const useApi = () => {
     body: any = null,
     customConfigFetch: any = {}
   ) => {
-    const fetchConfig = {
+    const fetchConfig: Partial<NitroFetchOptions<any>> = {
       baseURL: config.apiBaseUrl,
       method,
-      headers: {},
+      headers: {
+        Authorization: `Bearer ${accessToken.value}`,
+      },
       ...customConfigFetch,
 
       async onResponseError({ response }) {
@@ -41,10 +43,6 @@ export const useApi = () => {
         }
       },
     };
-
-    if (accessToken.value) {
-      fetchConfig.headers.Authorization = `Bearer ${accessToken.value}`;
-    }
 
     if (body) {
       fetchConfig.body = body;
@@ -75,6 +73,16 @@ export const useApi = () => {
     });
   };
 
+  const fetchUploadImage = async (image: File) => {
+    const formData = new FormData();
+    formData.append("file", image as File, image.name);
+    return await fetchPost<IFile>("files", formData);
+  };
+
+  const fetchRemoveImage = async (id: number) => {
+    return await fetchDelete(`files/${id}`);
+  };
+
   const logout = async () => {
     accessToken.value = "";
     await navigateTo("/admin/login");
@@ -98,27 +106,31 @@ export const useApi = () => {
     }
   };
 
-  const fetchPostCreateByRouteWithImages = async (
+  /**
+   * @deprecated
+   */
+  const fetchPostCreateByRouteWithSavedImages = (
     url: string,
     body: any = null,
-    images: UploadUserFile[]
+    images: IFile[]
   ) => {
-    const formData = new FormData();
+    console.log(url, body, images);
+    // const formData = new FormData();
 
-    images.forEach((image) => {
-      formData.append("files", image.raw as Blob, image.name);
-    });
+    // images.forEach((image) => {
+    //   formData.append("files", image.raw as Blob, image.name);
+    // });
 
-    const imagesSaved = await fetchPost<IFile[]>("/files/multiple", formData);
-    const details = imagesSaved.map((image) => ({
-      image,
-      price: 100,
-    }));
+    // const imagesSaved = await fetchPost<IFile[]>("/files/multiple", formData);
+    // const details = imagesSaved.map((image) => ({
+    //   image,
+    //   price: 100,
+    // }));
 
-    await fetchPost(url, {
-      ...body,
-      details,
-    });
+    // await fetchPost(url, {
+    //   ...body,
+    //   details: [],
+    // });
   };
 
   const fetchGetImages = async (images: { name: string }[]) => {
@@ -145,7 +157,10 @@ export const useApi = () => {
     fetchGet,
     logout,
     login,
-    fetchPostCreateByRouteWithImages,
+    fetchPostCreateByRouteWithSavedImages,
     fetchGetImages,
+    fetchUploadImage,
+    fetchRemoveImage,
+    fetchGetImage,
   };
 };
