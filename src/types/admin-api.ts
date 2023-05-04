@@ -1,6 +1,8 @@
 export interface IFile {
   id: number;
   name: string;
+  custom_name: string;
+  url: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -14,11 +16,31 @@ export interface IBlog {
   created_at: Date;
 }
 
+enum ListUnitSuze {
+  cm = "cm",
+}
+
+export interface IProjectImageSizes {
+  id: number;
+  width: number;
+  height: number;
+  unit: ListUnitSuze;
+  created_at: Date;
+}
+
+export interface IProjectImageDetail {
+  id: number;
+  price: number;
+  sizes: IProjectImageSizes[];
+  image: IFile;
+  created_at: Date;
+}
+
 export interface IProject {
   id: number;
   title: string;
   description: string;
-  images: IFile[];
+  details: IProjectImageDetail[];
   created_at: Date;
 }
 
