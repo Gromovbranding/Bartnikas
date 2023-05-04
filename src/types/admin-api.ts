@@ -1,8 +1,8 @@
 export interface IFile {
   id: number;
   name: string;
-  custom_name: string;
   url: string;
+  custom_name: string | null;
   created_at: Date;
   updated_at: Date;
 }

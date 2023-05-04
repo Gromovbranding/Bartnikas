@@ -1,4 +1,5 @@
 import { UploadUserFile } from "element-plus";
+import { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
   const config = useRuntimeConfig().public;
@@ -27,6 +28,16 @@ export const useApi = () => {
         if (response.status === 401) {
           accessToken.value = "";
           route.name !== "admin-login" && (await navigateTo("/admin/login"));
+        }
+      },
+
+      onResponse({ response }) {
+        if (response.status === 201 && !response.url.match(/files/)) {
+          ElNotification.success({
+            title: "Success",
+            message: response.statusText,
+            position: "bottom-right",
+          });
         }
       },
     };
@@ -98,11 +109,15 @@ export const useApi = () => {
       formData.append("files", image.raw as Blob, image.name);
     });
 
-    const imagesSaved = await fetchPost("/files/multiple", formData);
+    const imagesSaved = await fetchPost<IFile[]>("/files/multiple", formData);
+    const details = imagesSaved.map((image) => ({
+      image,
+      price: 100,
+    }));
 
     await fetchPost(url, {
       ...body,
-      images: imagesSaved,
+      details,
     });
   };
 

@@ -1,15 +1,9 @@
 <script lang="ts" setup>
-interface Props {
-  projectId?: number;
-  projectImageId?: number;
-  projectImageName?: string;
-}
-
-withDefaults(defineProps<Props>(), {
-  projectId: null,
-  projectImageId: null,
-  projectImageName: "Name Photo",
-});
+defineProps<{
+  projectId: number;
+  imageId: number;
+  imageName: string;
+}>();
 
 const isVisible = ref(false);
 </script>
@@ -37,16 +31,14 @@ const isVisible = ref(false);
             <IconCorner />
             <div class="zoom__modal-bottom-info">
               <div>
-                <h3>{{ projectImageName }}</h3>
+                <h3>{{ imageName }}</h3>
               </div>
               <div>
                 <NuxtLink>
                   <span>Interior</span>
                   <IconArrow is-arrow30-deg />
                 </NuxtLink>
-                <NuxtLink
-                  :to="`/projects/${projectId}/order/${projectImageId}`"
-                >
+                <NuxtLink :to="`/projects/${projectId}/order/${imageId}`">
                   <span>Order</span>
                   <IconArrow is-arrow30-deg />
                 </NuxtLink>
