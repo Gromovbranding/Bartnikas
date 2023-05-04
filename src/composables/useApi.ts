@@ -1,5 +1,5 @@
 import type { NitroFetchOptions } from "nitropack";
-import { IFile } from "~/types/admin-api";
+import type { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
   const config = useRuntimeConfig().public;
@@ -106,33 +106,6 @@ export const useApi = () => {
     }
   };
 
-  /**
-   * @deprecated
-   */
-  const fetchPostCreateByRouteWithSavedImages = (
-    url: string,
-    body: any = null,
-    images: IFile[]
-  ) => {
-    console.log(url, body, images);
-    // const formData = new FormData();
-
-    // images.forEach((image) => {
-    //   formData.append("files", image.raw as Blob, image.name);
-    // });
-
-    // const imagesSaved = await fetchPost<IFile[]>("/files/multiple", formData);
-    // const details = imagesSaved.map((image) => ({
-    //   image,
-    //   price: 100,
-    // }));
-
-    // await fetchPost(url, {
-    //   ...body,
-    //   details: [],
-    // });
-  };
-
   const fetchGetImages = async (images: { name: string }[]) => {
     return await Promise.all(
       (images ?? []).map(async ({ name }) => {
@@ -157,7 +130,6 @@ export const useApi = () => {
     fetchGet,
     logout,
     login,
-    fetchPostCreateByRouteWithSavedImages,
     fetchGetImages,
     fetchUploadImage,
     fetchRemoveImage,

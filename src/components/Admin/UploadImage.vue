@@ -50,6 +50,9 @@ watchEffect(() => {
       <div class="el-upload__text">
         Drop file here or <em>click to upload</em>
       </div>
+      <template #file="{ file }">
+        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+      </template>
       <template #tip>
         <div>jpg/jpeg/png files with a size less than 500kb</div>
       </template>

@@ -16,7 +16,7 @@ export interface IBlog {
   updated_at: Date;
 }
 
-enum ListUnitSuze {
+export enum ListUnitSize {
   cm = "cm",
 }
 
@@ -24,7 +24,7 @@ export interface IProjectImageSizes {
   id: number;
   width: number;
   height: number;
-  unit: ListUnitSuze;
+  unit: ListUnitSize;
   created_at: Date;
   updated_at: Date;
 }
@@ -34,6 +34,7 @@ export interface IProjectImageDetail {
   price: number;
   sizes: IProjectImageSizes[];
   image: IFile;
+  image_name: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -75,3 +76,40 @@ export interface IIndexSlider {
   created_at: Date;
   updated_at: Date;
 }
+
+export enum ListDegree {
+  Gold = "Gold",
+  Silver = "Silver",
+  Bronze = "Bronze",
+}
+
+export interface IAwardsDegreeGroup {
+  id: number;
+  type: ListDegree;
+  images: File[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IAwardsDegree {
+  id: number;
+  year: Date;
+  groups: IAwardsDegreeGroup[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IAwards {
+  id: number;
+  awards_avatar: IFile;
+  title: string;
+  description: string;
+  degress: IAwardsDegree[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export type PartialAdminApiDto<T> = Exclude<
+  T,
+  "id" | "updated_at" | "created_at"
+>;
