@@ -60,7 +60,11 @@ const items = ref();
 </script>
 
 <template>
-  <section ref="root" class="testimonials">
+  <section
+    v-if="(testimonials ?? []).length > 0"
+    ref="root"
+    class="testimonials"
+  >
     <AppSectionHeader :is-link="false">Testimonials</AppSectionHeader>
     <div class="testimonials__content">
       <AppTestimonialsItem
