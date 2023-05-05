@@ -1,63 +1,46 @@
+<script setup lang="ts">
+import type { IAwards } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: awards } = useAsyncData<IAwards[]>(
+  "awards",
+  async () => await fetchGet("/awards")
+);
+</script>
+
 <template>
   <main>
     <Title> Awards </Title>
     <AppPageHead bg-color="grey" title="Awards" />
     <section class="awards">
-      <div class="awards__item">
+      <div v-for="award in awards" :key="award.id" class="awards__item">
         <div class="awards__circle">
           <a href="#">
             <img
-              src="https://static.tildacdn.com/tild6165-3638-4538-a364-373730316566/image.png"
-              alt=""
+              :src="award.awards_avatar.url"
+              :alt="award.awards_avatar.name"
             />
           </a>
         </div>
         <div class="awards__text">
           <div>
-            <b> Moscow International Photo Awards </b>
+            <b>{{ award.title }}</b>
           </div>
           <div>
             <p>
-              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
+              {{ award.description }}
             </p>
           </div>
         </div>
         <div class="awards__link">
-          <div class="awards__list">
+          <div
+            v-for="item in award.degress"
+            :key="item.id"
+            class="awards__list"
+          >
             <div>
-              <b>2021</b>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-              <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small>
-                  1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="awards__list">
-            <div>
-              <b>2021</b>
+              <b>{{ new Date(item.year).getFullYear() }}</b>
             </div>
             <div>
               <div class="upper-slide">
@@ -82,224 +65,6 @@
                   2 Photo
                   <IconArrow is-arrow30-deg />
                 </small>
-              </div>
-            </div>
-          </div>
-          <div class="awards__list">
-            <div>
-              <b>2021</b>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-              <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small>
-                  1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="awards__item">
-        <div class="awards__circle">
-          <a href="#">
-            <img
-              src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="awards__text">
-          <div>
-            <b>Natgeo Photo Travel Contest </b>
-          </div>
-          <div>
-            <p>
-              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-          </div>
-        </div>
-        <div class="awards__link">
-          <div class="awards__list">
-            <div>
-              <b>2019</b>
-            </div>
-            <div class="single">
-              <div class="upper-slide">
-                <p>
-                  People’s choice Award
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="awards__item">
-        <div class="awards__circle">
-          <a href="#">
-            <img
-              src="https://static.tildacdn.com/tild6331-6235-4631-b933-616434363331/PX3.png"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="awards__text">
-          <div>
-            <b>PX3 Paris Photo Awards: </b>
-          </div>
-          <div>
-            <p>
-              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-          </div>
-        </div>
-        <div class="awards__link">
-          <div class="awards__list">
-            <div>
-              <b>2021</b>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-              <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small
-                  >1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="awards__list">
-            <div>
-              <b>2021</b>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-              <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small>
-                  1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="awards__list">
-            <div>
-              <b>2021</b>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
-              </div>
-              <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small>
-                  1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="awards__item">
-        <div class="awards__circle">
-          <a href="#">
-            <img
-              src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="awards__text">
-          <div>
-            <b>Natgeo Photo Travel Contest </b>
-          </div>
-          <div>
-            <p>
-              Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-          </div>
-        </div>
-        <div class="awards__link">
-          <div class="awards__list">
-            <div>
-              <b>2019</b>
-            </div>
-            <div class="single">
-              <div class="upper-slide">
-                <p>
-                  People’s choice Award
-                  <IconArrow is-arrow30-deg />
-                </p>
               </div>
             </div>
           </div>

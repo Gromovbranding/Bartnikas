@@ -87,16 +87,16 @@ export interface IAwardsDegreeGroup {
   id: number;
   type: ListDegree;
   images: File[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IAwardsDegree {
   id: number;
-  year: Date;
+  year: string;
   groups: IAwardsDegreeGroup[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IAwards {
@@ -105,8 +105,8 @@ export interface IAwards {
   title: string;
   description: string;
   degress: IAwardsDegree[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export type PartialAdminApiDto<T> = Exclude<

@@ -1,8 +1,11 @@
 <script lang="ts" setup>
+import { IFile } from "~/types/admin-api";
+
 interface Props {
   img?: string;
   name?: string;
   profession?: string;
+  file?: IFile;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -10,13 +13,33 @@ withDefaults(defineProps<Props>(), {
   name: "",
   profession: "",
 });
+
+const showVideo = ref(false);
 </script>
 
 <template>
   <div class="testimonial">
     <div class="testimonial__img">
-      <img :src="img" alt="" />
-      <div class="testimonial__play">
+      <video
+        v-if="showVideo"
+        :src="file.url"
+        preload="metadata"
+        autoplay="false"
+        controls
+      ></video>
+      <img
+        v-else
+        :src="
+          img ||
+          'https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png'
+        "
+        alt=""
+      />
+      <div
+        v-if="!showVideo"
+        class="testimonial__play"
+        @click="showVideo = true"
+      >
         <IconPlay />
       </div>
     </div>
@@ -29,11 +52,12 @@ withDefaults(defineProps<Props>(), {
 
 <style lang="scss" scoped>
 .testimonial {
-  width: 420px;
+  width: 23.4rem;
   &__img {
     width: 100%;
     position: relative;
-    img {
+    img,
+    video {
       width: 100%;
       height: 34vw;
       object-fit: cover;
@@ -46,8 +70,9 @@ withDefaults(defineProps<Props>(), {
     height: 36px;
     position: absolute;
     right: 30px;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     bottom: 30px;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.2);

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { IArticle, IProject } from "~/types/admin-api";
+import { IArticle } from "~/types/admin-api";
+import { projects } from "~/assets/data";
 
 const { fetchGet } = useApi();
 const { type: typeScreen } = useBreakpoints();
@@ -13,10 +14,10 @@ const { data: news } = useAsyncData<IArticle[]>(
   async () => await fetchGet("/news")
 );
 
-const { data: projects } = useAsyncData<IProject[]>(
-  "projects",
-  async () => await fetchGet("/projects")
-);
+// const { data: projects } = useAsyncData<IProject[]>(
+//   "projects",
+//   async () => await fetchGet("/projects")
+// );
 
 const hotNews = computed(() => {
   return news.value?.find((n: any) => n.is_hot);
@@ -56,7 +57,7 @@ function onScroll() {
     <section v-if="projects?.length" class="projects">
       <AppPortItem
         v-for="(project, idx) in projects"
-        :key="project?.id"
+        :key="project.title"
         :project="project"
         :direction="idx % 2 ? 'row-reverse' : 'row'"
       />

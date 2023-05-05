@@ -1,12 +1,17 @@
+<script setup lang="ts">
+import { IAwards } from "~/types/admin-api";
+
+defineProps<{
+  award: IAwards;
+}>();
+</script>
+
 <template>
   <div class="awards__item">
     <a>
-      <img
-        src="https://static.tildacdn.com/tild3833-6331-4233-b866-383266663535/Natgeo.svg"
-        alt=""
-      />
+      <img :src="award.awards_avatar.url" :alt="award.awards_avatar.name" />
       <div>
-        <h4>Natgeo Photo Travel Contest</h4>
+        <h4>{{ award.title }}</h4>
         <p>People’s choice Award</p>
       </div>
     </a>

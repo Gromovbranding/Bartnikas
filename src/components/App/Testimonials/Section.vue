@@ -1,12 +1,17 @@
 <script lang="ts" setup>
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// gsap.registerPlugin(ScrollTrigger);
 // import type { Swiper } from "swiper/types";
 // const moreOrdersSwiper = ref<Swiper | null>(null);
 // const sliderOffset = ref(0);
 const wrapper = ref<HTMLDivElement>();
 const root = ref<HTMLDivElement>();
-const lastScrollTop = ref(0);
+// const lastScrollTop = ref(0);
 // const isSliderActive = ref(false);
 const scrollProgress = ref(0);
+const { fetchGet } = useApi();
 
 // const initMoreOrdersSwiper = (swiper: Swiper) => {
 //   moreOrdersSwiper.value = swiper;
@@ -20,33 +25,36 @@ const scrollProgress = ref(0);
 //   return typeScreen.value === "xs" ? 10 : 120;
 // });
 
-const onScroll = () => {
-  if (!root.value || !wrapper.value) return;
-  const rootHeight = root.value?.offsetHeight || 100;
-  const scrollTop = document.documentElement.scrollTop;
-  // const maxScroll =
-  //   root.value.offsetTop + rootHeight - wrapper.value.offsetHeight - 60;
-  const progress =
-    scrollTop -
-    (root.value.offsetTop +
-      (root.value.querySelector("h2")?.offsetHeight || 0));
-  const progressPercent =
-    (progress / (rootHeight - wrapper.value.offsetHeight - 300)) * 100;
-  if (progressPercent < 0) scrollProgress.value = 0;
-  else if (progressPercent >= 0 && progressPercent < 100) {
-    scrollProgress.value = Math.floor(progressPercent);
-  } else scrollProgress.value = 100;
-  lastScrollTop.value = scrollTop;
-};
+const { data: testimonials } = useAsyncData(
+  "testimonials",
+  async () => await fetchGet(`/testimonials`)
+);
 
-onMounted(() => {
-  lastScrollTop.value = document.documentElement.scrollTop;
-  window.addEventListener("scroll", onScroll);
-});
+// const onScroll = () => {
+//   if (!root.value || !wrapper.value) return;
+//   const rootHeight = root.value?.offsetHeight || 100;
+//   const scrollTop = document.documentElement.scrollTop;
+//   const progress =
+//     scrollTop -
+//     (root.value.offsetTop +
+//       (root.value.querySelector("h2")?.offsetHeight || 0));
+//   const progressPercent =
+//     (progress / (rootHeight - wrapper.value.offsetHeight - 300)) * 100;
+//   if (progressPercent < 0) scrollProgress.value = 0;
+//   else if (progressPercent >= 0 && progressPercent < 100) {
+//     scrollProgress.value = Math.floor(progressPercent);
+//   } else scrollProgress.value = 100;
+//   lastScrollTop.value = scrollTop;
+// };
 
-onUnmounted(() => {
-  window.removeEventListener("scroll", onScroll);
-});
+// onMounted(() => {
+//   lastScrollTop.value = document.documentElement.scrollTop;
+//   window.addEventListener("scroll", onScroll);
+// });
+
+// onUnmounted(() => {
+//   window.removeEventListener("scroll", onScroll);
+// });
 
 const items = ref([
   {
@@ -107,11 +115,12 @@ const items = ref([
     >
       <div class="testimonials__content2">
         <AppTestimonialsItem
-          v-for="item in items"
+          v-for="item in testimonials"
           :key="item.id"
           :img="item.img"
-          :name="item.name"
-          :profession="item.profession"
+          :name="item.title"
+          :profession="item.additional_info"
+          :file="item.file"
         />
       </div>
     </div>
@@ -130,7 +139,7 @@ const items = ref([
 }
 .testimonials {
   padding: 4rem 3rem 6rem;
-  min-height: 200vh;
+  // min-height: 200vh;
   &__content {
     display: none;
   }

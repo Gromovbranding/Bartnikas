@@ -9,18 +9,7 @@ interface Props {
   next?: News;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  slug: "media",
-  prev: () => ({
-    id: 1,
-    title: "How dystopias can save the world",
-  }),
-  next: () => ({
-    id: 3,
-    title:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, vitae",
-  }),
-});
+const props = defineProps<Props>();
 
 const handleTo = async (id: number) => {
   await navigateTo(`/${props.slug}/${id}`);

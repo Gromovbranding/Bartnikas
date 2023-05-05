@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { IBlog } from "~/types/admin-api";
+// import { IBlog } from "~/types/admin-api";
+import { blogs } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 
-const { data: blogs } = useAsyncData<IBlog[]>(
-  "blogs",
-  async () => await fetchGet("/blogs")
-);
+// const { data: blogs } = useAsyncData<IBlog[]>(
+//   "blogs",
+//   async () => await fetchGet("/blogs")
+// );
 </script>
 
 <template>

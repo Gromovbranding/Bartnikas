@@ -1,15 +1,18 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+// import { IProject } from "~/types/admin-api";
+import { projects } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 
 const route = useRoute();
 const projectId = route.params.id;
 
-const { data: project } = useAsyncData<IProject>(
-  "project",
-  async () => await fetchGet(`/projects/${projectId}`)
-);
+// const { data: project } = useAsyncData<IProject>(
+//   "project",
+//   async () => await fetchGet(`/projects/${projectId}`)
+// );
+
+const project = computed(() => projects[+projectId - 1]);
 </script>
 
 <template>
@@ -75,10 +78,10 @@ const { data: project } = useAsyncData<IProject>(
 
       <section class="port-list">
         <AppPortOrder
-          v-for="img in project?.images"
-          :key="`port-item${img.id}`"
+          v-for="img in project.details"
+          :key="`port-item${img.image.name}`"
           :project-id="project?.id"
-          :project-image="img"
+          :image="img.image"
         />
       </section>
     </div>

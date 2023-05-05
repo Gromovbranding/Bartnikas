@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-import { IIndexSlider } from "~/types/admin-api";
+// import { IIndexSlider } from "~/types/admin-api";
+import { slider } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 
 const thumbsSwiper = ref<Swiper | null>(null);
 const mainSwiper = ref<Swiper | null>(null);
@@ -21,10 +22,10 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
   }
 };
 
-const { data: slider } = useAsyncData<IIndexSlider>(
-  "slider",
-  async () => await fetchGet(`/index-slider`)
-);
+// const { data: slider } = useAsyncData<IIndexSlider>(
+//   "slider",
+//   async () => await fetchGet(`/index-slider`)
+// );
 
 const colors = [
   "#1a1c28",
@@ -66,7 +67,7 @@ function copyColor(idx: number) {
             />
           </div>
           <div class="interios-order__project-name">
-            <h3>Name Photo</h3>
+            <h3>{{ slider.images[mainSwiper?.realIndex || 0].name }}</h3>
           </div>
           <div class="interios-order__project-colors">
             <h4>Best Colors Of Interior:</h4>

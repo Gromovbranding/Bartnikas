@@ -27,7 +27,7 @@ const date = computed(() => {
         <time> {{ date }} </time>
       </div>
       <div class="article__img">
-        <img :src="news?.images?.[0].url" alt="" />
+        <img :src="news?.images?.[0]?.url || '/images/noroot_ph.png'" alt="" />
       </div>
       <div class="article__content">
         <p>{{ news?.description }}</p>

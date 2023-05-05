@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+// import { IProject } from "~/types/admin-api";
+import { projects } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 
-const { data: projects } = useAsyncData<IProject[]>(
-  "projects",
-  async () => await fetchGet("/projects")
-);
+// const { data: projects } = useAsyncData<IProject[]>(
+//   "projects",
+//   async () => await fetchGet("/projects")
+// );
 </script>
 
 <template>

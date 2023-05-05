@@ -27,7 +27,7 @@ const title = computed(() => {
         >
       </div>
       <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
-        <img :src="news.images[0]?.url" alt="" />
+        <img :src="news.images[0]?.url || '/images/noroot_ph.png'" alt="" />
         <div>
           <IconArrow is-arrow30-deg />
         </div>

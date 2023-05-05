@@ -1,18 +1,30 @@
 <script setup lang="ts">
-const { type: typeScreen } = useBreakpoints();
+import type { IAwards } from "~/types/admin-api";
 
-const awards = ref(0);
+const { type: typeScreen } = useBreakpoints();
+const { fetchGet } = useApi();
+
+const awardsToShow = ref(0);
+
+const { data: awards } = useAsyncData<IAwards[]>(
+  "awards",
+  async () => await fetchGet("/awards")
+);
 
 onMounted(() => {
-  awards.value = typeScreen.value === "xs" ? 5 : 16;
+  awardsToShow.value = typeScreen.value === "xs" ? 5 : 16;
 });
+
+const list = computed(() => awards.value?.slice(0, awardsToShow.value) || []);
 </script>
 
 <template>
   <section class="awards">
-    <AppSectionHeader to-caption=">170" to="/awards"> AWARDS </AppSectionHeader>
+    <AppSectionHeader :to-caption="`>${awards?.length}`" to="/awards">
+      AWARDS
+    </AppSectionHeader>
     <div class="awards__content">
-      <AppAwardsItem v-for="i in awards" :key="`award-item-${i}`" />
+      <AppAwardsItem v-for="i in list" :key="`award-item-${i}`" :award="i" />
     </div>
   </section>
 </template>

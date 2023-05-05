@@ -1,28 +1,34 @@
 <script lang="ts" setup>
-interface NewsImage {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface News {
-  id?: number;
-  title?: string;
-  desc?: string;
-  text?: string;
-  date?: Date;
-  images?: NewsImage[];
-}
+import { news } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// interface NewsImage {
+//   id?: number;
+//   name?: string;
+//   url?: string;
+// }
+// interface News {
+//   id?: number;
+//   title?: string;
+//   desc?: string;
+//   text?: string;
+//   date?: Date;
+//   images?: NewsImage[];
+// }
 
-const { data: news } = await useAsyncData(
-  "news",
-  async () => await fetchGet<News[]>("/news")
-);
+// const { fetchGet } = useApi();
 
+// const { data: news } = await useAsyncData(
+//   "news",
+//   async () => await fetchGet<News[]>("/news")
+// );
+
+// const sortedNews = computed(() => {
+//   if (!news.value?.length) return [];
+//   return news.value.sort((a: any, b: any) => b?.id - a?.id);
+// });
 const sortedNews = computed(() => {
-  if (!news.value?.length) return [];
-  return news.value.sort((a: any, b: any) => b?.id - a?.id);
+  if (!news.length) return [];
+  return news.sort((a: any, b: any) => b?.id - a?.id);
 });
 </script>
 

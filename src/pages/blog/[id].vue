@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { IBlog } from "~/types/admin-api";
+// import { IBlog } from "~/types/admin-api";
+import { blogs } from "~/assets/data";
 
-const { fetchGet } = useApi();
+// const { fetchGet } = useApi();
 const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
 
-const { data: blog } = useAsyncData<IBlog>(
-  "blog",
-  async () => await fetchGet(`/blogs/${route.params.id}`)
-);
+// const { data: blog } = useAsyncData<IBlog>(
+//   "blog",
+//   async () => await fetchGet(`/blogs/${route.params.id}`)
+// );
+
+const blog = computed(() => {
+  return blogs[route.params.id - 1];
+});
 
 const date = computed(() => {
   return makeDateCorrect(blog.value?.created_at);
@@ -27,7 +32,7 @@ const date = computed(() => {
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="`files/${blog?.images[0].name}`" alt="" />
+        <img :src="blog?.images[0]?.url || '/images/noroot_ph.png'" alt="" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>

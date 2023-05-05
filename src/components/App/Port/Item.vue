@@ -13,24 +13,24 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    v-if="project.images.length >= 2"
+    v-if="project.details.length >= 2"
     class="port"
     :class="{ reverse: direction === 'row-reverse' }"
   >
-    <div v-if="project.images[0]" class="port__img">
+    <div v-if="project.details[0]" class="port__img">
       <div class="scale">
-        <img :src="project.images[0].url" alt="" />
+        <img :src="project.details[0].image.url" alt="" />
       </div>
     </div>
-    <div v-if="project.images[1]" class="port__content">
+    <div v-if="project.details[1]" class="port__content">
       <div class="scale">
-        <img :src="project.images[1].url" alt="" />
+        <img :src="project.details[1].image.url" alt="" />
       </div>
       <div class="port__text">
         <NuxtLink :to="`/projects/${project?.id}`">
           <div>
             <IconPhotoCamera />
-            <p>{{ props.project.images.length }}</p>
+            <p>{{ props.project.details.length }}</p>
           </div>
           <h2>{{ project.title }}</h2>
           <div class="port__text__desc">
@@ -75,7 +75,9 @@ const props = withDefaults(defineProps<Props>(), {
 
     img {
       width: 100%;
-      height: 550px;
+      // height: 550px;
+      object-fit: cover;
+      object-position: center;
     }
   }
 

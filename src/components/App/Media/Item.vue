@@ -33,7 +33,7 @@ const date = computed(() => {
 <template>
   <NuxtLink :to="`/blog/${blog?.id}`" class="interios">
     <div class="interios__img">
-      <img :src="blog.images[0]?.url" alt="" />
+      <img :src="blog.images[0]?.url || '/images/noroot_ph.png'" alt="" />
     </div>
     <div class="interios__content">
       <div>

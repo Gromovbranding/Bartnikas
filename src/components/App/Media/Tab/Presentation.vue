@@ -9,7 +9,9 @@
       </div>
       <div>
         <h3>Healing Presentation</h3>
-        <UIButton :is-text-uppercase="false"> Download PDF </UIButton>
+        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
+          Download PDF
+        </UIButton>
       </div>
     </article>
     <article class="media__presentation">
@@ -21,7 +23,9 @@
       </div>
       <div>
         <h3>Commercial Presentation</h3>
-        <UIButton :is-text-uppercase="false"> Download PDF </UIButton>
+        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
+          Download PDF
+        </UIButton>
       </div>
     </article>
     <article class="media__presentation">
@@ -33,7 +37,9 @@
       </div>
       <div>
         <h3>Obvious X Stas Bartnikas</h3>
-        <UIButton :is-text-uppercase="false"> Download PDF </UIButton>
+        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
+          Download PDF
+        </UIButton>
       </div>
     </article>
   </div>
@@ -42,7 +48,7 @@
 <style lang="scss" scoped>
 .grid {
   display: grid;
-  grid-gap: 120px 80px;
+  grid-gap: 3rem;
   grid-template-columns: 1fr 1fr;
 }
 .media__presentation {
@@ -50,6 +56,9 @@
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  &__btn {
+    font-size: 1.5rem !important;
+  }
 
   > div {
     &:first-child {
@@ -67,7 +76,7 @@
       align-items: center;
 
       h3 {
-        font-size: 40px;
+        font-size: 1.8rem;
         font-weight: 900;
         line-height: 1.25;
       }
