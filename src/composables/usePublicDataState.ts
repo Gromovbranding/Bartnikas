@@ -58,6 +58,10 @@ export const usePublicData = () => {
     return await fetchGet<IAwards>(`awards/${id}`);
   };
 
+  const getCountAllAwards = async (): Promise<number> => {
+    return await fetchGet<number>("awards/count/all");
+  };
+
   const getAllAwards = async (): Promise<IAwards[]> => {
     return await fetchGet<IAwards[]>("awards");
   };
@@ -77,6 +81,7 @@ export const usePublicData = () => {
     getTestimoinialsById,
     getAllTestimonials,
     getAwardsById,
+    getCountAllAwards,
     getAllAwards,
     getIndexSlider,
   };

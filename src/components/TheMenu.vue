@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+const { getCountAllAwards } = usePublicData();
+
 const route = useRoute();
 const isMenuVisible = ref(false);
+const awardsCount = ref(Number(await getCountAllAwards()));
 
 watch(
   () => route.path,
@@ -40,7 +43,7 @@ watch(
           </li>
           <li>
             <NuxtLink to="/awards">
-              AWARDS <sup>>170</sup>
+              AWARDS <sup v-if="awardsCount > 0">>{{ awardsCount }}</sup>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"

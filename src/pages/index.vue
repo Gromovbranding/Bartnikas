@@ -36,7 +36,6 @@ onUnmounted(() => {
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
     <AppContentSpliter> PROJECTS </AppContentSpliter>
-
     <AppAwardsSection />
     <AppNewsSection />
     <AppSectionInteriosOrderSlider />
