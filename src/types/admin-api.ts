@@ -87,16 +87,16 @@ export interface IAwardsDegreeGroup {
   id: number;
   type: ListDegree;
   images: File[];
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface IAwardsDegree {
   id: number;
   year: string;
   groups: IAwardsDegreeGroup[];
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface IAwards {
@@ -105,8 +105,15 @@ export interface IAwards {
   title: string;
   description: string;
   degress: IAwardsDegree[];
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface ITestimonial {
+  id: number;
+  title: string;
+  additional_info: string;
+  file: IFile;
 }
 
 export type PartialAdminApiDto<T> = Exclude<
