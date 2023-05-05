@@ -65,8 +65,8 @@ const items = ref();
     <div class="testimonials__content">
       <AppTestimonialsItem
         v-for="item in items"
-        v-bind="item"
         :key="`top-testimonial-${item.id}`"
+        :testimonial="item"
       />
     </div>
     <div
@@ -78,7 +78,7 @@ const items = ref();
         <AppTestimonialsItem
           v-for="item in testimonials"
           :key="`bottom-testimonial-${item.id}`"
-          v-bind="item"
+          :testimonial="item"
         />
       </div>
     </div>

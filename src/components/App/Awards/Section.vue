@@ -15,13 +15,11 @@ onMounted(() => {
   awardsToShow.value = typeScreen.value === "xs" ? 5 : 16;
 });
 
-const list = computed(
-  () => (awards.value ?? []).slice(0, awardsToShow.value) || []
-);
+const list = computed(() => (awards.value ?? []).slice(0, awardsToShow.value));
 </script>
 
 <template>
-  <section class="awards">
+  <section v-if="(awards ?? []).length > 0" class="awards">
     <AppSectionHeader :to-caption="`>${awards?.length}`" to="/awards">
       AWARDS
     </AppSectionHeader>
