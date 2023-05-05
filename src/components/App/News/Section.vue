@@ -1,23 +1,20 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
+const { getAllNews } = usePublicData();
 
-const props = defineProps<{
-  news: IArticle[];
-}>();
-
-const renderedNews = computed(() => {
-  return props.news.slice(0, 2);
-});
+const { data: news } = useAsyncData<IArticle[]>(
+  "news",
+  async () => await getAllNews()
+);
 </script>
 
 <template>
   <section class="news">
-    <AppSectionHeader to="/media"> News </AppSectionHeader>
     <div class="news__content">
-      <AppMediaNews
-        v-for="oneNews in renderedNews"
-        :key="oneNews.id"
-        :news="oneNews"
+      <AppNewsItem
+        v-for="item in news"
+        :key="`news-item-${item.id}`"
+        :article="item"
       />
     </div>
   </section>

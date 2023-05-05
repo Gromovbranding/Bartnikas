@@ -1,41 +1,49 @@
 <script lang="ts" setup>
-import { IArticle } from "~/types/admin-api";
-
-const { fetchGet } = useApi();
 const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
-const newsId = route.params.id;
 
-const { data: news } = useAsyncData<
-  IArticle & { next: IArticle; prev: IArticle }
->("news", async () => await fetchGet(`/news/${newsId}`));
+const { getArticleById } = usePublicData();
 
-const date = computed(() => {
-  return makeDateCorrect(news.value?.created_at);
-});
+const { data: article } = useAsyncData(
+  "article",
+  async () => await getArticleById(route.params.id as string)
+);
 </script>
 
 <template>
   <main>
-    <Title>{{ news?.title }}</Title>
+    <Title>{{ article?.title }}</Title>
     <AppPageHead only-logo back />
 
     <article class="article">
       <div class="article__headline">
-        <h1>{{ news?.title }}</h1>
-        <time> {{ date }} </time>
+        <h1>{{ article?.title }}</h1>
+        <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
-        <img :src="news?.images?.[0]?.url || '/images/noroot_ph.png'" alt="" />
+        <img
+          :src="article?.images?.[0]?.url || '/images/noroot_ph.png'"
+          alt=""
+        />
       </div>
       <div class="article__content">
-        <p>{{ news?.description }}</p>
-        <p>{{ news?.text }}</p>
+        <p>{{ article?.description }}</p>
+        <p>{{ article?.text }}</p>
       </div>
     </article>
 
-    <AppMediaNextPrev :prev="news?.prev" :next="news?.next" slug="news" />
+    <AppMediaNextPrev
+      :next="{
+        id: Number(article?.next.id),
+        title: String(article?.next.title),
+      }"
+      :prev="{
+        id: Number(article?.prev.id),
+        title: String(article?.prev.title),
+      }"
+      slug="news"
+    />
   </main>
 </template>
 

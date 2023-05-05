@@ -1,48 +1,25 @@
 <script lang="ts" setup>
-interface BlogImage {
-  id?: number;
-  name?: string;
-  url?: string;
-}
-interface Blog {
-  id?: number;
-  title?: string;
-  description?: string;
-  text?: string;
-  date?: Date;
-  images?: BlogImage[];
-}
-interface Props {
-  blog?: Blog;
-}
+import { IBlog } from "~/types/admin-api";
+const { makeDateCorrect } = useDateFormat();
 
-const props = withDefaults(defineProps<Props>(), {
-  blog: null,
-});
-
-const date = computed(() => {
-  if (!props.blog?.created_at) return "";
-  const d = new Date(props.blog?.created_at);
-  const year = d.toLocaleString("default", { year: "numeric" });
-  const month = d.toLocaleString("default", { month: "2-digit" });
-  const day = d.toLocaleString("default", { day: "2-digit" });
-  return `${day}.${month}.${year}`;
-});
+defineProps<{
+  blog: IBlog;
+}>();
 </script>
 
 <template>
-  <NuxtLink :to="`/blog/${blog?.id}`" class="interios">
+  <NuxtLink :to="`/blog/${blog.id}`" class="interios">
     <div class="interios__img">
-      <img :src="blog.images[0]?.url || '/images/noroot_ph.png'" alt="" />
+      <img :src="blog.images[0]?.url ?? '/images/noroot_ph.png'" alt="" />
     </div>
     <div class="interios__content">
       <div>
         <IconArrow is-arrow30-deg />
       </div>
       <div>
-        <h3>{{ blog?.title }}</h3>
-        <p>{{ blog?.description }}</p>
-        <span>{{ date }}</span>
+        <h3>{{ blog.title }}</h3>
+        <p>{{ blog.description }}</p>
+        <span>{{ makeDateCorrect(blog.created_at) }}</span>
       </div>
     </div>
   </NuxtLink>
@@ -62,7 +39,6 @@ const date = computed(() => {
     img {
       width: 100%;
       height: 100%;
-      // min-height: 550px;
       max-height: 550px;
       object-fit: cover;
     }

@@ -15,7 +15,9 @@ onMounted(() => {
   awardsToShow.value = typeScreen.value === "xs" ? 5 : 16;
 });
 
-const list = computed(() => awards.value?.slice(0, awardsToShow.value) || []);
+const list = computed(
+  () => (awards.value ?? []).slice(0, awardsToShow.value) || []
+);
 </script>
 
 <template>

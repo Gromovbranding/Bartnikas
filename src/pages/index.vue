@@ -1,27 +1,18 @@
 <script lang="ts" setup>
-import { IArticle } from "~/types/admin-api";
-import { projects } from "~/assets/data";
-
-const { fetchGet } = useApi();
 const { type: typeScreen } = useBreakpoints();
 
 const headerMain = ref<HTMLDivElement>();
 const defImgSize = typeScreen.value === "xs" ? 250 : 115;
 const imgSize = ref(`${defImgSize}%`);
 
-const { data: news } = useAsyncData<IArticle[]>(
-  "news",
-  async () => await fetchGet("/news")
-);
+const onScroll = () => {
+  const height = headerMain.value?.offsetHeight || 0;
+  const res = (window.scrollY / height) * 15;
+  if (res > 15) return;
+  imgSize.value = `${defImgSize - res}%`;
+};
 
-// const { data: projects } = useAsyncData<IProject[]>(
-//   "projects",
-//   async () => await fetchGet("/projects")
-// );
-
-const hotNews = computed(() => {
-  return news.value?.find((n: any) => n.is_hot);
-});
+const throttledListener = useThrottle(onScroll, 50);
 
 onMounted(() => {
   window.addEventListener("scroll", throttledListener);
@@ -30,15 +21,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", throttledListener);
 });
-
-const throttledListener = useThrottle(onScroll, 50);
-
-function onScroll() {
-  const height = headerMain.value?.offsetHeight || 0;
-  const res = (window.scrollY / height) * 15;
-  if (res > 15) return;
-  imgSize.value = `${defImgSize - res}%`;
-}
 </script>
 
 <template>
@@ -50,20 +32,13 @@ function onScroll() {
       </div>
       <div class="header__img-sticky"></div>
     </header>
-    <AppSectionHotNews v-if="hotNews" :news="hotNews" />
+    <AppSectionHotNews />
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
-    <AppContentSpliter v-if="projects?.length"> PROJECTS </AppContentSpliter>
-    <section v-if="projects?.length" class="projects">
-      <AppPortItem
-        v-for="(project, idx) in projects"
-        :key="project.title"
-        :project="project"
-        :direction="idx % 2 ? 'row-reverse' : 'row'"
-      />
-    </section>
+    <AppContentSpliter> PROJECTS </AppContentSpliter>
+
     <AppAwardsSection />
-    <AppMediaSection v-if="news?.length" :news="news" />
+    <AppNewsSection />
     <AppSectionInteriosOrderSlider />
     <section class="home-info-project-paralax">
       <div>
@@ -132,13 +107,6 @@ function onScroll() {
       }
     }
   }
-}
-
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-bottom: 30px;
 }
 
 .header {

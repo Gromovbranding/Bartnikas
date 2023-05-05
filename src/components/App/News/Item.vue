@@ -2,31 +2,24 @@
 import { IArticle } from "~/types/admin-api";
 const { makeDateCorrect } = useDateFormat();
 
-const props = defineProps<{
-  news: IArticle;
+defineProps<{
+  article: IArticle;
 }>();
-
-const date = computed(() => {
-  return makeDateCorrect(props.news?.created_at);
-});
 </script>
 
 <template>
-  <NuxtLink :to="`/news/${news?.id}`" class="interios">
+  <NuxtLink :to="`/news/${article.id}`" class="interios">
     <div class="interios__img">
-      <img
-        :src="`files/${news.images[0]?.url || '../images/noroot_ph.png'}`"
-        alt=""
-      />
+      <img :src="article.images[0]?.url ?? '../images/noroot_ph.png'" alt="" />
     </div>
     <div class="interios__content">
       <div>
         <IconArrow is-arrow30-deg />
       </div>
       <div>
-        <h3>{{ news?.title }}</h3>
-        <p>{{ news?.description }}</p>
-        <span>{{ date }}</span>
+        <h3>{{ article.title }}</h3>
+        <p>{{ article.description }}</p>
+        <span>{{ makeDateCorrect(article.created_at) }}</span>
       </div>
     </div>
   </NuxtLink>

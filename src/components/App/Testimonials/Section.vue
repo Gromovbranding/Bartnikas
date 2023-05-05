@@ -11,7 +11,7 @@ const root = ref<HTMLDivElement>();
 // const lastScrollTop = ref(0);
 // const isSliderActive = ref(false);
 const scrollProgress = ref(0);
-const { fetchGet } = useApi();
+const { getAllTestimonials } = usePublicData();
 
 // const initMoreOrdersSwiper = (swiper: Swiper) => {
 //   moreOrdersSwiper.value = swiper;
@@ -27,7 +27,7 @@ const { fetchGet } = useApi();
 
 const { data: testimonials } = useAsyncData(
   "testimonials",
-  async () => await fetchGet(`/testimonials`)
+  async () => await getAllTestimonials()
 );
 
 // const onScroll = () => {
@@ -56,44 +56,7 @@ const { data: testimonials } = useAsyncData(
 //   window.removeEventListener("scroll", onScroll);
 // });
 
-const items = ref([
-  {
-    id: 1,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-  {
-    id: 2,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-  {
-    id: 3,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-  {
-    id: 4,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-  {
-    id: 5,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-  {
-    id: 6,
-    img: "https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png",
-    name: "Alexander Palienko",
-    profession: "Сoach, analyst",
-  },
-]);
+const items = ref();
 </script>
 
 <template>
@@ -102,10 +65,8 @@ const items = ref([
     <div class="testimonials__content">
       <AppTestimonialsItem
         v-for="item in items"
-        :key="item.id"
-        :img="item.img"
-        :name="item.name"
-        :profession="item.profession"
+        v-bind="item"
+        :key="`top-testimonial-${item.id}`"
       />
     </div>
     <div
@@ -116,11 +77,8 @@ const items = ref([
       <div class="testimonials__content2">
         <AppTestimonialsItem
           v-for="item in testimonials"
-          :key="item.id"
-          :img="item.img"
-          :name="item.title"
-          :profession="item.additional_info"
-          :file="item.file"
+          :key="`bottom-testimonial-${item.id}`"
+          v-bind="item"
         />
       </div>
     </div>

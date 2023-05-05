@@ -1,33 +1,29 @@
 <script lang="ts" setup>
-import { IFile } from "~/types/admin-api";
+import { IProjectImageDetail } from "~/types/admin-api";
 
 defineProps<{
+  detail: IProjectImageDetail;
   projectId: number;
-  image: IFile;
 }>();
 </script>
 
 <template>
   <div class="port-order">
     <div class="port-order__img">
-      <AppPortZoom
-        :project-id="projectId"
-        :image-name="String(image.custom_name)"
-        :image-id="image.id"
-      >
-        <img :src="image.url" alt="" />
+      <AppPortZoom :detail="detail" :project-id="projectId">
+        <img :src="detail.image.url" alt="" />
       </AppPortZoom>
     </div>
     <div class="port-order__info">
       <div>
-        <h3>{{ image.custom_name }}</h3>
+        <h3>{{ detail.image_name }}</h3>
       </div>
       <div>
         <NuxtLink>
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
-        <NuxtLink :to="`/projects/${projectId}/order/${image.id}`">
+        <NuxtLink :to="`/projects/${projectId}/order/${detail.id}`">
           <span>Order</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>

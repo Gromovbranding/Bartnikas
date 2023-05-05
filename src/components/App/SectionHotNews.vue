@@ -1,42 +1,51 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
 
-const props = defineProps<{
-  news: IArticle;
-}>();
+const { getArticlesByHotNews } = usePublicData();
+
+const { data: news } = useAsyncData<IArticle[]>(
+  "news",
+  async () => await getArticlesByHotNews()
+);
+
+const article = computed<IArticle | null>(() => {
+  return (news.value || [])[0];
+});
 
 const { makeDateCorrect } = useDateFormat();
 
 const title = computed(() => {
-  if (!props.news?.title || !props.news?.created_at) return "";
-  return ` — ${makeDateCorrect(props.news.created_at.toString())} — ${
-    props.news.title
+  return ` — ${makeDateCorrect(article.value?.created_at.toString())} — ${
+    article.value?.title
   }`.repeat(3);
 });
 </script>
 
 <template>
-  <section class="hot-news">
+  <section v-if="article" class="hot-news">
     <div class="hot-news__wrapper">
       <AppSectionHeader :is-link="false" white style="margin-bottom: 0">
         HOT NEWS
       </AppSectionHeader>
       <div class="hot-news__ticker">
-        <UIMarquee
-          ><span>{{ title }}</span></UIMarquee
-        >
+        <UIMarquee>
+          <span>{{ title }}</span>
+        </UIMarquee>
       </div>
-      <NuxtLink :to="`/news/${news?.id}`" class="upper-slide hot-news__content">
-        <img :src="news.images[0]?.url || '/images/noroot_ph.png'" alt="" />
+      <NuxtLink
+        :to="`/news/${article.id}`"
+        class="upper-slide hot-news__content"
+      >
+        <img :src="article.images[0].url ?? '/images/noroot_ph.png'" alt="" />
         <div>
           <IconArrow is-arrow30-deg />
         </div>
       </NuxtLink>
     </div>
     <div class="hot-news__ticker hot-news__ticker--bottom">
-      <UIMarquee
-        ><span>{{ title }}</span></UIMarquee
-      >
+      <UIMarquee>
+        <span>{{ title }}</span>
+      </UIMarquee>
     </div>
   </section>
 </template>

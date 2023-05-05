@@ -1,12 +1,24 @@
+<script setup lang="ts">
+const route = useRoute();
+const { makeDateCorrect } = useDateFormat();
+
+const { getArticleById } = usePublicData();
+
+const { data: article } = useAsyncData(
+  "article",
+  async () => await getArticleById(route.params.id as string)
+);
+</script>
+
 <template>
   <main>
-    <Title>Article</Title>
+    <Title>Article {{ article?.title }}</Title>
     <AppPageHead only-logo back />
 
     <article class="article">
       <div class="article__headline">
-        <h1>How dystopias can save the world</h1>
-        <time> 19.02.2022 </time>
+        <h1>{{ article?.title }}</h1>
+        <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
         <img
@@ -16,31 +28,22 @@
       </div>
       <div class="article__content">
         <p>
-          The story of the future of our planet and species is one that is yet
-          to be told for a few, the story is a warning of what is happening and
-          what not to do. As a rule, we don’t know the future, but we do our
-          best to make correct judgments. Most of us are aware of our impact on
-          the future of our planet and us, but for some, we are more affected
-          than effective. Stas x Obvious attempt to display that warning in a
-          creative new way, which is now on exhibit at the Weinberg/Newton
-          Gallery in Chicago, Illinois
-        </p>
-        <p>
-          The BBC published a recent article in Culture, written by Diane Cole,
-          informing the reader about the various interactive and
-          sensory-immersive art currently on display at the Human/Nature exhibit
-          in Chicago. The exhibition lures would-be bystanders to take a closer
-          look and fills them with sensory perceptions that identify
-          manufactured threats to our future and our planet. Doomsday is a look
-          into that potential future, presented in the article as an "eerily
-          beautify and devastatingly empty" addition to the collection that
-          brings together Stas' photography with the AI-powered imagination of
-          Obvious.
+          {{ article?.description }}
         </p>
       </div>
     </article>
 
-    <AppMediaNextPrev />
+    <AppMediaNextPrev
+      slug="media"
+      :next="{
+        id: Number(article?.next.id),
+        title: String(article?.next.title),
+      }"
+      :prev="{
+        id: Number(article?.prev.id),
+        title: String(article?.prev.title),
+      }"
+    />
   </main>
 </template>
 

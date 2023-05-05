@@ -7,9 +7,11 @@ import {
   ITestimonial,
 } from "~/types/admin-api";
 
-const { fetchGet } = useApi();
+export const usePublicData = () => {
+  const { fetchGet } = useApi();
 
-export const useProjects = () => {
+  type INextPrevWrapper<T> = T & { next: T; prev: T };
+
   const getProjectById = async (id: string | number): Promise<IProject> => {
     return await fetchGet<IProject>(`projects/${id}`);
   };
@@ -18,43 +20,30 @@ export const useProjects = () => {
     return await fetchGet<IProject[]>("projects");
   };
 
-  return {
-    getProjectById,
-    getAllProjects,
-  };
-};
-
-export const useBlogs = () => {
-  const getBlogById = async (id: string | number): Promise<IBlog> => {
-    return await fetchGet<IBlog>(`blogs/${id}`);
+  const getBlogById = async (
+    id: string | number
+  ): Promise<INextPrevWrapper<IBlog>> => {
+    return await fetchGet<INextPrevWrapper<IBlog>>(`blogs/${id}`);
   };
 
   const getAllBlogs = async (): Promise<IBlog[]> => {
     return await fetchGet<IBlog[]>("blogs");
   };
 
-  return {
-    getBlogById,
-    getAllBlogs,
+  const getArticleById = async (
+    id: string | number
+  ): Promise<INextPrevWrapper<IArticle>> => {
+    return await fetchGet<INextPrevWrapper<IArticle>>(`news/${id}`);
   };
-};
 
-export const useNews = () => {
-  const getArticleById = async (id: string | number): Promise<IArticle> => {
-    return await fetchGet<IArticle>(`news/${id}`);
+  const getArticlesByHotNews = async (): Promise<IArticle[]> => {
+    return await fetchGet<IArticle[]>(`news/only/hot`);
   };
 
   const getAllNews = async (): Promise<IArticle[]> => {
     return await fetchGet<IArticle[]>("news");
   };
 
-  return {
-    getArticleById,
-    getAllNews,
-  };
-};
-
-export const useTestimonials = () => {
   const getTestimoinialsById = async (
     id: string | number
   ): Promise<ITestimonial> => {
@@ -65,13 +54,6 @@ export const useTestimonials = () => {
     return await fetchGet<ITestimonial[]>("testimonials");
   };
 
-  return {
-    getTestimoinialsById,
-    getAllTestimonials,
-  };
-};
-
-export const useAwards = () => {
   const getAwardsById = async (id: string | number): Promise<IAwards> => {
     return await fetchGet<IAwards>(`awards/${id}`);
   };
@@ -80,18 +62,22 @@ export const useAwards = () => {
     return await fetchGet<IAwards[]>("awards");
   };
 
-  return {
-    getAwardsById,
-    getAllAwards,
-  };
-};
-
-export const useIndexSlider = () => {
   const getIndexSlider = async (): Promise<IIndexSlider> => {
     return await fetchGet<IIndexSlider>("index-slider");
   };
 
   return {
+    getProjectById,
+    getAllProjects,
+    getBlogById,
+    getAllBlogs,
+    getArticleById,
+    getArticlesByHotNews,
+    getAllNews,
+    getTestimoinialsById,
+    getAllTestimonials,
+    getAwardsById,
+    getAllAwards,
     getIndexSlider,
   };
 };

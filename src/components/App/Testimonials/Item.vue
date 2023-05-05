@@ -1,18 +1,9 @@
 <script lang="ts" setup>
-import { IFile } from "~/types/admin-api";
+import { ITestimonial } from "~/types/admin-api";
 
-interface Props {
-  img?: string;
-  name?: string;
-  profession?: string;
-  file?: IFile;
-}
-
-withDefaults(defineProps<Props>(), {
-  img: "",
-  name: "",
-  profession: "",
-});
+defineProps<{
+  testimonial: ITestimonial;
+}>();
 
 const showVideo = ref(false);
 </script>
@@ -22,7 +13,7 @@ const showVideo = ref(false);
     <div class="testimonial__img">
       <video
         v-if="showVideo"
-        :src="file.url"
+        :src="testimonial.file.url"
         preload="metadata"
         autoplay="false"
         controls
@@ -30,7 +21,7 @@ const showVideo = ref(false);
       <img
         v-else
         :src="
-          img ||
+          testimonial.file.url ??
           'https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png'
         "
         alt=""
@@ -44,8 +35,8 @@ const showVideo = ref(false);
       </div>
     </div>
     <div class="testimonial__info">
-      <h4>{{ name }}</h4>
-      <span>{{ profession }}</span>
+      <h4>{{ testimonial.title }}</h4>
+      <span>{{ testimonial.additional_info }}</span>
     </div>
   </div>
 </template>

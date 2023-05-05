@@ -1,18 +1,12 @@
 <script lang="ts" setup>
-// import { IProject } from "~/types/admin-api";
-import { projects } from "~/assets/data";
-
-// const { fetchGet } = useApi();
-
 const route = useRoute();
-const projectId = route.params.id;
 
-// const { data: project } = useAsyncData<IProject>(
-//   "project",
-//   async () => await fetchGet(`/projects/${projectId}`)
-// );
+const { getProjectById } = usePublicData();
 
-const project = computed(() => projects[+projectId - 1]);
+const { data: project } = useAsyncData(
+  "project",
+  async () => await getProjectById(route.params.id as string)
+);
 </script>
 
 <template>
@@ -30,7 +24,7 @@ const project = computed(() => projects[+projectId - 1]);
             />
           </div>
           <div>
-            <h3>Stanislav Bartnikas</h3>
+            <h3>{{ project?.title }}</h3>
           </div>
         </div>
         <div class="author-quote__text">
@@ -78,10 +72,10 @@ const project = computed(() => projects[+projectId - 1]);
 
       <section class="port-list">
         <AppPortOrder
-          v-for="img in project.details"
-          :key="`port-item${img.image.name}`"
-          :project-id="project?.id"
-          :image="img.image"
+          v-for="details in project?.details"
+          :key="`port-item-${details.id}`"
+          :project-id="Number(project?.id)"
+          :detail="detail"
         />
       </section>
     </div>

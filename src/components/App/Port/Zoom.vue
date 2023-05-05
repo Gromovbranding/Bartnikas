@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import { IProjectImageDetail } from "~/types/admin-api";
+
 defineProps<{
+  detail: IProjectImageDetail;
   projectId: number;
-  imageId: number;
-  imageName: string;
 }>();
 
 const isVisible = ref(false);
@@ -31,14 +32,14 @@ const isVisible = ref(false);
             <IconCorner />
             <div class="zoom__modal-bottom-info">
               <div>
-                <h3>{{ imageName }}</h3>
+                <h3>{{ detail.image_name }}</h3>
               </div>
               <div>
                 <NuxtLink>
                   <span>Interior</span>
                   <IconArrow is-arrow30-deg />
                 </NuxtLink>
-                <NuxtLink :to="`/projects/${projectId}/order/${imageId}`">
+                <NuxtLink :to="`/projects/${projectId}/order/${detail.id}`">
                   <span>Order</span>
                   <IconArrow is-arrow30-deg />
                 </NuxtLink>

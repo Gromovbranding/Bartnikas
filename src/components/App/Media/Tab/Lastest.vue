@@ -1,43 +1,27 @@
 <script lang="ts" setup>
-import { news } from "~/assets/data";
+import { IArticle } from "~/types/admin-api";
 
-// interface NewsImage {
-//   id?: number;
-//   name?: string;
-//   url?: string;
-// }
-// interface News {
-//   id?: number;
-//   title?: string;
-//   desc?: string;
-//   text?: string;
-//   date?: Date;
-//   images?: NewsImage[];
-// }
+const { getAllNews } = usePublicData();
 
-// const { fetchGet } = useApi();
+const { data: news } = useAsyncData<IArticle[]>(
+  "news",
+  async () => await getAllNews()
+);
 
-// const { data: news } = await useAsyncData(
-//   "news",
-//   async () => await fetchGet<News[]>("/news")
-// );
-
-// const sortedNews = computed(() => {
-//   if (!news.value?.length) return [];
-//   return news.value.sort((a: any, b: any) => b?.id - a?.id);
-// });
 const sortedNews = computed(() => {
-  if (!news.length) return [];
-  return news.sort((a: any, b: any) => b?.id - a?.id);
+  return (news.value ?? []).sort(
+    (a: IArticle, b: IArticle) =>
+      +new Date(b?.created_at) - +new Date(a?.created_at)
+  );
 });
 </script>
 
 <template>
   <div class="grid">
-    <AppMediaNews
-      v-for="oneNews in sortedNews"
-      :key="oneNews.id"
-      :news="oneNews"
+    <AppNewsItem
+      v-for="item in sortedNews"
+      :key="`latest-news-item-${item.id}`"
+      :article="item"
     />
   </div>
 </template>

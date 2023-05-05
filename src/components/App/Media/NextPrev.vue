@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-interface News {
+interface IDescribe {
   id: number;
   title: string;
 }
 interface Props {
   slug?: string;
-  prev?: News;
-  next?: News;
+  prev?: IDescribe;
+  next?: IDescribe;
 }
 
 const props = defineProps<Props>();

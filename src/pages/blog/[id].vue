@@ -1,24 +1,12 @@
 <script lang="ts" setup>
-// import { IBlog } from "~/types/admin-api";
-import { blogs } from "~/assets/data";
-
-// const { fetchGet } = useApi();
-const { makeDateCorrect } = useDateFormat();
-
 const route = useRoute();
 
-// const { data: blog } = useAsyncData<IBlog>(
-//   "blog",
-//   async () => await fetchGet(`/blogs/${route.params.id}`)
-// );
+const { getBlogById } = usePublicData();
 
-const blog = computed(() => {
-  return blogs[route.params.id - 1];
-});
-
-const date = computed(() => {
-  return makeDateCorrect(blog.value?.created_at);
-});
+const { data: blog } = useAsyncData(
+  "blog",
+  async () => await getBlogById(route.params.id as string)
+);
 </script>
 
 <template>
@@ -32,7 +20,7 @@ const date = computed(() => {
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="blog?.images[0]?.url || '/images/noroot_ph.png'" alt="" />
+        <img :src="blog?.images[0]?.url ?? '/images/noroot_ph.png'" alt="" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>
