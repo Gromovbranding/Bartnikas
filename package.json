@@ -6,9 +6,9 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "nuxt clean && nuxt build",
+    "build": "nuxt clean && nuxt build --dotenv .env.production",
     "lint:fix": "eslint --fix --ext .ts,.vue .",
-    "dev": "nuxt dev -o",
+    "dev": "nuxt dev -o --dotenv .env.development",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
