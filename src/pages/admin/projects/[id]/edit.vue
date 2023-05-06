@@ -34,8 +34,6 @@ const rules = reactive({
 
 const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
 
-console.log(fileList.value);
-
 const form = reactive({
   title: entity.value?.title ?? "",
   description: entity.value?.description ?? "",

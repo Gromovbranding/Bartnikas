@@ -42,29 +42,26 @@ const { data: awards } = useAsyncData<IAwards[]>(
             <div>
               <b>{{ new Date(item.year).getFullYear() }}</b>
             </div>
-            <div>
-              <div class="upper-slide">
-                <p>
-                  1 Gold
-                  <IconArrow is-arrow30-deg />
-                </p>
+            <div
+              v-for="(group, groupIdx) in item.groups"
+              :key="`awards-group-item-${group.id}`"
+            >
+              <div>
+                <div class="upper-slide">
+                  <p>{{ groupIdx }} {{ group.type }}</p>
+                </div>
               </div>
               <div>
-                <p>2 Silver:</p>
-              </div>
-            </div>
-            <div>
-              <div class="upper-slide">
-                <small>
-                  1 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
-              </div>
-              <div class="upper-slide">
-                <small>
-                  2 Photo
-                  <IconArrow is-arrow30-deg />
-                </small>
+                <div
+                  v-for="(image, imageIdx) in group.images"
+                  :key="`group-image-item-${image.name}`"
+                  class="upper-slide"
+                >
+                  <small>
+                    {{ imageIdx }} Photo
+                    <IconArrow is-arrow30-deg />
+                  </small>
+                </div>
               </div>
             </div>
           </div>
