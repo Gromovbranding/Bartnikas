@@ -10,6 +10,7 @@ const { data: news } = useAsyncData<IArticle[]>(
 
 <template>
   <section class="news">
+    <AppSectionHeader to="/media">News</AppSectionHeader>
     <div class="news__content">
       <AppNewsItem
         v-for="item in news"

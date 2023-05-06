@@ -6,31 +6,24 @@ defineProps<{
 }>();
 
 const showVideo = ref(false);
+const video = ref<HTMLVideoElement>();
+
+function playVideo() {
+  showVideo.value = true;
+  if (video.value) video.value.play();
+}
 </script>
 
 <template>
   <div class="testimonial">
     <div class="testimonial__img">
       <video
-        v-if="showVideo"
+        ref="video"
         :src="testimonial.file.url"
         preload="metadata"
-        autoplay="false"
-        controls
+        :controls="showVideo"
       ></video>
-      <img
-        v-else
-        :src="
-          testimonial.file.url ??
-          'https://static.tildacdn.com/tild3333-6466-4162-b835-313361366137/noroot.png'
-        "
-        alt=""
-      />
-      <div
-        v-if="!showVideo"
-        class="testimonial__play"
-        @click="showVideo = true"
-      >
+      <div v-if="!showVideo" class="testimonial__play" @click="playVideo">
         <IconPlay />
       </div>
     </div>

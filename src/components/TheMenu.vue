@@ -11,6 +11,13 @@ watch(
     isMenuVisible.value = false;
   }
 );
+const cartCount = ref(0);
+
+onMounted(() => getCartCount);
+
+function getCartCount() {
+  cartCount.value = JSON.parse(localStorage.getItem("cart") || "[]").length;
+}
 </script>
 
 <template>
@@ -99,7 +106,7 @@ watch(
       </div>
       <div class="menu__additional-info">
         <div class="menu__cart">
-          <NuxtLink to="/cart" data-tooltip="3">
+          <NuxtLink to="/cart" :data-tooltip="cartCount">
             <IconCart />
           </NuxtLink>
         </div>

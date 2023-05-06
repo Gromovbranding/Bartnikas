@@ -75,7 +75,7 @@ const { data: project } = useAsyncData(
           v-for="details in project?.details"
           :key="`port-item-${details.id}`"
           :project-id="Number(project?.id)"
-          :detail="detail"
+          :detail="details"
         />
       </section>
     </div>

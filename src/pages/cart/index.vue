@@ -1,5 +1,40 @@
 <script setup lang="ts">
-const quantity = ref(1);
+import { IProjectImageDetail } from "~/types/admin-api";
+
+interface CartItem extends IProjectImageDetail {
+  quantity: number;
+}
+
+const cart = ref<CartItem[]>([]);
+
+onMounted(() => {
+  const arr: IProjectImageDetail[] = JSON.parse(
+    localStorage.getItem("cart") || "[]"
+  );
+  cart.value = Array.from(arr, (item) => ({
+    ...item,
+    quantity: 1,
+  }));
+});
+
+const totalPrice = computed(() => {
+  let total = 0;
+  cart.value.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+  return total;
+});
+
+function removeItem(idx: number) {
+  cart.value.splice(idx, 1);
+  const old = JSON.parse(localStorage.getItem("cart") || "[]");
+  old.splice(idx, 1);
+  localStorage.setItem("cart", JSON.stringify(old));
+}
+
+function onCheckout() {
+  // if (!cart.value.length) return;
+}
 </script>
 
 <template>
@@ -10,8 +45,8 @@ const quantity = ref(1);
     <section class="checkout">
       <h1 class="checkout__title_mobile">CART</h1>
       <div class="checkout__list">
-        <div v-for="i in 3" :key="i" class="checkout__item">
-          <div class="checkout__close">
+        <div v-for="(item, idx) in cart" :key="item.id" class="checkout__item">
+          <div class="checkout__close" @click="removeItem(idx)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
                 d="M4.293,18.293,10.586,12,4.293,5.707A1,1,0,0,1,5.707,4.293L12,10.586l6.293-6.293a1,1,0,1,1,1.414,1.414L13.414,12l6.293,6.293a1,1,0,1,1-1.414,1.414L12,13.414,5.707,19.707a1,1,0,0,1-1.414-1.414Z"
@@ -19,19 +54,16 @@ const quantity = ref(1);
             </svg>
           </div>
           <div class="checkout__main-img">
-            <img
-              src="https://static.tildacdn.com/tild6434-3637-4636-a265-643838306339/wealth.png"
-              alt=""
-            />
+            <img :src="item.image.url" alt="" />
           </div>
           <div class="checkout__info">
             <div class="checkout__header">
-              <h3>Name Photo</h3>
+              <h3>{{ item.image_name }}</h3>
             </div>
             <div class="checkout__price">
-              <AppFormQuanity v-model="quantity" />
+              <AppFormQuanity v-model="item.quantity" :maxlength="3" />
               <div class="checkout__purchase">
-                <b>8 000 $</b>
+                <b>{{ item.price * item.quantity }} $</b>
               </div>
             </div>
           </div>
@@ -42,9 +74,9 @@ const quantity = ref(1);
           <h1 class="checkout__title">CART</h1>
           <div>
             <p>Subtotal:</p>
-            <b>8 000 $</b>
+            <b>{{ totalPrice }} $</b>
           </div>
-          <UIButton>CHECKOUT</UIButton>
+          <UIButton @click="onCheckout">CHECKOUT</UIButton>
         </div>
       </div>
     </section>

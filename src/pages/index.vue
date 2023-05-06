@@ -18,7 +18,7 @@ onMounted(() => {
   window.addEventListener("scroll", throttledListener);
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener("scroll", throttledListener);
 });
 </script>

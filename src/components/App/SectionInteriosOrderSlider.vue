@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-// import { IIndexSlider } from "~/types/admin-api";
-import { slider } from "~/assets/data";
+import { IProject } from "~/types/admin-api";
 
 // const { fetchGet } = useApi();
 
 const thumbsSwiper = ref<Swiper | null>(null);
 const mainSwiper = ref<Swiper | null>(null);
+const selectedIdx = ref(0);
 
 const initThumbsSwiper = (swiper: Swiper) => {
   thumbsSwiper.value = swiper;
@@ -22,10 +22,26 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
   }
 };
 
+const { getAllProjects } = usePublicData();
+
+const { data: projects } = useAsyncData<IProject[]>(
+  "projects",
+  async () => await getAllProjects()
+);
+
 // const { data: slider } = useAsyncData<IIndexSlider>(
 //   "slider",
 //   async () => await fetchGet(`/index-slider`)
 // );
+
+const options = computed(() =>
+  projects.value?.map((item, idx) => ({
+    label: item.title,
+    value: idx,
+  }))
+);
+
+const project = computed(() => projects.value[selectedIdx.value]);
 
 const colors = [
   "#1a1c28",
@@ -49,25 +65,12 @@ function copyColor(idx: number) {
         <div class="interios-order__sl">
           <div class="interios-order__project-select">
             <span>Project:</span>
-            <UISelect
-              :list="[
-                {
-                  label: 'xPalienko',
-                  value: 'xPalienko',
-                },
-                {
-                  label: 'xPalienko2',
-                  value: 'xPalienko2',
-                },
-                {
-                  label: 'xPalienko3',
-                  value: 'xPalienko3',
-                },
-              ]"
-            />
+            <UISelect :list="options" @change="selectedIdx = +$event.value" />
           </div>
           <div class="interios-order__project-name">
-            <h3>{{ slider.images[mainSwiper?.realIndex || 0].name }}</h3>
+            <h3>
+              {{ project.details[mainSwiper?.realIndex || 0].image_name }}
+            </h3>
           </div>
           <div class="interios-order__project-colors">
             <h4>Best Colors Of Interior:</h4>
@@ -101,10 +104,10 @@ function copyColor(idx: number) {
             @swiper="initMainSwiper"
           >
             <SwiperSlide
-              v-for="slide in slider?.images"
-              :key="`swiper-slide-main-${slide.name}`"
+              v-for="slide in project.details"
+              :key="`swiper-slide-main-${slide.id}`"
             >
-              <img :src="slide.url" alt="" />
+              <img :src="slide.image.url" alt="" />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -117,10 +120,10 @@ function copyColor(idx: number) {
             @swiper="initThumbsSwiper"
           >
             <SwiperSlide
-              v-for="slide in slider?.images"
-              :key="`swiper-slide-thumb-${slide.name}`"
+              v-for="slide in project.details"
+              :key="`swiper-slide-thumb-${slide.id}`"
             >
-              <img :src="slide.url" alt="" />
+              <img :src="slide.image.url" alt="" />
             </SwiperSlide>
           </Swiper>
 

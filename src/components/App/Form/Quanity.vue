@@ -3,6 +3,7 @@ const input = ref<HTMLInputElement>();
 
 const props = defineProps<{
   modelValue: number;
+  maxlength?: number;
 }>();
 
 const emit = defineEmits<{
@@ -29,7 +30,13 @@ function updateValue(e: "+" | "-") {
   <form class="form" @submit.prevent>
     <small>Quantity:</small>
     <div class="form__control">
-      <input ref="input" v-model.number="value" type="number" />
+      <input
+        ref="input"
+        v-model.number="value"
+        type="number"
+        disabled
+        :maxlength="maxlength"
+      />
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +71,9 @@ function updateValue(e: "+" | "-") {
 
 <style lang="scss" scoped>
 .form {
+  input:disabled {
+    color: inherit;
+  }
   small {
     font-size: 13px;
     font-weight: bold;

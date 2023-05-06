@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-const { fetchGet } = useApi();
-const route = useRoute();
-const projectId = route.params.project;
-const imageId = Number(route.params.id);
-// const quantity = ref(1);
+import { IProject } from "~/types/admin-api";
 
-const { data: projectImage } = useAsyncData(
-  "projectImage",
-  async () => await fetchGet(`/projects/${projectId}/image/${imageId}`)
+const router = useRouter();
+const route = useRoute();
+const projectId = Number(route.params.project);
+const imageId = Number(route.params.id);
+
+const { getAllProjects } = usePublicData();
+
+const { data: projects } = await useAsyncData<IProject[]>(
+  "projects",
+  async () => await getAllProjects()
 );
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
@@ -17,16 +20,43 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
   moreOrdersSwiper.value = swiper;
 };
 
-const moreProjectImages = computed(() => {
-  return projectImage.value?.project?.images
-    ?.filter((i: any) => i.id !== imageId)
-    ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
-});
+// const moreProjectImages = computed(() => {
+//   return projectImage.value?.project?.images
+//     ?.filter((i: any) => i.id !== imageId)
+//     ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
+// });
 
 const { type: typeScreen } = useBreakpoints();
 const slidesPerView = computed(() => {
   return typeScreen.value === "xs" ? 1 : 2;
 });
+const project = computed(() => projects.value[projectId - 1]);
+const projectImage = computed(() =>
+  project.value.details.find((img) => img.id === imageId)
+);
+const moreProjectImages = computed(() =>
+  project.value.details.filter((img) => img.id !== imageId)
+);
+
+const sizes = computed(() => {
+  const arr = projectImage.value?.sizes || [];
+  return arr.map((item) => ({
+    label: `${item.width}x${item.height} ${item.unit}`,
+    value: item.id,
+  }));
+});
+
+const selectedSize = ref<{
+  value: string | number;
+  label: string;
+}>(sizes.value[0]);
+
+function addToCart() {
+  const cart: any[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart.push(projectImage.value);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  router.push("/cart");
+}
 </script>
 
 <template>
@@ -34,25 +64,25 @@ const slidesPerView = computed(() => {
     <Title> Photo Card </Title>
     <AppPageHead
       only-logo
-      :title="projectImage?.name"
-      :sub="`projects/${projectImage?.project?.id}`"
+      :title="projectImage?.image_name"
+      :sub="`projects/${project.id}`"
     />
     <section class="order">
-      <h3 class="order__title_mobile">{{ projectImage?.name }}</h3>
+      <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>
       <div class="order__gallery">
-        <img :src="projectImage?.files[0]?.url" alt="" />
-        <div class="order__gallery-list">
+        <img :src="projectImage?.image.url" alt="" />
+        <!-- <div class="order__gallery-list">
           <img
-            v-for="img in projectImage?.files.slice(1)"
+            v-for="img in moreProjectImages"
             :key="img.id"
             class="upper-slide"
             :src="img?.url"
             alt=""
           />
-        </div>
+        </div> -->
       </div>
       <div class="order__info">
-        <h3>{{ projectImage?.name }}</h3>
+        <h3>{{ projectImage?.image_name }}</h3>
         <ul class="order__info-checklist">
           <li>
             <b>Preferred size:</b>
@@ -60,22 +90,7 @@ const slidesPerView = computed(() => {
               <small>
                 All photos are delivered in two main proportions: 4:3 and 6:4
               </small>
-              <UISelect
-                :list="[
-                  {
-                    label: 'xPalienko',
-                    value: 'xPalienko',
-                  },
-                  {
-                    label: 'xPalienko2',
-                    value: 'xPalienko2',
-                  },
-                  {
-                    label: 'xPalienko3',
-                    value: 'xPalienko3',
-                  },
-                ]"
-              />
+              <UISelect :list="sizes" @change="selectedSize = $event" />
               <small> Individual sizes are available upon request. </small>
             </div>
           </li>
@@ -115,14 +130,16 @@ const slidesPerView = computed(() => {
             </div>
           </div>
         </div>
-        <UIButton href="/">ORDER</UIButton>
+        <UIButton @click="addToCart">ORDER</UIButton>
       </div>
     </section>
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">MORE {{ projectImage.project.title }}</h2>
-      <p class="more__subtitle">View the entire collection</p>
+      <h2 class="more__title">MORE {{ project.title }}</h2>
+      <p class="more__subtitle" @click="$router.push(`/projects/${projectId}`)">
+        View the entire collection
+      </p>
       <Swiper
         class="more__slider"
         :modules="[SwiperMousewheel]"
@@ -139,6 +156,7 @@ const slidesPerView = computed(() => {
           <AppPortMoreOrder
             v-bind="moreProjectImage"
             :project-id="projectId"
+            :url="moreProjectImage.image.url"
             class="more__slider-item"
           />
         </SwiperSlide>
