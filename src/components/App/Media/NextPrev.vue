@@ -100,9 +100,8 @@ const handleTo = async (id: number) => {
     gap: 16px;
     &__item {
       width: 100%;
-      height: 250px;
       background-color: $colorAccentBlue;
-      padding: 70px 30px 0;
+      padding: 70px 30px 20px;
       display: block;
       &_empty {
         width: 50%;

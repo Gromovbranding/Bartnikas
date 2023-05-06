@@ -16,7 +16,7 @@ const { data: blog } = useAsyncData(
 
     <article class="article">
       <div class="article__headline">
-        <time> {{ date }} </time>
+        <time>{{ useDateFormat().makeDateCorrect(blog?.created_at) }} </time>
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">

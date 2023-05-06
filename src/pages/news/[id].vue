@@ -33,17 +33,7 @@ const { data: article } = useAsyncData(
       </div>
     </article>
 
-    <!-- <AppMediaNextPrev
-      :next="{
-        id: Number(article?.next.id),
-        title: String(article?.next.title),
-      }"
-      :prev="{
-        id: Number(article?.prev.id),
-        title: String(article?.prev.title),
-      }"
-      slug="news"
-    /> -->
+    <AppMediaNextPrev :next="article?.next" :prev="article?.prev" slug="news" />
   </main>
 </template>
 
