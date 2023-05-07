@@ -37,7 +37,11 @@ export const usePublicData = () => {
   };
 
   const getArticlesByHotNews = async (): Promise<IArticle[]> => {
-    return await fetchGet<IArticle[]>(`news/only/hot`);
+    return await fetchGet<IArticle[]>(`news/hot/all`);
+  };
+
+  const getLastHotArticle = async (): Promise<IArticle> => {
+    return await fetchGet<IArticle>(`news/hot/last`);
   };
 
   const getAllNews = async (): Promise<IArticle[]> => {
@@ -77,6 +81,7 @@ export const usePublicData = () => {
     getAllBlogs,
     getArticleById,
     getArticlesByHotNews,
+    getLastHotArticle,
     getAllNews,
     getTestimoinialsById,
     getAllTestimonials,

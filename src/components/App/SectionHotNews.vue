@@ -1,16 +1,12 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
 
-const { getArticlesByHotNews } = usePublicData();
+const { getLastHotArticle } = usePublicData();
 
-const { data: news } = useAsyncData<IArticle[]>(
-  "news",
-  async () => await getArticlesByHotNews()
+const { data: article } = useAsyncData<IArticle>(
+  "article",
+  async () => await getLastHotArticle()
 );
-
-const article = computed<IArticle | null>(() => {
-  return (news.value || [])[0];
-});
 
 const { makeDateCorrect } = useDateFormat();
 

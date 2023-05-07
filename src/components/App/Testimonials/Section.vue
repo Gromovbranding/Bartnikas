@@ -55,8 +55,6 @@ const { data: testimonials } = useAsyncData(
 // onUnmounted(() => {
 //   window.removeEventListener("scroll", onScroll);
 // });
-
-const items = ref();
 </script>
 
 <template>
@@ -68,7 +66,7 @@ const items = ref();
     <AppSectionHeader :is-link="false">Testimonials</AppSectionHeader>
     <div class="testimonials__content">
       <AppTestimonialsItem
-        v-for="item in items"
+        v-for="item in testimonials"
         :key="`top-testimonial-${item.id}`"
         :testimonial="item"
       />
