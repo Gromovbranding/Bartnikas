@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 interface IItem {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 interface Props {

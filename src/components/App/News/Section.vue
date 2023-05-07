@@ -9,7 +9,7 @@ const { data: news } = useAsyncData<IArticle[]>(
 </script>
 
 <template>
-  <section class="news">
+  <section v-if="!!news?.length" class="news">
     <AppSectionHeader to="/media">News</AppSectionHeader>
     <div class="news__content">
       <AppNewsItem

@@ -2,8 +2,6 @@
 import type { Swiper } from "swiper/types";
 import { IProject } from "~/types/admin-api";
 
-// const { fetchGet } = useApi();
-
 const thumbsSwiper = ref<Swiper | null>(null);
 const mainSwiper = ref<Swiper | null>(null);
 const selectedIdx = ref(0);
@@ -29,19 +27,19 @@ const { data: projects } = useAsyncData<IProject[]>(
   async () => await getAllProjects()
 );
 
-// const { data: slider } = useAsyncData<IIndexSlider>(
-//   "slider",
-//   async () => await fetchGet(`/index-slider`)
-// );
-
 const options = computed(() =>
-  projects.value?.map((item, idx) => ({
+  (projects.value ?? []).map((item, idx) => ({
     label: item.title,
     value: idx,
   }))
 );
 
-const project = computed(() => projects.value[selectedIdx.value]);
+const project = computed(
+  () =>
+    projects.value?.[selectedIdx.value] ?? {
+      details: [],
+    }
+);
 
 const colors = [
   "#1a1c28",
@@ -58,7 +56,7 @@ function copyColor(idx: number) {
 </script>
 
 <template>
-  <div>
+  <div v-if="!!projects?.length">
     <section class="interios-order">
       <AppSectionHeader :is-link="false"> IN INTERIORS </AppSectionHeader>
       <div class="interios-order__content">
@@ -69,7 +67,7 @@ function copyColor(idx: number) {
           </div>
           <div class="interios-order__project-name">
             <h3>
-              {{ project.details[mainSwiper?.realIndex || 0].image_name }}
+              {{ project.details[mainSwiper?.realIndex ?? 0]?.image_name }}
             </h3>
           </div>
           <div class="interios-order__project-colors">
