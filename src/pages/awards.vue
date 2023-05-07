@@ -48,7 +48,7 @@ const { data: awards } = useAsyncData<IAwards[]>(
             >
               <div>
                 <div class="upper-slide">
-                  <p>{{ groupIdx }} {{ group.type }}</p>
+                  <p>{{ groupIdx + 1 }} {{ group.type }}</p>
                 </div>
               </div>
               <div>
@@ -58,7 +58,7 @@ const { data: awards } = useAsyncData<IAwards[]>(
                   class="upper-slide"
                 >
                   <small>
-                    {{ imageIdx }} Photo
+                    {{ imageIdx + 1 }} Photo
                     <IconArrow is-arrow30-deg />
                   </small>
                 </div>

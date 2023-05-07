@@ -19,12 +19,19 @@ const list = computed(() => (awards.value ?? []).slice(0, awardsToShow.value));
 </script>
 
 <template>
-  <section v-if="(awards ?? []).length > 0" class="awards">
-    <AppSectionHeader :to-caption="`>${awards?.length}`" to="/awards">
+  <section v-if="list.length > 0" class="awards">
+    <AppSectionHeader
+      :to-caption="`>${Number(awards?.length ?? 0)}`"
+      to="/awards"
+    >
       AWARDS
     </AppSectionHeader>
     <div class="awards__content">
-      <AppAwardsItem v-for="i in list" :key="`award-item-${i}`" :award="i" />
+      <AppAwardsItem
+        v-for="item in list"
+        :key="`award-item-${item}`"
+        :award="item"
+      />
     </div>
   </section>
 </template>
