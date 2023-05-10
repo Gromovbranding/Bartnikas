@@ -38,8 +38,15 @@ const project = computed(
   () =>
     projects.value?.[selectedIdx.value] ?? {
       details: [],
+      id: null,
     }
 );
+
+const orderImgLink = computed(() => {
+  if (!project.value.id || !mainSwiper.value) return "/projects";
+  const imgId = project.value.details[mainSwiper.value.activeIndex].id;
+  return `/projects/${project.value.id}/order/${imgId}`;
+});
 
 const colors = [
   "#1a1c28",
@@ -84,11 +91,11 @@ function copyColor(idx: number) {
             <div class="controls">
               <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
               <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
-              <UIButton> Order </UIButton>
+              <UIButton :to="orderImgLink"> Order </UIButton>
             </div>
           </div>
           <div class="interios-order__project-order">
-            <UIButton style="width: 100%"> Order </UIButton>
+            <UIButton style="width: 100%" :to="orderImgLink"> Order </UIButton>
           </div>
         </div>
         <div class="swiper-slider__main">
