@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
-const { type: typeScreen } = useBreakpoints();
+const { breakpoint } = useBreakpoints();
 const { getIndexSlider } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
@@ -25,7 +25,7 @@ const sliderImg = computed(
 );
 
 onMounted(() => {
-  defImgSize.value = typeScreen.value === "xs" ? 250 : 115;
+  defImgSize.value = breakpoint.value === "xs" ? 250 : 115;
   window.addEventListener("scroll", throttledListener);
 });
 

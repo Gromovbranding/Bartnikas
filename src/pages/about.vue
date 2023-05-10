@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-const { type: typeScreen } = useBreakpoints();
+const { breakpoint } = useBreakpoints();
 const scrollActive = ref(false);
 const scrollStart = ref(0);
 const scroll = ref<HTMLDivElement>();
 const videoGreetingStyle = computed(() => {
   return {
     "flex-direction":
-      typeScreen.value === "xs" ? "column-reverse" : "row-reverse",
+      breakpoint.value === "xs" ? "column-reverse" : "row-reverse",
   };
 });
 
@@ -16,7 +16,7 @@ function onPointerMove(e: PointerEvent) {
 }
 
 function onPointerDown(e: PointerEvent) {
-  if (typeScreen.value === "lg") return;
+  if (breakpoint.value === "lg") return;
   scrollActive.value = true;
   scrollStart.value = e.screenX;
 }

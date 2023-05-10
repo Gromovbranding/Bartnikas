@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IAwards } from "~/types/admin-api";
 
-const { type: typeScreen } = useBreakpoints();
+const { breakpoint } = useBreakpoints();
 const { getAllAwards } = usePublicData();
 
 const awardsToShow = ref(0);
@@ -12,7 +12,7 @@ const { data: awards } = await useAsyncData<IAwards[]>(
 );
 
 onMounted(() => {
-  awardsToShow.value = typeScreen.value === "xs" ? 5 : 16;
+  awardsToShow.value = breakpoint.value === "xs" ? 5 : 16;
 });
 
 const list = computed(() => (awards.value ?? []).slice(0, awardsToShow.value));

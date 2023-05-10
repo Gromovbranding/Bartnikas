@@ -26,10 +26,10 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
 //     ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
 // });
 
-const { type: typeScreen } = useBreakpoints();
+const { breakpoint } = useBreakpoints();
 
 const slidesPerView = computed(() => {
-  return typeScreen.value === "xs" ? 1 : 2;
+  return breakpoint.value === "xs" ? 1 : 2;
 });
 
 const project = computed(() => projects.value?.[projectId - 1]);
