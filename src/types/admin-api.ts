@@ -116,18 +116,18 @@ export interface ITestimonial {
   file: IFile;
 }
 
-export interface VideoCollectionGroup {
+export interface IVideoCollectionGroup {
   id: number;
   name: string;
   created_at: Date;
   updated_at: Date;
 }
 
-export interface VideoCollection {
+export interface IVideoCollection {
   id: number;
   title: string;
   video: IFile;
-  group: VideoCollectionGroup | null;
+  group: IVideoCollectionGroup | null;
   created_at: Date;
   updated_at: Date;
 }

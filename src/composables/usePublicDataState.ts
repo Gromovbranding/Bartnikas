@@ -6,79 +6,62 @@ import {
   IProject,
   ITestimonial,
   IProjectImageDetail,
+  IVideoCollection,
 } from "~/types/admin-api";
+
+type INextPrevWrapper<T> = T & { next: T; prev: T };
 
 export const usePublicData = () => {
   const { fetchGet } = useApi();
-
-  type INextPrevWrapper<T> = T & { next: T; prev: T };
 
   const cart = useCookie<IProjectImageDetail[]>("cart", {
     default: () => [],
     path: "/",
   });
 
-  const getProjectById = async (id: string | number): Promise<IProject> => {
-    return await fetchGet<IProject>(`projects/${id}`);
-  };
+  const getProjectById = async (id: string | number) =>
+    await fetchGet<IProject>(`projects/${id}`);
 
-  const getAllProjects = async (): Promise<IProject[]> => {
-    return await fetchGet<IProject[]>("projects");
-  };
+  const getAllProjects = async () => await fetchGet<IProject[]>("projects");
 
-  const getBlogById = async (
-    id: string | number
-  ): Promise<INextPrevWrapper<IBlog>> => {
-    return await fetchGet<INextPrevWrapper<IBlog>>(`blogs/${id}`);
-  };
+  const getBlogById = async (id: string | number) =>
+    await fetchGet<INextPrevWrapper<IBlog>>(`blogs/${id}`);
 
-  const getAllBlogs = async (): Promise<IBlog[]> => {
-    return await fetchGet<IBlog[]>("blogs");
-  };
+  const getAllBlogs = async () => await fetchGet<IBlog[]>("blogs");
 
-  const getArticleById = async (
-    id: string | number
-  ): Promise<INextPrevWrapper<IArticle>> => {
-    return await fetchGet<INextPrevWrapper<IArticle>>(`news/${id}`);
-  };
+  const getArticleById = async (id: string | number) =>
+    await fetchGet<INextPrevWrapper<IArticle>>(`news/${id}`);
 
-  const getArticlesByHotNews = async (): Promise<IArticle[]> => {
-    return await fetchGet<IArticle[]>(`news/hot/all`);
-  };
+  const getArticlesByHotNews = async () =>
+    await fetchGet<IArticle[]>(`news/hot/all`);
 
-  const getLastHotArticle = async (): Promise<IArticle> => {
-    return await fetchGet<IArticle>(`news/hot/last`);
-  };
+  const getLastHotArticle = async () =>
+    await fetchGet<IArticle>(`news/hot/last`);
 
-  const getAllNews = async (): Promise<IArticle[]> => {
-    return await fetchGet<IArticle[]>("news");
-  };
+  const getAllNews = async () => await fetchGet<IArticle[]>("news");
 
-  const getTestimoinialsById = async (
-    id: string | number
-  ): Promise<ITestimonial> => {
-    return await fetchGet<ITestimonial>(`testimonials/${id}`);
-  };
+  const getTestimoinialsById = async (id: string | number) =>
+    await fetchGet<ITestimonial>(`testimonials/${id}`);
 
-  const getAllTestimonials = async (): Promise<ITestimonial[]> => {
-    return await fetchGet<ITestimonial[]>("testimonials");
-  };
+  const getAllTestimonials = async () =>
+    await fetchGet<ITestimonial[]>("testimonials");
 
-  const getAwardsById = async (id: string | number): Promise<IAwards> => {
-    return await fetchGet<IAwards>(`awards/${id}`);
-  };
+  const getAwardsById = async (id: string | number) =>
+    await fetchGet<IAwards>(`awards/${id}`);
 
-  const getCountAllAwards = async (): Promise<number> => {
-    return await fetchGet<number>("awards/count/all");
-  };
+  const getCountAllAwards = async () =>
+    await fetchGet<number>("awards/count/all");
 
-  const getAllAwards = async (): Promise<IAwards[]> => {
-    return await fetchGet<IAwards[]>("awards");
-  };
+  const getAllAwards = async () => await fetchGet<IAwards[]>("awards");
 
-  const getIndexSlider = async (): Promise<IIndexSlider> => {
-    return await fetchGet<IIndexSlider>("index-slider");
-  };
+  const getIndexSlider = async () =>
+    await fetchGet<IIndexSlider>("index-slider");
+
+  const getAllVideoCollection = async () =>
+    await fetchGet<IVideoCollection[]>("video-collection");
+
+  const getVideoCollectionById = async (id: string | number) =>
+    await fetchGet<IVideoCollection>(`video-collection/${id}`);
 
   return {
     getProjectById,
@@ -95,6 +78,8 @@ export const usePublicData = () => {
     getCountAllAwards,
     getAllAwards,
     getIndexSlider,
+    getAllVideoCollection,
+    getVideoCollectionById,
     cart,
   };
 };
