@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
 import { IProject } from "~/types/admin-api";
-const { fetchGet } = useApi();
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
 
@@ -9,9 +8,11 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
   moreOrdersSwiper.value = swiper;
 };
 
-const { data: moreOrders } = useAsyncData<IProject[]>(
+const { getAllProjects } = usePublicData();
+
+const { data: moreOrders } = await useAsyncData<IProject[]>(
   "projects",
-  async () => await fetchGet("/projects")
+  async () => await getAllProjects()
 );
 </script>
 

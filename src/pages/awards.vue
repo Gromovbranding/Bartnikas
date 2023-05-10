@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { IAwards } from "~/types/admin-api";
 
-const { fetchGet } = useApi();
+const { getAllAwards } = usePublicData();
 
-const { data: awards } = useAsyncData<IAwards[]>(
+const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
-  async () => await fetchGet("/awards")
+  async () => await getAllAwards()
 );
 </script>
 

@@ -2,13 +2,13 @@
 import type { IAwards } from "~/types/admin-api";
 
 const { type: typeScreen } = useBreakpoints();
-const { fetchGet } = useApi();
+const { getAllAwards } = usePublicData();
 
 const awardsToShow = ref(0);
 
-const { data: awards } = useAsyncData<IAwards[]>(
+const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
-  async () => await fetchGet("/awards")
+  async () => await getAllAwards()
 );
 
 onMounted(() => {
