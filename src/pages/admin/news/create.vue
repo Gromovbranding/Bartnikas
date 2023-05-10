@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { UploadUserFile } from "element-plus";
+import { IArticle } from "~/types/admin-api";
+
 const name = ref("Create Article");
 
 useHeadSafe({
@@ -19,6 +22,12 @@ const form = reactive([
     prop: "description",
   },
   {
+    value: false,
+    label: "Is Hot",
+    type: "checkbox",
+    prop: "is_hot",
+  },
+  {
     value: "",
     label: "text",
     type: "textarea",
@@ -26,10 +35,12 @@ const form = reactive([
   },
 ]);
 
-const handleCreate = async () =>
-  // body: IArticle | null = null,
-  // images: UploadUserFile[]
-  {};
+const handleCreate = (
+  body: IArticle | null = null,
+  images: UploadUserFile[]
+) => {
+  console.log(body, images);
+};
 </script>
 
 <template>

@@ -2,16 +2,23 @@
 import { FormInstance, UploadUserFile } from "element-plus";
 
 interface IForm {
-  value: string;
+  value: string | boolean;
   label: string;
-  type: string;
+  type: "text" | "textarea" | "checkbox";
   prop: string;
+}
+
+interface ICreateFormFormatted {
+  [x: string]: string | boolean;
 }
 
 const props = defineProps<{
   name: string;
   back: string;
-  cbCreate: (body: any, images: UploadUserFile[]) => Promise<void>;
+  cbCreate: (
+    body: ICreateFormFormatted,
+    images: UploadUserFile[]
+  ) => Promise<void>;
   form: IForm[];
 }>();
 
@@ -58,7 +65,7 @@ const create = async (formEl: FormInstance | undefined) => {
 
   await formEl.validate(async (isValid) => {
     if (isValid) {
-      const formattedFormModel: { [x: string]: string } = {};
+      const formattedFormModel: ICreateFormFormatted = {};
 
       formModel.value.forEach((item) => {
         formattedFormModel[item.prop] = item.value;

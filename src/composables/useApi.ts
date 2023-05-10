@@ -116,8 +116,8 @@ export const useApi = () => {
 
         return {
           raw: file,
-          name,
           size: file.size,
+          name,
         };
       })
     );

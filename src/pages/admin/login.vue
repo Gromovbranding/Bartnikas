@@ -28,19 +28,19 @@ const onSubmit = async () => {
           <h3 class="login__header">Login Form</h3>
           <form class="login__form">
             <div class="login__form-input">
-              <Icon
+              <!-- <Icon
                 class="login__form-input-icon"
                 name="ep:user-filled"
                 size="20px"
-              />
+              /> -->
               <input v-model="username" placeholder="Username" />
             </div>
             <div class="login__form-input">
-              <Icon
+              <!-- <Icon
                 class="login__form-input-icon"
                 name="ic:round-lock"
                 size="20px"
-              />
+              /> -->
               <input
                 v-model="password"
                 autocomplete="true"
