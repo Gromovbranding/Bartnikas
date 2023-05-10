@@ -116,6 +116,22 @@ export interface ITestimonial {
   file: IFile;
 }
 
+export interface VideoCollectionGroup {
+  id: number;
+  name: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface VideoCollection {
+  id: number;
+  title: string;
+  video: File;
+  group: VideoCollectionGroup | null;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export type PartialAdminApiDto<T> = Exclude<
   T,
   "id" | "updated_at" | "created_at"
