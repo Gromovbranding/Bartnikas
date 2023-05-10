@@ -5,12 +5,18 @@ import {
   IIndexSlider,
   IProject,
   ITestimonial,
+  IProjectImageDetail,
 } from "~/types/admin-api";
 
 export const usePublicData = () => {
   const { fetchGet } = useApi();
 
   type INextPrevWrapper<T> = T & { next: T; prev: T };
+
+  const cart = useCookie<IProjectImageDetail[]>("cart", {
+    default: () => [],
+    path: "/",
+  });
 
   const getProjectById = async (id: string | number): Promise<IProject> => {
     return await fetchGet<IProject>(`projects/${id}`);
@@ -89,5 +95,6 @@ export const usePublicData = () => {
     getCountAllAwards,
     getAllAwards,
     getIndexSlider,
+    cart,
   };
 };

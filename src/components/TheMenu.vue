@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { getCountAllAwards } = usePublicData();
+const { getCountAllAwards, cart } = usePublicData();
 
 const route = useRoute();
 const isMenuVisible = ref(false);
@@ -11,13 +11,6 @@ watch(
     isMenuVisible.value = false;
   }
 );
-const cartCount = ref(0);
-
-onMounted(() => getCartCount);
-
-function getCartCount() {
-  cartCount.value = JSON.parse(localStorage.getItem("cart") || "[]").length;
-}
 </script>
 
 <template>
@@ -106,7 +99,7 @@ function getCartCount() {
       </div>
       <div class="menu__additional-info">
         <div class="menu__cart">
-          <NuxtLink to="/cart" :data-tooltip="cartCount">
+          <NuxtLink to="/cart" :data-tooltip="cart.length">
             <IconCart />
           </NuxtLink>
         </div>

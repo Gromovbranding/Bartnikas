@@ -1,40 +1,15 @@
 <script setup lang="ts">
-import { IProjectImageDetail } from "~/types/admin-api";
+const { cart } = usePublicData();
 
-interface CartItem extends IProjectImageDetail {
-  quantity: number;
-}
+const totalPrice = computed(() =>
+  cart.value.reduce((acc, item) => item.price + acc, 0)
+);
 
-const cart = ref<CartItem[]>([]);
+const removeItem = (id: number) => {
+  cart.value = cart.value.filter((item) => item.id !== id);
+};
 
-onMounted(() => {
-  const arr: IProjectImageDetail[] = JSON.parse(
-    localStorage.getItem("cart") || "[]"
-  );
-  cart.value = Array.from(arr, (item) => ({
-    ...item,
-    quantity: 1,
-  }));
-});
-
-const totalPrice = computed(() => {
-  let total = 0;
-  cart.value.forEach((item) => {
-    total += item.price * item.quantity;
-  });
-  return total;
-});
-
-function removeItem(idx: number) {
-  cart.value.splice(idx, 1);
-  const old = JSON.parse(localStorage.getItem("cart") || "[]");
-  old.splice(idx, 1);
-  localStorage.setItem("cart", JSON.stringify(old));
-}
-
-function onCheckout() {
-  // if (!cart.value.length) return;
-}
+const handleCheckout = () => {};
 </script>
 
 <template>
@@ -45,8 +20,8 @@ function onCheckout() {
     <section class="checkout">
       <h1 class="checkout__title_mobile">CART</h1>
       <div class="checkout__list">
-        <div v-for="(item, idx) in cart" :key="item.id" class="checkout__item">
-          <div class="checkout__close" @click="removeItem(idx)">
+        <div v-for="item in cart" :key="item.id" class="checkout__item">
+          <div class="checkout__close" @click="removeItem(item.id)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
                 d="M4.293,18.293,10.586,12,4.293,5.707A1,1,0,0,1,5.707,4.293L12,10.586l6.293-6.293a1,1,0,1,1,1.414,1.414L13.414,12l6.293,6.293a1,1,0,1,1-1.414,1.414L12,13.414,5.707,19.707a1,1,0,0,1-1.414-1.414Z"
@@ -76,7 +51,7 @@ function onCheckout() {
             <p>Subtotal:</p>
             <b>{{ totalPrice }} $</b>
           </div>
-          <UIButton @click="onCheckout">CHECKOUT</UIButton>
+          <UIButton @click="handleCheckout">CHECKOUT</UIButton>
         </div>
       </div>
     </section>

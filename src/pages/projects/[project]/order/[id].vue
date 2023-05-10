@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-import { IProject } from "~/types/admin-api";
+import { IProject, IProjectImageDetail } from "~/types/admin-api";
 
 const router = useRouter();
 const route = useRoute();
 const projectId = Number(route.params.project);
 const imageId = Number(route.params.id);
 
-const { getAllProjects } = usePublicData();
+const { getAllProjects, cart } = usePublicData();
 
 const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
@@ -27,20 +27,25 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
 // });
 
 const { type: typeScreen } = useBreakpoints();
+
 const slidesPerView = computed(() => {
   return typeScreen.value === "xs" ? 1 : 2;
 });
-const project = computed(() => projects.value[projectId - 1]);
+
+const project = computed(() => projects.value?.[projectId - 1]);
+
+const projectDetails = computed(() => project.value?.details ?? []);
+
 const projectImage = computed(() =>
-  project.value.details.find((img) => img.id === imageId)
+  projectDetails.value.find((img) => img.id === imageId)
 );
+
 const moreProjectImages = computed(() =>
-  project.value.details.filter((img) => img.id !== imageId)
+  projectDetails.value.filter((img) => img.id !== imageId)
 );
 
 const sizes = computed(() => {
-  const arr = projectImage.value?.sizes || [];
-  return arr.map((item) => ({
+  return (projectImage.value?.sizes ?? []).map((item) => ({
     label: `${item.width}x${item.height} ${item.unit}`,
     value: item.id,
   }));
@@ -51,12 +56,10 @@ const selectedSize = ref<{
   label: string;
 }>(sizes.value[0]);
 
-function addToCart() {
-  const cart: any[] = JSON.parse(localStorage.getItem("cart") || "[]");
-  cart.push(projectImage.value);
-  localStorage.setItem("cart", JSON.stringify(cart));
+const addToCart = () => {
+  cart.value.push(projectImage.value as IProjectImageDetail);
   router.push("/cart");
-}
+};
 </script>
 
 <template>
