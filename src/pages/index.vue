@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import defBgImg from "~/assets/img/header_bg.jpg";
+import defBgImg from "@/assets/img/header_bg.jpg";
 const { type: typeScreen } = useBreakpoints();
 const { getIndexSlider } = usePublicData();
 
@@ -8,10 +8,9 @@ const defImgSize = ref(115);
 const imgSize = ref(`${defImgSize.value}%`);
 
 const onScroll = () => {
-  const height = headerMain.value?.offsetHeight || 0;
+  const height = headerMain.value?.offsetHeight ?? 0;
   const res = (window.scrollY / height) * 15;
-  if (res > 15) return;
-  imgSize.value = `${Math.round(defImgSize.value - res)}%`;
+  if (res <= 15) imgSize.value = `${Math.round(defImgSize.value - res)}%`;
 };
 
 const throttledListener = useThrottle(onScroll, 50);
@@ -21,11 +20,9 @@ const { data: indexSlider } = useAsyncData(
   async () => await getIndexSlider()
 );
 
-const sliderImg = computed(() => {
-  const img = indexSlider.value?.images[0].url;
-  if (img) return `url(${img})`;
-  return `url(${defBgImg})`;
-});
+const sliderImg = computed(
+  () => `url(${indexSlider.value?.images?.[0].url ?? defBgImg})`
+);
 
 onMounted(() => {
   defImgSize.value = typeScreen.value === "xs" ? 250 : 115;
