@@ -86,7 +86,7 @@ export enum ListDegree {
 export interface IAwardsDegreeGroup {
   id: number;
   type: ListDegree;
-  images: File[];
+  images: IFile[];
   created_at: Date;
   updated_at: Date;
 }
@@ -126,7 +126,7 @@ export interface VideoCollectionGroup {
 export interface VideoCollection {
   id: number;
   title: string;
-  video: File;
+  video: IFile;
   group: VideoCollectionGroup | null;
   created_at: Date;
   updated_at: Date;
