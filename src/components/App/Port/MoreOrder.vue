@@ -24,10 +24,10 @@ withDefaults(defineProps<Props>(), {
         <h3>{{ name }}</h3>
       </div>
       <div>
-        <NuxtLink>
+        <!-- <NuxtLink>
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
-        </NuxtLink>
+        </NuxtLink> -->
         <NuxtLink :to="`/projects/${projectId}/order/${id}`">
           <span>Order</span>
           <IconArrow is-arrow30-deg />

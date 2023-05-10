@@ -19,10 +19,10 @@ defineProps<{
         <h3>{{ detail.image_name }}</h3>
       </div>
       <div>
-        <NuxtLink>
+        <!-- <NuxtLink>
           <span>Interior</span>
           <IconArrow is-arrow30-deg />
-        </NuxtLink>
+        </NuxtLink> -->
         <NuxtLink :to="`/projects/${projectId}/order/${detail.id}`">
           <span>Order</span>
           <IconArrow is-arrow30-deg />
@@ -61,6 +61,11 @@ defineProps<{
       &:last-child {
         display: flex;
         gap: 30px;
+        position: relative;
+        transition-duration: 200ms;
+        &:hover {
+          transform: translateY(-25%);
+        }
 
         > a {
           display: flex;

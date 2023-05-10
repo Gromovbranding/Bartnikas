@@ -1,60 +1,47 @@
 <script lang="ts" setup>
-// import { gsap } from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// gsap.registerPlugin(ScrollTrigger);
-// import type { Swiper } from "swiper/types";
-// const moreOrdersSwiper = ref<Swiper | null>(null);
-// const sliderOffset = ref(0);
 const wrapper = ref<HTMLDivElement>();
 const root = ref<HTMLDivElement>();
-// const lastScrollTop = ref(0);
-// const isSliderActive = ref(false);
+const lastScrollTop = ref(0);
 const scrollProgress = ref(0);
 const { getAllTestimonials } = usePublicData();
-
-// const initMoreOrdersSwiper = (swiper: Swiper) => {
-//   moreOrdersSwiper.value = swiper;
-// };
-
-// const { type: typeScreen } = useBreakpoints();
-// const slidesPerView = computed(() => {
-//   return typeScreen.value === "xs" ? 1 : 4;
-// });
-// const spaceBetween = computed(() => {
-//   return typeScreen.value === "xs" ? 10 : 120;
-// });
 
 const { data: testimonials } = useAsyncData(
   "testimonials",
   async () => await getAllTestimonials()
 );
 
-// const onScroll = () => {
-//   if (!root.value || !wrapper.value) return;
-//   const rootHeight = root.value?.offsetHeight || 100;
-//   const scrollTop = document.documentElement.scrollTop;
-//   const progress =
-//     scrollTop -
-//     (root.value.offsetTop +
-//       (root.value.querySelector("h2")?.offsetHeight || 0));
-//   const progressPercent =
-//     (progress / (rootHeight - wrapper.value.offsetHeight - 300)) * 100;
-//   if (progressPercent < 0) scrollProgress.value = 0;
-//   else if (progressPercent >= 0 && progressPercent < 100) {
-//     scrollProgress.value = Math.floor(progressPercent);
-//   } else scrollProgress.value = 100;
-//   lastScrollTop.value = scrollTop;
-// };
+const sectionHeight = computed(
+  () => `${30 * (testimonials.value?.length || 1) + 15}rem`
+);
+// const section_height = computed(() => `${30*3+20}rem`)
+// const section_height = computed(() => `${40*3+13}rem`)
 
-// onMounted(() => {
-//   lastScrollTop.value = document.documentElement.scrollTop;
-//   window.addEventListener("scroll", onScroll);
-// });
+const onScroll = () => {
+  if (!root.value || !wrapper.value || testimonials.value!.length <= 3) return;
+  const rootHeight = root.value?.offsetHeight || 100;
+  const scrollTop = document.documentElement.scrollTop;
+  // const progress =
+  //   scrollTop -
+  //   (root.value.offsetTop +
+  //     (root.value.querySelector("h2")?.offsetHeight || 0));
+  const progress = scrollTop - root.value.offsetTop;
+  const progressPercent =
+    (progress / (rootHeight - wrapper.value.offsetHeight)) * 100;
+  if (progressPercent < 0) scrollProgress.value = 0;
+  else if (progressPercent >= 0 && progressPercent < 100) {
+    scrollProgress.value = Math.floor(progressPercent);
+  } else scrollProgress.value = 100;
+  lastScrollTop.value = scrollTop;
+};
 
-// onUnmounted(() => {
-//   window.removeEventListener("scroll", onScroll);
-// });
+onMounted(() => {
+  lastScrollTop.value = document.documentElement.scrollTop;
+  window.addEventListener("scroll", onScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onScroll);
+});
 </script>
 
 <template>
@@ -62,6 +49,7 @@ const { data: testimonials } = useAsyncData(
     v-if="(testimonials ?? []).length > 0"
     ref="root"
     class="testimonials"
+    :class="{ 'active-slider': testimonials?.length > 3 }"
   >
     <AppSectionHeader :is-link="false">Testimonials</AppSectionHeader>
     <div class="testimonials__content">
@@ -71,12 +59,11 @@ const { data: testimonials } = useAsyncData(
         :testimonial="item"
       />
     </div>
-    <div
-      ref="wrapper"
-      class="sticky-wrapper"
-      :style="{ '--offset': `${-scrollProgress}%` }"
-    >
-      <div class="testimonials__content2">
+    <div ref="wrapper" class="sticky-wrapper">
+      <div
+        class="testimonials__content2"
+        :style="{ '--offset': `${-scrollProgress}%` }"
+      >
         <AppTestimonialsItem
           v-for="item in testimonials"
           :key="`bottom-testimonial-${item.id}`"
@@ -88,29 +75,39 @@ const { data: testimonials } = useAsyncData(
 </template>
 
 <style lang="scss" scoped>
-.sticky-wrapper {
-  position: sticky;
-  top: 100px;
-  // transform: translateX(var(--offset));
-  // transform: translateX(0%);
-  // padding-inline: 25%;
-  overflow: hidden;
-  margin-inline: -40px;
+.active-slider {
+  height: v-bind(sectionHeight);
+  .testimonials__content2 {
+    transform: translateX(var(--offset));
+    margin-left: 50%;
+    > * {
+      transform: translateX(-50%);
+      flex-shrink: 0;
+    }
+  }
+  .sticky-wrapper {
+    position: sticky;
+    top: 100px;
+    // transform: translateX(var(--offset));
+    // transform: translateX(0%);
+    // padding-inline: 25%;
+    overflow: hidden;
+    margin-inline: -3rem;
+  }
 }
 .testimonials {
   padding: 4rem 3rem 6rem;
-  // min-height: 200vh;
   &__content {
     display: none;
   }
   &__content2 {
     display: flex;
     gap: 20px;
-    transform: translateX(var(--offset));
-    padding-left: 50%;
     transition-duration: 100ms;
+    width: fit-content;
+    margin-inline: auto;
     > * {
-      transform: translateX(-50%);
+      flex-shrink: 0;
     }
   }
 }
@@ -123,7 +120,7 @@ const { data: testimonials } = useAsyncData(
 
 @media screen and (max-width: 1000px) {
   .testimonials {
-    min-height: initial;
+    height: initial;
     padding-bottom: 0;
     &__content {
       display: flex;

@@ -1,20 +1,34 @@
 <script lang="ts" setup>
+import defBgImg from "~/assets/img/header_bg.jpg";
 const { type: typeScreen } = useBreakpoints();
+const { getIndexSlider } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
-const defImgSize = typeScreen.value === "xs" ? 250 : 115;
-const imgSize = ref(`${defImgSize}%`);
+const defImgSize = ref(115);
+const imgSize = ref(`${defImgSize.value}%`);
 
 const onScroll = () => {
   const height = headerMain.value?.offsetHeight || 0;
   const res = (window.scrollY / height) * 15;
   if (res > 15) return;
-  imgSize.value = `${defImgSize - res}%`;
+  imgSize.value = `${Math.round(defImgSize.value - res)}%`;
 };
 
 const throttledListener = useThrottle(onScroll, 50);
 
+const { data: indexSlider } = useAsyncData(
+  "slider",
+  async () => await getIndexSlider()
+);
+
+const sliderImg = computed(() => {
+  const img = indexSlider.value?.images[0].url;
+  if (img) return `url(${img})`;
+  return `url(${defBgImg})`;
+});
+
 onMounted(() => {
+  defImgSize.value = typeScreen.value === "xs" ? 250 : 115;
   window.addEventListener("scroll", throttledListener);
 });
 
@@ -136,7 +150,7 @@ onBeforeUnmount(() => {
     bottom: -10px;
     height: calc(100vh + 20px);
     z-index: -1;
-    background-image: url(@/assets/img/header_bg.jpg);
+    background-image: v-bind(sliderImg);
     transform: translateY(-10px);
     margin-bottom: -10px;
     background-repeat: no-repeat;
