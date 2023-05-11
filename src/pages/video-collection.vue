@@ -1,16 +1,50 @@
+<script setup lang="ts">
+import { IVideoCollectionGroup } from "~/types/admin-api";
+
+const { getAllVideoCollection, getVideoCollectionGroups } = usePublicData();
+
+const { data: videos } = useAsyncData(
+  "video-collection",
+  async () => await getAllVideoCollection()
+);
+
+const { data: groups } = useAsyncData(
+  "video-collection-groups",
+  async () => await getVideoCollectionGroups()
+);
+
+function getGroupVideos(group: IVideoCollectionGroup) {
+  if (!videos.value) return [];
+  return videos.value.filter((item) => item.group?.id === group.id);
+}
+</script>
+
 <template>
   <main>
     <Title> Video Collection </Title>
     <AppPageHead title="Video Collection" />
     <section class="filter">
-      <UIButton :to="{ hash: '#backstage' }" is-white> BACKSTAGES </UIButton>
+      <UIButton
+        v-for="group in groups"
+        :key="group.id"
+        :to="{ hash: `#${group.name}` }"
+        is-white
+      >
+        {{ group.name }}
+      </UIButton>
+      <!-- <UIButton :to="{ hash: '#backstage' }" is-white> BACKSTAGES </UIButton>
       <UIButton :to="{ hash: '#exhibition' }" is-white> EXHIBITIONS </UIButton>
-      <UIButton :to="{ hash: '#interview' }" is-white> INTERVIEW </UIButton>
+      <UIButton :to="{ hash: '#interview' }" is-white> INTERVIEW </UIButton> -->
     </section>
     <div class="collection">
-      <section id="backstage" class="collection__item">
-        <AppSectionHeader :is-link="false"> BACKSTAGES </AppSectionHeader>
-        <div class="collection__select">
+      <section
+        v-for="group in groups"
+        :id="group.name"
+        :key="group.id"
+        class="collection__item"
+      >
+        <AppSectionHeader :is-link="false">{{ group.name }}</AppSectionHeader>
+        <!-- <div class="collection__select">
           <span>Project:</span>
           <UISelect
             :list="[
@@ -28,12 +62,16 @@
               },
             ]"
           />
-        </div>
+        </div> -->
         <div class="grid">
-          <AppVideoItem v-for="i in 8" :key="`backstage-item-${i}`" />
+          <AppVideoItem
+            v-for="item in getGroupVideos(group)"
+            :key="`backstage-item-${item.id}`"
+            :item="item"
+          />
         </div>
       </section>
-      <section id="exhibition" class="collection__item">
+      <!-- <section id="exhibition" class="collection__item">
         <AppSectionHeader :is-link="false"> EXHIBITIONS </AppSectionHeader>
         <div class="grid">
           <AppVideoItem v-for="i in 8" :key="`exhibition-item-${i}`" />
@@ -44,7 +82,7 @@
         <div class="grid">
           <AppVideoItem v-for="i in 8" :key="`interview-item-${i}`" />
         </div>
-      </section>
+      </section> -->
     </div>
   </main>
 </template>
@@ -57,7 +95,7 @@ main {
   padding: 80px 40px;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: 5rem;
   &__select {
     display: flex;
     align-items: center;
@@ -73,7 +111,7 @@ main {
 
 .filter {
   position: sticky;
-  top: 0;
+  top: 10px;
   padding: 20px 40px;
   background-color: $colorAccentBlue;
   width: 100%;
@@ -82,6 +120,7 @@ main {
   gap: 40px;
   border-bottom-left-radius: $borderRadiusMain;
   border-bottom-right-radius: $borderRadiusMain;
+  transform: translateY(-10px);
   z-index: 8;
 
   > :deep(.btn-default) {
@@ -93,7 +132,7 @@ main {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 70px;
+  grid-gap: 3rem;
 }
 
 @media screen and (min-width: 551px) and (max-width: 1000px) {

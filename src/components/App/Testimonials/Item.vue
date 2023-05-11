@@ -67,7 +67,7 @@ function playVideo() {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 14px 141px 20px 30px;
+    padding: 1rem 8rem 1.5rem 2rem;
     > h4 {
       font-size: 30px;
       font-weight: 600;
@@ -81,9 +81,10 @@ function playVideo() {
 
 @media screen and (max-width: 1000px) {
   .testimonial {
+    width: 29rem;
     &__img {
-      width: 29rem;
-      img {
+      width: 100%;
+      video {
         height: 44rem;
       }
     }

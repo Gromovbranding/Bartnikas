@@ -12,7 +12,7 @@ defineProps<{
       <img :src="award.awards_avatar.url" :alt="award.awards_avatar.name" />
       <div>
         <h4>{{ award.title }}</h4>
-        <p>People’s choice Award</p>
+        <!-- <p>People's choice Award</p> -->
       </div>
     </a>
   </div>

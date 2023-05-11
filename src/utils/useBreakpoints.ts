@@ -7,6 +7,7 @@ export const useBreakpoints = () => {
 
   onMounted(() => {
     window.addEventListener("resize", handleWindowResize);
+    handleWindowResize();
   });
 
   onUnmounted(() => {

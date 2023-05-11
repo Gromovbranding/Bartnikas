@@ -1,12 +1,21 @@
+<script setup lang="ts">
+const { getAllVideoCollection } = usePublicData();
+
+const { data: videos } = useAsyncData(
+  "video-collection",
+  async () => await getAllVideoCollection()
+);
+
+const latestVideos = computed(() => videos.value?.slice(-3) || []);
+</script>
+
 <template>
   <section class="video-collections">
     <AppSectionHeader to="/video-collection">
       Video Collection
     </AppSectionHeader>
     <div class="video-collections__content">
-      <AppVideoItem />
-      <AppVideoItem />
-      <AppVideoItem />
+      <AppVideoItem v-for="item in latestVideos" :key="item.id" :item="item" />
     </div>
   </section>
 </template>

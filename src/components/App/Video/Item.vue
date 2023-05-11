@@ -1,17 +1,43 @@
+<script setup lang="ts">
+import { IVideoCollection } from "~/types/admin-api";
+
+const video = ref<HTMLVideoElement>();
+const activeVideo = ref(false);
+
+const { makeDateCorrect } = useDateFormat();
+
+defineProps<{
+  item: IVideoCollection;
+}>();
+
+const showControls = computed(() => (activeVideo.value ? true : undefined));
+
+function playVideo() {
+  if (!video.value) return;
+  video.value.play();
+  activeVideo.value = true;
+}
+</script>
+
 <template>
   <article class="video-collection">
     <div class="video-collection__img">
-      <img
+      <!-- <img
         src="https://static.tildacdn.com/tild3862-3835-4337-a633-633563333830/20210401_-_Art_0152.jpg"
         alt=""
-      />
-      <div class="video-collection__play">
+      /> -->
+      <video ref="video" :src="item.video.url" :controls="showControls"></video>
+      <div
+        v-if="!activeVideo"
+        class="video-collection__play"
+        @click="playVideo"
+      >
         <IconPlay />
       </div>
     </div>
     <div class="video-collection__info">
-      <h4>Art Russia fair 2021</h4>
-      <time> 17.06.2002 </time>
+      <h4>{{ item.title }}</h4>
+      <time>{{ makeDateCorrect(item.created_at) }}</time>
     </div>
   </article>
 </template>
@@ -21,7 +47,7 @@
   &__img {
     width: 100%;
     position: relative;
-    img {
+    video {
       width: 100%;
       height: 20vw;
       object-fit: cover;
@@ -61,7 +87,7 @@
 @media screen and (min-width: 551px) and (max-width: 1000px) {
   .video-collection {
     &__img {
-      img {
+      video {
         height: auto;
       }
     }
@@ -71,7 +97,7 @@
 @media screen and (max-width: 550px) {
   .video-collection {
     &__img {
-      img {
+      video {
         height: 260px;
       }
     }

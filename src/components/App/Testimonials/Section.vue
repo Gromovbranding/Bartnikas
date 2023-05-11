@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
   }
   &__content2 {
     display: flex;
-    gap: 20px;
+    gap: 1.5rem;
     transition-duration: 100ms;
     width: fit-content;
     margin-inline: auto;
@@ -124,11 +124,11 @@ onBeforeUnmount(() => {
     padding-bottom: 0;
     &__content {
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       overflow: auto;
       margin-inline: -3rem;
       padding-bottom: 4rem;
-      padding-left: 10rem;
+      padding-left: 2rem;
       padding-right: 2rem;
     }
   }
@@ -144,6 +144,7 @@ onBeforeUnmount(() => {
       margin-inline: 0;
       padding-inline: 0;
       margin-right: -2rem;
+      padding-right: 4rem;
     }
   }
 

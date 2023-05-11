@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import type { IAwards } from "~/types/admin-api";
 
+const showModal = ref(false);
 const { getAllAwards } = usePublicData();
 
 const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
   async () => await getAllAwards()
 );
+
+const activeImg = ref();
+
+function showImg(img: string) {
+  activeImg.value = img;
+  showModal.value = true;
+}
 </script>
 
 <template>
@@ -43,12 +51,12 @@ const { data: awards } = await useAsyncData<IAwards[]>(
               <b>{{ new Date(item.year).getFullYear() }}</b>
             </div>
             <div
-              v-for="(group, groupIdx) in item.groups"
+              v-for="group in item.groups"
               :key="`awards-group-item-${group.id}`"
             >
               <div>
-                <div class="upper-slide">
-                  <p>{{ groupIdx + 1 }} {{ group.type }}</p>
+                <div>
+                  <p>{{ group.type }}</p>
                 </div>
               </div>
               <div>
@@ -57,7 +65,7 @@ const { data: awards } = await useAsyncData<IAwards[]>(
                   :key="`group-image-item-${image.name}`"
                   class="upper-slide"
                 >
-                  <small>
+                  <small @click="showImg(image.url)">
                     {{ imageIdx + 1 }} Photo
                     <IconArrow is-arrow30-deg />
                   </small>
@@ -68,10 +76,70 @@ const { data: awards } = await useAsyncData<IAwards[]>(
         </div>
       </div>
     </section>
+    <div v-if="showModal" class="dialog">
+      <img :src="activeImg" alt="" />
+      <button type="button" @click="showModal = false">
+        <svg
+          role="presentation"
+          class="t-popup__close-icon"
+          width="23px"
+          height="23px"
+          viewBox="0 0 23 23"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g stroke="none" stroke-width="1" fill="#fff" fill-rule="evenodd">
+            <rect
+              transform="translate(11.313708, 11.313708) rotate(-45.000000) translate(-11.313708, -11.313708) "
+              x="10.3137085"
+              y="-3.6862915"
+              width="2"
+              height="30"
+            ></rect>
+            <rect
+              transform="translate(11.313708, 11.313708) rotate(-315.000000) translate(-11.313708, -11.313708) "
+              x="10.3137085"
+              y="-3.6862915"
+              width="2"
+              height="30"
+            ></rect>
+          </g>
+        </svg>
+      </button>
+    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
+.dialog {
+  background: none;
+  border: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    display: block;
+    max-width: 80%;
+  }
+  button {
+    background: none;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}
 .awards {
   display: flex;
   flex-direction: column;

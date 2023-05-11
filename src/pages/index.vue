@@ -94,15 +94,15 @@ onBeforeUnmount(() => {
 
     &:last-child {
       position: absolute;
-      bottom: 200px;
-      padding: 80px 40px;
+      bottom: 10rem;
+      padding: 5rem 2.5rem;
       max-width: 800px;
-      left: 40px;
+      left: 2rem;
       border-radius: $borderRadiusMain;
       background-color: $colorBackgroundGrey;
 
       h3 {
-        font-size: 85px;
+        font-size: 5rem;
         margin-bottom: 20px;
         font-weight: bold;
       }

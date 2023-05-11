@@ -6,7 +6,7 @@ interface Props {
   project: IProject;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   direction: "row",
 });
 </script>
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
         <NuxtLink :to="`/projects/${project?.id}`">
           <div>
             <IconPhotoCamera />
-            <p>{{ props.project.details.length }}</p>
+            <p>{{ project.details.length }}</p>
           </div>
           <h2>{{ project.title }}</h2>
           <div class="port__text__desc">

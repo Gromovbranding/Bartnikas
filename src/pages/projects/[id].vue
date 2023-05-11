@@ -1,12 +1,47 @@
 <script lang="ts" setup>
-const route = useRoute();
+import { IProject } from "~/types/admin-api";
 
+const route = useRoute();
+const wrapper = ref<HTMLDivElement>();
+const wrapperHeight = ref("");
+const sticky = ref<HTMLDivElement>();
+const section = ref<HTMLElement>();
+const scrollProgress = ref(0);
+
+const { getAllProjects } = usePublicData();
 const { getProjectById } = usePublicData();
+const { breakpoint } = useBreakpoints();
 
 const { data: project } = useAsyncData(
   "project",
   async () => await getProjectById(route.params.id as string)
 );
+
+const { data: projects } = useAsyncData<IProject[]>(
+  "projects",
+  async () => await getAllProjects()
+);
+
+const onScroll = () => {
+  if (!wrapper.value) return;
+  const scrollTop = section.value?.offsetTop || 0;
+  const scrollY = window.scrollY;
+  const diff = scrollY - scrollTop;
+  scrollProgress.value = diff > 0 ? diff : 0;
+};
+
+onMounted(() => {
+  if (!wrapper.value || projects.value?.length < 3 || breakpoint.value !== "lg")
+    return;
+  wrapperHeight.value = wrapper.value.scrollWidth + "px";
+  window.addEventListener("scroll", onScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onScroll);
+});
+
+const translate = computed(() => `${-scrollProgress.value}px`);
 </script>
 
 <template>
@@ -24,7 +59,10 @@ const { data: project } = useAsyncData(
             />
           </div>
           <div>
-            <h3>{{ project?.title }}</h3>
+            <h3>
+              Stanislav <br />
+              Bartnikas
+            </h3>
           </div>
         </div>
         <div class="author-quote__text">
@@ -45,7 +83,7 @@ const { data: project } = useAsyncData(
               />
             </svg>
           </div>
-          <div>
+          <div class="author-quote__text__desc">
             <p>
               {{ project?.description }}
             </p>
@@ -79,16 +117,100 @@ const { data: project } = useAsyncData(
         />
       </section>
     </div>
+    <section v-if="projects?.length" ref="section" class="more">
+      <div ref="sticky" class="sticky-wrapper">
+        <h2>More projects</h2>
+        <div ref="wrapper" class="more__projects">
+          <div
+            v-for="item in projects"
+            :key="item.id"
+            class="project-item"
+            @click="$router.push(`/projects/${item.id}`)"
+          >
+            <div class="project-item__img">
+              <img
+                :src="item.details[0].image.url"
+                :alt="item.details[0].image_name"
+              />
+            </div>
+            <div class="project-item__text">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 
 <style lang="scss" scoped>
 .project {
-  padding: 4rem;
+  padding: 2rem;
+}
+
+.sticky-wrapper {
+  position: sticky;
+  top: 100px;
+  overflow: hidden;
+  margin-right: -2rem;
+}
+
+.project-item {
+  width: 33rem;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+  &__img {
+    height: 17rem;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__text {
+    padding: 2rem;
+    h3 {
+      font-size: 2.33rem;
+      font-weight: 600;
+    }
+    p {
+      font-size: 1.5rem;
+      line-height: 1.25em;
+      height: 7.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1rem;
+    }
+  }
+}
+
+.more {
+  padding: 2rem;
+  padding-top: 4rem;
+  height: v-bind(wrapperHeight);
+  h2 {
+    font-size: 10rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  &__projects {
+    display: flex;
+    gap: 1rem;
+    position: sticky;
+    top: 100px;
+    transform: translateX(v-bind(translate));
+  }
 }
 .author-quote {
   display: flex;
   margin-bottom: 100px;
+  padding-inline: 2rem;
+  gap: 4rem;
 
   &__person {
     display: flex;
@@ -97,7 +219,7 @@ const { data: project } = useAsyncData(
 
     > div {
       &:first-child {
-        width: 220px;
+        width: 150px;
         height: 150px;
 
         img {
@@ -120,7 +242,8 @@ const { data: project } = useAsyncData(
 
   &__text {
     display: flex;
-    gap: 40px;
+    gap: 2rem;
+    flex-grow: 1;
 
     > div {
       &:first-child {
@@ -154,6 +277,10 @@ const { data: project } = useAsyncData(
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 120px 15px;
+}
+
+.more {
+  background-color: #eceae8;
 }
 
 @media screen and (max-width: 550px) {
