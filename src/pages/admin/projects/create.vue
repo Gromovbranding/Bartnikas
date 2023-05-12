@@ -5,7 +5,7 @@ import {
   // IFile,
   IProject,
   // IProjectImageDetail,
-  // ListUnitSize,
+  ListUnitSize,
   PartialAdminApiDto,
 } from "~/types/admin-api";
 
@@ -16,7 +16,7 @@ interface ImageDetails {
     sizes: {
       width: number;
       height: number;
-      unit: "cm";
+      unit: ListUnitSize;
     }[];
   };
 }
