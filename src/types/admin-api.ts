@@ -132,7 +132,4 @@ export interface IVideoCollection {
   updated_at: Date;
 }
 
-export type PartialAdminApiDto<T> = Exclude<
-  T,
-  "id" | "updated_at" | "created_at"
->;
+export type PartialAdminApiDto<T> = Omit<T, "id" | "updated_at" | "created_at">;
