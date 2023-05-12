@@ -12,50 +12,34 @@ interface ICreateFormFormatted {
   [x: string]: string | boolean;
 }
 
+interface ImageDetails {
+  [key: number]: {
+    name: string;
+    price: number;
+    sizes: {
+      width: number;
+      height: number;
+      unit: "cm";
+    }[];
+  };
+}
+
 const props = defineProps<{
   name: string;
   back: string;
   video?: boolean;
   cbCreate: (
     body: ICreateFormFormatted,
-    images: UploadUserFile[]
+    images: UploadUserFile[],
+    details: ImageDetails
   ) => Promise<void>;
   form: IForm[];
 }>();
 
-// const rules = reactive<FormRules>({
-//   title: [
-//     {
-//       required: true,
-//       message: "Please input Title",
-//       trigger: "change",
-//     },
-//   ],
-//   desc: [
-//     {
-//       required: true,
-//       message: "Please input Desc",
-//       trigger: "change",
-//     },
-//   ],
-//   text: [
-//     {
-//       required: true,
-//       message: "Please input Text",
-//       trigger: "change",
-//     },
-//   ],
-//   is_hot: [
-//     {
-//       type: "boolean",
-//       trigger: "change",
-//     },
-//   ],
-// });
-
 const formModel = ref<IForm[]>([]);
 const filesModel = ref<UploadUserFile[]>([]);
 const formRef = ref<FormInstance>();
+const projectImages = ref<ImageDetails>({});
 
 onMounted(() => {
   formModel.value = props.form;
@@ -72,7 +56,11 @@ const create = async (formEl: FormInstance | undefined) => {
         formattedFormModel[item.prop] = item.value;
       });
 
-      await props.cbCreate(formattedFormModel, filesModel.value);
+      await props.cbCreate(
+        formattedFormModel,
+        filesModel.value,
+        projectImages.value
+      );
     }
   });
 };
@@ -114,11 +102,12 @@ const handleUpload = (files: UploadUserFile[]) => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem v-if="video" required label="Video">
-          <AdminUploadVideo :list="filesModel" @uploadFile="handleUpload" />
-        </ElFormItem>
-        <ElFormItem v-else required label="Images">
-          <AdminUploadImage :list="filesModel" @uploadFile="handleUpload" />
+        <ElFormItem required label="Images">
+          <AdminUploadProjectImage
+            :image-details="projectImages"
+            :list="filesModel"
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>

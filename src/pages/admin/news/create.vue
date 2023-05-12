@@ -3,6 +3,7 @@ import { UploadUserFile } from "element-plus";
 import { IArticle } from "~/types/admin-api";
 
 const name = ref("Create Article");
+const { fetchPost } = useApi();
 
 useHeadSafe({
   title: name.value,
@@ -39,7 +40,19 @@ const handleCreate = (
   body: IArticle | null = null,
   images: UploadUserFile[]
 ) => {
-  console.log(body, images);
+  if (!body) return;
+  const { title, description, is_hot: isHot, text } = body;
+  const reqImages = images.map((img) => ({
+    url: img.response.url,
+    name: img.response.name,
+  }));
+  fetchPost("/news", {
+    title,
+    description,
+    is_hot: isHot,
+    text,
+    images: reqImages,
+  });
 };
 </script>
 

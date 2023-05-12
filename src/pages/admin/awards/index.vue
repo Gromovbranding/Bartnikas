@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+import { IAwards } from "~/types/admin-api";
 
 useHeadSafe({
-  title: "Projects",
+  title: "Awards",
 });
 
 const { fetchDelete, fetchGet } = useApi();
@@ -10,22 +10,22 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData<IProject[]>(
+const { data: entites } = useAsyncData<IAwards>(
   "entites",
-  async () => await fetchGet("/projects")
+  async () => await fetchGet("/awards")
 );
 
 const handleCreate = async () => {
-  await navigateTo(`/admin/projects/create`);
+  await navigateTo(`/admin/awards/create`);
 };
 
 const handleEdit = async (row: { id: string }) => {
-  await navigateTo(`/admin/projects/${row.id}/edit`);
+  await navigateTo(`/admin/awards/${row.id}/edit`);
 };
 
 const handleDelete = async () => {
   try {
-    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await fetchDelete(`/awards/${projectIdDelete.value}`);
     await refreshNuxtData("entites");
   } finally {
     isDialogDelete.value = false;
@@ -38,7 +38,7 @@ const handleDelete = async () => {
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Projects </span>
+        <span> Awards </span>
         <ElButton type="success" size="small" @click="handleCreate">
           Create
         </ElButton>
@@ -48,6 +48,8 @@ const handleDelete = async () => {
       <ElTable :data="entites" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Description" prop="description" width="700" />
+        <ElTableColumn label="Date" prop="date" width="120" />
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">
@@ -73,7 +75,7 @@ const handleDelete = async () => {
         width="30%"
         @close="projectIdDelete = null"
       >
-        <span>Delete project ?</span>
+        <span>Delete award?</span>
         <template #footer>
           <span class="dialog-footer">
             <ElButton

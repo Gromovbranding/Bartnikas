@@ -31,6 +31,24 @@ const sidebarItems: Array<SidebarItem> = [
     url: "/admin/contacts",
     icon: "ep:chat-line-square",
   },
+  {
+    sortId: 5,
+    text: "Video Collection",
+    url: "/admin/videos",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 5,
+    text: "Testimonials",
+    url: "/admin/testimonials",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 6,
+    text: "Awards",
+    url: "/admin/awards",
+    icon: "ep:chat-line-square",
+  },
 ].sort((a, b) => a.sortId - b.sortId);
 </script>
 

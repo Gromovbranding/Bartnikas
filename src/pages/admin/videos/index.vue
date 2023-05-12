@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+import { IVideoCollection } from "~/types/admin-api";
 
 useHeadSafe({
-  title: "Projects",
+  title: "Videos",
 });
 
 const { fetchDelete, fetchGet } = useApi();
@@ -10,44 +10,54 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData<IProject[]>(
+const { data: entites } = useAsyncData<IVideoCollection[]>(
   "entites",
-  async () => await fetchGet("/projects")
+  async () => await fetchGet("/video-collection")
 );
 
 const handleCreate = async () => {
-  await navigateTo(`/admin/projects/create`);
+  await navigateTo(`/admin/videos/create`);
 };
 
 const handleEdit = async (row: { id: string }) => {
-  await navigateTo(`/admin/projects/${row.id}/edit`);
+  await navigateTo(`/admin/videos/${row.id}/edit`);
 };
 
 const handleDelete = async () => {
   try {
-    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await fetchDelete(`/video-collection/${projectIdDelete.value}`);
     await refreshNuxtData("entites");
   } finally {
     isDialogDelete.value = false;
     projectIdDelete.value = null;
   }
 };
+
+const videos = computed(() =>
+  entites.value?.map((item) => ({
+    ...item,
+    group: item.group?.name,
+    date: new Date(item.created_at).toLocaleDateString("ru-RU"),
+  }))
+);
 </script>
 
 <template>
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Projects </span>
+        <span> Videos </span>
         <ElButton type="success" size="small" @click="handleCreate">
           Create
         </ElButton>
       </div>
     </template>
     <ClientOnly>
-      <ElTable :data="entites" border style="width: 100%">
+      <ElTable :data="videos" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Group" prop="group" width="200" />
+        <ElTableColumn label="Date" prop="date" width="120" />
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">
@@ -73,7 +83,7 @@ const handleDelete = async () => {
         width="30%"
         @close="projectIdDelete = null"
       >
-        <span>Delete project ?</span>
+        <span>Delete video?</span>
         <template #footer>
           <span class="dialog-footer">
             <ElButton

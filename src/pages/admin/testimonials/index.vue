@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+import { ITestimonial } from "~/types/admin-api";
 
 useHeadSafe({
-  title: "Projects",
+  title: "Testimonials",
 });
 
 const { fetchDelete, fetchGet } = useApi();
@@ -10,44 +10,47 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData<IProject[]>(
+const { data: entites } = useAsyncData<ITestimonial[]>(
   "entites",
-  async () => await fetchGet("/projects")
+  async () => await fetchGet("/testimonials")
 );
 
 const handleCreate = async () => {
-  await navigateTo(`/admin/projects/create`);
+  await navigateTo(`/admin/testimonials/create`);
 };
 
 const handleEdit = async (row: { id: string }) => {
-  await navigateTo(`/admin/projects/${row.id}/edit`);
+  await navigateTo(`/admin/testimonials/${row.id}/edit`);
 };
 
 const handleDelete = async () => {
   try {
-    await fetchDelete(`/projects/${projectIdDelete.value}`);
+    await fetchDelete(`/testimonials/${projectIdDelete.value}`);
     await refreshNuxtData("entites");
   } finally {
     isDialogDelete.value = false;
     projectIdDelete.value = null;
   }
 };
+
+const videos = computed(() => entites.value?.map((item) => item));
 </script>
 
 <template>
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Projects </span>
+        <span> Testimonials </span>
         <ElButton type="success" size="small" @click="handleCreate">
           Create
         </ElButton>
       </div>
     </template>
     <ClientOnly>
-      <ElTable :data="entites" border style="width: 100%">
+      <ElTable :data="videos" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Info" prop="additional_info" width="200" />
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">
@@ -73,7 +76,7 @@ const handleDelete = async () => {
         width="30%"
         @close="projectIdDelete = null"
       >
-        <span>Delete project ?</span>
+        <span>Delete testimonial?</span>
         <template #footer>
           <span class="dialog-footer">
             <ElButton

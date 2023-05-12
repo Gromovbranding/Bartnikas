@@ -39,6 +39,9 @@ const handleDelete = async () => {
     <template #header>
       <div class="card-header">
         <span> Blogs </span>
+        <ElButton type="success" size="small" @click="handleCreate">
+          Create
+        </ElButton>
       </div>
     </template>
     <ClientOnly>
@@ -49,11 +52,6 @@ const handleDelete = async () => {
         <ElTableColumn label="Date" prop="date" width="120" />
 
         <ElTableColumn align="right" label="Operations">
-          <template #header>
-            <ElButton type="success" size="small" @click="handleCreate">
-              Create
-            </ElButton>
-          </template>
           <template #default="{ row }">
             <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
             <ElButton

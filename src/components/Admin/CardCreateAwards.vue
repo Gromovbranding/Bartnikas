@@ -15,43 +15,12 @@ interface ICreateFormFormatted {
 const props = defineProps<{
   name: string;
   back: string;
-  video?: boolean;
   cbCreate: (
     body: ICreateFormFormatted,
     images: UploadUserFile[]
   ) => Promise<void>;
   form: IForm[];
 }>();
-
-// const rules = reactive<FormRules>({
-//   title: [
-//     {
-//       required: true,
-//       message: "Please input Title",
-//       trigger: "change",
-//     },
-//   ],
-//   desc: [
-//     {
-//       required: true,
-//       message: "Please input Desc",
-//       trigger: "change",
-//     },
-//   ],
-//   text: [
-//     {
-//       required: true,
-//       message: "Please input Text",
-//       trigger: "change",
-//     },
-//   ],
-//   is_hot: [
-//     {
-//       type: "boolean",
-//       trigger: "change",
-//     },
-//   ],
-// });
 
 const formModel = ref<IForm[]>([]);
 const filesModel = ref<UploadUserFile[]>([]);
@@ -114,10 +83,7 @@ const handleUpload = (files: UploadUserFile[]) => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem v-if="video" required label="Video">
-          <AdminUploadVideo :list="filesModel" @uploadFile="handleUpload" />
-        </ElFormItem>
-        <ElFormItem v-else required label="Images">
+        <ElFormItem required label="Images">
           <AdminUploadImage :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
 

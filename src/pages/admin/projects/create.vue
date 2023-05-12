@@ -1,13 +1,25 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
 import {
-  IProjectImageSizes,
-  IFile,
+  // IProjectImageSizes,
+  // IFile,
   IProject,
-  IProjectImageDetail,
-  ListUnitSize,
+  // IProjectImageDetail,
+  // ListUnitSize,
   PartialAdminApiDto,
 } from "~/types/admin-api";
+
+interface ImageDetails {
+  [key: number]: {
+    name: string;
+    price: number;
+    sizes: {
+      width: number;
+      height: number;
+      unit: "cm";
+    }[];
+  };
+}
 
 const name = ref("Create Project");
 
@@ -17,40 +29,75 @@ useHeadSafe({
 
 const { fetchPost } = useApi();
 
-const handleCreate = async (
+const handleCreate = (
   body: PartialAdminApiDto<IProject>,
-  images: UploadUserFile[]
+  images: UploadUserFile[],
+  imageDetails: ImageDetails
 ) => {
-  const details: PartialAdminApiDto<IProjectImageDetail>[] = [];
+  // const details: PartialAdminApiDto<IProjectImageDetail>[] = [];
 
-  images.forEach((item) => {
-    const image = item.response as IFile;
-    const sizes = [
-      {
-        width: 100,
-        height: 100,
-        unit: ListUnitSize.cm,
-      },
-    ] as PartialAdminApiDto<IProjectImageSizes>[];
+  // images.forEach((item) => {
+  //   const image = item.response as IFile;
+  //   const sizes = [
+  //     {
+  //       width: 100,
+  //       height: 100,
+  //       unit: ListUnitSize.cm,
+  //     },
+  //   ] as PartialAdminApiDto<IProjectImageSizes>[];
 
+  //   details.push({
+  //     price: 100,
+  //     image_name: "image name photo",
+  //     sizes,
+  //     image,
+  //   } as PartialAdminApiDto<IProjectImageDetail>);
+  // });
+
+  // body.details = details;
+  const details: any[] = [];
+  const { description, title } = body;
+  images.forEach((img) => {
+    const { sizes, price } = imageDetails[img.uid!];
     details.push({
-      price: 100,
-      image_name: "image name photo",
+      image_name: img.name,
+      price,
       sizes,
-      image,
-    } as PartialAdminApiDto<IProjectImageDetail>);
+      image: img.response,
+    });
   });
 
-  body.details = details;
-
-  await fetchPost("files", body);
+  // await fetchPost("files", body);
+  fetchPost("/projects", { title, description, details });
 };
+
+// {
+//   "title": "string",
+//   "description": "string",
+//   "details": [
+//     {
+//       "sizes": [
+//         {
+//           "width": 0,
+//           "height": 0,
+//           "unit": "cm"
+//         }
+//       ],
+//       "price": 0,
+//       "image_name": "string",
+//       "image": {
+//         "name": "string",
+//         "url": "string"
+//       }
+//     }
+//   ]
+// }
 </script>
 
 <template>
   <div>
     <ClientOnly>
-      <AdminCardCreate
+      <AdminCardCreateProjects
         :form="[
           {
             value: '',
