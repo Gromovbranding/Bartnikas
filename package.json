@@ -6,7 +6,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "nuxt clean && nuxt build --dotenv .env.production",
+    "build": "nuxt clean && nuxt build",
     "dev": "nuxt dev -o --dotenv .env.development",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
