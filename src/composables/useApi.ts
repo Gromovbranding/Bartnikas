@@ -12,12 +12,17 @@ export const useApi = () => {
     body: any = null,
     customConfigFetch: any = {}
   ) => {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set("Content-Type", "application/json");
+
+    if (accessToken.value) {
+      requestHeaders.set("Authorization", `Bearer ${accessToken.value}`);
+    }
+
     const fetchConfig: Partial<NitroFetchOptions<any>> = {
       baseURL: config.apiBaseUrl,
       method,
-      headers: {
-        Authorization: `Bearer ${accessToken.value}`,
-      },
+      headers: requestHeaders,
       ...customConfigFetch,
 
       async onResponseError({ response }) {
