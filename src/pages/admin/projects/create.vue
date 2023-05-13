@@ -58,9 +58,9 @@ const handleCreate = (
   const details: any[] = [];
   const { description, title } = body;
   images.forEach((img) => {
-    const { sizes, price } = imageDetails[img.uid!];
+    const { sizes, price, name } = imageDetails[img.uid!];
     details.push({
-      image_name: img.name,
+      image_name: name,
       price,
       sizes,
       image: img.response,
@@ -102,7 +102,7 @@ const handleCreate = (
           {
             value: '',
             label: 'Title',
-            type: 'input',
+            type: 'text',
             prop: 'title',
           },
           {

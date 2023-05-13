@@ -20,6 +20,7 @@ const { accessToken } = useAdmin();
 const props = defineProps<{
   list: UploadProps["fileList"];
   imageDetails: ImageDetails;
+  edit?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -100,10 +101,17 @@ function onClickDelete(e: Event) {
         Drop file here or <em>click to upload</em>
       </div>
       <template #file="{ file }: { file: UploadUserFile }">
-        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+        <img
+          class="el-upload-list__item-thumbnail"
+          :src="file.url"
+          alt=""
+          @click="handlePictureCardPreview(file)"
+        />
         <div class="img" @keydown.stop>
           <div class="img__details">
-            <label>Name: <input v-model="file.name" type="text" /></label>
+            <label
+              >Name: <input v-model="projectImages[file.uid!].name" type="text"
+            /></label>
             <label
               >Price:
               <input v-model="projectImages[file.uid!].price" type="number"

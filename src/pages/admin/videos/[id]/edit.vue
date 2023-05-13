@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormRules } from "element-plus";
-import { IArticle } from "~/types/admin-api";
+import { IVideoCollection } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -8,13 +8,8 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchGetImages } = useApi();
+const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
-
-const { data: entity } = useAsyncData<IArticle>(
-  "entity",
-  async () => await fetchGet(`/news/${route.params.id}`)
-);
 
 const rules = reactive<FormRules>({
   title: [
@@ -24,42 +19,60 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  desc: [
+  group: [
     {
       required: true,
       message: "Please input Desc",
       trigger: "change",
     },
   ],
-  text: [
-    {
-      required: true,
-      message: "Please input Text",
-      trigger: "change",
-    },
-  ],
-  is_hot: [
-    {
-      trigger: "change",
-    },
-  ],
 });
 
-const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
+const fileList = ref<any[]>([]);
 
 const form = reactive({
-  title: entity.value?.title ?? "",
-  description: entity.value?.description ?? "",
-  text: entity.value?.text ?? "",
+  title: "",
+  group: "",
 });
+
+getVideos();
+
+const handleUpload = (files: any[]) => {
+  fileList.value = files;
+};
+
+function getVideos() {
+  const { data: entity } = useAsyncData<IVideoCollection>(
+    "videos",
+    async () => await fetchGet(`/video-collection/${route.params.id}`)
+  );
+  form.title = entity.value?.title || "";
+  form.group = entity.value?.group?.name || "";
+  fileList.value = [entity.value?.video] || [];
+}
+
+function onSave() {
+  const video = fileList.value.map((item) => ({
+    name: item.response?.name || item.name,
+    url: item.response?.url || item.url,
+  }));
+  const { title, group } = form;
+  fetchPatch(`/video-collection/${route.params.id}`, {
+    title,
+    ...(video[0]?.url && { video: video[0] }),
+    group: {
+      name: group,
+    },
+  });
+}
 </script>
 
 <template>
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Article: "{{ form.title }}" </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/news')">
+        <span> Edit video</span>
+        <ElButton type="default" plain @click="navigateTo('/admin/videos')">
           Back
         </ElButton>
       </div>
@@ -71,20 +84,20 @@ const form = reactive({
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Description" prop="desc">
-          <ElInput v-model="form.description" :rows="5" type="textarea" />
+        <ElFormItem label="Group" prop="group">
+          <ElInput v-model="form.group" :rows="5" type="text" />
         </ElFormItem>
 
-        <ElFormItem label="Text" prop="text">
-          <ElInput v-model="form.text" :rows="5" type="textarea" />
-        </ElFormItem>
-
-        <ElFormItem required label="Images">
-          <AdminUploadImage :list="fileList" />
+        <ElFormItem required label="Video">
+          <AdminUploadVideo
+            :list="fileList"
+            single
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Save </ElButton>
+          <ElButton type="primary" @click="onSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

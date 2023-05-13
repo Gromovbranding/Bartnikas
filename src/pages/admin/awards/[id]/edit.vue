@@ -59,7 +59,7 @@ const form = reactive({
     <template #header>
       <div class="card-header">
         <span> Article: "{{ form.title }}" </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/news')">
+        <ElButton type="default" plain @click="navigateTo('/admin/awards')">
           Back
         </ElButton>
       </div>

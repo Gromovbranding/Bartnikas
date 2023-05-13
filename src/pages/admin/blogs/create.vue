@@ -33,7 +33,7 @@ const handleCreate = (body: IBlog | null = null, images: UploadUserFile[]) => {
           {
             value: '',
             label: 'Title',
-            type: 'input',
+            type: 'text',
             prop: 'title',
           },
           {

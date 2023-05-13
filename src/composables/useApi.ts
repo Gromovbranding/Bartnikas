@@ -68,6 +68,10 @@ export const useApi = () => {
     return await fetchApi<T>(path, "POST", body);
   };
 
+  const fetchPatch = async <T>(path: string, body: any = null) => {
+    return await fetchApi<T>(path, "PATCH", body);
+  };
+
   const fetchUpdate = async <T>(path: string) => {
     return await fetchApi<T>(path, "GET");
   };
@@ -111,9 +115,9 @@ export const useApi = () => {
     }
   };
 
-  const fetchGetImages = async (images: { name: string }[]) => {
+  const fetchGetImages = async (images: { name: string; url: string }[]) => {
     return await Promise.all(
-      (images ?? []).map(async ({ name }) => {
+      (images ?? []).map(async ({ name, url }) => {
         const blob = await fetchGetImage(name);
         const file = new File([blob], name, {
           type: blob.type,
@@ -123,6 +127,7 @@ export const useApi = () => {
           raw: file,
           size: file.size,
           name,
+          url,
         };
       })
     );
@@ -139,5 +144,6 @@ export const useApi = () => {
     fetchUploadImage,
     fetchRemoveImage,
     fetchGetImage,
+    fetchPatch,
   };
 };

@@ -8,11 +8,11 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchGetImages } = useApi();
+const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
 const { data: entity } = useAsyncData<IArticle>(
-  "entity",
+  "news",
   async () => await fetchGet(`/news/${route.params.id}`)
 );
 
@@ -24,7 +24,7 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  desc: [
+  description: [
     {
       required: true,
       message: "Please input Desc",
@@ -38,20 +38,48 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  is_hot: [
-    {
-      trigger: "change",
-    },
-  ],
 });
 
-const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
+const fileList = ref<any[]>([]);
+
+const handleUpload = (files: any) => {
+  fileList.value = files;
+};
 
 const form = reactive({
   title: entity.value?.title ?? "",
   description: entity.value?.description ?? "",
   text: entity.value?.text ?? "",
+  is_hot: entity.value?.is_hot,
 });
+
+getNews();
+
+function getNews() {
+  const { data: entity } = useAsyncData<IArticle>(
+    "news",
+    async () => await fetchGet(`/news/${route.params.id}`)
+  );
+  form.title = entity.value?.title || "";
+  form.description = entity.value?.description || "";
+  form.text = entity.value?.text || "";
+  fileList.value = entity.value?.images || [];
+}
+
+function onSave() {
+  const images = fileList.value.map((item) => ({
+    name: item.name,
+    url: item.url,
+  }));
+  const { description, title, text } = form;
+  fetchPatch(`/news/${route.params.id}`, {
+    text,
+    title,
+    description,
+    is_hot: form.is_hot,
+    images,
+  });
+}
 </script>
 
 <template>
@@ -71,8 +99,12 @@ const form = reactive({
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Description" prop="desc">
+        <ElFormItem label="Description" prop="description">
           <ElInput v-model="form.description" :rows="5" type="textarea" />
+        </ElFormItem>
+
+        <ElFormItem label="Is Hot" prop="is_hot">
+          <ElCheckbox v-model="form.is_hot" size="large" />
         </ElFormItem>
 
         <ElFormItem label="Text" prop="text">
@@ -80,11 +112,15 @@ const form = reactive({
         </ElFormItem>
 
         <ElFormItem required label="Images">
-          <AdminUploadImage :list="fileList" />
+          <AdminUploadImage
+            :list="fileList"
+            single
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Save </ElButton>
+          <ElButton type="primary" @click="onSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormRules } from "element-plus";
-import { IArticle } from "~/types/admin-api";
+import { ITestimonial } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -8,12 +8,12 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchGetImages } = useApi();
+const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<IArticle>(
-  "entity",
-  async () => await fetchGet(`/news/${route.params.id}`)
+const { data: entity } = useAsyncData<ITestimonial>(
+  "testimonial",
+  async () => await fetchGet(`/testimonials/${route.params.id}`)
 );
 
 const rules = reactive<FormRules>({
@@ -24,42 +24,71 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  desc: [
+  additional_info: [
     {
       required: true,
-      message: "Please input Desc",
-      trigger: "change",
-    },
-  ],
-  text: [
-    {
-      required: true,
-      message: "Please input Text",
-      trigger: "change",
-    },
-  ],
-  is_hot: [
-    {
+      message: "Please input Info",
       trigger: "change",
     },
   ],
 });
 
-const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
+const fileList = ref<any[]>([]);
 
 const form = reactive({
   title: entity.value?.title ?? "",
-  description: entity.value?.description ?? "",
-  text: entity.value?.text ?? "",
+  additional_info: entity.value?.additional_info ?? "",
 });
+
+getTestimonial();
+
+const handleUpload = (files: any[]) => {
+  fileList.value = files;
+};
+
+function getTestimonial() {
+  const { data: entity } = useAsyncData<ITestimonial>(
+    "testimonial",
+    async () => await fetchGet(`/testimonials/${route.params.id}`)
+  );
+  form.title = entity.value?.title || "";
+  form.additional_info = entity.value?.additional_info || "";
+  fileList.value = [entity.value?.file] || [];
+}
+
+function onSave() {
+  const file = fileList.value.map((item) => ({
+    name: item.response?.name || item.name,
+    url: item.response?.url || item.url,
+  }));
+  const { title, additional_info: info } = form;
+  fetchPatch(`/testimonials/${route.params.id}`, {
+    title,
+    additional_info: info,
+    file: file[0],
+  });
+}
+
+// {
+//   "title": "string",
+//   "additional_info": "string",
+//   "file": {
+//     "name": "string",
+//     "url": "string"
+//   }
+// }
 </script>
 
 <template>
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Article: "{{ form.title }}" </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/news')">
+        <span>Edit testimonial</span>
+        <ElButton
+          type="default"
+          plain
+          @click="navigateTo('/admin/testimonials')"
+        >
           Back
         </ElButton>
       </div>
@@ -71,20 +100,20 @@ const form = reactive({
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Description" prop="desc">
-          <ElInput v-model="form.description" :rows="5" type="textarea" />
-        </ElFormItem>
-
-        <ElFormItem label="Text" prop="text">
-          <ElInput v-model="form.text" :rows="5" type="textarea" />
+        <ElFormItem label="Info" prop="additional_info">
+          <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
         </ElFormItem>
 
         <ElFormItem required label="Images">
-          <AdminUploadImage :list="fileList" />
+          <AdminUploadVideo
+            :list="fileList"
+            single
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Save </ElButton>
+          <ElButton type="primary" @click="onSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

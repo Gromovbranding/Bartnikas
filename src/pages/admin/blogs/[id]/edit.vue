@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { UploadUserFile } from "element-plus";
 import { IBlog } from "~/types/admin-api";
 
 definePageMeta({
@@ -7,13 +8,8 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchGetImages } = useApi();
+const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
-
-const { data: entity } = useAsyncData<IBlog>(
-  "entity",
-  async () => await fetchGet(`/blogs/${route.params.id}`)
-);
 
 const rules = reactive({
   title: [
@@ -23,7 +19,7 @@ const rules = reactive({
       trigger: "change",
     },
   ],
-  desc: [
+  description: [
     {
       required: true,
       message: "Please input Desc",
@@ -39,13 +35,44 @@ const rules = reactive({
   ],
 });
 
-const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
+const fileList = ref<any[]>([]);
 
 const form = reactive({
-  title: entity.value?.title ?? "",
-  description: entity.value?.description ?? "",
-  text: entity.value?.text ?? "",
+  title: "",
+  description: "",
+  text: "",
 });
+
+getBlog();
+
+const handleUpload = (files: UploadUserFile[]) => {
+  fileList.value = files;
+};
+
+function getBlog() {
+  const { data: entity } = useAsyncData<IBlog>(
+    "blogs",
+    async () => await fetchGet(`/blogs/${route.params.id}`)
+  );
+  form.title = entity.value?.title || "";
+  form.description = entity.value?.description || "";
+  form.text = entity.value?.text || "";
+  fileList.value = entity.value?.images || [];
+}
+
+function onSave() {
+  const images = fileList.value.map((item) => ({
+    name: item.response?.name || item.name,
+    url: item.response?.url || item.url,
+  }));
+  const { description, title, text } = form;
+  fetchPatch(`/blogs/${route.params.id}`, {
+    text,
+    title,
+    description,
+    images,
+  });
+}
 </script>
 
 <template>
@@ -65,7 +92,7 @@ const form = reactive({
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem required label="Description" prop="desc">
+        <ElFormItem required label="Description" prop="description">
           <ElInput v-model="form.description" :rows="5" type="textarea" />
         </ElFormItem>
 
@@ -74,11 +101,15 @@ const form = reactive({
         </ElFormItem>
 
         <ElFormItem required label="Images">
-          <AdminUploadImage :list="fileList" />
+          <AdminUploadImage
+            :list="fileList"
+            single
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Save </ElButton>
+          <ElButton type="primary" @click="onSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

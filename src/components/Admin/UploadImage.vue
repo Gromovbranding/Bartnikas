@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
-import { IFile } from "~/types/admin-api";
+// import { IFile } from "~/types/admin-api";
 
 const { fetchRemoveImage } = useApi();
 const { accessToken } = useAdmin();
 
 const props = defineProps<{
   list: UploadProps["fileList"];
+  single?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -21,7 +22,11 @@ const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
 };
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
-  return Boolean(await fetchRemoveImage((file.response as IFile).id));
+  if (file.id) await fetchRemoveImage(file.id);
+};
+
+const handleUpload: UploadProps["onSuccess"] = (file) => {
+  if (props.single) fileList.value = [file];
 };
 
 const isPreviewImageVisible = ref<boolean>(false);
@@ -30,6 +35,13 @@ const previewImageUrl = ref<string>();
 watchEffect(() => {
   emit("uploadFile", fileList.value);
 });
+
+function onClickDelete(e: Event) {
+  const btn = e.target as HTMLButtonElement;
+  btn.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
+  );
+}
 </script>
 
 <template>
@@ -45,13 +57,23 @@ watchEffect(() => {
       accept="image/png, image/jpeg, image/jpg"
       :on-remove="handleRemove"
       :on-preview="handlePictureCardPreview"
+      :on-success="handleUpload"
     >
       <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
       <div class="el-upload__text">
         Drop file here or <em>click to upload</em>
       </div>
       <template #file="{ file }">
-        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+        <img
+          class="el-upload-list__item-thumbnail"
+          :src="file.url"
+          alt=""
+          @click="handlePictureCardPreview(file)"
+        />
+        <div class="file">
+          <span class="filename">{{ file.name }}</span>
+          <button type="button" @click="onClickDelete">Delete image</button>
+        </div>
       </template>
       <template #tip>
         <div>jpg/jpeg/png files with a size less than 500kb</div>
@@ -63,3 +85,16 @@ watchEffect(() => {
     </ElDialog>
   </div>
 </template>
+
+<style scoped lang="scss">
+.file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 1rem;
+  button {
+    padding-inline: 0.5rem;
+  }
+}
+</style>

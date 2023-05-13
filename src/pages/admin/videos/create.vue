@@ -13,13 +13,13 @@ const form = reactive([
   {
     value: "",
     label: "Title",
-    type: "input",
+    type: "text",
     prop: "title",
   },
   {
     value: "",
     label: "Group",
-    type: "input",
+    type: "text",
     prop: "group",
   },
 ]);
