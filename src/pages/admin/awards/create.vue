@@ -122,14 +122,13 @@ const handleCreate = (
       <AdminCardCreateAwards
         :form="[
           {
-            value: 'Moscow International Photo Awards',
+            value: '',
             label: 'Title',
             type: 'text',
             prop: 'title',
           },
           {
-            value:
-              'Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            value: '',
             label: 'Description',
             type: 'textarea',
             prop: 'description',
