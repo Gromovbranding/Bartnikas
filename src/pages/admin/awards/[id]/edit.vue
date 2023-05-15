@@ -1,6 +1,18 @@
 <script lang="ts" setup>
-import type { FormRules } from "element-plus";
-import { IArticle } from "~/types/admin-api";
+import { UploadUserFile } from "element-plus";
+import { IProject } from "~/types/admin-api";
+
+interface ImageDetails {
+  [key: number]: {
+    name: string;
+    price: number;
+    sizes: {
+      width: number;
+      height: number;
+      unit: "cm";
+    }[];
+  };
+}
 
 definePageMeta({
   validate(route) {
@@ -8,58 +20,92 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchGetImages } = useApi();
+const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<IArticle>(
-  "entity",
-  async () => await fetchGet(`/news/${route.params.id}`)
-);
-
-const rules = reactive<FormRules>({
+const rules = reactive({
   title: [
     {
       required: true,
-      message: "Please input Title",
+      message: "Please input title",
       trigger: "change",
     },
   ],
-  desc: [
+  description: [
     {
       required: true,
-      message: "Please input Desc",
-      trigger: "change",
-    },
-  ],
-  text: [
-    {
-      required: true,
-      message: "Please input Text",
-      trigger: "change",
-    },
-  ],
-  is_hot: [
-    {
+      message: "Please input description",
       trigger: "change",
     },
   ],
 });
 
-const fileList = ref(await fetchGetImages(entity.value?.images ?? []));
+const projectImages = ref<ImageDetails>({});
+const fileList = ref<any[]>([]);
 
 const form = reactive({
-  title: entity.value?.title ?? "",
-  description: entity.value?.description ?? "",
-  text: entity.value?.text ?? "",
+  title: "",
+  description: "",
 });
+
+getProject();
+
+const handleUpload = (files: UploadUserFile[]) => {
+  fileList.value = files;
+};
+
+function getProject() {
+  const { data: entity } = useAsyncData<IProject>(
+    "projects",
+    async () => await fetchGet(`/projects/${route.params.id}`)
+  );
+  form.title = entity.value?.title || "";
+  form.description = entity.value?.description || "";
+  entity.value?.details.forEach((item, idx) => {
+    fileList.value.push({
+      ...item.image,
+      uid: idx + 1,
+    });
+    projectImages.value[idx + 1] = {
+      name: item.image_name,
+      price: item.price,
+      sizes: item.sizes,
+    };
+  });
+}
+
+function onSave() {
+  const { description, title } = form;
+  const details: any[] = [];
+  fileList.value.forEach((item) => {
+    const { sizes, name, price } = projectImages.value[item.uid];
+    const image = item.response
+      ? item.response
+      : {
+          name: item.name,
+          url: item.url,
+        };
+    details.push({
+      sizes,
+      price,
+      image_name: name,
+      image,
+    });
+  });
+  fetchPatch(`/projects/${route.params.id}`, {
+    title,
+    description,
+    details,
+  });
+}
 </script>
 
 <template>
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> Article: "{{ form.title }}" </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/awards')">
+        <span> Project {{ form.title }} </span>
+        <ElButton type="default" plain @click="navigateTo('/admin/projects')">
           Back
         </ElButton>
       </div>
@@ -71,20 +117,20 @@ const form = reactive({
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Description" prop="desc">
+        <ElFormItem label="Description" prop="description">
           <ElInput v-model="form.description" :rows="5" type="textarea" />
         </ElFormItem>
 
-        <ElFormItem label="Text" prop="text">
-          <ElInput v-model="form.text" :rows="5" type="textarea" />
-        </ElFormItem>
-
-        <ElFormItem required label="Images">
-          <AdminUploadImage :list="fileList" />
+        <ElFormItem required label="Project Images">
+          <AdminUploadProjectImage
+            :image-details="projectImages"
+            :list="fileList"
+            @uploadFile="handleUpload"
+          />
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary"> Save </ElButton>
+          <ElButton type="primary" @click="onSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

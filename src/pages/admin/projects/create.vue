@@ -34,27 +34,6 @@ const handleCreate = (
   images: UploadUserFile[],
   imageDetails: ImageDetails
 ) => {
-  // const details: PartialAdminApiDto<IProjectImageDetail>[] = [];
-
-  // images.forEach((item) => {
-  //   const image = item.response as IFile;
-  //   const sizes = [
-  //     {
-  //       width: 100,
-  //       height: 100,
-  //       unit: ListUnitSize.cm,
-  //     },
-  //   ] as PartialAdminApiDto<IProjectImageSizes>[];
-
-  //   details.push({
-  //     price: 100,
-  //     image_name: "image name photo",
-  //     sizes,
-  //     image,
-  //   } as PartialAdminApiDto<IProjectImageDetail>);
-  // });
-
-  // body.details = details;
   const details: any[] = [];
   const { description, title } = body;
   images.forEach((img) => {
@@ -66,32 +45,8 @@ const handleCreate = (
       image: img.response,
     });
   });
-
-  // await fetchPost("files", body);
   fetchPost("/projects", { title, description, details });
 };
-
-// {
-//   "title": "string",
-//   "description": "string",
-//   "details": [
-//     {
-//       "sizes": [
-//         {
-//           "width": 0,
-//           "height": 0,
-//           "unit": "cm"
-//         }
-//       ],
-//       "price": 0,
-//       "image_name": "string",
-//       "image": {
-//         "name": "string",
-//         "url": "string"
-//       }
-//     }
-//   ]
-// }
 </script>
 
 <template>

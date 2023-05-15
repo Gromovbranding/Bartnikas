@@ -1,40 +1,94 @@
 <script lang="ts" setup>
-// import { UploadUserFile } from "element-plus";
-// import { IAwards } from "~/types/admin-api";
+import { UploadUserFile } from "element-plus";
+import {
+  // IProjectImageSizes,
+  // IFile,
+  IProject,
+  // IProjectImageDetail,
+  // ListUnitSize,
+  PartialAdminApiDto,
+} from "~/types/admin-api";
+
+interface ImageDetails {
+  [key: number]: {
+    year: string;
+    groups: {
+      type: "Gold" | "Silver";
+      images: {
+        name: string;
+        url: string;
+      }[];
+    };
+  };
+}
 
 const name = ref("Add Award");
-// const { fetchPost } = useApi();
 
 useHeadSafe({
   title: name.value,
 });
 
-const form = reactive([
-  {
-    value: "",
-    label: "Title",
-    type: "text",
-    prop: "title",
-  },
-  {
-    value: "",
-    label: "Description",
-    type: "textarea",
-    prop: "description",
-  },
-]);
+const { fetchPost } = useApi();
 
-const handleCreate = () =>
-  // body: IAwards | null = null
-  // images: UploadUserFile[]
-  {
-    // if (!body) return;
-    // const { description, title } = body;
-    // fetchPost("/awards", {
-    //   title,
-    //   description,
-    // });
-  };
+const handleCreate = (
+  body: PartialAdminApiDto<IProject>,
+  avatar: UploadUserFile[],
+  images: UploadUserFile[],
+  imageDetails: ImageDetails
+) => {
+  console.log("avatar", avatar);
+  const { title, description } = body;
+  const degress: ImageDetails[number][] = [];
+  const imagesByYear: {
+    [key: string]: any[];
+  } = {};
+  images.forEach((item) => {
+    const img = imageDetails[item.uid!];
+    if (img.year in imagesByYear) {
+      imagesByYear[img.year].push({
+        type: img.groups,
+        image: item.response,
+      });
+      return;
+    }
+    imagesByYear[img.year] = [
+      {
+        type: img.groups,
+        image: item.response,
+      },
+    ];
+  });
+  Object.keys(imagesByYear).forEach((year) => {
+    const gold = {
+      type: "Gold",
+      images: [] as any[],
+    };
+    const silver = {
+      type: "Silver",
+      images: [] as any[],
+    };
+    imagesByYear[year].forEach((item) => {
+      if (item.type === "Gold") return gold.images.push(item.image);
+      silver.images.push(item.image);
+    });
+    degress.push({
+      year,
+      groups: [
+        ...(gold.images.length > 0 ? [gold] : []),
+        ...(silver.images.length > 0 ? [silver] : []),
+      ],
+    });
+  });
+  fetchPost("/awards", {
+    title,
+    description,
+    degress,
+    awards_avatar: {
+      name: avatar[0].name,
+      url: avatar[0].url,
+    },
+  });
+};
 
 // {
 //   "awards_avatar": {
@@ -45,7 +99,7 @@ const handleCreate = () =>
 //   "description": "string",
 //   "degress": [
 //     {
-//       "year": "2023-05-12T03:07:58.281Z",
+//       "year": "string",
 //       "groups": [
 //         {
 //           "type": "Gold",
@@ -66,10 +120,24 @@ const handleCreate = () =>
   <div>
     <ClientOnly>
       <AdminCardCreateAwards
-        :form="form"
+        :form="[
+          {
+            value: 'Moscow International Photo Awards',
+            label: 'Title',
+            type: 'text',
+            prop: 'title',
+          },
+          {
+            value:
+              'Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            label: 'Description',
+            type: 'textarea',
+            prop: 'description',
+          },
+        ]"
         :name="name"
-        back="awards"
         :cb-create="handleCreate"
+        back="projects"
       />
     </ClientOnly>
   </div>

@@ -12,37 +12,19 @@ interface ICreateFormFormatted {
   [x: string]: string | boolean;
 }
 
-interface ImageDetails {
-  [key: number]: {
-    year: string;
-    groups: {
-      type: "Gold" | "Silver";
-      images: {
-        name: string;
-        url: string;
-      }[];
-    }[];
-  };
-}
-
 const props = defineProps<{
   name: string;
   back: string;
-  video?: boolean;
   cbCreate: (
     body: ICreateFormFormatted,
-    avatar: UploadUserFile[],
-    images: UploadUserFile[],
-    details: ImageDetails
+    images: UploadUserFile[]
   ) => Promise<void>;
   form: IForm[];
 }>();
 
 const formModel = ref<IForm[]>([]);
 const filesModel = ref<UploadUserFile[]>([]);
-const avatarModel = ref<UploadUserFile[]>([]);
 const formRef = ref<FormInstance>();
-const awardImages = ref<ImageDetails>({});
 
 onMounted(() => {
   formModel.value = props.form;
@@ -59,12 +41,7 @@ const create = async (formEl: FormInstance | undefined) => {
         formattedFormModel[item.prop] = item.value;
       });
 
-      await props.cbCreate(
-        formattedFormModel,
-        avatarModel.value,
-        filesModel.value,
-        awardImages.value
-      );
+      await props.cbCreate(formattedFormModel, filesModel.value);
     }
   });
 };
@@ -76,10 +53,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 const handleUpload = (files: UploadUserFile[]) => {
   filesModel.value = files;
-};
-
-const handleAvatarUpload = (files: UploadUserFile[]) => {
-  avatarModel.value = files;
 };
 </script>
 
@@ -110,20 +83,8 @@ const handleAvatarUpload = (files: UploadUserFile[]) => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem required label="Award Avatar">
-          <AdminUploadImage
-            :list="avatarModel"
-            single
-            @uploadFile="handleAvatarUpload"
-          />
-        </ElFormItem>
-
         <ElFormItem required label="Images">
-          <AdminUploadAwardImage
-            :image-details="awardImages"
-            :list="filesModel"
-            @uploadFile="handleUpload"
-          />
+          <AdminUploadImage :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
 
         <ElFormItem>
