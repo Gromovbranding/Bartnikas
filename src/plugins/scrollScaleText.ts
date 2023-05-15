@@ -6,7 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const elementOffsetBottom = elementRect.bottom;
 
     const coef =
-      (windowOffsetBottom - elementOffsetTop) /
+      (windowOffsetBottom - elementOffsetTop / 2) /
       (elementOffsetBottom - elementOffsetTop);
 
     return coef > 1 ? 1 : coef;
