@@ -14,7 +14,7 @@ interface ICreateFormFormatted {
 
 interface ImageDetails {
   [key: number]: {
-    year: string;
+    year: number;
     groups: {
       type: "Gold" | "Silver";
       images: {

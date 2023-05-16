@@ -4,7 +4,7 @@ import { IFile } from "~/types/admin-api";
 
 interface ImageDetails {
   [key: number]: {
-    year: string;
+    year: number;
     groups: {
       type: "Gold" | "Silver";
       images: {
@@ -114,7 +114,7 @@ function onClickDelete(e: Event) {
         <div class="img" @keydown.stop>
           <div class="img__details">
             <label
-              >Year: <input v-model="awardImages[file.uid!].year" type="text"
+              >Year: <input v-model="awardImages[file.uid!].year" type="number"
             /></label>
             <label
               >Type:

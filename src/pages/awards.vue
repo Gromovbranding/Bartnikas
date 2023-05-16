@@ -41,14 +41,14 @@ function showImg(img: string) {
             </p>
           </div>
         </div>
-        <div class="awards__link">
+        <!-- <div class="awards__link">
           <div
             v-for="item in award.degress"
             :key="item.id"
             class="awards__list"
           >
             <div>
-              <b>{{ new Date(item.year).getFullYear() }}</b>
+              <b>{{ item.year }}</b>
             </div>
             <div
               v-for="group in item.groups"
@@ -70,6 +70,44 @@ function showImg(img: string) {
                     <IconArrow is-arrow30-deg />
                   </small>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="awards__photo">
+          <div
+            v-for="item in award.degress"
+            :key="item.id"
+            class="awards__photo__item"
+          >
+            <div class="year">{{ item.year }}</div>
+            <div class="groups">
+              <div
+                v-for="group in item.groups"
+                :key="`group-${group.id}`"
+                class="groups__item"
+              >
+                <template v-if="group.images.length > 1">
+                  <div>{{ `${item.groups.length} ${group.type}:` }}</div>
+                  <div
+                    v-for="(img, idx) in group.images.slice(0, 2)"
+                    :key="`img-${img.id}`"
+                    class="slide"
+                    @click="showImg(img.url)"
+                  >
+                    {{ `${idx + 1} Photo` }}<IconArrow is-arrow30-deg />
+                  </div>
+                </template>
+                <template v-else>
+                  <div
+                    v-for="img in group.images"
+                    :key="`img-${img.id}`"
+                    class="slide"
+                    @click="showImg(img.url)"
+                  >
+                    1 {{ group.type }} <IconArrow is-arrow30-deg />
+                  </div>
+                </template>
               </div>
             </div>
           </div>
@@ -112,6 +150,45 @@ function showImg(img: string) {
 </template>
 
 <style lang="scss" scoped>
+.awards__photo {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .slide {
+    position: relative;
+    transition-duration: 200ms;
+    cursor: pointer;
+    &:hover {
+      transform: translateY(-25%);
+    }
+  }
+  svg {
+    width: 0.7em;
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: flex-end;
+    gap: 2rem;
+    font-size: 2rem;
+    border-bottom: 1px solid #000;
+    padding: 1rem;
+    white-space: nowrap;
+    .year {
+      font-weight: 700;
+    }
+  }
+  .groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &__item {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
 .dialog {
   background: none;
   border: none;
@@ -143,7 +220,7 @@ function showImg(img: string) {
 .awards {
   display: flex;
   flex-direction: column;
-  gap: 200px;
+  gap: 10rem;
   background-color: $colorBackgroundGreyDarken;
   padding: 80px 40px;
 
@@ -152,6 +229,7 @@ function showImg(img: string) {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5rem;
   }
 
   &__circle {
@@ -164,6 +242,10 @@ function showImg(img: string) {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
+    a {
+      cursor: default;
+    }
 
     img {
       width: 17vw;
@@ -203,6 +285,7 @@ function showImg(img: string) {
     justify-content: space-between;
     border-bottom: 1px solid #000;
     padding: 0vw 2vw 1.5vw 2vw;
+    justify-content: flex-start;
 
     p {
       font-size: 2.2vw;
@@ -247,6 +330,19 @@ function showImg(img: string) {
     display: flex;
     flex-direction: column;
     gap: 30px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .awards {
+    &__circle {
+      img {
+        filter: grayscale(0);
+      }
+    }
+    &__item {
+      gap: 1rem;
+    }
   }
 }
 
@@ -338,6 +434,9 @@ function showImg(img: string) {
   .single {
     margin-top: 0 !important;
     margin-left: 9vw;
+  }
+  .awards__photo {
+    width: 100%;
   }
 }
 </style>

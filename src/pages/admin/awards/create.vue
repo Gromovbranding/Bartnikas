@@ -11,7 +11,7 @@ import {
 
 interface ImageDetails {
   [key: number]: {
-    year: string;
+    year: number;
     groups: {
       type: "Gold" | "Silver";
       images: {
@@ -36,11 +36,10 @@ const handleCreate = (
   images: UploadUserFile[],
   imageDetails: ImageDetails
 ) => {
-  console.log("avatar", avatar);
   const { title, description } = body;
   const degress: ImageDetails[number][] = [];
   const imagesByYear: {
-    [key: string]: any[];
+    [key: number]: any[];
   } = {};
   images.forEach((item) => {
     const img = imageDetails[item.uid!];
@@ -72,7 +71,7 @@ const handleCreate = (
       silver.images.push(item.image);
     });
     degress.push({
-      year,
+      year: Number(year),
       groups: [
         ...(gold.images.length > 0 ? [gold] : []),
         ...(silver.images.length > 0 ? [silver] : []),
@@ -89,31 +88,6 @@ const handleCreate = (
     },
   });
 };
-
-// {
-//   "awards_avatar": {
-//     "name": "string",
-//     "url": "string"
-//   },
-//   "title": "string",
-//   "description": "string",
-//   "degress": [
-//     {
-//       "year": "string",
-//       "groups": [
-//         {
-//           "type": "Gold",
-//           "images": [
-//             {
-//               "name": "string",
-//               "url": "string"
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//   ]
-// }
 </script>
 
 <template>
