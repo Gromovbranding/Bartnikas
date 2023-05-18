@@ -41,8 +41,13 @@ export default defineNuxtConfig({
     },
   },
 
+  debug: true,
+
+  logLevel: "silent",
+
   nitro: {
     preset: "node-cluster",
+    logLevel: 5,
   },
 
   vite: {
