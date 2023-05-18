@@ -43,6 +43,10 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    preset: "node-cluster",
+  },
+
   vite: {
     css: {
       preprocessorOptions: {
