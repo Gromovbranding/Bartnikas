@@ -3,7 +3,10 @@ const { getCountAllAwards, cart } = usePublicData();
 
 const route = useRoute();
 const isMenuVisible = ref(false);
-const awardsCount = ref(Number(await getCountAllAwards()));
+const { data: awardsCount } = await useAsyncData<number>(
+  "awardsCount",
+  async () => await getCountAllAwards()
+);
 
 watch(
   () => route.path,

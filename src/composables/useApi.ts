@@ -2,7 +2,7 @@ import type { NitroFetchOptions } from "nitropack";
 import type { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
-  const config = useRuntimeConfig().public;
+  const config = useRuntimeConfig();
   const { accessToken } = useAdmin();
   const route = useRoute();
 
@@ -72,10 +72,6 @@ export const useApi = () => {
     return await fetchApi<T>(path, "PATCH", body);
   };
 
-  const fetchUpdate = async <T>(path: string) => {
-    return await fetchApi<T>(path, "GET");
-  };
-
   const fetchGetImage = async (name: string) => {
     return await fetchApi<Blob>(`/files/${name}`, "GET", null, {
       responseType: "blob",
@@ -136,7 +132,6 @@ export const useApi = () => {
   return {
     fetchDelete,
     fetchPost,
-    fetchUpdate,
     fetchGet,
     logout,
     login,
