@@ -4,7 +4,7 @@ import { IFile } from "~/types/admin-api";
 
 interface ImageDetails {
   [key: number]: {
-    name: string;
+    image_name: string;
     price: number;
     sizes: {
       width: number;
@@ -61,7 +61,7 @@ watch(
     if (!file[0].uid) return;
     const idx = file.length - 1;
     projectImages.value[file[idx].uid!] = {
-      name: "",
+      image_name: "",
       price: 0,
       sizes: [
         {
@@ -110,7 +110,8 @@ function onClickDelete(e: Event) {
         <div class="img" @keydown.stop>
           <div class="img__details">
             <label
-              >Name: <input v-model="projectImages[file.uid!].name" type="text"
+              >Name:
+              <input v-model="projectImages[file.uid!].image_name" type="text"
             /></label>
             <label
               >Price:

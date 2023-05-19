@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { FormRules } from "element-plus";
-import { ITestimonial } from "~/types/admin-api";
+import type { FormRules, UploadUserFile } from "element-plus";
+import { IFile, ITestimonial } from "@/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -11,7 +11,7 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<ITestimonial>(
+const { data: entity, refresh } = useAsyncData<ITestimonial>(
   "testimonial",
   async () => await fetchGet(`/testimonials/${route.params.id}`)
 );
@@ -33,50 +33,29 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const fileList = ref<any[]>([]);
+const fileList = ref<(IFile | UploadUserFile)[]>(
+  [entity.value?.file].filter(Boolean)
+);
 
 const form = reactive({
   title: entity.value?.title ?? "",
   additional_info: entity.value?.additional_info ?? "",
 });
 
-getTestimonial();
-
-const handleUpload = (files: any[]) => {
+const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
 };
 
-function getTestimonial() {
-  const { data: entity } = useAsyncData<ITestimonial>(
-    "testimonial",
-    async () => await fetchGet(`/testimonials/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.additional_info = entity.value?.additional_info || "";
-  fileList.value = [entity.value?.file] || [];
-}
-
-function onSave() {
-  const file = fileList.value.map((item) => ({
-    name: item.response?.name || item.name,
-    url: item.response?.url || item.url,
-  }));
-  const { title, additional_info: info } = form;
-  fetchPatch(`/testimonials/${route.params.id}`, {
-    title,
-    additional_info: info,
-    file: file[0],
+const handlePatch = async () => {
+  await fetchPatch(`/testimonials/${route.params.id}`, {
+    ...form,
+    file: fileList.value.map((item) => ({
+      name: item.response?.name ?? item.name,
+    }))[0],
   });
-}
 
-// {
-//   "title": "string",
-//   "additional_info": "string",
-//   "file": {
-//     "name": "string",
-//     "url": "string"
-//   }
-// }
+  await refresh();
+};
 </script>
 
 <template>
@@ -113,7 +92,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handlePatch"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

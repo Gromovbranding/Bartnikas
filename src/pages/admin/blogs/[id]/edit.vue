@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
-import { IBlog } from "~/types/admin-api";
+import { IBlog, IFile } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -10,6 +10,11 @@ definePageMeta({
 
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
+
+const { data: entity } = useAsyncData<IBlog>(
+  "blogs",
+  async () => await fetchGet(`/blogs/${route.params.id}`)
+);
 
 const rules = reactive({
   title: [
@@ -35,44 +40,28 @@ const rules = reactive({
   ],
 });
 
-const fileList = ref<any[]>([]);
+const fileList = ref<(IFile | UploadUserFile)[]>(entity.value?.images ?? []);
 
 const form = reactive({
-  title: "",
-  description: "",
-  text: "",
+  title: entity.value?.title ?? "",
+  description: entity.value?.description ?? "",
+  text: entity.value?.text ?? "",
 });
-
-getBlog();
 
 const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
 };
 
-function getBlog() {
-  const { data: entity } = useAsyncData<IBlog>(
-    "blogs",
-    async () => await fetchGet(`/blogs/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.description = entity.value?.description || "";
-  form.text = entity.value?.text || "";
-  fileList.value = entity.value?.images || [];
-}
-
-function onSave() {
+const handlePatch = async () => {
   const images = fileList.value.map((item) => ({
-    name: item.response?.name || item.name,
-    url: item.response?.url || item.url,
+    name: item.response?.name ?? item.name,
   }));
-  const { description, title, text } = form;
-  fetchPatch(`/blogs/${route.params.id}`, {
-    text,
-    title,
-    description,
+
+  await fetchPatch(`/blogs/${route.params.id}`, {
+    ...form,
     images,
   });
-}
+};
 </script>
 
 <template>
@@ -109,7 +98,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handlePatch"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

@@ -14,7 +14,7 @@ interface ICreateFormFormatted {
 
 interface ImageDetails {
   [key: number]: {
-    name: string;
+    image_name: string;
     price: number;
     sizes: {
       width: number;

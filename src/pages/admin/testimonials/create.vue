@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
-import { ITestimonial } from "~/types/admin-api";
+import { ITestimonial, PartialAdminApiDto } from "~/types/admin-api";
 
 const name = ref("Add testimonial");
 const { fetchPost } = useApi();
@@ -24,27 +24,17 @@ const form = reactive([
   },
 ]);
 
-const handleCreate = (
-  body: ITestimonial | null = null,
+const handleCreate = async (
+  body: PartialAdminApiDto<ITestimonial> | null,
   videos: UploadUserFile[]
 ) => {
   if (!body) return;
-  const { title, additional_info: info } = body;
-  fetchPost("/testimonials", {
-    title,
-    additional_info: info,
+
+  await fetchPost("/testimonials", {
+    ...body,
     file: videos[0].response,
   });
 };
-
-// {
-//   "title": "string",
-//   "additional_info": "string",
-//   "file": {
-//     "name": "string",
-//     "url": "string"
-//   }
-// }
 </script>
 
 <template>

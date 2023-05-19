@@ -1,6 +1,7 @@
+<!-- eslint-disable camelcase -->
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
-import { IArticle } from "~/types/admin-api";
+import { IArticle, PartialAdminApiDto } from "~/types/admin-api";
 
 const name = ref("Create Article");
 const { fetchPost } = useApi();
@@ -36,22 +37,16 @@ const form = reactive([
   },
 ]);
 
-const handleCreate = (
-  body: IArticle | null = null,
+const handleCreate = async (
+  body: PartialAdminApiDto<IArticle> | null,
   images: UploadUserFile[]
 ) => {
   if (!body) return;
-  const { title, description, is_hot: isHot, text } = body;
-  const reqImages = images.map((img) => ({
-    url: img.response.url,
-    name: img.response.name,
-  }));
-  fetchPost("/news", {
-    title,
-    description,
-    is_hot: isHot,
-    text,
-    images: reqImages,
+  await fetchPost<IArticle>("/news", {
+    ...body,
+    images: images.map((img) => ({
+      name: img.response?.name,
+    })),
   });
 };
 </script>

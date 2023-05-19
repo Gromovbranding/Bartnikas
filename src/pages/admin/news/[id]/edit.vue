@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { FormRules } from "element-plus";
-import { IArticle } from "~/types/admin-api";
+import type { FormRules, UploadUserFile } from "element-plus";
+import { IArticle, IFile } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -11,7 +11,7 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<IArticle>(
+const { data: entity, refresh } = useAsyncData<IArticle>(
   "news",
   async () => await fetchGet(`/news/${route.params.id}`)
 );
@@ -40,11 +40,7 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const fileList = ref<any[]>([]);
-
-const handleUpload = (files: any) => {
-  fileList.value = files;
-};
+const fileList = ref<IFile[] | UploadUserFile[]>(entity.value?.images ?? []);
 
 const form = reactive({
   title: entity.value?.title ?? "",
@@ -53,33 +49,20 @@ const form = reactive({
   is_hot: entity.value?.is_hot,
 });
 
-getNews();
+const handleUpload = (files: UploadUserFile[]) => {
+  fileList.value = files;
+};
 
-function getNews() {
-  const { data: entity } = useAsyncData<IArticle>(
-    "news",
-    async () => await fetchGet(`/news/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.description = entity.value?.description || "";
-  form.text = entity.value?.text || "";
-  fileList.value = entity.value?.images || [];
-}
-
-function onSave() {
-  const images = fileList.value.map((item) => ({
-    name: item.name,
-    url: item.url,
-  }));
-  const { description, title, text } = form;
-  fetchPatch(`/news/${route.params.id}`, {
-    text,
-    title,
-    description,
-    is_hot: form.is_hot,
-    images,
+const handlePatch = async () => {
+  await fetchPatch<IArticle>(`/news/${route.params.id}`, {
+    ...form,
+    images: fileList.value.map((item) => ({
+      name: item.name,
+    })),
   });
-}
+
+  await refresh();
+};
 </script>
 
 <template>
@@ -120,7 +103,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handlePatch"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

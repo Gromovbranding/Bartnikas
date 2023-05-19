@@ -1,18 +1,12 @@
+<!-- eslint-disable camelcase -->
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
-import { IProject } from "~/types/admin-api";
-
-interface ImageDetails {
-  [key: number]: {
-    name: string;
-    price: number;
-    sizes: {
-      width: number;
-      height: number;
-      unit: "cm";
-    }[];
-  };
-}
+import {
+  IProject,
+  IProjectImageDetail,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -22,6 +16,11 @@ definePageMeta({
 
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
+
+const { data: entity, refresh } = useAsyncData<IProject>(
+  "projects",
+  async () => await fetchGet(`/projects/${route.params.id}`)
+);
 
 const rules = reactive({
   title: [
@@ -40,64 +39,55 @@ const rules = reactive({
   ],
 });
 
-const projectImages = ref<ImageDetails>({});
-const fileList = ref<any[]>([]);
+const projectImages = ref<
+  Omit<PartialAdminApiDto<IProjectImageDetail>, "image">[]
+>(
+  (entity.value?.details ?? []).map((item) => ({
+    image_name: item.image_name,
+    sizes: item.sizes,
+    price: item.price,
+  }))
+);
+
+const fileList = ref<any[]>(
+  (entity.value?.details ?? []).map((item, idx) => ({
+    ...item.image,
+    uid: idx,
+  }))
+);
 
 const form = reactive({
-  title: "",
-  description: "",
+  title: entity.value?.title ?? "",
+  description: entity.value?.description ?? "",
 });
-
-getProject();
 
 const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
 };
 
-function getProject() {
-  const { data: entity } = useAsyncData<IProject>(
-    "projects",
-    async () => await fetchGet(`/projects/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.description = entity.value?.description || "";
-  entity.value?.details.forEach((item, idx) => {
-    fileList.value.push({
-      ...item.image,
-      uid: idx + 1,
-    });
-    projectImages.value[idx + 1] = {
-      name: item.image_name,
-      price: item.price,
-      sizes: item.sizes,
+const handlePatch = async () => {
+  const details = fileList.value.map((item) => {
+    const { sizes, image_name, price } = projectImages.value[item.uid];
+
+    return {
+      image_name,
+      price,
+      sizes,
+      image: (item.response
+        ? item.response
+        : {
+            name: item.name,
+          }) as PartialFileAdminApiDto,
     };
   });
-}
 
-function onSave() {
-  const { description, title } = form;
-  const details: any[] = [];
-  fileList.value.forEach((item) => {
-    const { sizes, name, price } = projectImages.value[item.uid];
-    const image = item.response
-      ? item.response
-      : {
-          name: item.name,
-          url: item.url,
-        };
-    details.push({
-      sizes,
-      price,
-      image_name: name,
-      image,
-    });
-  });
-  fetchPatch(`/projects/${route.params.id}`, {
-    title,
-    description,
+  await fetchPatch(`/projects/${route.params.id}`, {
+    ...form,
     details,
   });
-}
+
+  await refresh();
+};
 </script>
 
 <template>
@@ -130,7 +120,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handlePatch"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

@@ -10,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData<IContact[]>(
+const { data: entites, refresh } = useAsyncData<IContact[]>(
   "entites",
   async () => await fetchGet("/contacts")
 );
@@ -18,7 +18,7 @@ const { data: entites } = useAsyncData<IContact[]>(
 const handleDelete = async () => {
   try {
     await fetchDelete(`/contacts/${projectIdDelete.value}`);
-    await refreshNuxtData("entites");
+    await refresh();
   } finally {
     isDialogDelete.value = false;
     projectIdDelete.value = null;

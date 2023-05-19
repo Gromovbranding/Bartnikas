@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { FormRules } from "element-plus";
-import { IVideoCollection } from "~/types/admin-api";
+import type { FormRules, UploadUserFile } from "element-plus";
+import { IFile, IVideoCollection } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -10,6 +10,11 @@ definePageMeta({
 
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
+
+const { data: entity } = useAsyncData<IVideoCollection>(
+  "videos",
+  async () => await fetchGet(`/video-collection/${route.params.id}`)
+);
 
 const rules = reactive<FormRules>({
   title: [
@@ -28,43 +33,33 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const fileList = ref<any[]>([]);
+const fileList = ref<(IFile | UploadUserFile)[]>(
+  [entity.value?.video].filter(Boolean)
+);
 
 const form = reactive({
-  title: "",
-  group: "",
+  title: entity.value?.title ?? "",
+  group: entity.value?.group?.name ?? "",
 });
 
-getVideos();
-
-const handleUpload = (files: any[]) => {
+const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
 };
 
-function getVideos() {
-  const { data: entity } = useAsyncData<IVideoCollection>(
-    "videos",
-    async () => await fetchGet(`/video-collection/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.group = entity.value?.group?.name || "";
-  fileList.value = [entity.value?.video] || [];
-}
-
-function onSave() {
+const handlePatch = async () => {
   const video = fileList.value.map((item) => ({
-    name: item.response?.name || item.name,
-    url: item.response?.url || item.url,
+    name: item.response?.name ?? item.name,
   }));
-  const { title, group } = form;
-  fetchPatch(`/video-collection/${route.params.id}`, {
-    title,
-    ...(video[0]?.url && { video: video[0] }),
+
+  await fetchPatch(`/video-collection/${route.params.id}`, {
+    title: form.title,
     group: {
-      name: group,
+      name: form.group,
     },
+
+    ...(video[0]?.name && { video: video[0] }),
   });
-}
+};
 </script>
 
 <template>
@@ -97,7 +92,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handlePatch"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

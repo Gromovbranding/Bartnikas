@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
-// import { IFile } from "~/types/admin-api";
 
 const { fetchRemoveImage } = useApi();
 const { accessToken } = useAdmin();
@@ -67,14 +66,15 @@ function onClickDelete(e: Event) {
         <img
           class="el-upload-list__item-thumbnail"
           :src="file.url"
-          alt=""
           @click="handlePictureCardPreview(file)"
         />
+
         <div class="file">
           <span class="filename">{{ file.name }}</span>
           <button type="button" @click="onClickDelete">Delete image</button>
         </div>
       </template>
+
       <template #tip>
         <div>jpg/jpeg/png files with a size less than 500kb</div>
       </template>

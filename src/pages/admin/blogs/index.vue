@@ -10,7 +10,7 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites } = useAsyncData<IBlog[]>(
+const { data: entites, refresh } = useAsyncData<IBlog[]>(
   "entites",
   async () => await fetchGet("/blogs")
 );
@@ -26,7 +26,7 @@ const handleEdit = async (row: { id: string }) => {
 const handleDelete = async () => {
   try {
     await fetchDelete(`/blogs/${projectIdDelete.value}`);
-    await refreshNuxtData("entites");
+    await refresh();
   } finally {
     isDialogDelete.value = false;
     projectIdDelete.value = null;

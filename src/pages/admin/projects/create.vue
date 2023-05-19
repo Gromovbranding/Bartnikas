@@ -1,25 +1,12 @@
+<!-- eslint-disable camelcase -->
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
 import {
-  // IProjectImageSizes,
-  // IFile,
   IProject,
-  // IProjectImageDetail,
-  ListUnitSize,
+  IProjectImageDetail,
   PartialAdminApiDto,
+  PartialFileAdminApiDto,
 } from "~/types/admin-api";
-
-interface ImageDetails {
-  [key: number]: {
-    name: string;
-    price: number;
-    sizes: {
-      width: number;
-      height: number;
-      unit: ListUnitSize;
-    }[];
-  };
-}
 
 const name = ref("Create Project");
 
@@ -29,23 +16,29 @@ useHeadSafe({
 
 const { fetchPost } = useApi();
 
-const handleCreate = (
-  body: PartialAdminApiDto<IProject>,
+type ImageDetail = PartialAdminApiDto<IProjectImageDetail> & {
+  [x: string]: PartialAdminApiDto<IProjectImageDetail>;
+};
+
+const handleCreate = async (
+  body: Omit<PartialAdminApiDto<IProject>, "details"> | null,
   images: UploadUserFile[],
-  imageDetails: ImageDetails
+  imageDetails: ImageDetail[]
 ) => {
-  const details: any[] = [];
-  const { description, title } = body;
-  images.forEach((img) => {
-    const { sizes, price, name } = imageDetails[img.uid!];
-    details.push({
-      image_name: name,
+  if (!body) return;
+
+  const details = images.map((img) => {
+    const { sizes, price, image_name } = imageDetails[img.uid!];
+
+    return {
+      image_name,
       price,
       sizes,
-      image: img.response,
-    });
+      image: img.response as PartialFileAdminApiDto,
+    };
   });
-  fetchPost("/projects", { title, description, details });
+
+  await fetchPost("/projects", { ...body, details });
 };
 </script>
 

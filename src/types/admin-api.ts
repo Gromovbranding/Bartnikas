@@ -6,6 +6,11 @@ export interface IFile {
   updated_at: Date;
 }
 
+export type PartialFileAdminApiDto = Omit<
+  IFile,
+  "id" | "updated_at" | "created_at" | "url"
+>;
+
 export interface IBlog {
   id: number;
   title: string;
