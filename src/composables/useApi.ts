@@ -53,6 +53,8 @@ export const useApi = () => {
       fetchConfig.body = body;
     }
 
+    console.log("fetch Config", fetchConfig);
+
     return await $fetch<T>(path, fetchConfig);
   };
 

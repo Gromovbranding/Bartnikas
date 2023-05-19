@@ -5,7 +5,7 @@ module.exports = {
       port: "3000",
       exec_mode: "cluster",
       instances: "max",
-      script: "source .env.production && node ./.output/server/index.mjs",
+      script: "source ./.env.production && node ./.output/server/index.mjs",
     },
   ],
 };
