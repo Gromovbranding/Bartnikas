@@ -11,7 +11,9 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
-    apiBaseUrl: "",
+    public: {
+      apiBaseUrl: "",
+    },
   },
 
   routeRules: {

@@ -2,7 +2,7 @@ import type { NitroFetchOptions } from "nitropack";
 import type { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig().public;
   const { accessToken } = useAdmin();
   const route = useRoute();
 
