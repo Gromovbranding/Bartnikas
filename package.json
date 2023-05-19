@@ -6,8 +6,8 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "nuxt clean && nuxt build --dotenv .env.production",
-    "dev": "nuxt dev -o --dotenv .env.development",
+    "build": "nuxt clean && nuxt build",
+    "dev": "nuxt dev -o",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
