@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: "https://134.209.64.100:8080",
+      apiBaseUrl: "https://stanislavbartnikas.com:8080",
     },
   },
 
