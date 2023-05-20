@@ -49,6 +49,7 @@ export interface IProject {
   title: string;
   description: string;
   details: IProjectImageDetail[];
+  group: string | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -121,18 +122,11 @@ export interface ITestimonial {
   file: IFile;
 }
 
-export interface IVideoCollectionGroup {
-  id: number;
-  name: string;
-  created_at: Date;
-  updated_at: Date;
-}
-
 export interface IVideoCollection {
   id: number;
   title: string;
   video: IFile;
-  group: IVideoCollectionGroup | null;
+  project: IProject | null;
   created_at: Date;
   updated_at: Date;
 }

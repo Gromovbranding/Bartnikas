@@ -7,7 +7,6 @@ import {
   ITestimonial,
   IProjectImageDetail,
   IVideoCollection,
-  IVideoCollectionGroup,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T; prev: T };
@@ -64,9 +63,6 @@ export const usePublicData = () => {
   const getVideoCollectionById = async (id: string | number) =>
     await fetchGet<IVideoCollection>(`video-collection/${id}`);
 
-  const getVideoCollectionGroups = async () =>
-    await fetchGet<IVideoCollectionGroup[]>(`video-collection/group/all`);
-
   return {
     getProjectById,
     getAllProjects,
@@ -84,7 +80,6 @@ export const usePublicData = () => {
     getIndexSlider,
     getAllVideoCollection,
     getVideoCollectionById,
-    getVideoCollectionGroups,
     cart,
   };
 };
