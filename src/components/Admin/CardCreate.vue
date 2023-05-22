@@ -4,8 +4,12 @@ import { FormInstance, UploadUserFile } from "element-plus";
 interface IForm {
   value: string | boolean;
   label: string;
-  type: "text" | "textarea" | "checkbox";
+  type: "text" | "textarea" | "checkbox" | "select";
   prop: string;
+  options?: {
+    value: string | number;
+    label: string;
+  }[];
 }
 
 interface ICreateFormFormatted {
@@ -111,6 +115,19 @@ const handleUpload = (files: UploadUserFile[]) => {
             v-model="item.value"
             size="large"
           />
+          <ElSelect
+            v-else-if="item.type === 'select'"
+            v-model="item.value"
+            clearable
+            placeholder="Select"
+          >
+            <ElOption
+              v-for="option in item.options"
+              :key="option.value"
+              :label="option.label"
+              :value="option.value"
+            />
+          </ElSelect>
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 

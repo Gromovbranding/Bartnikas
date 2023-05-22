@@ -86,7 +86,7 @@ function onClickDelete(e: Event) {
   <div style="width: 100%">
     <ElUpload
       v-model:file-list="fileList"
-      action="http://localhost:8080/files"
+      action="https://stanislavbartnikas.com:8080/files"
       list-type="picture"
       drag
       :headers="{
@@ -107,20 +107,22 @@ function onClickDelete(e: Event) {
           alt=""
           @click="handlePictureCardPreview(file)"
         />
-        <div class="img" @keydown.stop>
+        <div v-if="projectImages[file.uid! - 1]" class="img" @keydown.stop>
           <div class="img__details">
             <label
               >Name:
-              <input v-model="projectImages[file.uid!].image_name" type="text"
+              <input
+                v-model="projectImages[file.uid! - 1].image_name"
+                type="text"
             /></label>
             <label
               >Price:
-              <input v-model="projectImages[file.uid!].price" type="number"
+              <input v-model="projectImages[file.uid! - 1].price" type="number"
             /></label>
           </div>
           <h3>Sizes</h3>
           <div
-            v-for="(item, idx) in projectImages[file.uid!].sizes"
+            v-for="(item, idx) in projectImages[file.uid! - 1].sizes"
             :key="idx"
             class="img__sizes"
           >
@@ -129,7 +131,7 @@ function onClickDelete(e: Event) {
             <button
               v-if="idx !== 0"
               type="button"
-              @click="projectImages[file.uid!].sizes.splice(idx, 1)"
+              @click="projectImages[file.uid! - 1].sizes.splice(idx, 1)"
             >
               delete
             </button>

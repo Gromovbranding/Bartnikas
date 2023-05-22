@@ -25,6 +25,7 @@ const handleRemove: UploadProps["onRemove"] = async (file) => {
 };
 
 const handleUpload: UploadProps["onSuccess"] = (file) => {
+  console.log("file", file);
   if (props.single) fileList.value = [file];
 };
 
@@ -47,7 +48,7 @@ function onClickDelete(e: Event) {
   <div style="width: 100%">
     <ElUpload
       v-model:file-list="fileList"
-      action="http://localhost:8080/files"
+      action="https://stanislavbartnikas.com:8080/files"
       list-type="picture"
       drag
       :headers="{

@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { IVideoCollectionGroup } from "~/types/admin-api";
-
-const { getAllVideoCollection, getVideoCollectionGroups } = usePublicData();
+const { getAllVideoCollection } = usePublicData();
 
 const { data: videos } = useAsyncData(
   "video-collection",
   async () => await getAllVideoCollection()
 );
 
-const { data: groups } = useAsyncData(
-  "video-collection-groups",
-  async () => await getVideoCollectionGroups()
+const groups = computed(() =>
+  videos.value?.map((item) => item.project?.group).filter((group) => group)
 );
 
-function getGroupVideos(group: IVideoCollectionGroup) {
+function getGroupVideos(group: any) {
   if (!videos.value) return [];
-  return videos.value.filter((item) => item.group?.id === group.id);
+  return videos.value.filter((video) => video.project?.group === group);
 }
 </script>
 
@@ -26,11 +23,11 @@ function getGroupVideos(group: IVideoCollectionGroup) {
     <section class="filter">
       <UIButton
         v-for="group in groups"
-        :key="group.id"
-        :to="{ hash: `#${group.name}` }"
+        :key="'group_link-' + group"
+        :to="{ hash: `#${group}` }"
         is-white
       >
-        {{ group.name }}
+        {{ group }}
       </UIButton>
       <!-- <UIButton :to="{ hash: '#backstage' }" is-white> BACKSTAGES </UIButton>
       <UIButton :to="{ hash: '#exhibition' }" is-white> EXHIBITIONS </UIButton>
@@ -39,11 +36,11 @@ function getGroupVideos(group: IVideoCollectionGroup) {
     <div class="collection">
       <section
         v-for="group in groups"
-        :id="group.name"
-        :key="group.id"
+        :id="group"
+        :key="'group-' + group"
         class="collection__item"
       >
-        <AppSectionHeader :is-link="false">{{ group.name }}</AppSectionHeader>
+        <AppSectionHeader :is-link="false">{{ group }}</AppSectionHeader>
         <!-- <div class="collection__select">
           <span>Project:</span>
           <UISelect

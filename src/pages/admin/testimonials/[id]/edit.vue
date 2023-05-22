@@ -11,7 +11,7 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity, refresh } = useAsyncData<ITestimonial>(
+const { data: entity, refresh } = await useAsyncData<ITestimonial>(
   "testimonial",
   async () => await fetchGet(`/testimonials/${route.params.id}`)
 );

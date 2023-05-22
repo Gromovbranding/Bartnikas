@@ -10,8 +10,8 @@ const { fetchDelete, fetchGet } = useApi();
 const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
-const { data: entites, refresh } = useAsyncData<IProject[]>(
-  "entites",
+const { data: entites, refresh } = await useAsyncData<IProject[]>(
+  "projects",
   async () => await fetchGet("/projects")
 );
 
@@ -48,6 +48,7 @@ const handleDelete = async () => {
       <ElTable :data="entites" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
+        <ElTableColumn label="Group" prop="group" width="220" />
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormRules, UploadUserFile } from "element-plus";
-import { IFile, IVideoCollection } from "~/types/admin-api";
+import { IFile, IProject, IVideoCollection } from "~/types/admin-api";
 
 definePageMeta({
   validate(route) {
@@ -11,7 +11,12 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<IVideoCollection>(
+const { data: projects } = useAsyncData<IProject[]>(
+  "projects",
+  async () => await fetchGet("/projects")
+);
+
+const { data: entity } = await useAsyncData<IVideoCollection>(
   "videos",
   async () => await fetchGet(`/video-collection/${route.params.id}`)
 );
@@ -24,13 +29,6 @@ const rules = reactive<FormRules>({
       trigger: "change",
     },
   ],
-  group: [
-    {
-      required: true,
-      message: "Please input Desc",
-      trigger: "change",
-    },
-  ],
 });
 
 const fileList = ref<(IFile | UploadUserFile)[]>(
@@ -39,7 +37,7 @@ const fileList = ref<(IFile | UploadUserFile)[]>(
 
 const form = reactive({
   title: entity.value?.title ?? "",
-  group: entity.value?.group?.name ?? "",
+  project: entity.value?.id ?? "",
 });
 
 const handleUpload = (files: UploadUserFile[]) => {
@@ -50,16 +48,22 @@ const handlePatch = async () => {
   const video = fileList.value.map((item) => ({
     name: item.response?.name ?? item.name,
   }));
+  const project =
+    projects.value?.find((item) => item.id === form.project) ?? null;
 
   await fetchPatch(`/video-collection/${route.params.id}`, {
     title: form.title,
-    group: {
-      name: form.group,
-    },
-
+    project,
     ...(video[0]?.name && { video: video[0] }),
   });
 };
+
+const projectsOptions = computed(() =>
+  (projects.value || []).map((item) => ({
+    value: item.id,
+    label: item.title,
+  }))
+);
 </script>
 
 <template>
@@ -79,8 +83,15 @@ const handlePatch = async () => {
           <ElInput v-model="form.title" />
         </ElFormItem>
 
-        <ElFormItem label="Group" prop="group">
-          <ElInput v-model="form.group" :rows="5" type="text" />
+        <ElFormItem label="Project" prop="project">
+          <ElSelect v-model="form.project" clearable placeholder="Select">
+            <ElOption
+              v-for="option in projectsOptions"
+              :key="option.value"
+              :label="option.label"
+              :value="option.value"
+            />
+          </ElSelect>
         </ElFormItem>
 
         <ElFormItem required label="Video">

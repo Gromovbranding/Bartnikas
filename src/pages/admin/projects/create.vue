@@ -59,6 +59,12 @@ const handleCreate = async (
             type: 'textarea',
             prop: 'description',
           },
+          {
+            value: '',
+            label: 'Group',
+            type: 'text',
+            prop: 'group',
+          },
         ]"
         :name="name"
         :cb-create="handleCreate"

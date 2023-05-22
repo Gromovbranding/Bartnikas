@@ -56,7 +56,7 @@ const videos = computed(() =>
       <ElTable :data="videos" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
-        <ElTableColumn label="Group" prop="group" width="200" />
+        <ElTableColumn label="Project" prop="project.title" width="200" />
         <ElTableColumn label="Date" prop="date" width="120" />
 
         <ElTableColumn align="right" label="Operations">

@@ -11,8 +11,8 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity } = useAsyncData<IBlog>(
-  "blogs",
+const { data: entity } = await useAsyncData<IBlog>(
+  "blog",
   async () => await fetchGet(`/blogs/${route.params.id}`)
 );
 

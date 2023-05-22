@@ -11,8 +11,8 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity, refresh } = useAsyncData<IArticle>(
-  "news",
+const { data: entity, refresh } = await useAsyncData<IArticle>(
+  "newsedit",
   async () => await fetchGet(`/news/${route.params.id}`)
 );
 
@@ -56,9 +56,13 @@ const handleUpload = (files: UploadUserFile[]) => {
 const handlePatch = async () => {
   await fetchPatch<IArticle>(`/news/${route.params.id}`, {
     ...form,
-    images: fileList.value.map((item) => ({
-      name: item.name,
-    })),
+    images: fileList.value.map((item) => {
+      console.log("item", item);
+      return {
+        name: item.name,
+        url: item.url,
+      };
+    }),
   });
 
   await refresh();

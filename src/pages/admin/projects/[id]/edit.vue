@@ -17,8 +17,8 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
-const { data: entity, refresh } = useAsyncData<IProject>(
-  "projects",
+const { data: entity, refresh } = await useAsyncData<IProject>(
+  "project",
   async () => await fetchGet(`/projects/${route.params.id}`)
 );
 
@@ -52,13 +52,14 @@ const projectImages = ref<
 const fileList = ref<any[]>(
   (entity.value?.details ?? []).map((item, idx) => ({
     ...item.image,
-    uid: idx,
+    uid: idx + 1,
   }))
 );
 
 const form = reactive({
   title: entity.value?.title ?? "",
   description: entity.value?.description ?? "",
+  group: entity.value?.group ?? "",
 });
 
 const handleUpload = (files: UploadUserFile[]) => {
@@ -67,7 +68,7 @@ const handleUpload = (files: UploadUserFile[]) => {
 
 const handlePatch = async () => {
   const details = fileList.value.map((item) => {
-    const { sizes, image_name, price } = projectImages.value[item.uid];
+    const { sizes, image_name, price } = projectImages.value[item.uid - 1];
 
     return {
       image_name,
@@ -88,6 +89,29 @@ const handlePatch = async () => {
 
   await refresh();
 };
+
+// function getProject() {
+//   const { data } = useAsyncData<IProject>(
+//     "projects",
+//     async () => await fetchGet(`/projects/${route.params.id}`)
+//   );
+//   projectImages.value = (entity.value?.details ?? []).map((item) => ({
+//     image_name: item.image_name,
+//     sizes: item.sizes,
+//     price: item.price,
+//   }))
+//   fileList.value = (entity.value?.details ?? []).map((item, idx) => ({
+//     ...item.image,
+//     uid: idx + 1,
+//   }))
+//   form.description = data.value?.description || ''
+//   form.group = data.value?.group || ''
+//   form.title = data.value?.title || ''
+// }
+
+// onMounted(() => {
+//   getProject()
+// })
 </script>
 
 <template>
@@ -109,6 +133,10 @@ const handlePatch = async () => {
 
         <ElFormItem label="Description" prop="description">
           <ElInput v-model="form.description" :rows="5" type="textarea" />
+        </ElFormItem>
+
+        <ElFormItem label="Group" prop="group">
+          <ElInput v-model="form.group" :rows="5" type="text" />
         </ElFormItem>
 
         <ElFormItem required label="Project Images">
