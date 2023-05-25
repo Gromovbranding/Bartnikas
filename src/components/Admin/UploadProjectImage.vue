@@ -58,9 +58,8 @@ watchEffect(() => {
 watch(
   () => fileList.value,
   (file: UploadUserFile[]) => {
-    if (!file[0].uid) return;
     const idx = file.length - 1;
-    projectImages.value[file[idx].uid!] = {
+    projectImages.value[file[idx].uid! - 1] = {
       image_name: "",
       price: 0,
       sizes: [
@@ -107,6 +106,7 @@ function onClickDelete(e: Event) {
           alt=""
           @click="handlePictureCardPreview(file)"
         />
+        {{ file.uid }}
         <div v-if="projectImages[file.uid! - 1]" class="img" @keydown.stop>
           <div class="img__details">
             <label

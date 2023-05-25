@@ -11,7 +11,7 @@ const isDialogDelete = ref<boolean>(false);
 const projectIdDelete = ref<string | null>(null);
 
 const { data: entites, refresh } = useAsyncData<IBlog[]>(
-  "entites",
+  "blogs",
   async () => await fetchGet("/blogs")
 );
 
@@ -32,6 +32,13 @@ const handleDelete = async () => {
     projectIdDelete.value = null;
   }
 };
+
+const blogs = computed(() =>
+  entites.value?.map((item) => ({
+    ...item,
+    date: new Date(item.created_at).toLocaleDateString("ru-RU"),
+  }))
+);
 </script>
 
 <template>
@@ -45,7 +52,7 @@ const handleDelete = async () => {
       </div>
     </template>
     <ClientOnly>
-      <ElTable :data="entites" border style="width: 100%">
+      <ElTable :data="blogs" border style="width: 100%">
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="320" />
         <ElTableColumn label="Text" prop="text" width="820" />

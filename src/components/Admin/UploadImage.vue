@@ -25,7 +25,6 @@ const handleRemove: UploadProps["onRemove"] = async (file) => {
 };
 
 const handleUpload: UploadProps["onSuccess"] = (file) => {
-  console.log("file", file);
   if (props.single) fileList.value = [file];
 };
 

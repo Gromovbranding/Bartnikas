@@ -49,7 +49,7 @@ const handleDelete = async () => {
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
         <ElTableColumn label="Description" prop="description" width="700" />
-        <ElTableColumn label="Date" prop="date" width="120" />
+        <!-- <ElTableColumn label="Date" prop="date" width="120" /> -->
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">
