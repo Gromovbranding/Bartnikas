@@ -7,6 +7,10 @@ import {
   ITestimonial,
   IProjectImageDetail,
   IVideoCollection,
+  IMediaKit,
+  IMediaCV,
+  IMediaExhibition,
+  IMediaPresentation,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T; prev: T };
@@ -63,6 +67,15 @@ export const usePublicData = () => {
   const getVideoCollectionById = async (id: string | number) =>
     await fetchGet<IVideoCollection>(`video-collection/${id}`);
 
+  const getAllMediaKit = async () => await fetchGet<IMediaKit>("media/kit");
+  const getAllMediaCV = async () => await fetchGet<IMediaCV>("media/cv");
+  const getAllMediaPublication = async () =>
+    await fetchGet<IMediaCV>("media/publication");
+  const getAllMediaPresentation = async () =>
+    await fetchGet<IMediaPresentation>("media/presentation");
+  const getAllMediaExhibition = async () =>
+    await fetchGet<IMediaExhibition>("media/exhibition");
+
   return {
     getProjectById,
     getAllProjects,
@@ -80,6 +93,11 @@ export const usePublicData = () => {
     getIndexSlider,
     getAllVideoCollection,
     getVideoCollectionById,
+    getAllMediaKit,
+    getAllMediaCV,
+    getAllMediaExhibition,
+    getAllMediaPresentation,
+    getAllMediaPublication,
     cart,
   };
 };

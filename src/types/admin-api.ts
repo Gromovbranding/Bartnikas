@@ -131,4 +131,48 @@ export interface IVideoCollection {
   updated_at: Date;
 }
 
+export interface IMediaCV {
+  id: number;
+  images: IFile[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IMediaExhibition {
+  id: number;
+  title: string;
+  awards: string;
+  image: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IMediaKit {
+  id: number;
+  pdf: IFile;
+  image: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IMediaPresentation {
+  id: number;
+  title: string;
+  pdf: IFile;
+  image: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IMediaPublication {
+  id: number;
+  program: string;
+  subtitle: string;
+  url: string;
+  date: Date;
+  image: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export type PartialAdminApiDto<T> = Omit<T, "id" | "updated_at" | "created_at">;
