@@ -11,6 +11,7 @@ import {
   IMediaCV,
   IMediaExhibition,
   IMediaPresentation,
+  IGreetingIndex,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T; prev: T };
@@ -80,6 +81,9 @@ export const usePublicData = () => {
   const getAllMediaExhibition = async () =>
     await fetchGet<IMediaExhibition>("media/exhibition");
 
+  const getActiveGreetingIndex = async () =>
+    await fetchGet<IGreetingIndex>("greeting-index");
+
   return {
     getProjectById,
     getAllProjects,
@@ -102,6 +106,7 @@ export const usePublicData = () => {
     getAllMediaExhibition,
     getAllMediaPresentation,
     getAllMediaPublication,
+    getActiveGreetingIndex,
     cart,
   };
 };

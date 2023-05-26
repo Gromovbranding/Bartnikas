@@ -175,4 +175,13 @@ export interface IMediaPublication {
   updated_at: Date;
 }
 
+export interface IGreetingIndex {
+  id: number;
+  text: string;
+  is_active: boolean;
+  video: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export type PartialAdminApiDto<T> = Omit<T, "id" | "updated_at" | "created_at">;
