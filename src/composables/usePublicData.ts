@@ -68,11 +68,15 @@ export const usePublicData = () => {
     await fetchGet<IVideoCollection>(`video-collection/${id}`);
 
   const getAllMediaKit = async () => await fetchGet<IMediaKit>("media/kit");
+
   const getAllMediaCV = async () => await fetchGet<IMediaCV>("media/cv");
+
   const getAllMediaPublication = async () =>
     await fetchGet<IMediaCV>("media/publication");
+
   const getAllMediaPresentation = async () =>
     await fetchGet<IMediaPresentation>("media/presentation");
+
   const getAllMediaExhibition = async () =>
     await fetchGet<IMediaExhibition>("media/exhibition");
 
