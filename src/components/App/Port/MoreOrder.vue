@@ -6,12 +6,7 @@ interface Props {
   id?: number;
 }
 
-withDefaults(defineProps<Props>(), {
-  projectId: 1,
-  name: "Name Photo",
-  url: "https://static.tildacdn.com/tild3466-6266-4637-b833-653534343535/CF005211.jpg",
-  id: 1,
-});
+defineProps<Props>();
 </script>
 
 <template>

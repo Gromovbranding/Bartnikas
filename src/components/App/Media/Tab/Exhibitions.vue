@@ -1,58 +1,26 @@
+<script setup lang="ts">
+import { IMediaExhibition } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
+  "exhibition",
+  async () => await fetchGet("/media/exhibition")
+);
+</script>
+
 <template>
   <div class="grid">
-    <div class="media__exhibitions">
-      <img
-        src="https://static.tildacdn.com/tild6133-6562-4635-b264-326461313736/forFB.jpg"
-        alt=""
-      />
+    <div
+      v-for="item in exhibition"
+      :key="'exh' + item.id"
+      class="media__exhibitions"
+    >
+      <img :src="item.image.url" alt="" />
       <div>
-        <h3>PrintSwap exhibitions</h3>
+        <h3>{{ item.title }}</h3>
         <p>
-          Collective show august 2019 <br />
-          Collective show, oct 2020 <br />
-          Personal exhibition 2021 <br />
-        </p>
-      </div>
-    </div>
-    <div class="media__exhibitions">
-      <img
-        src="https://static.tildacdn.com/tild6133-6562-4635-b264-326461313736/forFB.jpg"
-        alt=""
-      />
-      <div>
-        <h3>PrintSwap exhibitions</h3>
-        <p>
-          Collective show august 2019 <br />
-          Collective show, oct 2020 <br />
-          Personal exhibition 2021 <br />
-        </p>
-      </div>
-    </div>
-    <div class="media__exhibitions">
-      <img
-        src="https://static.tildacdn.com/tild6133-6562-4635-b264-326461313736/forFB.jpg"
-        alt=""
-      />
-      <div>
-        <h3>PrintSwap exhibitions</h3>
-        <p>
-          Collective show august 2019 <br />
-          Collective show, oct 2020 <br />
-          Personal exhibition 2021 <br />
-        </p>
-      </div>
-    </div>
-    <div class="media__exhibitions">
-      <img
-        src="https://static.tildacdn.com/tild6133-6562-4635-b264-326461313736/forFB.jpg"
-        alt=""
-      />
-      <div>
-        <h3>PrintSwap exhibitions</h3>
-        <p>
-          Collective show august 2019 <br />
-          Collective show, oct 2020 <br />
-          Personal exhibition 2021 <br />
+          {{ item.awards }}
         </p>
       </div>
     </div>
@@ -62,7 +30,7 @@
 <style lang="scss" scoped>
 .grid {
   display: grid;
-  grid-gap: 80px 40px;
+  grid-gap: 5rem 2.5rem;
   grid-template-columns: 1fr 1fr;
 }
 .media__exhibitions {

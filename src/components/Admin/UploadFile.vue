@@ -7,6 +7,7 @@ const { accessToken } = useAdmin();
 const props = defineProps<{
   list: UploadProps["fileList"];
   single?: boolean;
+  filetype: string;
 }>();
 
 const emit = defineEmits<{
@@ -15,12 +16,10 @@ const emit = defineEmits<{
 
 const fileList = ref<UploadUserFile[]>(props.list ?? []);
 
-const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
-  previewImageUrl.value =
-    uploadFile.url! ||
-    `https://stanislavbartnikas.com:8080/files/${uploadFile.name}`;
-  isPreviewImageVisible.value = true;
-};
+// const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
+//   previewImageUrl.value = uploadFile.url!;
+//   isPreviewImageVisible.value = true;
+// };
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
   if (file.id) await fetchRemoveImage(file.id);
@@ -37,12 +36,12 @@ watchEffect(() => {
   emit("uploadFile", fileList.value);
 });
 
-function onClickDelete(e: Event) {
-  const btn = e.target as HTMLButtonElement;
-  btn.dispatchEvent(
-    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
-  );
-}
+// function onClickDelete(e: Event) {
+//   const btn = e.target as HTMLButtonElement;
+//   btn.dispatchEvent(
+//     new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
+//   );
+// }
 </script>
 
 <template>
@@ -50,40 +49,28 @@ function onClickDelete(e: Event) {
     <ElUpload
       v-model:file-list="fileList"
       action="https://stanislavbartnikas.com:8080/files"
-      list-type="picture"
+      list-type="text"
       drag
       :headers="{
         Authorization: `Bearer ${accessToken}`,
       }"
-      accept="image/png, image/jpeg, image/jpg"
+      :accept="'.' + filetype"
       :on-remove="handleRemove"
-      :on-preview="handlePictureCardPreview"
       :on-success="handleUpload"
     >
       <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
       <div class="el-upload__text">
         Drop file here or <em>click to upload</em>
       </div>
-      <template #file="{ file }">
-        <img
-          class="el-upload-list__item-thumbnail"
-          :src="
-            file.url || `https://stanislavbartnikas.com:8080/files/${file.name}`
-          "
-          @click="handlePictureCardPreview(file)"
-        />
-
+      <!-- <template #file="{ file }">
         <div class="file">
           <span class="filename">{{ file.name }}</span>
-          <span v-if="file.percentage < 100" style="margin-inline: 1rem auto"
-            >Uploading: {{ file.percentage }}%</span
-          >
-          <button type="button" @click="onClickDelete">Delete image</button>
+          <button type="button" @click="onClickDelete">Delete file</button>
         </div>
-      </template>
+      </template> -->
 
       <template #tip>
-        <div>jpg/jpeg/png files with a size less than 500kb</div>
+        <div>{{ filetype }} files</div>
       </template>
     </ElUpload>
 

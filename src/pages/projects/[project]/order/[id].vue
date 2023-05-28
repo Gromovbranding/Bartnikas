@@ -32,7 +32,9 @@ const slidesPerView = computed(() => {
   return breakpoint.value === "xs" ? 1 : 2;
 });
 
-const project = computed(() => projects.value?.[projectId - 1]);
+const project = computed(() =>
+  projects.value?.find((item) => item.id === +route.params.project)
+);
 
 const projectDetails = computed(() => project.value?.details ?? []);
 
@@ -160,6 +162,7 @@ const addToCart = () => {
             v-bind="moreProjectImage"
             :project-id="projectId"
             :url="moreProjectImage.image.url"
+            :name="moreProjectImage.image_name"
             class="more__slider-item"
           />
         </SwiperSlide>

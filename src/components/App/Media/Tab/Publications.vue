@@ -1,179 +1,44 @@
+<script setup lang="ts">
+import { IMediaPublication } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: publication } = useAsyncData<IMediaPublication[]>(
+  "publication",
+  async () => await fetchGet("/media/publication")
+);
+</script>
+
 <template>
   <div>
     <div class="grid">
       <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
+        v-for="item in publication"
+        :key="'pub' + item.id"
+        :href="item.url"
         class="media__publications upper-slide"
+        target="_blank"
       >
         <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
+          <img :src="item.image.url" alt="" />
         </div>
         <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
+          <h3>
+            {{
+              new Date(item.created_at).toLocaleDateString("en-US", {
+                dateStyle: "medium",
+              })
+            }}
+          </h3>
+          <small>{{ item.program }}</small>
         </div>
         <div>
           <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
-        </div>
-      </a>
-      <a
-        href="https://www.nationalgeographic.com/photo-of-the-day/photo/aerial-iceland-colors"
-        class="media__publications upper-slide"
-      >
-        <div>
-          <img
-            src="https://static.tildacdn.com/tild3130-3563-4931-a361-616566343832/CF001765_1.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <h3>september 4, 2015</h3>
-          <small>National Geographic</small>
-        </div>
-        <div>
-          <IconArrow is-arrow30-deg />
-          <span>PHOTO OF THE DAY: ABSTRACT AERIAL</span>
+          <span>{{ item.subtitle }}</span>
         </div>
       </a>
     </div>
-    <div class="media__links">
+    <!-- <div class="media__links">
       <div class="media__links-item">
         <p>New Atlas 2018</p>
         <p>Colossal 2018</p>
@@ -207,7 +72,7 @@
         <p>Trandland</p>
         <p>Opumo 2019</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

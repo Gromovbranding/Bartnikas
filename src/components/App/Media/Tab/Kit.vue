@@ -1,10 +1,18 @@
+<script setup lang="ts">
+import { IMediaKit } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: mediakit } = useAsyncData<IMediaKit[]>(
+  "mediakit",
+  async () => await fetchGet("/media/kit")
+);
+</script>
+
 <template>
-  <div class="media__kit">
-    <img
-      src="https://static.tildacdn.com/tild6665-3339-4764-b437-343037353337/image.png"
-      alt=""
-    />
-    <UIButton> Download pdf </UIButton>
+  <div v-for="kit in mediakit" :key="'kit' + kit.id" class="media__kit">
+    <img :src="kit.image.url" alt="" />
+    <UIButton :to="kit.pdf.url" download> Download pdf </UIButton>
   </div>
 </template>
 

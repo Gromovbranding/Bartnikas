@@ -57,7 +57,6 @@ const handlePatch = async () => {
   await fetchPatch<IArticle>(`/news/${route.params.id}`, {
     ...form,
     images: fileList.value.map((item) => {
-      console.log("item", item);
       return {
         name: item.name,
         url: item.url,

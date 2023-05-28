@@ -1,43 +1,32 @@
+<script setup lang="ts">
+import { IMediaPresentation } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: presentation } = useAsyncData<IMediaPresentation[]>(
+  "presentation",
+  async () => await fetchGet("/media/presentation")
+);
+</script>
+
 <template>
   <div class="grid">
-    <article class="media__presentation">
+    <article
+      v-for="item in presentation"
+      :key="'pres' + item.id"
+      class="media__presentation"
+    >
       <div>
-        <img
-          src="https://static.tildacdn.com/tild3034-6432-4538-a565-336632666639/image.png"
-          alt=""
-        />
+        <img :src="item.image.url" alt="" />
       </div>
       <div>
-        <h3>Healing Presentation</h3>
-        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
-          Download PDF
-        </UIButton>
-      </div>
-    </article>
-    <article class="media__presentation">
-      <div>
-        <img
-          src="https://static.tildacdn.com/tild3034-6432-4538-a565-336632666639/image.png"
-          alt=""
-        />
-      </div>
-      <div>
-        <h3>Commercial Presentation</h3>
-        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
-          Download PDF
-        </UIButton>
-      </div>
-    </article>
-    <article class="media__presentation">
-      <div>
-        <img
-          src="https://static.tildacdn.com/tild3034-6432-4538-a565-336632666639/image.png"
-          alt=""
-        />
-      </div>
-      <div>
-        <h3>Obvious X Stas Bartnikas</h3>
-        <UIButton class="media__presentation__btn" :is-text-uppercase="false">
+        <h3>{{ item.title }}</h3>
+        <UIButton
+          class="media__presentation__btn"
+          :is-text-uppercase="false"
+          :to="item.pdf.url"
+          download
+        >
           Download PDF
         </UIButton>
       </div>

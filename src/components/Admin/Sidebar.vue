@@ -49,6 +49,18 @@ const sidebarItems: Array<SidebarItem> = [
     url: "/admin/awards",
     icon: "ep:chat-line-square",
   },
+  {
+    sortId: 7,
+    text: "Greetings",
+    url: "/admin/greetings",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 7,
+    text: "Media",
+    url: "/admin/media",
+    icon: "ep:chat-line-square",
+  },
 ].sort((a, b) => a.sortId - b.sortId);
 </script>
 

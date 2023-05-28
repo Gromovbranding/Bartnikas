@@ -1,17 +1,19 @@
+<script setup lang="ts">
+import { IMediaCV } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: cv } = useAsyncData<IMediaCV[]>(
+  "cv",
+  async () => await fetchGet("/media/cv")
+);
+</script>
+
 <template>
-  <div class="media__cv">
+  <div v-for="item in cv" :key="'cv' + item.id" class="media__cv">
     <div>
-      <UIZoom>
-        <img
-          src="https://static.tildacdn.com/tild3864-3936-4330-a339-303239363033/image.png"
-          alt=""
-        />
-      </UIZoom>
-      <UIZoom>
-        <img
-          src="https://static.tildacdn.com/tild6636-3237-4636-b563-373263656561/image.png"
-          alt=""
-        />
+      <UIZoom v-for="img in item.images" :key="'img' + img.id">
+        <img :src="img.url" alt="" />
       </UIZoom>
     </div>
     <UIButton> Download pdf </UIButton>
@@ -22,12 +24,12 @@
 .media__cv {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 2.5rem;
   width: 100%;
   > div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 15px;
+    column-gap: 1rem;
     img {
       width: 100%;
       height: 100%;

@@ -18,7 +18,7 @@ interface ICreateFormFormatted {
 
 const props = defineProps<{
   name: string;
-  back: string;
+  back?: string;
   video?: boolean;
   cbCreate: (
     body: ICreateFormFormatted,
@@ -89,6 +89,11 @@ const resetForm = (formEl: FormInstance | undefined) => {
 const handleUpload = (files: UploadUserFile[]) => {
   filesModel.value = files;
 };
+
+const isDisabled = computed(() => {
+  const filesReady = filesModel.value.every((item) => item.percentage === 100);
+  return !(filesReady && filesModel.value.length > 0);
+});
 </script>
 
 <template>
@@ -96,7 +101,12 @@ const handleUpload = (files: UploadUserFile[]) => {
     <template #header>
       <div class="card-header">
         <span style="text-transform: capitalize"> {{ name }} </span>
-        <ElButton type="default" plain @click="navigateTo(`/admin/${back}`)">
+        <ElButton
+          v-if="back"
+          type="default"
+          plain
+          @click="navigateTo(`/admin/${back}`)"
+        >
           Back
         </ElButton>
       </div>
@@ -139,7 +149,13 @@ const handleUpload = (files: UploadUserFile[]) => {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="create(formRef)"> Create </ElButton>
+          <ElButton
+            type="primary"
+            :disabled="isDisabled"
+            @click="create(formRef)"
+          >
+            Create
+          </ElButton>
           <ElButton @click="resetForm(formRef)">Clear</ElButton>
         </ElFormItem>
       </ElForm>

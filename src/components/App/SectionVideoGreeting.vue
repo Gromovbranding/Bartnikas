@@ -1,25 +1,42 @@
+<script setup lang="ts">
+import { IGreetingIndex } from "~/types/admin-api";
+
+const { fetchGet } = useApi();
+
+const { data: greeting } = await useAsyncData<IGreetingIndex>(
+  "greeting-index",
+  async () => await fetchGet("/greeting-index")
+);
+
+const showVideo = ref(false);
+const video = ref<HTMLVideoElement>();
+
+function playVideo() {
+  showVideo.value = true;
+  if (video.value) video.value.play();
+}
+</script>
+
 <template>
   <section class="video-greeting">
     <div class="video-greeting__video">
-      <img
+      <!-- <img
         src="https://static.tildacdn.com/tild3732-3239-4133-a563-343830613365/noroot.png"
         alt=""
-      />
-      <div class="video-greeting__play">
+      /> -->
+      <video
+        ref="video"
+        :src="greeting?.video?.url"
+        preload="metadata"
+        :controls="showVideo"
+      ></video>
+      <div v-if="!showVideo" class="video-greeting__play" @click="playVideo">
         <IconPlay />
       </div>
     </div>
     <div class="video-greeting__text">
       <p>
-        <slot
-          >Sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.</slot
-        >
+        <slot>{{ greeting?.text }}</slot>
       </p>
     </div>
   </section>

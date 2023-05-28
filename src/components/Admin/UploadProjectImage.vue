@@ -106,7 +106,6 @@ function onClickDelete(e: Event) {
           alt=""
           @click="handlePictureCardPreview(file)"
         />
-        {{ file.uid }}
         <div v-if="projectImages[file.uid! - 1]" class="img" @keydown.stop>
           <div class="img__details">
             <label
