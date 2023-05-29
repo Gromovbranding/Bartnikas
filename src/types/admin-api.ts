@@ -25,6 +25,26 @@ export enum ListUnitSize {
   cm = "cm",
 }
 
+export interface IProjectPressRelease {
+  id: number;
+  title: string;
+  text: string;
+  file: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IProjectCollab {
+  id: number;
+  collab_with: string;
+  title: string;
+  description: string;
+  video: IFile;
+  press_release: IProjectPressRelease[];
+  created_at: Date;
+  updated_at: Date;
+}
+
 export interface IProjectImageSizes {
   id: number;
   width: number;
@@ -50,6 +70,7 @@ export interface IProject {
   description: string;
   details: IProjectImageDetail[];
   group: string | null;
+  collab: IProjectCollab;
   created_at: Date;
   updated_at: Date;
 }
