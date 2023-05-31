@@ -16,7 +16,7 @@ useHeadSafe({
 
 const { fetchPost, fetchGet } = useApi();
 
-const { data: projectGroups } = useAsyncData<string[]>(
+const { data: projectGroups } = await useAsyncData<string[]>(
   "groups",
   async () => await fetchGet("/projects/group/all")
 );
@@ -28,7 +28,8 @@ type ImageDetail = PartialAdminApiDto<IProjectImageDetail> & {
 const handleCreate = async (
   body: Omit<PartialAdminApiDto<IProject>, "details"> | null,
   images: UploadUserFile[],
-  imageDetails: ImageDetail[]
+  imageDetails: ImageDetail[],
+  clb: any
 ) => {
   if (!body) return;
 
@@ -42,9 +43,11 @@ const handleCreate = async (
       image: img.response as PartialFileAdminApiDto,
     };
   });
-  const group = body.group === "new" ? body.newgroup : body.group;
+  const group = body.group === "__new" ? body.newgroup : body.group;
+  const collab = body.is_collab ? clb : null;
 
-  await fetchPost("/projects", { ...body, group, details });
+  await fetchPost("/projects", { ...body, collab, group, details });
+  navigateTo("/admin/projects");
 };
 
 const groupOptions = computed(() => {
@@ -54,7 +57,7 @@ const groupOptions = computed(() => {
       label: item,
     })) ?? [];
   arr.push({
-    value: "new",
+    value: "__new",
     label: "New group",
   });
   return arr;
@@ -74,7 +77,7 @@ const form = reactive([
     prop: "description",
   },
   {
-    value: "",
+    value: "__new",
     label: "Group",
     type: "select",
     prop: "group",
@@ -86,6 +89,12 @@ const form = reactive([
     type: "text",
     prop: "newgroup",
   },
+  {
+    value: false,
+    label: "Is collab",
+    type: "checkbox",
+    prop: "is_collab",
+  },
 ]);
 
 onMounted(() => {
@@ -95,15 +104,15 @@ onMounted(() => {
 watch(
   () => form[2].value,
   (val) => {
-    if (val === "new") {
-      return form.push({
+    const idx = form.findIndex((item) => item.prop === "newgroup");
+    if (val === "__new" && idx < 0) {
+      return form.splice(3, 0, {
         value: "",
         label: "New group",
         type: "text",
         prop: "newgroup",
       });
     }
-    const idx = form.findIndex((item) => item.prop === "newgroup");
     form.splice(idx, 1);
   }
 );

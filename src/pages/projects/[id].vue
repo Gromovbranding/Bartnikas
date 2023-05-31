@@ -42,15 +42,25 @@ onBeforeUnmount(() => {
 });
 
 const translate = computed(() => `${-scrollProgress.value}px`);
+
+const title = computed(() => {
+  if (project.value?.collab)
+    return `Collab with ${project.value.collab.collab_with}`;
+  return project.value?.title;
+});
+
+const collab = computed(() => project.value?.collab);
 </script>
 
 <template>
   <main>
     <Title> {{ project?.title }} </Title>
-    <AppPageHead sub="projects" :title="project?.title" />
+    <AppPageHead sub="projects" :title="title" />
+
+    <AppProjectCollab v-if="collab" :collab="collab" />
 
     <div class="project">
-      <section class="author-quote">
+      <section v-if="!project?.collab" class="author-quote">
         <div class="author-quote__person">
           <div>
             <img

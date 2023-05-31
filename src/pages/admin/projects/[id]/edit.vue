@@ -17,9 +17,32 @@ definePageMeta({
 const { fetchGet, fetchPatch } = useApi();
 const route = useRoute();
 
+const collabForm = JSON.stringify({
+  collab_with: "",
+  description: "",
+  title: "",
+  press_release: [
+    {
+      title: "",
+      text: "",
+      file: {
+        name: "",
+      },
+    },
+  ],
+  video: {
+    name: "",
+  },
+});
+
 const { data: entity, refresh } = await useAsyncData<IProject>(
   "project",
   async () => await fetchGet(`/projects/${route.params.id}`)
+);
+
+const { data: projectGroups } = await useAsyncData<string[]>(
+  "groups",
+  async () => await fetchGet("/projects/group/all")
 );
 
 const rules = reactive({
@@ -56,10 +79,14 @@ const fileList = ref<any[]>(
   }))
 );
 
+const isCollab = ref(!!entity.value?.collab);
+
 const form = reactive({
   title: entity.value?.title ?? "",
   description: entity.value?.description ?? "",
   group: entity.value?.group ?? "",
+  collab: entity.value?.collab ?? JSON.parse(collabForm),
+  newgroup: "",
 });
 
 const handleUpload = (files: UploadUserFile[]) => {
@@ -81,37 +108,36 @@ const handlePatch = async () => {
           }) as PartialFileAdminApiDto,
     };
   });
+  const collab = isCollab.value ? form.collab : null;
+  const group = form.group === "__new" ? form.newgroup : form.group;
 
   await fetchPatch(`/projects/${route.params.id}`, {
     ...form,
+    group,
+    collab,
     details,
   });
+  navigateTo("/admin/projects");
 
   await refresh();
 };
 
-// function getProject() {
-//   const { data } = useAsyncData<IProject>(
-//     "projects",
-//     async () => await fetchGet(`/projects/${route.params.id}`)
-//   );
-//   projectImages.value = (entity.value?.details ?? []).map((item) => ({
-//     image_name: item.image_name,
-//     sizes: item.sizes,
-//     price: item.price,
-//   }))
-//   fileList.value = (entity.value?.details ?? []).map((item, idx) => ({
-//     ...item.image,
-//     uid: idx + 1,
-//   }))
-//   form.description = data.value?.description || ''
-//   form.group = data.value?.group || ''
-//   form.title = data.value?.title || ''
-// }
+const groupOptions = computed(() => {
+  const arr =
+    projectGroups.value?.map((item) => ({
+      value: item,
+      label: item,
+    })) ?? [];
+  arr.push({
+    value: "__new",
+    label: "New group",
+  });
+  return arr;
+});
 
-// onMounted(() => {
-//   getProject()
-// })
+onMounted(() => {
+  form.group = groupOptions.value[0].value;
+});
 </script>
 
 <template>
@@ -136,8 +162,29 @@ const handlePatch = async () => {
         </ElFormItem>
 
         <ElFormItem label="Group" prop="group">
-          <ElInput v-model="form.group" :rows="5" type="text" />
+          <ElSelect v-model="form.group">
+            <ElOption
+              v-for="option in groupOptions"
+              :key="option.value"
+              :label="option.label"
+              :value="option.value"
+            />
+          </ElSelect>
         </ElFormItem>
+
+        <ElFormItem
+          v-if="form.group === 'new'"
+          label="New group"
+          prop="newgroup"
+        >
+          <ElInput v-model="form.newgroup" :rows="5" type="text" />
+        </ElFormItem>
+
+        <ElFormItem label="Is collab" prop="is_collab">
+          <ElCheckbox v-model="isCollab" />
+        </ElFormItem>
+
+        <AdminFormCollab v-if="isCollab" v-model="form.collab" />
 
         <ElFormItem required label="Project Images">
           <AdminUploadProjectImage

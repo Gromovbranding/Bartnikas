@@ -28,6 +28,24 @@ interface ImageDetails {
   };
 }
 
+const collab = ref({
+  collab_with: "",
+  description: "",
+  title: "",
+  press_release: [
+    {
+      title: "",
+      text: "",
+      file: {
+        name: "",
+      },
+    },
+  ],
+  video: {
+    name: "",
+  },
+});
+
 const props = defineProps<{
   name: string;
   back: string;
@@ -35,7 +53,8 @@ const props = defineProps<{
   cbCreate: (
     body: ICreateFormFormatted,
     images: UploadUserFile[],
-    details: ImageDetails
+    details: ImageDetails,
+    clb: typeof collab.value
   ) => Promise<void>;
   form: IForm[];
 }>();
@@ -63,7 +82,8 @@ const create = async (formEl: FormInstance | undefined) => {
       await props.cbCreate(
         formattedFormModel,
         filesModel.value,
-        projectImages.value
+        projectImages.value,
+        collab.value
       );
     }
   });
@@ -77,6 +97,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 const handleUpload = (files: UploadUserFile[]) => {
   filesModel.value = files;
 };
+
+const isCollab = computed(() => {
+  return !!props.form.find((item) => item.prop === "is_collab" && item.value);
+});
 </script>
 
 <template>
@@ -114,7 +138,9 @@ const handleUpload = (files: UploadUserFile[]) => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem required label="Images">
+        <AdminFormCollab v-if="isCollab" v-model="collab" />
+
+        <ElFormItem required label="Project images">
           <AdminUploadProjectImage
             :image-details="projectImages"
             :list="filesModel"
@@ -123,7 +149,13 @@ const handleUpload = (files: UploadUserFile[]) => {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="create(formRef)"> Create </ElButton>
+          <ElButton
+            type="primary"
+            :disabled="!filesModel.length"
+            @click="create(formRef)"
+          >
+            Create
+          </ElButton>
           <ElButton @click="resetForm(formRef)">Clear</ElButton>
         </ElFormItem>
       </ElForm>

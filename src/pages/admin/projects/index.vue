@@ -49,6 +49,7 @@ const handleDelete = async () => {
         <ElTableColumn label="id" prop="id" width="120" />
         <ElTableColumn label="Title" prop="title" width="220" />
         <ElTableColumn label="Group" prop="group" width="220" />
+        <ElTableColumn label="Collab" prop="collab.collab_with" width="220" />
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">

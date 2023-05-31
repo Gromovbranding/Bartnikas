@@ -32,7 +32,11 @@ withDefaults(defineProps<Props>(), {
             <IconPhotoCamera />
             <p>{{ project.details.length }}</p>
           </div>
-          <h2>{{ project.title }}</h2>
+          <div v-if="project.collab" class="port__text__collab">
+            <span>Collaboration with</span>
+            <h2>{{ project.collab.collab_with }}</h2>
+          </div>
+          <h2 v-else>{{ project.title }}</h2>
           <div class="port__text__desc">
             <p>{{ project.description }}</p>
           </div>
@@ -88,6 +92,13 @@ withDefaults(defineProps<Props>(), {
     height: 27rem;
     display: flex;
     flex-direction: column;
+    &__collab {
+      font-size: 1.3rem;
+      span {
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+    }
     &__desc {
       margin-block: auto;
     }
