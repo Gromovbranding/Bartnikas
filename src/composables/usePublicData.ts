@@ -17,7 +17,7 @@ import {
 type INextPrevWrapper<T> = T & { next: T; prev: T };
 
 export const usePublicData = () => {
-  const { fetchGet } = useApi();
+  const { fetchGet, fetchPost } = useApi();
 
   const cart = useCookie<IProjectImageDetail[]>("cart", {
     default: () => [],
@@ -84,6 +84,11 @@ export const usePublicData = () => {
   const getActiveGreetingIndex = async () =>
     await fetchGet<IGreetingIndex>("greeting-index");
 
+  const makeProjectsPayment = async (dto: {
+    amount: number;
+    currency: string;
+  }) => await fetchPost<string>("projects/order/by-payment", dto);
+
   return {
     getProjectById,
     getAllProjects,
@@ -107,6 +112,7 @@ export const usePublicData = () => {
     getAllMediaPresentation,
     getAllMediaPublication,
     getActiveGreetingIndex,
+    makeProjectsPayment,
     cart,
   };
 };

@@ -43,6 +43,7 @@ onBeforeUnmount(() => {
       </div>
       <div class="header__img-sticky"></div>
     </header>
+    <AppCheckout :amount="1000" currency="USD" />
     <AppSectionHotNews />
     <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
