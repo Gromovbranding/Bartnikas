@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const { cart } = usePublicData();
 
+const router = useRouter();
+
 const totalPrice = computed(() =>
   cart.value.reduce((acc, item) => item.price + acc, 0)
 );
@@ -9,7 +11,9 @@ const removeItem = (id: number) => {
   cart.value = cart.value.filter((item) => item.id !== id);
 };
 
-const handleCheckout = () => {};
+const handleCheckout = () => {
+  router.push("/checkout");
+};
 </script>
 
 <template>

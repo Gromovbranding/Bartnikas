@@ -68,13 +68,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <form id="stripe-payment-element-form" ref="form">
-      <div id="stripe-payment-element-mount-point" />
-      <slot name="stripe-payment-element-errors">
-        <div id="stripe-payment-element-errors" role="alert" />
-      </slot>
-      <button type="submit">Pay</button>
-    </form>
-  </div>
+  <form id="stripe-payment-element-form" ref="form">
+    <div id="stripe-payment-element-mount-point" />
+    <slot name="stripe-payment-element-errors">
+      <div id="stripe-payment-element-errors" role="alert" />
+    </slot>
+    <UIButton class="button">Pay</UIButton>
+  </form>
 </template>
+
+<style lang="scss" scoped>
+.button {
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  &:hover {
+    transform: translateY(-25%);
+  }
+}
+</style>
