@@ -212,7 +212,7 @@ function copyColor(idx: number) {
 
           :deep(.swiper-wrapper) {
             display: flex;
-            max-height: 650px;
+            // max-height: 34.8rem;
           }
 
           :deep(.swiper-slide) {

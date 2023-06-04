@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
             <span>Collaboration with</span>
             <h2>{{ project.collab.collab_with }}</h2>
           </div>
-          <h2 v-else>{{ project.title }}</h2>
+          <h2 v-else>{{ project.group }}</h2>
           <div class="port__text__desc">
             <p>{{ project.description }}</p>
           </div>
