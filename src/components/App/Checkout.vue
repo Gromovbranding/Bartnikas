@@ -24,7 +24,7 @@ onMounted(async () => {
   });
 
   const stripe = (await loadStripe(
-    "pk_test_51NFFbKLqnqmDJpgBzDkA0OMsAAWsbo1Ug1QzGf700i2IaHdotwN2Qvh5mqr66Jb61sb8gWJINwcr3J9gJiVvr3Dn00IGglEUL6",
+    "pk_test_aTwQx8JI4Z4frDaV5ZqTR2kP00TZmNRg9A",
     {
       apiVersion: "2022-11-15",
     }
