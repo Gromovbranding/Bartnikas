@@ -58,6 +58,7 @@ export interface IProjectImageDetail {
   id: number;
   price: number;
   sizes: IProjectImageSizes[];
+  is_active: boolean;
   image: IFile;
   image_name: string;
   created_at: Date;

@@ -14,7 +14,11 @@ import {
   IGreetingIndex,
 } from "~/types/admin-api";
 
-type INextPrevWrapper<T> = T & { next: T; prev: T };
+type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
+const excludeNotActiveImage = (project: IProject): IProject => ({
+  ...project,
+  details: project.details.filter((item) => !!item.is_active),
+});
 
 export const usePublicData = () => {
   const { fetchGet, fetchPost } = useApi();
@@ -25,9 +29,10 @@ export const usePublicData = () => {
   });
 
   const getProjectById = async (id: string | number) =>
-    await fetchGet<IProject>(`projects/${id}`);
+    excludeNotActiveImage(await fetchGet<IProject>(`projects/${id}`));
 
-  const getAllProjects = async () => await fetchGet<IProject[]>("projects");
+  const getAllProjects = async () =>
+    (await fetchGet<IProject[]>("projects")).map(excludeNotActiveImage);
 
   const getBlogById = async (id: string | number) =>
     await fetchGet<INextPrevWrapper<IBlog>>(`blogs/${id}`);

@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import type { IAwards } from "~/types/admin-api";
 
-const { breakpoint } = useBreakpoints();
 const { getAllAwards } = usePublicData();
-
-const awardsToShow = ref(0);
 
 const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
   async () => await getAllAwards()
 );
 
-onMounted(() => {
-  awardsToShow.value = breakpoint.value === "xs" ? 5 : 16;
-});
-
-const list = computed(() => (awards.value ?? []).slice(0, awardsToShow.value));
+const list = computed(() => (awards.value ?? []).slice(0, 12));
 </script>
 
 <template>
