@@ -43,7 +43,7 @@ const projectImage = computed(() =>
 );
 
 const moreProjectImages = computed(() =>
-  projectDetails.value.filter((img) => img.id !== imageId)
+  projectDetails.value.filter((img) => img.id !== imageId).slice(0, 9)
 );
 
 const sizes = computed(() => {
