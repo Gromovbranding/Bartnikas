@@ -69,6 +69,7 @@ const projectImages = ref<
     image_name: item.image_name,
     sizes: item.sizes,
     price: item.price,
+    is_active: item.is_active,
   }))
 );
 
@@ -95,12 +96,14 @@ const handleUpload = (files: UploadUserFile[]) => {
 
 const handlePatch = async () => {
   const details = fileList.value.map((item) => {
-    const { sizes, image_name, price } = projectImages.value[item.uid - 1];
+    const { sizes, image_name, price, is_active } =
+      projectImages.value[item.uid - 1];
 
     return {
       image_name,
       price,
       sizes,
+      is_active,
       image: (item.response
         ? item.response
         : {

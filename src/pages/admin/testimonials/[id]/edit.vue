@@ -40,6 +40,7 @@ const fileList = ref<(IFile | UploadUserFile)[]>(
 const form = reactive({
   title: entity.value?.title ?? "",
   additional_info: entity.value?.additional_info ?? "",
+  url: entity.value?.url ?? "",
 });
 
 const handleUpload = (files: UploadUserFile[]) => {
@@ -47,12 +48,12 @@ const handleUpload = (files: UploadUserFile[]) => {
 };
 
 const handlePatch = async () => {
-  await fetchPatch(`/testimonials/${route.params.id}`, {
-    ...form,
-    file: fileList.value.map((item) => ({
-      name: item.response?.name ?? item.name,
-    }))[0],
-  });
+  const req = { ...form };
+  const video = fileList.value.map((item) => ({
+    name: item.response?.name ?? item.name,
+  }))[0];
+  if (video) req.file = video;
+  await fetchPatch(`/testimonials/${route.params.id}`, req);
 
   await refresh();
 };
@@ -80,10 +81,19 @@ const handlePatch = async () => {
         </ElFormItem>
 
         <ElFormItem label="Info" prop="additional_info">
-          <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
+          <ElInput v-model="form.additional_info" :rows="5" type="text" />
         </ElFormItem>
 
-        <ElFormItem required label="Images">
+        <ElFormItem label="Youtube url" prop="url">
+          <ElInput
+            v-model="form.url"
+            :rows="5"
+            type="url"
+            placeholder="https://www.youtube.com/watch?v=xc28wyQ-LAw"
+          />
+        </ElFormItem>
+
+        <ElFormItem label="Video">
           <AdminUploadVideo
             :list="fileList"
             single

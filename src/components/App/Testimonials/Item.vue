@@ -12,18 +12,38 @@ function playVideo() {
   showVideo.value = true;
   if (video.value) video.value.play();
 }
+
+function getYTLink(url: string) {
+  const arr = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  const videoId =
+    arr[2] !== undefined ? arr[2].split(/[^0-9a-z_-]/i)[0] : arr[0];
+  return `https://www.youtube.com/embed/${videoId}`;
+}
 </script>
 
 <template>
   <div class="testimonial">
     <div class="testimonial__img">
+      <iframe
+        v-if="testimonial.url"
+        :src="getYTLink(testimonial.url)"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
       <video
+        v-else
         ref="video"
-        :src="testimonial.file.url"
+        :src="testimonial.file?.url"
         preload="metadata"
         :controls="showVideo"
       ></video>
-      <div v-if="!showVideo" class="testimonial__play" @click="playVideo">
+      <div
+        v-if="!showVideo && !testimonial.url"
+        class="testimonial__play"
+        @click="playVideo"
+      >
         <IconPlay />
       </div>
     </div>
@@ -37,15 +57,18 @@ function playVideo() {
 <style lang="scss" scoped>
 .testimonial {
   width: 23.4rem;
+  flex-shrink: 0;
   &__img {
     width: 100%;
     position: relative;
+    border-radius: $borderRadiusMain;
+    overflow: hidden;
     img,
+    iframe,
     video {
       width: 100%;
       height: 34vw;
       object-fit: cover;
-      border-radius: $borderRadiusMain;
     }
   }
 
@@ -84,7 +107,8 @@ function playVideo() {
     width: 29rem;
     &__img {
       width: 100%;
-      video {
+      video,
+      iframe {
         height: 44rem;
       }
     }

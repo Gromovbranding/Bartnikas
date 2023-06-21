@@ -6,6 +6,7 @@ interface ImageDetails {
   [key: number]: {
     image_name: string;
     price: number;
+    is_active: boolean;
     sizes: {
       width: number;
       height: number;
@@ -62,6 +63,7 @@ watch(
     projectImages.value[file[idx].uid! - 1] = {
       image_name: "",
       price: 0,
+      is_active: true,
       sizes: [
         {
           width: 100,
@@ -108,6 +110,12 @@ function onClickDelete(e: Event) {
         />
         <div v-if="projectImages[file.uid! - 1]" class="img" @keydown.stop>
           <div class="img__details">
+            <label
+              >Is active:
+              <input
+                v-model="projectImages[file.uid! - 1].is_active"
+                type="checkbox"
+            /></label>
             <label
               >Name:
               <input

@@ -91,6 +91,7 @@ const handleUpload = (files: UploadUserFile[]) => {
 };
 
 const isDisabled = computed(() => {
+  if (props.video) return false;
   const filesReady = filesModel.value.every((item) => item.percentage === 100);
   return !(filesReady && filesModel.value.length > 0);
 });
@@ -141,7 +142,7 @@ const isDisabled = computed(() => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem v-if="video" required label="Video">
+        <ElFormItem v-if="video" label="Video">
           <AdminUploadVideo :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
         <ElFormItem v-else required label="Images">

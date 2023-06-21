@@ -34,12 +34,13 @@ const handleCreate = async (
   if (!body) return;
 
   const details = images.map((img) => {
-    const { sizes, price, image_name } = imageDetails[img.uid! - 1];
+    const { sizes, price, image_name, is_active } = imageDetails[img.uid! - 1];
 
     return {
       image_name,
       price,
       sizes,
+      is_active,
       image: img.response as PartialFileAdminApiDto,
     };
   });

@@ -22,6 +22,12 @@ const form = reactive([
     type: "text",
     prop: "additional_info",
   },
+  {
+    value: "",
+    label: "Youtube url",
+    type: "url",
+    prop: "url",
+  },
 ]);
 
 const handleCreate = async (
@@ -29,11 +35,10 @@ const handleCreate = async (
   videos: UploadUserFile[]
 ) => {
   if (!body) return;
+  const req = { ...body };
+  if (videos[0]) req.file = videos[0].response;
 
-  await fetchPost("/testimonials", {
-    ...body,
-    file: videos[0].response,
-  });
+  await fetchPost("/testimonials", req);
 };
 </script>
 
