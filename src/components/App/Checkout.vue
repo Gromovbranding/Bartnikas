@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { loadStripe } from "@stripe/stripe-js";
-import type { StripeError } from "@stripe/stripe-js";
+import type { Stripe, StripeError } from "@stripe/stripe-js";
 
 const props = defineProps<{
   amount: number;
@@ -8,6 +8,7 @@ const props = defineProps<{
 }>();
 
 const { makeProjectsPayment } = usePublicData();
+const route = useRoute();
 
 const emit = defineEmits<{
   (e: "loading", value: boolean): void;
@@ -16,6 +17,33 @@ const emit = defineEmits<{
 
 const form = ref<HTMLFormElement>();
 const errorElement = ref<HTMLDivElement>();
+
+const checkStatus = async (stripe: Stripe) => {
+  const clientSecret = route.query.payment_intent_client_secret as string;
+
+  if (!clientSecret) {
+    return;
+  }
+
+  const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+
+  console.log(paymentIntent);
+
+  switch (paymentIntent?.status) {
+    case "succeeded":
+      console.log("Payment succeeded!");
+      break;
+    case "processing":
+      console.log("Your payment is processing.");
+      break;
+    case "requires_payment_method":
+      console.log("Your payment was not successful, please try again.");
+      break;
+    default:
+      console.log("Something went wrong.");
+      break;
+  }
+};
 
 onMounted(async () => {
   const clientSecret = await makeProjectsPayment({
@@ -30,11 +58,18 @@ onMounted(async () => {
     }
   ))!;
 
+  await checkStatus(stripe);
+
   const elements = stripe.elements({
+    appearance: {
+      theme: "flat",
+    },
     clientSecret,
   });
 
-  const element = elements.create("payment");
+  const element = elements.create("payment", {
+    layout: "auto",
+  });
 
   element.mount("#stripe-payment-element-mount-point");
 
@@ -48,7 +83,7 @@ onMounted(async () => {
         const { error } = await stripe.confirmPayment({
           elements,
           confirmParams: {
-            return_url: "http://localhost:8080/success", // success url
+            return_url: new URL(route.path, window.location.origin).toString(), // success url
           },
           redirect: "always",
         });
