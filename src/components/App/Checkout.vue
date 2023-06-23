@@ -38,32 +38,34 @@ onMounted(async () => {
 
   element.mount("#stripe-payment-element-mount-point");
 
-  form.addEventListener("submit", async (event: Event) => {
-    event.preventDefault();
-    emit("loading", true);
+  (form.value as HTMLFormElement).addEventListener(
+    "submit",
+    async (event: Event) => {
+      event.preventDefault();
+      emit("loading", true);
 
-    try {
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: "http://localhost:8080/success", // success url
-        },
-        redirect: "always",
-      });
+      try {
+        const { error } = await stripe.confirmPayment({
+          elements,
+          confirmParams: {
+            return_url: "http://localhost:8080/success", // success url
+          },
+          redirect: "always",
+        });
 
-      if (error) {
-        errorElement.value.textContent ??= error.message;
+        if (error) {
+          (errorElement.value as HTMLDivElement).textContent ??=
+            error.message as string;
+          emit("error", error);
+        }
+      } catch (error: StripeError | unknown) {
+        console.error(error);
         emit("error", error);
-
-        return;
+      } finally {
+        emit("loading", false);
       }
-    } catch (error: StripeError | unknown) {
-      console.error(error);
-      emit("error", error);
-    } finally {
-      emit("loading", false);
     }
-  });
+  );
 });
 </script>
 
@@ -71,13 +73,21 @@ onMounted(async () => {
   <form id="stripe-payment-element-form" ref="form">
     <div id="stripe-payment-element-mount-point" />
     <slot name="stripe-payment-element-errors">
-      <div id="stripe-payment-element-errors" role="alert" />
+      <div id="stripe-payment-element-errors" ref="errorElement" role="alert" />
     </slot>
-    <UIButton class="button">Pay</UIButton>
+    <UIButton style="width: 100%" class="button">Pay</UIButton>
+    <div id="stripe-payment-data">
+      <p>Amount: {{ amount }} Currency: {{ currency }}</p>
+    </div>
   </form>
 </template>
 
 <style lang="scss" scoped>
+#stripe-payment-data {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
 .button {
   margin-top: 2rem;
   padding: 1rem 3rem;

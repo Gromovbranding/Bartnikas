@@ -1,10 +1,14 @@
 <template>
-  <div class="checkout">
-    <UIButton class="checkout__btn" is-grey @click="$router.go(-1)"
-      >back</UIButton
-    >
-    <AppCheckout class="checkout__form" :amount="1000" currency="USD" />
-  </div>
+  <main>
+    <Title> Checkout </Title>
+
+    <div class="checkout">
+      <UIButton class="checkout__btn" is-grey @click="$router.go(-1)">
+        back
+      </UIButton>
+      <AppCheckout class="checkout__form" :amount="70" currency="USD" />
+    </div>
+  </main>
 </template>
 
 <style scoped lang="scss">
