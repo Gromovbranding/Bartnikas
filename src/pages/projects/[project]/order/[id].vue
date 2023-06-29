@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
 import { IProject, IProjectImageDetail } from "~/types/admin-api";
+import { checkoudData } from "~/utils/checkout";
 
 const router = useRouter();
 const route = useRoute();
@@ -13,6 +14,8 @@ const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
   async () => await getAllProjects()
 );
+
+const dialog = ref<HTMLDialogElement | null>(null);
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
 
@@ -53,6 +56,10 @@ const sizes = computed(() => {
   }));
 });
 
+const isObvious = computed(
+  () => project.value?.collab.collab_with.toLowerCase() === "obvious"
+);
+
 const selectedSize = ref<{
   value: string | number;
   label: string;
@@ -62,6 +69,17 @@ const addToCart = () => {
   cart.value.push(projectImage.value as IProjectImageDetail);
   router.push("/cart");
 };
+
+function toOrder() {
+  if (!dialog.value) return;
+  dialog.value.showModal();
+}
+
+function toCheckout() {
+  if (!projectImage.value) return;
+  checkoudData.value.amount = projectImage.value.price;
+  navigateTo("/checkout");
+}
 </script>
 
 <template>
@@ -135,9 +153,16 @@ const addToCart = () => {
             </div>
           </div>
         </div>
-        <UIButton @click="addToCart">ORDER</UIButton>
+        <UIButton v-if="isObvious" @click="toCheckout">Checkout</UIButton>
+        <UIButton v-else @click="toOrder">ORDER</UIButton>
+        <UIButton v-if="false" @click="addToCart">ORDER</UIButton>
       </div>
     </section>
+
+    <dialog v-if="projectImage" ref="dialog">
+      <AppOrderForm :image="projectImage" />
+      <IconClose class="dialog-icon" @click="dialog?.close()" />
+    </dialog>
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
@@ -148,7 +173,7 @@ const addToCart = () => {
       <Swiper
         class="more__slider"
         :modules="[SwiperMousewheel]"
-        :mousewheel="true"
+        :mousewheel="false"
         :slides-per-view="slidesPerView"
         :space-between="40"
         :speed="1000"
@@ -172,33 +197,19 @@ const addToCart = () => {
 </template>
 
 <style lang="scss" scoped>
-.order {
-  display: flex;
-  gap: 60px;
-  padding: 0 40px;
-  margin-bottom: 80px;
-  height: 100%;
-
-  &__title_mobile {
-    display: none;
+dialog {
+  margin: auto;
+  position: relative;
+  .dialog-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    cursor: pointer;
   }
-
-  &__gallery {
-    flex: 1 1 60%;
-
-    > img {
-      width: 100%;
-      height: 100%;
-      min-height: 800px;
-      max-height: 800px;
-      object-fit: cover;
-      border-radius: $borderRadiusMain;
-    }
-
-    &-list {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+}
+>
+ gap: 10px;
       margin-top: 20px;
       > img {
         max-width: 110px;

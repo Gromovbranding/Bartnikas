@@ -1,15 +1,24 @@
 <template>
   <main>
     <Title> Checkout </Title>
-
+    <AppPageHead title="Checkout" />
     <div class="checkout">
       <UIButton class="checkout__btn" is-grey @click="$router.go(-1)">
         back
       </UIButton>
-      <AppCheckout class="checkout__form" :amount="70" currency="USD" />
+      <AppCheckout
+        v-if="checkoudData.amount"
+        class="checkout__form"
+        :amount="checkoudData.amount"
+        :currency="checkoudData.currency"
+      />
     </div>
   </main>
 </template>
+
+<script setup lang="ts">
+import { checkoudData } from "~/utils/checkout";
+</script>
 
 <style scoped lang="scss">
 .checkout {
@@ -20,7 +29,6 @@
   gap: 2rem;
   padding: 2rem;
   padding-top: 4rem;
-  min-height: 100vh;
   margin-inline: auto;
   max-width: 760px;
   &__form {

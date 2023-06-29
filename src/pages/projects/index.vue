@@ -2,6 +2,6 @@
   <main>
     <Title> Projects </Title>
     <AppPageHead title="Projects" />
-    <AppPortSection />
+    <AppPortSection full />
   </main>
 </template>

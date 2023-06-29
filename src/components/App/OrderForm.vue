@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { IProjectImageDetail } from "~/types/admin-api";
+
 const quantity = ref(1);
+
+defineProps<{
+  image: IProjectImageDetail;
+}>();
 
 const form = ref<{
   name: string;
@@ -21,13 +27,10 @@ const handleOrder = () => {
   <section class="order-form">
     <div class="order-form__left">
       <div class="order-form__left__img">
-        <img
-          src="https://static.tildacdn.com/tild3732-6663-4065-b837-366432646264/Contact.jpg"
-          alt=""
-        />
+        <img :src="image.image.url" alt="" />
       </div>
       <div class="order-form__left__img-info">
-        <h3>Name</h3>
+        <h3>{{ image.image_name }}</h3>
         <AppFormQuanity v-model="quantity" :maxlength="3" />
       </div>
     </div>

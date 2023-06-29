@@ -4,6 +4,17 @@ import { IProjectCollab } from "~/types/admin-api";
 defineProps<{
   collab: IProjectCollab;
 }>();
+
+const video = ref<HTMLVideoElement>();
+const activeVideo = ref(false);
+
+const showControls = computed(() => (activeVideo.value ? true : undefined));
+
+function playVideo() {
+  if (!video.value) return;
+  video.value.play();
+  activeVideo.value = true;
+}
 </script>
 
 <template>
@@ -36,15 +47,26 @@ defineProps<{
       <div class="collab__text__desc">{{ collab.description }}</div>
     </div>
     <div class="collab__with">
-      <div class="collab__with__img">
-        <img
-          src="https://static.tildacdn.com/tild3131-3332-4239-a437-313465393561/header.jpg"
-          alt=""
-        />
-      </div>
-      <div class="collab__with__text">
-        <h2>{{ collab.collab_with }}</h2>
-        <p>{{ collab.description }}</p>
+      <h2>HOW IT WORKS</h2>
+      <div class="collab-wrapper">
+        <div class="collab__with__img">
+          <video
+            ref="video"
+            :src="collab.video.url"
+            :controls="showControls"
+          ></video>
+          <div
+            v-if="!activeVideo"
+            class="collab__with__img__play"
+            @click="playVideo"
+          >
+            <IconPlay />
+          </div>
+        </div>
+        <div class="collab__with__text">
+          <h3>{{ collab.collab_with }}</h3>
+          <p>{{ collab.description }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -107,28 +129,48 @@ defineProps<{
     padding: 4rem;
     gap: 2rem;
     line-height: 1.25em;
-    &__title {
-      flex: 0 0 36rem;
-    }
-    &__desc {
-      flex: 0 0 40rem;
-    }
+    display: grid;
+    grid-template-columns: 9fr 10fr;
   }
   &__with {
     border-radius: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    background-color: #eceae8;
+    .collab-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    > h2 {
+      font-size: 11rem;
+      font-weight: bold;
+      padding: 2rem;
+    }
     &__img {
-      img {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      video {
         display: block;
         width: 100%;
-        height: 100%;
         object-fit: cover;
+        &:fullscreen {
+          object-fit: contain;
+        }
+      }
+      &__play {
+        width: 36px;
+        height: 36px;
+        position: absolute;
+        right: 30px;
+        transition: transform 0.2s ease-in-out;
+        bottom: 30px;
+        &:hover {
+          transform: scale(1.2);
+        }
       }
     }
     &__text {
       padding: 3rem;
-      h2 {
+      h3 {
         font-size: 3.6rem;
         font-weight: 700;
         margin-bottom: 1rem;
@@ -138,6 +180,40 @@ defineProps<{
         font-size: 1.6rem;
         line-height: 1.25;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .collab {
+    &__files {
+      &__item {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+      }
+    }
+    &__text {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      padding: 2rem;
+    }
+    &__with {
+      h2 {
+        font-size: 8rem;
+      }
+      .collab-wrapper {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .collab {
+    &__files {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
     }
   }
 }
