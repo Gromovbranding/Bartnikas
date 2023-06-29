@@ -59,7 +59,7 @@ const handleOrder = () => {
 
 <style lang="scss" scoped>
 .order-form {
-  background-color: $colorBackgroundGrey;
+  background-color: #ffffff;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;

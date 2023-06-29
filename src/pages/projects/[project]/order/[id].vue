@@ -57,7 +57,7 @@ const sizes = computed(() => {
 });
 
 const isObvious = computed(
-  () => project.value?.collab.collab_with.toLowerCase() === "obvious"
+  () => project.value?.collab?.collab_with.toLowerCase() === "obvious"
 );
 
 const selectedSize = ref<{
@@ -159,11 +159,6 @@ function toCheckout() {
       </div>
     </section>
 
-    <dialog v-if="projectImage" ref="dialog">
-      <AppOrderForm :image="projectImage" />
-      <IconClose class="dialog-icon" @click="dialog?.close()" />
-    </dialog>
-
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
       <h2 class="more__title">MORE {{ project.title }}</h2>
@@ -193,13 +188,23 @@ function toCheckout() {
         </SwiperSlide>
       </Swiper>
     </section>
+    <dialog v-if="projectImage" ref="dialog">
+      <AppOrderForm :image="projectImage" />
+      <IconClose class="dialog-icon" @click="dialog?.close()" />
+    </dialog>
   </main>
 </template>
 
 <style lang="scss" scoped>
 dialog {
-  margin: auto;
-  position: relative;
+  margin: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
   .dialog-icon {
     position: absolute;
     top: 1rem;
