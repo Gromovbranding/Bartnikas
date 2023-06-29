@@ -7,17 +7,18 @@
         back
       </UIButton>
       <AppCheckout
-        v-if="checkoudData.amount"
+        v-if="cart.length > 0"
         class="checkout__form"
-        :amount="checkoudData.amount"
-        :currency="checkoudData.currency"
+        :amount="cart.reduce((acc, item) => item.price + acc, 0)"
+        currency="eur"
       />
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { checkoudData } from "~/utils/checkout";
+import { usePublicData } from "@/composables/usePublicData";
+const { cart } = usePublicData();
 </script>
 
 <style scoped lang="scss">
