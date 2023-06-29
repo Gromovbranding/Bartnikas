@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
 import { IProject, IProjectImageDetail } from "~/types/admin-api";
-import { checkoudData } from "~/utils/checkout";
 
-const router = useRouter();
 const route = useRoute();
 const projectId = Number(route.params.project);
 const imageId = Number(route.params.id);
@@ -57,7 +55,7 @@ const sizes = computed(() => {
 });
 
 const isObvious = computed(
-  () => project.value?.collab?.collab_with.toLowerCase() === "obvious"
+  () => (project.value?.collab?.collab_with ?? "").toLowerCase() === "obvious"
 );
 
 const selectedSize = ref<{
@@ -66,19 +64,17 @@ const selectedSize = ref<{
 }>(sizes.value[0]);
 
 const addToCart = () => {
-  cart.value.push(projectImage.value as IProjectImageDetail);
-  router.push("/cart");
+  if (!projectImage.value) return;
+
+  if (isObvious.value) {
+    cart.value.push(projectImage.value as IProjectImageDetail);
+    navigateTo("/cart");
+  }
 };
 
 function toOrder() {
   if (!dialog.value) return;
   dialog.value.showModal();
-}
-
-function toCheckout() {
-  if (!projectImage.value) return;
-  checkoudData.value.amount = projectImage.value.price;
-  navigateTo("/checkout");
 }
 </script>
 
@@ -153,9 +149,8 @@ function toCheckout() {
             </div>
           </div>
         </div>
-        <UIButton v-if="isObvious" @click="toCheckout">Checkout</UIButton>
+        <UIButton v-if="isObvious" @click="addToCart">ORDER</UIButton>
         <UIButton v-else @click="toOrder">ORDER</UIButton>
-        <UIButton v-if="false" @click="addToCart">ORDER</UIButton>
       </div>
     </section>
 

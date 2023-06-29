@@ -38,14 +38,14 @@ export const useApi = () => {
         }
       },
 
-      onResponse({ response }) {
-        if (response.status === 200 && !response.url.match(/files/)) {
-          ElNotification.success({
-            title: "Success",
-            message: response.statusText,
-            position: "bottom-right",
-          });
-        }
+      onResponse() {
+        // if (response.status === 200 && !response.url.match(/files/)) {
+        //   ElNotification.success({
+        //     title: "Success",
+        //     message: response.statusText,
+        //     position: "bottom-right",
+        //   });
+        // }
       },
     };
 

@@ -27,8 +27,6 @@ const checkStatus = async (stripe: Stripe) => {
 
   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 
-  console.log(paymentIntent);
-
   switch (paymentIntent?.status) {
     case "succeeded":
       console.log("Payment succeeded!");
@@ -111,18 +109,18 @@ onMounted(async () => {
       <div id="stripe-payment-element-errors" ref="errorElement" role="alert" />
     </slot>
     <UIButton style="width: 100%" class="button">Pay</UIButton>
-    <div id="stripe-payment-data">
+    <!-- <div id="stripe-payment-data">
       <p>Amount: {{ amount }} Currency: {{ currency }}</p>
-    </div>
+    </div> -->
   </form>
 </template>
 
 <style lang="scss" scoped>
-#stripe-payment-data {
-  display: flex;
-  align-items: center;
-  margin: 15px 0;
-}
+// #stripe-payment-data {
+//   display: flex;
+//   align-items: center;
+//   margin: 15px 0;
+// }
 .button {
   margin-top: 2rem;
   padding: 1rem 3rem;
