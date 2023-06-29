@@ -208,8 +208,29 @@ dialog {
     cursor: pointer;
   }
 }
->
- gap: 10px;
+.order {
+  display: flex;
+  gap: 60px;
+  padding: 0 40px;
+  margin-bottom: 80px;
+  height: 100%;
+  &__title_mobile {
+    display: none;
+  }
+  &__gallery {
+    flex: 1 1 60%;
+    > img {
+      width: 100%;
+      height: 100%;
+      min-height: 800px;
+      max-height: 800px;
+      object-fit: cover;
+      border-radius: $borderRadiusMain;
+    }
+    &-list {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-top: 20px;
       > img {
         max-width: 110px;
