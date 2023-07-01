@@ -64,6 +64,32 @@ const onSubmit = async () => {
 </template>
 
 <style lang="scss">
+@import "@/assets/styles/fonts";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#__nuxt,
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 1vw;
+}
+
+body {
+  font-family: "HelveticaNeue", Arial, sans-serif;
+  font-weight: normal;
+}
 .admin-auth-layout {
   position: relative;
   height: 100vh;
