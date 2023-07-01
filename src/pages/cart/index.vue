@@ -42,7 +42,7 @@ const handleCheckout = () => {
             <div class="checkout__price">
               <!-- <AppFormQuanity v-model="item.quantity" :maxlength="3" /> -->
               <div class="checkout__purchase">
-                <b>{{ item.price }} $</b>
+                <b>{{ item.price }} €</b>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@ const handleCheckout = () => {
           <h1 class="checkout__title">CART</h1>
           <div>
             <p>Subtotal:</p>
-            <b>{{ totalPrice }} $</b>
+            <b>{{ totalPrice }} €</b>
           </div>
           <UIButton @click="handleCheckout">CHECKOUT</UIButton>
         </div>
