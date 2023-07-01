@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
+import { Close, Delete } from "@element-plus/icons-vue";
 import { IFile } from "~/types/admin-api";
 
 interface ImageDetails {
@@ -38,7 +39,7 @@ const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
   delete projectImages.value[file.uid];
-  return Boolean(await fetchRemoveImage((file.response as IFile).id));
+  return Boolean(await fetchRemoveImage((file.response as IFile).name));
 };
 
 const isPreviewImageVisible = ref<boolean>(false);
@@ -61,7 +62,7 @@ watch(
   (file: UploadUserFile[]) => {
     const idx = file.length - 1;
     projectImages.value[file[idx].uid! - 1] = {
-      image_name: "",
+      image_name: file[idx].name.split(".")[0],
       price: 0,
       is_active: true,
       sizes: [
@@ -116,16 +117,19 @@ function onClickDelete(e: Event) {
                 v-model="projectImages[file.uid! - 1].is_active"
                 type="checkbox"
             /></label>
-            <label
-              >Name:
-              <input
+            <ElFormItem required label="Name" label-width="60">
+              <ElInput
                 v-model="projectImages[file.uid! - 1].image_name"
-                type="text"
-            /></label>
-            <label
-              >Price:
-              <input v-model="projectImages[file.uid! - 1].price" type="number"
-            /></label>
+                size="small"
+              />
+            </ElFormItem>
+            <ElFormItem required label="Price, $" label-width="70">
+              <el-input-number
+                v-model="projectImages[file.uid! - 1].price"
+                :min="1"
+                size="small"
+              />
+            </ElFormItem>
           </div>
           <h3>Sizes</h3>
           <div
@@ -133,20 +137,27 @@ function onClickDelete(e: Event) {
             :key="idx"
             class="img__sizes"
           >
-            <label>Width: <input v-model="item.width" type="number" /></label>
-            <label>Height: <input v-model="item.height" type="number" /></label>
-            <button
+            <label
+              >Width, cm
+              <el-input-number v-model="item.width" :min="1" size="small"
+            /></label>
+            <label
+              >Height, cm
+              <el-input-number v-model="item.height" :min="1" size="small"
+            /></label>
+            <el-button
               v-if="idx !== 0"
-              type="button"
+              type="danger"
+              :icon="Delete"
+              circle
               @click="projectImages[file.uid! - 1].sizes.splice(idx, 1)"
             >
-              delete
-            </button>
+            </el-button>
           </div>
-          <button
-            type="button"
+          <el-button
+            type="primary"
             @click="
-              projectImages[file.uid!].sizes.push({
+              projectImages[file.uid! - 1].sizes.push({
                 width: 100,
                 height: 100,
                 unit: 'cm',
@@ -154,9 +165,14 @@ function onClickDelete(e: Event) {
             "
           >
             add
-          </button>
+          </el-button>
         </div>
-        <button type="button" @click="onClickDelete">Delete image</button>
+        <el-button
+          type="danger"
+          :icon="Close"
+          circle
+          @click="onClickDelete"
+        ></el-button>
       </template>
       <template #tip>
         <div>jpg/jpeg/png files with a size less than 500kb</div>

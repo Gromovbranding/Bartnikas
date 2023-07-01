@@ -36,6 +36,13 @@ watchEffect(() => {
   emit("uploadFile", fileList.value);
 });
 
+watch(
+  () => props.list,
+  () => {
+    fileList.value = props.list;
+  }
+);
+
 // function onClickDelete(e: Event) {
 //   const btn = e.target as HTMLButtonElement;
 //   btn.dispatchEvent(

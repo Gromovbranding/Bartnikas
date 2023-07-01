@@ -89,6 +89,11 @@ const create = async (formEl: FormInstance | undefined) => {
   });
 };
 
+// const rules = reactive<FormRules>({
+//   title: [{ required: true, trigger: 'blur', }],
+//   description: [{ required: true, trigger: 'blur' }],
+// })
+
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
@@ -100,6 +105,15 @@ const handleUpload = (files: UploadUserFile[]) => {
 
 const isCollab = computed(() => {
   return !!props.form.find((item) => item.prop === "is_collab" && item.value);
+});
+
+const isFormDisabled = computed(() => {
+  const length = filesModel.value.length;
+  const arr = Object.values(projectImages.value);
+  const fields = arr.every((item) => {
+    return !!item.image_name && !!item.price;
+  });
+  return !length || !fields;
 });
 </script>
 
@@ -151,7 +165,7 @@ const isCollab = computed(() => {
         <ElFormItem>
           <ElButton
             type="primary"
-            :disabled="!filesModel.length"
+            :disabled="isFormDisabled"
             @click="create(formRef)"
           >
             Create

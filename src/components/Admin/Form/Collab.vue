@@ -54,6 +54,10 @@ const uploadVideo = (files: UploadUserFile[]) => {
 };
 
 onMounted(() => {
+  fileList.value = collab.value.press_release
+    .filter((item) => !!item.file)
+    .map((item) => item.file)
+    .filter((item) => item.name);
   videoList.value = collab.value.video.name
     ? [{ ...collab.value.video, uid: 1 }]
     : [];
@@ -86,6 +90,7 @@ onMounted(() => {
       <AdminUploadFile
         filetype="pdf"
         :list="fileList"
+        single
         @upload-file="uploadFile"
       />
     </ElFormItem>

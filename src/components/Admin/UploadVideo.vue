@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
+import { Delete } from "@element-plus/icons-vue";
 import { IFile } from "~/types/admin-api";
 
 const { fetchRemoveImage } = useApi();
@@ -36,6 +37,14 @@ watchEffect(() => {
   emit("uploadFile", fileList.value);
 });
 
+watch(
+  () => props.list,
+  () => {
+    // const idx = file.length - 1;
+    fileList.value = props.list;
+  }
+);
+
 function onClickDelete(e: Event) {
   const btn = e.target as HTMLButtonElement;
   btn.dispatchEvent(
@@ -71,7 +80,8 @@ function onClickDelete(e: Event) {
         ></video>
         <div class="file">
           <span class="filename">{{ file.name }}</span>
-          <button type="button" @click="onClickDelete">Delete video</button>
+          <el-button type="danger" :icon="Delete" circle @click="onClickDelete">
+          </el-button>
         </div>
       </template>
       <template #tip>

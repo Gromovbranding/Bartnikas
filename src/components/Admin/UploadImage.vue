@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
+import { Delete } from "@element-plus/icons-vue";
 
 const { fetchRemoveImage } = useApi();
 const { accessToken } = useAdmin();
@@ -78,7 +79,12 @@ function onClickDelete(e: Event) {
           <span v-if="file.percentage < 100" style="margin-inline: 1rem auto"
             >Uploading: {{ file.percentage }}%</span
           >
-          <button type="button" @click="onClickDelete">Delete image</button>
+          <el-button
+            type="danger"
+            :icon="Delete"
+            circle
+            @click="onClickDelete"
+          ></el-button>
         </div>
       </template>
 

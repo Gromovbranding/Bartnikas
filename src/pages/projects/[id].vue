@@ -3,10 +3,11 @@ import { IProject } from "~/types/admin-api";
 
 const route = useRoute();
 const wrapper = ref<HTMLDivElement>();
-const wrapperHeight = ref("");
+// const wrapperHeight = ref("");
 const sticky = ref<HTMLDivElement>();
 const section = ref<HTMLElement>();
 const scrollProgress = ref(0);
+const wsHeight = ref(0);
 
 const { getAllProjects } = usePublicData();
 const { getProjectById } = usePublicData();
@@ -23,17 +24,20 @@ const { data: projects } = useAsyncData<IProject[]>(
 );
 
 const onScroll = () => {
-  if (!wrapper.value) return;
-  const scrollTop = section.value?.offsetTop || 0;
-  const scrollY = window.scrollY;
-  const diff = scrollY - scrollTop;
-  scrollProgress.value = diff > 0 ? diff : 0;
+  if (!wrapper.value || !sticky.value) return;
+  const rem = window.innerWidth / 100;
+  const diff2 = window.scrollY - (section.value?.offsetTop || 0);
+  if (diff2 > wrapper.value.offsetWidth - sticky.value.offsetWidth) return;
+  if (diff2 > 0) return (scrollProgress.value = diff2 + 2 * rem);
+  scrollProgress.value = 0;
 };
 
 onMounted(() => {
   if (!wrapper.value || projects.value?.length < 3 || breakpoint.value !== "lg")
     return;
-  wrapperHeight.value = wrapper.value.scrollWidth + "px";
+  const diff = wrapper.value.offsetWidth - sticky.value.offsetWidth;
+  wsHeight.value = diff + "px";
+  // wrapperHeight.value = wrapper.value.scrollWidth + "px";
   window.addEventListener("scroll", onScroll);
 });
 
@@ -150,6 +154,7 @@ const collab = computed(() => project.value?.collab);
           </div>
         </div>
       </div>
+      <div class="whitespace"></div>
     </section>
   </main>
 </template>
@@ -198,11 +203,13 @@ const collab = computed(() => project.value?.collab);
     }
   }
 }
-
+.whitespace {
+  height: v-bind(wsHeight);
+}
 .more {
   padding: 2rem;
   padding-top: 4rem;
-  height: v-bind(wrapperHeight);
+  // height: v-bind(wrapperHeight);
   h2 {
     font-size: 10rem;
     font-weight: 600;
@@ -214,6 +221,7 @@ const collab = computed(() => project.value?.collab);
     position: sticky;
     top: 100px;
     transform: translateX(v-bind(translate));
+    width: fit-content;
   }
 }
 .author-quote {

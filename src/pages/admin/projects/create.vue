@@ -70,12 +70,14 @@ const form = reactive([
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
   {
     value: "",
     label: "Description",
     type: "textarea",
     prop: "description",
+    required: true,
   },
   {
     value: "__new",

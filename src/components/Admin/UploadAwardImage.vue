@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
+import { Delete } from "@element-plus/icons-vue";
 import { IFile } from "~/types/admin-api";
 
 interface ImageDetails {
@@ -51,6 +52,11 @@ const awardImages = computed({
     return props.imageDetails;
   },
 });
+
+const selectOptions = [
+  { value: "Gold", label: "Gold" },
+  { value: "Silver", label: "Silver" },
+];
 
 watchEffect(() => {
   emit("uploadFile", fileList.value);
@@ -113,19 +119,36 @@ function onClickDelete(e: Event) {
         />
         <div class="img" @keydown.stop>
           <div class="img__details">
-            <label
-              >Year: <input v-model="awardImages[file.uid!].year" type="number"
-            /></label>
-            <label
-              >Type:
-              <select v-model="awardImages[file.uid!].groups" name="type">
-                <option value="Gold">Gold</option>
-                <option value="Silver">Silver</option>
-              </select>
-            </label>
+            <ElFormItem label="Year" label-width="50">
+              <el-input-number
+                v-model="awardImages[file.uid!].year"
+                :min="1970"
+                :max="new Date().getFullYear()"
+                size="small"
+              />
+            </ElFormItem>
+            <ElFormItem label="Type" label-width="50">
+              <el-select
+                v-model="awardImages[file.uid!].groups"
+                class="m-2"
+                size="small"
+              >
+                <el-option
+                  v-for="item in selectOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </ElFormItem>
           </div>
         </div>
-        <button type="button" @click="onClickDelete">Delete image</button>
+        <el-button
+          type="danger"
+          :icon="Delete"
+          circle
+          @click="onClickDelete"
+        ></el-button>
       </template>
       <template #tip>
         <div>jpg/jpeg/png files with a size less than 500kb</div>
@@ -147,6 +170,7 @@ function onClickDelete(e: Event) {
   }
   &__details {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
   }
   &__sizes {
