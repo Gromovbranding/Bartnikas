@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
-import { IProject } from "~/types/admin-api";
+import {
+  IProject,
+  IProjectImageSizes,
+  PartialAdminApiDto,
+} from "~/types/admin-api";
 
 interface ImageDetails {
   [key: number]: {
     name: string;
     price: number;
-    sizes: {
-      width: number;
-      height: number;
-      unit: "cm";
-    }[];
+    sizes: PartialAdminApiDto<IProjectImageSizes>[];
   };
 }
 
@@ -41,44 +41,40 @@ const rules = reactive({
 });
 
 const projectImages = ref<ImageDetails>({});
-const fileList = ref<any[]>([]);
+
+const { data: entity } = useAsyncData<IProject>(
+  "projects",
+  async () => await fetchGet(`/projects/${route.params.id}`)
+);
 
 const form = reactive({
-  title: "",
-  description: "",
+  title: entity.value?.title ?? "",
+  description: entity.value?.description ?? "",
 });
 
-getProject();
+const fileList = ref<UploadUserFile[]>([]);
 
 const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
 };
 
-function getProject() {
-  const { data: entity } = useAsyncData<IProject>(
-    "projects",
-    async () => await fetchGet(`/projects/${route.params.id}`)
-  );
-  form.title = entity.value?.title || "";
-  form.description = entity.value?.description || "";
-  entity.value?.details.forEach((item, idx) => {
-    fileList.value.push({
-      ...item.image,
-      uid: idx + 1,
-    });
-    projectImages.value[idx + 1] = {
-      name: item.image_name,
-      price: item.price,
-      sizes: item.sizes,
-    };
+(entity.value?.details ?? []).forEach((item, idx) => {
+  fileList.value.push({
+    ...item.image,
+    uid: idx + 1,
   });
-}
-
-function onSave() {
+  projectImages.value[idx + 1] = {
+    name: item.image_name,
+    price: item.price,
+    sizes: item.sizes,
+  };
+});
+const handleSave = async () => {
   const { description, title } = form;
   const details: any[] = [];
   fileList.value.forEach((item) => {
     const { sizes, name, price } = projectImages.value[item.uid];
+
     const image = item.response
       ? item.response
       : {
@@ -92,12 +88,13 @@ function onSave() {
       image,
     });
   });
-  fetchPatch(`/projects/${route.params.id}`, {
+
+  await fetchPatch(`/projects/${route.params.id}`, {
     title,
     description,
     details,
   });
-}
+};
 </script>
 
 <template>
@@ -130,7 +127,7 @@ function onSave() {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="onSave"> Save </ElButton>
+          <ElButton type="primary" @click="handleSave"> Save </ElButton>
           <ElButton>Delete</ElButton>
         </ElFormItem>
       </ElForm>

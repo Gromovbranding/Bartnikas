@@ -16,6 +16,10 @@ const { data: entity } = await useAsyncData<IBlog>(
   async () => await fetchGet(`/blogs/${route.params.id}`)
 );
 
+useHeadSafe({
+  title: `Edit article ${entity.value?.title}`,
+});
+
 const rules = reactive({
   title: [
     {

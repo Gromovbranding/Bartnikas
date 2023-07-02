@@ -40,6 +40,10 @@ const { data: entity, refresh } = await useAsyncData<IProject>(
   async () => await fetchGet(`/projects/${route.params.id}`)
 );
 
+useHeadSafe({
+  title: `Edit project ${entity.value?.title}`,
+});
+
 const { data: projectGroups } = await useAsyncData<string[]>(
   "groups",
   async () => await fetchGet("/projects/group/all")

@@ -16,6 +16,10 @@ const { data: entity, refresh } = await useAsyncData<ITestimonial>(
   async () => await fetchGet(`/testimonials/${route.params.id}`)
 );
 
+useHeadSafe({
+  title: `Edit testimonial ${entity.value?.title}`,
+});
+
 const rules = reactive<FormRules>({
   title: [
     {

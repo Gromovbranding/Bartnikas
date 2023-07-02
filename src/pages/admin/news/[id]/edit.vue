@@ -16,6 +16,10 @@ const { data: entity, refresh } = await useAsyncData<IArticle>(
   async () => await fetchGet(`/news/${route.params.id}`)
 );
 
+useHeadSafe({
+  title: `Edit article ${entity.value?.title}`,
+});
+
 const rules = reactive<FormRules>({
   title: [
     {
