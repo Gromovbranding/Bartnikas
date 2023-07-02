@@ -1,7 +1,11 @@
-export default defineNuxtRouteMiddleware((to) => {
-  const { accessToken } = useAdmin();
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { fetchGet } = useApi();
 
-  if (!accessToken.value && to.name !== "admin-login") {
-    return navigateTo("/admin/login");
+  try {
+    await fetchGet("auth/me");
+  } catch {
+    if (to.name !== "admin-login") {
+      return await navigateTo("/admin/login");
+    }
   }
 });

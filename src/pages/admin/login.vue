@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { UserFilled, Lock } from "@element-plus/icons-vue";
+
 definePageMeta({
   layout: false,
 });
@@ -11,12 +13,22 @@ const { login } = useApi();
 
 const username = ref("");
 const password = ref("");
+const loading = ref(false);
 
 const onSubmit = async () => {
-  await login({
-    username: username.value,
-    password: password.value,
-  });
+  if (loading.value) return;
+
+  try {
+    loading.value = true;
+    await login({
+      username: username.value,
+      password: password.value,
+    });
+  } catch (exc) {
+    console.error(exc);
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -28,19 +40,15 @@ const onSubmit = async () => {
           <h3 class="login__header">Login Form</h3>
           <form class="login__form">
             <div class="login__form-input">
-              <!-- <Icon
-                class="login__form-input-icon"
-                name="ep:user-filled"
-                size="20px"
-              /> -->
+              <ElIcon class="login__form-input-icon" size="20px">
+                <UserFilled />
+              </ElIcon>
               <input v-model="username" placeholder="Username" />
             </div>
             <div class="login__form-input">
-              <!-- <Icon
-                class="login__form-input-icon"
-                name="ic:round-lock"
-                size="20px"
-              /> -->
+              <ElIcon class="login__form-input-icon" size="20px">
+                <Lock />
+              </ElIcon>
               <input
                 v-model="password"
                 autocomplete="true"
@@ -52,6 +60,7 @@ const onSubmit = async () => {
               class="login__form-submit"
               size="large"
               type="primary"
+              :loading="loading"
               @click="onSubmit"
             >
               Login
@@ -152,6 +161,9 @@ body {
 
     &-submit {
       width: 100%;
+      span {
+        color: #fff;
+      }
     }
   }
 }

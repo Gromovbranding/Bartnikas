@@ -4,7 +4,7 @@ import type { IFile } from "~/types/admin-api";
 export const useApi = () => {
   const config = useRuntimeConfig().public;
   const { accessToken } = useAdmin();
-  const route = useRoute();
+  // const route = useRoute();
 
   const fetchApi = async <T>(
     path: string,
@@ -28,13 +28,13 @@ export const useApi = () => {
       async onResponseError({ response }) {
         ElNotification.error({
           title: response._data.error,
-          message: response._data.message,
+          message: response._data.message.join("\n"),
           position: "bottom-right",
         });
 
         if (response.status === 401) {
           accessToken.value = "";
-          route.name !== "admin-login" && (await navigateTo("/admin/login"));
+          if (response.url !== "admin-login") await navigateTo("/admin/login");
         }
       },
 

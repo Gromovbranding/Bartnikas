@@ -123,7 +123,7 @@ function onClickDelete(e: Event) {
                 size="small"
               />
             </ElFormItem>
-            <ElFormItem required label="Price, $" label-width="70">
+            <ElFormItem required label="Price, €" label-width="70">
               <el-input-number
                 v-model="projectImages[file.uid! - 1].price"
                 :min="1"
