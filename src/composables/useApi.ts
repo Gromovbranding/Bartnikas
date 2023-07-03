@@ -26,9 +26,13 @@ export const useApi = () => {
       ...customConfigFetch,
 
       async onResponseError({ response }) {
+        let message = response._data.message;
+
+        if (Array.isArray(message)) message = message.join("\n");
+
         ElNotification.error({
+          message,
           title: response._data.error,
-          message: response._data.message.join("\n"),
           position: "bottom-right",
         });
 
