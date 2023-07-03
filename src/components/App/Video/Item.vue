@@ -22,10 +22,6 @@ function playVideo() {
 <template>
   <article class="video-collection">
     <div class="video-collection__img">
-      <!-- <img
-        src="https://static.tildacdn.com/tild3862-3835-4337-a633-633563333830/20210401_-_Art_0152.jpg"
-        alt=""
-      /> -->
       <video ref="video" :src="item.video.url" :controls="showControls"></video>
       <div
         v-if="!activeVideo"

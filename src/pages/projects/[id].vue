@@ -67,10 +67,7 @@ const collab = computed(() => project.value?.collab);
       <section v-if="!project?.collab" class="author-quote">
         <div class="author-quote__person">
           <div>
-            <img
-              src="https://static.tildacdn.com/tild3635-6361-4035-a631-393037653235/0651.jpg"
-              alt=""
-            />
+            <img src="@/assets/img/bartnikas.jpg" alt="Bartnikas Logo" />
           </div>
           <div>
             <h3>

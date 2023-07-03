@@ -20,10 +20,6 @@ function playVideo() {
 <template>
   <section class="video-greeting">
     <div class="video-greeting__video">
-      <!-- <img
-        src="https://static.tildacdn.com/tild3732-3239-4133-a563-343830613365/noroot.png"
-        alt=""
-      /> -->
       <video
         ref="video"
         :src="greeting?.video?.url"

@@ -30,8 +30,8 @@ const handleAddContact = async () => {
     <section class="contacts">
       <div>
         <img
-          src="https://static.tildacdn.com/tild3732-6663-4065-b837-366432646264/Contact.jpg"
-          alt=""
+          src="@/assets/img/bartnikas_contacts.jpg"
+          alt="Bartnikas contacts"
         />
       </div>
       <div>

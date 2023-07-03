@@ -29,10 +29,7 @@ function onPointerDown(e: PointerEvent) {
 
     <section class="biography-about">
       <div class="biography-about__img">
-        <img
-          src="https://static.tildacdn.com/tild3736-6333-4232-a135-373062363139/graninphoto_050.png"
-          alt=""
-        />
+        <img src="@/assets/img/bartnikas_about.jpg" alt="Bartnikas about" />
       </div>
       <div class="biography-about__text">
         <p>

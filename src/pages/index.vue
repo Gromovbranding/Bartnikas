@@ -54,10 +54,7 @@ onBeforeUnmount(() => {
     <AppSectionInteriosOrderSlider />
     <section class="home-info-project-paralax">
       <div>
-        <img
-          src="https://static.tildacdn.com/tild3666-3463-4234-a233-633365653434/inner-strength.jpg"
-          alt=""
-        />
+        <img src="@/assets/img/index_parallax.jpg" alt="Parallax bg" />
       </div>
       <div>
         <h3>Obvious &amp; StasBartnikas Collaboration</h3>
