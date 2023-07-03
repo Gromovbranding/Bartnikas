@@ -9,6 +9,7 @@ import {
 } from "@/types/admin-api";
 
 definePageMeta({
+  layout: "admin",
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
   },

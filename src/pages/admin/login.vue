@@ -2,7 +2,7 @@
 import { UserFilled, Lock } from "@element-plus/icons-vue";
 
 definePageMeta({
-  layout: false,
+  layout: "empty",
 });
 
 useHeadSafe({

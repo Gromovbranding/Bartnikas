@@ -9,6 +9,10 @@ import {
   PartialAdminApiDto,
 } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 interface ImageDetails {
   [key: number]: {
     year: number;

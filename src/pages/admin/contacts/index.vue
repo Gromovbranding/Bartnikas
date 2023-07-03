@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { IContact } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 useHeadSafe({
   title: "Contacts",
 });

@@ -3,6 +3,10 @@
 import { UploadUserFile } from "element-plus";
 import { IArticle, PartialAdminApiDto } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 const name = ref("Create Article");
 const { fetchPost } = useApi();
 

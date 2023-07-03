@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { ITestimonial } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 useHeadSafe({
   title: "Testimonials",
 });

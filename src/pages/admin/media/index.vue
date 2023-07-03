@@ -14,6 +14,10 @@ import {
   AdminFormPublication,
 } from "#components";
 
+definePageMeta({
+  layout: "admin",
+});
+
 useHeadSafe({
   title: "Media",
 });

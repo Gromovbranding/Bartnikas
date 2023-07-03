@@ -2,6 +2,10 @@
 import { UploadUserFile } from "element-plus";
 import { IBlog, PartialAdminApiDto } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 const name = ref("Create Article");
 const { fetchPost } = useApi();
 

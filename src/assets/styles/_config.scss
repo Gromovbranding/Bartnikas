@@ -68,6 +68,7 @@ a {
 
 img {
     border-radius: $borderRadiusMain;
+    pointer-events: none;
 }
 
 p,span,small h1,h2,h3,h4,h5,h6, strong {

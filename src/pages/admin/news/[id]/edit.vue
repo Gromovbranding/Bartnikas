@@ -3,6 +3,7 @@ import type { FormRules, UploadUserFile } from "element-plus";
 import { IArticle, IFile } from "~/types/admin-api";
 
 definePageMeta({
+  layout: "admin",
   validate(route) {
     return /^\d+$/.test(route.params.id as string);
   },

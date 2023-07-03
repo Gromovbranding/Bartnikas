@@ -6,6 +6,10 @@ import {
   PartialAdminApiDto,
 } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 const name = ref("Add video");
 const { fetchPost, fetchGet } = useApi();
 

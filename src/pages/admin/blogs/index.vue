@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { IBlog } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 useHeadSafe({
   title: "Blog",
 });

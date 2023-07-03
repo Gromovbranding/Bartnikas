@@ -8,6 +8,10 @@ import {
   PartialFileAdminApiDto,
 } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 const name = ref("Create Project");
 
 useHeadSafe({

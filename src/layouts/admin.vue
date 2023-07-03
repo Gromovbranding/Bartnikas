@@ -19,6 +19,9 @@
   min-height: 100vh;
   display: flex;
 
+  img {
+    pointer-events: initial;
+  }
   &__sidebar {
     width: 210px;
     height: 100%;

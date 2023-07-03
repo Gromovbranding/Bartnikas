@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 useHeadSafe({
   title: "News",
 });

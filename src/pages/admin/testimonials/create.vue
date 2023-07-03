@@ -2,6 +2,10 @@
 import { UploadUserFile } from "element-plus";
 import { ITestimonial, PartialAdminApiDto } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
 const name = ref("Add testimonial");
 const { fetchPost } = useApi();
 
