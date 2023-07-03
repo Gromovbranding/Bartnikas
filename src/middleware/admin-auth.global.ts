@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (((to.name ?? "") as string).startsWith("admin")) {
+  if (~to.path.indexOf("admin")) {
     const { fetchGet } = useApi();
 
     try {
@@ -10,4 +10,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
       }
     }
   }
+
+  return true;
 });
