@@ -9,7 +9,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const { data: entity } = await useAsyncData<IBlog>(
@@ -67,6 +67,15 @@ const handlePatch = async () => {
     images,
   });
 };
+
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/blogs/${entity.value?.id}`);
+    await navigateTo("/admin/blogs");
+  } catch (exc) {
+    console.error(exc);
+  }
+};
 </script>
 
 <template>
@@ -104,7 +113,7 @@ const handlePatch = async () => {
 
         <ElFormItem>
           <ElButton type="primary" @click="handlePatch"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

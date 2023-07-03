@@ -1,11 +1,4 @@
 <script lang="ts" setup>
-// interface IItem {
-//   visible: boolean;
-//   answer: string;
-//   question: string;
-//   id: number;
-// }
-
 const list = ref([
   {
     id: 1,
@@ -26,18 +19,6 @@ const list = ref([
     question: "If I want to purchase a print where should I go?",
   },
 ]);
-
-// const handleQuestionClick = (item: IItem) => {
-//   list.value = list.value.map((el) => {
-//     if (el.id === item.id)
-//       return {
-//         ...el,
-//         visible: !el.visible,
-//       };
-
-//     return el;
-//   });
-// };
 </script>
 
 <template>
@@ -47,9 +28,9 @@ const list = ref([
     <section class="faq">
       <div class="faq__list">
         <AppDetails v-for="item in list" :key="item.question + item.id">
-          <template #summary
-            >If I want to purchase a print where should I go?</template
-          >
+          <template #summary>
+            If I want to purchase a print where should I go?
+          </template>
           You choose a photo that arouses your interest and resonates with you,
           then send a request form (or a link to sb@stasbart.com), indicating
           your wishes in size and design. We agree on the size, paper, price,

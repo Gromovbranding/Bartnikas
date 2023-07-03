@@ -4,9 +4,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
     try {
       await fetchGet("auth/me");
+
+      if (to.name === "admin-login") {
+        return await navigateTo("/admin/projects");
+      }
     } catch {
       if (to.name !== "admin-login") {
-        return navigateTo("/admin/login");
+        return await navigateTo("/admin/login");
       }
     }
   }

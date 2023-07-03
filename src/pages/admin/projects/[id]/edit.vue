@@ -15,7 +15,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const collabForm = JSON.stringify({
@@ -130,6 +130,15 @@ const handlePatch = async () => {
   await refresh();
 };
 
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/projects/${entity.value?.id}`);
+    await navigateTo("/admin/projects");
+  } catch (exc) {
+    console.error(exc);
+  }
+};
+
 const groupOptions = computed(() => {
   const arr =
     projectGroups.value?.map((item) => ({
@@ -204,7 +213,7 @@ onMounted(() => {
 
         <ElFormItem>
           <ElButton type="primary" @click="handlePatch"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

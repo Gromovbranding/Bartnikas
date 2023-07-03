@@ -57,12 +57,13 @@ const handleAddContact = async () => {
         </h3>
         <form @submit.prevent>
           <div>
-            <label for=""> Your Name </label>
-            <UIInput v-model="form.name" placeholder="John Smith" />
+            <label for="name"> Your Name </label>
+            <UIInput id="name" v-model="form.name" placeholder="John Smith" />
           </div>
           <div>
-            <label for=""> Your email </label>
+            <label for="email"> Your email </label>
             <UIInput
+              id="email"
               v-model="form.email"
               type="email"
               placeholder="mail@example.com"

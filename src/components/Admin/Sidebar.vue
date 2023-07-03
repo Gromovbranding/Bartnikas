@@ -104,6 +104,7 @@ const sidebarItems: Array<SidebarItem> = [
 
   &__menu {
     &-item {
+      width: 100%;
       cursor: pointer;
       display: flex;
       align-items: center;

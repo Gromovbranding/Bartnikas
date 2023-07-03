@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { usePublicData } from "@/composables/usePublicData";
+const { cart } = usePublicData();
+</script>
+
 <template>
   <main>
     <Title> Checkout </Title>
@@ -15,11 +20,6 @@
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-import { usePublicData } from "@/composables/usePublicData";
-const { cart } = usePublicData();
-</script>
 
 <style scoped lang="scss">
 .checkout {

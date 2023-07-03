@@ -21,7 +21,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const rules = reactive({
@@ -96,6 +96,15 @@ const handleSave = async () => {
     details,
   });
 };
+
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/awards/${entity.value?.id}`);
+    await navigateTo("/admin/awards");
+  } catch (exc) {
+    console.error(exc);
+  }
+};
 </script>
 
 <template>
@@ -129,7 +138,7 @@ const handleSave = async () => {
 
         <ElFormItem>
           <ElButton type="primary" @click="handleSave"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

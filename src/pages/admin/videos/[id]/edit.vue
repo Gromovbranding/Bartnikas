@@ -9,7 +9,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const { data: projects } = useAsyncData<IProject[]>(
@@ -59,6 +59,15 @@ const handlePatch = async () => {
   });
 };
 
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/video-collection/${entity.value?.id}`);
+    await navigateTo("/admin/videos");
+  } catch (exc) {
+    console.error(exc);
+  }
+};
+
 const projectsOptions = computed(() =>
   (projects.value || []).map((item) => ({
     value: item.id,
@@ -105,7 +114,7 @@ const projectsOptions = computed(() =>
 
         <ElFormItem>
           <ElButton type="primary" @click="handlePatch"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

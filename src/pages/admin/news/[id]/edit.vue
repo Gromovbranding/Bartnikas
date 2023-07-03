@@ -9,7 +9,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const { data: entity, refresh } = await useAsyncData<IArticle>(
@@ -71,6 +71,15 @@ const handlePatch = async () => {
 
   await refresh();
 };
+
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/news/${entity.value?.id}`);
+    await navigateTo("/admin/news");
+  } catch (exc) {
+    console.error(exc);
+  }
+};
 </script>
 
 <template>
@@ -112,7 +121,7 @@ const handlePatch = async () => {
 
         <ElFormItem>
           <ElButton type="primary" @click="handlePatch"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

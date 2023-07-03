@@ -9,7 +9,7 @@ definePageMeta({
   },
 });
 
-const { fetchGet, fetchPatch } = useApi();
+const { fetchGet, fetchPatch, fetchDelete } = useApi();
 const route = useRoute();
 
 const { data: entity, refresh } = await useAsyncData<ITestimonial>(
@@ -50,6 +50,15 @@ const form = reactive({
 
 const handleUpload = (files: UploadUserFile[]) => {
   fileList.value = files;
+};
+
+const handleDelete = async () => {
+  try {
+    await fetchDelete(`/testimonials/${entity.value?.id}`);
+    await navigateTo("/admin/testimonials");
+  } catch (exc) {
+    console.error(exc);
+  }
 };
 
 const handlePatch = async () => {
@@ -108,7 +117,7 @@ const handlePatch = async () => {
 
         <ElFormItem>
           <ElButton type="primary" @click="handlePatch"> Save </ElButton>
-          <ElButton>Delete</ElButton>
+          <ElButton @click="handleDelete">Delete</ElButton>
         </ElFormItem>
       </ElForm>
     </ClientOnly>

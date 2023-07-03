@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import ProfileAvatar from "@/assets/img/profile.png";
 const { logout } = useApi();
 </script>
 
@@ -8,7 +9,7 @@ const { logout } = useApi();
     <div class="header__right">
       <el-dropdown trigger="click">
         <template #default>
-          <el-avatar :size="32" src="/images/profile.png" />
+          <el-avatar :size="32" :src="ProfileAvatar" />
         </template>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">

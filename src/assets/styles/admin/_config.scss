@@ -1,3 +1,7 @@
+@import '../_reset.scss';
+@import '../_colors.scss';
+@import '../_fonts.scss';
+
 *,
 *:after,
 *:before {
@@ -11,64 +15,8 @@
     height: 100%;
     width: 100%;
 }
-
-
-html {
-    scroll-behavior: reset;
-}
-
+    
 body {
     font-family: 'HelveticaNeue', Arial, sans-serif;
     font-weight: normal;
-}
-
-
-a {
-    text-decoration: inherit;
-    cursor: inherit;
-    width: inherit;
-    transition: inherit;
-
-    &:hover {
-        color: inherit;
-    }
-}
-
-.scale {
-    overflow: inherit;
-    border-radius: inherit;
-
-    > * {
-        transition: inherit;
-    }
-
-
-    &:hover {
-        > * {
-            transform: inherit;
-        }
-    }
-}
-
-
-.upper-slide {
-    transform: inherit;
-    transition: inherit;
-    cursor: inherit;
-
-    &:hover {
-        transform: inherit;
-    }
-}
-
-img {
-    border-radius: inherit;
-}
-
-p,span,small h1,h2,h3,h4,h5,h6, strong {
-    color: inherit;
-}
-
-strong {
-    font-weight: inherit;
 }

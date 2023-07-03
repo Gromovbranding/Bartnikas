@@ -114,7 +114,7 @@ const handleCreate = (
         ]"
         :name="name"
         :cb-create="handleCreate"
-        back="projects"
+        back="awards"
       />
     </ClientOnly>
   </div>
