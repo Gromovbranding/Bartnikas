@@ -13,18 +13,19 @@ const lists = reactive({
   images: [] as any[],
 });
 
-const isDisabled = computed(
-  () => !(!!lists.files.length && !!lists.images.length)
-);
-
 const form = reactive([
   {
     value: "",
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
 ]);
+
+const isDisabled = computed(
+  () => !(!!lists.files.length && !!lists.images.length && !!form[0].value)
+);
 
 const handleCreate = async () => {
   await fetchPost("/media/presentation", {
@@ -55,16 +56,32 @@ const handleCreate = async () => {
 const handleUpload = (files: UploadUserFile[], field: string) => {
   lists[field] = files;
 };
+
+const rules = computed(() => {
+  const result = {};
+  form.forEach((item) => {
+    if (!item.required) return;
+    result[item.prop] = { validator: () => {} };
+  });
+  return result;
+});
 </script>
 
 <template>
-  <ElForm ref="formRef" :model="form" status-icon label-width="120px">
+  <ElForm
+    ref="formRef"
+    :model="form"
+    status-icon
+    label-width="120px"
+    :rules="rules"
+  >
     <h1>Presentation</h1>
     <ElFormItem
       v-for="item in form"
       :key="item.prop"
       :label="item.label"
       :prop="item.prop"
+      :required="item.required"
     >
       <ElInput v-model="item.value" :rows="5" :type="item.type" />
     </ElFormItem>

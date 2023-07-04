@@ -22,7 +22,8 @@ const fileList = ref<UploadUserFile[]>(props.list ?? []);
 // };
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
-  if (file.id) await fetchRemoveImage(file.id);
+  if (file.response?.name) return await fetchRemoveImage(file.response.name);
+  await fetchRemoveImage(file.name);
 };
 
 const handleUpload: UploadProps["onSuccess"] = (file) => {

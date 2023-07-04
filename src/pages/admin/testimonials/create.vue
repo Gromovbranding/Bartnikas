@@ -19,12 +19,14 @@ const form = reactive([
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
   {
     value: "",
     label: "Additional info",
     type: "text",
     prop: "additional_info",
+    required: true,
   },
   {
     value: "",
@@ -40,9 +42,13 @@ const handleCreate = async (
 ) => {
   if (!body) return;
   const req = { ...body };
-  if (videos[0]) req.file = videos[0].response;
+  if (videos[0]) {
+    req.url = null;
+    req.file = videos[0].response;
+  }
 
-  await fetchPost("/testimonials", req);
+  const res = await fetchPost("/testimonials", req);
+  if (res.id) navigateTo("/admin/testimonials");
 };
 </script>
 
@@ -55,6 +61,7 @@ const handleCreate = async (
         back="testimonials"
         :cb-create="handleCreate"
         video
+        :file-required="false"
       />
     </ClientOnly>
   </div>

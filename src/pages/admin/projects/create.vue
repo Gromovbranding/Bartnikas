@@ -95,6 +95,7 @@ const form = reactive([
     label: "New group",
     type: "text",
     prop: "newgroup",
+    required: true,
   },
   {
     value: false,
@@ -118,11 +119,19 @@ watch(
         label: "New group",
         type: "text",
         prop: "newgroup",
+        required: true,
       });
     }
     form.splice(idx, 1);
   }
 );
+
+function reset() {
+  form.forEach((item) => {
+    if (item.type === "checkbox") return (item.value = false);
+    if (item.type.includes("text")) return (item.value = "");
+  });
+}
 </script>
 
 <template>
@@ -133,6 +142,7 @@ watch(
         :name="name"
         :cb-create="handleCreate"
         back="projects"
+        @reset="reset"
       />
     </ClientOnly>
   </div>

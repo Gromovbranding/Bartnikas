@@ -28,6 +28,7 @@ const form = reactive([
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
   {
     value: "",
@@ -38,6 +39,7 @@ const form = reactive([
       label: item.title,
     })),
     prop: "project",
+    required: true,
   },
 ]);
 
@@ -51,12 +53,17 @@ const handleCreate = async (
   const project =
     projects.value?.find((item) => item.id === body.project) ?? null;
 
-  await fetchPost("/video-collection", {
+  const res = await fetchPost("/video-collection", {
     title: body.title,
     project,
     video: videos[0].response,
   });
+  if (res.id) navigateTo("/admin/videos");
 };
+
+function reset() {
+  form.forEach((item) => (item.value = ""));
+}
 </script>
 
 <template>
@@ -68,6 +75,7 @@ const handleCreate = async (
         back="videos"
         :cb-create="handleCreate"
         video
+        @reset="reset"
       />
     </ClientOnly>
   </div>

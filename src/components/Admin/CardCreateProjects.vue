@@ -59,6 +59,10 @@ const props = defineProps<{
   form: IForm[];
 }>();
 
+const emit = defineEmits<{
+  (e: "reset"): void;
+}>();
+
 const formModel = ref<IForm[]>([]);
 const filesModel = ref<UploadUserFile[]>([]);
 const formRef = ref<FormInstance>();
@@ -71,22 +75,22 @@ onMounted(() => {
 const create = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
-  await formEl.validate(async (isValid) => {
-    if (isValid) {
-      const formattedFormModel: ICreateFormFormatted = {};
+  // await formEl.validate(async (isValid) => {
+  //   if (isValid) {
+  const formattedFormModel: ICreateFormFormatted = {};
 
-      formModel.value.forEach((item) => {
-        formattedFormModel[item.prop] = item.value;
-      });
-
-      await props.cbCreate(
-        formattedFormModel,
-        filesModel.value,
-        projectImages.value,
-        collab.value
-      );
-    }
+  formModel.value.forEach((item) => {
+    formattedFormModel[item.prop] = item.value;
   });
+
+  await props.cbCreate(
+    formattedFormModel,
+    filesModel.value,
+    projectImages.value,
+    collab.value
+  );
+  //   }
+  // });
 };
 
 // const rules = reactive<FormRules>({
@@ -96,6 +100,7 @@ const create = async (formEl: FormInstance | undefined) => {
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
+  emit("reset");
   formEl.resetFields();
 };
 
@@ -115,6 +120,15 @@ const isFormDisabled = computed(() => {
   });
   return !length || !fields;
 });
+
+const rules = computed(() => {
+  const result = {};
+  props.form.forEach((item) => {
+    if (!item.required) return;
+    result[item.prop] = { validator: () => {} };
+  });
+  return result;
+});
 </script>
 
 <template>
@@ -129,12 +143,19 @@ const isFormDisabled = computed(() => {
     </template>
 
     <ClientOnly>
-      <ElForm ref="formRef" status-icon :model="formModel" label-width="120px">
+      <ElForm
+        ref="formRef"
+        status-icon
+        :model="formModel"
+        label-width="120px"
+        :rules="rules"
+      >
         <ElFormItem
           v-for="item in formModel"
           :key="item.prop"
           :label="item.label"
           :prop="item.prop"
+          :required="item.required"
         >
           <ElCheckbox
             v-if="item.type === 'checkbox'"

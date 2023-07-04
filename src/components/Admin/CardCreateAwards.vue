@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FormInstance, UploadUserFile } from "element-plus";
+import { IAwards } from "~/types/admin-api";
 
 interface IForm {
   value: string | boolean;
@@ -36,6 +37,11 @@ const props = defineProps<{
     details: ImageDetails
   ) => Promise<void>;
   form: IForm[];
+  edit?: IAwards;
+}>();
+
+const emit = defineEmits<{
+  (e: "reset"): void;
 }>();
 
 const formModel = ref<IForm[]>([]);
@@ -46,31 +52,57 @@ const awardImages = ref<ImageDetails>({});
 
 onMounted(() => {
   formModel.value = props.form;
+  // if (!props.edit) return
+  // avatarModel.value = [{
+  //   name: props.edit.awards_avatar.name,
+  //   uid: props.edit.awards_avatar.id
+  // }]
+  // filesModel.value = props.edit.degress.flatMap(item => {
+  //   const gold = item.groups.filter(grp => grp.type === 'Gold')
+  //   const silver = item.groups.filter(grp => grp.type === 'Silver')
+  //   return [
+  //     gold.flatMap(goldItem => goldItem.images.map(img => {
+  //       awardImages.value[img.id] = {
+  //         groups: 'Gold',
+  //         year: item.year
+  //       }
+  //       return ({ uid: img.id, name: img.name })
+  //     })),
+  //     silver.flatMap(silverItem => silverItem.images.map(img => {
+  //       awardImages.value[img.id] = {
+  //         groups: 'Gold',
+  //         year: item.year
+  //       }
+  //       return ({ uid: img.id, name: img.name })
+  //     })),
+  //   ].flatMap(item => item)
+  // })
 });
 
 const create = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
-  await formEl.validate(async (isValid) => {
-    if (isValid) {
-      const formattedFormModel: ICreateFormFormatted = {};
+  // await formEl.validate(async (isValid) => {
+  //   if (isValid) {
+  const formattedFormModel: ICreateFormFormatted = {};
 
-      formModel.value.forEach((item) => {
-        formattedFormModel[item.prop] = item.value;
-      });
-
-      await props.cbCreate(
-        formattedFormModel,
-        avatarModel.value,
-        filesModel.value,
-        awardImages.value
-      );
-    }
+  formModel.value.forEach((item) => {
+    formattedFormModel[item.prop] = item.value;
   });
+
+  await props.cbCreate(
+    formattedFormModel,
+    avatarModel.value,
+    filesModel.value,
+    awardImages.value
+  );
+  //   }
+  // });
 };
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
+  emit("reset");
   formEl.resetFields();
 };
 
@@ -81,6 +113,26 @@ const handleUpload = (files: UploadUserFile[]) => {
 const handleAvatarUpload = (files: UploadUserFile[]) => {
   avatarModel.value = files;
 };
+
+const isDisabled = computed(() => {
+  const filesReady =
+    filesModel.value.every((item) => item.percentage === 100) &&
+    filesModel.value.length > 0;
+  const fieldsReady = props.form.every((item) => {
+    if (!item.required) return true;
+    return !!item.value;
+  });
+  return !(filesReady && fieldsReady);
+});
+
+const rules = computed(() => {
+  const result = {};
+  props.form.forEach((item) => {
+    if (!item.required) return;
+    result[item.prop] = { validator: () => {} };
+  });
+  return result;
+});
 </script>
 
 <template>
@@ -95,12 +147,19 @@ const handleAvatarUpload = (files: UploadUserFile[]) => {
     </template>
 
     <ClientOnly>
-      <ElForm ref="formRef" status-icon :model="formModel" label-width="120px">
+      <ElForm
+        ref="formRef"
+        status-icon
+        :model="formModel"
+        label-width="120px"
+        :rules="rules"
+      >
         <ElFormItem
           v-for="item in formModel"
           :key="item.prop"
           :label="item.label"
           :prop="item.prop"
+          :required="item.required"
         >
           <ElCheckbox
             v-if="item.type === 'checkbox'"
@@ -127,7 +186,13 @@ const handleAvatarUpload = (files: UploadUserFile[]) => {
         </ElFormItem>
 
         <ElFormItem>
-          <ElButton type="primary" @click="create(formRef)"> Create </ElButton>
+          <ElButton
+            type="primary"
+            :disabled="isDisabled"
+            @click="create(formRef)"
+          >
+            Create
+          </ElButton>
           <ElButton @click="resetForm(formRef)">Clear</ElButton>
         </ElFormItem>
       </ElForm>

@@ -20,6 +20,7 @@ const form = reactive([
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
 ]);
 
@@ -34,6 +35,10 @@ const handleCreate = async (
     video: videos[0].response,
   });
 };
+
+function reset() {
+  form[0].value = "";
+}
 </script>
 
 <template>
@@ -44,6 +49,7 @@ const handleCreate = async (
         :name="name"
         :cb-create="handleCreate"
         video
+        @reset="reset"
       />
     </ClientOnly>
   </div>

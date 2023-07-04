@@ -32,9 +32,26 @@ useHeadSafe({
   title: name.value,
 });
 
+const form = reactive([
+  {
+    value: "",
+    label: "Title",
+    type: "text",
+    prop: "title",
+    required: true,
+  },
+  {
+    value: "",
+    label: "Description",
+    type: "textarea",
+    prop: "description",
+    required: true,
+  },
+]);
+
 const { fetchPost } = useApi();
 
-const handleCreate = (
+const handleCreate = async (
   body: PartialAdminApiDto<IProject>,
   avatar: UploadUserFile[],
   images: UploadUserFile[],
@@ -82,7 +99,7 @@ const handleCreate = (
       ],
     });
   });
-  fetchPost("/awards", {
+  const res = await fetchPost("/awards", {
     title,
     description,
     degress,
@@ -91,30 +108,23 @@ const handleCreate = (
       url: avatar[0].url,
     },
   });
+  if (res.id) navigateTo("/admin/awards");
 };
+
+function reset() {
+  form.forEach((item) => (item.value = ""));
+}
 </script>
 
 <template>
   <div>
     <ClientOnly>
       <AdminCardCreateAwards
-        :form="[
-          {
-            value: '',
-            label: 'Title',
-            type: 'text',
-            prop: 'title',
-          },
-          {
-            value: '',
-            label: 'Description',
-            type: 'textarea',
-            prop: 'description',
-          },
-        ]"
+        :form="form"
         :name="name"
         :cb-create="handleCreate"
         back="awards"
+        @reset="reset"
       />
     </ClientOnly>
   </div>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
-import { IFile } from "~/types/admin-api";
 
 const { fetchRemoveImage } = useApi();
 const { accessToken } = useAdmin();
@@ -27,7 +26,8 @@ const handleUpload: UploadProps["onSuccess"] = (file) => {
 };
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
-  return Boolean(await fetchRemoveImage((file.response as IFile).id));
+  if (file.response?.name) return await fetchRemoveImage(file.response.name);
+  await fetchRemoveImage(file.name);
 };
 
 const isPreviewImageVisible = ref<boolean>(false);
@@ -80,6 +80,9 @@ function onClickDelete(e: Event) {
         ></video>
         <div class="file">
           <span class="filename">{{ file.name }}</span>
+          <span v-if="file.percentage < 100" style="margin-inline: 1rem auto"
+            >Uploading: {{ file.percentage }}%</span
+          >
           <el-button type="danger" :icon="Delete" circle @click="onClickDelete">
           </el-button>
         </div>

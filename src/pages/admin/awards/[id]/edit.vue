@@ -1,146 +1,133 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
 import {
+  // IProjectImageSizes,
+  // IFile,
   IProject,
-  IProjectImageSizes,
+  // IProjectImageDetail,
+  // ListUnitSize,
   PartialAdminApiDto,
 } from "~/types/admin-api";
 
+definePageMeta({
+  layout: "admin",
+});
+
+const { fetchGet, fetchPatch } = useApi();
+const route = useRoute();
+
+const { data: entity } = await useAsyncData(
+  "award",
+  async () => await fetchGet(`/awards/${route.params.id}`)
+);
+
 interface ImageDetails {
   [key: number]: {
-    name: string;
-    price: number;
-    sizes: PartialAdminApiDto<IProjectImageSizes>[];
+    year: number;
+    groups: {
+      type: "Gold" | "Silver";
+      images: {
+        name: string;
+        url: string;
+      }[];
+    };
   };
 }
 
-definePageMeta({
-  layout: "admin",
-  validate(route) {
-    return /^\d+$/.test(route.params.id as string);
+const name = ref("Edit Award");
+
+useHeadSafe({
+  title: name.value,
+});
+
+const form = reactive([
+  {
+    value: entity.value.title ?? "",
+    label: "Title",
+    type: "text",
+    prop: "title",
+    required: true,
   },
-});
+  {
+    value: entity.value.description ?? "",
+    label: "Description",
+    type: "textarea",
+    prop: "description",
+    required: true,
+  },
+]);
 
-const { fetchGet, fetchPatch, fetchDelete } = useApi();
-const route = useRoute();
-
-const rules = reactive({
-  title: [
-    {
-      required: true,
-      message: "Please input title",
-      trigger: "change",
-    },
-  ],
-  description: [
-    {
-      required: true,
-      message: "Please input description",
-      trigger: "change",
-    },
-  ],
-});
-
-const projectImages = ref<ImageDetails>({});
-
-const { data: entity } = useAsyncData<IProject>(
-  "projects",
-  async () => await fetchGet(`/projects/${route.params.id}`)
-);
-
-const form = reactive({
-  title: entity.value?.title ?? "",
-  description: entity.value?.description ?? "",
-});
-
-const fileList = ref<UploadUserFile[]>([]);
-
-const handleUpload = (files: UploadUserFile[]) => {
-  fileList.value = files;
-};
-
-(entity.value?.details ?? []).forEach((item, idx) => {
-  fileList.value.push({
-    ...item.image,
-    uid: idx + 1,
+const handleCreate = async (
+  body: PartialAdminApiDto<IProject>,
+  avatar: UploadUserFile[],
+  images: UploadUserFile[],
+  imageDetails: ImageDetails
+) => {
+  const { title, description } = body;
+  const degress: ImageDetails[number][] = [];
+  const imagesByYear: {
+    [key: number]: any[];
+  } = {};
+  images.forEach((item) => {
+    const img = imageDetails[item.uid!];
+    if (img.year in imagesByYear) {
+      imagesByYear[img.year].push({
+        type: img.groups,
+        image: item.response,
+      });
+      return;
+    }
+    imagesByYear[img.year] = [
+      {
+        type: img.groups,
+        image: item.response,
+      },
+    ];
   });
-  projectImages.value[idx + 1] = {
-    name: item.image_name,
-    price: item.price,
-    sizes: item.sizes,
-  };
-});
-const handleSave = async () => {
-  const { description, title } = form;
-  const details: any[] = [];
-  fileList.value.forEach((item) => {
-    const { sizes, name, price } = projectImages.value[item.uid];
-
-    const image = item.response
-      ? item.response
-      : {
-          name: item.name,
-          url: item.url,
-        };
-    details.push({
-      sizes,
-      price,
-      image_name: name,
-      image,
+  Object.keys(imagesByYear).forEach((year) => {
+    const gold = {
+      type: "Gold",
+      images: [] as any[],
+    };
+    const silver = {
+      type: "Silver",
+      images: [] as any[],
+    };
+    imagesByYear[year].forEach((item) => {
+      if (item.type === "Gold") return gold.images.push(item.image);
+      silver.images.push(item.image);
+    });
+    degress.push({
+      year: Number(year),
+      groups: [
+        ...(gold.images.length > 0 ? [gold] : []),
+        ...(silver.images.length > 0 ? [silver] : []),
+      ],
     });
   });
-
-  await fetchPatch(`/projects/${route.params.id}`, {
+  const res = await fetchPatch("/awards", {
     title,
     description,
-    details,
+    degress,
+    awards_avatar: {
+      name: avatar[0].name,
+      url: avatar[0].url,
+    },
   });
-};
-
-const handleDelete = async () => {
-  try {
-    await fetchDelete(`/awards/${entity.value?.id}`);
-    await navigateTo("/admin/awards");
-  } catch (exc) {
-    console.error(exc);
-  }
+  if (res.id) navigateTo("/admin/awards");
 };
 </script>
 
 <template>
-  <ElCard>
-    <template #header>
-      <div class="card-header">
-        <span> Project {{ form.title }} </span>
-        <ElButton type="default" plain @click="navigateTo('/admin/projects')">
-          Back
-        </ElButton>
-      </div>
-    </template>
-
+  <div>
     <ClientOnly>
-      <ElForm :model="form" :rules="rules" label-width="120px">
-        <ElFormItem label="Title" prop="title">
-          <ElInput v-model="form.title" />
-        </ElFormItem>
-
-        <ElFormItem label="Description" prop="description">
-          <ElInput v-model="form.description" :rows="5" type="textarea" />
-        </ElFormItem>
-
-        <ElFormItem required label="Project Images">
-          <AdminUploadProjectImage
-            :image-details="projectImages"
-            :list="fileList"
-            @uploadFile="handleUpload"
-          />
-        </ElFormItem>
-
-        <ElFormItem>
-          <ElButton type="primary" @click="handleSave"> Save </ElButton>
-          <ElButton @click="handleDelete">Delete</ElButton>
-        </ElFormItem>
-      </ElForm>
+      <AdminCardCreateAwards
+        :form="form"
+        :name="name"
+        :cb-create="handleCreate"
+        back="awards"
+        :edit="entity"
+      />
     </ClientOnly>
-  </ElCard>
+  </div>
 </template>

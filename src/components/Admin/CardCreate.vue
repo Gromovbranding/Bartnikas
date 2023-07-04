@@ -16,16 +16,26 @@ interface ICreateFormFormatted {
   [x: string]: string | boolean;
 }
 
-const props = defineProps<{
-  name: string;
-  back?: string;
-  video?: boolean;
-  cbCreate: (
-    body: ICreateFormFormatted,
-    images: UploadUserFile[]
-  ) => Promise<void>;
-  form: IForm[];
+const emit = defineEmits<{
+  (e: "reset"): void;
 }>();
+
+const props = withDefaults(
+  defineProps<{
+    name: string;
+    back?: string;
+    video?: boolean;
+    cbCreate: (
+      body: ICreateFormFormatted,
+      images: UploadUserFile[]
+    ) => Promise<void>;
+    form: IForm[];
+    fileRequired: boolean;
+  }>(),
+  {
+    fileRequired: true,
+  }
+);
 
 // const rules = reactive<FormRules>({
 //   title: [
@@ -68,21 +78,21 @@ onMounted(() => {
 const create = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
-  await formEl.validate(async (isValid) => {
-    if (isValid) {
-      const formattedFormModel: ICreateFormFormatted = {};
+  // await formEl.validate(async (isValid) => {
+  //   if (isValid) {
+  const formattedFormModel: ICreateFormFormatted = {};
 
-      formModel.value.forEach((item) => {
-        formattedFormModel[item.prop] = item.value;
-      });
-
-      await props.cbCreate(formattedFormModel, filesModel.value);
-    }
+  formModel.value.forEach((item) => {
+    formattedFormModel[item.prop] = item.value;
   });
+  await props.cbCreate(formattedFormModel, filesModel.value);
+  //   }
+  // });
 };
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
+  emit("reset");
   formEl.resetFields();
 };
 
@@ -91,9 +101,24 @@ const handleUpload = (files: UploadUserFile[]) => {
 };
 
 const isDisabled = computed(() => {
-  if (props.video) return false;
-  const filesReady = filesModel.value.every((item) => item.percentage === 100);
-  return !(filesReady && filesModel.value.length > 0);
+  const filesReady = props.fileRequired
+    ? filesModel.value.every((item) => item.percentage === 100) &&
+      filesModel.value.length > 0
+    : true;
+  const fieldsReady = props.form.every((item) => {
+    if (!item.required) return true;
+    return !!item.value;
+  });
+  return !(filesReady && fieldsReady);
+});
+
+const rules = computed(() => {
+  const result = {};
+  props.form.forEach((item) => {
+    if (!item.required) return;
+    result[item.prop] = { validator: () => {} };
+  });
+  return result;
 });
 </script>
 
@@ -114,12 +139,19 @@ const isDisabled = computed(() => {
     </template>
 
     <ClientOnly>
-      <ElForm ref="formRef" status-icon :model="formModel" label-width="120px">
+      <ElForm
+        ref="formRef"
+        status-icon
+        :model="formModel"
+        label-width="120px"
+        :rules="rules"
+      >
         <ElFormItem
           v-for="item in formModel"
           :key="item.prop"
           :label="item.label"
           :prop="item.prop"
+          :required="item.required"
         >
           <ElCheckbox
             v-if="item.type === 'checkbox'"
@@ -142,10 +174,10 @@ const isDisabled = computed(() => {
           <ElInput v-else v-model="item.value" :rows="5" :type="item.type" />
         </ElFormItem>
 
-        <ElFormItem v-if="video" label="Video">
+        <ElFormItem v-if="video" :required="fileRequired" label="Video">
           <AdminUploadVideo :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
-        <ElFormItem v-else required label="Images">
+        <ElFormItem v-else :required="fileRequired" label="Images">
           <AdminUploadImage :list="filesModel" @uploadFile="handleUpload" />
         </ElFormItem>
 

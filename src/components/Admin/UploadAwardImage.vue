@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { UploadProps, UploadUserFile } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
-import { IFile } from "~/types/admin-api";
 
 interface ImageDetails {
   [key: number]: {
@@ -39,7 +38,8 @@ const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
 
 const handleRemove: UploadProps["onRemove"] = async (file) => {
   delete awardImages.value[file.uid];
-  return Boolean(await fetchRemoveImage((file.response as IFile).id));
+  if (file.response?.name) return await fetchRemoveImage(file.response.name);
+  await fetchRemoveImage(file.name);
 };
 
 const isPreviewImageVisible = ref<boolean>(false);

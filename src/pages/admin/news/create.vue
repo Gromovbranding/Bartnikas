@@ -20,12 +20,14 @@ const form = reactive([
     label: "Title",
     type: "text",
     prop: "title",
+    required: true,
   },
   {
     value: "",
     label: "Description",
     type: "textarea",
     prop: "description",
+    required: true,
   },
   {
     value: false,
@@ -38,6 +40,7 @@ const form = reactive([
     label: "text",
     type: "textarea",
     prop: "text",
+    required: true,
   },
 ]);
 
@@ -46,13 +49,21 @@ const handleCreate = async (
   images: UploadUserFile[]
 ) => {
   if (!body) return;
-  await fetchPost<IArticle>("/news", {
+  const res = await fetchPost<IArticle>("/news", {
     ...body,
     images: images.map((img) => ({
       name: img.response?.name,
     })),
   });
+  if (res.id) navigateTo("/admin/news");
 };
+
+function reset() {
+  form.forEach((item) => {
+    if (item.type === "checkbox") return (item.value = false);
+    item.value = "";
+  });
+}
 </script>
 
 <template>
@@ -63,6 +74,7 @@ const handleCreate = async (
         :name="name"
         back="news"
         :cb-create="handleCreate"
+        @reset="reset"
       />
     </ClientOnly>
   </div>
