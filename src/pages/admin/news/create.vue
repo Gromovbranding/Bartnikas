@@ -1,4 +1,3 @@
-<!-- eslint-disable camelcase -->
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
 import { IArticle, PartialAdminApiDto } from "~/types/admin-api";
