@@ -23,9 +23,9 @@ const handleCreate = async () => {
   await navigateTo(`/admin/awards/create`);
 };
 
-// const handleEdit = async (row: { id: string }) => {
-//   await navigateTo(`/admin/awards/${row.id}/edit`);
-// };
+const handleEdit = async (row: { id: string }) => {
+  await navigateTo(`/admin/awards/${row.id}/edit`);
+};
 
 const handleDelete = async () => {
   try {
@@ -57,7 +57,7 @@ const handleDelete = async () => {
 
         <ElTableColumn align="right" label="Operations">
           <template #default="{ row }">
-            <!-- <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton> -->
+            <ElButton size="small" @click="handleEdit(row)"> Edit </ElButton>
             <ElButton
               type="danger"
               size="small"
