@@ -66,7 +66,11 @@ const handlePatch = async () => {
   const video = fileList.value.map((item) => ({
     name: item.response?.name ?? item.name,
   }))[0];
-  if (video) req.file = video;
+
+  if (video) {
+    req.file = video;
+    req.url = null;
+  }
   await fetchPatch(`/testimonials/${route.params.id}`, req);
 
   await refresh();
