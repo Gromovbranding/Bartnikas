@@ -16,7 +16,7 @@ export interface IBlog {
   title: string;
   description: string;
   text: string;
-  images: IFile[];
+  image: IFile;
   created_at: Date;
   updated_at: Date;
 }
@@ -82,7 +82,7 @@ export interface IArticle {
   description: string;
   text: string;
   is_hot: boolean;
-  images: IFile[];
+  image: IFile;
   created_at: Date;
   updated_at: Date;
 }
@@ -100,7 +100,7 @@ export interface IIndexSlider {
   id: number;
   name: string;
   active: boolean;
-  images: IFile[];
+  image: IFile;
   created_at: Date;
   updated_at: Date;
 }
@@ -155,7 +155,7 @@ export interface IVideoCollection {
 
 export interface IMediaCV {
   id: number;
-  images: IFile[];
+  image: IFile;
   created_at: Date;
   updated_at: Date;
 }

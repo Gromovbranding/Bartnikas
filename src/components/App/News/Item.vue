@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <NuxtLink :to="`/news/${article.id}`" class="interios">
     <div class="interios__img">
-      <img :src="article.images[0]?.url ?? '../images/noroot_ph.png'" alt="" />
+      <img :src="article.image?.url" alt="" />
     </div>
     <div class="interios__content">
       <div>

@@ -36,7 +36,7 @@ function getGroupVideos(group: any) {
     <div class="collection">
       <section
         v-for="group in groups"
-        :id="group"
+        :id="String(group)"
         :key="'group-' + group"
         class="collection__item"
       >

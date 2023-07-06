@@ -20,14 +20,24 @@ const { data: blog } = useAsyncData(
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="blog?.images[0]?.url ?? '/images/noroot_ph.png'" alt="" />
+        <img :src="blog?.image?.url" alt="" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>
       </div>
     </article>
 
-    <AppMediaNextPrev :prev="blog?.prev" :next="blog?.next" slug="blog" />
+    <AppMediaNextPrev
+      :prev="{
+        title: String(blog?.prev?.title),
+        id: Number(blog?.prev?.id),
+      }"
+      :next="{
+        title: String(blog?.next?.title),
+        id: Number(blog?.next?.id),
+      }"
+      slug="blog"
+    />
   </main>
 </template>
 

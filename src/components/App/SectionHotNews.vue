@@ -32,7 +32,7 @@ const title = computed(() => {
         :to="`/news/${article.id}`"
         class="upper-slide hot-news__content"
       >
-        <img :src="article.images[0].url ?? '/images/noroot_ph.png'" alt="" />
+        <img :src="article.image?.url" alt="" />
         <div>
           <IconArrow is-arrow30-deg />
         </div>

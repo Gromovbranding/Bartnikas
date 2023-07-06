@@ -12,8 +12,8 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
 <template>
   <div v-for="item in cv" :key="'cv' + item.id" class="media__cv">
     <div>
-      <UIZoom v-for="img in item.images" :key="'img' + img.id">
-        <img :src="img.url" alt="" />
+      <UIZoom>
+        <img :src="item.image.url" alt="" />
       </UIZoom>
     </div>
     <UIButton> Download pdf </UIButton>

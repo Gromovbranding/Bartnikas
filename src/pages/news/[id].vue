@@ -22,10 +22,7 @@ const { data: article } = useAsyncData(
         <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
-        <img
-          :src="article?.images?.[0]?.url || '/images/noroot_ph.png'"
-          alt=""
-        />
+        <img :src="article?.image?.url" alt="" />
       </div>
       <div class="article__content">
         <p>{{ article?.description }}</p>
@@ -33,7 +30,17 @@ const { data: article } = useAsyncData(
       </div>
     </article>
 
-    <AppMediaNextPrev :next="article?.next" :prev="article?.prev" slug="news" />
+    <AppMediaNextPrev
+      :next="{
+        title: String(article?.next?.title),
+        id: Number(article?.next?.id),
+      }"
+      :prev="{
+        title: String(article?.prev?.title),
+        id: Number(article?.prev?.id),
+      }"
+      slug="news"
+    />
   </main>
 </template>
 
