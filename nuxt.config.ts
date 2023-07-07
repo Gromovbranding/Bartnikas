@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/admin/": { redirect: "/admin/projects" },
+    "/admin/": { redirect: "/admin/projects", ssr: false },
   },
 
   app: {

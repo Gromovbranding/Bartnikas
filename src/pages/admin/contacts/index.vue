@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IContact } from "~/types/admin-api";
 
-const headTitle = ref("contacts");
+const headTitle = ref("Contacts");
 
 definePageMeta({
   layout: "admin",
@@ -13,21 +13,20 @@ useHeadSafe({
 
 const {
   handleDelete,
-  data: { entities },
+  data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IContact>(headTitle.value);
 </script>
 
 <template>
   <AdminTemplateCardIndexPage
+    v-loading="pending"
     :data="entities"
     :head-title="headTitle"
     :handlers-off="['create', 'edit']"
     @delete="handleDelete"
   >
-    <ElTableColumn label="id" prop="id" width="120" />
-    <ElTableColumn label="Name" prop="name" width="220" />
-    <ElTableColumn label="Email" prop="email" width="220" />
-    <ElTableColumn label="Comment" prop="comment" width="720" />
-    <ElTableColumn label="Created" prop="created_at" width="220" />
+    <ElTableColumn label="Name" prop="name" />
+    <ElTableColumn label="Email" prop="email" />
+    <ElTableColumn label="Comment" prop="comment" />
   </AdminTemplateCardIndexPage>
 </template>

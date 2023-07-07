@@ -121,7 +121,7 @@ export interface IAwardsDegreeGroup {
 
 export interface IAwardsDegree {
   id: number;
-  year: string;
+  year: string | number;
   groups: IAwardsDegreeGroup[];
   created_at: Date;
   updated_at: Date;

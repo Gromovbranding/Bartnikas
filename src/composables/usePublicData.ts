@@ -87,7 +87,7 @@ export const usePublicData = () => {
     await fetchGet<IMediaExhibition>("media/exhibition");
 
   const getActiveGreetingIndex = async () =>
-    await fetchGet<IGreetingIndex>("greeting-index");
+    await fetchGet<IGreetingIndex>("greeting-index/only/active");
 
   const makeProjectsPayment = async (dto: {
     amount: number;

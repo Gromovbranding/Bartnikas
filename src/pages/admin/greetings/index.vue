@@ -1,56 +1,36 @@
-<!-- eslint-disable camelcase -->
 <script lang="ts" setup>
-import { UploadUserFile } from "element-plus";
-import { IGreetingIndex, PartialAdminApiDto } from "~/types/admin-api";
+import { IArticle } from "~/types/admin-api";
+
+const headTitle = ref("Greetings");
 
 definePageMeta({
   layout: "admin",
 });
 
-const name = ref("Greetings");
-const { fetchPost } = useApi();
-
 useHeadSafe({
-  title: name.value,
+  title: headTitle.value,
 });
 
-const form = reactive([
-  {
-    value: "",
-    label: "Title",
-    type: "text",
-    prop: "title",
-    required: true,
-  },
-]);
-
-const handleCreate = async (
-  body: PartialAdminApiDto<IGreetingIndex> | null,
-  videos: UploadUserFile[]
-) => {
-  if (!body) return;
-  await fetchPost("/greeting-index", {
-    ...body,
-    is_active: true,
-    video: videos[0].response,
-  });
-};
-
-function reset() {
-  form[0].value = "";
-}
+const {
+  handleCreate,
+  handleDelete,
+  data: { entities, pending },
+} = useAdmin().makeFetchersForIndexCard<IArticle>(
+  headTitle.value,
+  "greeting-index"
+);
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <AdminCardCreate
-        :form="form"
-        :name="name"
-        :cb-create="handleCreate"
-        video
-        @reset="reset"
-      />
-    </ClientOnly>
-  </div>
+  <AdminTemplateCardIndexPage
+    v-loading="pending"
+    :data="entities"
+    :head-title="headTitle"
+    :handlers-off="['edit']"
+    @create="handleCreate"
+    @delete="handleDelete"
+  >
+    <ElTableColumn label="Text" prop="text" />
+    <ElTableColumn label="Greeting is active" prop="is_active" />
+  </AdminTemplateCardIndexPage>
 </template>

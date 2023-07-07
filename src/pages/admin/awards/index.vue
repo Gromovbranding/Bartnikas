@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IAwards } from "~/types/admin-api";
 
-const headTitle = ref("awards");
+const headTitle = ref("Awards");
 
 definePageMeta({
   layout: "admin",
@@ -15,20 +15,20 @@ const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities },
+  data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IAwards>(headTitle.value);
 </script>
 
 <template>
   <AdminTemplateCardIndexPage
+    v-loading="pending"
     :data="entities"
     :head-title="headTitle"
     @create="handleCreate"
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="id" prop="id" width="120" />
-    <ElTableColumn label="Title" prop="title" width="220" />
-    <ElTableColumn label="Description" prop="description" width="700" />
+    <ElTableColumn label="Title" prop="title" />
+    <ElTableColumn label="Description" prop="description" />
   </AdminTemplateCardIndexPage>
 </template>

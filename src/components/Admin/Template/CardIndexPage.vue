@@ -47,7 +47,7 @@ const handlers = {
   <ElCard>
     <template #header>
       <div class="card-header">
-        <span> {{ headTitle }} </span>
+        <span style="text-transform: capitalize"> {{ headTitle }} </span>
         <ElButton
           v-if="!handlersOff.includes(ListHandlersOff.CREATE)"
           type="success"
@@ -60,9 +60,21 @@ const handlers = {
     </template>
     <ClientOnly>
       <ElTable :data="data" border style="width: 100%">
+        <ElTableColumn label="Id" prop="id" width="120" />
+
         <slot></slot>
 
-        <ElTableColumn align="right" label="Operations">
+        <ElTableColumn label="Created" prop="created_at" width="120">
+          <template #default="{ row }">
+            {{ useDateFormat().makeDateCorrect(row?.created_at) }}
+          </template>
+        </ElTableColumn>
+        <ElTableColumn label="last update" prop="updated_at" width="120">
+          <template #default="{ row }">
+            {{ useDateFormat().makeDateCorrect(row?.updated_at) }}
+          </template>
+        </ElTableColumn>
+        <ElTableColumn align="right" label="Operations" width="160">
           <template #default="{ row }">
             <ElButton
               v-if="!handlersOff.includes(ListHandlersOff.EDIT)"
@@ -116,3 +128,11 @@ const handlers = {
     </ClientOnly>
   </ElCard>
 </template>
+
+<style lang="scss" scoped>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

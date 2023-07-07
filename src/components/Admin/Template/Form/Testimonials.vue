@@ -1,0 +1,18 @@
+<script lang="ts" setup>
+const {
+  TestimonialsData: { form },
+} = useAdmin();
+</script>
+
+<template>
+  <ElFormItem label="Title" prop="title">
+    <ElInput v-model="form.title" />
+  </ElFormItem>
+  <ElFormItem
+    label="Additional information"
+    label-width="auto"
+    prop="additional_info"
+  >
+    <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
+  </ElFormItem>
+</template>

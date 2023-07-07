@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IVideoCollection } from "~/types/admin-api";
 
-const headTitle = ref("videos");
+const headTitle = ref("Videos");
 
 definePageMeta({
   layout: "admin",
@@ -15,7 +15,7 @@ const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities },
+  data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IVideoCollection>(
   headTitle.value,
   "video-collection"
@@ -24,15 +24,16 @@ const {
 
 <template>
   <AdminTemplateCardIndexPage
+    v-loading="pending"
     :data="entities"
     :head-title="headTitle"
     @create="handleCreate"
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="id" prop="id" width="120" />
-    <ElTableColumn label="Title" prop="title" width="220" />
-    <ElTableColumn label="Project" prop="project.title" width="200" />
-    <ElTableColumn label="Date" prop="date" width="120" />
+    <ElTableColumn label="id" prop="id" />
+    <ElTableColumn label="Title" prop="title" />
+    <ElTableColumn label="Project" prop="project.title" />
+    <ElTableColumn label="Date" prop="date" />
   </AdminTemplateCardIndexPage>
 </template>

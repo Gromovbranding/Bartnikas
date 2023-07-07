@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const {
-  NewsData: { form, headTitle, navigateBack, rules },
+  GreetingsData: { form, headTitle, navigateBack, rules },
 } = useAdmin();
 
 useHeadSafe({
@@ -20,6 +20,6 @@ useHeadSafe({
     :navigate-back="navigateBack"
     type="create"
   >
-    <AdminTemplateFormNews />
+    <AdminTemplateFormGreetings />
   </AdminTemplateCardCreateOrEdit>
 </template>

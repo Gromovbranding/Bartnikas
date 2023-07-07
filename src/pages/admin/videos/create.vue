@@ -1,82 +1,25 @@
 <script lang="ts" setup>
-import { UploadUserFile } from "element-plus";
-import {
-  IProject,
-  IVideoCollection,
-  PartialAdminApiDto,
-} from "~/types/admin-api";
-
 definePageMeta({
   layout: "admin",
 });
 
-const name = ref("Add video");
-const { fetchPost, fetchGet } = useApi();
-
-const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
-  async () => await fetchGet("/projects")
-);
+const {
+  VideosData: { form, headTitle, navigateBack, rules },
+} = useAdmin();
 
 useHeadSafe({
-  title: name.value,
+  title: headTitle.create,
 });
-
-const form = reactive([
-  {
-    value: "",
-    label: "Title",
-    type: "text",
-    prop: "title",
-    required: true,
-  },
-  {
-    value: "",
-    label: "Project",
-    type: "select",
-    options: (projects.value || []).map((item) => ({
-      value: item.id,
-      label: item.title,
-    })),
-    prop: "project",
-    required: true,
-  },
-]);
-
-const handleCreate = async (
-  body:
-    | (PartialAdminApiDto<IVideoCollection> & { project: string | number })
-    | null,
-  videos: UploadUserFile[]
-) => {
-  if (!body) return;
-  const project =
-    projects.value?.find((item) => item.id === body.project) ?? null;
-
-  const res = await fetchPost("/video-collection", {
-    title: body.title,
-    project,
-    video: videos[0].response,
-  });
-  if (res.id) navigateTo("/admin/videos");
-};
-
-function reset() {
-  form.forEach((item) => (item.value = ""));
-}
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <AdminCardCreate
-        :form="form"
-        :name="name"
-        back="videos"
-        :cb-create="handleCreate"
-        video
-        @reset="reset"
-      />
-    </ClientOnly>
-  </div>
+  <AdminTemplateCardCreateOrEdit
+    :rule-form="form"
+    :rules-form="rules"
+    :head-title="headTitle.create"
+    :navigate-back="navigateBack"
+    type="create"
+  >
+    <AdminTemplateFormVideos />
+  </AdminTemplateCardCreateOrEdit>
 </template>

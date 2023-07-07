@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
 
-const headTitle = ref("news");
+const headTitle = ref("News");
 
 definePageMeta({
   layout: "admin",
@@ -15,22 +15,21 @@ const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities },
+  data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IArticle>(headTitle.value);
 </script>
 
 <template>
   <AdminTemplateCardIndexPage
+    v-loading="pending"
     :data="entities"
     :head-title="headTitle"
     @create="handleCreate"
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="id" prop="id" width="120" />
-    <ElTableColumn label="Title" prop="title" width="220" />
-    <ElTableColumn label="Text" prop="text" width="820" />
-    <ElTableColumn label="Is Hot" prop="is_hot" width="90" />
-    <ElTableColumn label="Date" prop="date" width="120" />
+    <ElTableColumn label="Title" prop="title" />
+    <ElTableColumn label="Text" prop="text" />
+    <ElTableColumn label="Is Hot" prop="is_hot" />
   </AdminTemplateCardIndexPage>
 </template>
