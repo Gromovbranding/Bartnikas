@@ -17,7 +17,7 @@ const {
   <ElFormItem label="Text" prop="text">
     <ElInput v-model="form.text" :rows="5" type="textarea" />
   </ElFormItem>
-  <ElFormItem label="Article Images" prop="image">
+  <ElFormItem required label="Article Image" prop="image">
     <AdminUploadFile v-model="form.image" />
   </ElFormItem>
 </template>

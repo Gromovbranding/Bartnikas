@@ -15,4 +15,7 @@ const {
   >
     <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
   </ElFormItem>
+  <ElFormItem required label="Video" prop="file">
+    <AdminUploadFile v-model="form.file" file-type="video" />
+  </ElFormItem>
 </template>

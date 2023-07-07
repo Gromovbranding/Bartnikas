@@ -8,6 +8,7 @@ import {
   IProject,
   ITestimonial,
   IVideoCollection,
+  IProjectCollab,
 } from "types/admin-api";
 
 export const useAdmin = () => {
@@ -124,7 +125,9 @@ export const useAdmin = () => {
     navigateBack,
   }: {
     formInitial: PartialAdminApiDto<Model>;
-    rules?: FormRules<Ref<PartialAdminApiDto<Model>>>;
+    rules?: FormRules<
+      PartialAdminApiDto<Omit<Model, "image" | "video" | "file">>
+    >;
     pathServer: string;
     title: string;
     navigateBack: string;
@@ -153,13 +156,6 @@ export const useAdmin = () => {
         { required: true, message: "Field is required", trigger: "blur" },
       ],
       text: [{ required: true, message: "Field is required", trigger: "blur" }],
-      image: [
-        {
-          required: true,
-          type: "array",
-          message: "Field is required",
-        },
-      ],
     },
     title: "Article",
     pathServer: "news",
@@ -286,9 +282,7 @@ export const useAdmin = () => {
       details: [],
       description: "",
       group: null,
-      collab: {
-        press_release: [],
-      },
+      collab: {} as IProjectCollab,
     },
   });
 

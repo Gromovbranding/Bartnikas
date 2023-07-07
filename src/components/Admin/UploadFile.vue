@@ -4,7 +4,7 @@ import { UploadProps, UploadUserFile } from "element-plus";
 const props = withDefaults(
   defineProps<{
     modelValue: UploadProps["fileList"];
-    fileType?: "image" | "files";
+    fileType?: "image" | "files" | "video";
     single?: boolean;
   }>(),
   {
@@ -33,10 +33,13 @@ const handleBeforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
 };
 
 const fileTypes = computed(() => {
-  const types =
-    props.fileType === "files"
-      ? ["image/pdf"]
-      : ["image/jpeg", "image/png", "image/jpg"];
+  let types = ["image/jpeg", "image/png", "image/jpg"];
+
+  if (props.fileType === "files") {
+    types = ["image/pdf"];
+  } else if (props.fileType === "video") {
+    types = ["video/*"];
+  }
 
   return types.join(", ");
 });

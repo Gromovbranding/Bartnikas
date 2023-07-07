@@ -11,4 +11,7 @@ const {
   <ElFormItem label="Greetings is active" :label-width="150" prop="is_active">
     <ElSwitch v-model="form.is_active" />
   </ElFormItem>
+  <ElFormItem required label="Video" prop="video">
+    <AdminUploadFile v-model="form.video" file-type="video" />
+  </ElFormItem>
 </template>
