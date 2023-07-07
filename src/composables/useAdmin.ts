@@ -8,7 +8,6 @@ import {
   IProject,
   ITestimonial,
   IVideoCollection,
-  PartialAdminApiDto,
 } from "types/admin-api";
 
 export const useAdmin = () => {
@@ -148,12 +147,19 @@ export const useAdmin = () => {
   const NewsData = makeDataFn<IArticle>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       description: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
-      text: [{ required: true, message: "Filed is required", trigger: "blur" }],
+      text: [{ required: true, message: "Field is required", trigger: "blur" }],
+      image: [
+        {
+          required: true,
+          type: "array",
+          message: "Field is required",
+        },
+      ],
     },
     title: "Article",
     pathServer: "news",
@@ -163,17 +169,18 @@ export const useAdmin = () => {
       text: "",
       title: "",
       is_hot: false,
+      image: [],
     },
   });
 
   const BlogsData = makeDataFn<IBlog>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
-      text: [{ required: true, message: "Filed is required", trigger: "blur" }],
+      text: [{ required: true, message: "Field is required", trigger: "blur" }],
       description: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
     },
     title: "Article",
@@ -188,7 +195,7 @@ export const useAdmin = () => {
 
   const GreetingsData = makeDataFn<IGreetingIndex>({
     rules: {
-      text: [{ required: true, message: "Filed is required", trigger: "blur" }],
+      text: [{ required: true, message: "Field is required", trigger: "blur" }],
     },
     title: "Greetings",
     pathServer: "greetings-index",
@@ -202,10 +209,10 @@ export const useAdmin = () => {
   const TestimonialsData = makeDataFn<ITestimonial>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       additional_info: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
     },
     title: "Testimonial",
@@ -220,13 +227,13 @@ export const useAdmin = () => {
   const AwardsData = makeDataFn<IAwards>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       description: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       degress: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
     },
     title: "Awards",
@@ -242,7 +249,7 @@ export const useAdmin = () => {
   const VideosData = makeDataFn<IVideoCollection>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
     },
     title: "Video collection",
@@ -257,10 +264,10 @@ export const useAdmin = () => {
   const ProjectsData = makeDataFn<IProject>({
     rules: {
       title: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       description: [
-        { required: true, message: "Filed is required", trigger: "blur" },
+        { required: true, message: "Field is required", trigger: "blur" },
       ],
       group: [
         { message: "Length must be more than 3", trigger: "blur", min: 3 },

@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare"
   },
   "lint-staged": {
-    "src/**/*.{ts,js,vue}": "eslint --fix"
+    "src/**/*.{ts,js,vue}": "eslint --fix --ext .ts,.js,.vue ./src"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.3",
