@@ -190,6 +190,7 @@ export const useAdmin = () => {
       description: "",
       text: "",
       title: "",
+      image: [],
     },
   });
 
@@ -203,6 +204,7 @@ export const useAdmin = () => {
     formInitial: {
       text: "",
       is_active: true,
+      video: [],
     },
   });
 
@@ -221,6 +223,7 @@ export const useAdmin = () => {
     formInitial: {
       additional_info: "",
       title: "",
+      file: [],
     },
   });
 
@@ -243,6 +246,7 @@ export const useAdmin = () => {
       title: "",
       description: "",
       degress: [],
+      awards_avatar: [],
     },
   });
 
@@ -258,6 +262,7 @@ export const useAdmin = () => {
     formInitial: {
       title: "",
       project: {} as IProject,
+      video: [],
     },
   });
 
@@ -281,7 +286,9 @@ export const useAdmin = () => {
       details: [],
       description: "",
       group: null,
-      collab: {},
+      collab: {
+        press_release: [],
+      },
     },
   });
 

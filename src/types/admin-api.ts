@@ -1,3 +1,5 @@
+import { UploadUserFile } from "element-plus";
+
 export interface IFile {
   id: number;
   name: string;
@@ -206,4 +208,9 @@ export interface IGreetingIndex {
   updated_at: Date;
 }
 
-export type PartialAdminApiDto<T> = Omit<T, "id" | "updated_at" | "created_at">;
+export type PartialAdminApiDto<T> = Omit<
+  {
+    [Key in keyof T]: T[Key] extends IFile ? UploadUserFile[] : T[Key];
+  },
+  "id" | "updated_at" | "created_at"
+>;
