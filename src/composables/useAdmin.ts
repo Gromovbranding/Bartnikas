@@ -160,9 +160,6 @@ export const useAdmin = () => {
     navigateBack: "news",
     formInitial: {
       description: "",
-      image: {
-        name: "",
-      },
       text: "",
       title: "",
       is_hot: false,
