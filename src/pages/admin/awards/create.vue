@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const {
-  AwardsData: { form, headTitle, navigateBack, rules },
+  AwardsData: { form, headTitle, navigateBack, rules, handleCreate },
 } = useAdmin();
 
 useHeadSafe({
@@ -19,6 +19,7 @@ useHeadSafe({
     :head-title="headTitle.create"
     :navigate-back="navigateBack"
     type="create"
+    @create="handleCreate"
   >
     <AdminTemplateFormAwards />
   </AdminTemplateCardCreateOrEdit>

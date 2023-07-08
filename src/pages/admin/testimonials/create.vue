@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const {
-  TestimonialsData: { form, headTitle, navigateBack, rules },
+  TestimonialsData: { form, headTitle, navigateBack, rules, handleCreate },
 } = useAdmin();
 
 useHeadSafe({
@@ -19,6 +19,7 @@ useHeadSafe({
     :head-title="headTitle.create"
     :navigate-back="navigateBack"
     type="create"
+    @create="handleCreate"
   >
     <AdminTemplateFormTestimonials />
   </AdminTemplateCardCreateOrEdit>

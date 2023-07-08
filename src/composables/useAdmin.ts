@@ -123,6 +123,7 @@ export const useAdmin = () => {
     title,
     rules,
     navigateBack,
+    uploadImagesOptions,
   }: {
     formInitial: PartialAdminApiDto<Model>;
     rules?: FormRules<
@@ -131,11 +132,38 @@ export const useAdmin = () => {
     pathServer: string;
     title: string;
     navigateBack: string;
+    uploadImagesOptions?: { single: boolean; fieldName: string };
   }) => {
-    const form = useState<PartialAdminApiDto<Model>>(() => formInitial);
+    const formStateKey = `${pathServer}-${title}`;
+
+    const form = useState<PartialAdminApiDto<Model> | Model>(
+      formStateKey,
+      () => formInitial
+    );
+
+    const handleCreate = async (
+      data: Record<string, PartialAdminApiDto<Model>>
+    ) => {
+      const { fetchPost, fetchUploadFileByAdmin } = useApi();
+
+      if (uploadImagesOptions) {
+        data[uploadImagesOptions.fieldName] = await fetchUploadFileByAdmin(
+          data[uploadImagesOptions.fieldName],
+          uploadImagesOptions.single
+        );
+      }
+
+      const model = await fetchPost<Model>(`/${pathServer}`, data);
+
+      if (model) {
+        form.value = formInitial;
+        await navigateTo(`/admin/${navigateBack}`);
+      }
+    };
 
     return {
       rules,
+      handleCreate,
       getFetchersByID: async (id: number) =>
         await getFetchersById<Model>(id, pathServer),
       form,
@@ -160,6 +188,10 @@ export const useAdmin = () => {
     title: "Article",
     pathServer: "news",
     navigateBack: "news",
+    uploadImagesOptions: {
+      fieldName: "image",
+      single: true,
+    },
     formInitial: {
       description: "",
       text: "",
@@ -182,6 +214,10 @@ export const useAdmin = () => {
     title: "Article",
     pathServer: "blogs",
     navigateBack: "blogs",
+    uploadImagesOptions: {
+      fieldName: "image",
+      single: true,
+    },
     formInitial: {
       description: "",
       text: "",
@@ -197,6 +233,10 @@ export const useAdmin = () => {
     title: "Greetings",
     pathServer: "greetings-index",
     navigateBack: "greetings",
+    uploadImagesOptions: {
+      fieldName: "video",
+      single: true,
+    },
     formInitial: {
       text: "",
       is_active: true,
@@ -216,6 +256,10 @@ export const useAdmin = () => {
     title: "Testimonial",
     pathServer: "testimonials",
     navigateBack: "testimonials",
+    uploadImagesOptions: {
+      fieldName: "file",
+      single: true,
+    },
     formInitial: {
       additional_info: "",
       title: "",
@@ -255,6 +299,10 @@ export const useAdmin = () => {
     title: "Video collection",
     pathServer: "video-collection",
     navigateBack: "videos",
+    uploadImagesOptions: {
+      fieldName: "video",
+      single: true,
+    },
     formInitial: {
       title: "",
       project: {} as IProject,

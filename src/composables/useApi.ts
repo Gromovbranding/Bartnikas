@@ -1,5 +1,5 @@
+import { UploadUserFile } from "element-plus";
 import type { NitroFetchOptions } from "nitropack";
-import type { IFile } from "~/types/admin-api";
 
 export const useApi = () => {
   const config = useRuntimeConfig().public;
@@ -13,10 +13,13 @@ export const useApi = () => {
     customConfigFetch: any = {}
   ) => {
     const requestHeaders: HeadersInit = new Headers();
-    requestHeaders.set("Content-Type", "application/json");
 
     if (accessToken.value) {
       requestHeaders.set("Authorization", `Bearer ${accessToken.value}`);
+    }
+
+    if (!body) {
+      requestHeaders.set("Content-Type", "application/json");
     }
 
     const fetchConfig: Partial<NitroFetchOptions<any>> = {
@@ -76,20 +79,34 @@ export const useApi = () => {
     return await fetchApi<T>(path, "PATCH", body);
   };
 
-  const fetchGetImage = async (name: string) => {
-    return await fetchApi<Blob>(`/files/${name}`, "GET", null, {
-      responseType: "blob",
-    });
-  };
-
-  const fetchUploadImage = async (image: File) => {
+  const fetchUploadFile = async (file: { raw: Blob | File; name: string }) => {
     const formData = new FormData();
-    formData.append("file", image as File, image.name);
-    return await fetchPost<IFile>("files", formData);
+    formData.append("file", file.raw, file.name);
+    return await fetchPost<{ name: string }>("files", formData);
   };
 
-  const fetchRemoveImage = async (id: number) => {
-    return await fetchDelete(`files/${id}`);
+  const fetchUploadFileByAdmin = async (
+    files: UploadUserFile[],
+    single = false
+  ) => {
+    if (single) {
+      return await fetchUploadFile({
+        raw: files[0].raw as Blob | File,
+        name: files[0].name,
+      });
+    }
+
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append("files[]", file.raw as File | Blob, file.name);
+    });
+
+    return await fetchPost<{ name: string }[]>("files/multiple", formData);
+  };
+
+  const fetchRemoveImage = async (filename: string) => {
+    return await fetchDelete(`files/${filename}`);
   };
 
   const logout = async () => {
@@ -115,34 +132,16 @@ export const useApi = () => {
     }
   };
 
-  const fetchGetImages = async (images: { name: string; url: string }[]) => {
-    return await Promise.all(
-      (images ?? []).map(async ({ name, url }) => {
-        const blob = await fetchGetImage(name);
-        const file = new File([blob], name, {
-          type: blob.type,
-        });
-
-        return {
-          raw: file,
-          size: file.size,
-          name,
-          url,
-        };
-      })
-    );
-  };
-
   return {
     fetchDelete,
     fetchPost,
     fetchGet,
+    fetchPatch,
+
+    fetchUploadFileByAdmin,
+    fetchRemoveImage,
+
     logout,
     login,
-    fetchGetImages,
-    fetchUploadImage,
-    fetchRemoveImage,
-    fetchGetImage,
-    fetchPatch,
   };
 };
