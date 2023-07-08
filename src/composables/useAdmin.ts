@@ -231,7 +231,7 @@ export const useAdmin = () => {
       text: [{ required: true, message: "Field is required", trigger: "blur" }],
     },
     title: "Greetings",
-    pathServer: "greetings-index",
+    pathServer: "greeting-index",
     navigateBack: "greetings",
     uploadImagesOptions: {
       fieldName: "video",
@@ -263,6 +263,7 @@ export const useAdmin = () => {
     formInitial: {
       additional_info: "",
       title: "",
+      url: null,
       file: [],
     },
   });

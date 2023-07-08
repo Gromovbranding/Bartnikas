@@ -6,7 +6,7 @@ const {
 
 <template>
   <ElFormItem label="Text" prop="text">
-    <ElInput v-model="form.text" />
+    <ElInput v-model="form.text" type="textarea" />
   </ElFormItem>
   <ElFormItem label="Greetings is active" :label-width="150" prop="is_active">
     <ElSwitch v-model="form.is_active" />

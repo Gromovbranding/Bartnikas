@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { UploadUserFile } from "element-plus";
-
 const { fetchPost } = useApi();
 
 const props = defineProps<{
@@ -17,14 +15,10 @@ const isDisabled = computed(
 
 const handleCreate = async () => {
   await fetchPost("/media/kit", {
-    pdf: lists.files[0].response,
-    image: lists.images[0].response,
+    pdf: lists.files[0],
+    image: lists.images[0],
   });
   props.refresh();
-};
-
-const handleUpload = (files: UploadUserFile[], field: string) => {
-  lists[field] = files;
 };
 </script>
 
@@ -32,17 +26,10 @@ const handleUpload = (files: UploadUserFile[], field: string) => {
   <ElForm ref="formRef" status-icon label-width="120px">
     <h1>Media Kit</h1>
     <ElFormItem required label="File">
-      <AdminUploadFile
-        filetype="pdf"
-        :list="lists.files"
-        @uploadFile="handleUpload($event, 'files')"
-      />
+      <AdminUploadFile v-model="lists.files" file-type="files" />
     </ElFormItem>
     <ElFormItem required label="Image">
-      <AdminUploadImage
-        :list="lists.images"
-        @uploadFile="handleUpload($event, 'images')"
-      />
+      <AdminUploadFile v-model="lists.images" file-type="image" />
     </ElFormItem>
     <ElFormItem>
       <ElButton type="primary" :disabled="isDisabled" @click="handleCreate">

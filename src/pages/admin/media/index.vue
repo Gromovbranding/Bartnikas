@@ -57,12 +57,21 @@ const refreshMap = new Map([
   ["CV", refreshCV],
 ]);
 
+const btnArr = [
+  { value: "Kit", label: "Media kit" },
+  { value: "Presentation", label: "Presentation" },
+  { value: "Publication", label: "Publication" },
+  { value: "Exhibition", label: "Exhibition" },
+  { value: "CV", label: "CV" },
+];
+
 const handleDelete = async () => {
   try {
-    await fetchDelete(
-      `/media/${projectIdDelete.value.type}/${projectIdDelete.value.id}`
-    );
-    refreshMap.get(projectIdDelete.value.type)();
+    const type = btnArr.find(
+      (item) => item.label === projectIdDelete.value.type
+    )?.value;
+    await fetchDelete(`/media/${type}/${projectIdDelete.value.id}`);
+    refreshMap.get(type)();
   } finally {
     isDialogDelete.value = false;
     projectIdDelete.value = null;
@@ -79,14 +88,6 @@ const tableList = computed(() => {
 });
 
 const activeForm = ref("");
-
-const btnArr = [
-  { value: "Kit", label: "Media kit" },
-  { value: "Presentation", label: "Presentation" },
-  { value: "Publication", label: "Publication" },
-  { value: "Exhibition", label: "Exhibition" },
-  { value: "CV", label: "CV" },
-];
 
 function mapArray(list: any[] | null, type: string) {
   if (!list) return [];
@@ -160,7 +161,7 @@ const form = new Map([
         width="30%"
         @close="projectIdDelete = null"
       >
-        <span>Delete project ?</span>
+        <span>Delete?</span>
         <template #footer>
           <span class="dialog-footer">
             <ElButton

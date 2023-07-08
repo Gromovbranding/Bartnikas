@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { UploadUserFile } from "element-plus";
-
 const { fetchPost } = useApi();
 
 const props = defineProps<{
@@ -23,10 +21,6 @@ const form = reactive([
   },
 ]);
 
-const isDisabled = computed(
-  () => !(!!lists.files.length && !!lists.images.length && !!form[0].value)
-);
-
 const handleCreate = async () => {
   await fetchPost("/media/presentation", {
     title: form[0].value,
@@ -37,7 +31,6 @@ const handleCreate = async () => {
       name: lists.files[0].name,
     },
   });
-  if (formRef.value) formRef.value.reset();
   props.refresh();
   lists.images = [];
   lists.files = [];
@@ -52,10 +45,6 @@ const handleCreate = async () => {
 //     "name": "string"
 //   }
 // }
-
-const handleUpload = (files: UploadUserFile[], field: string) => {
-  lists[field] = files;
-};
 
 const rules = computed(() => {
   const result = {};
@@ -86,23 +75,13 @@ const rules = computed(() => {
       <ElInput v-model="item.value" :rows="5" :type="item.type" />
     </ElFormItem>
     <ElFormItem required label="File">
-      <AdminUploadFile
-        filetype="pdf"
-        :list="lists.files"
-        @uploadFile="handleUpload($event, 'files')"
-      />
+      <AdminUploadFile v-model="lists.files" file-type="files" />
     </ElFormItem>
     <ElFormItem required label="Image">
-      <AdminUploadImage
-        :list="lists.images"
-        single
-        @uploadFile="handleUpload($event, 'images')"
-      />
+      <AdminUploadFile v-model="lists.images" file-type="image" />
     </ElFormItem>
     <ElFormItem>
-      <ElButton type="primary" :disabled="isDisabled" @click="handleCreate">
-        Create
-      </ElButton>
+      <ElButton type="primary" @click="handleCreate"> Create </ElButton>
     </ElFormItem>
   </ElForm>
 </template>

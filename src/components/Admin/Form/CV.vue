@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { UploadUserFile } from "element-plus";
-
 const { fetchPost } = useApi();
 
 const props = defineProps<{
@@ -12,14 +10,10 @@ const isDisabled = computed(() => !images.value.length);
 
 const handleCreate = async () => {
   await fetchPost("/media/cv", {
-    images: images.value.map((img) => img.response),
+    images: images.value,
   });
   props.refresh();
   images.value = [];
-};
-
-const handleUpload = (files: UploadUserFile[]) => {
-  images.value = files;
 };
 </script>
 
@@ -27,7 +21,7 @@ const handleUpload = (files: UploadUserFile[]) => {
   <ElForm ref="formRef" status-icon label-width="120px">
     <h1>CV</h1>
     <ElFormItem required label="Images">
-      <AdminUploadImage :list="images" @uploadFile="handleUpload" />
+      <AdminUploadFile v-model="images" :single="false" />
     </ElFormItem>
     <ElFormItem>
       <ElButton type="primary" :disabled="isDisabled" @click="handleCreate">

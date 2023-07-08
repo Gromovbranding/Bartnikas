@@ -89,6 +89,7 @@ export const useApi = () => {
     files: UploadUserFile[],
     single = false
   ) => {
+    if (!files?.[0]) return null;
     if (single) {
       return await fetchUploadFile({
         raw: files[0].raw as Blob | File,

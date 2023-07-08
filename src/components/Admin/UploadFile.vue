@@ -19,7 +19,9 @@ const emits = defineEmits<{
 }>();
 
 const fileList = ref<UploadUserFile[]>(
-  Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue]
+  Array.isArray(props.modelValue)
+    ? props.modelValue
+    : [props.modelValue].filter((item) => !!item)
 );
 
 watchEffect(() => {
@@ -38,7 +40,7 @@ const fileTypes = computed(() => {
   let types = ["image/jpeg", "image/png", "image/jpg"];
 
   if (props.fileType === "files") {
-    types = ["image/pdf"];
+    types = [".pdf"];
   } else if (props.fileType === "video") {
     types = ["video/*"];
   }
