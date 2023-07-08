@@ -18,7 +18,9 @@ const emits = defineEmits<{
   (e: "update:modelValue", files: UploadUserFile[]): void;
 }>();
 
-const fileList = ref<UploadUserFile[]>(props.modelValue);
+const fileList = ref<UploadUserFile[]>(
+  Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue]
+);
 
 watchEffect(() => {
   emits("update:modelValue", fileList.value);
