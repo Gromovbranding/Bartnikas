@@ -1,4 +1,4 @@
-import { FormRules } from "element-plus";
+import { FormInstance, FormRules } from "element-plus";
 import {
   PartialAdminApiDto,
   IArticle,
@@ -13,6 +13,112 @@ import {
 
 export const useAdmin = () => {
   const accessToken = useCookie<string>("accessToken");
+
+  const createTitle = (type: "create" | "edit" = "create", title: string) => {
+    return type === "create" ? `Create new ${title}` : `Edit ${title}`;
+  };
+
+  const createByData = async <RecordModel, Model>(
+    data: RecordModel,
+    path: string,
+    options: {
+      isUploadImage: boolean;
+      uploadImageFieldName: string;
+      isUploadSingle: boolean;
+    } = {
+      isUploadImage: true,
+      isUploadSingle: true,
+      uploadImageFieldName: "image",
+    }
+  ) => {
+    const { fetchPost, fetchUploadFileByAdmin } = useApi();
+
+    if (options.isUploadImage) {
+      data[options.fieldName] = await fetchUploadFileByAdmin(
+        data[options.fieldName],
+        options.isUploadSingle
+      );
+    }
+
+    return await fetchPost<Model>(`/${path}`, data);
+  };
+
+  // const makeFn = <RecordModel, Model>(path: string) => {
+  //   const {
+  //     fetchGet,
+  //     fetchPatch,
+  //     fetchPost,
+  //     fetchDelete,
+  //     fetchUploadFileByAdmin,
+  //   } = useApi();
+
+  //   const fById = async (id: number) => await fetchGet<Model>(`/${path}/${id}`);
+
+  //   const fCreate = async (data: RecordModel) => {
+  //     data[options.fieldName] = await fetchUploadFileByAdmin(
+  //       data[options.fieldName]
+  //     );
+
+  //     return await fetchPost<Model>(`/${path}`, toValue(data));
+  //   };
+
+  //   const fPatch = async (id: number, data: RecordModel) =>
+  //     await fetchPatch<Model>(`/${path}/${id}`, toValue(data));
+
+  //   const fDelete = async (id: number) =>
+  //     await fetchDelete<Model>(`/${path}/${id}`);
+
+  //   return {
+  //     titles: {
+  //       create: createTitle("create", "Article"),
+  //       edit: createTitle("edit", "Article"),
+  //     },
+  //     // formRules,
+
+  //     methods: {
+  //       fById,
+  //       fCreate,
+  //       fPatch,
+  //       fDelete,
+  //     },
+  //   };
+  // };
+
+  const updateByData = async <Model>(path: string, id: string | number) => {
+    const { fetchGet } = useApi();
+
+    const model = await fetchGet<Model>(`/${path}/${id}`);
+
+    const handlePatch = async <RecordModel>(data: RecordModel) => {
+      const { fetchPatch } = useApi();
+
+      return await fetchPatch<Model>(`/${path}/${id}`, data);
+    };
+
+    const handleDelete = async () => {
+      const { fetchDelete } = useApi();
+
+      return await fetchDelete<Model>(`/${path}/${id}`);
+    };
+
+    return {
+      handlePatch,
+      handleDelete,
+      model,
+    };
+  };
+
+  const resetForm = (formRef: FormInstance | undefined) => {
+    if (!formRef) return;
+
+    formRef.resetFields();
+  };
+
+  const validateForm = async (formRef: FormInstance | undefined) => {
+    if (!formRef) return;
+
+    return await formRef.validate();
+  };
 
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
@@ -176,15 +282,7 @@ export const useAdmin = () => {
   };
 
   const NewsData = makeDataFn<IArticle>({
-    rules: {
-      title: [
-        { required: true, message: "Field is required", trigger: "blur" },
-      ],
-      description: [
-        { required: true, message: "Field is required", trigger: "blur" },
-      ],
-      text: [{ required: true, message: "Field is required", trigger: "blur" }],
-    },
+    rules: {},
     title: "Article",
     pathServer: "news",
     navigateBack: "news",
@@ -338,6 +436,12 @@ export const useAdmin = () => {
   return {
     accessToken,
     makeFetchersForIndexCard,
+
+    createTitle,
+    createByData,
+    updateByData,
+    resetForm,
+    validateForm,
 
     NewsData,
     BlogsData,

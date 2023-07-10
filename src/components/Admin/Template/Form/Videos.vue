@@ -7,8 +7,9 @@ const {
 
 const { fetchGet } = useApi();
 
-const { data: projects } = await useAsyncData<IProject[]>("projects", () =>
-  fetchGet("/projects")
+const { data: projects } = await useAsyncData<IProject[]>(
+  "projects",
+  async () => await fetchGet("/projects")
 );
 </script>
 
