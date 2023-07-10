@@ -39,6 +39,11 @@ const form = reactive<PartialAdminApiDto<IVideoCollection>>({
   project: model.project ?? projects.value?.[0] ?? ({} as IProject),
 });
 
+const handleDelete = async () => {
+  await methods.handleDelete(id);
+  await navigateTo(navigateBack.value);
+};
+
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
@@ -55,7 +60,7 @@ const handleUpdate = async () => {
 </script>
 
 <template>
-  <AdminTemplateCardWithForm :title="title" :navigate-back="navigateBack">
+  <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Title" prop="title">
         <ElInput v-model="form.title" />

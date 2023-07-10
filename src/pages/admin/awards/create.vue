@@ -30,7 +30,7 @@ const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       await methods.handleCreate(toValue(form), {
-        fieldFileName: "file",
+        fieldFileName: "awards_avatar",
       });
 
       await refreshNuxtData();

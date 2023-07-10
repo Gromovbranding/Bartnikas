@@ -16,7 +16,7 @@ defineProps<{
           v-if="navigateBack"
           type="default"
           plain
-          @click="navigateTo(`/admin/${navigateBack}`)"
+          @click="navigateTo(navigateBack)"
         >
           Back
         </ElButton>
