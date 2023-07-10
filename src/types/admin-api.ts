@@ -200,6 +200,8 @@ export interface IMediaPublication {
   updated_at: Date;
 }
 
+type Primitive = undefined | null | boolean | string | number | Function;
+
 export interface IGreetingIndex {
   id: number;
   text: string;
@@ -209,9 +211,12 @@ export interface IGreetingIndex {
   updated_at: Date;
 }
 
-export type PartialAdminApiDto<T> = Omit<
-  {
-    [Key in keyof T]: T[Key] extends IFile ? UploadUserFile[] : T[Key];
-  },
-  "id" | "updated_at" | "created_at"
->;
+type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
+
+export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
+  [Key in keyof T]: T[Key] extends IFile
+    ? UploadUserFile[]
+    : T[Key] extends Primitive
+    ? T[Key]
+    : PartialAdminApiDto<T[Key]>;
+}>;
