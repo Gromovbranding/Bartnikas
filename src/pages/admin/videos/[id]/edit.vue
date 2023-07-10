@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+import {
+  IProject,
+  IVideoCollection,
+  PartialAdminApiDto,
+} from "@/types/admin-api";
+import { AdminTemplateForm } from "#components";
+
 definePageMeta({
   layout: "admin",
   validate(route) {
@@ -6,31 +13,72 @@ definePageMeta({
   },
 });
 
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
+const id = Number(route.params.id);
 
-const {
-  VideosData: { form, headTitle, navigateBack, rules, getFetchersByID },
-} = useAdmin();
+const { videos } = useAdmin();
+const { formRules, navigateBack, titles, methods } = videos();
+
+const { fetchGet } = useApi();
+
+const { data: projects } = await useAsyncData<IProject[]>(
+  "projects",
+  async () => await fetchGet("/projects")
+);
+
+const model = await methods.handleGetModel(id);
 
 useHeadSafe({
-  title: headTitle.create,
+  title: titles.edit,
 });
 
-const {
-  data: { entitiy },
-} = await getFetchersByID(Number(route.params.id));
+const form = reactive<PartialAdminApiDto<IVideoCollection>>({
+  title: model.title ?? "",
+  video: model.video ? [model.video] : [],
+  project: model.project ?? projects.value?.[0] ?? ({} as IProject),
+});
 
-form.value = entitiy.value!;
+const handleUpdate = async () => {
+  if (await formRef.value?.validate()) {
+    try {
+      await methods.handlePatch(id, toValue(form));
+
+      await refreshNuxtData();
+
+      await navigateTo(navigateBack.value);
+    } catch (exc) {
+      console.error(exc);
+    }
+  }
+};
 </script>
 
 <template>
-  <AdminTemplateCardCreateOrEdit
-    :rule-form="form"
-    :rules-form="rules"
-    :head-title="headTitle.edit"
-    :navigate-back="navigateBack"
-    type="update"
-  >
-    <AdminTemplateFormVideos />
-  </AdminTemplateCardCreateOrEdit>
+  <AdminTemplateCardWithForm :title="title" :navigate-back="navigateBack">
+    <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
+      <ElFormItem label="Title" prop="title">
+        <ElInput v-model="form.title" />
+      </ElFormItem>
+
+      <ElFormItem required label="Project" prop="project">
+        <ElSelect v-model="form.project">
+          <ElOption
+            v-for="item in projects"
+            :key="item.id"
+            :label="item.title"
+            :value="item"
+          />
+        </ElSelect>
+      </ElFormItem>
+
+      <ElFormItem required label="Video" prop="video">
+        <AdminUploadFile v-model="form.video" file-type="video" />
+      </ElFormItem>
+      <ElFormItem>
+        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
+        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+      </ElFormItem>
+    </AdminTemplateForm>
+  </AdminTemplateCardWithForm>
 </template>

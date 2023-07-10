@@ -143,6 +143,7 @@ export interface ITestimonial {
   id: number;
   title: string;
   additional_info: string;
+  url?: string;
   file: IFile;
 }
 

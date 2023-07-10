@@ -1,23 +1,21 @@
 <script lang="ts" setup>
-import { FormInstance, FormRules } from "element-plus";
-import { IArticle, PartialAdminApiDto } from "types/admin-api";
+import { IArticle, PartialAdminApiDto } from "@/types/admin-api";
+import { AdminTemplateForm } from "#components";
 
 definePageMeta({
   layout: "admin",
 });
 
-const { createByData, validateForm, resetForm, createTitle } = useAdmin();
-const title = ref(createTitle("create", "article"));
+const { news } = useAdmin();
+const { titles, formRules, navigateBack, methods } = news();
 
 useHeadSafe({
-  title: title.value,
+  title: titles.create,
 });
 
-type RecordModel = PartialAdminApiDto<IArticle>;
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
-const formRef = ref<FormInstance>();
-
-const form = reactive<RecordModel>({
+const form = reactive<PartialAdminApiDto<IArticle>>({
   title: "",
   is_hot: false,
   description: "",
@@ -25,22 +23,18 @@ const form = reactive<RecordModel>({
   image: [],
 });
 
-const formRules = ref<FormRules>({
-  title: [{ required: true, message: "Field is required", trigger: "blur" }],
-  description: [
-    { required: true, message: "Field is required", trigger: "blur" },
-  ],
-  text: [{ required: true, message: "Field is required", trigger: "blur" }],
-});
+const handleResetForm = () => {
+  formRef.value?.resetForm();
+};
 
 const handleCreate = async () => {
-  if (await validateForm(formRef.value)) {
+  if (await formRef.value?.validate()) {
     try {
-      await createByData<RecordModel, IArticle>(toValue(form), "news");
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 
-      await navigateTo("/admin/news");
+      await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
@@ -49,15 +43,11 @@ const handleCreate = async () => {
 </script>
 
 <template>
-  <AdminTemplateCardWithForm :title="title" navigate-back="news">
-    <ElForm
-      ref="formRef"
-      status-icon
-      scroll-to-error
-      label-width="120px"
-      :model="form"
-      :rules="formRules"
-    >
+  <AdminTemplateCardWithForm
+    :title="titles.create"
+    :navigate-back="navigateBack"
+  >
+    <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Title" prop="title">
         <ElInput v-model="form.title" />
       </ElFormItem>
@@ -75,8 +65,8 @@ const handleCreate = async () => {
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="resetForm(formRef)"> Clear </ElButton>
+        <ElButton @click="handleResetForm"> Clear </ElButton>
       </ElFormItem>
-    </ElForm>
+    </AdminTemplateForm>
   </AdminTemplateCardWithForm>
 </template>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { FormInstance, FormRules } from "element-plus";
-import { IArticle, PartialAdminApiDto } from "types/admin-api";
+import { IArticle, PartialAdminApiDto } from "@/types/admin-api";
+import { AdminTemplateForm } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -9,46 +9,36 @@ definePageMeta({
   },
 });
 
-const route = useRoute();
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
-type RecordModel = PartialAdminApiDto<IArticle>;
-const { updateByData, validateForm, createTitle } = useAdmin();
-const { handlePatch, handleDelete, model } = await updateByData<IArticle>(
-  "news",
-  Number(route.params.id)
-);
-const title = ref(createTitle("edit", "article"));
+const route = useRoute();
+const id = Number(route.params.id);
+
+const { news } = useAdmin();
+const { formRules, navigateBack, titles, methods } = news();
+
+const model = await methods.handleGetModel(id);
 
 useHeadSafe({
-  title: title.value,
+  title: titles.edit,
 });
 
-const formRef = ref<FormInstance>();
-
-const form = reactive<RecordModel>({
+const form = reactive<PartialAdminApiDto<IArticle>>({
   title: model.title ?? "",
   is_hot: model.is_hot ?? false,
   description: model.description ?? "",
   text: model.text ?? "",
-  image: model.image ?? [],
-});
-
-const formRules = ref<FormRules>({
-  title: [{ required: true, message: "Field is required", trigger: "blur" }],
-  description: [
-    { required: true, message: "Field is required", trigger: "blur" },
-  ],
-  text: [{ required: true, message: "Field is required", trigger: "blur" }],
+  image: model.image ? [model.image] : [],
 });
 
 const handleUpdate = async () => {
-  if (await validateForm(formRef.value)) {
+  if (await formRef.value?.validate()) {
     try {
-      await handlePatch<RecordModel>(toValue(form));
+      await methods.handlePatch(id, toValue(form));
 
       await refreshNuxtData();
 
-      await navigateTo("/admin/news");
+      await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
@@ -57,15 +47,8 @@ const handleUpdate = async () => {
 </script>
 
 <template>
-  <AdminTemplateCardWithForm :title="title" navigate-back="news">
-    <ElForm
-      ref="formRef"
-      status-icon
-      scroll-to-error
-      label-width="120px"
-      :model="form"
-      :rules="formRules"
-    >
+  <AdminTemplateCardWithForm :title="title" :navigate-back="navigateBack">
+    <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Title" prop="title">
         <ElInput v-model="form.title" />
       </ElFormItem>
@@ -85,6 +68,6 @@ const handleUpdate = async () => {
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
         <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
       </ElFormItem>
-    </ElForm>
+    </AdminTemplateForm>
   </AdminTemplateCardWithForm>
 </template>

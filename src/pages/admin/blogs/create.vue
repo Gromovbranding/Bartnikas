@@ -1,26 +1,68 @@
 <script lang="ts" setup>
+import { IBlog, PartialAdminApiDto } from "@/types/admin-api";
+import { AdminTemplateForm } from "#components";
+
 definePageMeta({
   layout: "admin",
 });
 
-const {
-  BlogsData: { form, headTitle, navigateBack, rules, handleCreate },
-} = useAdmin();
+const { blogs } = useAdmin();
+const { titles, formRules, navigateBack, methods } = blogs();
+
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 useHeadSafe({
-  title: headTitle.create,
+  title: titles.create,
 });
+
+const form = reactive<PartialAdminApiDto<IBlog>>({
+  title: "",
+  description: "",
+  text: "",
+  image: [],
+});
+
+const handleResetForm = () => {
+  formRef.value?.resetForm();
+};
+
+const handleCreate = async () => {
+  if (await formRef.value?.validate()) {
+    try {
+      await methods.handleCreate(toValue(form));
+
+      await refreshNuxtData();
+
+      await navigateTo(navigateBack.value);
+    } catch (exc) {
+      console.error(exc);
+    }
+  }
+};
 </script>
 
 <template>
-  <AdminTemplateCardCreateOrEdit
-    :rule-form="form"
-    :rules-form="rules"
-    :head-title="headTitle.create"
+  <AdminTemplateCardWithForm
+    :title="titles.create"
     :navigate-back="navigateBack"
-    type="create"
-    @create="handleCreate"
   >
-    <AdminTemplateFormBlogs />
-  </AdminTemplateCardCreateOrEdit>
+    <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
+      <ElFormItem label="Title" prop="title">
+        <ElInput v-model="form.title" />
+      </ElFormItem>
+      <ElFormItem label="Description" prop="description">
+        <ElInput v-model="form.description" :rows="5" type="textarea" />
+      </ElFormItem>
+      <ElFormItem label="Text" prop="text">
+        <ElInput v-model="form.text" :rows="5" type="textarea" />
+      </ElFormItem>
+      <ElFormItem required label="Article Image" prop="image">
+        <AdminUploadFile v-model="form.image" />
+      </ElFormItem>
+      <ElFormItem>
+        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
+        <ElButton @click="handleResetForm"> Clear </ElButton>
+      </ElFormItem>
+    </AdminTemplateForm>
+  </AdminTemplateCardWithForm>
 </template>
