@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import {
-  IProject,
-  IVideoCollection,
-  PartialAdminApiDto,
-} from "@/types/admin-api";
+import { IProject, IVideoCollection } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -33,7 +29,7 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<PartialAdminApiDto<IVideoCollection>>({
+const form = reactive<IVideoCollection>({
   title: model.title ?? "",
   video: model.video ? [model.video] : [],
   project: model.project ?? projects.value?.[0] ?? ({} as IProject),

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBlog, PartialAdminApiDto } from "@/types/admin-api";
+import { IBlog } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -22,10 +22,8 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<PartialAdminApiDto<IBlog>>({
-  title: model.title ?? "",
-  description: model.description ?? "",
-  text: model.text ?? "",
+const form = reactive<IBlog>({
+  ...model,
   image: model.image ? [model.image] : [],
 });
 

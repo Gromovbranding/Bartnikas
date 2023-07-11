@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IAwards, PartialAdminApiDto } from "@/types/admin-api";
+import { IAwards } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -22,11 +22,9 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<PartialAdminApiDto<IAwards>>({
-  title: model.title ?? "",
+const form = reactive<IAwards>({
+  ...model,
   awards_avatar: model.awards_avatar ? [model.awards_avatar] : [],
-  description: model.description ?? "",
-  degress: model.degress ?? [],
 });
 
 const handleDelete = async () => {

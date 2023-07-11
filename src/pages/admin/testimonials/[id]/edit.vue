@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ITestimonial, PartialAdminApiDto } from "@/types/admin-api";
+import { ITestimonial } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -22,10 +22,8 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<PartialAdminApiDto<ITestimonial>>({
-  title: model.title ?? "",
-  additional_info: model.additional_info ?? "",
-  url: model.url ?? undefined,
+const form = reactive<ITestimonial>({
+  ...model,
   file: model.file ? [model.file] : [],
 });
 

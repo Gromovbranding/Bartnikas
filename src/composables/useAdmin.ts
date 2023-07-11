@@ -8,7 +8,7 @@ import {
   IProject,
   ITestimonial,
   IVideoCollection,
-} from "@/types/admin-api";
+} from "./../types/admin-api";
 
 export const useAdmin = () => {
   const accessToken = useCookie<string>("accessToken");
@@ -323,6 +323,7 @@ export const useAdmin = () => {
   return {
     accessToken,
     makeFetchersForIndexCard,
+    makeDataFormatForUpdate,
 
     news,
     blogs,

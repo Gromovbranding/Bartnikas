@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IArticle, PartialAdminApiDto } from "@/types/admin-api";
+import { IArticle } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -23,11 +23,8 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<PartialAdminApiDto<IArticle>>({
-  title: model.title ?? "",
-  is_hot: model.is_hot ?? false,
-  description: model.description ?? "",
-  text: model.text ?? "",
+const form = reactive<IArticle>({
+  ...model,
   image: model.image ? [model.image] : [],
 });
 
