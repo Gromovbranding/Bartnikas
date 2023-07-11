@@ -43,6 +43,11 @@ export default defineNuxtConfig({
     },
   },
 
+  build: {
+    transpile:
+      process.env.npm_lifecycle_event === "build" ? ["element-plus"] : [],
+  },
+
   nitro: {
     preset: "node-cluster",
   },

@@ -28,7 +28,7 @@ export const useAdmin = () => {
 
     type RecordModel = PartialAdminApiDto<Model>;
 
-    const handlePatch = async (id: number, data: RecordModel) => {
+    const handlePatch = async (id: number, data: Model): Promise<Model> => {
       return await fetchPatch<Model>(`/${path}/${id}`, data);
     };
 
@@ -39,7 +39,7 @@ export const useAdmin = () => {
         fieldFileName?: string;
         isUploadSingle?: boolean;
       } = {}
-    ) => {
+    ): Promise<Model> => {
       options.fieldFileName = options.fieldFileName ?? "image";
       options.isUploadFile = options.isUploadFile ?? true;
       options.isUploadSingle = options.isUploadSingle ?? true;
@@ -58,7 +58,7 @@ export const useAdmin = () => {
       return await fetchDelete(`/${path}/${id}`);
     };
 
-    const handleGetModel = async (id: number) => {
+    const handleGetModel = async (id: number): Promise<Model> => {
       return await fetchGet<Model>(`/${path}/${id}`);
     };
 
@@ -255,6 +255,15 @@ export const useAdmin = () => {
         ],
         group: [
           { message: "Group must be more than 3", trigger: "blur", min: 3 },
+        ],
+        "collab.collab_with": [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        "collab.title": [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        "collab.description": [
+          { required: true, message: "Field is required", trigger: "blur" },
         ],
       }),
     };

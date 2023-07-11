@@ -47,6 +47,16 @@ const fileTypes = computed(() => {
 
   return types.join(", ");
 });
+
+const messageFileTypes = computed(() => {
+  if (props.fileType === "files") {
+    return "PDF";
+  } else if (props.fileType === "image") {
+    return "JPEG, JPG, PNG";
+  } else {
+    return "Any video format";
+  }
+});
 </script>
 
 <template>
@@ -66,7 +76,7 @@ const fileTypes = computed(() => {
 
       <template #tip>
         <div class="el-upload__tip">
-          {{ fileTypes }} files with a size less than 500kb
+          {{ messageFileTypes }} files with a size less than 500kb
         </div>
       </template>
     </ElUpload>

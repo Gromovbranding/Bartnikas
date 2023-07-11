@@ -32,7 +32,7 @@ defineExpose({
     ref="form"
     status-icon
     scroll-to-error
-    label-width="120px"
+    label-width="160px"
     :model="model"
     :rules="rules"
   >

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import { IProject, PartialAdminApiDto } from "@/types/admin-api";
+import {
+  IProject,
+  IProjectPressRelease,
+  PartialAdminApiDto,
+} from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -29,23 +33,40 @@ const form = reactive<PartialAdminApiDto<IProject>>({
   group: null,
 });
 
+interface IPressRelease extends PartialAdminApiDto<IProjectPressRelease> {
+  id: number;
+}
+
+const formReleases = ref<IPressRelease[]>([]);
+
 const isCollab = ref(false);
 
 const handleResetForm = () => {
   formRef.value?.resetForm();
 };
 
-watchEffect(() => {
-  if (!isCollab.value) {
-    form.collab = null;
-  } else {
-    form.collab = {};
-  }
-});
+const addPressRelease = () => {
+  formReleases.value.push({
+    title: "",
+    text: "",
+    file: [],
+    id: Date.now(),
+  });
+};
+
+const removePressRelease = (pressRelease: IPressRelease) => {
+  formReleases.value = formReleases.value.filter(
+    (item) => item.id !== pressRelease.id
+  );
+};
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
+      if (!isCollab.value) {
+        form.collab = null;
+      }
+
       await methods.handleCreate(toValue(form), {
         fieldFileName: "file",
       });
@@ -78,15 +99,15 @@ const handleCreate = async () => {
         <ElInput v-model="form.group" />
       </ElFormItem>
 
-      <ElFormItem label="Group" prop="group">
-        <ElInput v-model="form.group" />
-      </ElFormItem>
-
       <ElFormItem label="Is Collab ?">
         <ElCheckbox v-model="isCollab" size="large" />
       </ElFormItem>
 
       <template v-if="isCollab">
+        <ElFormItem>
+          <h2>Collab</h2>
+        </ElFormItem>
+
         <ElFormItem label="Collab with" prop="collab.collab_with">
           <ElInput v-model="form.collab.collab_with" />
         </ElFormItem>
@@ -97,6 +118,69 @@ const handleCreate = async () => {
 
         <ElFormItem label="Collab Description" prop="collab.description">
           <ElInput v-model="form.collab.description" />
+        </ElFormItem>
+
+        <ElFormItem required label="Video" prop="video">
+          <AdminUploadFile v-model="form.collab.video" file-type="video" />
+        </ElFormItem>
+
+        <ElFormItem>
+          <h2>Press Releases</h2>
+        </ElFormItem>
+        <template
+          v-for="(press_release, idx) in formReleases"
+          :key="press_release.id"
+        >
+          <ElFormItem>
+            <h2>Press release {{ idx }}</h2>
+            <ElButton type="danger" @click="removePressRelease(press_release)">
+              <ElIcon>
+                <ElIconDelete />
+              </ElIcon>
+            </ElButton>
+          </ElFormItem>
+
+          <ElFormItem
+            label="Title"
+            :prop="`collab.press_realease.${idx}.title`"
+            :rules="{
+              required: true,
+              message: 'Title is required',
+              trigger: 'blur',
+            }"
+          >
+            <ElInput v-model="press_release.title" />
+          </ElFormItem>
+
+          <ElFormItem
+            label="Text"
+            :prop="`collab.press_realease.${idx}.text`"
+            :rules="{
+              required: true,
+              message: 'Text  is required',
+              trigger: 'blur',
+            }"
+          >
+            <ElInput v-model="press_release.text" />
+          </ElFormItem>
+
+          <ElFormItem
+            :rules="{
+              required: true,
+              message: 'File is required',
+              trigger: 'change',
+            }"
+            label="File"
+            :prop="`collab.press_realease.${idx}.file`"
+          >
+            <AdminUploadFile v-model="press_release.file" file-type="files" />
+          </ElFormItem>
+        </template>
+
+        <ElFormItem>
+          <ElButton type="default" @click="addPressRelease">
+            Add press release
+          </ElButton>
         </ElFormItem>
       </template>
 

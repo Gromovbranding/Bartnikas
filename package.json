@@ -16,8 +16,9 @@
     "src/**/*.{ts,js,vue}": "eslint --fix --ext .ts,.js,.vue ./src"
   },
   "devDependencies": {
-    "@element-plus/nuxt": "^1.0.3",
+    "@element-plus/nuxt": "^1.0.5",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "element-plus": "^2.3.7",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-nuxt": "^4.0.0",
@@ -32,7 +33,6 @@
     "vue-marquee-text-component": "^2.0.1"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.54.0",
-    "element-plus": "^2.3.7"
+    "@stripe/stripe-js": "^1.54.0"
   }
 }
