@@ -20,7 +20,7 @@ const form = reactive<PartialAdminApiDto<IArticle>>({
   is_hot: false,
   description: "",
   text: "",
-  image: [],
+  image: null,
 });
 
 const handleResetForm = () => {

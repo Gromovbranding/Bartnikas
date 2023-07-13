@@ -1,43 +1,56 @@
 <script setup lang="ts">
-import { UploadProps, UploadUserFile } from "element-plus";
+import { UploadInstance, UploadUserFile } from "element-plus";
+import { PartialFileAdminApiDto } from "types/admin-api";
+
+const { apiFilesUrl } = useRuntimeConfig().public;
+const { accessToken } = useAdmin();
 
 const props = withDefaults(
   defineProps<{
-    modelValue: UploadProps["fileList"];
+    modelValue: UploadUserFile | UploadUserFile[] | null;
     fileType?: "image" | "files" | "video";
     single?: boolean;
   }>(),
   {
-    modelValue: () => [],
+    modelValue: null,
     single: true,
     fileType: "image",
   }
 );
 
 const emits = defineEmits<{
-  (e: "update:modelValue", files: UploadUserFile[]): void;
+  (
+    e: "update:modelValue",
+    files: UploadUserFile[] | UploadUserFile | PartialFileAdminApiDto
+  ): void;
 }>();
 
 const fileList = ref<UploadUserFile[]>(
   Array.isArray(props.modelValue)
     ? props.modelValue
+    : props.modelValue === null
+    ? []
     : [props.modelValue].filter((item) => !!item)
 );
 
 watchEffect(() => {
-  emits("update:modelValue", fileList.value);
+  if (props.single) {
+    emits(
+      "update:modelValue",
+      (fileList.value[0]?.response as PartialFileAdminApiDto) ??
+        fileList.value[0]
+    );
+  } else {
+    const data = fileList.value.map(
+      (item) => (item?.response as PartialFileAdminApiDto) ?? item
+    );
+
+    emits("update:modelValue", data);
+  }
 });
 
-const handleBeforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
-  if (!props.single) {
-    return rawFile;
-  }
-
-  return fileList.value.length === 0;
-};
-
 const fileTypes = computed(() => {
-  let types = ["image/jpeg", "image/png", "image/jpg"];
+  let types = [".jpeg", ".png", ".jpg"];
 
   if (props.fileType === "files") {
     types = [".pdf"];
@@ -49,25 +62,37 @@ const fileTypes = computed(() => {
 });
 
 const messageFileTypes = computed(() => {
-  if (props.fileType === "files") {
-    return "PDF";
-  } else if (props.fileType === "image") {
-    return "JPEG, JPG, PNG";
-  } else {
+  if (props.fileType === "video") {
     return "Any video format";
   }
+
+  return fileTypes.value;
+});
+
+const uploadRef = ref<UploadInstance>();
+
+defineExpose({
+  async uploadToServer() {
+    await uploadRef.value!.submit();
+  },
 });
 </script>
 
 <template>
   <div style="width: 100%">
     <ElUpload
+      ref="uploadRef"
       v-model:file-list="fileList"
-      action="#"
       drag
+      :limit="single ? 1 : 20"
+      :headers="{
+        Authorization: `Bearer ${accessToken}`,
+      }"
+      :action="apiFilesUrl"
+      :name="single ? 'file' : 'files'"
       :list-type="fileType === 'image' ? 'picture' : 'text'"
       :accept="fileTypes"
-      :before-upload="handleBeforeUpload"
+      :auto-upload="false"
     >
       <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
       <div class="el-upload__text">

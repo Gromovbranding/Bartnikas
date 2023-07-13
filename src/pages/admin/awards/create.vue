@@ -17,7 +17,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IAwards>>({
   title: "",
-  awards_avatar: [],
+  awards_avatar: null,
   description: "",
   degress: [],
 });
@@ -29,9 +29,7 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form), {
-        fieldFileName: "awards_avatar",
-      });
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 

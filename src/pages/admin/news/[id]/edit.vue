@@ -23,10 +23,7 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IArticle>({
-  ...model,
-  image: model.image ? [model.image] : [],
-});
+const form = reactive<IArticle>(model);
 
 const handleDelete = async () => {
   await methods.handleDelete(id);

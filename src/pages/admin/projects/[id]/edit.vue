@@ -34,7 +34,7 @@ const addPressRelease = () => {
   formReleases.value.push({
     title: "",
     text: "",
-    file: [],
+    file: null,
     id: Date.now(),
   });
 };

@@ -40,7 +40,7 @@ export const usePublicData = () => {
   const getAllBlogs = async () => await fetchGet<IBlog[]>("blogs");
 
   const getArticleById = async (id: string | number) =>
-    await fetchGet<INextPrevWrapper<IArticle>>(`news/${id}`);
+    await fetchGet<INextPrevWrapper<IArticle>>(`news/prev-next/${id}`);
 
   const getArticlesByHotNews = async () =>
     await fetchGet<IArticle[]>(`news/hot/all`);

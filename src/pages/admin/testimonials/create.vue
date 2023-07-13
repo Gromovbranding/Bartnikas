@@ -18,8 +18,8 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const form = reactive<PartialAdminApiDto<ITestimonial>>({
   title: "",
   additional_info: "",
-  url: undefined,
-  file: [],
+  url: null,
+  file: null,
 });
 
 const handleResetForm = () => {
@@ -29,9 +29,7 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form), {
-        fieldFileName: "file",
-      });
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 

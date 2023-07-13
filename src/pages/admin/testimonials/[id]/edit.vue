@@ -22,10 +22,7 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<ITestimonial>({
-  ...model,
-  file: model.file ? [model.file] : [],
-});
+const form = reactive<ITestimonial>(model);
 
 const handleDelete = async () => {
   await methods.handleDelete(id);

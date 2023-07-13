@@ -30,9 +30,8 @@ useHeadSafe({
 });
 
 const form = reactive<IVideoCollection>({
-  title: model.title ?? "",
-  video: model.video ? [model.video] : [],
-  project: model.project ?? projects.value?.[0] ?? ({} as IProject),
+  ...model,
+  project: model.project ?? projects.value?.[0],
 });
 
 const handleDelete = async () => {

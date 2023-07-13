@@ -27,7 +27,7 @@ const form = reactive<PartialAdminApiDto<IProject>>({
     description: "",
     press_release: [],
     title: "",
-    video: [],
+    video: null,
   },
   details: [],
   group: null,
@@ -49,7 +49,7 @@ const addPressRelease = () => {
   formReleases.value.push({
     title: "",
     text: "",
-    file: [],
+    file: null,
     id: Date.now(),
   });
 };
@@ -67,9 +67,7 @@ const handleCreate = async () => {
         form.collab = null;
       }
 
-      await methods.handleCreate(toValue(form), {
-        fieldFileName: "file",
-      });
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 

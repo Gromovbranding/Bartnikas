@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { IBlog, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -9,6 +9,7 @@ definePageMeta({
 const { blogs } = useAdmin();
 const { titles, formRules, navigateBack, methods } = blogs();
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 useHeadSafe({
@@ -19,7 +20,7 @@ const form = reactive<PartialAdminApiDto<IBlog>>({
   title: "",
   description: "",
   text: "",
-  image: [],
+  image: null,
 });
 
 const handleResetForm = () => {
@@ -29,11 +30,15 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form));
+      await uploadRef.value!.uploadToServer();
 
-      await refreshNuxtData();
+      await nextTick(async () => {
+        await methods.handleCreate(form);
 
-      await navigateTo(navigateBack.value);
+        await refreshNuxtData();
+
+        await navigateTo(navigateBack.value);
+      });
     } catch (exc) {
       console.error(exc);
     }
@@ -57,7 +62,7 @@ const handleCreate = async () => {
         <ElInput v-model="form.text" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
-        <AdminUploadFile v-model="form.image" />
+        <AdminUploadFile ref="uploadRef" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

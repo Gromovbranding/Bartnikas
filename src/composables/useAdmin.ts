@@ -18,41 +18,15 @@ export const useAdmin = () => {
   };
 
   const getModelFetchers = <Model>(path: string) => {
-    const {
-      fetchDelete,
-      fetchPatch,
-      fetchPost,
-      fetchGet,
-      fetchUploadFileByAdmin,
-    } = useApi();
+    const { fetchDelete, fetchPatch, fetchPost, fetchGet } = useApi();
 
     type RecordModel = PartialAdminApiDto<Model>;
 
-    const handlePatch = async (id: number, data: Model): Promise<Model> => {
-      return await fetchPatch<Model>(`/${path}/${id}`, data);
-    };
+    const handlePatch = async (id: number, data: Model): Promise<Model> =>
+      await fetchPatch<Model>(`/${path}/${id}`, data);
 
-    const handleCreate = async (
-      data: RecordModel,
-      options: {
-        isUploadFile?: boolean;
-        fieldFileName?: string;
-        isUploadSingle?: boolean;
-      } = {}
-    ): Promise<Model> => {
-      options.fieldFileName = options.fieldFileName ?? "image";
-      options.isUploadFile = options.isUploadFile ?? true;
-      options.isUploadSingle = options.isUploadSingle ?? true;
-
-      if (options.isUploadFile) {
-        data[options.fieldFileName] = await fetchUploadFileByAdmin(
-          data[options.fieldFileName],
-          options.isUploadSingle
-        );
-      }
-
-      return await fetchPost<Model>(`/${path}`, data);
-    };
+    const handleCreate = async (data: RecordModel): Promise<Model> =>
+      await fetchPost<Model>(`/${path}`, data);
 
     const handleDelete = async (id: number) => {
       return await fetchDelete(`/${path}/${id}`);
@@ -323,7 +297,6 @@ export const useAdmin = () => {
   return {
     accessToken,
     makeFetchersForIndexCard,
-    makeDataFormatForUpdate,
 
     news,
     blogs,

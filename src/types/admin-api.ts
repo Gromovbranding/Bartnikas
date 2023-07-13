@@ -143,7 +143,7 @@ export interface ITestimonial {
   id: number;
   title: string;
   additional_info: string;
-  url?: string;
+  url: string | null;
   file: IFile;
 }
 
@@ -215,6 +215,8 @@ type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
 
 export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
   [Key in keyof T]: T[Key] extends IFile
+    ? UploadUserFile | null
+    : T[Key] extends IFile
     ? UploadUserFile[]
     : T[Key] extends Primitive
     ? T[Key]

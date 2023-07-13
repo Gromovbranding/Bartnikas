@@ -16,7 +16,7 @@ useHeadSafe({
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IGreetingIndex>>({
-  video: [],
+  video: null,
   is_active: false,
   text: "",
 });
@@ -26,9 +26,7 @@ const handleResetForm = () => formRef.value?.resetForm();
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form), {
-        fieldFileName: "video",
-      });
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 

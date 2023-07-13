@@ -28,7 +28,7 @@ const { data: projects } = await useAsyncData<IProject[]>(
 
 const form = reactive<PartialAdminApiDto<IVideoCollection>>({
   title: "",
-  video: [],
+  video: null,
   project: projects.value?.[0] ?? ({} as IProject),
 });
 
@@ -39,9 +39,7 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form), {
-        fieldFileName: "video",
-      });
+      await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
 

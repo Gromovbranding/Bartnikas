@@ -1,4 +1,3 @@
-import { UploadUserFile } from "element-plus";
 import type { NitroFetchOptions } from "nitropack";
 
 export const useApi = () => {
@@ -79,37 +78,6 @@ export const useApi = () => {
     return await fetchApi<T>(path, "PATCH", body);
   };
 
-  const fetchUploadFile = async (file: { raw: Blob | File; name: string }) => {
-    const formData = new FormData();
-    formData.append("file", file.raw, file.name);
-    return await fetchPost<{ name: string }>("files", formData);
-  };
-
-  const fetchUploadFileByAdmin = async (
-    files: UploadUserFile[],
-    single = false
-  ) => {
-    if (!files?.[0]) return null;
-    if (single) {
-      return await fetchUploadFile({
-        raw: files[0].raw as Blob | File,
-        name: files[0].name,
-      });
-    }
-
-    const formData = new FormData();
-
-    files.forEach((file) => {
-      formData.append("files[]", file.raw as File | Blob, file.name);
-    });
-
-    return await fetchPost<{ name: string }[]>("files/multiple", formData);
-  };
-
-  const fetchRemoveImage = async (filename: string) => {
-    return await fetchDelete(`files/${filename}`);
-  };
-
   const logout = async () => {
     accessToken.value = "";
     await navigateTo("/admin/login");
@@ -138,9 +106,6 @@ export const useApi = () => {
     fetchPost,
     fetchGet,
     fetchPatch,
-
-    fetchUploadFileByAdmin,
-    fetchRemoveImage,
 
     logout,
     login,
