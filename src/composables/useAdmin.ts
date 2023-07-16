@@ -8,6 +8,11 @@ import {
   IProject,
   ITestimonial,
   IVideoCollection,
+  IMediaKit,
+  IMediaPublication,
+  IMediaExhibition,
+  IMediaCV,
+  IMediaPresentation,
 } from "./../types/admin-api";
 
 export const useAdmin = () => {
@@ -22,8 +27,10 @@ export const useAdmin = () => {
 
     type RecordModel = PartialAdminApiDto<Model>;
 
-    const handlePatch = async (id: number, data: Model): Promise<Model> =>
-      await fetchPatch<Model>(`/${path}/${id}`, data);
+    const handlePatch = async (
+      id: number,
+      data: Model | PartialAdminApiDto<Model>
+    ): Promise<Model> => await fetchPatch<Model>(`/${path}/${id}`, data);
 
     const handleCreate = async (data: RecordModel): Promise<Model> =>
       await fetchPost<Model>(`/${path}`, data);
@@ -205,6 +212,139 @@ export const useAdmin = () => {
     };
   };
 
+  const media = () => {
+    const basePath = "media";
+
+    const kit = () => {
+      const methods = getModelFetchers<IMediaKit>(`${basePath}/kit`);
+
+      return {
+        methods,
+
+        titles: reactive({
+          create: createTitle("create", "Media Kit"),
+          edit: createTitle("edit", "Media Kit"),
+        }),
+
+        navigateBack: ref("/admin/media?type=kit"),
+
+        formRules: ref<FormRules>({}),
+      };
+    };
+
+    const cv = () => {
+      const methods = getModelFetchers<IMediaCV>(`${basePath}/cv`);
+
+      return {
+        methods,
+
+        titles: reactive({
+          create: createTitle("create", "Media CV"),
+          edit: createTitle("edit", "Media CV"),
+        }),
+
+        navigateBack: ref("/admin/media?type=cv"),
+
+        formRules: ref<FormRules>({}),
+      };
+    };
+
+    const presentation = () => {
+      const methods = getModelFetchers<IMediaPresentation>(
+        `${basePath}/presentation`
+      );
+
+      return {
+        methods,
+
+        titles: reactive({
+          create: createTitle("create", "Media Presentation"),
+          edit: createTitle("edit", "Media Presentation"),
+        }),
+
+        navigateBack: ref("/admin/media?type=presentation"),
+
+        formRules: ref<FormRules>({}),
+      };
+    };
+
+    const exhibition = () => {
+      const methods = getModelFetchers<IMediaExhibition>(
+        `${basePath}/exhibition`
+      );
+
+      return {
+        methods,
+
+        titles: reactive({
+          create: createTitle("create", "Media Exhibition"),
+          edit: createTitle("edit", "Media Exhibition"),
+        }),
+
+        navigateBack: ref("/admin/media?type=exhibition"),
+
+        formRules: ref<FormRules>({
+          title: [
+            { required: true, message: "Field is required", trigger: "blur" },
+          ],
+          awards: [
+            { required: true, message: "Field is required", trigger: "blur" },
+          ],
+        }),
+      };
+    };
+
+    const publication = () => {
+      const methods = getModelFetchers<IMediaPublication>(
+        `${basePath}/publication`
+      );
+
+      return {
+        methods,
+
+        titles: reactive({
+          create: createTitle("create", "Media Publication"),
+          edit: createTitle("edit", "Media Publication"),
+        }),
+
+        navigateBack: ref("/admin/media?type=publication"),
+
+        formRules: ref<FormRules>({
+          program: [
+            { required: true, message: "Field is required", trigger: "blur" },
+          ],
+          subtitle: [
+            { required: true, message: "Field is required", trigger: "blur" },
+          ],
+          url: [
+            {
+              required: true,
+              message: "Invalid URL",
+              trigger: "blur",
+              type: "url",
+            },
+          ],
+          date: [
+            {
+              required: true,
+              message: "Field is required",
+              trigger: "blur",
+              type: "date",
+            },
+          ],
+        }),
+      };
+    };
+
+    return {
+      kit,
+      publication,
+      exhibition,
+      cv,
+      presentation,
+    };
+  };
+
   const projects = () => {
     const path = "projects";
 
@@ -297,6 +437,8 @@ export const useAdmin = () => {
   return {
     accessToken,
     makeFetchersForIndexCard,
+
+    media,
 
     news,
     blogs,

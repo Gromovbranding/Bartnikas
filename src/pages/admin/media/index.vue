@@ -15,6 +15,8 @@ useHeadSafe({
   title: "Media",
 });
 
+const route = useRoute();
+
 const mediaList = ref([
   {
     value: "kit",
@@ -44,6 +46,20 @@ const mediaList = ref([
 ]);
 
 const mediaValue = ref(mediaList.value[0].value);
+
+watch(
+  route.query,
+  () => {
+    const isFound = !!mediaList.value.find(
+      (item) => item.value === route.query?.type
+    );
+
+    mediaValue.value = isFound ? route.query.type : mediaList.value[0].value;
+  },
+  {
+    immediate: true,
+  }
+);
 
 const mediaComponent = computed(() => {
   return mediaList.value.find((item) => item.value === mediaValue.value)!

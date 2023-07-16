@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {
-  IMediaKit,
+  IMediaPresentation,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -11,7 +11,7 @@ definePageMeta({
 });
 
 const { media } = useAdmin();
-const { titles, formRules, navigateBack, methods } = media().kit();
+const { titles, formRules, navigateBack, methods } = media().presentation();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const uploadPdfRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -21,9 +21,10 @@ useHeadSafe({
   title: titles.create,
 });
 
-const form = reactive<PartialAdminApiDto<IMediaKit>>({
+const form = reactive<PartialAdminApiDto<IMediaPresentation>>({
   image: null,
   pdf: null,
+  title: "",
 });
 
 const handleResetForm = () => {
@@ -37,6 +38,7 @@ const handleCreate = async () => {
       const filePdf = await uploadPdfRef.value!.uploadToServer();
 
       await methods.handleCreate({
+        ...toValue(form),
         pdf: filePdf as PartialFileAdminApiDto,
         image: fileImage as PartialFileAdminApiDto,
       });
@@ -57,9 +59,14 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
+      <ElFormItem label="Title" prop="title">
+        <ElInput v-model="form.title" />
+      </ElFormItem>
+
       <ElFormItem required label="Image" prop="image">
         <AdminUploadFile ref="uploadImageRef" v-model="form.image" />
       </ElFormItem>
+
       <ElFormItem required label="PDF" prop="pdf">
         <AdminUploadFile
           ref="uploadPdfRef"
@@ -67,6 +74,7 @@ const handleCreate = async () => {
           file-type="files"
         />
       </ElFormItem>
+
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>
         <ElButton @click="handleResetForm"> Clear </ElButton>

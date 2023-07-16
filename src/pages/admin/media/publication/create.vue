@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {
-  IMediaKit,
+  IMediaPublication,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -11,19 +11,21 @@ definePageMeta({
 });
 
 const { media } = useAdmin();
-const { titles, formRules, navigateBack, methods } = media().kit();
+const { titles, formRules, navigateBack, methods } = media().publication();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const uploadPdfRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 useHeadSafe({
   title: titles.create,
 });
 
-const form = reactive<PartialAdminApiDto<IMediaKit>>({
+const form = reactive<PartialAdminApiDto<IMediaPublication>>({
   image: null,
-  pdf: null,
+  program: "",
+  subtitle: "",
+  url: "",
+  date: new Date(),
 });
 
 const handleResetForm = () => {
@@ -34,10 +36,9 @@ const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const fileImage = await uploadImageRef.value!.uploadToServer();
-      const filePdf = await uploadPdfRef.value!.uploadToServer();
 
       await methods.handleCreate({
-        pdf: filePdf as PartialFileAdminApiDto,
+        ...toValue(form),
         image: fileImage as PartialFileAdminApiDto,
       });
 
@@ -57,16 +58,26 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
+      <ElFormItem label="Program" prop="program">
+        <ElInput v-model="form.program" />
+      </ElFormItem>
+      <ElFormItem label="Subtitle" prop="subtitle">
+        <ElInput v-model="form.subtitle" />
+      </ElFormItem>
+      <ElFormItem label="URL" prop="url">
+        <ElInput v-model="form.url" />
+      </ElFormItem>
+      <ElFormItem label="Date" prop="date">
+        <el-date-picker
+          v-model="form.date"
+          type="date"
+          placeholder="Pick a day"
+        />
+      </ElFormItem>
       <ElFormItem required label="Image" prop="image">
         <AdminUploadFile ref="uploadImageRef" v-model="form.image" />
       </ElFormItem>
-      <ElFormItem required label="PDF" prop="pdf">
-        <AdminUploadFile
-          ref="uploadPdfRef"
-          v-model="form.pdf"
-          file-type="files"
-        />
-      </ElFormItem>
+
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>
         <ElButton @click="handleResetForm"> Clear </ElButton>
