@@ -48,7 +48,7 @@ const mediaList = ref([
 const mediaValue = ref(mediaList.value[0].value);
 
 watch(
-  route.query,
+  () => route.query,
   () => {
     const isFound = !!mediaList.value.find(
       (item) => item.value === route.query?.type

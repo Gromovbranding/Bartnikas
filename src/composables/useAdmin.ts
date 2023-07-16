@@ -13,7 +13,7 @@ import {
   IMediaExhibition,
   IMediaCV,
   IMediaPresentation,
-} from "./../types/admin-api";
+} from "@/types/admin-api";
 
 export const useAdmin = () => {
   const accessToken = useCookie<string>("accessToken");
