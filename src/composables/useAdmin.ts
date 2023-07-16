@@ -261,7 +261,7 @@ export const useAdmin = () => {
       data: entities,
       ...data
     } = useAsyncData<T[]>(
-      "entities",
+      `entity-${pathFrontend}`,
       async () => await fetchGet<T[]>(`/${pathServer}`)
     );
 

@@ -74,7 +74,7 @@ const handlers = {
             {{ useDateFormat().makeDateCorrect(row?.updated_at) }}
           </template>
         </ElTableColumn>
-        <ElTableColumn align="right" label="Operations" width="160">
+        <ElTableColumn fixed="right" label="Operations" width="160">
           <template #default="{ row }">
             <ElButton
               v-if="!handlersOff.includes(ListHandlersOff.EDIT)"
