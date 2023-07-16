@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { UploadInstance, UploadUserFile } from "element-plus";
-import { PartialFileAdminApiDto } from "types/admin-api";
+import { PartialFileAdminApiDto } from "@/types/admin-api";
 
 const { apiFilesUrl } = useRuntimeConfig().public;
-const { accessToken } = useAdmin();
+const { fetchPost } = useApi();
 
 const props = withDefaults(
   defineProps<{
@@ -19,10 +19,7 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-  (
-    e: "update:modelValue",
-    files: UploadUserFile[] | UploadUserFile | PartialFileAdminApiDto
-  ): void;
+  (e: "update:modelValue", files: UploadUserFile[] | UploadUserFile): void;
 }>();
 
 const fileList = ref<UploadUserFile[]>(
@@ -33,20 +30,16 @@ const fileList = ref<UploadUserFile[]>(
     : [props.modelValue].filter((item) => !!item)
 );
 
-watchEffect(() => {
+const handleConvertFileList = computed(() => {
   if (props.single) {
-    emits(
-      "update:modelValue",
-      (fileList.value[0]?.response as PartialFileAdminApiDto) ??
-        fileList.value[0]
-    );
-  } else {
-    const data = fileList.value.map(
-      (item) => (item?.response as PartialFileAdminApiDto) ?? item
-    );
-
-    emits("update:modelValue", data);
+    return fileList.value[0];
   }
+
+  return fileList.value;
+});
+
+watchEffect(() => {
+  emits("update:modelValue", handleConvertFileList.value);
 });
 
 const fileTypes = computed(() => {
@@ -73,7 +66,35 @@ const uploadRef = ref<UploadInstance>();
 
 defineExpose({
   async uploadToServer() {
-    await uploadRef.value!.submit();
+    const formData = new FormData();
+
+    if (props.single) {
+      if (handleConvertFileList.value.status === "success") {
+        return handleConvertFileList.value;
+      }
+
+      formData.append("file", handleConvertFileList.value.raw as File | Blob);
+
+      return await fetchPost<PartialFileAdminApiDto>("files", formData);
+    }
+
+    const uploadedFiles: PartialFileAdminApiDto[] = [];
+
+    handleConvertFileList.value.forEach((item) => {
+      if (item.status === "ready") {
+        formData.append("files[]", item.raw as File | Blob);
+      } else if (item.status === "success") {
+        uploadedFiles.push(item);
+      }
+    });
+
+    return [
+      ...(await fetchPost<PartialFileAdminApiDto[]>(
+        "files/multiple",
+        formData
+      )),
+      ...uploadedFiles,
+    ];
   },
 });
 </script>
@@ -85,11 +106,7 @@ defineExpose({
       v-model:file-list="fileList"
       drag
       :limit="single ? 1 : 20"
-      :headers="{
-        Authorization: `Bearer ${accessToken}`,
-      }"
       :action="apiFilesUrl"
-      :name="single ? 'file' : 'files'"
       :list-type="fileType === 'image' ? 'picture' : 'text'"
       :accept="fileTypes"
       :auto-upload="false"

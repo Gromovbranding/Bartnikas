@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-import { IAwards, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import {
+  IAwards,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -13,6 +17,7 @@ useHeadSafe({
   title: titles.create,
 });
 
+const uploadAvatarRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IAwards>>({
@@ -29,7 +34,12 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form));
+      const file = await uploadAvatarRef.value!.uploadToServer();
+
+      await methods.handleCreate({
+        ...toValue(form),
+        awards_avatar: file as PartialFileAdminApiDto,
+      });
 
       await refreshNuxtData();
 
@@ -54,7 +64,11 @@ const handleCreate = async () => {
         <ElInput v-model="form.description" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Award logo" prop="awards_avatar">
-        <AdminUploadFile v-model="form.awards_avatar" file-type="image" />
+        <AdminUploadFile
+          ref="uploadAvatarRef"
+          v-model="form.awards_avatar"
+          file-type="image"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

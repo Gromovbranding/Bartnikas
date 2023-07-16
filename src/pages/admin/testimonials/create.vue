@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-import { ITestimonial, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import {
+  ITestimonial,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -13,6 +17,7 @@ useHeadSafe({
   title: titles.create,
 });
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<ITestimonial>>({
@@ -29,7 +34,12 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form));
+      const file = await uploadRef.value!.uploadToServer();
+
+      await methods.handleCreate({
+        ...toValue(form),
+        file: file as PartialFileAdminApiDto,
+      });
 
       await refreshNuxtData();
 
@@ -57,7 +67,11 @@ const handleCreate = async () => {
         <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Testimonial video" prop="file">
-        <AdminUploadFile v-model="form.file" file-type="video" />
+        <AdminUploadFile
+          ref="uploadRef"
+          v-model="form.file"
+          file-type="video"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

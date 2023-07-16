@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-import { IGreetingIndex, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import {
+  IGreetingIndex,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -13,6 +17,7 @@ useHeadSafe({
   title: titles.create,
 });
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IGreetingIndex>>({
@@ -26,7 +31,12 @@ const handleResetForm = () => formRef.value?.resetForm();
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form));
+      const file = await uploadRef.value!.uploadToServer();
+
+      await methods.handleCreate({
+        ...toValue(form),
+        video: file as PartialFileAdminApiDto,
+      });
 
       await refreshNuxtData();
 
@@ -53,7 +63,11 @@ const handleCreate = async () => {
       </ElFormItem>
 
       <ElFormItem required label="Video" prop="video">
-        <AdminUploadFile v-model="form.video" file-type="video" />
+        <AdminUploadFile
+          ref="uploadRef"
+          v-model="form.video"
+          file-type="video"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

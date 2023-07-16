@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-import { IArticle, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import {
+  IArticle,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -13,6 +17,7 @@ useHeadSafe({
   title: titles.create,
 });
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IArticle>>({
@@ -30,6 +35,13 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
+      const file = await uploadRef.value!.uploadToServer();
+
+      await methods.handleCreate({
+        ...toValue(form),
+        image: file as PartialFileAdminApiDto,
+      });
+
       await methods.handleCreate(toValue(form));
 
       await refreshNuxtData();
@@ -61,7 +73,7 @@ const handleCreate = async () => {
         <ElInput v-model="form.text" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
-        <AdminUploadFile v-model="form.image" />
+        <AdminUploadFile ref="uploadRef" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { IBlog } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import { IBlog, PartialFileAdminApiDto } from "@/types/admin-api";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -9,6 +9,7 @@ definePageMeta({
   },
 });
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
@@ -32,7 +33,12 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handlePatch(id, toValue(form));
+      const file = await uploadRef.value!.uploadToServer();
+
+      await methods.handlePatch(id, {
+        ...toValue(form),
+        image: file as PartialFileAdminApiDto,
+      });
 
       await refreshNuxtData();
 
@@ -57,7 +63,7 @@ const handleUpdate = async () => {
         <ElInput v-model="form.text" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
-        <AdminUploadFile v-model="form.image" />
+        <AdminUploadFile ref="uploadRef" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>

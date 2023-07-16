@@ -215,9 +215,9 @@ type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
 
 export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
   [Key in keyof T]: T[Key] extends IFile
-    ? UploadUserFile | null
+    ? UploadUserFile | PartialFileAdminApiDto | null
     : T[Key] extends IFile
-    ? UploadUserFile[]
+    ? UploadUserFile[] | PartialFileAdminApiDto[]
     : T[Key] extends Primitive
     ? T[Key]
     : PartialAdminApiDto<T[Key]>;

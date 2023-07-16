@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import { IBlog, PartialAdminApiDto } from "@/types/admin-api";
+import {
+  IBlog,
+  PartialAdminApiDto,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
@@ -30,15 +34,16 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await uploadRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer();
 
-      await nextTick(async () => {
-        await methods.handleCreate(form);
-
-        await refreshNuxtData();
-
-        await navigateTo(navigateBack.value);
+      await methods.handleCreate({
+        ...toValue(form),
+        image: file as PartialFileAdminApiDto,
       });
+
+      await refreshNuxtData();
+
+      await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
