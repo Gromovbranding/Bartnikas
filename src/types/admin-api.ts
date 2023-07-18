@@ -151,7 +151,7 @@ export interface IVideoCollection {
   id: number;
   title: string;
   video: IFile;
-  project: IProject | null;
+  project?: IProject;
   created_at: Date;
   updated_at: Date;
 }

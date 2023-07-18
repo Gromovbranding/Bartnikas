@@ -37,7 +37,7 @@ const handleUpdate = async () => {
 
       await methods.handlePatch(id, {
         ...toValue(form),
-        file: file ?? null,
+        file: file || null,
       });
 
       await refreshNuxtData();
