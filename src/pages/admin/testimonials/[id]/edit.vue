@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ITestimonial } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -9,6 +9,7 @@ definePageMeta({
   },
 });
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
@@ -32,7 +33,12 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handlePatch(id, toValue(form));
+      const file = await uploadRef.value!.uploadToServer();
+
+      await methods.handlePatch(id, {
+        ...toValue(form),
+        file: file ?? null,
+      });
 
       await refreshNuxtData();
 

@@ -60,7 +60,7 @@ const handleCreate = async () => {
       <ElFormItem label="Title" prop="title">
         <ElInput v-model="form.title" />
       </ElFormItem>
-      <ElFormItem label="Url for video from Youtube" prop="url">
+      <ElFormItem label="URL Youtube" prop="url">
         <ElInput v-model="form.url" />
       </ElFormItem>
       <ElFormItem label="Additional Info" prop="additional_info">
