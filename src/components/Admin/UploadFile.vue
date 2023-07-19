@@ -115,6 +115,9 @@ defineExpose({
       <div class="el-upload__text">
         Drop file here or <em>click to upload</em>
       </div>
+      <template #file="{ file }">
+        <slot :file="file"></slot>
+      </template>
 
       <template #tip>
         <div class="el-upload__tip">
