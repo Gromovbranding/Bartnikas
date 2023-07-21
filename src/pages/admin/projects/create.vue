@@ -82,16 +82,27 @@ const removePressRelease = (pressRelease: IPressRelease) => {
   );
 };
 
+const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
+  form.details = imgs.map((item) => {
+    const deets = projectImages.value[item.uid];
+    deets.image = {
+      name: item.name,
+    };
+    return deets;
+  });
+};
+
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       if (!isCollab.value) {
         form.collab = null;
       }
-      const file = await uploadRef.value!.uploadToServer();
-      if (Array.isArray(file)) {
-        // file[0].name
+      const arr = [];
+      for await (const file of imageFiles.value) {
+        arr.push(await uploadRef.value!.uploadToServer(file));
       }
+      imagesToDetails(arr);
 
       await methods.handleCreate(toValue(form));
 
@@ -240,7 +251,6 @@ watch(
               class="el-upload-list__item-thumbnail"
               :src="file.url"
               alt=""
-              @click="handlePictureCardPreview(file)"
             />
             <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>
               <div class="img__details">

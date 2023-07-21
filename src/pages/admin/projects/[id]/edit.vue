@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { UploadUserFile } from "element-plus";
+import { Close, Delete } from "@element-plus/icons-vue";
 import { IProject, IProjectPressRelease } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
@@ -9,9 +11,28 @@ definePageMeta({
   },
 });
 
+interface ImageDetails {
+  [key: number]: {
+    sizes: {
+      width: number;
+      height: number;
+      unit: "cm";
+    }[];
+    is_active: boolean;
+    price: number;
+    image_name: string;
+    image: {
+      name: string;
+    };
+  };
+}
+
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
+const imageFiles = ref<UploadUserFile[]>([]);
+
+const projectImages = ref<ImageDetails>({});
 
 const { projects } = useAdmin();
 const { formRules, navigateBack, titles, methods } = projects();
@@ -50,19 +71,63 @@ const handleDelete = async () => {
   await navigateTo(navigateBack.value);
 };
 
+// const imagesToDetails = (imgs: { uid: number, name: string }[]) => {
+//   form.details = imgs.map(item => {
+//     const deets = projectImages.value[item.uid]
+//     deets.image = {
+//       name: item.name
+//     }
+//     return deets
+//   })
+// }
+
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handlePatch(id, toValue(form));
-
-      await refreshNuxtData();
-
-      await navigateTo(navigateBack.value);
+      // await methods.handlePatch(id, toValue(form));
+      // await refreshNuxtData();
+      // await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
   }
 };
+
+const onClickDelete = (e: Event) => {
+  const btn = e.target as HTMLButtonElement;
+  btn.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
+  );
+};
+
+onMounted(() => {
+  imageFiles.value = form.details.map((item) => ({
+    ...item,
+    uid: item.id,
+  }));
+  form.details.forEach((item) => {
+    projectImages.value[item.id] = item;
+  });
+});
+
+watch(
+  () => imageFiles.value,
+  (val) => {
+    console.log("watch", val);
+    val.forEach((item) => {
+      if (projectImages.value[item.uid]) return;
+      projectImages.value[item.uid] = {
+        sizes: [{ width: 100, height: 100, unit: "cm" }],
+        is_active: true,
+        price: 100,
+        image_name: item.name,
+        image: {
+          name: item.name,
+        },
+      };
+    });
+  }
+);
 </script>
 
 <template>
@@ -164,6 +229,82 @@ const handleUpdate = async () => {
           </ElButton>
         </ElFormItem>
       </template>
+      <ElFormItem label="Project Images" prop="details">
+        <AdminUploadFile ref="uploadRef" v-model="imageFiles" :single="false">
+          <template #default="{ file }: { file: UploadUserFile }">
+            <!-- {{ file }} -->
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url || file.image.url"
+              alt=""
+            />
+            <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>
+              <div class="img__details">
+                <label
+                  >Is active:
+                  <input
+                    v-model="projectImages[file.uid!].is_active"
+                    type="checkbox"
+                /></label>
+                <ElFormItem required label="Name" label-width="60">
+                  <ElInput
+                    v-model="projectImages[file.uid!].image_name"
+                    size="small"
+                  />
+                </ElFormItem>
+                <ElFormItem required label="Price, $" label-width="70">
+                  <el-input-number
+                    v-model="projectImages[file.uid!].price"
+                    :min="1"
+                    size="small"
+                  />
+                </ElFormItem>
+              </div>
+              <h3>Sizes</h3>
+              <div
+                v-for="(item, idx) in projectImages[file.uid!].sizes"
+                :key="idx"
+                class="img__sizes"
+              >
+                <label
+                  >Width, cm
+                  <el-input-number v-model="item.width" :min="1" size="small"
+                /></label>
+                <label
+                  >Height, cm
+                  <el-input-number v-model="item.height" :min="1" size="small"
+                /></label>
+                <el-button
+                  v-if="idx !== 0"
+                  type="danger"
+                  :icon="Delete"
+                  circle
+                  @click="projectImages[file.uid!].sizes.splice(idx, 1)"
+                >
+                </el-button>
+              </div>
+              <el-button
+                type="primary"
+                @click="
+                  projectImages[file.uid!].sizes.push({
+                    width: 100,
+                    height: 100,
+                    unit: 'cm',
+                  })
+                "
+              >
+                add
+              </el-button>
+            </div>
+            <el-button
+              type="danger"
+              :icon="Close"
+              circle
+              @click="onClickDelete"
+            ></el-button>
+          </template>
+        </AdminUploadFile>
+      </ElFormItem>
 
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
@@ -172,3 +313,25 @@ const handleUpdate = async () => {
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>
 </template>
+
+<style scoped lang="scss">
+.img {
+  flex-grow: 1;
+  margin-left: 1rem;
+  h3 {
+    font-size: 1.5rem;
+  }
+  &__details {
+    display: flex;
+    gap: 1rem;
+  }
+  &__sizes {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  button {
+    padding-inline: 0.5rem;
+  }
+}
+</style>

@@ -65,8 +65,16 @@ const messageFileTypes = computed(() => {
 const uploadRef = ref<UploadInstance>();
 
 defineExpose({
-  async uploadToServer() {
+  async uploadToServer(file?: any) {
     const formData = new FormData();
+    if (file) {
+      formData.append("file", file.raw as File | Blob);
+      const res = await fetchPost<PartialFileAdminApiDto>("files", formData);
+      return {
+        uid: file.uid,
+        name: res.name,
+      };
+    }
 
     if (props.single) {
       if (handleConvertFileList.value.status === "success") {
