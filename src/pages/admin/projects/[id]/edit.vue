@@ -2,7 +2,7 @@
 import { UploadUserFile } from "element-plus";
 import { Close, Delete } from "@element-plus/icons-vue";
 import { IProject, IProjectPressRelease } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -28,9 +28,12 @@ interface ImageDetails {
 }
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 const imageFiles = ref<UploadUserFile[]>([]);
+
+const isUploading = ref(false);
 
 const projectImages = ref<ImageDetails>({});
 
@@ -71,22 +74,28 @@ const handleDelete = async () => {
   await navigateTo(navigateBack.value);
 };
 
-// const imagesToDetails = (imgs: { uid: number, name: string }[]) => {
-//   form.details = imgs.map(item => {
-//     const deets = projectImages.value[item.uid]
-//     deets.image = {
-//       name: item.name
-//     }
-//     return deets
-//   })
-// }
+const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
+  form.details = imgs.map((item) => {
+    const deets = projectImages.value[item.uid];
+    deets.image = {
+      name: item.name,
+    };
+    return deets;
+  });
+};
 
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      // await methods.handlePatch(id, toValue(form));
-      // await refreshNuxtData();
-      // await navigateTo(navigateBack.value);
+      const arr = [];
+      isUploading.value = true;
+      for await (const file of imageFiles.value) {
+        arr.push(await uploadRef.value!.uploadToServer(file));
+      }
+      imagesToDetails(arr);
+      await methods.handlePatch(id, toValue(form));
+      await refreshNuxtData();
+      await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
@@ -104,6 +113,7 @@ onMounted(() => {
   imageFiles.value = form.details.map((item) => ({
     ...item,
     uid: item.id,
+    edit: true,
   }));
   form.details.forEach((item) => {
     projectImages.value[item.id] = item;
@@ -113,7 +123,6 @@ onMounted(() => {
 watch(
   () => imageFiles.value,
   (val) => {
-    console.log("watch", val);
     val.forEach((item) => {
       if (projectImages.value[item.uid]) return;
       projectImages.value[item.uid] = {
@@ -252,7 +261,7 @@ watch(
                     size="small"
                   />
                 </ElFormItem>
-                <ElFormItem required label="Price, $" label-width="70">
+                <ElFormItem required label="Price, €" label-width="70">
                   <el-input-number
                     v-model="projectImages[file.uid!].price"
                     :min="1"
@@ -307,8 +316,12 @@ watch(
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" :loading="isUploading" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" :loading="isUploading" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>
