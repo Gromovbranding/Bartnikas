@@ -90,7 +90,7 @@ defineExpose({
 
     handleConvertFileList.value.forEach((item) => {
       if (item.status === "ready") {
-        formData.append("files[]", item.raw as File | Blob);
+        formData.append("files", item.raw as File | Blob);
       } else if (item.status === "success") {
         uploadedFiles.push(item);
       }
