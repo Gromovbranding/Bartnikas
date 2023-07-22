@@ -69,6 +69,11 @@ defineExpose({
     const formData = new FormData();
     if (file) {
       formData.append("file", file.raw as File | Blob);
+      if (file.edit)
+        return {
+          uid: file.uid,
+          name: file.image.name,
+        };
       const res = await fetchPost<PartialFileAdminApiDto>("files", formData);
       return {
         uid: file.uid,
