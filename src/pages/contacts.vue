@@ -155,7 +155,7 @@ const handleAddContact = async () => {
 
 @media screen and (max-width: 550px) {
   .contacts {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     > div {
       &:first-child {
         img {
