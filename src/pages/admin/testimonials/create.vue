@@ -66,7 +66,7 @@ const handleCreate = async () => {
       <ElFormItem label="Additional Info" prop="additional_info">
         <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
       </ElFormItem>
-      <ElFormItem required label="Testimonial video" prop="file">
+      <ElFormItem label="Testimonial video" prop="file">
         <AdminUploadFile
           ref="uploadRef"
           v-model="form.file"
