@@ -67,7 +67,7 @@ const imagesToDegress = (arr: any[]) => {
     const goldImgs: any[] = [];
     const silvImgs: any[] = [];
     years[i].forEach((yearItem) => {
-      if (yearItem.groups === "Gold")
+      if (yearItem.data.groups === "Gold")
         return goldImgs.push({ name: yearItem.item.name });
       silvImgs.push({ name: yearItem.item.name });
     });
