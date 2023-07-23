@@ -15,7 +15,6 @@ interface ImageDetails {
       type: "Gold" | "Silver";
       images: {
         name: string;
-        url: string;
       }[];
     }[];
   };

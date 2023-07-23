@@ -72,7 +72,7 @@ defineExpose({
       if (file.edit)
         return {
           uid: file.uid,
-          name: file.image.name,
+          name: file.image?.name || file.name,
         };
       const res = await fetchPost<PartialFileAdminApiDto>("files", formData);
       return {
