@@ -31,9 +31,7 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="id" prop="id" />
     <ElTableColumn label="Title" prop="title" />
     <ElTableColumn label="Project" prop="project.title" />
-    <ElTableColumn label="Date" prop="date" />
   </AdminTemplateCardIndexPage>
 </template>
