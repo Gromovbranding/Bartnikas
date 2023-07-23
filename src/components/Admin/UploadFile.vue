@@ -133,9 +133,7 @@ defineExpose({
       </template>
 
       <template #tip>
-        <div class="el-upload__tip">
-          {{ messageFileTypes }} files with a size less than 500kb
-        </div>
+        <div class="el-upload__tip">{{ messageFileTypes }} files</div>
       </template>
     </ElUpload>
   </div>

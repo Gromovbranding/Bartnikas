@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { UploadUserFile } from "element-plus";
 import { Close, Delete } from "@element-plus/icons-vue";
-import { IProject, IProjectPressRelease } from "@/types/admin-api";
+import {
+  IProject,
+  IProjectPressRelease,
+  PartialAdminApiDto,
+} from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
@@ -28,7 +32,18 @@ interface ImageDetails {
 }
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadProjectImagesRef = ref<InstanceType<typeof AdminUploadFile> | null>(
+  null
+);
+
+const uploadCollabVideoRef = ref<InstanceType<typeof AdminUploadFile> | null>(
+  null
+);
+
+const uploadPressReleaseRefs = ref<
+  InstanceType<typeof AdminUploadFile>[] | null
+>([]);
+
 const route = useRoute();
 const id = Number(route.params.id);
 const imageFiles = ref<UploadUserFile[]>([]);
@@ -51,14 +66,14 @@ const form = reactive<IProject>({
   collab: model.collab ?? {},
 });
 
-const formReleases = ref<IProjectPressRelease[]>(
-  form.collab?.press_release ?? []
-);
-
-const isCollab = ref(false);
+const isCollab = ref(!!toValue(model.collab));
 
 const addPressRelease = () => {
-  formReleases.value.push({
+  if (!form?.collab?.press_release) {
+    form.collab.press_release = [];
+  }
+
+  form.collab.press_release.push({
     title: "",
     text: "",
     file: null,
@@ -66,8 +81,10 @@ const addPressRelease = () => {
   });
 };
 
-const removePressRelease = (pressRelease: IProjectPressRelease) => {
-  formReleases.value = formReleases.value.filter(
+const removePressRelease = (
+  pressRelease: PartialAdminApiDto<IProjectPressRelease>
+) => {
+  form.collab.press_release = form.collab.press_release.filter(
     (item) => item.id !== pressRelease.id
   );
 };
@@ -91,13 +108,39 @@ const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const arr = [];
+
       isUploading.value = true;
+
       for await (const file of imageFiles.value) {
-        arr.push(await uploadRef.value!.uploadToServer(file));
+        arr.push(await uploadProjectImagesRef.value!.uploadToServer(file));
       }
+
       imagesToDetails(arr);
-      await methods.handlePatch(id, toValue(form));
+
+      await methods.handlePatch(id, {
+        ...toValue(form),
+        collab: !isCollab.value
+          ? null
+          : {
+              ...form.collab,
+              press_release: await Promise.all(
+                (form.collab?.press_release ?? []).map(async (item, idx) => {
+                  const file = await uploadPressReleaseRefs.value[
+                    idx
+                  ]!.uploadToServer();
+
+                  return {
+                    ...item,
+                    file,
+                  };
+                })
+              ),
+              video: await uploadCollabVideoRef.value!.uploadToServer(),
+            },
+      });
+
       await refreshNuxtData();
+
       await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
@@ -178,19 +221,23 @@ watch(
           <ElInput v-model="form.collab.description" />
         </ElFormItem>
 
-        <ElFormItem required label="Video" prop="video">
-          <AdminUploadFile v-model="form.collab.video" file-type="video" />
+        <ElFormItem required label="Video" prop="collab.video">
+          <AdminUploadFile
+            ref="uploadCollabVideoRef"
+            v-model="form.collab.video"
+            file-type="video"
+          />
         </ElFormItem>
 
         <ElFormItem>
           <h2>Press Releases</h2>
         </ElFormItem>
         <template
-          v-for="(press_release, idx) in formReleases"
+          v-for="(press_release, idx) in form.collab.press_release"
           :key="press_release.id"
         >
           <ElFormItem>
-            <h2>Press release {{ idx }}</h2>
+            <h2>Press release {{ idx + 1 }}</h2>
             <ElButton type="danger" @click="removePressRelease(press_release)">
               <ElIcon>
                 <ElIconDelete />
@@ -200,10 +247,10 @@ watch(
 
           <ElFormItem
             label="Title"
-            :prop="`collab.press_realease.${idx}.title`"
+            :prop="`collab.press_release.${idx}.title`"
             :rules="{
               required: true,
-              message: 'Title is required',
+              message: 'Field is required',
               trigger: 'blur',
             }"
           >
@@ -212,10 +259,10 @@ watch(
 
           <ElFormItem
             label="Text"
-            :prop="`collab.press_realease.${idx}.text`"
+            :prop="`collab.press_release.${idx}.text`"
             :rules="{
               required: true,
-              message: 'Text  is required',
+              message: 'Field  is required',
               trigger: 'blur',
             }"
           >
@@ -229,9 +276,13 @@ watch(
               trigger: 'change',
             }"
             label="File"
-            :prop="`collab.press_realease.${idx}.file`"
+            :prop="`collab.press_release.${idx}.file`"
           >
-            <AdminUploadFile v-model="press_release.file" file-type="files" />
+            <AdminUploadFile
+              ref="uploadPressReleaseRefs"
+              v-model="press_release.file"
+              file-type="files"
+            />
           </ElFormItem>
         </template>
 
@@ -242,7 +293,11 @@ watch(
         </ElFormItem>
       </template>
       <ElFormItem label="Project Images" prop="details">
-        <AdminUploadFile ref="uploadRef" v-model="imageFiles" :single="false">
+        <AdminUploadFile
+          ref="uploadProjectImagesRef"
+          v-model="imageFiles"
+          :single="false"
+        >
           <template #default="{ file }: { file: UploadUserFile }">
             <!-- {{ file }} -->
             <img
