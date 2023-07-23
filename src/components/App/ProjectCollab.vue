@@ -26,7 +26,7 @@ function playVideo() {
         class="collab__files__item"
       >
         <div class="collab__files__item__img">
-          <img :src="press_release.file.url" alt="" />
+          <embed :src="press_release.file.url" alt="" />
         </div>
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
@@ -83,7 +83,7 @@ function playVideo() {
       gap: 1rem;
       &__img {
         border-radius: 10px;
-        img {
+        embed {
           width: 100%;
           height: 100%;
           object-fit: cover;
