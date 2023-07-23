@@ -164,7 +164,7 @@ export const useAdmin = () => {
   };
 
   const greetings = () => {
-    const path = "greetings-index";
+    const path = "greeting-index";
 
     const methods = getModelFetchers<IGreetingIndex>(path);
 
