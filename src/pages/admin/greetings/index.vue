@@ -14,6 +14,7 @@ useHeadSafe({
 const {
   handleCreate,
   handleDelete,
+  handleEdit,
   data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IArticle>(
   headTitle.value,
@@ -27,6 +28,7 @@ const {
     :data="entities"
     :head-title="headTitle"
     @create="handleCreate"
+    @edit="handleEdit"
     @delete="handleDelete"
   >
     <ElTableColumn label="Text" prop="text" />

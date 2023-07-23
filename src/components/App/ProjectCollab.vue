@@ -21,23 +21,20 @@ function playVideo() {
   <div class="collab">
     <div class="collab__files">
       <div
-        v-for="file in collab.press_release"
-        :key="file.id"
+        v-for="press_release in collab.press_release"
+        :key="press_release.id"
         class="collab__files__item"
       >
         <div class="collab__files__item__img">
-          <img
-            src="https://static.tildacdn.com/tild3338-3231-4734-a332-626564636132/image.png"
-            alt=""
-          />
+          <img :src="press_release.file.url" alt="" />
         </div>
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
-            <h2>{{ file.title }}</h2>
-            <UIButton :to="file.file.url" download>PDF</UIButton>
+            <h2>{{ press_release.title }}</h2>
+            <UIButton :to="press_release.file.url" download>PDF</UIButton>
           </div>
           <p>
-            {{ file.text }}
+            {{ press_release.text }}
           </p>
         </div>
       </div>
@@ -77,6 +74,7 @@ function playVideo() {
   &__files {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 55px;
     padding: 2rem;
     background-color: #1b61cb;
     &__item {

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { IGreetingIndex } from "~/types/admin-api";
 
-const { fetchGet } = useApi();
+const { getActiveGreetingIndex } = usePublicData();
 
 const { data: greeting } = await useAsyncData<IGreetingIndex>(
-  "greeting-index",
-  async () => await fetchGet("/greeting-index")
+  "greetingIndex",
+  async () => await getActiveGreetingIndex()
 );
 
 const showVideo = ref(false);
@@ -18,7 +18,7 @@ function playVideo() {
 </script>
 
 <template>
-  <section class="video-greeting">
+  <section v-if="greeting" class="video-greeting">
     <div class="video-greeting__video">
       <video
         ref="video"

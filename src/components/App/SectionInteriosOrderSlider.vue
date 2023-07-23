@@ -154,6 +154,7 @@ function copyColor(idx: number) {
     height: 100%;
 
     .interios-order__sl {
+      max-width: 402px;
       .interios-order__project {
         &-select {
           display: flex;
@@ -167,6 +168,7 @@ function copyColor(idx: number) {
         }
 
         &-name {
+          word-wrap: break-word;
           margin-top: 60px;
           margin-bottom: 90px;
           font-size: 42px;
