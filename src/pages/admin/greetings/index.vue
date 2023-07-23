@@ -26,7 +26,6 @@ const {
     v-loading="pending"
     :data="entities"
     :head-title="headTitle"
-    :handlers-off="['edit']"
     @create="handleCreate"
     @delete="handleDelete"
   >
