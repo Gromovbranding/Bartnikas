@@ -1,6 +1,20 @@
 <script lang="ts" setup>
+import { UploadUserFile } from "element-plus";
+import { Delete } from "@element-plus/icons-vue";
 import { IAwards } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import { AdminTemplateForm, AdminUploadFile } from "#components";
+
+interface ImageDetails {
+  [key: number]: {
+    year: number;
+    groups: {
+      type: "Gold" | "Silver";
+      images: {
+        name: string;
+      }[];
+    }[];
+  };
+}
 
 definePageMeta({
   layout: "admin",
@@ -10,8 +24,13 @@ definePageMeta({
 });
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadAvatarRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const imageFiles = ref<UploadUserFile[]>([]);
+const awardImages = ref<ImageDetails>({});
 const route = useRoute();
 const id = Number(route.params.id);
+const isUploading = ref(false);
 
 const { awards } = useAdmin();
 const { formRules, navigateBack, titles, methods } = awards();
@@ -24,14 +43,58 @@ useHeadSafe({
 
 const form = reactive<IAwards>(model);
 
+const selectOptions = [
+  { value: "Gold", label: "Gold" },
+  { value: "Silver", label: "Silver" },
+];
+
 const handleDelete = async () => {
   await methods.handleDelete(id);
   await navigateTo(navigateBack.value);
 };
 
+const imagesToDegress = (arr: any[]) => {
+  const years: {
+    [key: number]: any[];
+  } = {};
+  arr.forEach((item) => {
+    const awardImg = awardImages.value[item.uid];
+    if (years[awardImg.year]) {
+      years[awardImg.year].push({ item, data: awardImg });
+      return;
+    }
+    years[awardImg.year] = [{ item, data: awardImg }];
+  });
+  form.degress = [];
+  for (const i in years) {
+    const goldImgs: any[] = [];
+    const silvImgs: any[] = [];
+    years[i].forEach((yearItem) => {
+      if (yearItem.groups === "Gold")
+        return goldImgs.push({ name: yearItem.item.name });
+      silvImgs.push({ name: yearItem.item.name });
+    });
+    const res = {
+      year: +i,
+      groups: [] as any[],
+    };
+    if (goldImgs.length) res.groups.push({ type: "Gold", images: goldImgs });
+    if (silvImgs.length) res.groups.push({ type: "Silver", images: silvImgs });
+    form.degress.push(res);
+  }
+};
+
 const handleUpdate = async () => {
+  const arr = [];
+  isUploading.value = true;
+  for await (const file of imageFiles.value) {
+    arr.push(await uploadRef.value!.uploadToServer(file));
+  }
+  imagesToDegress(arr);
   if (await formRef.value?.validate()) {
     try {
+      const file = await uploadAvatarRef.value!.uploadToServer();
+      form.awards_avatar = file;
       await methods.handlePatch(id, toValue(form));
 
       await refreshNuxtData();
@@ -41,7 +104,46 @@ const handleUpdate = async () => {
       console.error(exc);
     }
   }
+  isUploading.value = false;
 };
+
+const onClickDelete = (e: Event) => {
+  const btn = e.target as HTMLButtonElement;
+  btn.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
+  );
+};
+
+onMounted(() => {
+  imageFiles.value = form.degress.flatMap((item) => {
+    return item.groups.flatMap((grp) =>
+      grp.images.map((img) => {
+        awardImages.value[img.id] = {
+          year: item.year,
+          groups: grp.type,
+        };
+        return {
+          ...img,
+          uid: img.id,
+          edit: true,
+        };
+      })
+    );
+  });
+});
+
+watch(
+  () => imageFiles.value,
+  (val) => {
+    val.forEach((item) => {
+      if (awardImages.value[item.uid]) return;
+      awardImages.value[item.uid] = {
+        year: 2022,
+        groups: "Gold",
+      };
+    });
+  }
+);
 </script>
 
 <template>
@@ -54,12 +156,87 @@ const handleUpdate = async () => {
         <ElInput v-model="form.description" :rows="5" type="textarea" />
       </ElFormItem>
       <ElFormItem required label="Award logo" prop="awards_avatar">
-        <AdminUploadFile v-model="form.awards_avatar" file-type="image" />
+        <AdminUploadFile
+          ref="uploadAvatarRef"
+          v-model="form.awards_avatar"
+          file-type="image"
+        >
+        </AdminUploadFile>
+      </ElFormItem>
+      <ElFormItem label="Images" prop="degress" required>
+        <AdminUploadFile ref="uploadRef" v-model="imageFiles" :single="false">
+          <template #default="{ file }: { file: UploadUserFile }">
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+              alt=""
+            />
+            <div v-if="awardImages[file.uid!]" class="img" @keydown.stop>
+              <div class="img__details">
+                <ElFormItem label="Year" label-width="50">
+                  <el-input-number
+                    v-model="awardImages[file.uid!].year"
+                    :min="1970"
+                    :max="new Date().getFullYear()"
+                    size="small"
+                  />
+                </ElFormItem>
+                <ElFormItem label="Type" label-width="50">
+                  <el-select
+                    v-model="awardImages[file.uid!].groups"
+                    class="m-2"
+                    size="small"
+                  >
+                    <el-option
+                      v-for="item in selectOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </ElFormItem>
+              </div>
+            </div>
+            <el-button
+              type="danger"
+              :icon="Delete"
+              circle
+              @click="onClickDelete"
+            ></el-button>
+          </template>
+        </AdminUploadFile>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" :loading="isUploading" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" :loading="isUploading" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>
 </template>
+
+<style scoped lang="scss">
+.img {
+  flex-grow: 1;
+  margin-left: 1rem;
+  h3 {
+    font-size: 1.5rem;
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &__sizes {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  button {
+    padding-inline: 0.5rem;
+  }
+}
+</style>
