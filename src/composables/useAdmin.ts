@@ -245,7 +245,11 @@ export const useAdmin = () => {
 
         navigateBack: ref("/admin/media?type=cv"),
 
-        formRules: ref<FormRules>({}),
+        formRules: ref<FormRules>({
+          title: [
+            { required: true, message: "Field is required", trigger: "blur" },
+          ],
+        }),
       };
     };
 
