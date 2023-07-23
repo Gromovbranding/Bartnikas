@@ -37,6 +37,8 @@ const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const imageFiles = ref<UploadUserFile[]>([]);
 
+const isUploading = ref(false);
+
 const awardImages = ref<ImageDetails>({});
 
 const form = reactive<PartialAdminApiDto<IAwards>>({
@@ -50,14 +52,46 @@ const handleResetForm = () => {
   formRef.value?.resetForm();
 };
 
+const imagesToDegress = (arr: any[]) => {
+  const years: {
+    [key: number]: any[];
+  } = {};
+  arr.forEach((item) => {
+    const awardImg = awardImages.value[item.uid];
+    if (years[awardImg.year]) {
+      years[awardImg.year].push({ item, data: awardImg });
+      return;
+    }
+    years[awardImg.year] = [{ item, data: awardImg }];
+  });
+  for (const i in years) {
+    const goldImgs: any[] = [];
+    const silvImgs: any[] = [];
+    years[i].forEach((yearItem) => {
+      if (yearItem.groups === "Gold")
+        return goldImgs.push({ name: yearItem.item.name });
+      silvImgs.push({ name: yearItem.item.name });
+    });
+    const res = {
+      year: +i,
+      groups: [] as any[],
+    };
+    if (goldImgs.length) res.groups.push({ type: "Gold", images: goldImgs });
+    if (silvImgs.length) res.groups.push({ type: "Silver", images: silvImgs });
+    form.degress.push(res);
+  }
+};
+
 const handleCreate = async () => {
+  const arr = [];
+  isUploading.value = true;
+  for await (const file of imageFiles.value) {
+    arr.push(await uploadRef.value!.uploadToServer(file));
+  }
+  imagesToDegress(arr);
   if (await formRef.value?.validate()) {
     try {
       const file = await uploadAvatarRef.value!.uploadToServer();
-      const images = await uploadRef.value!.uploadToServer();
-      if (Array.isArray(images)) {
-        // images[0].name
-      }
 
       await methods.handleCreate({
         ...toValue(form),
@@ -71,6 +105,7 @@ const handleCreate = async () => {
       console.error(exc);
     }
   }
+  isUploading.value = false;
 };
 
 const selectOptions = [
@@ -91,18 +126,8 @@ watch(
     val.forEach((item) => {
       if (awardImages.value[item.uid]) return;
       awardImages.value[item.uid] = {
-        year: 1970,
-        groups: [
-          {
-            type: "Gold",
-            images: [
-              {
-                name: "string",
-                url: "string",
-              },
-            ],
-          },
-        ],
+        year: 2022,
+        groups: "Gold",
       };
     });
   }
@@ -128,7 +153,7 @@ watch(
           file-type="image"
         />
       </ElFormItem>
-      <ElFormItem label="Images" prop="degress">
+      <ElFormItem label="Images" prop="degress" required>
         <AdminUploadFile ref="uploadRef" v-model="imageFiles" :single="false">
           <template #default="{ file }: { file: UploadUserFile }">
             <img
@@ -172,8 +197,12 @@ watch(
         </AdminUploadFile>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" :loading="isUploading" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton :loading="isUploading" @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>
