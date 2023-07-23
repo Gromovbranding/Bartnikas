@@ -46,7 +46,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IProject>(model);
+const form = reactive<IProject>({
+  ...model,
+  collab: model.collab ?? {},
+});
 
 const formReleases = ref<IProjectPressRelease[]>(
   form.collab?.press_release ?? []
