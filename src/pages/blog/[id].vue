@@ -29,12 +29,12 @@ const { data: blog } = useAsyncData(
 
     <AppMediaNextPrev
       :prev="{
-        title: String(blog?.prev?.title),
-        id: Number(blog?.prev?.id),
+        title: blog?.prev?.title,
+        id: blog?.prev?.id,
       }"
       :next="{
-        title: String(blog?.next?.title),
-        id: Number(blog?.next?.id),
+        title: blog?.next?.title,
+        id: blog?.next?.id,
       }"
       slug="blog"
     />

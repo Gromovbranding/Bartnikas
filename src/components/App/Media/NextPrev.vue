@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 interface IDescribe {
-  id: number;
-  title: string;
+  id?: number;
+  title?: string;
 }
 interface Props {
-  slug?: string;
+  slug: string;
   prev?: IDescribe;
   next?: IDescribe;
 }
