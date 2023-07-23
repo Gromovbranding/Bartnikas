@@ -42,8 +42,6 @@ const handleCreate = async () => {
         image: file as PartialFileAdminApiDto,
       });
 
-      await methods.handleCreate(toValue(form));
-
       await refreshNuxtData();
 
       await navigateTo(navigateBack.value);
