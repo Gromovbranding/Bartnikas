@@ -23,6 +23,10 @@ const { data: projects } = useAsyncData<IProject[]>(
   async () => await getAllProjects()
 );
 
+const moreProjects = computed(
+  () => projects.value?.filter((item) => item.id !== +route.params.id) || []
+);
+
 const onScroll = () => {
   if (!wrapper.value || !sticky.value) return;
   const rem = window.innerWidth / 100;
@@ -128,12 +132,12 @@ const collab = computed(() => project.value?.collab);
         />
       </section>
     </div>
-    <section v-if="projects?.length" ref="section" class="more">
+    <section v-if="moreProjects?.length" ref="section" class="more">
       <div ref="sticky" class="sticky-wrapper">
         <h2>More projects</h2>
         <div ref="wrapper" class="more__projects">
           <div
-            v-for="item in projects"
+            v-for="item in moreProjects"
             :key="item.id"
             class="project-item"
             @click="$router.push(`/projects/${item.id}`)"

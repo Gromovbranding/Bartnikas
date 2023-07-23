@@ -26,7 +26,15 @@ function playVideo() {
         class="collab__files__item"
       >
         <div class="collab__files__item__img">
-          <embed :src="press_release.file.url" alt="" />
+          <!-- <embed :src="press_release.file.url" alt="" /> -->
+          <object
+            :data="press_release.file.url"
+            type="application/pdf"
+            width="100%"
+            height="500px"
+          >
+            <p>Unable to display PDF file. Download instead.</p>
+          </object>
         </div>
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
@@ -71,6 +79,12 @@ function playVideo() {
 
 <style scoped lang="scss">
 .collab {
+  object {
+    width: 24rem;
+    height: 31rem;
+    outline: none;
+    object-fit: cover;
+  }
   &__files {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -184,6 +198,10 @@ function playVideo() {
 
 @media screen and (max-width: 1000px) {
   .collab {
+    object {
+      width: 100%;
+      height: 40rem;
+    }
     &__files {
       &__item {
         grid-template-columns: 1fr;
@@ -209,6 +227,9 @@ function playVideo() {
 
 @media screen and (max-width: 550px) {
   .collab {
+    object {
+      height: 45rem;
+    }
     &__files {
       grid-template-columns: 1fr;
       grid-auto-rows: auto;
