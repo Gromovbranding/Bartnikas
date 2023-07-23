@@ -5,8 +5,8 @@ interface IDescribe {
 }
 interface Props {
   slug: string;
-  prev?: IDescribe;
-  next?: IDescribe;
+  prev: IDescribe;
+  next: IDescribe;
 }
 
 const props = defineProps<Props>();
@@ -19,13 +19,13 @@ const handleTo = async (id: number) => {
 <template>
   <section class="switching">
     <!-- Previous -->
-    <div v-if="prev" class="switching__item" @click="handleTo(prev.id)">
+    <div v-if="prev.id" class="switching__item" @click="handleTo(prev.id)">
       <span class="switching__sup">previous</span>
       <h3>{{ prev.title }}</h3>
     </div>
     <div v-else class="switching__item_empty"></div>
     <!-- Next -->
-    <div v-if="next" class="switching__item" @click="handleTo(next.id)">
+    <div v-if="next.id" class="switching__item" @click="handleTo(next.id)">
       <span class="switching__sup">next</span>
       <h3>{{ next.title }}</h3>
     </div>
