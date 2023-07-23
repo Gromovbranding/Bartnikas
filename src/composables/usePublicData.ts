@@ -25,7 +25,8 @@ export const usePublicData = () => {
 
   const cart = useCookie<IProjectImageDetail[]>("cart", {
     default: () => [],
-    path: "/",
+
+    watch: "shallow",
   });
 
   const getProjectById = async (id: string | number) =>

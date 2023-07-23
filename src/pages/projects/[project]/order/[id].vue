@@ -63,10 +63,10 @@ const selectedSize = ref<{
   label: string;
 }>(sizes.value[0]);
 
-const addToCart = () => {
+const addToCart = async () => {
   if (isObvious.value && projectImage.value) {
-    cart.value.push(projectImage.value);
-    navigateTo("/cart");
+    cart.value?.push(projectImage.value);
+    await navigateTo("/cart");
   }
 };
 
