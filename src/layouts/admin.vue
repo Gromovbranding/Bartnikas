@@ -56,9 +56,15 @@ const sidebarItems: {
     icon: "ep:chat-line-square",
   },
   {
-    sortId: 7,
+    sortId: 8,
     text: "Media",
     url: "/admin/media",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 9,
+    text: "FAQ",
+    url: "/admin/faq",
     icon: "ep:chat-line-square",
   },
 ].sort((a, b) => a.sortId - b.sortId);

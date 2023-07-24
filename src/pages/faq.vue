@@ -1,24 +1,12 @@
 <script lang="ts" setup>
-const list = ref([
-  {
-    id: 1,
-    visible: true,
-    answer: `You choose a photo that arouses your interest and resonates with you, then send a request
-                        form (or a link to sb@stasbart.com), indicating your wishes in size and design. We agree on
-                        the size, paper, price, and you pay for the work with a bank card using the payment link
-                        that will come to your email.`,
-    question: "If I want to purchase a print where should I go?",
-  },
-  {
-    id: 2,
-    visible: false,
-    answer: `You choose a photo that arouses your interest and resonates with you, then send a request
-                        form (or a link to sb@stasbart.com), indicating your wishes in size and design. We agree on
-                        the size, paper, price, and you pay for the work with a bank card using the payment link
-                        that will come to your email.`,
-    question: "If I want to purchase a print where should I go?",
-  },
-]);
+import { IFaq } from "types/admin-api";
+
+const { getAllFaq } = usePublicData();
+
+const { data: faqs } = useAsyncData<IFaq[]>(
+  "faqs",
+  async () => await getAllFaq()
+);
 </script>
 
 <template>
@@ -27,15 +15,11 @@ const list = ref([
     <AppPageHead title="FAQ" />
     <section class="faq">
       <div class="faq__list">
-        <AppDetails v-for="item in list" :key="item.question + item.id">
+        <AppDetails v-for="item in faqs" :key="item.id">
           <template #summary>
-            If I want to purchase a print where should I go?
+            {{ item.title }}
           </template>
-          You choose a photo that arouses your interest and resonates with you,
-          then send a request form (or a link to sb@stasbart.com), indicating
-          your wishes in size and design. We agree on the size, paper, price,
-          and you pay for the work with a bank card using the payment link that
-          will come to your email.
+          {{ item.description }}
         </AppDetails>
       </div>
     </section>

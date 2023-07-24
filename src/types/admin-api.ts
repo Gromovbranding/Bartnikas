@@ -200,6 +200,14 @@ export interface IMediaPublication {
   updated_at: Date;
 }
 
+export interface IFaq {
+  id: number;
+  title: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
 type Primitive = undefined | null | boolean | string | number | Function;
 
 export interface IGreetingIndex {

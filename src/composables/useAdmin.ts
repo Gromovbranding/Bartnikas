@@ -13,6 +13,7 @@ import {
   IMediaExhibition,
   IMediaCV,
   IMediaPresentation,
+  IFaq,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -130,6 +131,32 @@ export const useAdmin = () => {
         ],
         url: [{ message: "Field is required", trigger: "blur" }],
         additional_info: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
+  const faq = () => {
+    const path = "faq";
+
+    const methods = getModelFetchers<IFaq>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "FAQ"),
+        edit: createTitle("edit", "FAQ"),
+      }),
+
+      navigateBack: ref("/admin/faq"),
+
+      formRules: ref<FormRules>({
+        title: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        description: [
           { required: true, message: "Field is required", trigger: "blur" },
         ],
       }),
@@ -451,5 +478,6 @@ export const useAdmin = () => {
     greetings,
     awards,
     projects,
+    faq,
   };
 };

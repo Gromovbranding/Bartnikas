@@ -12,6 +12,7 @@ import {
   IMediaExhibition,
   IMediaPresentation,
   IGreetingIndex,
+  IFaq,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -86,6 +87,8 @@ export const usePublicData = () => {
   const getActiveGreetingIndex = async () =>
     await fetchGet<IGreetingIndex>("greeting-index/only/active");
 
+  const getAllFaq = async () => await fetchGet<IFaq[]>("faq");
+
   const makeProjectsPayment = async (dto: {
     amount: number;
     currency: string;
@@ -114,6 +117,7 @@ export const usePublicData = () => {
     getAllMediaPresentation,
     getAllMediaPublication,
     getActiveGreetingIndex,
+    getAllFaq,
     makeProjectsPayment,
     cart,
   };
