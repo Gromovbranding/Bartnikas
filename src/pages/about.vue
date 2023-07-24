@@ -16,7 +16,6 @@ function onPointerMove(e: PointerEvent) {
 }
 
 function onPointerDown(e: PointerEvent) {
-  if (breakpoint.value === "lg") return;
   scrollActive.value = true;
   scrollStart.value = e.screenX;
 }
@@ -127,17 +126,7 @@ function onPointerDown(e: PointerEvent) {
     </section>
     <AppAwardsSection />
     <AppContentSpliter> STATEMENT </AppContentSpliter>
-    <AppSectionVideoGreeting :style="videoGreetingStyle">
-      Aerial photography gives me scope for creativity and innovation. In the
-      city, we don't often see the natural energy of the planet, but we can all
-      feel that energy through these images and appreciate the beauty of nature.
-      In the past few years I traveled over 20 countries actively capturing the
-      breathtaking landscapes below by boarding light aircraft and helicopters
-      wherever I went. <br />
-      I wanted to capture the energetic details and picturesque scenes perfected
-      by Mother Nature. That is why I decided to do an aerial photography as
-      aero-art.
-    </AppSectionVideoGreeting>
+    <AppSectionVideoGreeting :style="videoGreetingStyle" />
   </main>
 </template>
 
@@ -183,7 +172,7 @@ function onPointerDown(e: PointerEvent) {
 .testimonials {
   margin-block: 80px 0;
   padding: 0 40px 80px;
-  overflow: scroll auto;
+  overflow: hidden;
   &__wrapper {
     display: flex;
     gap: 100px;

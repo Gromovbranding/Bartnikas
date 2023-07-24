@@ -137,7 +137,7 @@ body {
 
   &__sidebar {
     background-color: #304156;
-    overflow: hidden;
+    overflow: auto;
 
     &-dashboard {
       background-color: #1f2d3d;

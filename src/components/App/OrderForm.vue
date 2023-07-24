@@ -2,9 +2,14 @@
 import { IProjectImageDetail } from "~/types/admin-api";
 
 const quantity = ref(1);
+const { fetchPost } = useApi();
 
-defineProps<{
+const props = defineProps<{
   image: IProjectImageDetail;
+}>();
+
+const emits = defineEmits<{
+  (e: "order"): void;
 }>();
 
 const form = ref<{
@@ -15,11 +20,25 @@ const form = ref<{
   email: "",
 });
 
-const handleOrder = () => {
-  form.value = {
-    name: "",
-    email: "",
-  };
+const handleOrder = async () => {
+  try {
+    await fetchPost("projects/order/by-email", {
+      email: form.value.email,
+      name: form.value.name,
+      photo_link: props.image.image.url,
+    });
+
+    form.value = {
+      name: "",
+      email: "",
+    };
+
+    ElMessage.info({
+      message: "Project was ordered",
+    });
+
+    emits("order");
+  } catch {}
 };
 </script>
 

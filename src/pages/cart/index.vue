@@ -98,6 +98,7 @@ const handleCheckout = () => {
   &__header {
     margin: auto 0;
     > h3 {
+      word-break: break-word;
       font-weight: bold;
       font-size: 2vw;
     }

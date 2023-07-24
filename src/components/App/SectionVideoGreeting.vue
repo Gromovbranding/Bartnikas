@@ -32,7 +32,7 @@ function playVideo() {
     </div>
     <div class="video-greeting__text">
       <p>
-        <slot>{{ greeting?.text }}</slot>
+        {{ greeting?.text }}
       </p>
     </div>
   </section>

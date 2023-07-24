@@ -30,6 +30,7 @@ function playVideo() {
           <object
             :data="press_release.file.url"
             type="application/pdf"
+            showcontrols="false"
             width="100%"
             height="500px"
           >

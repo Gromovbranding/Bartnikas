@@ -23,11 +23,7 @@ const excludeNotActiveImage = (project: IProject): IProject => ({
 export const usePublicData = () => {
   const { fetchGet, fetchPost } = useApi();
 
-  const cart = useCookie<IProjectImageDetail[]>("cart", {
-    default: () => [],
-
-    watch: "shallow",
-  });
+  const cart = useState<IProjectImageDetail[]>("cart", () => []);
 
   const getProjectById = async (id: string | number) =>
     excludeNotActiveImage(await fetchGet<IProject>(`projects/${id}`));

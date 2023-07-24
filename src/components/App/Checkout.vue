@@ -87,8 +87,11 @@ onMounted(async () => {
         });
 
         if (error) {
-          (errorElement.value as HTMLDivElement).textContent ??=
+          (errorElement.value as HTMLDivElement).textContent =
             error.message as string;
+          ElMessage.error({
+            message: error.message,
+          });
           emit("error", error);
         }
       } catch (error: StripeError | unknown) {
@@ -109,18 +112,10 @@ onMounted(async () => {
       <div id="stripe-payment-element-errors" ref="errorElement" role="alert" />
     </slot>
     <UIButton style="width: 100%" class="button">Pay</UIButton>
-    <!-- <div id="stripe-payment-data">
-      <p>Amount: {{ amount }} Currency: {{ currency }}</p>
-    </div> -->
   </form>
 </template>
 
 <style lang="scss" scoped>
-// #stripe-payment-data {
-//   display: flex;
-//   align-items: center;
-//   margin: 15px 0;
-// }
 .button {
   margin-top: 2rem;
   padding: 1rem 3rem;

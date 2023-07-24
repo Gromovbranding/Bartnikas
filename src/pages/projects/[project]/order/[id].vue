@@ -13,7 +13,7 @@ const { data: projects } = await useAsyncData<IProject[]>(
   async () => await getAllProjects()
 );
 
-const dialog = ref<HTMLDialogElement | null>(null);
+const isShowOrderFormEmail = ref(false);
 
 const moreOrdersSwiper = ref<Swiper | null>(null);
 
@@ -71,8 +71,7 @@ const addToCart = async () => {
 };
 
 function toOrder() {
-  if (!dialog.value) return;
-  dialog.value.showModal();
+  isShowOrderFormEmail.value = true;
 }
 </script>
 
@@ -88,15 +87,6 @@ function toOrder() {
       <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>
       <div class="order__gallery">
         <img :src="projectImage?.image.url" alt="" />
-        <!-- <div class="order__gallery-list">
-          <img
-            v-for="img in moreProjectImages"
-            :key="img.id"
-            class="upper-slide"
-            :src="img?.url"
-            alt=""
-          />
-        </div> -->
       </div>
       <div class="order__info">
         <h3>{{ projectImage?.image_name }}</h3>
@@ -131,9 +121,6 @@ function toOrder() {
           </li>
         </ul>
         <div class="order__info-control">
-          <!-- <div class="order__info-quanity">
-            <AppFormQuanity v-model="quantity" />
-          </div> -->
           <div class="order__info-colorlist">
             <b> Interior best collors: </b>
             <div class="order__info-color-interior">
@@ -181,9 +168,12 @@ function toOrder() {
         </SwiperSlide>
       </Swiper>
     </section>
-    <dialog v-if="projectImage && !isObvious" ref="dialog">
-      <AppOrderForm :image="projectImage" />
-      <IconClose class="dialog-icon" @click="dialog?.close()" />
+    <dialog v-if="projectImage && !isObvious && isShowOrderFormEmail">
+      <AppOrderForm
+        :image="projectImage"
+        @order="isShowOrderFormEmail = false"
+      />
+      <IconClose class="dialog-icon" @click="isShowOrderFormEmail = false" />
     </dialog>
   </main>
 </template>
@@ -191,6 +181,10 @@ function toOrder() {
 <style lang="scss" scoped>
 dialog {
   margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
   border: none;
   width: 100%;
   height: 100%;
