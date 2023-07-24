@@ -29,9 +29,6 @@ function getGroupVideos(group: any) {
       >
         {{ group }}
       </UIButton>
-      <!-- <UIButton :to="{ hash: '#backstage' }" is-white> BACKSTAGES </UIButton>
-      <UIButton :to="{ hash: '#exhibition' }" is-white> EXHIBITIONS </UIButton>
-      <UIButton :to="{ hash: '#interview' }" is-white> INTERVIEW </UIButton> -->
     </section>
     <div class="collection">
       <section
@@ -41,25 +38,6 @@ function getGroupVideos(group: any) {
         class="collection__item"
       >
         <AppSectionHeader :is-link="false">{{ group }}</AppSectionHeader>
-        <!-- <div class="collection__select">
-          <span>Project:</span>
-          <UISelect
-            :list="[
-              {
-                label: 'xPalienko',
-                value: 'xPalienko',
-              },
-              {
-                label: 'xPalienko2',
-                value: 'xPalienko2',
-              },
-              {
-                label: 'xPalienko3',
-                value: 'xPalienko3',
-              },
-            ]"
-          />
-        </div> -->
         <div class="grid">
           <AppVideoItem
             v-for="item in getGroupVideos(group)"
@@ -68,18 +46,6 @@ function getGroupVideos(group: any) {
           />
         </div>
       </section>
-      <!-- <section id="exhibition" class="collection__item">
-        <AppSectionHeader :is-link="false"> EXHIBITIONS </AppSectionHeader>
-        <div class="grid">
-          <AppVideoItem v-for="i in 8" :key="`exhibition-item-${i}`" />
-        </div>
-      </section>
-      <section id="interview" class="collection__item">
-        <AppSectionHeader :is-link="false"> INTERVIEW </AppSectionHeader>
-        <div class="grid">
-          <AppVideoItem v-for="i in 8" :key="`interview-item-${i}`" />
-        </div>
-      </section> -->
     </div>
   </main>
 </template>
