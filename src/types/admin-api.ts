@@ -235,6 +235,16 @@ export interface IGreetingIndex {
   updated_at: Date;
 }
 
+export interface IBioTestimonials {
+  id: number;
+  name: string;
+  job: string;
+  testimonial: string;
+  photo: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
+
 type Primitive = undefined | null | boolean | string | number | Function;
 
 type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;

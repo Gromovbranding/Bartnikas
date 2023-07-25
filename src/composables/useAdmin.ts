@@ -16,6 +16,7 @@ import {
   IFaq,
   ITermsStatic,
   IBio,
+  IBioTestimonials,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -497,6 +498,35 @@ export const useAdmin = () => {
     };
   };
 
+  const bioTestimonials = () => {
+    const path = "bio-testimonials";
+
+    const methods = getModelFetchers<IBioTestimonials>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Bio Testimonials"),
+        edit: createTitle("edit", "Bio Testimonials"),
+      }),
+
+      navigateBack: ref("/admin/bio-testimonials"),
+
+      formRules: ref<FormRules>({
+        name: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        job: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        testimonial: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
     pathServer?: string
@@ -565,5 +595,6 @@ export const useAdmin = () => {
     termsStatic,
     deliveryStatic,
     bio,
+    bioTestimonials,
   };
 };

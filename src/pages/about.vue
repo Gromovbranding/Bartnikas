@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBio } from "types/admin-api";
+import { IBio, IBioTestimonials } from "types/admin-api";
 
 const { breakpoint } = useBreakpoints();
 const scrollActive = ref(false);
@@ -12,9 +12,14 @@ const videoGreetingStyle = computed(() => {
   };
 });
 
-const { getBio } = usePublicData();
+const { getBio, getBioTestimonials } = usePublicData();
 
 const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
+
+const { data: bioTestimonials } = useAsyncData<IBioTestimonials[]>(
+  "bioTestimonials",
+  async () => await getBioTestimonials()
+);
 
 function onPointerMove(e: PointerEvent) {
   if (!scrollActive.value || !scroll.value) return;
@@ -52,17 +57,18 @@ function onPointerDown(e: PointerEvent) {
         @pointerdown.prevent="onPointerDown"
         @pointermove="onPointerMove"
       >
-        <div v-for="i in 4" :key="`item-${i}`" class="testimonials__item">
+        <div
+          v-for="item in bioTestimonials"
+          :key="item.id"
+          class="testimonials__item"
+        >
           <div class="testimonials__person">
             <div>
-              <img
-                src="https://static.tildacdn.com/tild6636-3061-4466-a238-353661613865/nussbaum-law-IOvsEAE.jpg"
-                alt=""
-              />
+              <img :src="item.photo.url" alt="" />
             </div>
             <div>
-              <h3>Jeanne Modderman</h3>
-              <p>National geographic photo producer</p>
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.job }}</p>
             </div>
           </div>
           <div class="testimonials__text">
@@ -83,11 +89,7 @@ function onPointerDown(e: PointerEvent) {
             </div>
             <div>
               <p>
-                To me this isn’t only a photo, it’s a work of art. It’s
-                painterly quality plus the graphic nature of the landscape takes
-                this beyond the ordinary aerial. Yes, it’s right place right
-                time, but it’s technically great because it’s absolutely sharp
-                and crisp. Hope to see more of your photos!
+                {{ item.testimonial }}
               </p>
             </div>
             <div>

@@ -15,6 +15,7 @@ import {
   IFaq,
   ITermsStatic,
   IBio,
+  IBioTestimonials,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -99,6 +100,9 @@ export const usePublicData = () => {
 
   const getBio = async () => await fetchGet<IBio>("bio/current/active");
 
+  const getBioTestimonials = async () =>
+    await fetchGet<IBioTestimonials[]>("bio-testimonials");
+
   const makeProjectsPayment = async (dto: {
     amount: number;
     currency: string;
@@ -131,6 +135,7 @@ export const usePublicData = () => {
     getTermsStatic,
     getDeliveryStatic,
     getBio,
+    getBioTestimonials,
 
     makeProjectsPayment,
     cart,
