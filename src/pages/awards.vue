@@ -9,6 +9,20 @@ const { data: awards } = await useAsyncData<IAwards[]>(
   async () => await getAllAwards()
 );
 
+useHeadSafe({
+  title: "Awards",
+  meta: [
+    {
+      name: "description",
+      content: "My Awards",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
+
 const activeImg = ref();
 
 function showImg(img: string) {
@@ -19,7 +33,6 @@ function showImg(img: string) {
 
 <template>
   <main>
-    <Title> Awards </Title>
     <AppPageHead bg-color="grey" title="Awards" />
     <section class="awards">
       <div v-for="award in awards" :key="award.id" class="awards__item">

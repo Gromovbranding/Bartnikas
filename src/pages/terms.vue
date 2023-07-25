@@ -7,11 +7,24 @@ const { data: termsStatic } = useAsyncData<ITermsStatic[]>(
   "termsStatic",
   async () => await getTermsStatic()
 );
+
+useHeadSafe({
+  title: "Terms & Conditions",
+  meta: [
+    {
+      name: "description",
+      content: "My Terms & Conditions",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> Terms & Conditions </Title>
     <AppPageHead title="Terms & Conditions" bg-color="grey" />
     <AppSectionTermCollection :list="termsStatic" />
   </main>

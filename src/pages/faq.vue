@@ -7,11 +7,24 @@ const { data: faqs } = useAsyncData<IFaq[]>(
   "faqs",
   async () => await getAllFaq()
 );
+
+useHeadSafe({
+  title: "FAQ",
+  meta: [
+    {
+      name: "description",
+      content: "My Faq",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> FAQ </Title>
     <AppPageHead title="FAQ" />
     <section class="faq">
       <div class="faq__list">

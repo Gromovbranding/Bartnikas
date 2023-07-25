@@ -18,6 +18,20 @@ const { data: project } = useAsyncData(
   async () => await getProjectById(route.params.id as string)
 );
 
+useHeadSafe({
+  title: `Project ${project.value?.title}`,
+  meta: [
+    {
+      name: "description",
+      content: project.value?.description ?? "My Desc",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
+
 const { data: projects } = useAsyncData<IProject[]>(
   "projects",
   async () => await getAllProjects()
@@ -62,7 +76,6 @@ const collab = computed(() => project.value?.collab);
 
 <template>
   <main>
-    <Title> {{ project?.title }} </Title>
     <AppPageHead sub="projects" :title="title" />
 
     <AppProjectCollab v-if="collab" :collab="collab" />

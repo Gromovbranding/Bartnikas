@@ -43,6 +43,22 @@ const projectImage = computed(() =>
   projectDetails.value.find((img) => img.id === imageId)
 );
 
+useHeadSafe({
+  title: `Project Image ${projectImage.value?.image_name}`,
+  meta: [
+    {
+      name: "description",
+      content:
+        `${projectImage.value?.image_name} with price ${projectImage.value?.price}` ??
+        "My Desc",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
+
 const moreProjectImages = computed(() =>
   projectDetails.value.filter((img) => img.id !== imageId).slice(0, 9)
 );
@@ -77,7 +93,6 @@ function toOrder() {
 
 <template>
   <main>
-    <Title> Photo Card </Title>
     <AppPageHead
       only-logo
       :title="projectImage?.image_name"

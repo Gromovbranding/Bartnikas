@@ -16,6 +16,20 @@ const { getBio, getBioTestimonials } = usePublicData();
 
 const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
 
+useHeadSafe({
+  title: "Biography",
+  meta: [
+    {
+      name: "description",
+      content: bio.value?.description ?? "",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
+
 const { data: bioTestimonials } = useAsyncData<IBioTestimonials[]>(
   "bioTestimonials",
   async () => await getBioTestimonials()
@@ -34,7 +48,6 @@ function onPointerDown(e: PointerEvent) {
 
 <template>
   <main @pointerup="scrollActive = false">
-    <Title> Biography </Title>
     <AppPageHead title="Biography" />
 
     <section class="biography-about">

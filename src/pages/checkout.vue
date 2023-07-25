@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { usePublicData } from "@/composables/usePublicData";
 const { cart } = usePublicData();
+useHeadSafe({
+  title: "Checkout",
+  meta: [
+    {
+      name: "robots",
+      content: "noindex,nofollow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> Checkout </Title>
     <AppPageHead title="Checkout" />
     <div class="checkout">
       <UIButton class="checkout__btn" is-grey @click="$router.go(-1)">

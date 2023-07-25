@@ -7,11 +7,24 @@ const { data: blog } = useAsyncData(
   "blog",
   async () => await getBlogById(route.params.id as string)
 );
+
+useHeadSafe({
+  title: `Article ${blog.value?.title}`,
+  meta: [
+    {
+      name: "description",
+      content: blog?.value?.description ?? "My Blog",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> Article of blog </Title>
     <AppPageHead only-logo back />
 
     <article class="article">

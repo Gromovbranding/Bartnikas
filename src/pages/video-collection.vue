@@ -14,11 +14,24 @@ function getGroupVideos(group: any) {
   if (!videos.value) return [];
   return videos.value.filter((video) => video.project?.group === group);
 }
+
+useHeadSafe({
+  title: "Video Collection",
+  meta: [
+    {
+      name: "description",
+      content: "My Video Collection",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> Video Collection </Title>
     <AppPageHead title="Video Collection" />
     <section class="filter">
       <UIButton

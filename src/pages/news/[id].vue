@@ -9,11 +9,24 @@ const { data: article } = useAsyncData(
   "article",
   async () => await getArticleById(route.params.id as string)
 );
+
+useHeadSafe({
+  title: `Article ${article.value?.title}`,
+  meta: [
+    {
+      name: "description",
+      content: article.value?.description ?? "My Desc",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title>{{ article?.title }}</Title>
     <AppPageHead only-logo back />
 
     <article class="article">

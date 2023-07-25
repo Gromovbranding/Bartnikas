@@ -7,11 +7,24 @@ const { data: deliveryStatic } = useAsyncData<ITermsStatic[]>(
   "deliveryStatic",
   async () => await getDeliveryStatic()
 );
+
+useHeadSafe({
+  title: "Payment & Delivery",
+  meta: [
+    {
+      name: "description",
+      content: "My Payment & Delivery",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title> Payment & Delivery </Title>
     <AppPageHead title="Payment & Delivery" bg-color="grey" />
     <AppSectionTermCollection :list="deliveryStatic" />
   </main>

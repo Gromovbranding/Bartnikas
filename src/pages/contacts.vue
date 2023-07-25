@@ -1,6 +1,20 @@
 <script setup lang="ts">
 const { fetchPost } = useApi();
 
+useHeadSafe({
+  title: "Contacts",
+  meta: [
+    {
+      name: "description",
+      content: "My Contacts",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
+
 const form = ref<{
   name: string;
   email: string;
@@ -24,7 +38,6 @@ const handleAddContact = async () => {
 
 <template>
   <main>
-    <Title> Contacts </Title>
     <AppPageHead title="Contacts" />
 
     <section class="contacts">

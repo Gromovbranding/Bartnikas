@@ -14,11 +14,19 @@ const removeItem = (id: number) => {
 const handleCheckout = () => {
   router.push("/checkout");
 };
+useHeadSafe({
+  title: "Cart",
+  meta: [
+    {
+      name: "robots",
+      content: "noindex,nofollow",
+    },
+  ],
+});
 </script>
 
 <template>
   <main>
-    <Title>Cart</Title>
     <AppPageHead only-logo title="Cart" />
 
     <section class="checkout">

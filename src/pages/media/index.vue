@@ -27,10 +27,23 @@ const mediaTabs = ref([
 ]);
 
 const selectedTab = ref(mediaTabs.value[0]);
+
+useHeadSafe({
+  title: "Media",
+  meta: [
+    {
+      name: "description",
+      content: "My Media",
+    },
+    {
+      name: "robots",
+      content: "index,follow",
+    },
+  ],
+});
 </script>
 <template>
   <main>
-    <Title> Media </Title>
     <AppPageHead title="Media" />
 
     <section class="media">
