@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IBio } from "types/admin-api";
+
 const { breakpoint } = useBreakpoints();
 const scrollActive = ref(false);
 const scrollStart = ref(0);
@@ -9,6 +11,10 @@ const videoGreetingStyle = computed(() => {
       breakpoint.value === "xs" ? "column-reverse" : "row-reverse",
   };
 });
+
+const { getBio } = usePublicData();
+
+const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
 
 function onPointerMove(e: PointerEvent) {
   if (!scrollActive.value || !scroll.value) return;
@@ -28,35 +34,14 @@ function onPointerDown(e: PointerEvent) {
 
     <section class="biography-about">
       <div class="biography-about__img">
-        <img src="@/assets/img/bartnikas_about.jpg" alt="Bartnikas about" />
+        <img :src="bio?.awatar.url" alt="Bartnikas about" />
       </div>
       <div class="biography-about__text">
         <p>
-          Artistic, compassionate, talented, these traits make Stanislav
-          Bartnikas a brilliant aerial photographer. His internationally
-          acclaimed portfolio speaks volumes about his capabilities. Based in
-          Moscow, he began his career as a correspondent after graduating with a
-          Journalism degree from Moscow State University. For a while, he worked
-          with one of the leading newspapers in Moscow. Yet, when the Soviet
-          Union collapsed, he decided to go solo. Initially, he pursued a career
-          in sales and advertisement development for several businesses. During
-          this time, he took some time out to master his photography skills. He
-          used aerial photography to combine his interest in aviation with his
-          wanderlust.
+          {{ bio?.sub_description }}
         </p>
         <small>
-          Stanislav is convinced that mother nature is the most sophisticated
-          painter and he sees it as his mission to capture its beauty in its
-          perfect form and convey the energy of our planet through his images.
-          He calls his style of photography "Aero-Art". his shots were published
-          in magazines across Russia and Europe such as Sunday Times Travel
-          Magazine, Maxim, GEO, Vanity Fair, Bild, View, L’officiel Voyage and
-          were featured in National Geographic’s Photo Of The Day and Daily
-          Dozen rubrics number of times. He also won multiple awards at the
-          prestigious contests, such as Natgeo Photo Travel, IPA, TIFA, MIFA,
-          PX3, Siena International Photo Awards. Currently he Is a contributor
-          for @Natgeoyourshot. Some of his works are represented in London based
-          Avivson Gallery. Some are part of privately owned collections.
+          {{ bio?.description }}
         </small>
       </div>
     </section>

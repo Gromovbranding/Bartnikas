@@ -1,10 +1,8 @@
 <script lang="ts" setup>
+import { ITermsStatic } from "types/admin-api";
+
 interface Props {
-  list: {
-    id: number;
-    caption: string;
-    paragraph: string;
-  }[];
+  list: ITermsStatic[] | null;
 }
 
 defineProps<Props>();
@@ -12,18 +10,14 @@ defineProps<Props>();
 <template>
   <section class="terms">
     <div class="terms__list">
-      <div
-        v-for="item in list"
-        :key="item.caption + item.id"
-        class="terms__item"
-      >
+      <div v-for="item in list" :key="item.id" class="terms__item">
         <div>
           <h3>
-            {{ item.caption }}
+            {{ item.title }}
           </h3>
         </div>
         <div>
-          <p v-html="item.paragraph" />
+          <p v-html="item.description" />
         </div>
       </div>
     </div>

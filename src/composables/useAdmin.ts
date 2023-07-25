@@ -14,6 +14,8 @@ import {
   IMediaCV,
   IMediaPresentation,
   IFaq,
+  ITermsStatic,
+  IBio,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -414,6 +416,87 @@ export const useAdmin = () => {
     };
   };
 
+  const termsStatic = () => {
+    const path = "terms-static";
+
+    const methods = getModelFetchers<ITermsStatic>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Terms & Conditions"),
+        edit: createTitle("edit", "Terms & Conditions"),
+      }),
+
+      navigateBack: ref("/admin/terms-static"),
+
+      formRules: ref<FormRules>({
+        title: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        description: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
+  const deliveryStatic = () => {
+    const path = "delivery-static";
+
+    const methods = getModelFetchers<ITermsStatic>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Payment & Delivery"),
+        edit: createTitle("edit", "Payment & Delivery"),
+      }),
+
+      navigateBack: ref("/admin/delivery-static"),
+
+      formRules: ref<FormRules>({
+        title: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        sub_title: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        description: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
+  const bio = () => {
+    const path = "bio";
+
+    const methods = getModelFetchers<IBio>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "About me"),
+        edit: createTitle("edit", "About me"),
+      }),
+
+      navigateBack: ref("/admin/bio"),
+
+      formRules: ref<FormRules>({
+        sub_description: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        description: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
     pathServer?: string
@@ -479,5 +562,8 @@ export const useAdmin = () => {
     awards,
     projects,
     faq,
+    termsStatic,
+    deliveryStatic,
+    bio,
   };
 };

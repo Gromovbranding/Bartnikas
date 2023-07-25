@@ -208,7 +208,23 @@ export interface IFaq {
   updated_at: Date;
 }
 
-type Primitive = undefined | null | boolean | string | number | Function;
+export interface ITermsStatic {
+  id: number;
+  title: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface IBio {
+  id: number;
+  description: string;
+  sub_description: string;
+  is_active: boolean;
+  awatar: IFile;
+  created_at: Date;
+  updated_at: Date;
+}
 
 export interface IGreetingIndex {
   id: number;
@@ -218,6 +234,8 @@ export interface IGreetingIndex {
   created_at: Date;
   updated_at: Date;
 }
+
+type Primitive = undefined | null | boolean | string | number | Function;
 
 type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
 

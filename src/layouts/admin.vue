@@ -67,6 +67,24 @@ const sidebarItems: {
     url: "/admin/faq",
     icon: "ep:chat-line-square",
   },
+  {
+    sortId: 10,
+    text: "About me",
+    url: "/admin/bio",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 11,
+    text: "Payment & Delivery",
+    url: "/admin/delivery-static",
+    icon: "ep:chat-line-square",
+  },
+  {
+    sortId: 12,
+    text: "Terms & Condition",
+    url: "/admin/terms-static",
+    icon: "ep:chat-line-square",
+  },
 ].sort((a, b) => a.sortId - b.sortId);
 const { logout } = useApi();
 </script>

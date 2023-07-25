@@ -13,6 +13,8 @@ import {
   IMediaPresentation,
   IGreetingIndex,
   IFaq,
+  ITermsStatic,
+  IBio,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -89,6 +91,14 @@ export const usePublicData = () => {
 
   const getAllFaq = async () => await fetchGet<IFaq[]>("faq");
 
+  const getDeliveryStatic = async () =>
+    await fetchGet<ITermsStatic[]>("delivery-static");
+
+  const getTermsStatic = async () =>
+    await fetchGet<ITermsStatic[]>("terms-static");
+
+  const getBio = async () => await fetchGet<IBio>("bio/current/active");
+
   const makeProjectsPayment = async (dto: {
     amount: number;
     currency: string;
@@ -118,6 +128,10 @@ export const usePublicData = () => {
     getAllMediaPublication,
     getActiveGreetingIndex,
     getAllFaq,
+    getTermsStatic,
+    getDeliveryStatic,
+    getBio,
+
     makeProjectsPayment,
     cart,
   };
