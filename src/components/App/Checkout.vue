@@ -50,7 +50,7 @@ onMounted(async () => {
   });
 
   const stripe = (await loadStripe(
-    "pk_test_aTwQx8JI4Z4frDaV5ZqTR2kP00TZmNRg9A",
+    "pk_live_whofvejcknZiRo65M2L1i9tt00ANClX50q",
     {
       apiVersion: "2022-11-15",
     }
