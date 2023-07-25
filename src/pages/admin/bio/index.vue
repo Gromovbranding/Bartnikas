@@ -30,6 +30,6 @@ const {
   >
     <ElTableColumn label="Description" prop="description" />
     <ElTableColumn label="Is Active" prop="is_active" />
-    <ElTableColumn label="Subdescription" prop="Subdescription" />
+    <ElTableColumn label="Subdescription" prop="sub_description" />
   </AdminTemplateCardIndexPage>
 </template>
