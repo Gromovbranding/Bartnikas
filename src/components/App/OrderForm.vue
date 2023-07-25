@@ -25,7 +25,7 @@ const handleOrder = async () => {
     await fetchPost("projects/order/by-email", {
       email: form.value.email,
       name: form.value.name,
-      photo_link: props.image.image.url,
+      image: props.image,
     });
 
     form.value = {

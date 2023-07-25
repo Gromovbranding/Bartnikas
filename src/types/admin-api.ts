@@ -245,6 +245,15 @@ export interface IBioTestimonials {
   updated_at: Date;
 }
 
+export interface IProjectOrderByEmail {
+  id: number;
+  name: string;
+  email: string;
+  image: IProjectImageDetail;
+  created_at: Date;
+  updated_at: Date;
+}
+
 type Primitive = undefined | null | boolean | string | number | Function;
 
 type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
