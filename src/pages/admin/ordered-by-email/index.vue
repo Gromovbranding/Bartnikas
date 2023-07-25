@@ -29,8 +29,9 @@ const {
   >
     <ElTableColumn label="Name" prop="name" />
     <ElTableColumn label="Email" prop="email" />
-    <ElTableColumn label="Image name" prop="image.image_name" />
-    <ElTableColumn label="Price" prop="image.price" />
-    <ElTableColumn label="Status" prop="Sent on email" />
+    <ElTableColumn label="Image name" prop="image_name" />
+    <ElTableColumn label="Price" prop="price" />
+    <ElTableColumn label="URL Image" prop="url" />
+    <ElTableColumn label="Status" prop="status" />
   </AdminTemplateCardIndexPage>
 </template>

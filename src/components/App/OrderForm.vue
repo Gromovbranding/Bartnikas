@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { IProjectImageDetail } from "~/types/admin-api";
+import { IProjectImageDetail, IProjectImageSizes } from "~/types/admin-api";
 
 const quantity = ref(1);
 const { fetchPost } = useApi();
 
 const props = defineProps<{
   image: IProjectImageDetail;
+  selectedSize: IProjectImageSizes;
+  projectId: number;
 }>();
 
 const emits = defineEmits<{
@@ -25,7 +27,9 @@ const handleOrder = async () => {
     await fetchPost("projects/order/by-email", {
       email: form.value.email,
       name: form.value.name,
-      image: props.image,
+      image_id: props.image.id,
+      project_id: props.projectId,
+      selected_size_id: props.selectedSize.id,
     });
 
     form.value = {

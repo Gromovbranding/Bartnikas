@@ -186,6 +186,10 @@ function toOrder() {
     <dialog v-if="projectImage && !isObvious && isShowOrderFormEmail">
       <AppOrderForm
         :image="projectImage"
+        :project-id="projectId"
+        :selected-size="
+          projectImage.sizes.find((item) => item.id === selectedSize.value)
+        "
         @order="isShowOrderFormEmail = false"
       />
       <IconClose class="dialog-icon" @click="isShowOrderFormEmail = false" />

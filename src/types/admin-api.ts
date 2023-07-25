@@ -249,7 +249,10 @@ export interface IProjectOrderByEmail {
   id: number;
   name: string;
   email: string;
-  image: IProjectImageDetail;
+  image_name: string;
+  url: string;
+  price: number;
+  status: string;
   created_at: Date;
   updated_at: Date;
 }
