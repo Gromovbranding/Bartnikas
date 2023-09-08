@@ -1,4 +1,4 @@
-const BASE_URL_API = "api.stanislavbartnikas.com";
+const BASE_URL_API = "http://api.stanislavbartnikas.com";
 
 export default defineNuxtConfig({
   srcDir: "src",
