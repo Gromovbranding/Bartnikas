@@ -22,7 +22,11 @@ function playVideo() {
 <template>
   <article class="video-collection">
     <div class="video-collection__img">
-      <video ref="video" :src="item.video.url" :controls="showControls"></video>
+      <video
+        ref="video"
+        :src="useGetFileByUrl(item.video.name)"
+        :controls="showControls"
+      ></video>
       <div
         v-if="!activeVideo"
         class="video-collection__play"

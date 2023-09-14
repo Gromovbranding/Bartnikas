@@ -35,7 +35,7 @@ function getYTLink(url: string) {
       <video
         v-else
         ref="video"
-        :src="testimonial.file?.url"
+        :src="useGetFileByUrl(testimonial.file?.name)"
         preload="metadata"
         :controls="showVideo"
       ></video>

@@ -112,7 +112,7 @@ function copyColor(idx: number) {
               v-for="slide in project.details"
               :key="`swiper-slide-main-${slide.id}`"
             >
-              <img :src="slide.image.url" alt="" />
+              <img :src="useGetFileByUrl(slide.image.name)" alt="" />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -128,7 +128,7 @@ function copyColor(idx: number) {
               v-for="slide in project.details"
               :key="`swiper-slide-thumb-${slide.id}`"
             >
-              <img :src="slide.image.url" alt="" />
+              <img :src="useGetFileByUrl(slide.image.name)" alt="" />
             </SwiperSlide>
           </Swiper>
 

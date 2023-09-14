@@ -11,8 +11,10 @@ const { data: mediakit } = useAsyncData<IMediaKit[]>(
 
 <template>
   <div v-for="kit in mediakit" :key="'kit' + kit.id" class="media__kit">
-    <img :src="kit.image.url" alt="" />
-    <UIButton :to="kit.pdf.url" download> Download pdf </UIButton>
+    <img :src="useGetFileByUrl(kit.image.name)" alt="" />
+    <UIButton :to="useGetFileByUrl(kit.pdf.name)" download>
+      Download pdf
+    </UIButton>
   </div>
 </template>
 

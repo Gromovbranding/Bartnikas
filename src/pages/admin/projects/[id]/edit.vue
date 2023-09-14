@@ -302,7 +302,7 @@ watch(
             <!-- {{ file }} -->
             <img
               class="el-upload-list__item-thumbnail"
-              :src="file.url || file.image.url"
+              :src="file.url || useGetFileByUrl(file.image.name)"
               alt=""
             />
             <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>

@@ -11,7 +11,7 @@ defineProps<{
   <div class="port-order">
     <div class="port-order__img">
       <AppPortZoom :detail="detail" :project-id="projectId">
-        <img :src="detail.image.url" alt="" />
+        <img :src="useGetFileByUrl(detail.image.name)" alt="" />
       </AppPortZoom>
     </div>
     <div class="port-order__info">

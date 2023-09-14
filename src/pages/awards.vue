@@ -38,10 +38,7 @@ function showImg(img: string) {
       <div v-for="award in awards" :key="award.id" class="awards__item">
         <div class="awards__circle">
           <a href="#">
-            <img
-              :src="award.awards_avatar.url"
-              :alt="award.awards_avatar.name"
-            />
+            <img :src="useGetFileByUrl(award.awards_avatar.name)" />
           </a>
         </div>
         <div class="awards__text">

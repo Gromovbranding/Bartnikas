@@ -50,7 +50,7 @@ const handleOrder = async () => {
   <section class="order-form">
     <div class="order-form__left">
       <div class="order-form__left__img">
-        <img :src="image.image.url" alt="" />
+        <img :src="useGetFileByUrl(image.image.name)" alt="" />
       </div>
       <div class="order-form__left__img-info">
         <h3>{{ image.image_name }}</h3>

@@ -41,7 +41,7 @@ useHeadSafe({
             </svg>
           </div>
           <div class="checkout__main-img">
-            <img :src="item.image.url" alt="" />
+            <img :src="useGetFileByUrl(item.image.name)" alt="" />
           </div>
           <div class="checkout__info">
             <div class="checkout__header">

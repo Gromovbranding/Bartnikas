@@ -9,7 +9,10 @@ defineProps<{
 <template>
   <div class="awards__item">
     <a>
-      <img :src="award.awards_avatar.url" :alt="award.awards_avatar.name" />
+      <img
+        :src="useGetFileByUrl(award.awards_avatar.name)"
+        :alt="award.awards_avatar.name"
+      />
       <div>
         <h4>{{ award.title }}</h4>
       </div>

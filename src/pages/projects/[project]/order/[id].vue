@@ -101,7 +101,7 @@ function toOrder() {
     <section class="order">
       <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>
       <div class="order__gallery">
-        <img :src="projectImage?.image.url" alt="" />
+        <img :src="useGetFileByUrl(projectImage?.image.name)" alt="" />
       </div>
       <div class="order__info">
         <h3>{{ projectImage?.image_name }}</h3>

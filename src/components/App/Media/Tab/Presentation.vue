@@ -17,14 +17,14 @@ const { data: presentation } = useAsyncData<IMediaPresentation[]>(
       class="media__presentation"
     >
       <div>
-        <img :src="item.image.url" alt="" />
+        <img :src="useGetFileByUrl(item.image.name)" alt="" />
       </div>
       <div>
         <h3>{{ item.title }}</h3>
         <UIButton
           class="media__presentation__btn"
           :is-text-uppercase="false"
-          :to="item.pdf.url"
+          :to="useGetFileByUrl(item.pdf.name)"
           download
         >
           Download PDF

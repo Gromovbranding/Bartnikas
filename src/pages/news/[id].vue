@@ -35,7 +35,7 @@ useHeadSafe({
         <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
-        <img :src="article?.image?.url" alt="" />
+        <img :src="useGetFileByUrl(article?.image?.name)" alt="" />
       </div>
       <div class="article__content">
         <p>{{ article?.description }}</p>

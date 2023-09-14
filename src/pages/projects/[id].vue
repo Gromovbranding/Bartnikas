@@ -156,10 +156,7 @@ const collab = computed(() => project.value?.collab);
             @click="$router.push(`/projects/${item.id}`)"
           >
             <div class="project-item__img">
-              <img
-                :src="item.details[0].image.url"
-                :alt="item.details[0].image_name"
-              />
+              <img :src="useGetFileByUrl(item.details[0].image.name)" />
             </div>
             <div class="project-item__text">
               <h3>{{ item.title }}</h3>

@@ -33,7 +33,7 @@ useHeadSafe({
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="blog?.image?.url" alt="" />
+        <img :src="useGetFileByUrl(blog?.image?.name)" alt="" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>

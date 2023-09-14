@@ -20,7 +20,7 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
         target="_blank"
       >
         <div>
-          <img :src="item.image.url" alt="" />
+          <img :src="useGetFileByUrl(item.image.name)" alt="" />
         </div>
         <div>
           <h3>

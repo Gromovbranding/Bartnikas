@@ -28,7 +28,7 @@ function playVideo() {
         <div class="collab__files__item__img">
           <!-- <embed :src="press_release.file.url" alt="" /> -->
           <object
-            :data="press_release.file.url"
+            :data="useGetFileByUrl(press_release.file.name)"
             type="application/pdf"
             showcontrols="false"
             width="100%"
@@ -40,7 +40,9 @@ function playVideo() {
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
             <h2>{{ press_release.title }}</h2>
-            <UIButton :to="press_release.file.url" download>PDF</UIButton>
+            <UIButton :to="useGetFileByUrl(press_release.file.name)" download
+              >PDF</UIButton
+            >
           </div>
           <p>
             {{ press_release.text }}
@@ -58,7 +60,7 @@ function playVideo() {
         <div class="collab__with__img">
           <video
             ref="video"
-            :src="collab.video.url"
+            :src="useGetFileByUrl(collab.video.name)"
             :controls="showControls"
           ></video>
           <div

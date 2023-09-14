@@ -22,7 +22,7 @@ function playVideo() {
     <div class="video-greeting__video">
       <video
         ref="video"
-        :src="greeting?.video?.url"
+        :src="useGetFileByUrl(greeting?.video?.name)"
         preload="metadata"
         :controls="showVideo"
       ></video>

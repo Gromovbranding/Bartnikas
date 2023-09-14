@@ -16,7 +16,7 @@ const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
       :key="'exh' + item.id"
       class="media__exhibitions"
     >
-      <img :src="item.image.url" alt="" />
+      <img :src="useGetFileByUrl(item.image.name)" alt="" />
       <div>
         <h3>{{ item.title }}</h3>
         <p>

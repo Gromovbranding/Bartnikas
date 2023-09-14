@@ -52,7 +52,7 @@ function onPointerDown(e: PointerEvent) {
 
     <section class="biography-about">
       <div class="biography-about__img">
-        <img :src="bio?.awatar.url" alt="Bartnikas about" />
+        <img :src="useGetFileByUrl(bio?.awatar.name)" alt="Bartnikas about" />
       </div>
       <div class="biography-about__text">
         <p>
@@ -77,7 +77,7 @@ function onPointerDown(e: PointerEvent) {
         >
           <div class="testimonials__person">
             <div>
-              <img :src="item.photo.url" alt="" />
+              <img :src="useGetFileByUrl(item.photo.name)" alt="" />
             </div>
             <div>
               <h3>{{ item.name }}</h3>

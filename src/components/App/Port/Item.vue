@@ -19,12 +19,12 @@ withDefaults(defineProps<Props>(), {
   >
     <div v-if="project.details[0]" class="port__img">
       <div class="scale">
-        <img :src="project.details[0].image.url" alt="" />
+        <img :src="useGetFileByUrl(project.details[0].image.name)" alt="" />
       </div>
     </div>
     <div v-if="project.details[1]" class="port__content">
       <div class="scale">
-        <img :src="project.details[1].image.url" alt="" />
+        <img :src="useGetFileByUrl(project.details[1].image.name)" alt="" />
       </div>
       <div class="port__text">
         <NuxtLink :to="`/projects/${project?.id}`">
