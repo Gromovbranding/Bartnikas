@@ -118,7 +118,7 @@ defineExpose({
       ref="uploadRef"
       v-model:file-list="fileList"
       drag
-      :limit="single ? 1 : 20"
+      :limit="single ? 1 : 350"
       :action="apiFilesUrl"
       :list-type="fileType === 'image' ? 'picture' : 'text'"
       :accept="fileTypes"
