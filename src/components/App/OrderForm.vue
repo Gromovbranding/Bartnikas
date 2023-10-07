@@ -100,7 +100,7 @@ const handleOrder = async () => {
       align-items: center;
       h3 {
         font-size: 1.75rem;
-        font-weight: 700;
+        font-weight: 500;
       }
     }
   }

@@ -39,7 +39,7 @@ defineProps<{
     img {
       width: 100%;
       height: 100%;
-      max-height: 550px;
+      max-height: 500px;
       object-fit: cover;
     }
   }
@@ -51,7 +51,6 @@ defineProps<{
 
     > div {
       &:first-child {
-        margin-top: 18px;
         svg {
           width: 60px;
           height: 40px;
@@ -88,9 +87,6 @@ defineProps<{
 
 @media screen and (max-width: 550px) {
   .interios {
-    &:hover {
-    }
-
     &__img {
       img {
         min-height: 260px;

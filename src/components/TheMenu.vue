@@ -346,8 +346,8 @@ watch(
     z-index: 10;
     right: 50px;
     top: 20px;
-    height: 50px;
-    width: 50px;
+    height: 65px;
+    width: 65px;
     text-align: center;
     border-radius: 50%;
     font-size: 20px;

@@ -5,7 +5,7 @@ interface Props {
   onlyLogo?: boolean;
   title?: string;
   back?: boolean;
-  number?: number;
+  number?: number | string;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -67,7 +67,7 @@ const onClickLogo = () => {
 <style lang="scss" scoped>
 .page-head {
   position: relative;
-  padding: 10px 60px 20px;
+  padding: 20px 60px 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,7 +158,7 @@ const onClickLogo = () => {
     cursor: pointer;
 
     &:deep(svg) {
-      width: 360px;
+      width: 475px;
       height: 100%;
     }
   }
@@ -166,7 +166,7 @@ const onClickLogo = () => {
   &__breadcrumb {
     display: flex;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 100px;
 
     li {
       *,

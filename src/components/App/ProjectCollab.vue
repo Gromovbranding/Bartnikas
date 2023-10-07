@@ -187,7 +187,7 @@ function playVideo() {
       padding: 3rem;
       h3 {
         font-size: 3.6rem;
-        font-weight: 700;
+        font-weight: 500;
         margin-bottom: 1rem;
       }
       p {

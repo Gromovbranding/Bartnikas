@@ -157,7 +157,7 @@ function onPointerDown(e: PointerEvent) {
     p {
       font-size: 1.5vw;
       line-height: 1.5;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     small {

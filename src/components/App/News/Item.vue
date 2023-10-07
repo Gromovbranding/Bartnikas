@@ -62,7 +62,7 @@ defineProps<{
         h3 {
           color: $colorTextDark;
           font-size: 1.8rem;
-          font-weight: 500;
+          font-weight: 400;
           line-height: 1.1;
         }
 
@@ -124,9 +124,6 @@ defineProps<{
 
 @media screen and (max-width: 550px) {
   .interios {
-    &:hover {
-    }
-
     &__img {
       img {
         min-height: 260px;

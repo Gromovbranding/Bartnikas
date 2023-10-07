@@ -45,7 +45,7 @@ const classes = computed(() => {
   border: none;
   font-size: 36px;
   color: #fff;
-  font-weight: 500;
+  font-weight: 400;
   background-color: $colorAccentBlue;
   transform: translateY(0);
   transition: transform 0.2s ease-in-out;

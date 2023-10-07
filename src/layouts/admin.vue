@@ -51,7 +51,7 @@ const sidebarItems: {
   },
   {
     sortId: 7,
-    text: "Greetings",
+    text: "Statement",
     url: "/admin/greetings",
     icon: "ep:chat-line-square",
   },
@@ -173,7 +173,7 @@ body {
       background-color: #1f2d3d;
       color: #fff;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 400;
       padding: 10px 20px;
       line-height: 56px;
       position: relative;

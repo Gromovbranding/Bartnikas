@@ -32,7 +32,8 @@ defineProps<Props>();
     align-items: flex-start;
     justify-content: space-between;
     padding: 3rem;
-    grid-template-columns: 1fr 60%;
+    grid-template-columns: 1fr 55%;
+    border-radius: 10px;
 
     &:nth-child(even) {
       background-color: $colorBackgroundGrey;
@@ -42,7 +43,7 @@ defineProps<Props>();
       &:first-child {
         flex: 0 0 55%;
         h3 {
-          font-size: 3.3rem;
+          font-size: 5.3rem;
           letter-spacing: 3px;
           line-height: 1.4;
           font-weight: bold;
@@ -55,7 +56,7 @@ defineProps<Props>();
         p {
           font-size: 1.5rem;
           line-height: 1.4;
-          font-weight: 400;
+          font-weight: 500;
           max-width: 90%;
         }
       }

@@ -255,6 +255,7 @@ dialog {
   }
 
   &__info {
+    padding-top: 25px;
     flex: 1 1 40%;
 
     b,

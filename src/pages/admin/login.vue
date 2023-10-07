@@ -116,7 +116,7 @@ body {
 
   &__header {
     font-size: 26px;
-    font-weight: 500;
+    font-weight: 400;
     color: #eee;
     margin-bottom: 40px;
     text-align: center;

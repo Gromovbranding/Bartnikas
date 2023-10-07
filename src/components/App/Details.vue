@@ -107,7 +107,7 @@ function onAnimationFinish(open: boolean) {
 <style lang="scss" scoped>
 details {
   display: block;
-  border-radius: 10px;
+  border-radius: 15px;
   overflow: hidden;
   background-color: #fff;
 }
@@ -119,7 +119,7 @@ summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #1b61cb;
   color: #fff;
   position: relative;

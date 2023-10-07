@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IArticle } from "~/types/admin-api";
 
-const headTitle = ref("Greetings");
+const headTitle = ref("Statement");
 
 definePageMeta({
   layout: "admin",

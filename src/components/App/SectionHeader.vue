@@ -45,7 +45,7 @@ withDefaults(defineProps<Props>(), {
     span {
       font-size: 40px;
       line-height: 45px;
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 

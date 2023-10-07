@@ -35,10 +35,9 @@ defineProps<{
 <style lang="scss" scoped>
 .port-order {
   &__img {
-    max-height: 700px;
     img {
       width: 100%;
-      height: 530px;
+      height: 700px;
       object-fit: cover;
       border-radius: 7px;
     }
@@ -82,12 +81,23 @@ defineProps<{
           &:last-child {
             span {
               color: $colorAccentBlue;
+              font-weight: 700;
             }
             svg {
               fill: $colorAccentBlue;
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .port-order {
+    &__img {
+      img {
+        height: 550px;
       }
     }
   }

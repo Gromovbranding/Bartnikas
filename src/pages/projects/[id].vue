@@ -76,7 +76,11 @@ const collab = computed(() => project.value?.collab);
 
 <template>
   <main>
-    <AppPageHead sub="projects" :title="title" />
+    <AppPageHead
+      sub="projects"
+      :title="title"
+      :number="project?.details.length"
+    />
 
     <AppProjectCollab v-if="collab" :collab="collab" />
 

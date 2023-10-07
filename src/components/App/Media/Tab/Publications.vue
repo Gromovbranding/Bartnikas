@@ -79,7 +79,7 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
 <style lang="scss" scoped>
 .grid {
   display: grid;
-  grid-gap: 120px 80px;
+  grid-gap: 60px;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -92,7 +92,7 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
           width: 100%;
           border-radius: $borderRadiusMain;
           object-fit: cover;
-          max-height: 310px;
+          height: 310px;
         }
       }
 

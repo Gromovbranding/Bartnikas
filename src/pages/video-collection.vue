@@ -37,6 +37,7 @@ useHeadSafe({
       <UIButton
         v-for="group in groups"
         :key="'group_link-' + group"
+        style="font-weight: 700"
         :to="{ hash: `#${group}` }"
         is-white
       >
@@ -50,7 +51,7 @@ useHeadSafe({
         :key="'group-' + group"
         class="collection__item"
       >
-        <AppSectionHeader :is-link="false">{{ group }}</AppSectionHeader>
+        <h2 class="collection__caption">{{ group }}</h2>
         <div class="grid">
           <AppVideoItem
             v-for="item in getGroupVideos(group)"
@@ -72,6 +73,14 @@ main {
   display: flex;
   flex-direction: column;
   gap: 5rem;
+  &__caption {
+    font-size: 10rem;
+    display: flex;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1em;
+    margin-bottom: 15px;
+  }
   &__select {
     display: flex;
     align-items: center;
@@ -93,6 +102,7 @@ main {
   width: 100%;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 40px;
   border-bottom-left-radius: $borderRadiusMain;
   border-bottom-right-radius: $borderRadiusMain;
@@ -119,7 +129,7 @@ main {
   .filter {
     > :deep(.btn-default) {
       padding: 2rem 4rem;
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 }

@@ -90,6 +90,7 @@ onMounted(() => {
   }
 
   &__head {
+    line-height: 25px;
     border: 1px solid #242424;
     border-radius: $borderRadiusMain;
     font-size: 32px;
@@ -99,7 +100,11 @@ onMounted(() => {
     align-content: center;
     justify-content: space-between;
     cursor: pointer;
-    font-weight: 400;
+    font-weight: 500;
+
+    > div {
+      line-height: 38px;
+    }
 
     svg {
       transition: transform 0.3s ease;

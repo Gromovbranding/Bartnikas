@@ -139,6 +139,7 @@ const handleAddContact = async () => {
         display: flex;
         font-weight: 600;
         gap: 0.5rem;
+        margin-top: 2rem;
       }
 
       p {

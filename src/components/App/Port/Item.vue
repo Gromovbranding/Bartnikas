@@ -56,7 +56,6 @@ withDefaults(defineProps<Props>(), {
 
   &__img {
     flex: 0 0 790px;
-    padding: 3rem 2rem;
 
     > div {
       height: 100%;
@@ -73,7 +72,6 @@ withDefaults(defineProps<Props>(), {
     width: 100%;
     border-radius: 8px;
     .scale {
-      margin: 2rem;
       max-height: 25rem;
     }
 
