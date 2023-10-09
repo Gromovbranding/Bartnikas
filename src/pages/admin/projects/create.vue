@@ -52,6 +52,7 @@ interface ImageDetails {
       width: number;
       height: number;
       unit: "cm";
+      quantity: number;
     }[];
     is_active: boolean;
     price: number;
@@ -160,7 +161,7 @@ watch(
     val.forEach((item) => {
       if (projectImages.value[item.uid]) return;
       projectImages.value[item.uid] = {
-        sizes: [{ width: 100, height: 100, unit: "cm" }],
+        sizes: [{ width: 100, height: 100, unit: "cm", quantity: 1 }],
         is_active: true,
         price: 100,
         image_name: item.name,
@@ -332,6 +333,13 @@ watch(
                   >Height, cm
                   <el-input-number v-model="item.height" :min="1" size="small"
                 /></label>
+                <label
+                  >Quantity
+                  <el-input-number
+                    v-model="item.quantity"
+                    :min="0"
+                    size="small"
+                /></label>
                 <el-button
                   v-if="idx !== 0"
                   type="danger"
@@ -347,6 +355,7 @@ watch(
                   projectImages[file.uid!].sizes.push({
                     width: 100,
                     height: 100,
+                    quantity: 1,
                     unit: 'cm',
                   })
                 "

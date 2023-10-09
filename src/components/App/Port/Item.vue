@@ -152,10 +152,7 @@ withDefaults(defineProps<Props>(), {
     grid-template-columns: 1fr;
     &__content {
       .scale {
-        margin: 4rem;
         max-height: 25rem;
-        max-width: 70%;
-        margin-inline: auto;
       }
     }
     &__text {

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { IProjectImageDetail, IProjectImageSizes } from "~/types/admin-api";
 
-const quantity = ref(1);
 const { fetchPost } = useApi();
 
 const props = defineProps<{
@@ -17,9 +16,11 @@ const emits = defineEmits<{
 const form = ref<{
   name: string;
   email: string;
+  quantity: number;
 }>({
   name: "",
   email: "",
+  quantity: 0,
 });
 
 const handleOrder = async () => {
@@ -27,6 +28,7 @@ const handleOrder = async () => {
     await fetchPost("projects/order/by-email", {
       email: form.value.email,
       name: form.value.name,
+      quantity: form.value.quantity,
       image_id: props.image.id,
       project_id: props.projectId,
       selected_size_id: props.selectedSize.id,
@@ -35,6 +37,7 @@ const handleOrder = async () => {
     form.value = {
       name: "",
       email: "",
+      quantity: 0,
     };
 
     ElMessage.info({
@@ -54,7 +57,10 @@ const handleOrder = async () => {
       </div>
       <div class="order-form__left__img-info">
         <h3>{{ image.image_name }}</h3>
-        <AppFormQuanity v-model="quantity" :maxlength="3" />
+        <AppFormQuanity
+          v-model="form.quantity"
+          :maxlength="selectedSize.quantity"
+        />
       </div>
     </div>
     <div>

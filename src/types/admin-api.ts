@@ -51,6 +51,7 @@ export interface IProjectImageSizes {
   id: number;
   width: number;
   height: number;
+  quantity: number;
   unit: ListUnitSize;
   created_at: Date;
   updated_at: Date;

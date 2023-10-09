@@ -151,7 +151,7 @@ function copyColor(idx: number) {
     display: grid;
     grid-template-columns: minmax(max-content, 395px) minmax(320px, 1fr) 200px;
     column-gap: 70px;
-    height: 100%;
+    max-height: 650px;
 
     .interios-order__sl {
       max-width: 402px;
@@ -221,7 +221,7 @@ function copyColor(idx: number) {
             flex: 0 0 100% !important;
             img {
               width: 100%;
-              height: 100%;
+              height: 650px;
               object-fit: cover;
             }
           }

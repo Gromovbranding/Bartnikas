@@ -1,10 +1,16 @@
 <script setup lang="ts">
 const input = ref<HTMLInputElement>();
 
-const props = defineProps<{
-  modelValue: number;
-  maxlength?: number;
-}>();
+const props = withDefaults(
+  defineProps<{
+    modelValue: number;
+    maxlength?: number;
+    minLength?: number;
+  }>(),
+  {
+    minLength: 1,
+  }
+);
 
 const emit = defineEmits<{
   (e: "update:modelValue", val: number): void;
@@ -21,7 +27,7 @@ const value = computed({
 
 function updateValue(e: "+" | "-") {
   if (e === "+") return value.value++;
-  if (value.value === 1) return;
+  if (value.value === props.minLength) return;
   value.value--;
 }
 </script>
@@ -35,6 +41,7 @@ function updateValue(e: "+" | "-") {
         v-model.number="value"
         type="number"
         disabled
+        :minlength="minLength"
         :maxlength="maxlength"
       />
       <div>
