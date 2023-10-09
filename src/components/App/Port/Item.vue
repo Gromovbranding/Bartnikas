@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
           </div>
           <h2 v-else>{{ project.group }}</h2>
           <div class="port__text__desc">
-            <p>{{ project.description }}</p>
+            <p v-html="project.description"></p>
           </div>
         </NuxtLink>
       </div>

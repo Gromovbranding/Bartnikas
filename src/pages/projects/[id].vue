@@ -116,9 +116,7 @@ const collab = computed(() => project.value?.collab);
             </svg>
           </div>
           <div class="author-quote__text__desc">
-            <p>
-              {{ project?.description }}
-            </p>
+            <p v-html="project?.description"></p>
           </div>
           <div>
             <svg
@@ -164,7 +162,7 @@ const collab = computed(() => project.value?.collab);
             </div>
             <div class="project-item__text">
               <h3>{{ item.title }}</h3>
-              <p>{{ item.description }}</p>
+              <p v-html="item.description"></p>
             </div>
           </div>
         </div>

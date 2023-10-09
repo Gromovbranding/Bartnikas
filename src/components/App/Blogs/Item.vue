@@ -18,7 +18,7 @@ defineProps<{
       </div>
       <div>
         <h3>{{ blog.title }}</h3>
-        <p>{{ blog.description }}</p>
+        <p v-html="blog.description"></p>
         <span>{{ makeDateCorrect(blog.created_at) }}</span>
       </div>
     </div>

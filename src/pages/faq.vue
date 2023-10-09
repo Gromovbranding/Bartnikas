@@ -32,7 +32,7 @@ useHeadSafe({
           <template #summary>
             {{ item.title }}
           </template>
-          {{ item.description }}
+          <div v-html="item.description"></div>
         </AppDetails>
       </div>
     </section>

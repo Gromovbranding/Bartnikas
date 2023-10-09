@@ -52,7 +52,7 @@ function playVideo() {
     </div>
     <div class="collab__text">
       <div class="collab__text__title">{{ collab.title }}</div>
-      <div class="collab__text__desc">{{ collab.description }}</div>
+      <div class="collab__text__desc" v-html="collab.description"></div>
     </div>
     <div class="collab__with">
       <h2>HOW IT WORKS</h2>
@@ -73,7 +73,7 @@ function playVideo() {
         </div>
         <div class="collab__with__text">
           <h3>{{ collab.collab_with }}</h3>
-          <p>{{ collab.description }}</p>
+          <p v-html="collab.description"></p>
         </div>
       </div>
     </div>

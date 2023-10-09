@@ -51,9 +51,7 @@ function showImg(img: string) {
             <b>{{ award.title }}</b>
           </div>
           <div>
-            <p>
-              {{ award.description }}
-            </p>
+            <p v-html="award.description"></p>
           </div>
         </div>
         <!-- <div class="awards__link">

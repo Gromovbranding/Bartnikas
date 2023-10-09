@@ -38,8 +38,8 @@ useHeadSafe({
         <img :src="useGetFileByUrl(article?.image?.name)" alt="" />
       </div>
       <div class="article__content">
-        <p>{{ article?.description }}</p>
-        <p>{{ article?.text }}</p>
+        <p v-html="article?.description"></p>
+        <p v-html="article?.text"></p>
       </div>
     </article>
 

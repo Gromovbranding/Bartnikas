@@ -58,9 +58,7 @@ function onPointerDown(e: PointerEvent) {
         <p>
           {{ bio?.sub_description }}
         </p>
-        <small>
-          {{ bio?.description }}
-        </small>
+        <small v-html="bio?.description"> </small>
       </div>
     </section>
 

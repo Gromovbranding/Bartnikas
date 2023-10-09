@@ -40,9 +40,7 @@ useHeadSafe({
         />
       </div>
       <div class="article__content">
-        <p>
-          {{ article?.description }}
-        </p>
+        <p v-html="article?.description"></p>
       </div>
     </article>
 
