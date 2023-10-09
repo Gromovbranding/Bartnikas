@@ -54,42 +54,11 @@ function showImg(img: string) {
             <p v-html="award.description"></p>
           </div>
         </div>
-        <!-- <div class="awards__link">
-          <div
-            v-for="item in award.degress"
-            :key="item.id"
-            class="awards__list"
-          >
-            <div>
-              <b>{{ item.year }}</b>
-            </div>
-            <div
-              v-for="group in item.groups"
-              :key="`awards-group-item-${group.id}`"
-            >
-              <div>
-                <div>
-                  <p>{{ group.type }}</p>
-                </div>
-              </div>
-              <div>
-                <div
-                  v-for="(image, imageIdx) in group.images"
-                  :key="`group-image-item-${image.name}`"
-                  class="upper-slide"
-                >
-                  <small @click="showImg(image.url)">
-                    {{ imageIdx + 1 }} Photo
-                    <IconArrow is-arrow30-deg />
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div class="awards__photo">
           <div
-            v-for="item in award.degress"
+            v-for="item in award.degress
+              .sort((a, b) => +b.year - +a.year)
+              .slice(0, 3)"
             :key="item.id"
             class="awards__photo__item"
           >
@@ -123,6 +92,10 @@ function showImg(img: string) {
                 </template>
               </div>
             </div>
+          </div>
+
+          <div v-if="award.degress.length > 3">
+            <h2>And {{ award.degress.length }} awards more</h2>
           </div>
         </div>
       </div>
@@ -236,6 +209,13 @@ function showImg(img: string) {
   gap: 10rem;
   background-color: $colorBackgroundGreyDarken;
   padding: 80px 40px;
+
+  &__awards-more-title {
+    text-align: right;
+    h2 {
+      font-size: 28px;
+    }
+  }
 
   &__item {
     background-color: $colorBackgroundGreyDarken;
