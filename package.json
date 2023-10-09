@@ -33,6 +33,7 @@
     "vue-marquee-text-component": "^2.0.1"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.54.0"
+    "@stripe/stripe-js": "^1.54.0",
+    "@tinymce/tinymce-vue": "^5.1.1"
   }
 }

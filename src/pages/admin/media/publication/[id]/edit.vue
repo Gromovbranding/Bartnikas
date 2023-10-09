@@ -57,7 +57,7 @@ const handleUpdate = async () => {
         <ElInput v-model="form.program" />
       </ElFormItem>
       <ElFormItem label="Subtitle" prop="subtitle">
-        <ElInput v-model="form.subtitle" />
+        <AdminEditorInput v-model="form.subtitle" />
       </ElFormItem>
       <ElFormItem label="URL" prop="url">
         <ElInput v-model="form.url" />

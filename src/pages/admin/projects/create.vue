@@ -185,7 +185,7 @@ watch(
       </ElFormItem>
 
       <ElFormItem label="Description" prop="description">
-        <ElInput v-model="form.description" />
+        <AdminEditorInput v-model="form.description" />
       </ElFormItem>
 
       <ElFormItem label="Group" prop="group">
@@ -210,7 +210,7 @@ watch(
         </ElFormItem>
 
         <ElFormItem label="Collab Description" prop="collab.description">
-          <ElInput v-model="form.collab.description" />
+          <AdminEditorInput v-model="form.collab.description" />
         </ElFormItem>
 
         <ElFormItem required label="Video" prop="collab.video">
@@ -258,7 +258,7 @@ watch(
               trigger: 'blur',
             }"
           >
-            <ElInput v-model="press_release.text" />
+            <AdminEditorInput v-model="press_release.text" />
           </ElFormItem>
 
           <ElFormItem

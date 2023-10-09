@@ -57,10 +57,10 @@ const handleUpdate = async () => {
         <ElInput v-model="form.title" />
       </ElFormItem>
       <ElFormItem label="Description" prop="description">
-        <ElInput v-model="form.description" :rows="5" type="textarea" />
+        <AdminEditorInput v-model="form.description" />
       </ElFormItem>
       <ElFormItem label="Text" prop="text">
-        <ElInput v-model="form.text" :rows="5" type="textarea" />
+        <AdminEditorInput v-model="form.text" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
         <AdminUploadFile ref="uploadRef" v-model="form.image" />

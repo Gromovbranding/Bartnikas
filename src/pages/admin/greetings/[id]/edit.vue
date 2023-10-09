@@ -54,7 +54,7 @@ const handleUpdate = async () => {
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Text" prop="text">
-        <ElInput v-model="form.text" />
+        <AdminEditorInput v-model="form.text" />
       </ElFormItem>
 
       <ElFormItem label="Is active" prop="is_active">

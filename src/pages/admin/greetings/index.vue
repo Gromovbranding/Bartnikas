@@ -17,7 +17,7 @@ const {
   handleEdit,
   data: { entities, pending },
 } = useAdmin().makeFetchersForIndexCard<IArticle>(
-  headTitle.value,
+  "greetings",
   "greeting-index"
 );
 </script>

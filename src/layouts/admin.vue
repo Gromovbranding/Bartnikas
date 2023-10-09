@@ -91,6 +91,12 @@ const sidebarItems: {
     url: "/admin/ordered-by-email",
     icon: "ep:chat-line-square",
   },
+  {
+    sortId: 14,
+    text: "Reviews about me",
+    url: "/admin/bio-testimonials",
+    icon: "ep:chat-line-square",
+  },
 ].sort((a, b) => a.sortId - b.sortId);
 const { logout } = useApi();
 </script>

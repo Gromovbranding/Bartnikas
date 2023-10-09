@@ -55,7 +55,7 @@ const handleCreate = async () => {
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Text" prop="text">
-        <ElInput v-model="form.text" :rows="5" type="textarea" />
+        <AdminEditorInput v-model="form.text" />
       </ElFormItem>
 
       <ElFormItem label="Is active" prop="is_active">

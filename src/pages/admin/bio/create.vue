@@ -61,7 +61,7 @@ const handleCreate = async () => {
         <ElInput v-model="form.sub_description" />
       </ElFormItem>
       <ElFormItem label="Description" prop="description">
-        <ElInput v-model="form.description" :rows="5" type="textarea" />
+        <AdminEditorInput v-model="form.description" />
       </ElFormItem>
       <ElFormItem label="Is active" prop="is_active">
         <ElSwitch v-model="form.is_active" />
