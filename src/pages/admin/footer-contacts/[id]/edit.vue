@@ -37,7 +37,7 @@ const handleUpdate = async () => {
 
       await methods.handlePatch(id, {
         ...toValue(form),
-        video: file as PartialFileAdminApiDto,
+        logo: file as PartialFileAdminApiDto,
       });
 
       await refreshNuxtData();

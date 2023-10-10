@@ -86,6 +86,11 @@ const sidebarItems: {
     url: "/admin/footer-contacts",
     icon: "ep:chat-line-square",
   },
+  {
+    text: "Footer card",
+    url: "/admin/footer-card-index",
+    icon: "ep:chat-line-square",
+  },
 ];
 const { logout } = useApi();
 </script>

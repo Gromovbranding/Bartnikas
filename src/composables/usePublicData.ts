@@ -17,6 +17,7 @@ import {
   IBio,
   IBioTestimonials,
   IFooterContact,
+  IndexCardFooter,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -112,6 +113,9 @@ export const usePublicData = () => {
   const getActiveFooterContact = async () =>
     await fetchGet<IFooterContact>("footer-contacts/only/active");
 
+  const getActiveIndexCardFooter = async () =>
+    await fetchGet<IndexCardFooter>("index-card-footer/only/active");
+
   return {
     getProjectById,
     getAllProjects,
@@ -141,6 +145,7 @@ export const usePublicData = () => {
     getBio,
     getBioTestimonials,
     getActiveFooterContact,
+    getActiveIndexCardFooter,
 
     makeProjectsPayment,
     cart,

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
 const { breakpoint } = useBreakpoints();
-const { getIndexSlider } = usePublicData();
+const { getIndexSlider, getActiveIndexCardFooter } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
 const defImgSize = ref(115);
@@ -18,6 +18,11 @@ const throttledListener = useThrottle(onScroll, 50);
 const { data: indexSlider } = useAsyncData(
   "slider",
   async () => await getIndexSlider()
+);
+
+const { data: activeIndexCard } = useAsyncData(
+  "activeIndexCard",
+  async () => await getActiveIndexCardFooter()
 );
 
 const sliderImg = computed(
@@ -56,14 +61,13 @@ onBeforeUnmount(() => {
         <img src="@/assets/img/index_parallax.jpg" alt="Parallax bg" />
       </div>
       <div>
-        <h3>Obvious &amp; StasBartnikas Collaboration</h3>
+        <h3>{{ activeIndexCard?.title }}</h3>
         <p>
-          Stas and Obvious want to bring the beauty of nature together with the
-          science and technology of AI. They demonstrate how the program
-          develops natural looking images based on 1000s of aerial photographs
-          of scenic Iceland.
+          {{ activeIndexCard?.text }}
         </p>
-        <UIButton to="/projects">View the projects</UIButton>
+        <UIButton :to="activeIndexCard?.button.url">
+          {{ activeIndexCard?.button.text }}
+        </UIButton>
       </div>
     </section>
     <AppVideoSection />

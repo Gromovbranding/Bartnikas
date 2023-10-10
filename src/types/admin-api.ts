@@ -267,6 +267,16 @@ export interface IFooterContact {
   updated_at: Date;
 }
 
+export interface IndexCardFooter {
+  id: number;
+  active: boolean;
+  title: string;
+  text: string;
+  button: { text: string; url: string };
+  created_at: Date;
+  updated_at: Date;
+}
+
 type Primitive = undefined | null | boolean | string | number | Function;
 
 type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;

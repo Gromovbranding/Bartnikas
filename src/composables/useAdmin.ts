@@ -18,6 +18,7 @@ import {
   IBio,
   IBioTestimonials,
   IFooterContact,
+  IndexCardFooter,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -547,6 +548,32 @@ export const useAdmin = () => {
     };
   };
 
+  const footerIndexCard = () => {
+    const path = "index-card-footer";
+
+    const methods = getModelFetchers<IndexCardFooter>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Footer Card"),
+        edit: createTitle("edit", "Footer Card"),
+      }),
+
+      navigateBack: ref("/admin/footer-card-index"),
+
+      formRules: ref<FormRules>({
+        title: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+        text: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
     pathServer?: string
@@ -617,5 +644,6 @@ export const useAdmin = () => {
     bio,
     bioTestimonials,
     footerContacts,
+    footerIndexCard,
   };
 };

@@ -72,6 +72,7 @@ const uploadRef = ref<UploadInstance>();
 defineExpose({
   async uploadToServer(file?: any) {
     const formData = new FormData();
+
     if (file) {
       formData.append("file", file.raw as File | Blob);
       if (file.edit)
