@@ -26,7 +26,6 @@ function playVideo() {
         class="collab__files__item"
       >
         <div class="collab__files__item__img">
-          <!-- <embed :src="press_release.file.url" alt="" /> -->
           <object
             :data="useGetFileByUrl(press_release.file.name)"
             type="application/pdf"

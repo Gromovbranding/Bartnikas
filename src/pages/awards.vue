@@ -31,7 +31,7 @@ useHeadSafe({
 const activeImg = ref();
 
 function showImg(img: string) {
-  activeImg.value = img;
+  activeImg.value = useGetFileByUrl(img);
   showModal.value = true;
 }
 </script>

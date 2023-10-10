@@ -21,7 +21,7 @@ const { data: indexSlider } = useAsyncData(
 );
 
 const sliderImg = computed(
-  () => `url(${indexSlider.value?.image?.url ?? defBgImg})`
+  () => `url(${useGetFileByUrl(indexSlider.value?.image.name) ?? defBgImg})`
 );
 
 onMounted(() => {

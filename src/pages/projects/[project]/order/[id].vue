@@ -21,12 +21,6 @@ const initMoreOrdersSwiper = (swiper: Swiper) => {
   moreOrdersSwiper.value = swiper;
 };
 
-// const moreProjectImages = computed(() => {
-//   return projectImage.value?.project?.images
-//     ?.filter((i: any) => i.id !== imageId)
-//     ?.map((i: any) => ({ id: i.id, name: i.name, url: i.files[0]?.url }));
-// });
-
 const { breakpoint } = useBreakpoints();
 
 const slidesPerView = computed(() => {
@@ -176,7 +170,7 @@ function toOrder() {
           <AppPortMoreOrder
             v-bind="moreProjectImage"
             :project-id="projectId"
-            :url="moreProjectImage.image.url"
+            :url="useGetFileByUrl(moreProjectImage.image.name)"
             :name="moreProjectImage.image_name"
             class="more__slider-item"
           />

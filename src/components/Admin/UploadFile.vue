@@ -23,11 +23,16 @@ const emits = defineEmits<{
 }>();
 
 const fileList = ref<UploadUserFile[]>(
-  Array.isArray(props.modelValue)
+  (Array.isArray(props.modelValue)
     ? props.modelValue
     : props.modelValue === null
     ? []
     : [props.modelValue].filter((item) => !!item)
+  ).map((item) => {
+    if (!item.url) item.url = useGetFileByUrl(item.name);
+
+    return item;
+  })
 );
 
 const handleConvertFileList = computed(() => {
