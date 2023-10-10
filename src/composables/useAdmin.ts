@@ -17,6 +17,7 @@ import {
   ITermsStatic,
   IBio,
   IBioTestimonials,
+  IFooterContact,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -527,6 +528,25 @@ export const useAdmin = () => {
     };
   };
 
+  const footerContacts = () => {
+    const path = "footer-contacts";
+
+    const methods = getModelFetchers<IFooterContact>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Footer Contacts"),
+        edit: createTitle("edit", "Footer Contacts"),
+      }),
+
+      navigateBack: ref("/admin/footer-contacts"),
+
+      formRules: ref<FormRules>({}),
+    };
+  };
+
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
     pathServer?: string
@@ -596,5 +616,6 @@ export const useAdmin = () => {
     deliveryStatic,
     bio,
     bioTestimonials,
+    footerContacts,
   };
 };

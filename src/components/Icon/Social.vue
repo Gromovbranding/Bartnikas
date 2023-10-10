@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 interface Props {
-  isVk?: boolean;
-  isFacebook?: boolean;
-  isTelegram?: boolean;
+  vk?: boolean;
+  facebook?: boolean;
+  telegram?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
-  isVk: false,
-  isFacebook: false,
-  isTelegram: false,
+  vk: false,
+  facebook: false,
+  telegram: false,
 });
 </script>
 <template>
   <svg
-    v-if="isVk"
+    v-if="vk"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -32,7 +32,7 @@ withDefaults(defineProps<Props>(), {
     </g>
   </svg>
   <svg
-    v-else-if="isFacebook"
+    v-else-if="facebook"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -51,7 +51,7 @@ withDefaults(defineProps<Props>(), {
     </g>
   </svg>
   <svg
-    v-else-if="isTelegram"
+    v-else-if="telegram"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"

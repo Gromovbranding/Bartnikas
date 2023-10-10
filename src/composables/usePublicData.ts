@@ -16,6 +16,7 @@ import {
   ITermsStatic,
   IBio,
   IBioTestimonials,
+  IFooterContact,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -108,6 +109,9 @@ export const usePublicData = () => {
     currency: string;
   }) => await fetchPost<string>("projects/order/by-payment", dto);
 
+  const getActiveFooterContact = async () =>
+    await fetchGet<IFooterContact>("footer-contacts/only/active");
+
   return {
     getProjectById,
     getAllProjects,
@@ -136,6 +140,7 @@ export const usePublicData = () => {
     getDeliveryStatic,
     getBio,
     getBioTestimonials,
+    getActiveFooterContact,
 
     makeProjectsPayment,
     cart,

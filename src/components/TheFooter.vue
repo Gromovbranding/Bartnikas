@@ -1,37 +1,38 @@
+<script lang="ts" setup>
+const { getActiveFooterContact } = usePublicData();
+
+const { data: footerContact } = await useAsyncData(
+  "footerContact",
+  async () => await getActiveFooterContact()
+);
+</script>
+
 <template>
   <footer class="footer">
     <div class="footer__content">
       <div class="footer__info">
         <ul>
-          <li>
-            <NuxtLink to="/terms"> Terms and Conditions </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/blog"> Blog </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink to="/faq"> Faq </NuxtLink>
+          <li v-for="link in footerContact?.menu_links" :key="link.name">
+            <NuxtLink :to="link.link"> {{ link.name }}</NuxtLink>
           </li>
         </ul>
         <div>
-          <small
-            >© 2012-{{ new Date().getFullYear() }} Stanislav Bartnikas</small
-          >
+          <small>
+            © 2012-{{ new Date().getFullYear() }} Stanislav Bartnikas
+          </small>
         </div>
       </div>
       <div class="footer__logo">
         <div>
-          <IconLogo is-full-white />
+          <img :src="useGetFileByUrl(footerContact?.logo.name)" alt="" />
         </div>
         <div>
-          <a href="javascript:void(0)">
-            <IconSocial is-vk />
-          </a>
-          <a href="javascript:void(0)">
-            <IconSocial is-facebook />
-          </a>
-          <a href="javascript:void(0)">
-            <IconSocial is-telegram />
+          <a
+            v-for="link in footerContact?.socials"
+            :key="link.link"
+            :href="link.link"
+          >
+            <IconSocial :[link.icon]="true" />
           </a>
         </div>
       </div>
@@ -93,7 +94,10 @@
   }
 
   &__logo {
-    margin-left: -100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
     > div {
       &:first-child {
         width: 470px;
@@ -156,7 +160,7 @@
   }
 }
 
-@media screen and (min-width: 551px) and (max-width: 1000px) {
+@media screen and (max-width: 1215px) {
   .footer {
     &__logo {
       > div {
@@ -167,10 +171,15 @@
         }
       }
     }
+    &__info {
+      ul li a {
+        font-size: 24px;
+      }
+    }
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 965px) {
   .footer {
     position: relative;
     &__content {

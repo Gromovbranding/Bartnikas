@@ -11,8 +11,7 @@ const groups = computed(() =>
 );
 
 function getGroupVideos(group: any) {
-  if (!videos.value) return [];
-  return videos.value.filter((video) => video.project?.group === group);
+  return (videos.value ?? []).filter((video) => video.project?.group === group);
 }
 
 useHeadSafe({
@@ -21,10 +20,6 @@ useHeadSafe({
     {
       name: "description",
       content: "My Video Collection",
-    },
-    {
-      name: "robots",
-      content: "index,follow",
     },
   ],
 });

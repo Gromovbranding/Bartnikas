@@ -129,17 +129,17 @@ watch(
           <ul>
             <li>
               <a href="javascript:void(0)">
-                <IconSocial is-vk />
+                <IconSocial vk />
               </a>
             </li>
             <li>
               <a href="javascript:void(0)">
-                <IconSocial is-facebook />
+                <IconSocial facebook />
               </a>
             </li>
             <li>
               <a href="javascript:void(0)">
-                <IconSocial is-telegram />
+                <IconSocial telegram />
               </a>
             </li>
           </ul>
