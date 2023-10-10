@@ -58,7 +58,7 @@ function showImg(img: string) {
           <div
             v-for="item in award.degress
               .sort((a, b) => +b.year - +a.year)
-              .slice(0, 3)"
+              .slice(0, 2)"
             :key="item.id"
             class="awards__photo__item"
           >
