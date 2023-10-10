@@ -43,7 +43,7 @@ watchEffect(() => {
 });
 
 const fileTypes = computed(() => {
-  let types = [".jpeg", ".png", ".jpg"];
+  let types = [".jpeg", ".png", ".jpg", ".svg", ".gif"];
 
   if (props.fileType === "files") {
     types = [".pdf"];
