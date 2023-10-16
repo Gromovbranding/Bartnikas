@@ -2,7 +2,6 @@ import {
   IArticle,
   IAwards,
   IBlog,
-  IIndexSlider,
   IProject,
   ITestimonial,
   IProjectImageDetail,
@@ -67,8 +66,8 @@ export const usePublicData = () => {
 
   const getAllAwards = async () => await fetchGet<IAwards[]>("awards");
 
-  const getIndexSlider = async () =>
-    await fetchGet<IIndexSlider>("index-slider");
+  // const getIndexSlider = async () =>
+  //   await fetchGet<IIndexSlider>("index-slider/only/active");
 
   const getAllVideoCollection = async () =>
     await fetchGet<IVideoCollection[]>("video-collection");
@@ -130,7 +129,7 @@ export const usePublicData = () => {
     getAwardsById,
     getCountAllAwards,
     getAllAwards,
-    getIndexSlider,
+    // getIndexSlider,
     getAllVideoCollection,
     getVideoCollectionById,
     getAllMediaKit,

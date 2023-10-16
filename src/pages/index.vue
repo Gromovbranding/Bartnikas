@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
 const { breakpoint } = useBreakpoints();
-const { getIndexSlider, getActiveIndexCardFooter } = usePublicData();
+const { getActiveIndexCardFooter } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
 const defImgSize = ref(115);
@@ -15,19 +15,12 @@ const onScroll = () => {
 
 const throttledListener = useThrottle(onScroll, 50);
 
-const { data: indexSlider } = useAsyncData(
-  "slider",
-  async () => await getIndexSlider()
-);
-
 const { data: activeIndexCard } = useAsyncData(
   "activeIndexCard",
   async () => await getActiveIndexCardFooter()
 );
 
-const sliderImg = computed(
-  () => `url(${useGetFileByUrl(indexSlider.value?.image?.name) ?? defBgImg})`
-);
+const sliderImg = computed(() => `url(${defBgImg})`);
 
 onMounted(() => {
   defImgSize.value = breakpoint.value === "xs" ? 250 : 115;
