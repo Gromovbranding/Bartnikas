@@ -49,7 +49,7 @@ onBeforeUnmount(() => {
     <AppAwardsSection />
     <AppNewsSection />
     <AppSectionInteriosOrderSlider />
-    <section class="home-info-project-paralax">
+    <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
         <img src="@/assets/img/index_parallax.jpg" alt="Parallax bg" />
       </div>
@@ -58,7 +58,7 @@ onBeforeUnmount(() => {
         <p>
           {{ activeIndexCard?.text }}
         </p>
-        <UIButton :to="activeIndexCard?.button.url">
+        <UIButton :to="activeIndexCard?.button?.url">
           {{ activeIndexCard?.button.text }}
         </UIButton>
       </div>
