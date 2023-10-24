@@ -1,4 +1,4 @@
-const BASE_URL_API = "https://api.stanislavbartnikas.com";
+const BASE_URL_API = "http://localhost:8080";
 
 export default defineNuxtConfig({
   srcDir: "src",

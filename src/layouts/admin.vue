@@ -7,6 +7,11 @@ const sidebarItems: {
   icon: string;
 }[] = [
   {
+    text: "Index Slider",
+    url: "/admin/index-slider",
+    icon: "ep:suitcase-line",
+  },
+  {
     text: "Projects",
     url: "/admin/projects",
     icon: "ep:suitcase-line",
@@ -93,6 +98,15 @@ const sidebarItems: {
   },
 ];
 const { logout } = useApi();
+const search = ref("");
+
+const filterBySearchSidebar = computed(() => {
+  return sidebarItems.filter((item) => {
+    if (!search.value) return true;
+
+    return !!~item.text.toLowerCase().indexOf(search.value.toLowerCase());
+  });
+});
 </script>
 
 <template>
@@ -100,8 +114,12 @@ const { logout } = useApi();
     <ElContainer>
       <ElAside class="admin-layout__sidebar" width="250px">
         <div class="admin-layout__sidebar-dashboard">Dashboard</div>
+        <ElInput v-model="search" placeholder="Find menu" clearable />
         <ul class="admin-layout__sidebar-menu">
-          <li v-for="sidebarItem in sidebarItems" :key="sidebarItem.url">
+          <li
+            v-for="sidebarItem in filterBySearchSidebar"
+            :key="sidebarItem.url"
+          >
             <NuxtLink
               class="admin-layout__sidebar-item"
               active-class="admin-layout__sidebar-item--active"

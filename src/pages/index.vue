@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
 const { breakpoint } = useBreakpoints();
-const { getActiveIndexCardFooter } = usePublicData();
+const { getActiveIndexCardFooter, getIndexSlider } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
 const defImgSize = ref(115);
@@ -20,7 +20,13 @@ const { data: activeIndexCard } = useAsyncData(
   async () => await getActiveIndexCardFooter()
 );
 
-const sliderImg = computed(() => `url(${defBgImg})`);
+const { data: sliderImages } = useAsyncData(
+  "sliderImages",
+  async () => await getIndexSlider(),
+  {
+    default: () => [{ id: defBgImg, image: { name: defBgImg } }],
+  }
+);
 
 onMounted(() => {
   defImgSize.value = breakpoint.value === "xs" ? 250 : 115;
@@ -35,11 +41,26 @@ onBeforeUnmount(() => {
 <template>
   <main>
     <Title>Home</Title>
-    <header class="header">
+    <header class="header" style="height: 150vh">
       <div ref="headerMain" class="header__main">
         <IconLogo is-full-black />
       </div>
-      <div class="header__img-sticky"></div>
+      <ElCarousel
+        height="calc(100vh + 20px)"
+        style="position: sticky; top: 0; z-index: -1; perspective: 1px"
+        arrow="never"
+        indicator-position="none"
+      >
+        <ElCarouselItem
+          v-for="item in sliderImages"
+          :key="item.id"
+          v-scroll-scale-image
+          style="transition: all 0.1s ease"
+        >
+          <img :src="useGetFileByUrl(item?.image?.name)" />
+        </ElCarouselItem>
+      </ElCarousel>
+      <!-- <div class="header__img-sticky"></div> -->
     </header>
     <AppSectionHotNews />
     <AppContentSpliter> CONCEPT </AppContentSpliter>
@@ -122,7 +143,7 @@ onBeforeUnmount(() => {
     justify-content: center;
     align-content: center;
 
-    // position: absolute;
+    position: absolute;
     width: 100%;
     left: 0;
     top: 0;
@@ -134,27 +155,6 @@ onBeforeUnmount(() => {
       max-width: 575px;
       width: 100%;
     }
-  }
-
-  &__img-sticky {
-    position: sticky;
-    bottom: -10px;
-    height: calc(100vh + 20px);
-    z-index: -1;
-    background-image: v-bind(sliderImg);
-    transform: translateY(-10px);
-    margin-bottom: -10px;
-    background-repeat: no-repeat;
-    background-size: v-bind(imgSize);
-    background-position: bottom center;
-    transition-duration: 200ms;
-
-    // img {
-    //   position: sticky;
-    //   top: 0;
-    //   width: 100%;
-    //   height: 100vh;
-    // }
   }
 }
 
@@ -176,9 +176,6 @@ onBeforeUnmount(() => {
       &:deep(svg) {
         width: 88%;
       }
-    }
-    &__img-sticky {
-      // height: 100vh;
     }
   }
 

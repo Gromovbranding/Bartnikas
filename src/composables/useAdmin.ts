@@ -19,6 +19,7 @@ import {
   IBioTestimonials,
   IFooterContact,
   IndexCardFooter,
+  IIndexSlider,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -80,6 +81,29 @@ export const useAdmin = () => {
           { required: true, message: "Field is required", trigger: "blur" },
         ],
         text: [
+          { required: true, message: "Field is required", trigger: "blur" },
+        ],
+      }),
+    };
+  };
+
+  const indexSlider = () => {
+    const path = "index-slider";
+
+    const methods = getModelFetchers<IIndexSlider>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "Index Slider"),
+        edit: createTitle("edit", "Index Slider"),
+      }),
+
+      navigateBack: ref("/admin/index-slider"),
+
+      formRules: ref<FormRules>({
+        name: [
           { required: true, message: "Field is required", trigger: "blur" },
         ],
       }),
@@ -632,6 +656,7 @@ export const useAdmin = () => {
     media,
 
     news,
+    indexSlider,
     blogs,
     testimonials,
     videos,
