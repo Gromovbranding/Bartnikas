@@ -45,22 +45,32 @@ onBeforeUnmount(() => {
       <div ref="headerMain" class="header__main">
         <IconLogo is-full-black />
       </div>
-      <ElCarousel
-        height="calc(100vh + 20px)"
-        style="position: sticky; top: 0; z-index: -1; perspective: 1px"
-        arrow="never"
-        indicator-position="none"
+      <Swiper
+        style="
+          position: sticky;
+          top: 0;
+          z-index: -1;
+          perspective: 1px;
+          height: 120vh;
+        "
+        :mousewheel="false"
+        :modules="[SwiperAutoplay, SwiperEffectFade]"
+        :slides-per-view="1"
+        :speed="1300"
+        effect="fade"
+        :loop="true"
+        :autoplay="{
+          delay: 2000,
+        }"
       >
-        <ElCarouselItem
-          v-for="item in sliderImages"
-          :key="item.id"
-          v-scroll-scale-image
-          style="transition: all 0.1s ease"
-        >
-          <img :src="useGetFileByUrl(item?.image?.name)" />
-        </ElCarouselItem>
-      </ElCarousel>
-      <!-- <div class="header__img-sticky"></div> -->
+        <SwiperSlide v-for="item in sliderImages" :key="item.id">
+          <img
+            v-scroll-scale-image
+            style="width: 100%; height: 100%"
+            :src="useGetFileByUrl(item?.image?.name)"
+          />
+        </SwiperSlide>
+      </Swiper>
     </header>
     <AppSectionHotNews />
     <AppContentSpliter> CONCEPT </AppContentSpliter>
