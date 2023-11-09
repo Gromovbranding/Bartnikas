@@ -39,6 +39,7 @@ const list = computed(() => (awards.value ?? []).slice(0, 12));
     display: grid;
     grid-template-columns: repeat(4, min-content);
     column-gap: 1rem;
+    row-gap: 3rem;
     justify-content: space-between;
 
     > div {

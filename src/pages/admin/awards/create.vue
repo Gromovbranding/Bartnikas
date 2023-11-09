@@ -110,6 +110,7 @@ const handleCreate = async () => {
 const selectOptions = [
   { value: "Gold", label: "Gold" },
   { value: "Silver", label: "Silver" },
+  { value: "Bronze", label: "Bronze" },
 ];
 
 const onClickDelete = (e: Event) => {

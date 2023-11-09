@@ -43,10 +43,11 @@ defineProps<{
       left: 50%;
       transform: translateX(-50%);
       width: max-content;
-      bottom: -30%;
+      width: 100%;
+      top: calc(100% + 2em);
       opacity: 0;
       text-align: center;
-      transition: opacity 0.3s ease-in-out, bottom 0.7s ease;
+      transition: opacity 0.3s ease-in-out, top 0.7s ease;
 
       h4 {
         font-size: 25px;
@@ -66,7 +67,8 @@ defineProps<{
       }
 
       > div {
-        bottom: -70px;
+        // bottom: -70px;
+        top: 100%;
         opacity: 1;
       }
     }

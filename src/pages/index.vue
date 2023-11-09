@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
         <SwiperSlide v-for="item in sliderImages" :key="item.id">
           <img
             v-scroll-scale-image
-            style="width: 100%; height: 100%"
+            style="width: 100%; height: 100%; transition-duration: 100ms"
             :src="useGetFileByUrl(item?.image?.name)"
           />
         </SwiperSlide>
