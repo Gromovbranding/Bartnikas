@@ -10,11 +10,13 @@ const props = withDefaults(
     modelValue: UploadUserFile | UploadUserFile[] | null;
     fileType?: "image" | "files" | "video";
     single?: boolean;
+    multiple?: boolean;
   }>(),
   {
     modelValue: null,
     single: true,
     fileType: "image",
+    multiple: false,
   }
 );
 
@@ -124,6 +126,7 @@ defineExpose({
       ref="uploadRef"
       v-model:file-list="fileList"
       drag
+      :multiple="multiple"
       :limit="single ? 1 : 350"
       :action="apiFilesUrl"
       :list-type="fileType === 'image' ? 'picture' : 'text'"

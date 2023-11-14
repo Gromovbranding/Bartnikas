@@ -147,7 +147,6 @@ function onPointerDown(e: PointerEvent) {
   &__text {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     gap: 20px;
     padding: 3vw;

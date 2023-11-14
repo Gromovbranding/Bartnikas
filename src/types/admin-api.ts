@@ -70,6 +70,7 @@ export interface IProjectImageDetail {
 export interface IProject {
   id: number;
   title: string;
+  is_show_index_footer_card: boolean;
   description: string;
   details: IProjectImageDetail[];
   group: string | null;

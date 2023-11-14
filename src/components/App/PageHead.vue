@@ -1,7 +1,12 @@
 <script lang="ts" setup>
 interface Props {
   bgColor?: "grey" | "blue" | "white";
-  sub?: string;
+  sub?:
+    | string
+    | {
+        name: string;
+        url: string;
+      }[];
   onlyLogo?: boolean;
   title?: string;
   back?: boolean;
@@ -49,9 +54,14 @@ const onClickLogo = () => {
       <li>
         <NuxtLink to="/">Home</NuxtLink>
       </li>
-      <li v-if="sub">
+      <li v-if="typeof sub === 'string' && sub">
         <NuxtLink :to="`/${sub.toLowerCase()}`">{{ sub }}</NuxtLink>
       </li>
+      <template v-else-if="typeof sub !== 'string' && sub">
+        <li v-for="item in sub" :key="item.name">
+          <NuxtLink :to="item.url.toLowerCase()">{{ item.name }}</NuxtLink>
+        </li>
+      </template>
       <li>
         <span>
           {{ title }}

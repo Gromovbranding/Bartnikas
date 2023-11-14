@@ -90,7 +90,16 @@ function toOrder() {
     <AppPageHead
       only-logo
       :title="projectImage?.image_name"
-      :sub="`projects/${project.id}`"
+      :sub="[
+        {
+          name: 'Projects',
+          url: '/projects',
+        },
+        {
+          name: String(project?.title),
+          url: `/projects/${project?.id}`,
+        },
+      ]"
     />
     <section class="order">
       <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>

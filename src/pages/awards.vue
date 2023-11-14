@@ -30,8 +30,8 @@ useHeadSafe({
 
 const activeImg = ref();
 
-function showImg(img: string) {
-  activeImg.value = useGetFileByUrl(img);
+function showImg(name: string) {
+  activeImg.value = useGetFileByUrl(name);
   showModal.value = true;
 }
 </script>
@@ -75,7 +75,7 @@ function showImg(img: string) {
                     v-for="(img, idx) in group.images.slice(0, 2)"
                     :key="`img-${img.id}`"
                     class="slide"
-                    @click="showImg(img.url)"
+                    @click="showImg(img.name)"
                   >
                     {{ `${idx + 1} Photo` }}<IconArrow is-arrow30-deg />
                   </div>
@@ -85,7 +85,7 @@ function showImg(img: string) {
                     v-for="img in group.images"
                     :key="`img-${img.id}`"
                     class="slide"
-                    @click="showImg(img.url)"
+                    @click="showImg(img.name)"
                   >
                     1 {{ group.type }} <IconArrow is-arrow30-deg />
                   </div>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
 const { breakpoint } = useBreakpoints();
-const { getActiveIndexCardFooter, getIndexSlider } = usePublicData();
+const { getIndexSlider, getProjectByFooterCard } = usePublicData();
 
 const headerMain = ref<HTMLDivElement>();
 const defImgSize = ref(115);
@@ -15,9 +15,14 @@ const onScroll = () => {
 
 const throttledListener = useThrottle(onScroll, 50);
 
+// const { data: activeIndexCard } = useAsyncData(
+//   "activeIndexCard",
+//   async () => await getActiveIndexCardFooter()
+// );
+
 const { data: activeIndexCard } = useAsyncData(
   "activeIndexCard",
-  async () => await getActiveIndexCardFooter()
+  async () => await getProjectByFooterCard()
 );
 
 const { data: sliderImages } = useAsyncData(
@@ -87,10 +92,10 @@ onBeforeUnmount(() => {
       <div>
         <h3>{{ activeIndexCard?.title }}</h3>
         <p>
-          {{ activeIndexCard?.text }}
+          {{ activeIndexCard?.description }}
         </p>
-        <UIButton :to="activeIndexCard?.button?.url">
-          {{ activeIndexCard?.button.text }}
+        <UIButton :to="`/projects/${activeIndexCard.id}`">
+          View project
         </UIButton>
       </div>
     </section>

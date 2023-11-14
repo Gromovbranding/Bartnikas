@@ -35,6 +35,7 @@ const uploadPressReleaseRefs = ref<
 const form = reactive<PartialAdminApiDto<IProject>>({
   title: "",
   description: "",
+  is_show_index_footer_card: false,
   collab: {
     collab_with: "",
     description: "",
@@ -196,6 +197,10 @@ watch(
         <ElCheckbox v-model="isCollab" size="large" />
       </ElFormItem>
 
+      <ElFormItem label="Is show on page?">
+        <ElCheckbox v-model="form.is_show_index_footer_card" size="large" />
+      </ElFormItem>
+
       <template v-if="isCollab">
         <ElFormItem>
           <h2>Collab</h2>
@@ -289,6 +294,7 @@ watch(
         <AdminUploadFile
           ref="uploadProjectImagesRef"
           v-model="imageFiles"
+          multiple
           :single="false"
         >
           <template #default="{ file }: { file: UploadUserFile }">

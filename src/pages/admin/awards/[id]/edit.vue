@@ -46,6 +46,7 @@ const form = reactive<IAwards>(model);
 const selectOptions = [
   { value: "Gold", label: "Gold" },
   { value: "Silver", label: "Silver" },
+  { value: "Bronze", label: "Bronze" },
 ];
 
 const handleDelete = async () => {
