@@ -52,14 +52,15 @@ const handleAddContact = async () => {
         <div>
           <p>
             <span>Press inquiry</span>
-            <a class="upper-slide" href="mailto:sb@stasbart.com">
-              <span>sb@stasbart.com</span> <IconArrow is-arrow30-deg />
+            <a class="upper-slide" href="mailto:sb@stanislavbartnikas.com">
+              <span>sb@stanislavbartnikas.com</span>
+              <IconArrow is-arrow30-deg />
             </a>
           </p>
           <p>
             <span>Gallery representation</span>
-            <a class="upper-slide" href="mailto:sb@stasbart.com">
-              <span>sb@stasbart.com</span>
+            <a class="upper-slide" href="mailto:gallery@stanislavbartikas.com">
+              <span>gallery@stanislavbartikas.com</span>
               <IconArrow is-arrow30-deg />
             </a>
           </p>
