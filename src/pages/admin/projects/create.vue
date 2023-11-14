@@ -65,7 +65,6 @@ interface ImageDetails {
 }
 
 const imageFiles = ref<UploadUserFile[]>([]);
-const isUploading = ref(false);
 
 const projectImages = ref<ImageDetails>({});
 
@@ -110,8 +109,6 @@ const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const arr = [];
-      isUploading.value = true;
-
       for await (const file of imageFiles.value) {
         arr.push(await uploadProjectImagesRef.value!.uploadToServer(file));
       }
@@ -380,12 +377,8 @@ watch(
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" :loading="isUploading" @click="handleCreate">
-          Create
-        </ElButton>
-        <ElButton :loading="isUploading" @click="handleResetForm">
-          Clear
-        </ElButton>
+        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
+        <ElButton @click="handleResetForm"> Clear </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

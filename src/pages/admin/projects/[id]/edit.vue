@@ -49,8 +49,6 @@ const route = useRoute();
 const id = Number(route.params.id);
 const imageFiles = ref<UploadUserFile[]>([]);
 
-const isUploading = ref(false);
-
 const projectImages = ref<ImageDetails>({});
 
 const { projects } = useAdmin();
@@ -109,8 +107,6 @@ const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const arr = [];
-
-      isUploading.value = true;
 
       for await (const file of imageFiles.value) {
         arr.push(await uploadProjectImagesRef.value!.uploadToServer(file));
@@ -388,12 +384,8 @@ watch(
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" :loading="isUploading" @click="handleUpdate">
-          Update
-        </ElButton>
-        <ElButton type="danger" :loading="isUploading" @click="handleDelete">
-          Delete
-        </ElButton>
+        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
+        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

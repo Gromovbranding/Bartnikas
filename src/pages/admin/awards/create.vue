@@ -36,8 +36,6 @@ const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const imageFiles = ref<UploadUserFile[]>([]);
 
-const isUploading = ref(false);
-
 const awardImages = ref<ImageDetails>({});
 
 const form = reactive<PartialAdminApiDto<IAwards>>({
@@ -89,7 +87,6 @@ const imagesToDegress = (arr: any[]) => {
 
 const handleCreate = async () => {
   const arr = [];
-  isUploading.value = true;
   for await (const file of imageFiles.value) {
     arr.push(await uploadRef.value!.uploadToServer(file));
   }
@@ -110,7 +107,6 @@ const handleCreate = async () => {
       console.error(exc);
     }
   }
-  isUploading.value = false;
 };
 
 const selectOptions = [
@@ -203,12 +199,8 @@ watch(
         </AdminUploadFile>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" :loading="isUploading" @click="handleCreate">
-          Create
-        </ElButton>
-        <ElButton :loading="isUploading" @click="handleResetForm">
-          Clear
-        </ElButton>
+        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
+        <ElButton @click="handleResetForm"> Clear </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

@@ -30,7 +30,6 @@ const imageFiles = ref<UploadUserFile[]>([]);
 const awardImages = ref<ImageDetails>({});
 const route = useRoute();
 const id = Number(route.params.id);
-const isUploading = ref(false);
 
 const { awards } = useAdmin();
 const { formRules, navigateBack, titles, methods } = awards();
@@ -93,7 +92,6 @@ const imagesToDegress = (arr: any[]) => {
 
 const handleUpdate = async () => {
   const arr = [];
-  isUploading.value = true;
   for await (const file of imageFiles.value) {
     arr.push(await uploadRef.value!.uploadToServer(file));
   }
@@ -111,7 +109,6 @@ const handleUpdate = async () => {
       console.error(exc);
     }
   }
-  isUploading.value = false;
 };
 
 const onClickDelete = (e: Event) => {
@@ -214,12 +211,8 @@ watch(
         </AdminUploadFile>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" :loading="isUploading" @click="handleUpdate">
-          Update
-        </ElButton>
-        <ElButton type="danger" :loading="isUploading" @click="handleDelete">
-          Delete
-        </ElButton>
+        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
+        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>
