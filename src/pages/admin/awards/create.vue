@@ -66,10 +66,14 @@ const imagesToDegress = (arr: any[]) => {
   for (const i in years) {
     const goldImgs: any[] = [];
     const silvImgs: any[] = [];
+    const bronzeImgs: any[] = [];
     years[i].forEach((yearItem) => {
       if (yearItem.data.groups === "Gold")
         return goldImgs.push({ name: yearItem.item.name });
-      silvImgs.push({ name: yearItem.item.name });
+      if (yearItem.data.groups === "Silver")
+        return silvImgs.push({ name: yearItem.item.name });
+      if (yearItem.data.groups === "Bronze")
+        return bronzeImgs.push({ name: yearItem.item.name });
     });
     const res = {
       year: +i,
@@ -77,6 +81,8 @@ const imagesToDegress = (arr: any[]) => {
     };
     if (goldImgs.length) res.groups.push({ type: "Gold", images: goldImgs });
     if (silvImgs.length) res.groups.push({ type: "Silver", images: silvImgs });
+    if (bronzeImgs.length)
+      res.groups.push({ type: "Bronze", images: bronzeImgs });
     form.degress.push(res);
   }
 };
