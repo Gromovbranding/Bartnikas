@@ -1,4 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+  const { accessToken } = useAdmin();
+
   // if (~to.path.indexOf("admin")) {
   //   const { fetchGet } = useApi();
 
@@ -15,15 +17,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
   //   }
   // }
 
-  const { fetchGet } = useApi();
+  // const { fetchGet } = useApi();
 
-  try {
-    await fetchGet("auth/me");
-
-    if (to.name === "admin-login") {
-      return await navigateTo("/");
-    }
-  } catch {
+  if (!accessToken.value) {
     if (to.name !== "admin-login") {
       return await navigateTo("/admin/login");
     }

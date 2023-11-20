@@ -6,7 +6,7 @@ const route = useRoute();
 const projectId = Number(route.params.project);
 const imageId = Number(route.params.id);
 
-const { getAllProjects, cart } = usePublicData();
+const { getAllProjects } = usePublicData();
 
 const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
@@ -64,21 +64,10 @@ const sizes = computed(() => {
   }));
 });
 
-const isObvious = computed(
-  () => (project.value?.collab?.collab_with ?? "").toLowerCase() === "obvious"
-);
-
 const selectedSize = ref<{
   value: string | number;
   label: string;
 }>(sizes.value[0]);
-
-const addToCart = async () => {
-  if (isObvious.value && projectImage.value) {
-    cart.value?.push(projectImage.value);
-    await navigateTo("/cart");
-  }
-};
 
 function toOrder() {
   isShowOrderFormEmail.value = true;
@@ -152,14 +141,13 @@ function toOrder() {
             </div>
           </div>
         </div>
-        <UIButton v-if="isObvious" @click="addToCart">ORDER</UIButton>
-        <UIButton v-else @click="toOrder">ORDER</UIButton>
+        <UIButton @click="toOrder">ORDER</UIButton>
       </div>
     </section>
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">MORE {{ project.title }}</h2>
+      <h2 class="more__title">MORE {{ project?.title }}</h2>
       <p class="more__subtitle" @click="$router.push(`/projects/${projectId}`)">
         View the entire collection
       </p>
@@ -186,7 +174,7 @@ function toOrder() {
         </SwiperSlide>
       </Swiper>
     </section>
-    <dialog v-if="projectImage && !isObvious && isShowOrderFormEmail">
+    <dialog v-if="projectImage && isShowOrderFormEmail">
       <AppOrderForm
         :image="projectImage"
         :project-id="projectId"

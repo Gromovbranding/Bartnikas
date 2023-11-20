@@ -32,7 +32,7 @@ const { data: footerContact } = await useAsyncData(
             :key="link.link"
             :href="link.link"
           >
-            <IconSocial :[link.icon]="true" />
+            <IconSocial :icon="link.icon" />
           </a>
         </div>
       </div>

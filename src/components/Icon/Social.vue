@@ -1,19 +1,15 @@
 <script lang="ts" setup>
 interface Props {
-  vk?: boolean;
-  facebook?: boolean;
-  telegram?: boolean;
+  icon: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  vk: false,
-  facebook: false,
-  telegram: false,
+  icon: "",
 });
 </script>
 <template>
   <svg
-    v-if="vk"
+    v-if="icon === 'vk'"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -32,7 +28,7 @@ withDefaults(defineProps<Props>(), {
     </g>
   </svg>
   <svg
-    v-else-if="facebook"
+    v-else-if="icon === 'facebook'"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -51,7 +47,7 @@ withDefaults(defineProps<Props>(), {
     </g>
   </svg>
   <svg
-    v-else-if="telegram"
+    v-else-if="icon === 'telegram'"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -68,6 +64,25 @@ withDefaults(defineProps<Props>(), {
         d="M70,35c0,19.3-15.7,35-35,35S0,54.3,0,35S15.7,0,35,0S70,15.7,70,35z M23.4,31.8c-3.5,1.5-7.1,3.1-10.4,4.9   l0,0c-1.7,1.3,0.6,2.2,2.7,3c0.3,0.1,0.7,0.3,1,0.4c0.3,0.1,0.5,0.2,0.8,0.3c2.4,0.8,5,1.6,7.4,0.3c3.8-2.2,7.4-4.7,11-7.2   c1.2-0.8,2.4-1.7,3.5-2.5c0.1,0,0.1-0.1,0.2-0.1c1-0.7,3.3-2.1,2.4-0.1c-2,2.2-4.1,4.1-6.2,6c-1.4,1.3-2.9,2.6-4.3,4   c-1.2,1-2.5,3-1.1,4.4c3.2,2.2,6.4,4.4,9.6,6.5c1.1,0.7,2.1,1.4,3.2,2.1c1.8,1.4,4.5,0.3,4.9-1.9c0.2-1,0.3-2,0.5-3.1   c1-5.6,1.9-11.2,2.8-16.8c0.1-0.9,0.2-1.8,0.4-2.6c0.3-2.1,0.6-4.3,0.7-6.4c-0.3-2.1-2.9-1.7-4.3-1.2c-7.4,2.8-14.8,5.9-22.2,9   C25.1,31.1,24.3,31.4,23.4,31.8z"
       />
     </g>
+  </svg>
+  <svg
+    v-else-if="icon === 'instagram'"
+    id="Слой_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="1.1"
+    x="0px"
+    y="0px"
+    viewBox="0 0 66.9 66.2"
+    style="enable-background: new 0 0 66.9 66.2"
+    xml:space="preserve"
+  >
+    <g>
+      <circle class="st0" cx="33.3" cy="33.3" r="32" />
+    </g>
+    <path
+      d="M39.2,33.3c0,3.2-2.6,5.8-5.8,5.8s-5.8-2.6-5.8-5.8s2.6-5.8,5.8-5.8C36.6,27.5,39.2,30.1,39.2,33.3z M51.6,25.3v16.1  c0,5.6-4.6,10.2-10.2,10.2H25.3c-5.6,0-10.2-4.6-10.2-10.2V25.3c0-5.6,4.6-10.2,10.2-10.2h16.1C47,15.1,51.6,19.7,51.6,25.3z   M42.1,33.3c0-4.8-3.9-8.8-8.8-8.8s-8.8,3.9-8.8,8.8s3.9,8.8,8.8,8.8C38.2,42.1,42.1,38.2,42.1,33.3z M45,23.9c0-1.2-1-2.2-2.2-2.2  s-2.2,1-2.2,2.2s1,2.2,2.2,2.2S45,25.1,45,23.9z"
+    />
   </svg>
 </template>
 
