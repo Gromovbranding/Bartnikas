@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {
-  AdminCreateMediaCV,
+  AdminCreateMediaCv,
   AdminCreateMediaExhibition,
   AdminCreateMediaKit,
   AdminCreateMediaPresentation,
@@ -41,7 +41,7 @@ const mediaList = ref([
   {
     value: "cv",
     label: "Media CV",
-    component: shallowRef(AdminCreateMediaCV),
+    component: shallowRef(AdminCreateMediaCv),
   },
 ]);
 

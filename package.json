@@ -6,11 +6,11 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "nuxt clean && nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "build": "nuxi cleanup && nuxi build",
+    "dev": "nuxi dev",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare"
   },
   "lint-staged": {
     "src/**/*.{ts,js,vue}": "eslint --fix --ext .ts,.js,.vue ./src"
@@ -25,7 +25,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "nuxt": "^3.6.1",
+    "nuxt": "^3.8.1",
     "nuxt-swiper": "^0.1.9",
     "prettier": "^2.8.2",
     "sass": "^1.56.1",
