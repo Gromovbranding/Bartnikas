@@ -23,7 +23,7 @@ function playVideo() {
       <video
         ref="video"
         :src="useGetFileByUrl(greeting?.video?.name)"
-        preload="metadata"
+        preload="auto"
         :controls="showVideo"
       ></video>
       <div v-if="!showVideo" class="video-greeting__play" @click="playVideo">
