@@ -60,7 +60,11 @@ const handleUpdate = async () => {
       </ElFormItem>
 
       <ElFormItem required label="PDF" prop="pdf">
-        <AdminUploadFile ref="uploadPdfRef" v-model="form.pdf" />
+        <AdminUploadFile
+          ref="uploadPdfRef"
+          v-model="form.pdf"
+          file-type="files"
+        />
       </ElFormItem>
 
       <ElFormItem>

@@ -171,6 +171,7 @@ const { data: emails } = await useAsyncData(
   &__nav {
     display: flex;
     justify-content: space-between;
+    gap: 30px;
     position: fixed;
     top: 0;
     background-color: #050404;
