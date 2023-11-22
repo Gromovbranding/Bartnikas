@@ -90,9 +90,10 @@ onBeforeUnmount(() => {
       <div>
         <NuxtImg
           :src="
-            activeIndexCard.details?.[0].image.name ||
+            `/baseApiFiles/${activeIndexCard.details?.[0].image.name}` ||
             'assets/img/index_parallax.jpg'
           "
+          loading="lazy"
           alt="Parallax bg"
         />
       </div>
