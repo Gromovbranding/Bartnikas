@@ -32,7 +32,7 @@ defineProps<Props>();
     align-items: flex-start;
     justify-content: space-between;
     padding: 3rem;
-    grid-template-columns: 1fr 55%;
+    grid-template-columns: 1fr 50%;
     border-radius: 10px;
 
     &:nth-child(even) {
@@ -43,6 +43,8 @@ defineProps<Props>();
       &:first-child {
         flex: 0 0 55%;
         h3 {
+          word-wrap: break-word;
+          word-break: break-word;
           font-size: 5.3rem;
           letter-spacing: 3px;
           line-height: 1.4;
@@ -67,7 +69,7 @@ defineProps<Props>();
 @media screen and (max-width: 550px) {
   .terms {
     &__item {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       padding: 40px 25px 70px;
       gap: 25px;
       &:nth-child(even) {

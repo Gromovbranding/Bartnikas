@@ -115,6 +115,9 @@ export const usePublicData = () => {
   const getActiveFooterContact = async () =>
     await fetchGet<IFooterContact>("footer-contacts/only/active");
 
+  const getActiveGeneralInfo = async () =>
+    await fetchGet<IFooterContact>("general-info/only/active");
+
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
 
@@ -148,6 +151,7 @@ export const usePublicData = () => {
     getBio,
     getBioTestimonials,
     getActiveFooterContact,
+    getActiveGeneralInfo,
     // getActiveIndexCardFooter,
 
     makeProjectsPayment,

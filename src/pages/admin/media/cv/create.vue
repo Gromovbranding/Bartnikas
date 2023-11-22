@@ -14,6 +14,7 @@ const { media } = useAdmin();
 const { titles, formRules, navigateBack, methods } = media().cv();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadPdfRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 useHeadSafe({
@@ -22,6 +23,7 @@ useHeadSafe({
 
 const form = reactive<PartialAdminApiDto<IMediaCV>>({
   image: null,
+  pdf: null,
 });
 
 const handleResetForm = () => {
@@ -32,9 +34,11 @@ const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const fileImage = await uploadImageRef.value!.uploadToServer();
+      const filePdf = await uploadPdfRef.value!.uploadToServer();
 
       await methods.handleCreate({
         image: fileImage as PartialFileAdminApiDto,
+        pdf: filePdf as PartialFileAdminApiDto,
       });
 
       await refreshNuxtData();
@@ -56,6 +60,11 @@ const handleCreate = async () => {
       <ElFormItem required label="Image" prop="image">
         <AdminUploadFile ref="uploadImageRef" v-model="form.image" />
       </ElFormItem>
+
+      <ElFormItem required label="PDF" prop="pdf">
+        <AdminUploadFile ref="uploadPdfRef" v-model="form.pdf" />
+      </ElFormItem>
+
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>
         <ElButton @click="handleResetForm"> Clear </ElButton>

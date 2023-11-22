@@ -37,5 +37,8 @@
     "@nuxt/image": "^1.1.0",
     "@stripe/stripe-js": "^1.54.0",
     "@tinymce/tinymce-vue": "^5.1.1"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

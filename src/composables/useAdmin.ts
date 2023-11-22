@@ -166,6 +166,25 @@ export const useAdmin = () => {
     };
   };
 
+  const generalInfo = () => {
+    const path = "general-info";
+
+    const methods = getModelFetchers<ITestimonial>(path);
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle("create", "General Info"),
+        edit: createTitle("edit", "General Info"),
+      }),
+
+      navigateBack: ref("/admin/general-info"),
+
+      formRules: ref<FormRules>({}),
+    };
+  };
+
   const faq = () => {
     const path = "faq";
 
@@ -670,5 +689,6 @@ export const useAdmin = () => {
     bioTestimonials,
     footerContacts,
     footerIndexCard,
+    generalInfo,
   };
 };

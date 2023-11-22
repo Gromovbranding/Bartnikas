@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { IMediaKit, PartialFileAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+import type { IGeneralInfo } from "@/types/admin-api";
+import { AdminTemplateForm } from "#components";
 
 definePageMeta({
   layout: "admin",
@@ -9,14 +9,12 @@ definePageMeta({
   },
 });
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const uploadPdfRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { media } = useAdmin();
-const { formRules, navigateBack, titles, methods } = media().kit();
+const { generalInfo } = useAdmin();
+const { formRules, navigateBack, titles, methods } = generalInfo();
 
 const model = await methods.handleGetModel(id);
 
@@ -24,7 +22,7 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IMediaKit>(model);
+const form = reactive<IGeneralInfo>(model);
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -34,14 +32,7 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
-      const filePdf = await uploadPdfRef.value!.uploadToServer();
-
-      await methods.handlePatch(id, {
-        ...toValue(form),
-        image: file as PartialFileAdminApiDto,
-        pdf: filePdf as PartialFileAdminApiDto,
-      });
+      await methods.handlePatch(id, toValue(form));
 
       await refreshNuxtData();
 
@@ -56,17 +47,17 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem required label="Image" prop="image">
-        <AdminUploadFile ref="uploadRef" v-model="form.image" />
-      </ElFormItem>
-      <ElFormItem required label="PDF" prop="pdf">
-        <AdminUploadFile
-          ref="uploadPdfRef"
-          v-model="form.pdf"
-          file-type="files"
-        />
+      <ElFormItem label="Press email" prop="email_press">
+        <ElInput v-model="form.email_press" />
       </ElFormItem>
 
+      <ElFormItem label="Gallery Email" prop="email_gallery">
+        <ElInput v-model="form.email_gallery" />
+      </ElFormItem>
+
+      <ElFormItem label="Is active" prop="is_active">
+        <ElSwitch v-model="form.is_active" />
+      </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
         <ElButton type="danger" @click="handleDelete"> Delete </ElButton>

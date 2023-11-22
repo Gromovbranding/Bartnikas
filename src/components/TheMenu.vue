@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-const { getCountAllAwards, cart } = usePublicData();
+const {
+  getCountAllAwards,
+  cart,
+  getActiveFooterContact,
+  getActiveGeneralInfo,
+} = usePublicData();
 
 const route = useRoute();
 const isMenuVisible = ref(false);
@@ -13,6 +18,16 @@ watch(
   () => {
     isMenuVisible.value = false;
   }
+);
+
+const { data: contacts } = await useAsyncData(
+  "generalInfoContacts",
+  async () => await getActiveFooterContact()
+);
+
+const { data: emails } = await useAsyncData(
+  "generalInfoEmailss",
+  async () => await getActiveGeneralInfo()
 );
 </script>
 
@@ -122,24 +137,15 @@ watch(
         </div>
 
         <div class="menu__email">
-          <a href="mailto:sb@stasbart.com"> sb@stasbart.com </a>
+          <a :href="`mailto:${emails?.email_gallery}`">
+            {{ emails?.email_gallery }}
+          </a>
         </div>
-
         <div class="menu__socials">
           <ul>
-            <li>
-              <a href="javascript:void(0)">
-                <IconSocial icon="vk" />
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <IconSocial icon="facebook" />
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <IconSocial icon="telegram" />
+            <li v-for="link in contacts?.socials" :key="link.link">
+              <a :href="link.link">
+                <IconSocial :icon="link.icon.trim()" />
               </a>
             </li>
           </ul>

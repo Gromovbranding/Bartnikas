@@ -12,6 +12,11 @@ const sidebarItems: {
     icon: "ep:suitcase-line",
   },
   {
+    text: "General Info",
+    url: "/admin/general-info",
+    icon: "ep:suitcase-line",
+  },
+  {
     text: "Projects",
     url: "/admin/projects",
     icon: "ep:suitcase-line",

@@ -88,7 +88,13 @@ onBeforeUnmount(() => {
     <AppSectionInteriosOrderSlider />
     <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
-        <img src="assets/img/index_parallax.jpg" alt="Parallax bg" />
+        <NuxtImg
+          :src="
+            activeIndexCard.details?.[0].image.name ||
+            'assets/img/index_parallax.jpg'
+          "
+          alt="Parallax bg"
+        />
       </div>
       <div>
         <h3>{{ activeIndexCard?.title }}</h3>

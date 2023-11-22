@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 const { getActiveFooterContact } = usePublicData();
-
-const { data: footerContact } = await useAsyncData(
-  "footerContact",
+const { data: contacts } = await useAsyncData(
+  "generalInfoContactss",
   async () => await getActiveFooterContact()
 );
 </script>
@@ -12,7 +11,7 @@ const { data: footerContact } = await useAsyncData(
     <div class="footer__content">
       <div class="footer__info">
         <ul>
-          <li v-for="link in footerContact?.menu_links" :key="link.name">
+          <li v-for="link in contacts?.menu_links" :key="link.name">
             <NuxtLink :to="link.link"> {{ link.name }}</NuxtLink>
           </li>
         </ul>
@@ -26,12 +25,12 @@ const { data: footerContact } = await useAsyncData(
         <div>
           <NuxtImg
             loading="lazy"
-            :src="`/baseApiFiles/${footerContact?.logo.name}`"
+            :src="`/baseApiFiles/${contacts?.logo.name}`"
           />
         </div>
         <div>
           <a
-            v-for="link in footerContact?.socials"
+            v-for="link in contacts?.socials"
             :key="link.link"
             :href="link.link"
           >

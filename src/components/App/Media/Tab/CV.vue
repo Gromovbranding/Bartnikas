@@ -16,7 +16,9 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
         <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       </UIZoom>
     </div>
-    <UIButton> Download pdf </UIButton>
+    <UIButton :to="useGetFileByUrl(item.pdf.name)" download>
+      Download pdf
+    </UIButton>
   </div>
 </template>
 

@@ -61,7 +61,7 @@ function showImg(name: string) {
           <div
             v-for="item in award.degress
               .sort((a, b) => +b.year - +a.year)
-              .slice(0, 2)"
+              .slice(0, 3)"
             :key="item.id"
             class="awards__photo__item"
           >
@@ -72,27 +72,15 @@ function showImg(name: string) {
                 :key="`group-${group.id}`"
                 class="groups__item"
               >
-                <template v-if="group.images.length > 1">
-                  <div>{{ `${item.groups.length} ${group.type}:` }}</div>
-                  <div
-                    v-for="(img, idx) in group.images.slice(0, 2)"
-                    :key="`img-${img.id}`"
-                    class="slide"
-                    @click="showImg(img.name)"
-                  >
-                    {{ `${idx + 1} Photo` }}<IconArrow is-arrow30-deg />
-                  </div>
-                </template>
-                <template v-else>
-                  <div
-                    v-for="img in group.images"
-                    :key="`img-${img.id}`"
-                    class="slide"
-                    @click="showImg(img.name)"
-                  >
-                    1 {{ group.type }} <IconArrow is-arrow30-deg />
-                  </div>
-                </template>
+                <div>{{ `${item.groups.length} ${group.type}:` }}</div>
+                <div
+                  v-for="(img, idx) in group.images.slice(0, 3)"
+                  :key="`img-${img.id}`"
+                  class="slide"
+                  @click="showImg(img.name)"
+                >
+                  {{ `${idx + 1} Photo ` }}<IconArrow is-arrow30-deg />
+                </div>
               </div>
             </div>
           </div>

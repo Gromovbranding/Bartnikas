@@ -10,6 +10,7 @@ definePageMeta({
 });
 
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadPdfRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
@@ -34,9 +35,11 @@ const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const file = await uploadRef.value!.uploadToServer();
+      const filePdf = await uploadPdfRef.value!.uploadToServer();
 
       await methods.handlePatch(id, {
         image: file as PartialFileAdminApiDto,
+        pdf: filePdf as PartialFileAdminApiDto,
       });
 
       await refreshNuxtData();
@@ -54,6 +57,10 @@ const handleUpdate = async () => {
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem required label="Image" prop="image">
         <AdminUploadFile ref="uploadRef" v-model="form.image" />
+      </ElFormItem>
+
+      <ElFormItem required label="PDF" prop="pdf">
+        <AdminUploadFile ref="uploadPdfRef" v-model="form.pdf" />
       </ElFormItem>
 
       <ElFormItem>

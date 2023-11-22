@@ -26,6 +26,15 @@ export enum ListUnitSize {
   cm = "cm",
 }
 
+export interface IGeneralInfo {
+  id: number;
+  email_gallery: string;
+  email_press: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export interface IProjectPressRelease {
   id: number;
   title: string;
@@ -160,6 +169,7 @@ export interface IVideoCollection {
 export interface IMediaCV {
   id: number;
   image: IFile;
+  pdf: IFile;
   created_at: Date;
   updated_at: Date;
 }
