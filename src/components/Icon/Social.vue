@@ -76,9 +76,10 @@ withDefaults(defineProps<Props>(), {
     viewBox="0 0 66.9 66.2"
     style="enable-background: new 0 0 66.9 66.2"
     xml:space="preserve"
+    class="st0dddddd"
   >
     <g>
-      <circle style="fill: #fff" class="st0" cx="33.3" cy="33.3" r="32" />
+      <circle cx="33.3" cy="33.3" r="32" />
     </g>
     <path
       fill="#000"
@@ -92,5 +93,13 @@ svg {
   fill-rule: evenodd;
   clip-rule: evenodd;
   transition: fill 0.3s ease-in-out;
+}
+
+.st0dddddd circle {
+  fill: #fff;
+  transition: fill 0.3s ease-in-out;
+}
+.st0dddddd:hover circle {
+  fill: $colorAccentBlue;
 }
 </style>
