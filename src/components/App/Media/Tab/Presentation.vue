@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IMediaPresentation } from "~/types/admin-api";
+import type { IMediaPresentation } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -17,7 +17,7 @@ const { data: presentation } = useAsyncData<IMediaPresentation[]>(
       class="media__presentation"
     >
       <div>
-        <img :src="useGetFileByUrl(item.image.name)" alt="" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       </div>
       <div>
         <h3>{{ item.title }}</h3>
@@ -51,7 +51,8 @@ const { data: presentation } = useAsyncData<IMediaPresentation[]>(
 
   > div {
     &:first-child {
-      img {
+      img,
+      picture {
         width: 100%;
         object-fit: cover;
         border-radius: $borderRadiusMain;
@@ -94,7 +95,8 @@ const { data: presentation } = useAsyncData<IMediaPresentation[]>(
   .media__presentation {
     > div {
       &:first-child {
-        img {
+        img,
+        picture {
         }
       }
 

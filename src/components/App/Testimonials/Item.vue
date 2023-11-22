@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ITestimonial } from "~/types/admin-api";
+import type { ITestimonial } from "~/types/admin-api";
 
 defineProps<{
   testimonial: ITestimonial;
@@ -65,6 +65,7 @@ function getYTLink(url: string) {
     overflow: hidden;
     img,
     iframe,
+    picture,
     video {
       width: 100%;
       height: 34vw;
@@ -119,7 +120,8 @@ function getYTLink(url: string) {
   .testimonial {
     &__img {
       width: 25rem;
-      img {
+      img,
+      picture {
         height: 38.89rem;
       }
     }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+import type { IProject } from "~/types/admin-api";
 
 const headTitle = ref("Projects");
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IMediaKit, PartialFileAdminApiDto } from "@/types/admin-api";
+import type { IMediaKit, PartialFileAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({

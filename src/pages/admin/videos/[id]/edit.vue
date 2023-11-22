@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IProject, IVideoCollection } from "@/types/admin-api";
+import type { IProject, IVideoCollection } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({

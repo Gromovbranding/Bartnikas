@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IndexCardFooter, PartialAdminApiDto } from "@/types/admin-api";
+import type { IndexCardFooter, PartialAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({

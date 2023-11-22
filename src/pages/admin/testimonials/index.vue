@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ITestimonial } from "~/types/admin-api";
+import type { ITestimonial } from "~/types/admin-api";
 
 const headTitle = ref("Testimonials");
 

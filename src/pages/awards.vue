@@ -43,7 +43,10 @@ function showImg(name: string) {
       <div v-for="award in awards" :key="award.id" class="awards__item">
         <div class="awards__circle">
           <a href="#">
-            <img :src="useGetFileByUrl(award.awards_avatar.name)" />
+            <NuxtImg
+              loading="lazy"
+              :src="`/baseApiFiles/${award.awards_avatar.name}`"
+            />
           </a>
         </div>
         <div class="awards__text">
@@ -101,7 +104,7 @@ function showImg(name: string) {
       </div>
     </section>
     <div v-if="showModal" class="dialog">
-      <img :src="activeImg" alt="" />
+      <NuxtImg loading="lazy" :src="activeImg" />
       <button type="button" @click="showModal = false">
         <svg
           role="presentation"
@@ -188,7 +191,8 @@ function showImg(name: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  img {
+  img,
+  picture {
     display: block;
     max-width: 80%;
   }
@@ -240,7 +244,8 @@ function showImg(name: string) {
       cursor: default;
     }
 
-    img {
+    img,
+    picture {
       width: 17vw;
       height: 7vw;
       object-fit: contain;
@@ -329,7 +334,8 @@ function showImg(name: string) {
 @media screen and (max-width: 1000px) {
   .awards {
     &__circle {
-      img {
+      img,
+      picture {
         filter: grayscale(0);
       }
     }
@@ -358,13 +364,15 @@ function showImg(name: string) {
         justify-content: center;
         align-items: center;
       }
-      img {
+      img,
+      picture {
         width: 80%;
         height: 80%;
       }
 
       &:hover {
-        img {
+        img,
+        picture {
         }
       }
     }

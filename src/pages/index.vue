@@ -69,10 +69,11 @@ onBeforeUnmount(() => {
         }"
       >
         <SwiperSlide v-for="item in sliderImages" :key="item.id">
-          <img
+          <NuxtImg
             v-scroll-scale-image
+            loading="lazy"
+            :src="`/baseApiFiles/${item?.image?.name}`"
             style="width: 100%; height: 100%; transition-duration: 100ms"
-            :src="useGetFileByUrl(item?.image?.name)"
           />
         </SwiperSlide>
       </Swiper>
@@ -87,7 +88,7 @@ onBeforeUnmount(() => {
     <AppSectionInteriosOrderSlider />
     <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
-        <img src="@/assets/img/index_parallax.jpg" alt="Parallax bg" />
+        <img src="assets/img/index_parallax.jpg" alt="Parallax bg" />
       </div>
       <div>
         <h3>{{ activeIndexCard?.title }}</h3>
@@ -115,7 +116,8 @@ onBeforeUnmount(() => {
       position: sticky;
       top: 0;
 
-      img {
+      img,
+      picture {
         height: 100vh;
         width: 100%;
         object-fit: cover;
@@ -203,7 +205,8 @@ onBeforeUnmount(() => {
 
     > div {
       &:first-child {
-        img {
+        img,
+        picture {
         }
       }
 

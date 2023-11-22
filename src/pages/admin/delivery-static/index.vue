@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ITermsStatic } from "~/types/admin-api";
+import type { ITermsStatic } from "~/types/admin-api";
 
 const headTitle = ref("Payment & Delivery");
 

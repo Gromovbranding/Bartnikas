@@ -35,7 +35,10 @@ useHeadSafe({
         <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
-        <img :src="useGetFileByUrl(article?.image?.name)" alt="" />
+        <NuxtImg
+          loading="lazy"
+          :src="`/baseApiFiles/${article?.image?.name}`"
+        />
       </div>
       <div class="article__content">
         <p v-html="article?.description"></p>
@@ -82,7 +85,8 @@ useHeadSafe({
   &__img {
     margin-top: 25px;
     margin-bottom: 60px;
-    img {
+    img,
+    picture {
       width: 100%;
       border-radius: $borderRadiusMain;
       object-fit: cover;
@@ -130,7 +134,8 @@ useHeadSafe({
 
     &__img {
       margin-bottom: 20px;
-      img {
+      img,
+      picture {
         max-height: 230px;
       }
     }

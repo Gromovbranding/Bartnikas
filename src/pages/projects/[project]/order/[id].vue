@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-import { IProject } from "~/types/admin-api";
+import type { IProject } from "~/types/admin-api";
 
 const route = useRoute();
 const projectId = Number(route.params.project);
@@ -93,7 +93,10 @@ function toOrder() {
     <section class="order">
       <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>
       <div class="order__gallery">
-        <img :src="useGetFileByUrl(projectImage?.image.name)" alt="" />
+        <NuxtImg
+          loading="lazy"
+          :src="`/baseApiFiles/${projectImage?.image.name}`"
+        />
       </div>
       <div class="order__info">
         <h3>{{ projectImage?.image_name }}</h3>
@@ -221,7 +224,8 @@ dialog {
   }
   &__gallery {
     flex: 1 1 60%;
-    > img {
+    > img,
+    picture {
       width: 100%;
       height: 100%;
       min-height: 800px;
@@ -234,7 +238,8 @@ dialog {
       align-items: center;
       gap: 10px;
       margin-top: 20px;
-      > img {
+      > img,
+      picture {
         max-width: 110px;
         max-height: 75px;
         border-radius: $borderRadiusMain + 12px;
@@ -361,13 +366,15 @@ dialog {
       font-weight: 600;
     }
     &__gallery {
-      > img {
+      > img,
+      picture {
         min-height: 320px;
         max-height: 320px;
       }
       &-list {
         margin-top: 12px;
-        > img {
+        > img,
+        picture {
           max-width: 80px;
           min-height: 58px;
           max-height: 58px;

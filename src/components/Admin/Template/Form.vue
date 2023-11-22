@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormInstance, FormProps } from "element-plus";
+import type { FormInstance, FormProps } from "element-plus";
 
 defineProps<{
   rules: FormProps["rules"];

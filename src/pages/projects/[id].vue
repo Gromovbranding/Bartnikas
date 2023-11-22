@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IProject, IProjectImageDetail } from "~/types/admin-api";
+import type { IProject, IProjectImageDetail } from "~/types/admin-api";
 
 const route = useRoute();
 const wrapper = ref<HTMLDivElement>();
@@ -110,7 +110,7 @@ const changeDetailOrder = (
       <section v-if="!project?.collab" class="author-quote">
         <div class="author-quote__person">
           <div>
-            <img src="@/assets/img/bartnikas.jpg" alt="Bartnikas Logo" />
+            <img src="assets/img/bartnikas.jpg" alt="Bartnikas Logo" />
           </div>
           <div>
             <h3>
@@ -172,9 +172,9 @@ const changeDetailOrder = (
               </div>
               <div class="zoom__modal-main">
                 <div class="zoom__modal-content">
-                  <img
-                    :src="useGetFileByUrl(activeOrderDetail.image.name)"
-                    alt=""
+                  <NuxtImg
+                    loading="lazy"
+                    :src="`/baseApiFiles/${activeOrderDetail.image.name}`"
                   />
                 </div>
                 <div class="zoom__modal-bottom">
@@ -221,7 +221,10 @@ const changeDetailOrder = (
                 <IconZoom :style="{ fill: '#fff' }" />
               </div>
               <div class="zoom__container-content">
-                <img :src="useGetFileByUrl(detail.image.name)" alt="" />
+                <NuxtImg
+                  loading="lazy"
+                  :src="`/baseApiFiles/${detail.image.name}`"
+                />
               </div>
             </div>
           </div>
@@ -250,7 +253,10 @@ const changeDetailOrder = (
             @click="$router.push(`/projects/${item.id}`)"
           >
             <div class="project-item__img">
-              <img :src="useGetFileByUrl(item.details[0].image.name)" />
+              <NuxtImg
+                loading="lazy"
+                :src="`/baseApiFiles/${item.details[0].image.name}`"
+              />
             </div>
             <div class="project-item__text">
               <h3>{{ item.title }}</h3>
@@ -471,6 +477,13 @@ const changeDetailOrder = (
         height: 100%;
         border-radius: 0;
       }
+
+      > :deep(picture) {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
     }
   }
 }
@@ -524,7 +537,8 @@ const changeDetailOrder = (
 }
 .port-order {
   &__img {
-    img {
+    img,
+    picture {
       width: 100%;
       height: 700px;
       object-fit: cover;
@@ -585,7 +599,8 @@ const changeDetailOrder = (
 @media screen and (max-width: 1200px) {
   .port-order {
     &__img {
-      img {
+      img,
+      picture {
         height: 550px;
       }
     }
@@ -595,7 +610,8 @@ const changeDetailOrder = (
 @media screen and (max-width: 550px) {
   .port-order {
     &__img {
-      img {
+      img,
+      picture {
         height: 222px;
       }
     }
@@ -649,7 +665,8 @@ const changeDetailOrder = (
   cursor: pointer;
   &__img {
     height: 17rem;
-    img {
+    img,
+    picture {
       display: block;
       width: 100%;
       height: 100%;
@@ -709,7 +726,8 @@ const changeDetailOrder = (
         width: 150px;
         height: 150px;
 
-        img {
+        img,
+        picture {
           object-fit: cover;
           width: 100%;
           height: 100%;

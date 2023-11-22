@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { UploadUserFile } from "element-plus";
+import type { UploadUserFile } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
-import {
+import type {
   IAwards,
   PartialAdminApiDto,
   PartialFileAdminApiDto,

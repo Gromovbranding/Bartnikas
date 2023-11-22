@@ -42,10 +42,7 @@ const handleAddContact = async () => {
 
     <section class="contacts">
       <div>
-        <img
-          src="@/assets/img/bartnikas_contacts.jpg"
-          alt="Bartnikas contacts"
-        />
+        <img src="assets/img/bartnikas_contacts.jpg" alt="Bartnikas contacts" />
       </div>
       <div>
         <p>Stas Bartnikas resides in Moscow, Russia</p>
@@ -103,7 +100,8 @@ const handleAddContact = async () => {
   grid-template-columns: 1fr 1fr;
   > div {
     &:first-child {
-      img {
+      img,
+      picture {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -173,7 +171,8 @@ const handleAddContact = async () => {
     grid-template-columns: 1fr;
     > div {
       &:first-child {
-        img {
+        img,
+        picture {
         }
       }
 

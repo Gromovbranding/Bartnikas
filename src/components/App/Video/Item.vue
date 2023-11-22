@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IVideoCollection } from "~/types/admin-api";
+import type { IVideoCollection } from "~/types/admin-api";
 
 const video = ref<HTMLVideoElement>();
 const activeVideo = ref(false);

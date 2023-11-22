@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IArticle } from "~/types/admin-api";
+import type { IArticle } from "~/types/admin-api";
 
 const { getLastHotArticle } = usePublicData();
 
@@ -32,7 +32,7 @@ const title = computed(() => {
         :to="`/news/${article.id}`"
         class="upper-slide hot-news__content"
       >
-        <img :src="useGetFileByUrl(article.image?.name)" alt="" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${article.image?.name}`" />
         <div>
           <IconArrow is-arrow30-deg />
         </div>
@@ -75,7 +75,8 @@ const title = computed(() => {
     display: block;
     width: 100%;
     position: relative;
-    img {
+    img,
+    picture {
       width: 100%;
       max-height: 100vh;
       object-fit: cover;
@@ -110,7 +111,8 @@ const title = computed(() => {
     }
     &__content {
       margin-top: 32px;
-      img {
+      img,
+      picture {
         min-height: 230px;
         max-height: 230px;
       }

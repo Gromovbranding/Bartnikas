@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IMediaExhibition } from "@/types/admin-api";
+import type { IMediaExhibition } from "@/types/admin-api";
 
 const headTitle = ref("Media Exhibition");
 

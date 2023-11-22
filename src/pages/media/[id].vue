@@ -83,7 +83,8 @@ useHeadSafe({
   &__img {
     margin-top: 25px;
     margin-bottom: 60px;
-    img {
+    img,
+    picture {
       width: 100%;
       border-radius: $borderRadiusMain;
       object-fit: cover;
@@ -131,7 +132,8 @@ useHeadSafe({
 
     &__img {
       margin-bottom: 20px;
-      img {
+      img,
+      picture {
         max-height: 230px;
       }
     }

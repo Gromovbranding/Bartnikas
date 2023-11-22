@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IIndexSlider, PartialFileAdminApiDto } from "@/types/admin-api";
+import type { IIndexSlider, PartialFileAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({

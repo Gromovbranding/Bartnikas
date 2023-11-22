@@ -1,4 +1,4 @@
-import { UploadUserFile } from "element-plus";
+import type { UploadUserFile } from "element-plus";
 
 export interface IFile {
   id: number;
@@ -232,6 +232,7 @@ export interface IGreetingIndex {
   text: string;
   is_active: boolean;
   video: IFile;
+  poster: IFile;
   created_at: Date;
   updated_at: Date;
 }

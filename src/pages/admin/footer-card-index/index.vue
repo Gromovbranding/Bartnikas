@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IndexCardFooter } from "~/types/admin-api";
+import type { IndexCardFooter } from "~/types/admin-api";
 
 const headTitle = ref("Footer card");
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IAwards } from "~/types/admin-api";
+import type { IAwards } from "~/types/admin-api";
 
 defineProps<{
   award: IAwards;
@@ -9,9 +9,9 @@ defineProps<{
 <template>
   <div class="awards__item">
     <a>
-      <img
-        :src="useGetFileByUrl(award.awards_avatar.name)"
-        :alt="award.awards_avatar.name"
+      <NuxtImg
+        loading="lazy"
+        :src="`/baseApiFiles/${award.awards_avatar.name}`"
       />
       <div>
         <h4>{{ award.title }}</h4>
@@ -61,7 +61,8 @@ defineProps<{
     }
 
     &:hover {
-      > img {
+      > img,
+      picture {
         scale: 1.2;
         filter: grayscale(0);
       }
@@ -73,7 +74,8 @@ defineProps<{
       }
     }
 
-    > img {
+    > img,
+    picture {
       max-height: 80px;
       object-fit: contain;
       transition: scale 0.3s ease, filter 0.5s ease-in;
@@ -88,7 +90,8 @@ defineProps<{
     > a {
       width: 22rem;
       height: 22rem;
-      > img {
+      > img,
+      picture {
         filter: grayscale(0);
       }
       > div {
@@ -120,14 +123,16 @@ defineProps<{
       }
 
       &:hover {
-        > img {
+        > img,
+        picture {
         }
 
         > div {
         }
       }
 
-      > img {
+      > img,
+      picture {
       }
     }
   }

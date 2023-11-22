@@ -24,7 +24,10 @@ const { data: footerContact } = await useAsyncData(
       </div>
       <div class="footer__logo">
         <div>
-          <img :src="useGetFileByUrl(footerContact?.logo.name)" alt="" />
+          <NuxtImg
+            loading="lazy"
+            :src="`/baseApiFiles/${footerContact?.logo.name}`"
+          />
         </div>
         <div>
           <a
@@ -103,6 +106,7 @@ const { data: footerContact } = await useAsyncData(
         width: 470px;
         height: 370px;
 
+        picture,
         img {
           width: 100%;
           height: 100%;

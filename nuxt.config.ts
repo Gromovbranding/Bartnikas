@@ -1,4 +1,5 @@
 const BASE_URL_API = "https://api.stanislavbartnikas.com";
+const BASE_URL_FILES_API = BASE_URL_API + "/files";
 
 export default defineNuxtConfig({
   srcDir: "src",
@@ -9,13 +10,22 @@ export default defineNuxtConfig({
         importStyle: "css",
       },
     ],
+    "@nuxt/image",
     "nuxt-swiper",
   ],
+
+  image: {
+    format: ["webp", "avif", "png", "jpg", "jpeg", "svg"],
+    domains: [BASE_URL_API],
+    alias: {
+      baseApiFiles: BASE_URL_FILES_API,
+    },
+  },
 
   runtimeConfig: {
     public: {
       apiBaseUrl: BASE_URL_API,
-      apiFilesUrl: BASE_URL_API + "/files",
+      apiFilesUrl: BASE_URL_FILES_API,
     },
   },
 

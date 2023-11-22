@@ -1,5 +1,5 @@
-import { FormRules } from "element-plus";
-import {
+import type { FormRules } from "element-plus";
+import type {
   PartialAdminApiDto,
   IArticle,
   IAwards,

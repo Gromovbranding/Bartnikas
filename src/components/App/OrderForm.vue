@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { IProjectImageDetail, IProjectImageSizes } from "~/types/admin-api";
+import type {
+  IProjectImageDetail,
+  IProjectImageSizes,
+} from "~/types/admin-api";
 
 const { fetchPost } = useApi();
 
@@ -53,7 +56,7 @@ const handleOrder = async () => {
   <section class="order-form">
     <div class="order-form__left">
       <div class="order-form__left__img">
-        <img :src="useGetFileByUrl(image.image.name)" alt="" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${image.image.name}`" />
       </div>
       <div class="order-form__left__img-info">
         <h3>{{ image.image_name }}</h3>
@@ -112,7 +115,8 @@ const handleOrder = async () => {
   }
   > div {
     &:first-child {
-      img {
+      img,
+      picture {
         width: 100%;
         height: 100%;
         object-fit: cover;

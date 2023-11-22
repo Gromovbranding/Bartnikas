@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {
+import type {
   IMediaCV,
   PartialAdminApiDto,
   PartialFileAdminApiDto,

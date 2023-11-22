@@ -33,7 +33,7 @@ useHeadSafe({
         <h1>{{ blog?.title }}</h1>
       </div>
       <div class="article__img">
-        <img :src="useGetFileByUrl(blog?.image?.name)" alt="" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${blog?.image?.name}`" />
       </div>
       <div class="article__text">
         <p>{{ blog?.text }}</p>
@@ -147,7 +147,8 @@ useHeadSafe({
 
     &__img {
       margin: 50px 0 30px;
-      img {
+      img,
+      picture {
         max-height: 280px;
       }
     }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IArticle } from "~/types/admin-api";
+import type { IArticle } from "~/types/admin-api";
 
 const headTitle = ref("Statement");
 

@@ -41,7 +41,7 @@ useHeadSafe({
             </svg>
           </div>
           <div class="checkout__main-img">
-            <img :src="useGetFileByUrl(item.image.name)" alt="" />
+            <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
           </div>
           <div class="checkout__info">
             <div class="checkout__header">
@@ -165,7 +165,8 @@ useHeadSafe({
 
   &__main-img {
     width: 60%;
-    img {
+    img,
+    picture {
       object-fit: cover;
       border-radius: 0.5vw;
       width: 100%;
@@ -302,7 +303,8 @@ useHeadSafe({
 
     &__main-img {
       width: 100%;
-      img {
+      img,
+      picture {
         height: 63vw;
       }
     }

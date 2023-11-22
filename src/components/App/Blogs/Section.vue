@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IBlog } from "~/types/admin-api";
+import type { IBlog } from "~/types/admin-api";
 
 const { getAllBlogs } = usePublicData();
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBio } from "~/types/admin-api";
+import type { IBio } from "~/types/admin-api";
 
 const headTitle = ref("About me");
 

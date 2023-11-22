@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IProjectOrderByEmail } from "~/types/admin-api";
+import type { IProjectOrderByEmail } from "~/types/admin-api";
 
 const headTitle = ref("Ordered By Email");
 

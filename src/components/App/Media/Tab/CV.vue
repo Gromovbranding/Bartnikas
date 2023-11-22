@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IMediaCV } from "~/types/admin-api";
+import type { IMediaCV } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -13,7 +13,7 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
   <div v-for="item in cv" :key="'cv' + item.id" class="media__cv">
     <div>
       <UIZoom>
-        <img :src="useGetFileByUrl(item.image.name)" alt="" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       </UIZoom>
     </div>
     <UIButton> Download pdf </UIButton>
@@ -30,7 +30,8 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 1rem;
-    img {
+    img,
+    picture {
       width: 100%;
       height: 100%;
       border-radius: $borderRadiusMain;
@@ -45,7 +46,8 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
       display: flex;
       flex-direction: column;
       gap: 26px;
-      img {
+      img,
+      picture {
       }
     }
   }

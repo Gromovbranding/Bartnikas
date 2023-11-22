@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IGreetingIndex } from "~/types/admin-api";
+import type { IGreetingIndex } from "~/types/admin-api";
 
 const { getActiveGreetingIndex } = usePublicData();
 
@@ -23,7 +23,8 @@ function playVideo() {
       <video
         ref="video"
         :src="useGetFileByUrl(greeting?.video?.name)"
-        preload="auto"
+        :poster="useGetFileByUrl(greeting?.poster?.name)"
+        preload="metadata"
         :controls="showVideo"
       ></video>
       <div v-if="!showVideo" class="video-greeting__play" @click="playVideo">
@@ -50,6 +51,7 @@ function playVideo() {
 
     video,
     img,
+    picture,
     iframe {
       height: 100%;
       width: 100%;
@@ -114,6 +116,7 @@ function playVideo() {
     &__video {
       width: 100%;
       video,
+      picture,
       img,
       iframe {
       }

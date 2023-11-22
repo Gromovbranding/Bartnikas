@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IArticle } from "~/types/admin-api";
+import type { IArticle } from "~/types/admin-api";
 
 const { getAllNews } = usePublicData();
 
@@ -35,6 +35,11 @@ const sortedNews = computed(() => {
     min-height: 420px;
     max-height: 420px;
   }
+
+  :deep(picture) {
+    min-height: 420px;
+    max-height: 420px;
+  }
 }
 
 @media screen and (min-width: 551px) and (max-width: 1000px) {
@@ -50,6 +55,11 @@ const sortedNews = computed(() => {
     flex-direction: column;
     grid-gap: 60px;
     :deep(img) {
+      min-height: 420px;
+      max-height: 420px;
+    }
+
+    :deep(picture) {
       min-height: 420px;
       max-height: 420px;
     }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBlog, PartialFileAdminApiDto } from "@/types/admin-api";
+import type { IBlog, PartialFileAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({

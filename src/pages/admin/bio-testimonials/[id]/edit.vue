@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import { IBioTestimonials, PartialFileAdminApiDto } from "@/types/admin-api";
+import type {
+  IBioTestimonials,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({

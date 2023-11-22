@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IContact } from "~/types/admin-api";
+import type { IContact } from "~/types/admin-api";
 
 const headTitle = ref("Contacts");
 

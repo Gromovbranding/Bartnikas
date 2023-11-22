@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ITermsStatic, PartialAdminApiDto } from "@/types/admin-api";
+import type { ITermsStatic, PartialAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({

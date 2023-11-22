@@ -153,6 +153,11 @@ const isVisible = ref(false);
         object-fit: cover;
         width: 100%;
       }
+
+      > :deep(picture) {
+        object-fit: cover;
+        width: 100%;
+      }
     }
   }
 }

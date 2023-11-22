@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IMediaKit } from "~/types/admin-api";
+import type { IMediaKit } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -11,7 +11,7 @@ const { data: mediakit } = useAsyncData<IMediaKit[]>(
 
 <template>
   <div v-for="kit in mediakit" :key="'kit' + kit.id" class="media__kit">
-    <img :src="useGetFileByUrl(kit.image.name)" alt="" />
+    <NuxtImg loading="lazy" :src="`/baseApiFiles/${kit.image.name}`" />
     <UIButton :to="useGetFileByUrl(kit.pdf.name)" download>
       Download pdf
     </UIButton>
@@ -24,7 +24,8 @@ const { data: mediakit } = useAsyncData<IMediaKit[]>(
   flex-direction: column;
   gap: 40px;
   width: 100%;
-  img {
+  img,
+  picture {
     width: 100%;
     border-radius: $borderRadiusMain;
     object-fit: cover;

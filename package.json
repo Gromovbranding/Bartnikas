@@ -8,6 +8,7 @@
     "prepare": "husky install",
     "build": "nuxi cleanup && nuxi build",
     "dev": "nuxi dev",
+    "typecheck": "nuxi typecheck",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "postinstall": "nuxi prepare"
@@ -33,6 +34,7 @@
     "vue-marquee-text-component": "^2.0.1"
   },
   "dependencies": {
+    "@nuxt/image": "^1.1.0",
     "@stripe/stripe-js": "^1.54.0",
     "@tinymce/tinymce-vue": "^5.1.1"
   }

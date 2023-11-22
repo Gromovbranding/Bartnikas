@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBio, IBioTestimonials } from "types/admin-api";
+import type { IBio, IBioTestimonials } from "@/types/admin-api";
 
 const { breakpoint } = useBreakpoints();
 const scrollActive = ref(false);
@@ -52,7 +52,7 @@ function onPointerDown(e: PointerEvent) {
 
     <section class="biography-about">
       <div class="biography-about__img">
-        <img :src="useGetFileByUrl(bio?.awatar.name)" alt="Bartnikas about" />
+        <NuxtImg loading="lazy" :src="`/baseApiFiles/${bio?.awatar.name}`" />
       </div>
       <div class="biography-about__text">
         <p>
@@ -75,7 +75,10 @@ function onPointerDown(e: PointerEvent) {
         >
           <div class="testimonials__person">
             <div>
-              <img :src="useGetFileByUrl(item.photo.name)" alt="" />
+              <NuxtImg
+                loading="lazy"
+                :src="`/baseApiFiles/${item.photo.name}`"
+              />
             </div>
             <div>
               <h3>{{ item.name }}</h3>
@@ -136,7 +139,8 @@ function onPointerDown(e: PointerEvent) {
   &__img {
     flex: 0 0 50%;
 
-    img {
+    img,
+    picture {
       border-radius: $borderRadiusMain;
       width: 100%;
       height: 100%;
@@ -194,7 +198,8 @@ function onPointerDown(e: PointerEvent) {
         width: 160px;
         height: 160px;
 
-        img {
+        img,
+        picture {
           object-fit: cover;
           width: 100%;
           height: 100%;
@@ -324,7 +329,8 @@ function onPointerDown(e: PointerEvent) {
         &:first-child {
           width: fit-content;
           height: fit-content;
-          img {
+          img,
+          picture {
             width: 96px;
             height: 96px;
           }

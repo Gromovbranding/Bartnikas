@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { UploadInstance, UploadUserFile } from "element-plus";
-import { PartialFileAdminApiDto } from "@/types/admin-api";
+import type { UploadInstance, UploadUserFile } from "element-plus";
+import type { PartialFileAdminApiDto } from "@/types/admin-api";
 
 const { apiFilesUrl } = useRuntimeConfig().public;
 const { fetchPost } = useApi();

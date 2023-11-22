@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IFooterContact } from "~/types/admin-api";
+import type { IFooterContact } from "~/types/admin-api";
 
 const headTitle = ref("Footer Contacts");
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-import { IProject } from "~/types/admin-api";
+import type { IProject } from "~/types/admin-api";
 
 const thumbsSwiper = ref<Swiper | null>(null);
 const mainSwiper = ref<Swiper | null>(null);
@@ -112,7 +112,11 @@ function copyColor(idx: number) {
               v-for="slide in project.details"
               :key="`swiper-slide-main-${slide.id}`"
             >
-              <img :src="useGetFileByUrl(slide.image.name)" alt="" />
+              <NuxtImg
+                loading="lazy"
+                :src="`/baseApiFiles/${slide.image.name}`"
+                alt=""
+              />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -128,7 +132,10 @@ function copyColor(idx: number) {
               v-for="slide in project.details"
               :key="`swiper-slide-thumb-${slide.id}`"
             >
-              <img :src="useGetFileByUrl(slide.image.name)" alt="" />
+              <NuxtImg
+                loading="lazy"
+                :src="`/baseApiFiles/${slide.image.name}`"
+              />
             </SwiperSlide>
           </Swiper>
 
@@ -219,7 +226,8 @@ function copyColor(idx: number) {
 
           :deep(.swiper-slide) {
             flex: 0 0 100% !important;
-            img {
+            img,
+            picture {
               width: 100%;
               height: 650px;
               object-fit: cover;
@@ -244,7 +252,8 @@ function copyColor(idx: number) {
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          img {
+          img,
+          picture {
             aspect-ratio: 1;
           }
 
@@ -267,7 +276,8 @@ function copyColor(idx: number) {
             flex: 0 0 4.25rem;
             border-radius: $borderRadiusMain;
             width: 100% !important;
-            img {
+            img,
+            picture {
               width: 100%;
               height: 100%;
               object-fit: cover;
@@ -347,7 +357,8 @@ function copyColor(idx: number) {
             order: -1;
 
             :deep(.swiper-slide) {
-              img {
+              img,
+              picture {
                 height: 36rem;
               }
             }
@@ -470,7 +481,8 @@ function copyColor(idx: number) {
             }
 
             :deep(.swiper-slide) {
-              img {
+              img,
+              picture {
                 height: 250px;
               }
             }
@@ -494,7 +506,8 @@ function copyColor(idx: number) {
 
             :deep(.swiper-slide) {
               // flex: 0 0 calc(58px);
-              img {
+              img,
+              picture {
                 // min-height: 58px;
                 // max-height: 58px;
               }

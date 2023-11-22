@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IGreetingIndex, PartialFileAdminApiDto } from "@/types/admin-api";
+import type { IGreetingIndex, PartialFileAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
@@ -10,6 +10,7 @@ definePageMeta({
 });
 
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadPosterRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
@@ -34,10 +35,12 @@ const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const file = await uploadRef.value!.uploadToServer();
+      const poster = await uploadPosterRef.value!.uploadToServer();
 
       await methods.handlePatch(id, {
         ...toValue(form),
         video: file as PartialFileAdminApiDto,
+        poster: poster as PartialFileAdminApiDto,
       });
 
       await refreshNuxtData();
@@ -59,6 +62,14 @@ const handleUpdate = async () => {
 
       <ElFormItem label="Is active" prop="is_active">
         <ElSwitch v-model="form.is_active" />
+      </ElFormItem>
+
+      <ElFormItem required label="Poster" prop="poster">
+        <AdminUploadFile
+          ref="uploadPosterRef"
+          v-model="form.poster"
+          file-type="image"
+        />
       </ElFormItem>
 
       <ElFormItem required label="Video" prop="video">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IProjectCollab } from "~/types/admin-api";
+import type { IProjectCollab } from "~/types/admin-api";
 
 defineProps<{
   collab: IProjectCollab;

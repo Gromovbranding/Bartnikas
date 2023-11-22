@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IFooterContact, PartialFileAdminApiDto } from "@/types/admin-api";
+import type { IFooterContact, PartialFileAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({

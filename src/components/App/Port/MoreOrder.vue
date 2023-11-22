@@ -35,7 +35,8 @@ defineProps<Props>();
 <style lang="scss" scoped>
 .more-order {
   &__img {
-    img {
+    img,
+    picture {
       width: 100%;
       min-height: 556px;
       max-height: 556px;
@@ -91,7 +92,8 @@ defineProps<Props>();
 @media screen and (max-width: 550px) {
   .more-order {
     &__img {
-      img {
+      img,
+      picture {
         width: 100%;
         min-height: 222px;
         max-height: 222px;

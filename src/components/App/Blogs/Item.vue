@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBlog } from "~/types/admin-api";
+import type { IBlog } from "~/types/admin-api";
 const { makeDateCorrect } = useDateFormat();
 
 defineProps<{
@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <NuxtLink :to="`/blog/${blog.id}`" class="interios">
     <div class="interios__img">
-      <img :src="useGetFileByUrl(blog.image?.name)" alt="" />
+      <NuxtImg loading="lazy" :src="`/baseApiFiles/${blog.image?.name}`" />
     </div>
     <div class="interios__content">
       <div>
@@ -36,7 +36,8 @@ defineProps<{
   }
 
   &__img {
-    img {
+    img,
+    picture {
       width: 100%;
       height: 100%;
       max-height: 500px;
@@ -88,7 +89,8 @@ defineProps<{
 @media screen and (max-width: 550px) {
   .interios {
     &__img {
-      img {
+      img,
+      picture {
         min-height: 260px;
         max-height: 260px;
       }

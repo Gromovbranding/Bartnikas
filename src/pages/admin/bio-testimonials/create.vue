@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {
+import type {
   IBioTestimonials,
   PartialAdminApiDto,
   PartialFileAdminApiDto,

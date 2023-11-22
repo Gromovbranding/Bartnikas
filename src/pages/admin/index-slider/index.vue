@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IIndexSlider } from "~/types/admin-api";
+import type { IIndexSlider } from "~/types/admin-api";
 
 const headTitle = ref("Index Slider");
 

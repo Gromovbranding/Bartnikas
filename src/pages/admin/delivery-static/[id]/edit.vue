@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AdminTemplateForm } from "#components";
-import { ITermsStatic } from "@/types/admin-api";
+import type { ITermsStatic } from "@/types/admin-api";
 
 definePageMeta({
   layout: "admin",

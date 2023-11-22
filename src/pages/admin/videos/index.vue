@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IVideoCollection } from "~/types/admin-api";
+import type { IVideoCollection } from "~/types/admin-api";
 
 const headTitle = ref("Videos");
 

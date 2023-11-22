@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IMediaKit } from "@/types/admin-api";
+import type { IMediaKit } from "@/types/admin-api";
 
 const headTitle = ref("Media Kit");
 

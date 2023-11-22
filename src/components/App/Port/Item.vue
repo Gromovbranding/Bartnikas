@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IProject } from "~/types/admin-api";
+import type { IProject } from "~/types/admin-api";
 
 interface Props {
   direction?: "row" | "row-reverse";
@@ -19,12 +19,18 @@ withDefaults(defineProps<Props>(), {
   >
     <div v-if="project.details[0]" class="port__img">
       <div class="scale">
-        <img :src="useGetFileByUrl(project.details[0].image.name)" alt="" />
+        <NuxtImg
+          loading="lazy"
+          :src="`/baseApiFiles/${project.details[0].image.name}`"
+        />
       </div>
     </div>
     <div v-if="project.details[1]" class="port__content">
       <div class="scale">
-        <img :src="useGetFileByUrl(project.details[1].image.name)" alt="" />
+        <NuxtImg
+          loading="lazy"
+          :src="`/baseApiFiles/${project.details[1].image.name}`"
+        />
       </div>
       <div class="port__text">
         <NuxtLink :to="`/projects/${project?.id}`">
@@ -75,7 +81,8 @@ withDefaults(defineProps<Props>(), {
       max-height: 25rem;
     }
 
-    img {
+    img,
+    picture {
       width: 100%;
       // height: 550px;
       object-fit: cover;
@@ -173,7 +180,8 @@ withDefaults(defineProps<Props>(), {
       display: none;
     }
     &__content {
-      img {
+      img,
+      picture {
         object-fit: cover;
         height: 35rem;
       }

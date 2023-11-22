@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBioTestimonials } from "~/types/admin-api";
+import type { IBioTestimonials } from "~/types/admin-api";
 
 const headTitle = ref("Bio Testimonials");
 

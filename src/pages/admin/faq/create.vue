@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IFaq, PartialAdminApiDto } from "@/types/admin-api";
+import type { IFaq, PartialAdminApiDto } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({

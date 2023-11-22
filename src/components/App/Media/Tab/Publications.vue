@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IMediaPublication } from "~/types/admin-api";
+import type { IMediaPublication } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -20,7 +20,7 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
         target="_blank"
       >
         <div>
-          <img :src="useGetFileByUrl(item.image.name)" alt="" />
+          <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
         </div>
         <div>
           <h3>
@@ -88,7 +88,8 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
     width: 100%;
     > div {
       &:first-child {
-        img {
+        img,
+        picture {
           width: 100%;
           border-radius: $borderRadiusMain;
           object-fit: cover;
@@ -170,7 +171,8 @@ const { data: publication } = useAsyncData<IMediaPublication[]>(
     &__publications {
       > div {
         &:first-child {
-          img {
+          img,
+          picture {
             max-height: 220px;
           }
         }

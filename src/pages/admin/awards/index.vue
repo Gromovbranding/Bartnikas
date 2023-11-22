@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IAwards } from "~/types/admin-api";
+import type { IAwards } from "~/types/admin-api";
 
 const headTitle = ref("Awards");
 

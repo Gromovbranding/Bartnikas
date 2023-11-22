@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IMediaExhibition } from "~/types/admin-api";
+import type { IMediaExhibition } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -16,7 +16,7 @@ const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
       :key="'exh' + item.id"
       class="media__exhibitions"
     >
-      <img :src="useGetFileByUrl(item.image.name)" alt="" />
+      <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       <div>
         <h3>{{ item.title }}</h3>
         <p>
@@ -37,7 +37,8 @@ const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
   display: flex;
   flex-direction: column;
   width: 100%;
-  img {
+  img,
+  picture {
     width: 100%;
     border-radius: $borderRadiusMain;
     object-fit: cover;
@@ -81,7 +82,8 @@ const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
     margin-top: 30px;
   }
   .media__exhibitions {
-    img {
+    img,
+    picture {
       max-height: 240px;
     }
     > div {

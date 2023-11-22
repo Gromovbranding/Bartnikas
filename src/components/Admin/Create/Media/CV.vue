@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IMediaCV } from "@/types/admin-api";
+import type { IMediaCV } from "@/types/admin-api";
 
 const headTitle = ref("Media CV");
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {
+import type {
   IGreetingIndex,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
@@ -18,10 +18,12 @@ useHeadSafe({
 });
 
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
+const uploadPosterRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IGreetingIndex>>({
   video: null,
+  poster: null,
   is_active: false,
   text: "",
 });
@@ -32,10 +34,12 @@ const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       const file = await uploadRef.value!.uploadToServer();
+      const poster = await uploadPosterRef.value!.uploadToServer();
 
       await methods.handleCreate({
         ...toValue(form),
         video: file as PartialFileAdminApiDto,
+        poster: poster as PartialFileAdminApiDto,
       });
 
       await refreshNuxtData();
@@ -60,6 +64,14 @@ const handleCreate = async () => {
 
       <ElFormItem label="Is active" prop="is_active">
         <ElSwitch v-model="form.is_active" />
+      </ElFormItem>
+
+      <ElFormItem required label="Poster" prop="poster">
+        <AdminUploadFile
+          ref="uploadPosterRef"
+          v-model="form.poster"
+          file-type="image"
+        />
       </ElFormItem>
 
       <ElFormItem required label="Video" prop="video">

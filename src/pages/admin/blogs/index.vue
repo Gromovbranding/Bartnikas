@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IBlog } from "~/types/admin-api";
+import type { IBlog } from "~/types/admin-api";
 
 const headTitle = ref("Blogs");
 
