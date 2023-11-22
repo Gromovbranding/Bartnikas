@@ -137,8 +137,8 @@ const { data: emails } = await useAsyncData(
         </div>
 
         <div class="menu__email">
-          <a :href="`mailto:${emails?.email_gallery}`">
-            {{ emails?.email_gallery }}
+          <a :href="`mailto:${emails?.email_press}`">
+            {{ emails?.email_press }}
           </a>
         </div>
         <div class="menu__socials">

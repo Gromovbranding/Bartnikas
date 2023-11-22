@@ -17,6 +17,7 @@ import type {
   IBioTestimonials,
   IFooterContact,
   IIndexSlider,
+  IGeneralInfo,
 } from "~/types/admin-api";
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -116,7 +117,7 @@ export const usePublicData = () => {
     await fetchGet<IFooterContact>("footer-contacts/only/active");
 
   const getActiveGeneralInfo = async () =>
-    await fetchGet<IFooterContact>("general-info/only/active");
+    await fetchGet<IGeneralInfo>("general-info/only/active");
 
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
