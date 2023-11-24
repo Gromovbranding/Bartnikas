@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { UploadUserFile } from "element-plus";
 import { Close, Delete } from "@element-plus/icons-vue";
-import type {
-  IProject,
-  IProjectPressRelease,
-  PartialAdminApiDto,
+import {
+  ListUnitSize,
+  type IProject,
+  type IProjectImageDetail,
+  type IProjectPressRelease,
+  type PartialAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
@@ -47,26 +49,11 @@ const form = reactive<PartialAdminApiDto<IProject>>({
   group: null,
 });
 
-interface ImageDetails {
-  [key: number]: {
-    sizes: {
-      width: number;
-      height: number;
-      unit: "cm";
-      quantity: number;
-    }[];
-    is_active: boolean;
-    price: number;
-    image_name: string;
-    image: {
-      name: string;
-    };
-  };
-}
-
 const imageFiles = ref<UploadUserFile[]>([]);
 
-const projectImages = ref<ImageDetails>({});
+const projectImages = ref<{
+  [key: number]: PartialAdminApiDto<IProjectImageDetail>;
+}>({});
 
 const isCollab = ref(false);
 
@@ -96,11 +83,12 @@ const removePressRelease = (
 };
 
 const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
-  form.details = imgs.map((item) => {
+  form.details = imgs.map((item, idx) => {
     const deets = projectImages.value[item.uid];
     deets.image = {
       name: item.name,
     };
+    deets.order = deets.order === 0 ? idx + 1 : deets.order;
     return deets;
   });
 };
@@ -123,7 +111,7 @@ const handleCreate = async () => {
               ...form.collab,
               press_release: await Promise.all(
                 (form.collab?.press_release ?? []).map(async (item, idx) => {
-                  const file = await uploadPressReleaseRefs.value[
+                  const file = await uploadPressReleaseRefs.value![
                     idx
                   ]!.uploadToServer();
 
@@ -157,9 +145,14 @@ watch(
   () => imageFiles.value,
   (val) => {
     val.forEach((item) => {
-      if (projectImages.value[item.uid]) return;
-      projectImages.value[item.uid] = {
-        sizes: [{ width: 100, height: 100, unit: "cm", quantity: 1 }],
+      if (projectImages.value[item.uid!]) return;
+
+      projectImages.value[item.uid!] = {
+        is_show_poster: false,
+        order: imageFiles.value.length,
+        sizes: [
+          { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 },
+        ],
         is_active: true,
         price: 100,
         image_name: item.name,
@@ -168,8 +161,17 @@ watch(
         },
       };
     });
+
+    handleResort();
   }
 );
+
+const handleResort = () => {
+  imageFiles.value.sort(
+    (a, b) =>
+      projectImages.value[a.uid!].order - projectImages.value[b.uid!].order
+  );
+};
 </script>
 
 <template>
@@ -300,12 +302,29 @@ watch(
               :src="file.url"
               alt=""
             />
+
             <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>
               <div class="img__details">
+                <label>
+                  Order:
+                  <input
+                    v-model="projectImages[file.uid!].order"
+                    type="number"
+                    min="1"
+                    :max="imageFiles.length"
+                    @input="handleResort"
+                  />
+                </label>
                 <label
                   >Is active:
                   <input
                     v-model="projectImages[file.uid!].is_active"
+                    type="checkbox"
+                /></label>
+                <label
+                  >Is Show poster:
+                  <input
+                    v-model="projectImages[file.uid!].is_show_poster"
                     type="checkbox"
                 /></label>
                 <ElFormItem required label="Name" label-width="60">
@@ -359,7 +378,7 @@ watch(
                     width: 100,
                     height: 100,
                     quantity: 1,
-                    unit: 'cm',
+                    unit: ListUnitSize.cm,
                   })
                 "
               >

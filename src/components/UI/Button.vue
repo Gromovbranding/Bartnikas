@@ -53,7 +53,7 @@ const classes = computed(() => {
   text-align: center;
 
   &:hover {
-    transform: translateY(-20px);
+    transform: translateY(-12px);
   }
 
   &--grey {

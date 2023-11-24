@@ -1,17 +1,8 @@
 <script lang="ts" setup>
-const {
-  getCountAllAwards,
-  cart,
-  getActiveFooterContact,
-  getActiveGeneralInfo,
-} = usePublicData();
+const { getActiveFooterContact, getActiveGeneralInfo } = usePublicData();
 
 const route = useRoute();
 const isMenuVisible = ref(false);
-const { data: awardsCount } = await useAsyncData<number>(
-  "awardsCount",
-  async () => await getCountAllAwards()
-);
 
 watch(
   () => route.path,
@@ -61,7 +52,7 @@ const { data: emails } = await useAsyncData(
           </li>
           <li>
             <NuxtLink to="/awards">
-              AWARDS <sup v-if="awardsCount > 0">>{{ awardsCount }}</sup>
+              AWARDS <sup>> 200</sup>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -108,7 +99,7 @@ const { data: emails } = await useAsyncData(
             <NuxtLink to="/video-collection"> VIDEO COLLECTION </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/payment"> PAYMENT/DELIVERY </NuxtLink>
+            <NuxtLink to="/faq"> FAQ </NuxtLink>
           </li>
           <li>
             <NuxtLink to="/contacts"> CONTACTS </NuxtLink>
@@ -117,9 +108,9 @@ const { data: emails } = await useAsyncData(
       </div>
       <div class="menu__additional-info">
         <div class="menu__cart">
-          <NuxtLink to="/cart" :data-tooltip="cart.length">
+          <!-- <NuxtLink to="/cart" :data-tooltip="cart.length">
             <IconCart />
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
 
         <div class="menu__terms">
@@ -129,9 +120,6 @@ const { data: emails } = await useAsyncData(
             </li>
             <li>
               <NuxtLink to="/blog"> Blog </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/faq"> FAQ </NuxtLink>
             </li>
           </ul>
         </div>
@@ -186,7 +174,7 @@ const { data: emails } = await useAsyncData(
 
   &__cart {
     margin-top: 40px;
-    margin-bottom: 220px;
+    margin-bottom: 365px;
 
     a {
       display: block;
@@ -430,7 +418,11 @@ const { data: emails } = await useAsyncData(
       padding-right: 0;
       margin-top: 0;
     }
+    &__nav {
+      flex-direction: column;
+    }
     &__cart {
+      display: none;
       // position: absolute;
       // top: 0.5rem;
     }

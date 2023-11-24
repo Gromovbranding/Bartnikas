@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { UploadUserFile } from "element-plus";
 import { Close, Delete } from "@element-plus/icons-vue";
-import type {
-  IProject,
-  IProjectPressRelease,
-  PartialAdminApiDto,
+import {
+  ListUnitSize,
+  type IProject,
+  type IProjectImageDetail,
+  type IProjectPressRelease,
+  type PartialAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
@@ -14,23 +16,6 @@ definePageMeta({
     return /^\d+$/.test(route.params.id as string);
   },
 });
-
-interface ImageDetails {
-  [key: number]: {
-    sizes: {
-      width: number;
-      height: number;
-      unit: "cm";
-      quantity: number;
-    }[];
-    is_active: boolean;
-    price: number;
-    image_name: string;
-    image: {
-      name: string;
-    };
-  };
-}
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const uploadProjectImagesRef = ref<InstanceType<typeof AdminUploadFile> | null>(
@@ -49,7 +34,9 @@ const route = useRoute();
 const id = Number(route.params.id);
 const imageFiles = ref<UploadUserFile[]>([]);
 
-const projectImages = ref<ImageDetails>({});
+const projectImages = ref<{
+  [key: number]: PartialAdminApiDto<IProjectImageDetail>;
+}>({});
 
 const { projects } = useAdmin();
 const { formRules, navigateBack, titles, methods } = projects();
@@ -106,6 +93,13 @@ const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
+      form.details.forEach((item, idx) => {
+        projectImages.value[item.id] = {
+          ...item,
+          order: item.order === 0 ? idx + 1 : item.order,
+        };
+      });
+
       const arr = [];
 
       for await (const file of imageFiles.value) {
@@ -122,7 +116,7 @@ const handleUpdate = async () => {
               ...form.collab,
               press_release: await Promise.all(
                 (form.collab?.press_release ?? []).map(async (item, idx) => {
-                  const file = await uploadPressReleaseRefs.value[
+                  const file = await uploadPressReleaseRefs.value![
                     idx
                   ]!.uploadToServer();
 
@@ -158,8 +152,11 @@ onMounted(() => {
     uid: item.id,
     edit: true,
   }));
-  form.details.forEach((item) => {
-    projectImages.value[item.id] = item;
+  form.details.forEach((item, idx) => {
+    projectImages.value[item.id] = {
+      ...item,
+      order: item.order === 0 ? idx + 1 : item.order,
+    };
   });
 });
 
@@ -167,9 +164,13 @@ watch(
   () => imageFiles.value,
   (val) => {
     val.forEach((item) => {
-      if (projectImages.value[item.uid]) return;
-      projectImages.value[item.uid] = {
-        sizes: [{ width: 100, height: 100, unit: "cm", quantity: 1 }],
+      if (projectImages.value[item.uid!]) return;
+      projectImages.value[item.uid!] = {
+        is_show_poster: false,
+        order: imageFiles.value.length,
+        sizes: [
+          { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 },
+        ],
         is_active: true,
         price: 100,
         image_name: item.name,
@@ -178,8 +179,17 @@ watch(
         },
       };
     });
+
+    handleResort();
   }
 );
+
+const handleResort = () => {
+  imageFiles.value.sort(
+    (a, b) =>
+      projectImages.value[a.uid!].order - projectImages.value[b.uid!].order
+  );
+};
 </script>
 
 <template>
@@ -309,10 +319,26 @@ watch(
             />
             <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>
               <div class="img__details">
+                <label>
+                  Order:
+                  <input
+                    v-model="projectImages[file.uid!].order"
+                    type="number"
+                    min="1"
+                    :max="imageFiles.length"
+                    @input="handleResort"
+                  />
+                </label>
                 <label
                   >Is active:
                   <input
                     v-model="projectImages[file.uid!].is_active"
+                    type="checkbox"
+                /></label>
+                <label
+                  >Is Show poster:
+                  <input
+                    v-model="projectImages[file.uid!].is_show_poster"
                     type="checkbox"
                 /></label>
                 <ElFormItem required label="Name" label-width="60">
@@ -365,7 +391,7 @@ watch(
                   projectImages[file.uid!].sizes.push({
                     width: 100,
                     height: 100,
-                    unit: 'cm',
+                    unit: ListUnitSize.cm,
                     quantity: 1,
                   })
                 "

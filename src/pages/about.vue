@@ -17,7 +17,7 @@ const { getBio, getBioTestimonials } = usePublicData();
 const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
 
 useHeadSafe({
-  title: "Biography",
+  title: "About",
   meta: [
     {
       name: "description",
@@ -48,7 +48,7 @@ function onPointerDown(e: PointerEvent) {
 
 <template>
   <main @pointerup="scrollActive = false">
-    <AppPageHead title="Biography" />
+    <AppPageHead title="About" />
 
     <section class="biography-about">
       <div class="biography-about__img">
@@ -126,7 +126,7 @@ function onPointerDown(e: PointerEvent) {
       </div>
     </section>
     <AppAwardsSection />
-    <AppContentSpliter> STATEMENT </AppContentSpliter>
+    <AppContentSpliter> CONCEPT </AppContentSpliter>
     <AppSectionVideoGreeting :style="videoGreetingStyle" />
   </main>
 </template>
@@ -152,7 +152,7 @@ function onPointerDown(e: PointerEvent) {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     padding: 3vw;
 
     p {

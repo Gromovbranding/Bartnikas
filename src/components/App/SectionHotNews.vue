@@ -21,7 +21,7 @@ const title = computed(() => {
   <section v-if="article" class="hot-news">
     <div class="hot-news__wrapper">
       <AppSectionHeader :is-link="false" white style="margin-bottom: 0">
-        HOT NEWS
+        NEWS
       </AppSectionHeader>
       <div class="hot-news__ticker">
         <UIMarquee>

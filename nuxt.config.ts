@@ -31,6 +31,11 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/admin/": { redirect: "/admin/projects", ssr: false },
+    "/cart": { redirect: "/", ssr: false },
+    "/checkout": { redirect: "/", ssr: false },
+    "/payment": { redirect: "/", ssr: false },
+    "/admin/delivery-static": { redirect: "/admin/projects", ssr: false },
+    "/admin/media/cv": { redirect: "/admin/projects", ssr: false },
   },
 
   app: {

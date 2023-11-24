@@ -5,6 +5,14 @@ const mediaTabs = ref([
     label: "Latest News",
   },
   {
+    component: shallowRef(resolveComponent("AppMediaTabExhibitions")),
+    label: "Exhibitions",
+  },
+  {
+    component: shallowRef(resolveComponent("AppMediaTabPublications")),
+    label: "Publications",
+  },
+  {
     component: shallowRef(resolveComponent("AppMediaTabKit")),
     label: "Media Kit",
   },
@@ -12,18 +20,10 @@ const mediaTabs = ref([
     component: shallowRef(resolveComponent("AppMediaTabPresentation")),
     label: "Presentation",
   },
-  {
-    component: shallowRef(resolveComponent("AppMediaTabCV")),
-    label: "CV",
-  },
-  {
-    component: shallowRef(resolveComponent("AppMediaTabPublications")),
-    label: "Publications",
-  },
-  {
-    component: shallowRef(resolveComponent("AppMediaTabExhibitions")),
-    label: "Exhibitions",
-  },
+  // {
+  //   component: shallowRef(resolveComponent("AppMediaTabCV")),
+  //   label: "CV",
+  // },
 ]);
 
 const selectedTab = ref(mediaTabs.value[0]);

@@ -144,7 +144,7 @@ function toOrder() {
             </div>
           </div>
         </div>
-        <UIButton @click="toOrder">ORDER</UIButton>
+        <UIButton @click="toOrder">REQUEST</UIButton>
       </div>
     </section>
 
@@ -182,7 +182,7 @@ function toOrder() {
         :image="projectImage"
         :project-id="projectId"
         :selected-size="
-          projectImage.sizes.find((item) => item.id === selectedSize.value)
+          projectImage.sizes.find((item) => item.id === selectedSize.value)!
         "
         @order="isShowOrderFormEmail = false"
       />

@@ -2,16 +2,11 @@
 import type { IAwards } from "~/types/admin-api";
 
 const showModal = ref(false);
-const { getAllAwards, getCountAllAwards } = usePublicData();
+const { getAllAwards } = usePublicData();
 
 const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
   async () => await getAllAwards()
-);
-
-const { data: awardsCount } = await useAsyncData<number>(
-  "awardsCount",
-  async () => await getCountAllAwards()
 );
 
 useHeadSafe({
@@ -38,7 +33,7 @@ function showImg(name: string) {
 
 <template>
   <main>
-    <AppPageHead bg-color="grey" title="Awards" :number="`>${awardsCount}`" />
+    <AppPageHead bg-color="grey" title="Awards" :number="`> 200`" />
     <section class="awards">
       <div v-for="award in awards" :key="award.id" class="awards__item">
         <div class="awards__circle">

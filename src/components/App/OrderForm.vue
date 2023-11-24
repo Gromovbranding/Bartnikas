@@ -23,7 +23,7 @@ const form = ref<{
 }>({
   name: "",
   email: "",
-  quantity: 0,
+  quantity: 1,
 });
 
 const handleOrder = async () => {
@@ -60,15 +60,16 @@ const handleOrder = async () => {
       </div>
       <div class="order-form__left__img-info">
         <h3>{{ image.image_name }}</h3>
-        <AppFormQuanity
+        <!-- <AppFormQuanity
           v-model="form.quantity"
           :maxlength="selectedSize.quantity"
-        />
+        /> -->
       </div>
     </div>
     <div>
       <h3>
-        To order the energy-filled photography, please fill out the form below.
+        To request the energy-filled photography, please fill out the form
+        below.
       </h3>
       <form @submit.prevent>
         <div>
@@ -83,7 +84,7 @@ const handleOrder = async () => {
             placeholder="mail@example.com"
           />
         </div>
-        <UIButton style="width: 100%" @click="handleOrder"> Submit </UIButton>
+        <UIButton style="width: 100%" @click="handleOrder"> Request </UIButton>
       </form>
     </div>
   </section>

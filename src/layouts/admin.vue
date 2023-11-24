@@ -52,7 +52,7 @@ const sidebarItems: {
     icon: "ep:chat-line-square",
   },
   {
-    text: "Statement",
+    text: "Concept",
     url: "/admin/greetings",
     icon: "ep:chat-line-square",
   },
@@ -69,11 +69,6 @@ const sidebarItems: {
   {
     text: "About me",
     url: "/admin/bio",
-    icon: "ep:chat-line-square",
-  },
-  {
-    text: "Payment & Delivery",
-    url: "/admin/delivery-static",
     icon: "ep:chat-line-square",
   },
   {

@@ -13,10 +13,7 @@ const list = computed(() => (awards.value ?? []).slice(0, 12));
 
 <template>
   <section v-if="list.length > 0" class="awards">
-    <AppSectionHeader
-      :to-caption="`>${Number(awards?.length ?? 0)}`"
-      to="/awards"
-    >
+    <AppSectionHeader :to-caption="`> 200`" to="/awards">
       AWARDS
     </AppSectionHeader>
     <div class="awards__content">

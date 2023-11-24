@@ -63,7 +63,7 @@ function copyColor(idx: number) {
 </script>
 
 <template>
-  <div v-if="!!projects?.length">
+  <div v-if="false">
     <section class="interios-order">
       <AppSectionHeader :is-link="false"> IN INTERIORS </AppSectionHeader>
       <div class="interios-order__content">
@@ -91,11 +91,13 @@ function copyColor(idx: number) {
             <div class="controls">
               <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
               <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
-              <UIButton :to="orderImgLink"> Order </UIButton>
+              <UIButton :to="orderImgLink"> REQUEST </UIButton>
             </div>
           </div>
           <div class="interios-order__project-order">
-            <UIButton style="width: 100%" :to="orderImgLink"> Order </UIButton>
+            <UIButton style="width: 100%" :to="orderImgLink">
+              REQUEST
+            </UIButton>
           </div>
         </div>
         <div class="swiper-slider__main">

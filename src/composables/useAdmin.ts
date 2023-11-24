@@ -247,8 +247,8 @@ export const useAdmin = () => {
       methods,
 
       titles: reactive({
-        create: createTitle("create", "Statement"),
-        edit: createTitle("edit", "Statement"),
+        create: createTitle("create", "Concept"),
+        edit: createTitle("edit", "Concept"),
       }),
 
       navigateBack: ref("/admin/greetings"),

@@ -27,7 +27,7 @@ const { data: presentation } = useAsyncData<IMediaPresentation[]>(
           :to="useGetFileByUrl(item.pdf.name)"
           download
         >
-          Download PDF
+          DOWNLOAD PDF
         </UIButton>
       </div>
     </article>

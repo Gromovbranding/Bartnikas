@@ -187,7 +187,7 @@ const changeDetailOrder = (
                       <NuxtLink
                         :to="`/projects/${project.id}/order/${activeOrderDetail.id}`"
                       >
-                        <span>Order</span>
+                        <span>REQUEST</span>
                         <IconArrow is-arrow30-deg />
                       </NuxtLink>
                     </div>
@@ -234,7 +234,7 @@ const changeDetailOrder = (
             </div>
             <div>
               <NuxtLink :to="`/projects/${project.id}/order/${detail.id}`">
-                <span>Order</span>
+                <span>REQUEST</span>
                 <IconArrow is-arrow30-deg />
               </NuxtLink>
             </div>

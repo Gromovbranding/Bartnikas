@@ -62,8 +62,8 @@ export const usePublicData = () => {
   const getAwardsById = async (id: string | number) =>
     await fetchGet<IAwards>(`awards/${id}`);
 
-  const getCountAllAwards = async () =>
-    await fetchGet<number>("awards/count/all");
+  // const getCountAllAwards = async () =>
+  //   await fetchGet<number>("awards/count/all");
 
   const getAllAwards = async () => await fetchGet<IAwards[]>("awards");
 
@@ -135,7 +135,7 @@ export const usePublicData = () => {
     getTestimoinialsById,
     getAllTestimonials,
     getAwardsById,
-    getCountAllAwards,
+    // getCountAllAwards,
     getAllAwards,
     getIndexSlider,
     getAllVideoCollection,

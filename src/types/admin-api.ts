@@ -70,8 +70,10 @@ export interface IProjectImageDetail {
   price: number;
   sizes: IProjectImageSizes[];
   is_active: boolean;
+  is_show_poster: boolean;
   image: IFile;
   image_name: string;
+  order: number;
   created_at: Date;
   updated_at: Date;
 }
@@ -262,6 +264,7 @@ export interface IProjectOrderByEmail {
   name: string;
   email: string;
   image_name: string;
+  size: IProjectImageSizes;
   url: string;
   price: number;
   status: string;

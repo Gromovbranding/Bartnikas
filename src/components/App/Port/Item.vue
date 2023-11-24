@@ -6,8 +6,31 @@ interface Props {
   project: IProject;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   direction: "row",
+});
+
+const portImages = computed(() => {
+  const portImage = props.project.details.filter((item) => item.is_show_poster);
+
+  if (props.project.details.length >= 2) {
+    if (portImage.length === 0) {
+      return [props.project.details[0], props.project.details[1]];
+    } else if (portImage.length === 1) {
+      return [
+        portImage[0],
+        props.project.details.find((item) => !item.is_show_poster)!,
+      ];
+    }
+
+    return [portImage[0], portImage[1]];
+  }
+
+  if (props.project.details.length === 0) {
+    return [];
+  }
+
+  return [props.project.details[0]];
 });
 </script>
 
@@ -17,19 +40,19 @@ withDefaults(defineProps<Props>(), {
     class="port"
     :class="{ reverse: direction === 'row-reverse' }"
   >
-    <div v-if="project.details[0]" class="port__img">
+    <div v-if="portImages.length >= 1" class="port__img">
       <div class="scale">
         <NuxtImg
           loading="lazy"
-          :src="`/baseApiFiles/${project.details[0].image.name}`"
+          :src="`/baseApiFiles/${portImages[0].image.name}`"
         />
       </div>
     </div>
-    <div v-if="project.details[1]" class="port__content">
-      <div class="scale">
+    <div class="port__content">
+      <div v-if="portImages.length >= 2" class="scale">
         <NuxtImg
           loading="lazy"
-          :src="`/baseApiFiles/${project.details[1].image.name}`"
+          :src="`/baseApiFiles/${portImages[1].image.name}`"
         />
       </div>
       <div class="port__text">

@@ -30,7 +30,12 @@ const {
     <ElTableColumn label="Name" prop="name" />
     <ElTableColumn label="Email" prop="email" />
     <ElTableColumn label="Image name" prop="image_name" />
-    <ElTableColumn label="Price" prop="price" />
+    <ElTableColumn label="Size" prop="size">
+      <template #default="{ row }: { row: IProjectOrderByEmail }">
+        {{ row.size.width }} x
+        {{ row.size.height }}
+      </template>
+    </ElTableColumn>
     <ElTableColumn label="URL Image" prop="url" />
     <ElTableColumn label="Status" prop="status" />
   </AdminTemplateCardIndexPage>
