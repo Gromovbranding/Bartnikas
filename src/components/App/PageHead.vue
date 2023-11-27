@@ -11,6 +11,7 @@ interface Props {
   title?: string;
   back?: boolean;
   number?: number | string;
+  additionalInfo?: string;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -71,6 +72,12 @@ const onClickLogo = () => {
     <h1 v-if="!onlyLogo && title" class="page-head__caption">
       {{ title }}<sup>{{ number }}</sup>
     </h1>
+    <p
+      v-if="additionalInfo"
+      style="color: #808080; font-size: 18px; margin-top: 20px"
+    >
+      {{ additionalInfo }}
+    </p>
   </header>
 </template>
 

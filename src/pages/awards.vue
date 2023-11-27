@@ -33,7 +33,12 @@ function showImg(name: string) {
 
 <template>
   <main>
-    <AppPageHead bg-color="grey" title="Awards" :number="`> 200`" />
+    <AppPageHead
+      bg-color="grey"
+      title="Awards"
+      :number="`> 200`"
+      additional-info="Stanislav has won more than 200 different awards throughout his career. Below are some of them."
+    />
     <section class="awards">
       <div v-for="award in awards" :key="award.id" class="awards__item">
         <div class="awards__circle">
