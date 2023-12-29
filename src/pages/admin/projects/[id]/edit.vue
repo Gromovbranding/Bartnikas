@@ -82,7 +82,7 @@ const handleDelete = async () => {
 
 const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
   form.details = imgs.map((item) => {
-    const deets = projectImages.value[item.uid];
+    const deets = toValue(projectImages.value[item.uid]);
     deets.image = {
       name: item.name,
     };
@@ -95,7 +95,7 @@ const handleUpdate = async () => {
     try {
       form.details.forEach((item, idx) => {
         projectImages.value[item.id] = {
-          ...item,
+          ...projectImages.value[item.id],
           order: item.order === 0 ? idx + 1 : item.order,
         };
       });
@@ -132,7 +132,7 @@ const handleUpdate = async () => {
 
       await refreshNuxtData();
 
-      await navigateTo(navigateBack.value);
+      // await navigateTo(navigateBack.value);
     } catch (exc) {
       console.error(exc);
     }
@@ -185,10 +185,11 @@ watch(
 );
 
 const handleResort = () => {
-  imageFiles.value.sort(
-    (a, b) =>
+  imageFiles.value.sort((a, b) => {
+    return (
       projectImages.value[a.uid!].order - projectImages.value[b.uid!].order
-  );
+    );
+  });
 };
 </script>
 
@@ -409,7 +410,7 @@ const handleResort = () => {
         </AdminUploadFile>
       </ElFormItem>
 
-      <ElFormItem>
+      <ElFormItem class="ajwodfhwoeif">
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
         <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
       </ElFormItem>
@@ -418,6 +419,11 @@ const handleResort = () => {
 </template>
 
 <style scoped lang="scss">
+.ajwodfhwoeif {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 .img {
   flex-grow: 1;
   margin-left: 1rem;

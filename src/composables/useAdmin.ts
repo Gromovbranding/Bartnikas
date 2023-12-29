@@ -37,7 +37,9 @@ export const useAdmin = () => {
     const handlePatch = async (
       id: number,
       data: Model | PartialAdminApiDto<Model>
-    ): Promise<Model> => await fetchPatch<Model>(`/${path}/${id}`, data);
+    ): Promise<Model> => {
+      return await fetchPatch<Model>(`/${path}/${id}`, data);
+    };
 
     const handleCreate = async (data: RecordModel): Promise<Model> =>
       await fetchPost<Model>(`/${path}`, data);

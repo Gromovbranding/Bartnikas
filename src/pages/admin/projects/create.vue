@@ -146,7 +146,6 @@ watch(
   (val) => {
     val.forEach((item) => {
       if (projectImages.value[item.uid!]) return;
-
       projectImages.value[item.uid!] = {
         is_show_poster: false,
         order: imageFiles.value.length,
@@ -161,7 +160,6 @@ watch(
         },
       };
     });
-
     handleResort();
   }
 );
