@@ -147,11 +147,13 @@ const onClickDelete = (e: Event) => {
 };
 
 onMounted(() => {
-  imageFiles.value = form.details.map((item) => ({
-    ...item,
-    uid: item.id,
-    edit: true,
-  }));
+  imageFiles.value = form.details
+    .map((item) => ({
+      ...item,
+      uid: item.id,
+      edit: true,
+    }))
+    .toSorted((a, b) => a.order - b.order);
   form.details.forEach((item, idx) => {
     projectImages.value[item.id] = {
       ...item,

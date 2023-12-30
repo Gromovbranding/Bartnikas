@@ -38,17 +38,15 @@ const { data: contacts } = await useAsyncData(
           </a>
         </div>
       </div>
-      <div class="footer__gromov">
+      <a href="https://gromovbranding.ru/" class="footer__gromov">
         <div>
-          <p>Designed by <a href="javascript:void(0)">Gromov Branding</a></p>
-        </div>
-        <div>
+          <p style="margin-bottom: 10px">Designed by Gromov Branding</p>
           <IconGromov />
         </div>
         <div>
           <p>{{ new Date().getFullYear() }}</p>
         </div>
-      </div>
+      </a>
     </div>
   </footer>
 </template>
