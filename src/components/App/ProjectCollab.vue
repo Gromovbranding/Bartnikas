@@ -92,7 +92,7 @@ function playVideo() {
     grid-template-columns: 1fr 1fr;
     column-gap: 55px;
     padding: 2rem;
-    background-color: #1b61cb;
+    background-color: $colorAccentBlue;
     &__item {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -135,7 +135,7 @@ function playVideo() {
     }
   }
   &__text {
-    background-color: #1b61cb;
+    background-color: $colorAccentBlue;
     border-radius: 10px;
     color: #fff;
     font-size: 1.22rem;

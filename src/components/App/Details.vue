@@ -120,7 +120,7 @@ summary {
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #1b61cb;
+  background-color: $colorAccentBlue;
   color: #fff;
   position: relative;
   z-index: 2;
