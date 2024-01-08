@@ -11,12 +11,14 @@ const props = withDefaults(
     fileType?: "image" | "files" | "video";
     single?: boolean;
     multiple?: boolean;
+    isShowFiles?: boolean;
   }>(),
   {
     modelValue: null,
     single: true,
     fileType: "image",
     multiple: false,
+    isShowFiles: true,
   }
 );
 
@@ -44,6 +46,13 @@ const handleConvertFileList = computed(() => {
 
   return fileList.value;
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    refreshNuxtData();
+  }
+);
 
 watchEffect(() => {
   emits("update:modelValue", handleConvertFileList.value);
@@ -132,6 +141,7 @@ defineExpose({
       :list-type="fileType === 'image' ? 'picture' : 'text'"
       :accept="fileTypes"
       :auto-upload="false"
+      :show-file-list="isShowFiles"
     >
       <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
       <div class="el-upload__text">
