@@ -50,7 +50,11 @@ const handleConvertFileList = computed(() => {
 watch(
   () => props.modelValue,
   () => {
-    refreshNuxtData();
+    fileList.value = Array.isArray(props.modelValue)
+      ? props.modelValue
+      : props.modelValue === null
+      ? []
+      : [props.modelValue].filter((item) => !!item);
   }
 );
 
