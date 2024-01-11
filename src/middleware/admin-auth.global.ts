@@ -26,7 +26,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     try {
       await fetchGet("auth/me");
     } catch {
-      if (~(to.name as string).indexOf("admin-login")) {
+      if (!~(to.name as string).indexOf("admin-login")) {
         return await navigateTo("/admin/login");
       }
     }
