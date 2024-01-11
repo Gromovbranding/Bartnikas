@@ -19,6 +19,7 @@
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.5",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@nuxtjs/i18n": "^8.0.0",
     "element-plus": "^2.3.7",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",

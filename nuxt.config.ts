@@ -1,4 +1,4 @@
-const BASE_URL_API = "https://api.stanislavbartnikas.com";
+const BASE_URL_API = "http://localhost:8080";
 const BASE_URL_FILES_API = BASE_URL_API + "/files";
 
 export default defineNuxtConfig({
@@ -8,6 +8,12 @@ export default defineNuxtConfig({
       "@element-plus/nuxt",
       {
         importStyle: "css",
+      },
+    ],
+    [
+      "@nuxtjs/i18n",
+      {
+        vueI18n: "./src/packages/i18n.ts",
       },
     ],
     "@nuxt/image",
@@ -68,6 +74,10 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: "node-cluster",
+  },
+
+  devtools: {
+    enabled: false,
   },
 
   vite: {
