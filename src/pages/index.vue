@@ -46,6 +46,7 @@ onBeforeUnmount(() => {
 <template>
   <main>
     <Title>Home</Title>
+
     <header class="header" style="height: 150vh">
       <div ref="headerMain" class="header__main">
         <IconLogo is-full-black />

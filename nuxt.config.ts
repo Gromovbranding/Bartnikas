@@ -1,5 +1,6 @@
-const BASE_URL_API = "http://localhost:8080";
-const BASE_URL_FILES_API = BASE_URL_API + "/files";
+const DEV_BASE_API_URL = "http://localhost:8080";
+const PROD_BASE_API_URL = "https://api.stanislavbartnikas.com";
+const BASE_API_FILES = "/files";
 
 export default defineNuxtConfig({
   srcDir: "src",
@@ -14,25 +15,46 @@ export default defineNuxtConfig({
       "@nuxtjs/i18n",
       {
         vueI18n: "./src/packages/i18n.ts",
+        locales: ["ru", "en"],
+        defaultLocale: "en",
       },
     ],
     "@nuxt/image",
     "nuxt-swiper",
   ],
 
-  image: {
-    format: ["webp", "avif", "png", "jpg", "jpeg", "svg"],
-    domains: [BASE_URL_API],
-    alias: {
-      baseApiFiles: BASE_URL_FILES_API,
+  $development: {
+    runtimeConfig: {
+      public: {
+        apiBaseUrl: DEV_BASE_API_URL,
+        apiFilesUrl: `${DEV_BASE_API_URL}${BASE_API_FILES}`,
+      },
+    },
+    image: {
+      domains: [DEV_BASE_API_URL],
+      alias: {
+        baseApiFiles: `${DEV_BASE_API_URL}${BASE_API_FILES}`,
+      },
     },
   },
 
-  runtimeConfig: {
-    public: {
-      apiBaseUrl: BASE_URL_API,
-      apiFilesUrl: BASE_URL_FILES_API,
+  $production: {
+    runtimeConfig: {
+      public: {
+        apiBaseUrl: PROD_BASE_API_URL,
+        apiFilesUrl: `${PROD_BASE_API_URL}${BASE_API_FILES}`,
+      },
     },
+    image: {
+      domains: [PROD_BASE_API_URL],
+      alias: {
+        baseApiFiles: `${PROD_BASE_API_URL}${BASE_API_FILES}`,
+      },
+    },
+  },
+
+  image: {
+    format: ["webp", "avif", "png", "jpg", "jpeg", "svg"],
   },
 
   routeRules: {
