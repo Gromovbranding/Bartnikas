@@ -176,7 +176,7 @@ watch(
         (projectItem) => projectItem?.uid === item?.uid
       );
       if (!foundProject) {
-        projectImages.value.push({
+        projectImages.value.unshift({
           uid: item.uid,
           is_show_poster: false,
           order: imageFiles.value.length,
@@ -330,14 +330,14 @@ watch(
                 />
                 <div v-if="file?.uid" class="img" @keydown.stop>
                   <div class="img__details">
-                    <label
-                      >Is active:
-                      <input v-model="file.is_active" type="checkbox"
-                    /></label>
-                    <label
-                      >Is Show poster:
-                      <input v-model="file.is_show_poster" type="checkbox"
-                    /></label>
+                    <label>
+                      Is active:
+                      <input v-model="file.is_active" type="checkbox" />
+                    </label>
+                    <label>
+                      Is Show poster:
+                      <input v-model="file.is_show_poster" type="checkbox" />
+                    </label>
                     <ElFormItem required label="Name" label-width="60">
                       <ElInput v-model="file.image_name" size="small" />
                     </ElFormItem>

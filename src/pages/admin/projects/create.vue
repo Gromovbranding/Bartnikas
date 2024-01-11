@@ -7,6 +7,7 @@ import {
   type IProjectImageDetail,
   type IProjectPressRelease,
   type PartialAdminApiDto,
+  type PartialFileAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
@@ -51,9 +52,9 @@ const form = reactive<PartialAdminApiDto<IProject>>({
 
 const imageFiles = ref<UploadUserFile[]>([]);
 
-const projectImages = ref<{
-  [key: number]: PartialAdminApiDto<IProjectImageDetail>;
-}>({});
+const projectImages = ref<
+  PartialAdminApiDto<(IProjectImageDetail & { uid?: number })[]>
+>([]);
 
 const isCollab = ref(false);
 
@@ -82,26 +83,45 @@ const removePressRelease = (
   );
 };
 
-const imagesToDetails = (imgs: { uid: number; name: string }[]) => {
-  form.details = imgs.map((item, idx) => {
-    const deets = projectImages.value[item.uid];
-    deets.image = {
-      name: item.name,
-    };
-    deets.order = deets.order === 0 ? idx + 1 : deets.order;
-    return deets;
-  });
-};
-
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const arr = [];
+      projectImages.value = projectImages.value.map((item, idx) => ({
+        ...item,
+        order: idx + 1,
+      }));
+
+      const arr: {
+        file: PartialFileAdminApiDto;
+        uid?: number;
+      }[] = [];
+
       for await (const file of imageFiles.value) {
-        arr.push(await uploadProjectImagesRef.value!.uploadToServer(file));
+        const uploadedFile = await uploadProjectImagesRef.value!.uploadToServer(
+          file
+        );
+        arr.push({
+          file: uploadedFile,
+          uid: file.uid,
+        });
       }
 
-      imagesToDetails(arr);
+      projectImages.value = projectImages.value.map((item) => {
+        const uploadedFile = arr.find(
+          (uploadedFile) => uploadedFile.uid === item?.uid
+        );
+
+        if (uploadedFile) {
+          return {
+            ...item,
+            image: {
+              name: uploadedFile.file.name,
+            },
+          };
+        }
+
+        return item;
+      });
 
       await methods.handleCreate({
         ...toValue(form),
@@ -134,42 +154,52 @@ const handleCreate = async () => {
   }
 };
 
-const onClickDelete = (e: Event) => {
-  const btn = e.target as HTMLButtonElement;
-  btn.dispatchEvent(
-    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
+const handleProjectDetailDelete = (
+  item: PartialAdminApiDto<IProjectImageDetail & { uid?: number }>
+) => {
+  projectImages.value = projectImages.value.filter(
+    (projectItem) => projectItem.uid !== item?.uid
   );
+
+  imageFiles.value = imageFiles.value.filter((s) => s.uid !== item?.uid);
 };
+
+onMounted(() => {
+  projectImages.value = form.details
+    .toSorted((a, b) => a.order - b.order)
+    .map((item) => ({
+      ...item,
+      uid: item.id,
+    }));
+});
 
 watch(
   () => imageFiles.value,
   (val) => {
     val.forEach((item) => {
-      if (projectImages.value[item.uid!]) return;
-      projectImages.value[item.uid!] = {
-        is_show_poster: false,
-        order: imageFiles.value.length,
-        sizes: [
-          { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 },
-        ],
-        is_active: true,
-        price: 100,
-        image_name: item.name,
-        image: {
-          name: item.name,
-        },
-      };
+      const foundProject = projectImages.value.find(
+        (projectItem) => projectItem?.uid === item?.uid
+      );
+      if (!foundProject) {
+        projectImages.value.unshift({
+          uid: item.uid,
+          is_show_poster: false,
+          order: imageFiles.value.length,
+          sizes: [
+            { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 },
+          ],
+          is_active: true,
+          price: 100,
+          image_name: item.name,
+          url: item.url,
+          image: {
+            name: item.name,
+          },
+        });
+      }
     });
-    handleResort();
   }
 );
-
-const handleResort = () => {
-  imageFiles.value.sort(
-    (a, b) =>
-      projectImages.value[a.uid!].order - projectImages.value[b.uid!].order
-  );
-};
 </script>
 
 <template>
@@ -291,106 +321,103 @@ const handleResort = () => {
         <AdminUploadFile
           ref="uploadProjectImagesRef"
           v-model="imageFiles"
+          :is-show-files="false"
           multiple
           :single="false"
-        >
-          <template #default="{ file }: { file: UploadUserFile }">
-            <img
-              class="el-upload-list__item-thumbnail"
-              :src="file.url"
-              alt=""
-            />
+        />
+      </ElFormItem>
 
-            <div v-if="projectImages[file.uid!]" class="img" @keydown.stop>
-              <div class="img__details">
-                <label>
-                  Order:
-                  <input
-                    v-model="projectImages[file.uid!].order"
-                    type="number"
-                    min="1"
-                    :max="imageFiles.length"
-                    @input="handleResort"
-                  />
-                </label>
-                <label
-                  >Is active:
-                  <input
-                    v-model="projectImages[file.uid!].is_active"
-                    type="checkbox"
-                /></label>
-                <label
-                  >Is Show poster:
-                  <input
-                    v-model="projectImages[file.uid!].is_show_poster"
-                    type="checkbox"
-                /></label>
-                <ElFormItem required label="Name" label-width="60">
-                  <ElInput
-                    v-model="projectImages[file.uid!].image_name"
-                    size="small"
-                  />
-                </ElFormItem>
-                <ElFormItem required label="Price, €" label-width="70">
-                  <el-input-number
-                    v-model="projectImages[file.uid!].price"
-                    :min="1"
-                    size="small"
-                  />
-                </ElFormItem>
-              </div>
-              <h3>Sizes</h3>
-              <div
-                v-for="(item, idx) in projectImages[file.uid!].sizes"
-                :key="idx"
-                class="img__sizes"
-              >
-                <label
-                  >Width, cm
-                  <el-input-number v-model="item.width" :min="1" size="small"
-                /></label>
-                <label
-                  >Height, cm
-                  <el-input-number v-model="item.height" :min="1" size="small"
-                /></label>
-                <label
-                  >Quantity
-                  <el-input-number
-                    v-model="item.quantity"
-                    :min="0"
-                    size="small"
-                /></label>
+      <ElFormItem>
+        <div class="el-upload-list el-upload-list--picture" style="width: 100%">
+          <draggable v-model="projectImages" item-key="order">
+            <template #item="{ element: file }">
+              <div class="el-upload-list__item">
+                <img
+                  class="el-upload-list__item-thumbnail"
+                  :src="file?.url || useGetFileByUrl(file?.image?.name)"
+                  alt=""
+                />
+                <div v-if="file?.uid" class="img" @keydown.stop>
+                  <div class="img__details">
+                    <label
+                      >Is active:
+                      <input v-model="file.is_active" type="checkbox"
+                    /></label>
+                    <label
+                      >Is Show poster:
+                      <input v-model="file.is_show_poster" type="checkbox"
+                    /></label>
+                    <ElFormItem required label="Name" label-width="60">
+                      <ElInput v-model="file.image_name" size="small" />
+                    </ElFormItem>
+                    <ElFormItem required label="Price, €" label-width="70">
+                      <el-input-number
+                        v-model="file.price"
+                        :min="1"
+                        size="small"
+                      />
+                    </ElFormItem>
+                  </div>
+                  <h3>Sizes</h3>
+                  <div
+                    v-for="(item, idx) in file.sizes"
+                    :key="idx"
+                    class="img__sizes"
+                  >
+                    <label
+                      >Width, cm
+                      <el-input-number
+                        v-model="item.width"
+                        :min="1"
+                        size="small"
+                    /></label>
+                    <label
+                      >Height, cm
+                      <el-input-number
+                        v-model="item.height"
+                        :min="1"
+                        size="small"
+                    /></label>
+                    <label
+                      >Quantity
+                      <el-input-number
+                        v-model="item.quantity"
+                        :min="0"
+                        size="small"
+                    /></label>
+                    <el-button
+                      v-if="idx !== 0"
+                      type="danger"
+                      :icon="Delete"
+                      circle
+                      @click="file.sizes.splice(idx, 1)"
+                    >
+                    </el-button>
+                  </div>
+                  <el-button
+                    type="primary"
+                    @click="
+                      file.sizes.push({
+                        width: 100,
+                        height: 100,
+                        unit: ListUnitSize.cm,
+                        quantity: 1,
+                      })
+                    "
+                  >
+                    add
+                  </el-button>
+                </div>
                 <el-button
-                  v-if="idx !== 0"
                   type="danger"
-                  :icon="Delete"
+                  :icon="Close"
                   circle
-                  @click="projectImages[file.uid!].sizes.splice(idx, 1)"
-                >
-                </el-button>
+                  @click="handleProjectDetailDelete(file)"
+                ></el-button>
               </div>
-              <el-button
-                type="primary"
-                @click="
-                  projectImages[file.uid!].sizes.push({
-                    width: 100,
-                    height: 100,
-                    quantity: 1,
-                    unit: ListUnitSize.cm,
-                  })
-                "
-              >
-                add
-              </el-button>
-            </div>
-            <el-button
-              type="danger"
-              :icon="Close"
-              circle
-              @click="onClickDelete"
-            ></el-button>
-          </template>
-        </AdminUploadFile>
+            </template>
+          </draggable>
+        </div>
       </ElFormItem>
 
       <ElFormItem>
