@@ -36,7 +36,7 @@ export const usePublicData = () => {
 
   const getAllProjects = async () =>
     (await fetchGet<IProject[]>("projects"))
-      .filter((a: IProject) => (a?.title ?? "").toLowerCase() === "music")
+      .filter((a: IProject) => (a?.title ?? "").toLowerCase() !== "music")
       .map(excludeNotActiveImage);
 
   const getBlogById = async (id: string | number) =>
