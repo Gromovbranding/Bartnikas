@@ -17,7 +17,7 @@ const { data: project } = useAsyncData(
   async () => await getProjectById(route.params.id as string)
 );
 
-useHeadSafe({
+useHead({
   title: `Project ${project.value?.title}`,
   meta: [
     {
@@ -85,15 +85,27 @@ const changeDetailOrder = (
   let changeDetail = detail;
 
   if (slide) {
-    const nextID = slide === "next" ? detail.id + 1 : detail.id - 1;
+    const findIndexItem = details.value.findIndex(
+      (item) => item.id === detail.id
+    );
 
-    const foundDetail = details.value.find((item) => item.id === nextID);
+    let nextIndex = 0;
 
-    if (foundDetail) changeDetail = foundDetail;
-    else
-      changeDetail = details.value.at(
-        slide === "next" ? 0 : -1
-      ) as IProjectImageDetail;
+    if (slide === "next") {
+      if (findIndexItem >= details.value.length - 1) {
+        nextIndex = 0;
+      } else {
+        nextIndex = findIndexItem + 1;
+      }
+    } else if (slide === "prev") {
+      if (findIndexItem > 0) {
+        nextIndex = findIndexItem - 1;
+      } else {
+        nextIndex = details.value.length - 1;
+      }
+    }
+
+    changeDetail = details.value.find((_, idx) => idx === nextIndex)!;
   }
 
   activeOrderDetail.value = changeDetail;
@@ -252,16 +264,18 @@ const changeDetailOrder = (
             class="project-item"
             @click="$router.push(`/projects/${item.id}`)"
           >
-            <div class="project-item__img">
-              <NuxtImg
-                loading="lazy"
-                :src="`/baseApiFiles/${item.details[0].image.name}`"
-              />
-            </div>
-            <div class="project-item__text">
-              <h3>{{ item.title }}</h3>
-              <p v-html="item.description"></p>
-            </div>
+            <template v-if="item.details?.[0]">
+              <div class="project-item__img">
+                <NuxtImg
+                  loading="lazy"
+                  :src="`/baseApiFiles/${item.details[0].image.name}`"
+                />
+              </div>
+              <div class="project-item__text">
+                <h3>{{ item.title }}</h3>
+                <p v-html="item.description"></p>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -471,12 +485,6 @@ const changeDetailOrder = (
       width: 100%;
       overflow: hidden;
       border-radius: $borderRadiusMain;
-      > :deep(img) {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-      }
 
       > :deep(picture) {
         object-fit: cover;
