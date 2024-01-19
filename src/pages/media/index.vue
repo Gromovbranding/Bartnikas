@@ -31,7 +31,7 @@ const mediaTabs = ref([
 const selectedTab = ref(mediaTabs.value[0]);
 
 useHeadSafe({
-  title: t("title.media"),
+  title: t("titles.media"),
   meta: [
     {
       name: "description",

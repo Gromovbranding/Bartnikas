@@ -10,7 +10,7 @@ const { data: blog } = useAsyncData(
 );
 
 useHeadSafe({
-  title: t("titles.article") + `blog.value?.title`,
+  title: t("titles.article") + ` ${blog.value?.title}`,
   meta: [
     {
       name: "description",

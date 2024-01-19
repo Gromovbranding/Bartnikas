@@ -10,7 +10,7 @@ const { data: faqs } = useAsyncData<IFaq[]>(
 );
 
 useHeadSafe({
-  title: t("title.faq"),
+  title: t("titles.faq"),
   meta: [
     {
       name: "description",

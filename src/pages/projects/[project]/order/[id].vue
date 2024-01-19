@@ -40,7 +40,7 @@ const projectImage = computed(() =>
 );
 
 useHeadSafe({
-  title: t("titles.projectImage") + `projectImage.value?.image_name`,
+  title: t("titles.projectImage") + ` ${projectImage.value?.image_name}`,
   meta: [
     {
       name: "description",
@@ -83,12 +83,12 @@ function toOrder() {
       :title="projectImage?.image_name"
       :sub="[
         {
-          name: 'Projects',
-          url: '/projects',
+          name: t('titles.projects'),
+          url: useLocalePath()('/projects'),
         },
         {
           name: String(project?.title),
-          url: `/projects/${project?.id}`,
+          url: useLocalePath()(`/projects/${project?.id}`),
         },
       ]"
     />
@@ -104,35 +104,35 @@ function toOrder() {
         <h3>{{ projectImage?.image_name }}</h3>
         <ul class="order__info-checklist">
           <li>
-            <b>{{ $t("project.order.preferSize.headline") }}</b>
+            <b>{{ $t("projects.order.preferSize.headline") }}</b>
             <div>
               <small>
-                {{ $t("project.order.preferSize.delivered") }}
+                {{ $t("projects.order.preferSize.delivered") }}
               </small>
               <UISelect :list="sizes" @change="selectedSize = $event" />
-              <small> {{ $t("project.order.preferSize.individual") }} </small>
+              <small> {{ $t("projects.order.preferSize.individual") }} </small>
             </div>
           </li>
           <li>
-            <b>{{ $t("project.allPhotosProportions.headline") }}</b>
+            <b>{{ $t("projects.order.allPhotosProportions.headline") }}</b>
             <small>
-              {{ $t("project.allPhotosProportions.print") }}
+              {{ $t("projects.order.allPhotosProportions.print") }}
             </small>
           </li>
           <li>
-            <b>{{ $t("project.limitedEdition.headline") }}</b>
+            <b>{{ $t("projects.order.limitedEdition.headline") }}</b>
             <small>
-              {{ $t("project.limitedEdition.print") }}
+              {{ $t("projects.order.limitedEdition.print") }}
             </small>
           </li>
           <li>
-            <b>{{ $t("project.dilivery.headline") }}</b>
-            <small> {{ $t("project.dilivery.print") }} </small>
+            <b>{{ $t("projects.order.dilivery.headline") }}</b>
+            <small> {{ $t("projects.order.dilivery.print") }} </small>
           </li>
         </ul>
         <div class="order__info-control">
           <div class="order__info-colorlist">
-            <b> {{ $t("project.bestColors") }} </b>
+            <b> {{ $t("projects.order.bestColors") }} </b>
             <div class="order__info-color-interior">
               <ul class="order__info-colors">
                 <li style="background-color: #07343d"></li>
@@ -144,13 +144,15 @@ function toOrder() {
             </div>
           </div>
         </div>
-        <UIButton @click="toOrder">{{ $t("project.request") }}</UIButton>
+        <UIButton @click="toOrder">{{ $t("projects.request") }}</UIButton>
       </div>
     </section>
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">{{ $t("project.more") }} {{ project?.title }}</h2>
+      <h2 class="more__title">
+        {{ $t("projects.more") }} {{ project?.title }}
+      </h2>
       <p class="more__subtitle" @click="$router.push(`/projects/${projectId}`)">
         {{ $t("project.viewCollection") }}
       </p>

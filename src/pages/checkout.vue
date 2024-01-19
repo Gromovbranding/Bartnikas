@@ -18,7 +18,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead title="Checkout" />
+    <AppPageHead :title="$t('titles.checkout')" />
     <div class="checkout">
       <UIButton class="checkout__btn" is-grey @click="$router.go(-1)">
         {{ $t("button.back") }}

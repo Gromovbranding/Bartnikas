@@ -36,6 +36,7 @@ withDefaults(defineProps<Props>(), {
   margin-bottom: 80px;
 
   h2 {
+    word-break: break-all;
     font-size: 12.5rem;
     display: flex;
     text-transform: uppercase;

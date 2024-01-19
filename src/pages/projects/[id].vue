@@ -20,7 +20,7 @@ const { data: project } = useAsyncData(
 );
 
 useHead({
-  title: t("titles.project") + `project.value?.title`,
+  title: t("titles.project") + " " + `${project.value?.title}`,
   meta: [
     {
       name: "description",
@@ -116,7 +116,11 @@ const changeDetailOrder = (
 
 <template>
   <main>
-    <AppPageHead sub="projects" :title="title" :number="details.length" />
+    <AppPageHead
+      :sub="$t('projects')"
+      :title="title"
+      :number="details.length"
+    />
 
     <AppProjectCollab v-if="collab" :collab="collab" />
 

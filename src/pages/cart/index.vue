@@ -16,7 +16,7 @@ const handleCheckout = () => {
   router.push("/checkout");
 };
 useHeadSafe({
-  title: t("title.cart"),
+  title: t("titles.cart"),
   meta: [
     {
       name: "robots",
@@ -31,7 +31,7 @@ useHeadSafe({
     <AppPageHead only-logo :title="$t('titles.cart')" />
 
     <section class="checkout">
-      <h1 class="checkout__title_mobile">{{ $t("title.cart") }}</h1>
+      <h1 class="checkout__title_mobile">{{ $t("titles.cart") }}</h1>
       <div class="checkout__list">
         <div v-for="item in cart" :key="item.id" class="checkout__item">
           <div class="checkout__close" @click="removeItem(item.id)">
@@ -62,13 +62,13 @@ useHeadSafe({
       </div>
       <div class="checkout__total">
         <div>
-          <h1 class="checkout__title">{{ $t("title.cart") }}</h1>
+          <h1 class="checkout__title">{{ $t("titles.cart") }}</h1>
           <div>
             <p>{{ $t("cart.subtotal") }}:</p>
             <b>{{ totalPrice }} €</b>
           </div>
           <UIButton @click="handleCheckout">{{
-            $t("title.checkout")
+            $t("titles.checkout")
           }}</UIButton>
         </div>
       </div>
