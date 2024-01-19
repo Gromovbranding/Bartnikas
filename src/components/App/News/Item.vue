@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <NuxtLink :to="`/news/${article.id}`" class="interios">
+  <NuxtLink :to="useLocalePath()(`/news/${article.id}`)" class="interios">
     <div class="interios__img">
       <NuxtImg loading="lazy" :src="`/baseApiFiles/${article.image?.name}`" />
     </div>

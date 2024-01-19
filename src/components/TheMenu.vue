@@ -31,7 +31,7 @@ const { data: emails } = await useAsyncData(
       <div>
         <ul class="menu__item-main">
           <li>
-            <NuxtLink to="/projects">
+            <NuxtLink :to="useLocalePath()('/projects')">
               {{ $t("titles.projects") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ const { data: emails } = await useAsyncData(
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/awards">
+            <NuxtLink :to="useLocalePath()('/awards')">
               {{ $t("titles.awards") }} <sup>> 200</sup>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,7 @@ const { data: emails } = await useAsyncData(
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/about">
+            <NuxtLink :to="useLocalePath()('/about')">
               {{ $t("titles.about") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,24 +93,30 @@ const { data: emails } = await useAsyncData(
         </ul>
         <ul class="menu__item-sub">
           <li>
-            <NuxtLink to="/media"> {{ $t("titles.media") }} </NuxtLink>
+            <NuxtLink :to="useLocalePath()('/media')">
+              {{ $t("titles.media") }}
+            </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/video-collection">
+            <NuxtLink :to="useLocalePath()('/video-collection')">
               {{ $t("titles.videoCollection") }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/faq"> {{ $t("titles.faq") }} </NuxtLink>
+            <NuxtLink :to="useLocalePath()('/faq')">
+              {{ $t("titles.faq") }}
+            </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/contacts"> {{ $t("titles.contacts") }} </NuxtLink>
+            <NuxtLink :to="useLocalePath()('/contacts')">
+              {{ $t("titles.contacts") }}
+            </NuxtLink>
           </li>
         </ul>
       </div>
       <div class="menu__additional-info">
         <div class="menu__cart">
-          <!-- <NuxtLink to="/cart" :data-tooltip="cart.length">
+          <!-- <NuxtLink :to="useLocalePath()('/cart')" :data-tooltip="cart.length">
             <IconCart />
           </NuxtLink> -->
         </div>
@@ -118,12 +124,14 @@ const { data: emails } = await useAsyncData(
         <div class="menu__terms">
           <ul class="menu__terms-menu">
             <li>
-              <NuxtLink to="/terms">
+              <NuxtLink :to="useLocalePath()('/terms')">
                 {{ $t("titles.termsConditions") }}
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/blog"> {{ $t("titles.blog") }} </NuxtLink>
+              <NuxtLink :to="useLocalePath()('/blog')">
+                {{ $t("titles.blog") }}
+              </NuxtLink>
             </li>
           </ul>
         </div>

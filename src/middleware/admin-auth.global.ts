@@ -19,7 +19,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   if (!accessToken.value) {
     if (!~(to.name as string).indexOf("admin-login")) {
-      return await navigateTo("/admin/login");
+      return await navigateTo(useLocaleRoute()("/admin/login"));
     }
   } else {
     const { fetchGet } = useApi();
@@ -27,7 +27,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       await fetchGet("auth/me");
     } catch {
       if (!~(to.name as string).indexOf("admin-login")) {
-        return await navigateTo("/admin/login");
+        return await navigateTo(useLocaleRoute()("/admin/login"));
       }
     }
   }

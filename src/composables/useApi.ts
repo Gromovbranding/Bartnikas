@@ -40,7 +40,8 @@ export const useApi = () => {
 
         if (response.status === 401) {
           accessToken.value = "";
-          if (response.url !== "admin-login") await navigateTo("/admin/login");
+          if (!~response.url.indexOf("admin-login"))
+            await navigateTo(useLocaleRoute()("/admin/login"));
         }
       },
 
@@ -80,7 +81,7 @@ export const useApi = () => {
 
   const logout = async () => {
     accessToken.value = "";
-    await navigateTo("/admin/login");
+    await navigateTo(useLocaleRoute()("/admin/login"));
   };
 
   const login = async ({
@@ -97,7 +98,7 @@ export const useApi = () => {
 
     if (data.access_token) {
       accessToken.value = data.access_token;
-      await navigateTo("/admin/projects");
+      await navigateTo(useLocaleRoute()("/admin/projects"));
     }
   };
 

@@ -12,7 +12,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const handleTo = async (id: number) => {
-  await navigateTo(`/${props.slug}/${id}`);
+  await navigateTo(useLocaleRoute()(`/${props.slug}/${id}`));
 };
 </script>
 

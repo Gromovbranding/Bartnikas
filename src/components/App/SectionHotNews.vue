@@ -29,7 +29,7 @@ const title = computed(() => {
         </UIMarquee>
       </div>
       <NuxtLink
-        :to="`/news/${article.id}`"
+        :to="useLocalePath()(`/news/${article.id}`)"
         class="upper-slide hot-news__content"
       >
         <NuxtImg loading="lazy" :src="`/baseApiFiles/${article.image?.name}`" />

@@ -118,7 +118,7 @@ const filterBySearchSidebar = computed(() => {
             <NuxtLink
               class="admin-layout__sidebar-item"
               active-class="admin-layout__sidebar-item--active"
-              :to="sidebarItem.url"
+              :to="useLocalePath()(sidebarItem.url)"
             >
               <ElIcon color="#fff" size="24">
                 <ElIconTickets class="admin-layout__sidebar-icon" />
@@ -140,7 +140,9 @@ const filterBySearchSidebar = computed(() => {
             <template #dropdown>
               <el-dropdown-menu class="user-dropdown">
                 <el-dropdown-item>
-                  <NuxtLink to="/" target="_blank">Home</NuxtLink>
+                  <NuxtLink :to="useLocalePath()('/')" target="_blank">
+                    Home
+                  </NuxtLink>
                 </el-dropdown-item>
                 <el-dropdown-item divided @click="logout">
                   <span style="display: block">Log Out</span>
