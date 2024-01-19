@@ -33,9 +33,9 @@ const handleBack = () => {
   }
 };
 
-const onClickLogo = () => {
+const onClickLogo = async () => {
   if (route.path === "/") return;
-  navigateTo("/");
+  await navigateTo(useLocaleRoute()("/"));
 };
 </script>
 
@@ -53,14 +53,18 @@ const onClickLogo = () => {
     </div>
     <ul v-if="!back && title" class="page-head__breadcrumb">
       <li>
-        <NuxtLink to="/">{{ $t("titles.home") }}</NuxtLink>
+        <NuxtLink :to="useLocalePath()('/')">{{ $t("titles.home") }}</NuxtLink>
       </li>
       <li v-if="typeof sub === 'string' && sub">
-        <NuxtLink :to="`/${sub.toLowerCase()}`">{{ sub }}</NuxtLink>
+        <NuxtLink :to="useLocalePath()(`/${sub.toLowerCase()}`)">{{
+          sub
+        }}</NuxtLink>
       </li>
       <template v-else-if="typeof sub !== 'string' && sub">
         <li v-for="item in sub" :key="item.name">
-          <NuxtLink :to="item.url.toLowerCase()">{{ item.name }}</NuxtLink>
+          <NuxtLink :to="useLocalePath()(item.url.toLowerCase())">{{
+            item.name
+          }}</NuxtLink>
         </li>
       </template>
       <li>

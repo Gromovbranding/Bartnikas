@@ -199,7 +199,11 @@ const changeDetailOrder = (
                     </div>
                     <div>
                       <NuxtLink
-                        :to="`/projects/${project.id}/order/${activeOrderDetail.id}`"
+                        :to="
+                          useLocalePath()(
+                            `/projects/${project.id}/order/${activeOrderDetail.id}`
+                          )
+                        "
                       >
                         <span>{{ $t("projects.request") }}</span>
                         <IconArrow is-arrow30-deg />
@@ -247,7 +251,11 @@ const changeDetailOrder = (
               <h3>{{ detail.image_name }}</h3>
             </div>
             <div>
-              <NuxtLink :to="`/projects/${project.id}/order/${detail.id}`">
+              <NuxtLink
+                :to="
+                  useLocalePath()(`/projects/${project.id}/order/${detail.id}`)
+                "
+              >
                 <span>{{ $t("projects.request") }}</span>
                 <IconArrow is-arrow30-deg />
               </NuxtLink>

@@ -56,7 +56,7 @@ const portImages = computed(() => {
         />
       </div>
       <div class="port__text">
-        <NuxtLink :to="`/projects/${project?.id}`">
+        <NuxtLink :to="useLocalePath()(`/projects/${project?.id}`)">
           <div>
             <IconPhotoCamera />
             <p>{{ project.details.length }}</p>
