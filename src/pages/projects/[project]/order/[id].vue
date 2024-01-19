@@ -84,11 +84,11 @@ function toOrder() {
       :sub="[
         {
           name: $t('titles.projects'),
-          url: useLocalePath()('/projects'),
+          url: '/projects',
         },
         {
           name: String(project?.title),
-          url: useLocalePath()(`/projects/${project?.id}`),
+          url: `/projects/${project?.id}`,
         },
       ]"
     />

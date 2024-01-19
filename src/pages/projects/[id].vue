@@ -117,7 +117,12 @@ const changeDetailOrder = (
 <template>
   <main>
     <AppPageHead
-      :sub="$t('titles.projects')"
+      :sub="[
+        {
+          name: $t('titles.projects'),
+          url: '/projects',
+        },
+      ]"
       :title="title"
       :number="details.length"
     />

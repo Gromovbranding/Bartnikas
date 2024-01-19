@@ -2,7 +2,6 @@
 interface Props {
   bgColor?: "grey" | "blue" | "white";
   sub?:
-    | string
     | {
         name: string;
         url: string;
@@ -17,7 +16,7 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   bgColor: "blue",
   onlyLogo: false,
-  sub: "",
+  sub: () => [],
   title: "",
   back: false,
 });
@@ -55,18 +54,11 @@ const onClickLogo = async () => {
       <li>
         <NuxtLink :to="useLocalePath()('/')">{{ $t("titles.home") }}</NuxtLink>
       </li>
-      <li v-if="typeof sub === 'string' && sub">
-        <NuxtLink :to="useLocalePath()(`/${sub.toLowerCase()}`)">{{
-          sub
-        }}</NuxtLink>
+      <li v-for="item in sub" :key="item.name">
+        <NuxtLink :to="useLocalePath()(item.url.toLowerCase())">
+          {{ item.name }}
+        </NuxtLink>
       </li>
-      <template v-else-if="typeof sub !== 'string' && sub">
-        <li v-for="item in sub" :key="item.name">
-          <NuxtLink :to="useLocalePath()(item.url.toLowerCase())">{{
-            item.name
-          }}</NuxtLink>
-        </li>
-      </template>
       <li>
         <span>
           {{ title }}
