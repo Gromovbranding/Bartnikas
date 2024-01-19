@@ -2,6 +2,9 @@
 import type { IBio, IBioTestimonials } from "@/types/admin-api";
 
 const { breakpoint } = useBreakpoints();
+
+const { t } = useI18n();
+
 const scrollActive = ref(false);
 const scrollStart = ref(0);
 const scroll = ref<HTMLDivElement>();
@@ -17,7 +20,7 @@ const { getBio, getBioTestimonials } = usePublicData();
 const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
 
 useHeadSafe({
-  title: "About",
+  title: t("titles.about"),
   meta: [
     {
       name: "description",
@@ -48,7 +51,7 @@ function onPointerDown(e: PointerEvent) {
 
 <template>
   <main @pointerup="scrollActive = false">
-    <AppPageHead title="About" />
+    <AppPageHead :title="t('titles.about')" />
 
     <section class="biography-about">
       <div class="biography-about__img">
@@ -126,7 +129,7 @@ function onPointerDown(e: PointerEvent) {
       </div>
     </section>
     <AppAwardsSection />
-    <AppContentSpliter> CONCEPT </AppContentSpliter>
+    <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
     <AppSectionVideoGreeting :style="videoGreetingStyle" />
   </main>
 </template>

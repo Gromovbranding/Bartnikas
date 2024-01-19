@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { cart } = usePublicData();
+const { t } = useI18n();
 
 const router = useRouter();
 
@@ -15,7 +16,7 @@ const handleCheckout = () => {
   router.push("/checkout");
 };
 useHeadSafe({
-  title: "Cart",
+  title: t("title.cart"),
   meta: [
     {
       name: "robots",
@@ -27,10 +28,10 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead only-logo title="Cart" />
+    <AppPageHead only-logo :title="$t('titles.cart')" />
 
     <section class="checkout">
-      <h1 class="checkout__title_mobile">CART</h1>
+      <h1 class="checkout__title_mobile">{{ $t("title.cart") }}</h1>
       <div class="checkout__list">
         <div v-for="item in cart" :key="item.id" class="checkout__item">
           <div class="checkout__close" @click="removeItem(item.id)">
@@ -61,12 +62,14 @@ useHeadSafe({
       </div>
       <div class="checkout__total">
         <div>
-          <h1 class="checkout__title">CART</h1>
+          <h1 class="checkout__title">{{ $t("title.cart") }}</h1>
           <div>
-            <p>Subtotal:</p>
+            <p>{{ $t("cart.subtotal") }}:</p>
             <b>{{ totalPrice }} €</b>
           </div>
-          <UIButton @click="handleCheckout">CHECKOUT</UIButton>
+          <UIButton @click="handleCheckout">{{
+            $t("title.checkout")
+          }}</UIButton>
         </div>
       </div>
     </section>

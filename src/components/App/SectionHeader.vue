@@ -23,7 +23,7 @@ withDefaults(defineProps<Props>(), {
       </span>
     </h2>
     <NuxtLink v-if="isLink" :to="to">
-      View all
+      {{ $t("sectionHeader.viewAll") }}
       <span>
         <slot />
       </span>

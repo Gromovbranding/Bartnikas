@@ -5,13 +5,15 @@ const route = useRoute();
 
 const { getArticleById } = usePublicData();
 
+const { t } = useI18n();
+
 const { data: article } = useAsyncData(
   "article",
   async () => await getArticleById(route.params.id as string)
 );
 
 useHeadSafe({
-  title: `Article ${article.value?.title}`,
+  title: t("titles.article") + `article.value?.title`,
   meta: [
     {
       name: "description",

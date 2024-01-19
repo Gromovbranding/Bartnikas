@@ -12,13 +12,15 @@ const wsHeight = ref(0);
 const { getAllProjects, getProjectById } = usePublicData();
 const { breakpoint } = useBreakpoints();
 
+const { t } = useI18n();
+
 const { data: project } = useAsyncData(
   "project",
   async () => await getProjectById(route.params.id as string)
 );
 
 useHead({
-  title: `Project ${project.value?.title}`,
+  title: t("titles.project") + `project.value?.title`,
   meta: [
     {
       name: "description",
@@ -126,8 +128,8 @@ const changeDetailOrder = (
           </div>
           <div>
             <h3>
-              Stanislav <br />
-              Bartnikas
+              {{ $t("name.first") }} <br />
+              {{ $t("name.second") }}
             </h3>
           </div>
         </div>
@@ -199,7 +201,7 @@ const changeDetailOrder = (
                       <NuxtLink
                         :to="`/projects/${project.id}/order/${activeOrderDetail.id}`"
                       >
-                        <span>REQUEST</span>
+                        <span>{{ $t("projects.request") }}</span>
                         <IconArrow is-arrow30-deg />
                       </NuxtLink>
                     </div>
@@ -246,7 +248,7 @@ const changeDetailOrder = (
             </div>
             <div>
               <NuxtLink :to="`/projects/${project.id}/order/${detail.id}`">
-                <span>REQUEST</span>
+                <span>{{ $t("projects.request") }}</span>
                 <IconArrow is-arrow30-deg />
               </NuxtLink>
             </div>
@@ -256,7 +258,7 @@ const changeDetailOrder = (
     </div>
     <section v-if="moreProjects?.length" ref="section" class="more">
       <div ref="sticky" class="sticky-wrapper">
-        <h2>More projects</h2>
+        <h2>{{ $t("projects.moreProjects") }}</h2>
         <div ref="wrapper" class="more__projects">
           <div
             v-for="item in moreProjects"

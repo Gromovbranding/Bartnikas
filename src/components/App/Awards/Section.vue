@@ -14,7 +14,7 @@ const list = computed(() => (awards.value ?? []).slice(0, 12));
 <template>
   <section v-if="list.length > 0" class="awards">
     <AppSectionHeader :to-caption="`> 200`" to="/awards">
-      AWARDS
+      {{ $t("titles.awards") }}
     </AppSectionHeader>
     <div class="awards__content">
       <AppAwardsItem

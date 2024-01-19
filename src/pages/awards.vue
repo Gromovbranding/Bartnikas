@@ -3,6 +3,7 @@ import type { IAwards } from "~/types/admin-api";
 
 const showModal = ref(false);
 const { getAllAwards } = usePublicData();
+const { t } = useI18n();
 
 const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
@@ -10,7 +11,7 @@ const { data: awards } = await useAsyncData<IAwards[]>(
 );
 
 useHeadSafe({
-  title: "Awards",
+  title: t("titles.awards"),
   meta: [
     {
       name: "description",
@@ -35,9 +36,9 @@ function showImg(name: string) {
   <main>
     <AppPageHead
       bg-color="grey"
-      title="Awards"
+      :title="t('titles.awards')"
       :number="`> 200`"
-      additional-info="Stanislav has won more than 200 different awards throughout his career. Below are some of them."
+      :additional-info="t('awards.additionalInfo')"
     />
     <section class="awards">
       <div v-for="award in awards" :key="award.id" class="awards__item">
@@ -86,7 +87,15 @@ function showImg(name: string) {
           </div>
 
           <div v-if="award.degress.length > 3">
-            <h2>And {{ award.degress.length }} awards more</h2>
+            <h2>
+              {{
+                $t("awards.and") +
+                " " +
+                award.degress.length +
+                " " +
+                $t("awards.awardsMore")
+              }}
+            </h2>
           </div>
         </div>
       </div>

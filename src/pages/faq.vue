@@ -2,6 +2,7 @@
 import type { IFaq } from "@/types/admin-api";
 
 const { getAllFaq } = usePublicData();
+const { t } = useI18n();
 
 const { data: faqs } = useAsyncData<IFaq[]>(
   "faqs",
@@ -9,7 +10,7 @@ const { data: faqs } = useAsyncData<IFaq[]>(
 );
 
 useHeadSafe({
-  title: "FAQ",
+  title: t("title.faq"),
   meta: [
     {
       name: "description",
@@ -25,7 +26,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead title="FAQ" />
+    <AppPageHead :title="$t('titles.faq')" />
     <section class="faq">
       <div class="faq__list">
         <AppDetails v-for="item in faqs" :key="item.id">

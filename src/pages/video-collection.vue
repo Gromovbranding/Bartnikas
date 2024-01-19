@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { getAllVideoCollection } = usePublicData();
 
+const { t } = useI18n();
 const { data: videos } = useAsyncData(
   "video-collection",
   async () => await getAllVideoCollection()
@@ -15,7 +16,7 @@ function getGroupVideos(group: any) {
 }
 
 useHeadSafe({
-  title: "Video Collection",
+  title: t("titles.videoCollection"),
   meta: [
     {
       name: "description",
@@ -27,7 +28,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead title="Video Collection" />
+    <AppPageHead :title="$t('titles.videoCollection')" />
     <section class="filter">
       <UIButton
         v-for="group in groups"

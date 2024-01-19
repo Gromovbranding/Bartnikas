@@ -34,7 +34,7 @@ function updateValue(e: "+" | "-") {
 
 <template>
   <form class="form" @submit.prevent>
-    <small>Quantity:</small>
+    <small>{{ $t("form.quantity") }}</small>
     <div class="form__control">
       <input
         ref="input"

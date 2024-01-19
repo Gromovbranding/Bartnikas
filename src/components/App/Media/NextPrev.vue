@@ -24,7 +24,7 @@ const handleTo = async (id: number) => {
       class="switching__item"
       @click="handleTo(prev.id)"
     >
-      <span class="switching__sup">previous</span>
+      <span class="switching__sup">{{ $t("media.previous") }}</span>
       <h3>{{ prev.title }}</h3>
     </div>
     <div v-else class="switching__item_empty"></div>
@@ -34,7 +34,7 @@ const handleTo = async (id: number) => {
       class="switching__item"
       @click="handleTo(next.id)"
     >
-      <span class="switching__sup">next</span>
+      <span class="switching__sup">{{ $t("media.next") }}</span>
       <h3>{{ next.title }}</h3>
     </div>
     <div v-else class="switching__item_empty"></div>

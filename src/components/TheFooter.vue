@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const { getActiveFooterContact } = usePublicData();
+
 const { data: contacts } = await useAsyncData(
   "generalInfoContactss",
   async () => await getActiveFooterContact()
@@ -17,7 +18,13 @@ const { data: contacts } = await useAsyncData(
         </ul>
         <div>
           <small>
-            © 2012-{{ new Date().getFullYear() }} Stanislav Bartnikas
+            © 2012-{{
+              new Date().getFullYear() +
+              " " +
+              $t("name.first") +
+              " " +
+              $t("name.second")
+            }}
           </small>
         </div>
       </div>
@@ -40,7 +47,7 @@ const { data: contacts } = await useAsyncData(
       </div>
       <a href="https://gromovbranding.ru/" class="footer__gromov">
         <div>
-          <p style="margin-bottom: 10px">Designed by Gromov Branding</p>
+          <p style="margin-bottom: 10px">{{ $t("footer") }}</p>
           <IconGromov />
         </div>
         <div>

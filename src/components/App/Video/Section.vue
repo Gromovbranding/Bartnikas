@@ -12,7 +12,7 @@ const latestVideos = computed(() => videos.value?.slice(-3) || []);
 <template>
   <section class="video-collections">
     <AppSectionHeader to="/video-collection">
-      Video Collection
+      {{ $t("titles.videoCollection") }}
     </AppSectionHeader>
     <div class="video-collections__content">
       <AppVideoItem v-for="item in latestVideos" :key="item.id" :item="item" />

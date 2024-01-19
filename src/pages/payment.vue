@@ -2,6 +2,7 @@
 import type { ITermsStatic } from "@/types/admin-api";
 
 const { getDeliveryStatic } = usePublicData();
+const { t } = useI18n();
 
 const { data: deliveryStatic } = useAsyncData<ITermsStatic[]>(
   "deliveryStatic",
@@ -9,7 +10,7 @@ const { data: deliveryStatic } = useAsyncData<ITermsStatic[]>(
 );
 
 useHeadSafe({
-  title: "Payment & Delivery",
+  title: t("titles.paymentDelivery"),
   meta: [
     {
       name: "description",
@@ -25,7 +26,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead title="Payment & Delivery" bg-color="grey" />
+    <AppPageHead :title="$t('titles.paymentDylivery')" bg-color="grey" />
     <AppSectionTermCollection :list="deliveryStatic" />
   </main>
 </template>

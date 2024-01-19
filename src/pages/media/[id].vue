@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { makeDateCorrect } = useDateFormat();
+const { t } = useI18n();
 
 const { getArticleById } = usePublicData();
 
@@ -10,7 +11,7 @@ const { data: article } = useAsyncData(
 );
 
 useHeadSafe({
-  title: `Article ${article.value?.title}`,
+  title: t("titles.article") + `article.value?.title`,
   meta: [
     {
       name: "description",

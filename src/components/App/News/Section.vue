@@ -10,7 +10,7 @@ const { data: news } = useAsyncData<IArticle[]>(
 
 <template>
   <section v-if="!!news?.length" class="news">
-    <AppSectionHeader to="/media">News</AppSectionHeader>
+    <AppSectionHeader to="/media">{{ $t("titles.news") }}</AppSectionHeader>
     <div class="news__content">
       <AppNewsItem
         v-for="item in news"

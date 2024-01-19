@@ -8,6 +8,8 @@ const imageId = Number(route.params.id);
 
 const { getAllProjects } = usePublicData();
 
+const { t } = useI18n();
+
 const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
   async () => await getAllProjects()
@@ -38,7 +40,7 @@ const projectImage = computed(() =>
 );
 
 useHeadSafe({
-  title: `Project Image ${projectImage.value?.image_name}`,
+  title: t("titles.projectImage") + `projectImage.value?.image_name`,
   meta: [
     {
       name: "description",
@@ -102,37 +104,35 @@ function toOrder() {
         <h3>{{ projectImage?.image_name }}</h3>
         <ul class="order__info-checklist">
           <li>
-            <b>Preferred size:</b>
+            <b>{{ $t("project.order.preferSize.headline") }}</b>
             <div>
               <small>
-                All photos are delivered in two main proportions: 4:3 and 6:4
+                {{ $t("project.order.preferSize.delivered") }}
               </small>
               <UISelect :list="sizes" @change="selectedSize = $event" />
-              <small> Individual sizes are available upon request. </small>
+              <small> {{ $t("project.order.preferSize.individual") }} </small>
             </div>
           </li>
           <li>
-            <b>Limited Edition:</b>
+            <b>{{ $t("project.allPhotosProportions.headline") }}</b>
             <small>
-              All photographs are printed in a limited edition of a maximum of
-              several dozen copies, depending on the work and its size.
+              {{ $t("project.allPhotosProportions.print") }}
             </small>
           </li>
           <li>
-            <b>Paper Print:</b>
+            <b>{{ $t("project.limitedEdition.headline") }}</b>
             <small>
-              Canson Infinity Platine Fibre Rag Satin fine art paper, 100%
-              cotton
+              {{ $t("project.limitedEdition.print") }}
             </small>
           </li>
           <li>
-            <b>Delivery:</b>
-            <small> free worldwide (DHL Express) </small>
+            <b>{{ $t("project.dilivery.headline") }}</b>
+            <small> {{ $t("project.dilivery.print") }} </small>
           </li>
         </ul>
         <div class="order__info-control">
           <div class="order__info-colorlist">
-            <b> Interior best collors: </b>
+            <b> {{ $t("project.bestColors") }} </b>
             <div class="order__info-color-interior">
               <ul class="order__info-colors">
                 <li style="background-color: #07343d"></li>
@@ -144,15 +144,15 @@ function toOrder() {
             </div>
           </div>
         </div>
-        <UIButton @click="toOrder">REQUEST</UIButton>
+        <UIButton @click="toOrder">{{ $t("project.request") }}</UIButton>
       </div>
     </section>
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">MORE {{ project?.title }}</h2>
+      <h2 class="more__title">{{ $t("project.more") }} {{ project?.title }}</h2>
       <p class="more__subtitle" @click="$router.push(`/projects/${projectId}`)">
-        View the entire collection
+        {{ $t("project.viewCollection") }}
       </p>
       <Swiper
         class="more__slider"

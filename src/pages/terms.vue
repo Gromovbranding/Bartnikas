@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { ITermsStatic } from "@/types/admin-api";
 
+const { t } = useI18n();
 const { getTermsStatic } = usePublicData();
 
 const { data: termsStatic } = useAsyncData<ITermsStatic[]>(
@@ -9,7 +10,7 @@ const { data: termsStatic } = useAsyncData<ITermsStatic[]>(
 );
 
 useHeadSafe({
-  title: "Terms & Conditions",
+  title: t("titles.termsConditions"),
   meta: [
     {
       name: "description",
@@ -25,7 +26,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead title="Terms & Conditions" bg-color="grey" />
+    <AppPageHead :title="$t('titles.termsConditions')" bg-color="grey" />
     <AppSectionTermCollection :list="termsStatic" />
   </main>
 </template>

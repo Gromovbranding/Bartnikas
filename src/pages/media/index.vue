@@ -1,24 +1,26 @@
 <script lang="ts" setup>
+const { t } = useI18n();
+
 const mediaTabs = ref([
   {
     component: shallowRef(resolveComponent("AppMediaTabLastest")),
-    label: "Latest News",
+    label: t("media.latestNews"),
   },
   {
     component: shallowRef(resolveComponent("AppMediaTabExhibitions")),
-    label: "Exhibitions",
+    label: t("media.exhibitions"),
   },
   {
     component: shallowRef(resolveComponent("AppMediaTabPublications")),
-    label: "Publications",
+    label: t("media.publications"),
   },
   {
     component: shallowRef(resolveComponent("AppMediaTabKit")),
-    label: "Media Kit",
+    label: t("media.mediaKit"),
   },
   {
     component: shallowRef(resolveComponent("AppMediaTabPresentation")),
-    label: "Presentation",
+    label: t("media.presentation"),
   },
   // {
   //   component: shallowRef(resolveComponent("AppMediaTabCV")),
@@ -29,7 +31,7 @@ const mediaTabs = ref([
 const selectedTab = ref(mediaTabs.value[0]);
 
 useHeadSafe({
-  title: "Media",
+  title: t("title.media"),
   meta: [
     {
       name: "description",
@@ -44,7 +46,7 @@ useHeadSafe({
 </script>
 <template>
   <main>
-    <AppPageHead title="Media" />
+    <AppPageHead :title="t('titles.media')" />
 
     <section class="media">
       <div class="media__menu">

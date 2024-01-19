@@ -51,7 +51,9 @@ onBeforeUnmount(() => {
     class="testimonials"
     :class="{ 'active-slider': testimonials.length > 3 }"
   >
-    <AppSectionHeader :is-link="false">Testimonials</AppSectionHeader>
+    <AppSectionHeader :is-link="false">{{
+      $t("titles.testimonials")
+    }}</AppSectionHeader>
     <div class="testimonials__content">
       <AppTestimonialsItem
         v-for="item in testimonials"

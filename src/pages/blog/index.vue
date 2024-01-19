@@ -1,6 +1,8 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 useHeadSafe({
-  title: "Blog",
+  title: t("titles.blog"),
   meta: [
     {
       name: "description",
@@ -15,7 +17,7 @@ useHeadSafe({
 </script>
 <template>
   <main>
-    <AppPageHead title="Blog" />
+    <AppPageHead :title="t('titles.blog')" />
     <AppBlogsSection />
   </main>
 </template>

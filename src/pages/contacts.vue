@@ -1,12 +1,13 @@
 <script setup lang="ts">
 const { fetchPost } = useApi();
+const { t } = useI18n();
 
 useHeadSafe({
-  title: "Contacts",
+  title: t("titles.contacts"),
   meta: [
     {
       name: "description",
-      content: "My Contacts",
+      content: "titles.contacts",
     },
     {
       name: "robots",
@@ -45,24 +46,24 @@ const { data: emails } = await useAsyncData(
 
 <template>
   <main>
-    <AppPageHead title="Contacts" />
+    <AppPageHead :title="$t('titles.contacts')" />
 
     <section class="contacts">
       <div>
         <img src="assets/img/bartnikas_contacts.jpg" alt="Bartnikas contacts" />
       </div>
       <div>
-        <p>Stas Bartnikas resides in Moscow, Russia</p>
+        <p>{{ $t("contacts.locationLive") }}</p>
         <div>
           <p>
-            <span>Press inquiry</span>
+            <span>{{ $t("contacts.pressInquiry") }}</span>
             <a class="upper-slide" :href="`mailto:${emails?.email_press}`">
               <span>{{ emails?.email_press }}</span>
               <IconArrow is-arrow30-deg />
             </a>
           </p>
           <p>
-            <span>Gallery representation</span>
+            <span>{{ $t("contacts.gallery") }}</span>
             <a class="upper-slide" :href="`mailto:${emails?.email_gallery}`">
               <span>{{ emails?.email_gallery }}</span>
               <IconArrow is-arrow30-deg />
@@ -70,16 +71,15 @@ const { data: emails } = await useAsyncData(
           </p>
         </div>
         <h3>
-          For corporate or personal purchase of prints please contact us through
-          the form
+          {{ $t("contacts.formDescript") }}
         </h3>
         <form @submit.prevent>
           <div>
-            <label for="name"> Your Name </label>
+            <label for="name"> {{ $t("contacts.yourName") }} </label>
             <UIInput id="name" v-model="form.name" placeholder="John Smith" />
           </div>
           <div>
-            <label for="email"> Your email </label>
+            <label for="email"> {{ $t("contacts.yourEmail") }} </label>
             <UIInput
               id="email"
               v-model="form.email"
@@ -88,11 +88,11 @@ const { data: emails } = await useAsyncData(
             />
           </div>
           <div>
-            <label for=""> Comment </label>
+            <label for=""> {{ $t("contacts.comment") }} </label>
             <UIInput v-model="form.comment" placeholder="Comment text" />
           </div>
           <UIButton style="width: 100%" @click="handleAddContact">
-            Submit
+            {{ $t("contacts.btnSubmit") }}
           </UIButton>
         </form>
       </div>

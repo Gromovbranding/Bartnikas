@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
 
 <template>
   <main>
-    <Title>Home</Title>
+    <Title>{{ $t("titles.home") }}</Title>
 
     <header class="header" style="height: 150vh">
       <div ref="headerMain" class="header__main">
@@ -80,9 +80,9 @@ onBeforeUnmount(() => {
       </Swiper>
     </header>
     <AppSectionHotNews />
-    <AppContentSpliter> CONCEPT </AppContentSpliter>
+    <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
-    <AppContentSpliter> PROJECTS </AppContentSpliter>
+    <AppContentSpliter> {{ $t("titles.projects") }} </AppContentSpliter>
     <AppPortSection />
     <AppAwardsSection />
     <AppNewsSection />
@@ -104,7 +104,7 @@ onBeforeUnmount(() => {
           {{ activeIndexCard?.description }}
         </p>
         <UIButton :to="`/projects/${activeIndexCard.id}`">
-          View project
+          {{ $t("buttons.viewProject") }}
         </UIButton>
       </div>
     </section>

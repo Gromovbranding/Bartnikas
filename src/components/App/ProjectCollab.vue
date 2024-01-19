@@ -33,7 +33,7 @@ function playVideo() {
             width="100%"
             height="500px"
           >
-            <p>Unable to display PDF file. Download instead.</p>
+            <p>{{ $t("projectCollab.unableToDisplay") }}</p>
           </object>
         </div>
         <div class="collab__files__item__info">
@@ -54,7 +54,7 @@ function playVideo() {
       <div class="collab__text__desc" v-html="collab.description"></div>
     </div>
     <div class="collab__with">
-      <h2>HOW IT WORKS</h2>
+      <h2>{{ $t("projectCollab.howItWorks") }}</h2>
       <div class="collab-wrapper">
         <div class="collab__with__img">
           <video

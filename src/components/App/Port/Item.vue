@@ -62,7 +62,7 @@ const portImages = computed(() => {
             <p>{{ project.details.length }}</p>
           </div>
           <div v-if="project.collab" class="port__text__collab">
-            <span>Collaboration with</span>
+            <span>{{ $t("port.collaboration") }}</span>
             <h2>{{ project.collab.collab_with }}</h2>
           </div>
           <h2 v-else>{{ project.group }}</h2>

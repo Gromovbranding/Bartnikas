@@ -17,7 +17,7 @@ const { data: cv } = useAsyncData<IMediaCV[]>(
       </UIZoom>
     </div>
     <UIButton :to="useGetFileByUrl(item.pdf.name)" download>
-      Download pdf
+      {{ $t("media.downloadPDF") }}
     </UIButton>
   </div>
 </template>

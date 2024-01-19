@@ -13,7 +13,7 @@ const { data: mediakit } = useAsyncData<IMediaKit[]>(
   <div v-for="kit in mediakit" :key="'kit' + kit.id" class="media__kit">
     <NuxtImg loading="lazy" :src="`/baseApiFiles/${kit.image.name}`" />
     <UIButton :to="useGetFileByUrl(kit.pdf.name)" download>
-      Download pdf
+      {{ $t("media.downloadPDF") }}
     </UIButton>
   </div>
 </template>

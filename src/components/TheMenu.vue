@@ -32,7 +32,7 @@ const { data: emails } = await useAsyncData(
         <ul class="menu__item-main">
           <li>
             <NuxtLink to="/projects">
-              PROJECTS
+              {{ $t("titles.projects") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -52,7 +52,7 @@ const { data: emails } = await useAsyncData(
           </li>
           <li>
             <NuxtLink to="/awards">
-              AWARDS <sup>> 200</sup>
+              {{ $t("titles.awards") }} <sup>> 200</sup>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -72,7 +72,7 @@ const { data: emails } = await useAsyncData(
           </li>
           <li>
             <NuxtLink to="/about">
-              About
+              {{ $t("titles.about") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -93,16 +93,18 @@ const { data: emails } = await useAsyncData(
         </ul>
         <ul class="menu__item-sub">
           <li>
-            <NuxtLink to="/media"> Media </NuxtLink>
+            <NuxtLink to="/media"> {{ $t("titles.media") }} </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/video-collection"> VIDEO COLLECTION </NuxtLink>
+            <NuxtLink to="/video-collection">
+              {{ $t("titles.videoCollection") }}
+            </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/faq"> FAQ </NuxtLink>
+            <NuxtLink to="/faq"> {{ $t("titles.faq") }} </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/contacts"> CONTACTS </NuxtLink>
+            <NuxtLink to="/contacts"> {{ $t("titles.contacts") }} </NuxtLink>
           </li>
         </ul>
       </div>
@@ -116,10 +118,12 @@ const { data: emails } = await useAsyncData(
         <div class="menu__terms">
           <ul class="menu__terms-menu">
             <li>
-              <NuxtLink to="/terms"> Terms and Conditions </NuxtLink>
+              <NuxtLink to="/terms">
+                {{ $t("titles.termsConditions") }}
+              </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/blog"> Blog </NuxtLink>
+              <NuxtLink to="/blog"> {{ $t("titles.blog") }} </NuxtLink>
             </li>
           </ul>
         </div>

@@ -2,6 +2,7 @@
 const route = useRoute();
 
 const { getBlogById } = usePublicData();
+const { t } = useI18n();
 
 const { data: blog } = useAsyncData(
   "blog",
@@ -9,7 +10,7 @@ const { data: blog } = useAsyncData(
 );
 
 useHeadSafe({
-  title: `Article ${blog.value?.title}`,
+  title: t("titles.article") + `blog.value?.title`,
   meta: [
     {
       name: "description",

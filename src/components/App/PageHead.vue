@@ -49,11 +49,11 @@ const onClickLogo = () => {
       <IconLogo v-else is-only-author-white />
     </div>
     <div v-if="back" class="page-head__back" @click="handleBack">
-      <span> ← Back </span>
+      <span> ← {{ $t("buttons.back") }} </span>
     </div>
     <ul v-if="!back && title" class="page-head__breadcrumb">
       <li>
-        <NuxtLink to="/">Home</NuxtLink>
+        <NuxtLink to="/">{{ $t("titles.home") }}</NuxtLink>
       </li>
       <li v-if="typeof sub === 'string' && sub">
         <NuxtLink :to="`/${sub.toLowerCase()}`">{{ sub }}</NuxtLink>

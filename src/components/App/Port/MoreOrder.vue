@@ -24,7 +24,7 @@ defineProps<Props>();
           <IconArrow is-arrow30-deg />
         </NuxtLink> -->
         <NuxtLink :to="`/projects/${projectId}/order/${id}`">
-          <span>REQUEST</span>
+          <span>{{ $t("port.request") }}</span>
           <IconArrow is-arrow30-deg />
         </NuxtLink>
       </div>

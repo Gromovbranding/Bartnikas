@@ -111,7 +111,7 @@ onMounted(async () => {
     <slot name="stripe-payment-element-errors">
       <div id="stripe-payment-element-errors" ref="errorElement" role="alert" />
     </slot>
-    <UIButton style="width: 100%" class="button">Pay</UIButton>
+    <UIButton style="width: 100%" class="button">{{ $t("Pay") }}</UIButton>
   </form>
 </template>
 

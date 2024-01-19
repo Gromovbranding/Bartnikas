@@ -65,11 +65,13 @@ function copyColor(idx: number) {
 <template>
   <div v-if="false">
     <section class="interios-order">
-      <AppSectionHeader :is-link="false"> IN INTERIORS </AppSectionHeader>
+      <AppSectionHeader :is-link="false">
+        {{ $t("secrionInteriosOrder.inInterios") }}
+      </AppSectionHeader>
       <div class="interios-order__content">
         <div class="interios-order__sl">
           <div class="interios-order__project-select">
-            <span>Project:</span>
+            <span>{{ $t("secrionInteriosOrder.project") }}</span>
             <UISelect :list="options" @change="selectedIdx = +$event.value" />
           </div>
           <div class="interios-order__project-name">
@@ -78,7 +80,7 @@ function copyColor(idx: number) {
             </h3>
           </div>
           <div class="interios-order__project-colors">
-            <h4>Best Colors Of Interior:</h4>
+            <h4>{{ $t("secrionInteriosOrder.bestColorsOfInterior") }}</h4>
             <div>
               <div
                 v-for="(color, idx) in colors"
@@ -91,12 +93,14 @@ function copyColor(idx: number) {
             <div class="controls">
               <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
               <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
-              <UIButton :to="orderImgLink"> REQUEST </UIButton>
+              <UIButton :to="orderImgLink">
+                {{ $t("secrionInteriosOrder.request") }}
+              </UIButton>
             </div>
           </div>
           <div class="interios-order__project-order">
             <UIButton style="width: 100%" :to="orderImgLink">
-              REQUEST
+              {{ $t("secrionInteriosOrder.request") }}
             </UIButton>
           </div>
         </div>

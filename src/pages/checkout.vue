@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { usePublicData } from "@/composables/usePublicData";
+
 const { cart } = usePublicData();
+
+const { t } = useI18n();
+
 useHeadSafe({
-  title: "Checkout",
+  title: t("titles.checkout"),
   meta: [
     {
       name: "robots",
@@ -17,7 +21,7 @@ useHeadSafe({
     <AppPageHead title="Checkout" />
     <div class="checkout">
       <UIButton class="checkout__btn" is-grey @click="$router.go(-1)">
-        back
+        {{ $t("button.back") }}
       </UIButton>
       <AppCheckout
         v-if="cart.length > 0"

@@ -68,23 +68,24 @@ const handleOrder = async () => {
     </div>
     <div>
       <h3>
-        To request the energy-filled photography, please fill out the form
-        below.
+        {{ $t("orderForm.fillForm") }}
       </h3>
       <form @submit.prevent>
         <div>
-          <label for=""> Your Name </label>
+          <label for=""> {{ $t("orderForm.yourName") }} </label>
           <UIInput v-model="form.name" placeholder="John Smith" />
         </div>
         <div>
-          <label for=""> Your email </label>
+          <label for=""> {{ $t("orderForm.yourEmail") }} </label>
           <UIInput
             v-model="form.email"
             type="email"
             placeholder="mail@example.com"
           />
         </div>
-        <UIButton style="width: 100%" @click="handleOrder"> Request </UIButton>
+        <UIButton style="width: 100%" @click="handleOrder">
+          {{ $t("orderForm.request") }}
+        </UIButton>
       </form>
     </div>
   </section>
