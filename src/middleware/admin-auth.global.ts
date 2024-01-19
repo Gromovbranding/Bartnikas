@@ -36,10 +36,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
         }
       }
     }
-    return true;
   }
 
-  return createError({
-    statusCode: 404,
-  });
+  return true;
 });
