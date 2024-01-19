@@ -3,7 +3,7 @@ import type { IBlog } from "~/types/admin-api";
 
 const { getAllBlogs } = usePublicData();
 
-const { data: blogs } = useAsyncData<IBlog[]>(
+const { data: blogs } = await useAsyncData<IBlog[]>(
   "blogs",
   async () => await getAllBlogs()
 );

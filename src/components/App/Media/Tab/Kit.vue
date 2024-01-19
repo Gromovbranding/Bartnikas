@@ -3,7 +3,7 @@ import type { IMediaKit } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
-const { data: mediakit } = useAsyncData<IMediaKit[]>(
+const { data: mediakit } = await useAsyncData<IMediaKit[]>(
   "mediakit",
   async () => await fetchGet("/media/kit")
 );

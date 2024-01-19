@@ -4,7 +4,7 @@ import type { ITermsStatic } from "@/types/admin-api";
 const { getDeliveryStatic } = usePublicData();
 const { t } = useI18n();
 
-const { data: deliveryStatic } = useAsyncData<ITermsStatic[]>(
+const { data: deliveryStatic } = await useAsyncData<ITermsStatic[]>(
   "deliveryStatic",
   async () => await getDeliveryStatic()
 );

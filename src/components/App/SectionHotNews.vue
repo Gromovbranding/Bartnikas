@@ -3,7 +3,7 @@ import type { IArticle } from "~/types/admin-api";
 
 const { getLastHotArticle } = usePublicData();
 
-const { data: article } = useAsyncData<IArticle>(
+const { data: article } = await useAsyncData<IArticle>(
   "article",
   async () => await getLastHotArticle()
 );

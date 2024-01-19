@@ -2,7 +2,7 @@
 const { getAllVideoCollection } = usePublicData();
 
 const { t } = useI18n();
-const { data: videos } = useAsyncData(
+const { data: videos } = await useAsyncData(
   "video-collection",
   async () => await getAllVideoCollection()
 );

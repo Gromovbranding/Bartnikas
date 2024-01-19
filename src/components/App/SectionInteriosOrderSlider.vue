@@ -22,7 +22,7 @@ const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
 
 const { getAllProjects } = usePublicData();
 
-const { data: projects } = useAsyncData<IProject[]>(
+const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
   async () => await getAllProjects()
 );

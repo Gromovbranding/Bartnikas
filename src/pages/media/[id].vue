@@ -5,7 +5,7 @@ const { t } = useI18n();
 
 const { getArticleById } = usePublicData();
 
-const { data: article } = useAsyncData(
+const { data: article } = await useAsyncData(
   "article",
   async () => await getArticleById(route.params.id as string)
 );

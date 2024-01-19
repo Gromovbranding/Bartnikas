@@ -17,24 +17,29 @@ export default defineNuxtRouteMiddleware(async (to) => {
   //   }
   // }
 
-  if (!accessToken.value) {
-    if (!~(to.name as string).indexOf("admin-login")) {
-      return await navigateTo(useLocaleRoute()("/admin/login"));
-    }
-  } else {
-    const { fetchGet } = useApi();
-
-    if (~(to.name as string).indexOf("admin-login")) {
-      return await navigateTo(useLocaleRoute()("/"));
-    }
-    try {
-      await fetchGet("auth/me");
-    } catch {
+  if (to.name) {
+    if (!accessToken.value) {
       if (!~(to.name as string).indexOf("admin-login")) {
         return await navigateTo(useLocaleRoute()("/admin/login"));
       }
+    } else {
+      const { fetchGet } = useApi();
+
+      if (~(to.name as string).indexOf("admin-login")) {
+        return await navigateTo(useLocaleRoute()("/"));
+      }
+      try {
+        await fetchGet("auth/me");
+      } catch {
+        if (!~(to.name as string).indexOf("admin-login")) {
+          return await navigateTo(useLocaleRoute()("/admin/login"));
+        }
+      }
     }
+    return true;
   }
 
-  return true;
+  return createError({
+    statusCode: 404,
+  });
 });

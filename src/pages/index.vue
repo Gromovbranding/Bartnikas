@@ -15,17 +15,17 @@ const onScroll = () => {
 
 const throttledListener = useThrottle(onScroll, 50);
 
-// const { data: activeIndexCard } = useAsyncData(
+// const { data: activeIndexCard } = await useAsyncData(
 //   "activeIndexCard",
 //   async () => await getActiveIndexCardFooter()
 // );
 
-const { data: activeIndexCard } = useAsyncData(
+const { data: activeIndexCard } = await useAsyncData(
   "activeIndexCard",
   async () => await getProjectByFooterCard()
 );
 
-const { data: sliderImages } = useAsyncData(
+const { data: sliderImages } = await useAsyncData(
   "sliderImages",
   async () => await getIndexSlider(),
   {

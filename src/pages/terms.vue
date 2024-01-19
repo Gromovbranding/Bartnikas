@@ -4,7 +4,7 @@ import type { ITermsStatic } from "@/types/admin-api";
 const { t } = useI18n();
 const { getTermsStatic } = usePublicData();
 
-const { data: termsStatic } = useAsyncData<ITermsStatic[]>(
+const { data: termsStatic } = await useAsyncData<ITermsStatic[]>(
   "termsStatic",
   async () => await getTermsStatic()
 );

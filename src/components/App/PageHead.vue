@@ -165,6 +165,7 @@ const onClickLogo = async () => {
     margin-left: -10px;
     letter-spacing: 0.21rem;
     line-height: 1em;
+    word-break: break-all;
     sup {
       vertical-align: top;
       font-size: 29px;

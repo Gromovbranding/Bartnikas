@@ -4,7 +4,7 @@ import type { IFaq } from "@/types/admin-api";
 const { getAllFaq } = usePublicData();
 const { t } = useI18n();
 
-const { data: faqs } = useAsyncData<IFaq[]>(
+const { data: faqs } = await useAsyncData<IFaq[]>(
   "faqs",
   async () => await getAllFaq()
 );

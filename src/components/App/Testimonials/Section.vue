@@ -5,7 +5,7 @@ const lastScrollTop = ref(0);
 const scrollProgress = ref(0);
 const { getAllTestimonials } = usePublicData();
 
-const { data: testimonials } = useAsyncData(
+const { data: testimonials } = await useAsyncData(
   "testimonials",
   async () => await getAllTestimonials()
 );

@@ -1,7 +1,6 @@
 export default defineI18nConfig(() => ({
     legacy: false,
     locale: 'en',
-    
 
     messages: {
         en: {
@@ -219,7 +218,7 @@ export default defineI18nConfig(() => ({
                 fillForm: `Чтобы запросить наполненную энергией фотографию, пожалуйста, заполните форму
                 ниже.`,
                 yourName: 'Ваше Имя',
-                yourEmail: 'Ваша элктронная почта',
+                yourEmail: 'Ваша электронная почта',
                 request: 'Запрос'
             },
             projectCollab: {

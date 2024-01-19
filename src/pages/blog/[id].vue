@@ -4,7 +4,7 @@ const route = useRoute();
 const { getBlogById } = usePublicData();
 const { t } = useI18n();
 
-const { data: blog } = useAsyncData(
+const { data: blog } = await useAsyncData(
   "blog",
   async () => await getBlogById(route.params.id as string)
 );

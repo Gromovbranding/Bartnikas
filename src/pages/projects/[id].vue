@@ -14,7 +14,7 @@ const { breakpoint } = useBreakpoints();
 
 const { t } = useI18n();
 
-const { data: project } = useAsyncData(
+const { data: project } = await useAsyncData(
   "project",
   async () => await getProjectById(route.params.id as string)
 );
@@ -33,7 +33,7 @@ useHead({
   ],
 });
 
-const { data: projects } = useAsyncData<IProject[]>(
+const { data: projects } = await useAsyncData<IProject[]>(
   "projects",
   async () => await getAllProjects()
 );
@@ -117,7 +117,7 @@ const changeDetailOrder = (
 <template>
   <main>
     <AppPageHead
-      :sub="$t('projects')"
+      :sub="$t('titles.projects')"
       :title="title"
       :number="details.length"
     />

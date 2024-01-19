@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { getAllVideoCollection } = usePublicData();
 
-const { data: videos } = useAsyncData(
+const { data: videos } = await useAsyncData(
   "video-collection",
   async () => await getAllVideoCollection()
 );

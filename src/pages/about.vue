@@ -17,7 +17,10 @@ const videoGreetingStyle = computed(() => {
 
 const { getBio, getBioTestimonials } = usePublicData();
 
-const { data: bio } = useAsyncData<IBio>("bio", async () => await getBio());
+const { data: bio } = await useAsyncData<IBio>(
+  "bio",
+  async () => await getBio()
+);
 
 useHeadSafe({
   title: t("titles.about"),
@@ -33,7 +36,7 @@ useHeadSafe({
   ],
 });
 
-const { data: bioTestimonials } = useAsyncData<IBioTestimonials[]>(
+const { data: bioTestimonials } = await useAsyncData<IBioTestimonials[]>(
   "bioTestimonials",
   async () => await getBioTestimonials()
 );

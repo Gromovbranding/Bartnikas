@@ -3,7 +3,7 @@ import type { IMediaExhibition } from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
-const { data: exhibition } = useAsyncData<IMediaExhibition[]>(
+const { data: exhibition } = await useAsyncData<IMediaExhibition[]>(
   "exhibition",
   async () => await fetchGet("/media/exhibition")
 );
