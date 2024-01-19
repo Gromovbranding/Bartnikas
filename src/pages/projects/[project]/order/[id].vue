@@ -104,7 +104,7 @@ function toOrder() {
         <h3>{{ projectImage?.image_name }}</h3>
         <ul class="order__info-checklist">
           <li>
-            <b>{{ $t("projects.order.preferSize.headline") }}</b>
+            <b>{{ $t("projects.order.preferSize.headline") + " " }}</b>
             <div>
               <small>
                 {{ $t("projects.order.preferSize.delivered") }}
@@ -114,19 +114,21 @@ function toOrder() {
             </div>
           </li>
           <li>
-            <b>{{ $t("projects.order.allPhotosProportions.headline") }}</b>
+            <b
+              >{{ $t("projects.order.allPhotosProportions.headline") + " " }}
+            </b>
             <small>
               {{ $t("projects.order.allPhotosProportions.print") }}
             </small>
           </li>
           <li>
-            <b>{{ $t("projects.order.limitedEdition.headline") }}</b>
+            <b>{{ $t("projects.order.limitedEdition.headline") + " " }}</b>
             <small>
               {{ $t("projects.order.limitedEdition.print") }}
             </small>
           </li>
           <li>
-            <b>{{ $t("projects.order.dilivery.headline") }}</b>
+            <b>{{ $t("projects.order.dilivery.headline") + " " }}</b>
             <small> {{ $t("projects.order.dilivery.print") }} </small>
           </li>
         </ul>
@@ -157,7 +159,7 @@ function toOrder() {
         class="more__subtitle"
         @click="navigateTo(useLocalePath()(`/projects/${projectId}`))"
       >
-        {{ $t("project.viewCollection") }}
+        {{ $t("projects.viewCollection") }}
       </p>
       <Swiper
         class="more__slider"
