@@ -18,7 +18,7 @@ useHeadSafe({
 
 <template>
   <main>
-    <AppPageHead :title="t('titles.projects')" />
+    <AppPageHead :title="$t('titles.projects')" />
     <AppPortSection full />
   </main>
 </template>

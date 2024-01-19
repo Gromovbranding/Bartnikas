@@ -40,7 +40,7 @@ const projectImage = computed(() =>
 );
 
 useHeadSafe({
-  title: t("titles.projectImage") + ` ${projectImage.value?.image_name}`,
+  title: `${t("titles.projectImage")} ${projectImage.value?.image_name}`,
   meta: [
     {
       name: "description",
@@ -83,7 +83,7 @@ function toOrder() {
       :title="projectImage?.image_name"
       :sub="[
         {
-          name: t('titles.projects'),
+          name: $t('titles.projects'),
           url: useLocalePath()('/projects'),
         },
         {
@@ -153,7 +153,10 @@ function toOrder() {
       <h2 class="more__title">
         {{ $t("projects.more") }} {{ project?.title }}
       </h2>
-      <p class="more__subtitle" @click="$router.push(`/projects/${projectId}`)">
+      <p
+        class="more__subtitle"
+        @click="navigateTo(useLocalePath()(`/projects/${projectId}`))"
+      >
         {{ $t("project.viewCollection") }}
       </p>
       <Swiper

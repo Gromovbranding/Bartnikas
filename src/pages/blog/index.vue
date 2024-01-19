@@ -17,7 +17,7 @@ useHeadSafe({
 </script>
 <template>
   <main>
-    <AppPageHead :title="t('titles.blog')" />
+    <AppPageHead :title="$t('titles.blog')" />
     <AppBlogsSection />
   </main>
 </template>

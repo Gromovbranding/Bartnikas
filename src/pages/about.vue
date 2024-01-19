@@ -51,7 +51,7 @@ function onPointerDown(e: PointerEvent) {
 
 <template>
   <main @pointerup="scrollActive = false">
-    <AppPageHead :title="t('titles.about')" />
+    <AppPageHead :title="$t('titles.about')" />
 
     <section class="biography-about">
       <div class="biography-about__img">

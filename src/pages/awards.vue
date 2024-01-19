@@ -36,9 +36,9 @@ function showImg(name: string) {
   <main>
     <AppPageHead
       bg-color="grey"
-      :title="t('titles.awards')"
+      :title="$t('titles.awards')"
       :number="`> 200`"
-      :additional-info="t('awards.additionalInfo')"
+      :additional-info="$t('awards.additionalInfo')"
     />
     <section class="awards">
       <div v-for="award in awards" :key="award.id" class="awards__item">
@@ -89,11 +89,9 @@ function showImg(name: string) {
           <div v-if="award.degress.length > 3">
             <h2>
               {{
-                $t("awards.and") +
-                " " +
-                award.degress.length +
-                " " +
-                $t("awards.awardsMore")
+                `${$t("awards.and")} ${award.degress.length} ${$t(
+                  "awards.awardsMore"
+                )}`
               }}
             </h2>
           </div>

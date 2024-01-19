@@ -46,7 +46,7 @@ useHeadSafe({
 </script>
 <template>
   <main>
-    <AppPageHead :title="t('titles.media')" />
+    <AppPageHead :title="$t('titles.media')" />
 
     <section class="media">
       <div class="media__menu">

@@ -20,7 +20,7 @@ const { data: project } = useAsyncData(
 );
 
 useHead({
-  title: t("titles.project") + " " + `${project.value?.title}`,
+  title: `${t("titles.project")} ${project.value?.title}`,
   meta: [
     {
       name: "description",
@@ -276,7 +276,7 @@ const changeDetailOrder = (
             v-for="item in moreProjects"
             :key="item.id"
             class="project-item"
-            @click="$router.push(`/projects/${item.id}`)"
+            @click="navigateTo(useLocalePath()(`/projects/${item.id}`))"
           >
             <template v-if="item.details?.[0]">
               <div class="project-item__img">
