@@ -15,13 +15,17 @@ export default defineNuxtConfig({
       "@nuxtjs/i18n",
       {
         vueI18n: "./src/packages/i18n.ts",
-        locales: ["ru", "en", "fr", "de"],
+        locales: [{code:"en",label: "English",icon: "en"},
+          {code:"ru", label: "Русский", icon: "ru"},
+          {code:"fr",label: "Français",icon:"fr"}, 
+          {code:"de",label: "Deutsche",icon:"de"}],
         defaultLocale: "en",
         detectBrowserLanguage: {
           alwaysRedirect: true,
           fallbackLocale: "en",
           cookieSecure: true,
         },
+
       },
     ],
     "@nuxt/image",
