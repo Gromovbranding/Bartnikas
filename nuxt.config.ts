@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     [
       "@nuxtjs/i18n",
       {
+        skipSettingLocaleOnNavigate: true,
         vueI18n: "./src/packages/i18n.ts",
         locales: [
           { code: "en", label: "English", icon: "en" },

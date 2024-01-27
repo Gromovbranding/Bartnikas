@@ -22,7 +22,7 @@ defineProps<{ icon: string }>();
     />
   </svg>
   <svg
-    v-if="icon === 'ru'"
+    v-else-if="icon === 'ru'"
     xmlns="http://www.w3.org/2000/svg"
     width="30"
     height="22"
@@ -35,7 +35,7 @@ defineProps<{ icon: string }>();
     <path d="M0 14.333H30V20.9995H0V14.333Z" fill="#D80027" />
   </svg>
   <svg
-    v-if="icon === 'fr'"
+    v-else-if="icon === 'fr'"
     xmlns="http://www.w3.org/2000/svg"
     width="30"
     height="20"
@@ -68,7 +68,7 @@ defineProps<{ icon: string }>();
     </defs>
   </svg>
   <svg
-    v-if="icon === 'de'"
+    v-else-if="icon === 'de'"
     xmlns="http://www.w3.org/2000/svg"
     width="30"
     height="20"
@@ -101,7 +101,7 @@ defineProps<{ icon: string }>();
     </defs>
   </svg>
   <svg
-    v-if="icon === 'ena'"
+    v-else-if="icon === 'ena'"
     xmlns="http://www.w3.org/2000/svg"
     width="30"
     height="24"
