@@ -48,8 +48,9 @@ const defaultContent = () => {
           viewBox="0 0 26 14"
           fill="none"
         >
-          <path d="M1 13L13 2L25 13" stroke="white" stroke-width="2" /></svg
-      ></span>
+          <path d="M1 13L13 2L25 13" stroke="white" stroke-width="2" />
+        </svg>
+      </span>
       <span v-else>{{ locale }}</span>
     </div>
     <div class="conteiner">
