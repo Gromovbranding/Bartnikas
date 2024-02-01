@@ -1,10 +1,20 @@
 import type { UploadUserFile } from "element-plus";
 
+export interface ILanguage {
+  id: number;
+  name: string;
+  code: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type TranslateLang<T> = T & { language: ILanguage };
+
 export interface IFile {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export type PartialFileAdminApiDto = Omit<
@@ -18,8 +28,8 @@ export interface IBlog {
   description: string;
   text: string;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export enum ListUnitSize {
@@ -31,8 +41,8 @@ export interface IGeneralInfo {
   email_gallery: string;
   email_press: string;
   is_active: boolean;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProjectPressRelease {
@@ -40,8 +50,8 @@ export interface IProjectPressRelease {
   title: string;
   text: string;
   file: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProjectCollab {
@@ -51,8 +61,8 @@ export interface IProjectCollab {
   description: string;
   video: IFile;
   press_release: IProjectPressRelease[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProjectImageSizes {
@@ -61,8 +71,8 @@ export interface IProjectImageSizes {
   height: number;
   quantity: number;
   unit: ListUnitSize;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProjectImageDetail {
@@ -74,8 +84,8 @@ export interface IProjectImageDetail {
   image: IFile;
   image_name: string;
   order: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProject {
@@ -86,8 +96,8 @@ export interface IProject {
   details: IProjectImageDetail[];
   group: string | null;
   collab: IProjectCollab;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IArticle {
@@ -97,8 +107,8 @@ export interface IArticle {
   text: string;
   is_hot: boolean;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IContact {
@@ -106,8 +116,8 @@ export interface IContact {
   name: string;
   email: string;
   comment: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IIndexSlider {
@@ -115,8 +125,8 @@ export interface IIndexSlider {
   name: string;
   active: boolean;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export enum ListDegree {
@@ -129,16 +139,16 @@ export interface IAwardsDegreeGroup {
   id: number;
   type: ListDegree;
   images: IFile[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IAwardsDegree {
   id: number;
   year: string | number;
   groups: IAwardsDegreeGroup[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IAwards {
@@ -147,8 +157,8 @@ export interface IAwards {
   title: string;
   description: string;
   degress: IAwardsDegree[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ITestimonial {
@@ -164,16 +174,16 @@ export interface IVideoCollection {
   title: string;
   video: IFile;
   project?: IProject;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IMediaCV {
   id: number;
   image: IFile;
   pdf: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IMediaExhibition {
@@ -181,16 +191,16 @@ export interface IMediaExhibition {
   title: string;
   awards: string;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IMediaKit {
   id: number;
   pdf: IFile;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IMediaPresentation {
@@ -198,8 +208,8 @@ export interface IMediaPresentation {
   title: string;
   pdf: IFile;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IMediaPublication {
@@ -209,34 +219,38 @@ export interface IMediaPublication {
   url: string;
   date: Date;
   image: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IFaq {
   id: number;
   title: string;
   description: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ITermsStatic {
   id: number;
   title: string;
   description: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface IBio {
-  id: number;
+export interface IBioTranslate {
   description: string;
   sub_description: string;
+}
+
+export interface IBio extends IBioTranslate {
+  id: number;
   is_active: boolean;
+  translate: TranslateLang<IBioTranslate>[];
   awatar: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IGreetingIndex {
@@ -245,8 +259,8 @@ export interface IGreetingIndex {
   is_active: boolean;
   video: IFile;
   poster: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IBioTestimonials {
@@ -255,8 +269,8 @@ export interface IBioTestimonials {
   job: string;
   testimonial: string;
   photo: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IProjectOrderByEmail {
@@ -268,8 +282,8 @@ export interface IProjectOrderByEmail {
   url: string;
   price: number;
   status: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IFooterContact {
@@ -278,8 +292,8 @@ export interface IFooterContact {
   menu_links: { link: string; name: string }[];
   active: boolean;
   logo: IFile;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IndexCardFooter {
@@ -288,8 +302,8 @@ export interface IndexCardFooter {
   title: string;
   text: string;
   button: { text: string; url: string };
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 type Primitive = undefined | null | boolean | string | number | Function;

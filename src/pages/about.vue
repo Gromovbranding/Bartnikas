@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IBio, IBioTestimonials } from "@/types/admin-api";
+import type { IBio, IBioTranslate, IBioTestimonials } from "@/types/admin-api";
 
 const { breakpoint } = useBreakpoints();
 
@@ -22,12 +22,14 @@ const { data: bio } = await useAsyncData<IBio>(
   async () => await getBio()
 );
 
+const translated = useTranslateLanguage<IBioTranslate>(bio.value!.translate);
+
 useHeadSafe({
   title: t("titles.about"),
   meta: [
     {
       name: "description",
-      content: bio.value?.description ?? "",
+      content: translated.value?.description ?? "",
     },
     {
       name: "robots",
@@ -62,9 +64,9 @@ function onPointerDown(e: PointerEvent) {
       </div>
       <div class="biography-about__text">
         <p>
-          {{ bio?.sub_description }}
+          {{ translated?.sub_description }}
         </p>
-        <small v-html="bio?.description"> </small>
+        <small v-html="translated?.description"> </small>
       </div>
     </section>
 
