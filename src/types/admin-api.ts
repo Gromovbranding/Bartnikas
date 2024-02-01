@@ -244,7 +244,7 @@ export interface IBioTranslate {
   sub_description: string;
 }
 
-export interface IBio extends IBioTranslate {
+export interface IBio {
   id: number;
   is_active: boolean;
   translate: TranslateLang<IBioTranslate>[];
@@ -311,7 +311,9 @@ type Primitive = undefined | null | boolean | string | number | Function;
 type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
 
 export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
-  [Key in keyof T]: T[Key] extends IFile
+  [Key in keyof T]: T[Key] extends TranslateLang<T[Key]>
+    ? Omit<T[Key] & { code: string }, "language">
+    : T[Key] extends IFile
     ? UploadUserFile | PartialFileAdminApiDto | null
     : T[Key] extends IFile
     ? UploadUserFile[] | PartialFileAdminApiDto[]
