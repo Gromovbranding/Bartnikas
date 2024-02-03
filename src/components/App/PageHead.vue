@@ -52,12 +52,12 @@ const onClickLogo = async () => {
     </div>
     <ul v-if="!back && title" class="page-head__breadcrumb">
       <li>
-        <NuxtLink :to="useLocalePath()('/')">{{ $t("titles.home") }}</NuxtLink>
+        <NuxtLinkLocale to="/">{{ $t("titles.home") }}</NuxtLinkLocale>
       </li>
       <li v-for="item in sub" :key="item.name">
-        <NuxtLink :to="useLocalePath()(item.url.toLowerCase())">
+        <NuxtLinkLocale :to="item.url.toLowerCase()">
           {{ item.name }}
-        </NuxtLink>
+        </NuxtLinkLocale>
       </li>
       <li>
         <span>

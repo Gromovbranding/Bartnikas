@@ -27,6 +27,7 @@ export default defineNuxtConfig({
           alwaysRedirect: true,
           fallbackLocale: "en",
           cookieSecure: true,
+          useCookie: true,
         },
       },
     ],

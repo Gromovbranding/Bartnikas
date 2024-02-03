@@ -12,7 +12,7 @@ console.log(props.blog.translate);
 </script>
 
 <template>
-  <NuxtLink :to="useLocalePath()(`/blog/${blog.id}`)" class="interios">
+  <NuxtLinkLocale :to="`/blog/${blog.id}`" class="interios">
     <div class="interios__img">
       <NuxtImg loading="lazy" :src="`/baseApiFiles/${blog.image?.name}`" />
     </div>
@@ -26,7 +26,7 @@ console.log(props.blog.translate);
         <span>{{ makeDateCorrect(blog.created_at) }}</span>
       </div>
     </div>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <style lang="scss" scoped>

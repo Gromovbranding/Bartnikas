@@ -115,10 +115,10 @@ const filterBySearchSidebar = computed(() => {
             v-for="sidebarItem in filterBySearchSidebar"
             :key="sidebarItem.url"
           >
-            <NuxtLink
+            <NuxtLinkLocale
               class="admin-layout__sidebar-item"
               active-class="admin-layout__sidebar-item--active"
-              :to="useLocalePath()(sidebarItem.url)"
+              :to="sidebarItem.url"
             >
               <ElIcon color="#fff" size="24">
                 <ElIconTickets class="admin-layout__sidebar-icon" />
@@ -126,7 +126,7 @@ const filterBySearchSidebar = computed(() => {
               <span>
                 {{ sidebarItem.text }}
               </span>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
         </ul>
       </ElAside>
@@ -140,9 +140,7 @@ const filterBySearchSidebar = computed(() => {
             <template #dropdown>
               <el-dropdown-menu class="user-dropdown">
                 <el-dropdown-item>
-                  <NuxtLink :to="useLocalePath()('/')" target="_blank">
-                    Home
-                  </NuxtLink>
+                  <NuxtLinkLocale to="/" target="_blank"> Home </NuxtLinkLocale>
                 </el-dropdown-item>
                 <el-dropdown-item divided @click="logout">
                   <span style="display: block">Log Out</span>

@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <NuxtLink :to="useLocalePath()(`/news/${article.id}`)" class="interios">
+  <NuxtLinkLocale :to="`/news/${article.id}`" class="interios">
     <div class="interios__img">
       <NuxtImg loading="lazy" :src="`/baseApiFiles/${article.image?.name}`" />
     </div>
@@ -22,7 +22,7 @@ defineProps<{
         <span>{{ makeDateCorrect(article.created_at) }}</span>
       </div>
     </div>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <style lang="scss" scoped>

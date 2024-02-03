@@ -28,9 +28,9 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <NuxtLink v-if="props.to" :to="useLocalePath()(props.to)" :class="classes">
+  <NuxtLinkLocale v-if="props.to" :to="props.to" :class="classes">
     <slot />
-  </NuxtLink>
+  </NuxtLinkLocale>
   <button v-else :class="classes">
     <slot />
   </button>

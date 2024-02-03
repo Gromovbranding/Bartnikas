@@ -19,10 +19,10 @@ defineProps<Props>();
         <h3>{{ name }}</h3>
       </div>
       <div>
-        <NuxtLink :to="useLocalePath()(`/projects/${projectId}/order/${id}`)">
+        <NuxtLinkLocale :to="`/projects/${projectId}/order/${id}`">
           <span>{{ $t("port.request") }}</span>
           <IconArrow is-arrow30-deg />
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
     </div>
   </div>

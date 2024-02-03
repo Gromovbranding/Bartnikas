@@ -32,7 +32,7 @@ const { data: emails } = await useAsyncData(
       <div>
         <ul class="menu__item-main">
           <li>
-            <NuxtLink :to="useLocalePath()('/projects')">
+            <NuxtLinkLocale to="/projects">
               {{ $t("titles.projects") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +49,10 @@ const { data: emails } = await useAsyncData(
                   d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
                 />
               </svg>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLink :to="useLocalePath()('/awards')">
+            <NuxtLinkLocale to="/awards">
               {{ $t("titles.awards") }} <sup>> 200</sup>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,10 +69,10 @@ const { data: emails } = await useAsyncData(
                   d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
                 />
               </svg>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLink :to="useLocalePath()('/about')">
+            <NuxtLinkLocale to="/about">
               {{ $t("titles.about") }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,29 +89,29 @@ const { data: emails } = await useAsyncData(
                   d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
                 />
               </svg>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
         </ul>
         <ul class="menu__item-sub">
           <li>
-            <NuxtLink :to="useLocalePath()('/media')">
+            <NuxtLinkLocale to="/media">
               {{ $t("titles.media") }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLink :to="useLocalePath()('/video-collection')">
+            <NuxtLinkLocale to="/video-collection">
               {{ $t("titles.videoCollection") }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLink :to="useLocalePath()('/faq')">
+            <NuxtLinkLocale to="/faq">
               {{ $t("titles.faq") }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLink :to="useLocalePath()('/contacts')">
+            <NuxtLinkLocale to="/contacts">
               {{ $t("titles.contacts") }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
         </ul>
       </div>
@@ -125,14 +125,14 @@ const { data: emails } = await useAsyncData(
         <div class="menu__terms">
           <ul class="menu__terms-menu">
             <li>
-              <NuxtLink :to="useLocalePath()('/terms')">
+              <NuxtLinkLocale to="/terms">
                 {{ $t("titles.termsConditions") }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
             <li>
-              <NuxtLink :to="useLocalePath()('/blog')">
+              <NuxtLinkLocale to="/blog">
                 {{ $t("titles.blog") }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
           </ul>
         </div>

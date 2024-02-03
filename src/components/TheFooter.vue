@@ -13,9 +13,9 @@ const { data: contacts } = await useAsyncData(
       <div class="footer__info">
         <ul>
           <li v-for="link in contacts?.menu_links" :key="link.name">
-            <NuxtLink :to="useLocalePath()(link.link)">
+            <NuxtLinkLocale :to="link.link">
               {{ link.name }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </li>
         </ul>
         <div>

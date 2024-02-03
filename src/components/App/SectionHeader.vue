@@ -22,12 +22,12 @@ withDefaults(defineProps<Props>(), {
         {{ toCaption }}
       </span>
     </h2>
-    <NuxtLink v-if="isLink" :to="useLocalePath()(to)">
+    <NuxtLinkLocale v-if="isLink" :to="to">
       {{ $t("sectionHeader.viewAll") }}
       <span>
         <slot />
       </span>
-    </NuxtLink>
+    </NuxtLinkLocale>
   </div>
 </template>
 

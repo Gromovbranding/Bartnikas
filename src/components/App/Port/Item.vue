@@ -56,7 +56,7 @@ const portImages = computed(() => {
         />
       </div>
       <div class="port__text">
-        <NuxtLink :to="useLocalePath()(`/projects/${project?.id}`)">
+        <NuxtLinkLocale :to="`/projects/${project?.id}`">
           <div>
             <IconPhotoCamera />
             <p>{{ project.details.length }}</p>
@@ -69,7 +69,7 @@ const portImages = computed(() => {
           <div class="port__text__desc">
             <p v-html="project.description"></p>
           </div>
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
     </div>
   </div>
