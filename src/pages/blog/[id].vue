@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { IBlogTranslate } from "~/types/admin-api";
+
 const route = useRoute();
 
 const { getBlogById } = usePublicData();
@@ -9,12 +11,26 @@ const { data: blog } = await useAsyncData(
   async () => await getBlogById(route.params.id as string)
 );
 
+const translated = useTranslateLanguage<IBlogTranslate>(blog.value!.translate);
+const translatedObj = computed(() => ({
+  prev: {
+    ...blog.value!.prev,
+    translate: useTranslateLanguage<IBlogTranslate>(blog.value!.prev?.translate)
+      .value,
+  },
+  next: {
+    ...blog.value!.next,
+    translate: useTranslateLanguage<IBlogTranslate>(blog.value!.next?.translate)
+      .value,
+  },
+}));
+
 useHeadSafe({
-  title: `${t("titles.article")} ${blog.value?.title}`,
+  title: `${t("titles.article")} ${translated.value?.title}`,
   meta: [
     {
       name: "description",
-      content: blog?.value?.description ?? "My Blog",
+      content: translated.value?.description ?? "My Blog",
     },
     {
       name: "robots",
@@ -31,24 +47,24 @@ useHeadSafe({
     <article class="article">
       <div class="article__headline">
         <time>{{ useDateFormat().makeDateCorrect(blog?.created_at) }} </time>
-        <h1>{{ blog?.title }}</h1>
+        <h1>{{ translated?.title }}</h1>
       </div>
       <div class="article__img">
         <NuxtImg loading="lazy" :src="`/baseApiFiles/${blog?.image?.name}`" />
       </div>
       <div class="article__text">
-        <p>{{ blog?.text }}</p>
+        <p>{{ translated?.text }}</p>
       </div>
     </article>
 
     <AppMediaNextPrev
       :prev="{
-        title: blog?.prev?.title,
-        id: blog?.prev?.id,
+        title: translatedObj?.prev?.translate?.title,
+        id: translatedObj?.prev?.id,
       }"
       :next="{
-        title: blog?.next?.title,
-        id: blog?.next?.id,
+        title: translatedObj?.next?.translate?.title,
+        id: translatedObj?.next?.id,
       }"
       slug="blog"
     />

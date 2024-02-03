@@ -22,11 +22,15 @@ export type PartialFileAdminApiDto = Omit<
   "id" | "updated_at" | "created_at" | "url"
 >;
 
-export interface IBlog {
-  id: number;
+export interface IBlogTranslate {
   title: string;
   description: string;
   text: string;
+}
+
+export interface IBlog {
+  id: number;
+  translate: TranslateLang<IBlogTranslate>[];
   image: IFile;
   created_at: string;
   updated_at: string;
