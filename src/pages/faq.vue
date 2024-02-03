@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IFaq } from "@/types/admin-api";
+import type { IFaqTranslate, IFaq } from "@/types/admin-api";
 
 const { getAllFaq } = usePublicData();
 const { t } = useI18n();
@@ -8,6 +8,15 @@ const { data: faqs } = await useAsyncData<IFaq[]>(
   "faqs",
   async () => await getAllFaq()
 );
+
+const translated = computed(() => {
+  return faqs?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IFaqTranslate>(item.translate).value,
+    };
+  });
+});
 
 useHeadSafe({
   title: t("titles.faq"),
@@ -29,11 +38,11 @@ useHeadSafe({
     <AppPageHead :title="$t('titles.faq')" />
     <section class="faq">
       <div class="faq__list">
-        <AppDetails v-for="item in faqs" :key="item.id">
+        <AppDetails v-for="item in translated" :key="item.id">
           <template #summary>
-            {{ item.title }}
+            {{ item?.translate?.title }}
           </template>
-          <div v-html="item.description"></div>
+          <div v-html="item?.translate?.description"></div>
         </AppDetails>
       </div>
     </section>

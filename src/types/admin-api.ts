@@ -223,10 +223,14 @@ export interface IMediaPublication {
   updated_at: string;
 }
 
-export interface IFaq {
-  id: number;
+export interface IFaqTranslate {
   title: string;
   description: string;
+}
+
+export interface IFaq {
+  id: number;
+  translate: TranslateLang<IFaqTranslate>[];
   created_at: string;
   updated_at: string;
 }
