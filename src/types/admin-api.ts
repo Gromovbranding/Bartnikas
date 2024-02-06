@@ -104,11 +104,15 @@ export interface IProject {
   updated_at: string;
 }
 
-export interface IArticle {
-  id: number;
+export interface IArticleTranslate {
   title: string;
   description: string;
   text: string;
+}
+
+export interface IArticle {
+  id: number;
+  translate: TranslateLang<IArticleTranslate>[];
   is_hot: boolean;
   image: IFile;
   created_at: string;
