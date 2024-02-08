@@ -194,10 +194,14 @@ export interface IMediaCV {
   updated_at: string;
 }
 
-export interface IMediaExhibition {
-  id: number;
+export interface IMediaExhibitionTranslate {
   title: string;
   awards: string;
+}
+
+export interface IMediaExhibition {
+  id: number;
+  translate: TranslateLang<IMediaExhibitionTranslate>[];
   image: IFile;
   created_at: string;
   updated_at: string;
@@ -211,19 +215,27 @@ export interface IMediaKit {
   updated_at: string;
 }
 
+export interface IMediaPresentationTranslate {
+  title: string;
+}
+
 export interface IMediaPresentation {
   id: number;
-  title: string;
+  translate: TranslateLang<IMediaPresentationTranslate>[];
   pdf: IFile;
   image: IFile;
   created_at: string;
   updated_at: string;
 }
 
-export interface IMediaPublication {
-  id: number;
+export interface IMediaPublicationTranslate {
   program: string;
   subtitle: string;
+}
+
+export interface IMediaPublication {
+  id: number;
+  translate: TranslateLang<IMediaPublicationTranslate>[];
   url: string;
   date: Date;
   image: IFile;

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { IMediaExhibition } from "~/types/admin-api";
+import type {
+  IMediaExhibition,
+  IMediaExhibitionTranslate,
+} from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -7,20 +10,30 @@ const { data: exhibition } = await useAsyncData<IMediaExhibition[]>(
   "exhibition",
   async () => await fetchGet("/media/exhibition")
 );
+
+const translated = computed(() => {
+  return exhibition?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IMediaExhibitionTranslate>(item.translate)
+        .value,
+    };
+  });
+});
 </script>
 
 <template>
   <div class="grid">
     <div
-      v-for="item in exhibition"
+      v-for="item in translated"
       :key="'exh' + item.id"
       class="media__exhibitions"
     >
       <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       <div>
-        <h3>{{ item.title }}</h3>
+        <h3>{{ item?.translate?.title }}</h3>
         <p>
-          {{ item.awards }}
+          {{ item?.translate?.award }}
         </p>
       </div>
     </div>
