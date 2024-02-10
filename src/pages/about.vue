@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-import type { IBio, IBioTranslate, IBioTestimonials } from "@/types/admin-api";
+import type {
+  IBio,
+  IBioTranslate,
+  IBioTestimonials,
+  IBioTestimonialsTranslate,
+} from "@/types/admin-api";
 
 const { breakpoint } = useBreakpoints();
 
@@ -43,6 +48,16 @@ const { data: bioTestimonials } = await useAsyncData<IBioTestimonials[]>(
   async () => await getBioTestimonials()
 );
 
+const translateBioTestimonials = computed(() => {
+  return bioTestimonials?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IBioTestimonialsTranslate>(item.translate)
+        .value,
+    };
+  });
+});
+
 function onPointerMove(e: PointerEvent) {
   if (!scrollActive.value || !scroll.value) return;
   scroll.value.scrollLeft -= e.movementX;
@@ -77,7 +92,7 @@ function onPointerDown(e: PointerEvent) {
         @pointermove="onPointerMove"
       >
         <div
-          v-for="item in bioTestimonials"
+          v-for="item in translateBioTestimonials"
           :key="item.id"
           class="testimonials__item"
         >
@@ -89,8 +104,8 @@ function onPointerDown(e: PointerEvent) {
               />
             </div>
             <div>
-              <h3>{{ item.name }}</h3>
-              <p>{{ item.job }}</p>
+              <h3>{{ item.translate?.name }}</h3>
+              <p>{{ item.translate?.job }}</p>
             </div>
           </div>
           <div class="testimonials__text">
@@ -111,7 +126,7 @@ function onPointerDown(e: PointerEvent) {
             </div>
             <div>
               <p>
-                {{ item.testimonial }}
+                {{ item.translate?.testimonial }}
               </p>
             </div>
             <div>

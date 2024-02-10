@@ -287,11 +287,15 @@ export interface IGreetingIndex {
   updated_at: string;
 }
 
-export interface IBioTestimonials {
-  id: number;
+export interface IBioTestimonialsTranslate {
   name: string;
   job: string;
   testimonial: string;
+}
+
+export interface IBioTestimonials {
+  id: number;
+  translate: TranslateLang<IBioTestimonialsTranslate>[];
   photo: IFile;
   created_at: string;
   updated_at: string;
