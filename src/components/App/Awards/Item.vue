@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { IAwards } from "~/types/admin-api";
+import type { IAwards, IAwardsTranslate } from "~/types/admin-api";
 
-defineProps<{
+const props = defineProps<{
   award: IAwards;
 }>();
+
+const translate = useTranslateLanguage<IAwardsTranslate>(
+  props.award.translate!
+);
 </script>
 
 <template>
@@ -14,7 +18,7 @@ defineProps<{
         :src="`/baseApiFiles/${award.awards_avatar.name}`"
       />
       <div>
-        <h4>{{ award.title }}</h4>
+        <h4>{{ translate?.title }}</h4>
       </div>
     </a>
   </div>

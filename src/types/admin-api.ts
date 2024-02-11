@@ -159,11 +159,15 @@ export interface IAwardsDegree {
   updated_at: string;
 }
 
+export interface IAwardsTranslate {
+  title: string;
+  description: string;
+}
+
 export interface IAwards {
   id: number;
   awards_avatar: IFile;
-  title: string;
-  description: string;
+  translate: TranslateLang<IAwardsTranslate>[];
   degress: IAwardsDegree[];
   created_at: string;
   updated_at: string;
