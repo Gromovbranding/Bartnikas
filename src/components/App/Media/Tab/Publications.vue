@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { IMediaPublication } from "~/types/admin-api";
+import type {
+  IMediaPublication,
+  IMediaPublicationTranslate,
+} from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -7,13 +10,24 @@ const { data: publication } = await useAsyncData<IMediaPublication[]>(
   "publication",
   async () => await fetchGet("/media/publication")
 );
+
+const translated = computed(() => {
+  return publication?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IMediaPublicationTranslate>(
+        item.translate
+      ).value,
+    };
+  });
+});
 </script>
 
 <template>
   <div>
     <div class="grid">
       <a
-        v-for="item in publication"
+        v-for="item in translated"
         :key="'pub' + item.id"
         :href="item.url"
         class="media__publications upper-slide"
@@ -30,11 +44,11 @@ const { data: publication } = await useAsyncData<IMediaPublication[]>(
               })
             }}
           </h3>
-          <small>{{ item.program }}</small>
+          <small>{{ item.translate?.program }}</small>
         </div>
         <div>
           <IconArrow is-arrow30-deg />
-          <span>{{ item.subtitle }}</span>
+          <span>{{ item.translate?.subtitle }}</span>
         </div>
       </a>
     </div>

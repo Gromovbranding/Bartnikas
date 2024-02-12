@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { IMediaPresentation } from "~/types/admin-api";
+import type {
+  IMediaPresentation,
+  IMediaPresentationTranslate,
+} from "~/types/admin-api";
 
 const { fetchGet } = useApi();
 
@@ -7,12 +10,22 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
   "presentation",
   async () => await fetchGet("/media/presentation")
 );
+const translated = computed(() => {
+  return presentation?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IMediaPresentationTranslate>(
+        item.translate
+      ).value,
+    };
+  });
+});
 </script>
 
 <template>
   <div class="grid">
     <article
-      v-for="item in presentation"
+      v-for="item in translated"
       :key="'pres' + item.id"
       class="media__presentation"
     >
@@ -20,7 +33,7 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
         <NuxtImg loading="lazy" :src="`/baseApiFiles/${item.image.name}`" />
       </div>
       <div>
-        <h3>{{ item.title }}</h3>
+        <h3>{{ item.translate?.title }}</h3>
         <UIButton
           class="media__presentation__btn"
           :is-text-uppercase="false"
@@ -40,11 +53,13 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
   grid-gap: 3rem;
   grid-template-columns: 1fr 1fr;
 }
+
 .media__presentation {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
+
   &__btn {
     font-size: 1.5rem !important;
   }
@@ -92,6 +107,7 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
     flex-direction: column;
     grid-gap: 60px;
   }
+
   .media__presentation {
     > div {
       &:first-child {
@@ -104,6 +120,7 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
         display: flex;
         flex-direction: column;
         align-items: stretch;
+
         h3 {
           font-size: 7vw;
         }

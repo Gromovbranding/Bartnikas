@@ -7,8 +7,6 @@ const props = defineProps<{
 }>();
 
 const translated = useTranslateLanguage<IBlogTranslate>(props.blog.translate);
-
-console.log(props.blog.translate);
 </script>
 
 <template>

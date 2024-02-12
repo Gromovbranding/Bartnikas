@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { IArticleTranslate } from "~/types/admin-api";
+
 const { makeDateCorrect } = useDateFormat();
 
 const route = useRoute();
@@ -12,12 +14,30 @@ const { data: article } = await useAsyncData(
   async () => await getArticleById(route.params.id as string)
 );
 
+const translated = useTranslateLanguage<IArticleTranslate>(
+  article.value!.translate
+);
+const translatedObj = computed(() => ({
+  prev: {
+    ...article.value!.prev,
+    translate: useTranslateLanguage<IArticleTranslate>(
+      article.value!.prev?.translate
+    ).value,
+  },
+  next: {
+    ...article.value!.next,
+    translate: useTranslateLanguage<IArticleTranslate>(
+      article.value!.next?.translate
+    ).value,
+  },
+}));
+
 useHeadSafe({
-  title: `${t("titles.article")} ${article.value?.title}`,
+  title: `${t("titles.article")} ${translated.value?.title}`,
   meta: [
     {
       name: "description",
-      content: article.value?.description ?? "My Desc",
+      content: translated.value?.description ?? "My Desc",
     },
     {
       name: "robots",
@@ -33,7 +53,7 @@ useHeadSafe({
 
     <article class="article">
       <div class="article__headline">
-        <h1>{{ article?.title }}</h1>
+        <h1>{{ translated?.title }}</h1>
         <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
@@ -43,18 +63,18 @@ useHeadSafe({
         />
       </div>
       <div class="article__content">
-        <p v-html="article?.description"></p>
-        <p v-html="article?.text"></p>
+        <p v-html="translated?.description"></p>
+        <p v-html="translated?.text"></p>
       </div>
     </article>
 
     <AppMediaNextPrev
       :next="{
-        title: article?.next?.title,
-        id: article?.next?.id,
+        title: translatedObj?.next?.translate?.title,
+        id: translatedObj?.next?.id,
       }"
       :prev="{
-        title: article?.prev?.title,
+        title: translatedObj?.prev?.translate?.title,
         id: article?.prev?.id,
       }"
       slug="news"

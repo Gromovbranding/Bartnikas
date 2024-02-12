@@ -104,11 +104,15 @@ export interface IProject {
   updated_at: string;
 }
 
-export interface IArticle {
-  id: number;
+export interface IArticleTranslate {
   title: string;
   description: string;
   text: string;
+}
+
+export interface IArticle {
+  id: number;
+  translate: TranslateLang<IArticleTranslate>[];
   is_hot: boolean;
   image: IFile;
   created_at: string;
@@ -155,11 +159,15 @@ export interface IAwardsDegree {
   updated_at: string;
 }
 
+export interface IAwardsTranslate {
+  title: string;
+  description: string;
+}
+
 export interface IAwards {
   id: number;
   awards_avatar: IFile;
-  title: string;
-  description: string;
+  translate: TranslateLang<IAwardsTranslate>[];
   degress: IAwardsDegree[];
   created_at: string;
   updated_at: string;
@@ -190,10 +198,14 @@ export interface IMediaCV {
   updated_at: string;
 }
 
-export interface IMediaExhibition {
-  id: number;
+export interface IMediaExhibitionTranslate {
   title: string;
   awards: string;
+}
+
+export interface IMediaExhibition {
+  id: number;
+  translate: TranslateLang<IMediaExhibitionTranslate>[];
   image: IFile;
   created_at: string;
   updated_at: string;
@@ -207,19 +219,27 @@ export interface IMediaKit {
   updated_at: string;
 }
 
+export interface IMediaPresentationTranslate {
+  title: string;
+}
+
 export interface IMediaPresentation {
   id: number;
-  title: string;
+  translate: TranslateLang<IMediaPresentationTranslate>[];
   pdf: IFile;
   image: IFile;
   created_at: string;
   updated_at: string;
 }
 
-export interface IMediaPublication {
-  id: number;
+export interface IMediaPublicationTranslate {
   program: string;
   subtitle: string;
+}
+
+export interface IMediaPublication {
+  id: number;
+  translate: TranslateLang<IMediaPublicationTranslate>[];
   url: string;
   date: Date;
   image: IFile;
@@ -271,11 +291,15 @@ export interface IGreetingIndex {
   updated_at: string;
 }
 
-export interface IBioTestimonials {
-  id: number;
+export interface IBioTestimonialsTranslate {
   name: string;
   job: string;
   testimonial: string;
+}
+
+export interface IBioTestimonials {
+  id: number;
+  translate: TranslateLang<IBioTestimonialsTranslate>[];
   photo: IFile;
   created_at: string;
   updated_at: string;

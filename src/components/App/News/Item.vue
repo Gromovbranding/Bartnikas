@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import type { IArticle } from "~/types/admin-api";
+import type { IArticle, IArticleTranslate } from "~/types/admin-api";
 const { makeDateCorrect } = useDateFormat();
 
-defineProps<{
+const props = defineProps<{
   article: IArticle;
 }>();
+
+const translated = useTranslateLanguage<IArticleTranslate>(
+  props.article.translate
+);
 </script>
 
 <template>
@@ -17,8 +21,8 @@ defineProps<{
         <IconArrow is-arrow30-deg />
       </div>
       <div>
-        <h3>{{ article.title }}</h3>
-        <p v-html="article.description"></p>
+        <h3>{{ translated?.title }}</h3>
+        <p v-html="translated?.description"></p>
         <span>{{ makeDateCorrect(article.created_at) }}</span>
       </div>
     </div>

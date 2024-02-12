@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IAwards } from "~/types/admin-api";
+import type { IAwards, IAwardsTranslate } from "~/types/admin-api";
 
 const showModal = ref(false);
 const { getAllAwards } = usePublicData();
@@ -9,6 +9,15 @@ const { data: awards } = await useAsyncData<IAwards[]>(
   "awards",
   async () => await getAllAwards()
 );
+
+const translated = computed(() => {
+  return awards?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IAwardsTranslate>(item.translate).value,
+    };
+  });
+});
 
 useHeadSafe({
   title: t("titles.awards"),
@@ -41,7 +50,7 @@ function showImg(name: string) {
       :additional-info="$t('awards.additionalInfo')"
     />
     <section class="awards">
-      <div v-for="award in awards" :key="award.id" class="awards__item">
+      <div v-for="award in translated" :key="award.id" class="awards__item">
         <div class="awards__circle">
           <a href="#">
             <NuxtImg
@@ -52,10 +61,10 @@ function showImg(name: string) {
         </div>
         <div class="awards__text">
           <div>
-            <b>{{ award.title }}</b>
+            <b>{{ award?.translate?.title }}</b>
           </div>
           <div>
-            <p v-html="award.description"></p>
+            <p v-html="award?.translate?.description"></p>
           </div>
         </div>
         <div class="awards__photo">
