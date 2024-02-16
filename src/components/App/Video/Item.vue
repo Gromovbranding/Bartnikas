@@ -1,16 +1,23 @@
 <script setup lang="ts">
-import type { IVideoCollection } from "~/types/admin-api";
+import type {
+  IVideoCollection,
+  IVideoCollectionTranslate,
+} from "~/types/admin-api";
 
 const video = ref<HTMLVideoElement>();
 const activeVideo = ref(false);
 
 const { makeDateCorrect } = useDateFormat();
 
-defineProps<{
+const props = defineProps<{
   item: IVideoCollection;
 }>();
 
 const showControls = computed(() => (activeVideo.value ? true : undefined));
+
+const translate = useTranslateLanguage<IVideoCollectionTranslate>(
+  props.item.translate
+);
 
 function playVideo() {
   if (!video.value) return;
@@ -36,7 +43,7 @@ function playVideo() {
       </div>
     </div>
     <div class="video-collection__info">
-      <h4>{{ item.title }}</h4>
+      <h4>{{ translate?.title }}</h4>
       <time>{{ makeDateCorrect(item.created_at) }}</time>
     </div>
   </article>

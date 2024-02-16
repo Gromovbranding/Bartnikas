@@ -181,10 +181,14 @@ export interface ITestimonial {
   file: IFile;
 }
 
+export interface IVideoCollectionTranslate {
+  title: string;
+}
+
 export interface IVideoCollection {
   id: number;
-  title: string;
   video: IFile;
+  translate: TranslateLang<IVideoCollectionTranslate>[];
   project?: IProject;
   created_at: string;
   updated_at: string;

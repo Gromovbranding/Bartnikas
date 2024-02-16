@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { IProject, IVideoCollection } from "@/types/admin-api";
+import type {
+  IProject,
+  IVideoCollection,
+  IVideoCollectionTranslate,
+} from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -13,7 +17,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { videos } = useAdmin();
+const { videos, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = videos();
 
 const { fetchGet } = useApi();
@@ -31,6 +35,7 @@ useHeadSafe({
 
 const form = reactive<IVideoCollection>({
   ...model,
+  translate: initTranslateLocale<IVideoCollectionTranslate>(model.translate),
   project: model.project ?? projects.value?.[0],
 });
 
@@ -57,8 +62,8 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
       <ElFormItem required label="Project" prop="project">
