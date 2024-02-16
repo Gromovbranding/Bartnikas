@@ -20,10 +20,57 @@ import type {
   IFooterContact,
   IndexCardFooter,
   IIndexSlider,
+  TranslateLang,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
   const accessToken = useCookie<string>("accessToken");
+  const cfg = useRuntimeConfig();
+
+  interface IAvailableLocale {
+    code: string;
+    label: string;
+    icon: string;
+  }
+
+  const currentLocale = useCookie<IAvailableLocale>("current-locale", {
+    default: () =>
+      cfg.public.avaiableLocales!.find((item) => item.code === "en")!,
+  });
+
+  const currentIndexLocale = computed(() => {
+    return (
+      cfg.public.avaiableLocales!.findIndex(
+        (item) => currentLocale.value.code === item.code
+      ) ?? 0
+    );
+  });
+
+  const initTranslateLocale = <T = unknown>(props: T | T[]) => {
+    if (Array.isArray(props)) {
+      return cfg.public.avaiableLocales!.map((item) => {
+        const prop = props.find(
+          (prop) => prop.language.code.toLowerCase() === item.code.toLowerCase()
+        )!;
+
+        return {
+          ...prop,
+          code: item.code,
+        };
+      }) as TranslateLang<T>[];
+    }
+
+    return cfg.public.avaiableLocales!.map((item) => {
+      return {
+        ...props,
+        code: item.code,
+      };
+    }) as PartialAdminApiDto<TranslateLang<T>[]>;
+  };
+
+  const handleChangeLocale = (item: IAvailableLocale) => {
+    currentLocale.value = item;
+  };
 
   const createTitle = (type: "create" | "edit" = "create", title: string) => {
     return type === "create" ? `Create new ${title}` : `Edit ${title}`;
@@ -692,5 +739,10 @@ export const useAdmin = () => {
     footerContacts,
     footerIndexCard,
     generalInfo,
+
+    currentLocale,
+    currentIndexLocale,
+    handleChangeLocale,
+    initTranslateLocale,
   };
 };

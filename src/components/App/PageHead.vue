@@ -22,7 +22,6 @@ withDefaults(defineProps<Props>(), {
 });
 
 const router = useRouter();
-const route = useRoute();
 
 const handleBack = () => {
   if (window.history.length > 2) {
@@ -31,22 +30,17 @@ const handleBack = () => {
     router.push("/");
   }
 };
-
-const onClickLogo = async () => {
-  if (route.path === "/") return;
-  await navigateTo(useLocaleRoute()("/"));
-};
 </script>
 
 <template>
   <header :class="['page-head', `page-head--${onlyLogo ? 'white' : bgColor}`]">
-    <div class="page-head__logo" @click="onClickLogo">
+    <NuxtLinkLocale to="/" class="page-head__logo">
       <IconLogo
         v-if="['grey', 'white'].includes(bgColor) || onlyLogo"
         is-only-author-black
       />
       <IconLogo v-else is-only-author-white />
-    </div>
+    </NuxtLinkLocale>
     <div v-if="back" class="page-head__back" @click="handleBack">
       <span> ← {{ $t("buttons.back") }} </span>
     </div>

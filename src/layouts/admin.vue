@@ -93,6 +93,8 @@ const sidebarItems: {
   },
 ];
 const { logout } = useApi();
+const { currentLocale } = useAdmin();
+const locales = useRuntimeConfig().public.avaiableLocales;
 const search = ref("");
 
 const filterBySearchSidebar = computed(() => {
@@ -133,21 +135,34 @@ const filterBySearchSidebar = computed(() => {
       <ElContainer>
         <ElHeader class="admin-layout__header" height="75px">
           <h1>Admin Panel</h1>
-          <el-dropdown class="admin-layout__profile" trigger="click">
-            <template #default>
-              <el-avatar :size="32" :src="ProfileAvatar" />
-            </template>
-            <template #dropdown>
-              <el-dropdown-menu class="user-dropdown">
-                <el-dropdown-item>
-                  <NuxtLinkLocale to="/" target="_blank"> Home </NuxtLinkLocale>
-                </el-dropdown-item>
-                <el-dropdown-item divided @click="logout">
-                  <span style="display: block">Log Out</span>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+
+          <div>
+            <ElSelect v-model="currentLocale" value-key="code" size="default">
+              <ElOption
+                v-for="locale in locales"
+                :key="locale.code"
+                :label="locale.label"
+                :value="locale"
+              />
+            </ElSelect>
+            <el-dropdown class="admin-layout__profile" trigger="click">
+              <template #default>
+                <el-avatar :size="32" :src="ProfileAvatar" />
+              </template>
+              <template #dropdown>
+                <el-dropdown-menu class="user-dropdown">
+                  <el-dropdown-item>
+                    <NuxtLinkLocale to="/" target="_blank">
+                      Home
+                    </NuxtLinkLocale>
+                  </el-dropdown-item>
+                  <el-dropdown-item divided @click="logout">
+                    <span style="display: block">Log Out</span>
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
         </ElHeader>
 
         <ElMain>

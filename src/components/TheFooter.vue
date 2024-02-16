@@ -34,7 +34,7 @@ const { data: contacts } = await useAsyncData(
         <div>
           <NuxtImg
             loading="lazy"
-            :src="`/baseApiFiles/${contacts?.logo.name}`"
+            :src="`/baseApiFiles/${contacts?.logo?.name}`"
           />
         </div>
         <div>

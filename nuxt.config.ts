@@ -2,6 +2,13 @@ const DEV_BASE_API_URL = "http://localhost:8080";
 const PROD_BASE_API_URL = "https://api.stanislavbartnikas.com";
 const BASE_API_FILES = "/files";
 
+const AVAILABLE_LOCALES = [
+  { code: "en", label: "English", icon: "en" },
+  { code: "ru", label: "Русский", icon: "ru" },
+  { code: "fr", label: "Français", icon: "fr" },
+  { code: "de", label: "Deutsche", icon: "de" },
+];
+
 export default defineNuxtConfig({
   srcDir: "src",
   modules: [
@@ -16,13 +23,8 @@ export default defineNuxtConfig({
       {
         skipSettingLocaleOnNavigate: true,
         vueI18n: "./src/packages/i18n.ts",
-        locales: [
-          { code: "en", label: "English", icon: "en" },
-          { code: "ru", label: "Русский", icon: "ru" },
-          { code: "fr", label: "Français", icon: "fr" },
-          { code: "de", label: "Deutsche", icon: "de" },
-        ],
         defaultLocale: "en",
+        locales: AVAILABLE_LOCALES,
         detectBrowserLanguage: {
           alwaysRedirect: true,
           fallbackLocale: "en",
@@ -62,6 +64,12 @@ export default defineNuxtConfig({
       alias: {
         baseApiFiles: `${PROD_BASE_API_URL}${BASE_API_FILES}`,
       },
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      avaiableLocales: AVAILABLE_LOCALES,
     },
   },
 
@@ -111,7 +119,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: false,
+    enabled: true,
   },
 
   vite: {
