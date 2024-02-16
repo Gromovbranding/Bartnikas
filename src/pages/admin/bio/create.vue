@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IBio,
+  IBioTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { bio } = useAdmin();
+const { bio, currentIndexLocale, initTranslateLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = bio();
 
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -21,8 +22,10 @@ useHeadSafe({
 });
 
 const form = reactive<PartialAdminApiDto<IBio>>({
-  description: "",
-  sub_description: "",
+  translate: initTranslateLocale<IBioTranslate>({
+    description: "",
+    sub_description: "",
+  }),
   is_active: false,
   awatar: null,
 });
@@ -57,11 +60,19 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Sub description" prop="sub_description">
-        <ElInput v-model="form.sub_description" />
+      <ElFormItem
+        label="Sub description"
+        :prop="`translate.${currentIndexLocale}.sub_description`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].sub_description" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
       <ElFormItem label="Is active" prop="is_active">
         <ElSwitch v-model="form.is_active" />

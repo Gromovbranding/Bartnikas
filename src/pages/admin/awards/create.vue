@@ -3,6 +3,7 @@ import type { UploadUserFile } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
 import type {
   IAwards,
+  IAwardsTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -24,7 +25,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { awards } = useAdmin();
+const { awards, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = awards();
 
 useHeadSafe({
@@ -39,9 +40,11 @@ const imageFiles = ref<UploadUserFile[]>([]);
 const awardImages = ref<ImageDetails>({});
 
 const form = reactive<PartialAdminApiDto<IAwards>>({
-  title: "",
+  translate: initTranslateLocale<IAwardsTranslate>({
+    title: "",
+    description: "",
+  }),
   awards_avatar: null,
-  description: "",
   degress: [],
 });
 
@@ -142,11 +145,18 @@ watch(
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <ElInput v-model="form.description" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].description"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem required label="Award logo" prop="awards_avatar">
         <AdminUploadFile

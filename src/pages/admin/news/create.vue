@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IArticle,
+  IArticleTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { news } = useAdmin();
+const { news, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = news();
 
 useHeadSafe({
@@ -21,10 +22,12 @@ const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<IArticle>>({
-  title: "",
+  translate: initTranslateLocale<IArticleTranslate>({
+    description: "",
+    title: "",
+    text: "",
+  }),
   is_hot: false,
-  description: "",
-  text: "",
   image: null,
 });
 
@@ -58,17 +61,22 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem label="Article is hot" prop="is_hot">
         <ElSwitch v-model="form.is_hot" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
-      <ElFormItem label="Text" prop="text">
-        <AdminEditorInput v-model="form.text" />
+      <ElFormItem label="Text" :prop="`translate.${currentIndexLocale}.text`">
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].text" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
         <AdminUploadFile ref="uploadRef" v-model="form.image" />

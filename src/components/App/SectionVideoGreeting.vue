@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import type { IGreetingIndex } from "~/types/admin-api";
+import type {
+  IGreetingIndex,
+  IGreetingIndexTranslate,
+} from "~/types/admin-api";
 
 const { getActiveGreetingIndex } = usePublicData();
 
 const { data: greeting } = await useAsyncData<IGreetingIndex>(
   "greetingIndex",
   async () => await getActiveGreetingIndex()
+);
+
+const translate = useTranslateLanguage<IGreetingIndexTranslate>(
+  greeting.value!.translate
 );
 
 const showVideo = ref(false);
@@ -33,7 +40,7 @@ function playVideo() {
     </div>
     <div class="video-greeting__text">
       <p>
-        {{ greeting?.text }}
+        {{ translate?.text }}
       </p>
     </div>
   </section>

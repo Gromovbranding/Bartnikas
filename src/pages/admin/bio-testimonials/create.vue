@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IBioTestimonials,
+  IBioTestimonialsTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { bioTestimonials } = useAdmin();
+const { bioTestimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = bioTestimonials();
 
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -21,9 +22,11 @@ useHeadSafe({
 });
 
 const form = reactive<PartialAdminApiDto<IBioTestimonials>>({
-  name: "",
-  job: "",
-  testimonial: "",
+  translate: initTranslateLocale<IBioTestimonialsTranslate>({
+    name: "",
+    job: "",
+    testimonial: "",
+  }),
   photo: null,
 });
 
@@ -57,14 +60,21 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Name" prop="name">
-        <ElInput v-model="form.name" />
+      <ElFormItem label="Name" :prop="`translate.${currentIndexLocale}.name`">
+        <ElInput v-model="form.translate[currentIndexLocale].name" />
       </ElFormItem>
-      <ElFormItem label="Job" prop="job">
-        <ElInput v-model="form.job" />
+      <ElFormItem label="Job" :prop="`translate.${currentIndexLocale}.job`">
+        <ElInput v-model="form.translate[currentIndexLocale].job" />
       </ElFormItem>
-      <ElFormItem label="Testimonial" prop="testimonial">
-        <ElInput v-model="form.testimonial" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Testimonial"
+        :prop="`translate.${currentIndexLocale}.testimonial`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].testimonial"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem required label="Photo" prop="photo">
         <AdminUploadFile ref="uploadRef" v-model="form.photo" />

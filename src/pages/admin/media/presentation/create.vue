@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IMediaPresentation,
+  IMediaPresentationTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { media } = useAdmin();
+const { media, currentIndexLocale, initTranslateLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = media().presentation();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -24,7 +25,9 @@ useHeadSafe({
 const form = reactive<PartialAdminApiDto<IMediaPresentation>>({
   image: null,
   pdf: null,
-  title: "",
+  translate: initTranslateLocale<IMediaPresentationTranslate>({
+    title: "",
+  }),
 });
 
 const handleResetForm = () => {
@@ -59,8 +62,8 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
       <ElFormItem required label="Image" prop="image">

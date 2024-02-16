@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IMediaExhibition,
+  IMediaExhibitionTranslate,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
@@ -17,7 +18,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { media } = useAdmin();
+const { media, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = media().exhibition();
 
 const model = await methods.handleGetModel(id);
@@ -26,7 +27,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IMediaExhibition>(model);
+const form = reactive<IMediaExhibition>({
+  ...model,
+  translate: initTranslateLocale<IMediaExhibitionTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -56,12 +60,15 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
-      <ElFormItem label="Awards" prop="awards">
-        <ElInput v-model="form.awards" />
+      <ElFormItem
+        label="Awards"
+        :prop="`translate.${currentIndexLocale}.awards`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].awards" />
       </ElFormItem>
 
       <ElFormItem required label="Image" prop="image">

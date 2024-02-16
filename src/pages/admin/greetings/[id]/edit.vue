@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { IGreetingIndex, PartialFileAdminApiDto } from "@/types/admin-api";
+import type {
+  IGreetingIndex,
+  IGreetingIndexTranslate,
+  PartialFileAdminApiDto,
+} from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
@@ -15,7 +19,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { greetings } = useAdmin();
+const { greetings, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = greetings();
 
 const model = await methods.handleGetModel(id);
@@ -24,7 +28,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IGreetingIndex>(model);
+const form = reactive<IGreetingIndex>({
+  ...model,
+  translate: initTranslateLocale<IGreetingIndexTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -56,8 +63,8 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Text" prop="text">
-        <AdminEditorInput v-model="form.text" />
+      <ElFormItem label="Text" :prop="`translate.${currentIndexLocale}.text`">
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].text" />
       </ElFormItem>
 
       <ElFormItem label="Is active" prop="is_active">

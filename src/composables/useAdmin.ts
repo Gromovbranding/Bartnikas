@@ -21,6 +21,7 @@ import type {
   IndexCardFooter,
   IIndexSlider,
   TranslateLang,
+  IGeneralInfo,
 } from "@/types/admin-api";
 
 export const useAdmin = () => {
@@ -218,7 +219,7 @@ export const useAdmin = () => {
   const generalInfo = () => {
     const path = "general-info";
 
-    const methods = getModelFetchers<ITestimonial>(path);
+    const methods = getModelFetchers<IGeneralInfo>(path);
 
     return {
       methods,

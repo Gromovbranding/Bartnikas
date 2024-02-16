@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { UploadUserFile } from "element-plus";
 import { Delete } from "@element-plus/icons-vue";
-import type { IAwards } from "@/types/admin-api";
+import type { IAwards, IAwardsTranslate } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 interface ImageDetails {
@@ -31,7 +31,7 @@ const awardImages = ref<ImageDetails>({});
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { awards } = useAdmin();
+const { awards, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = awards();
 
 const model = await methods.handleGetModel(id);
@@ -40,7 +40,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IAwards>(model);
+const form = reactive<IAwards>({
+  ...model,
+  translate: initTranslateLocale<IAwardsTranslate>(model.translate),
+});
 
 const selectOptions = [
   { value: "Gold", label: "Gold" },
@@ -153,11 +156,18 @@ watch(
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <ElInput v-model="form.description" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].description"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem required label="Award logo" prop="awards_avatar">
         <AdminUploadFile

@@ -15,7 +15,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { news } = useAdmin();
+const { news, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = news();
 
 const model = await methods.handleGetModel(id);
@@ -24,7 +24,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IArticle>(model);
+const form = reactive<IArticle>({
+  ...model,
+  translate: initTranslateLocale<IArticleTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -54,17 +57,22 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem label="Article is hot" prop="is_hot">
         <ElSwitch v-model="form.is_hot" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
-      <ElFormItem label="Text" prop="text">
-        <AdminEditorInput v-model="form.text" />
+      <ElFormItem label="Text" :prop="`translate.${currentIndexLocale}.text`">
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].text" />
       </ElFormItem>
       <ElFormItem required label="Article Image" prop="image">
         <AdminUploadFile ref="uploadRef" v-model="form.image" />

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IMediaPublication,
+  IMediaPublicationTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { media } = useAdmin();
+const { media, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = media().publication();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -21,9 +22,11 @@ useHeadSafe({
 });
 
 const form = reactive<PartialAdminApiDto<IMediaPublication>>({
+  translate: initTranslateLocale<IMediaPublicationTranslate>({
+    subtitle: "",
+    program: "",
+  }),
   image: null,
-  program: "",
-  subtitle: "",
   url: "",
   date: new Date(),
 });
@@ -58,11 +61,19 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Program" prop="program">
-        <ElInput v-model="form.program" />
+      <ElFormItem
+        label="Program"
+        :prop="`translate.${currentIndexLocale}.program`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].program" />
       </ElFormItem>
-      <ElFormItem label="Subtitle" prop="subtitle">
-        <AdminEditorInput v-model="form.subtitle" />
+      <ElFormItem
+        label="Subtitle"
+        :prop="`translate.${currentIndexLocale}.subtitle`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].subtitle"
+        />
       </ElFormItem>
       <ElFormItem label="URL" prop="url">
         <ElInput v-model="form.url" />

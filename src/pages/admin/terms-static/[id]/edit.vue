@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ITermsStatic } from "@/types/admin-api";
+import type { ITermsStatic, ITermsStaticTranslate } from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
@@ -14,7 +14,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { termsStatic } = useAdmin();
+const { termsStatic, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = termsStatic();
 
 const model = await methods.handleGetModel(id);
@@ -23,7 +23,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<ITermsStatic>(model);
+const form = reactive<ITermsStatic>({
+  ...model,
+  translate: initTranslateLocale<ITermsStaticTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -48,11 +51,16 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate"> Update </ElButton>

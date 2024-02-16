@@ -1,23 +1,33 @@
 <script lang="ts" setup>
-import type { ITermsStatic } from "@/types/admin-api";
+import type { ITermsStatic, ITermsStaticTranslate } from "@/types/admin-api";
 
 interface Props {
   list: ITermsStatic[] | null;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const translated = computed(() => {
+  return props.list?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<ITermsStaticTranslate>(item.translate)
+        .value,
+    };
+  });
+});
 </script>
 <template>
   <section class="terms">
     <div class="terms__list">
-      <div v-for="item in list" :key="item.id" class="terms__item">
+      <div v-for="item in translated" :key="item.id" class="terms__item">
         <div>
           <h3>
-            {{ item.title }}
+            {{ item.translate?.title }}
           </h3>
         </div>
         <div>
-          <p v-html="item.description" />
+          <p v-html="item.translate?.description" />
         </div>
       </div>
     </div>

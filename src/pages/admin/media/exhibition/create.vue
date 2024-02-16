@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IMediaExhibition,
+  IMediaExhibitionTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { media } = useAdmin();
+const { media, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = media().exhibition();
 
 const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
@@ -22,8 +23,10 @@ useHeadSafe({
 
 const form = reactive<PartialAdminApiDto<IMediaExhibition>>({
   image: null,
-  awards: "",
-  title: "",
+  translate: initTranslateLocale<IMediaExhibitionTranslate>({
+    title: "",
+    awards: "",
+  }),
 });
 
 const handleResetForm = () => {
@@ -56,12 +59,15 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
-      <ElFormItem label="Awards" prop="awards">
-        <ElInput v-model="form.awards" />
+      <ElFormItem
+        label="Awards"
+        :prop="`translate.${currentIndexLocale}.awards`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].awards" />
       </ElFormItem>
 
       <ElFormItem required label="Image" prop="image">

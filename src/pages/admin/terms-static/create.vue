@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import type { ITermsStatic, PartialAdminApiDto } from "@/types/admin-api";
+import type {
+  ITermsStatic,
+  PartialAdminApiDto,
+  ITermsStaticTranslate,
+} from "@/types/admin-api";
 import { AdminTemplateForm } from "#components";
 
 definePageMeta({
   layout: "admin",
 });
 
-const { termsStatic } = useAdmin();
+const { termsStatic, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = termsStatic();
 
 useHeadSafe({
@@ -16,8 +20,10 @@ useHeadSafe({
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<ITermsStatic>>({
-  title: "",
-  description: "",
+  translate: initTranslateLocale<ITermsStaticTranslate>({
+    title: "",
+    description: "",
+  }),
 });
 
 const handleResetForm = () => {
@@ -45,11 +51,16 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+      <ElFormItem
+        label="Description"
+        :prop="`translate.${currentIndexLocale}.description`"
+      >
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate"> Create </ElButton>

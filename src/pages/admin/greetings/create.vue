@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IGreetingIndex,
+  IGreetingIndexTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { greetings } = useAdmin();
+const { greetings, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = greetings();
 
 useHeadSafe({
@@ -25,7 +26,9 @@ const form = reactive<PartialAdminApiDto<IGreetingIndex>>({
   video: null,
   poster: null,
   is_active: false,
-  text: "",
+  translate: initTranslateLocale<IGreetingIndexTranslate>({
+    text: "",
+  }),
 });
 
 const handleResetForm = () => formRef.value?.resetForm();
@@ -58,8 +61,8 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Text" prop="text">
-        <AdminEditorInput v-model="form.text" />
+      <ElFormItem label="Text" :prop="`translate.${currentIndexLocale}.text`">
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].text" />
       </ElFormItem>
 
       <ElFormItem label="Is active" prop="is_active">

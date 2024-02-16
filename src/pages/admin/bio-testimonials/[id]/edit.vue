@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IBioTestimonials,
+  IBioTestimonialsTranslate,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
@@ -17,7 +18,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { bioTestimonials } = useAdmin();
+const { bioTestimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = bioTestimonials();
 
 const model = await methods.handleGetModel(id);
@@ -26,7 +27,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IBioTestimonials>(model);
+const form = reactive<IBioTestimonials>({
+  ...model,
+  translate: initTranslateLocale<IBioTestimonialsTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -56,14 +60,21 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Name" prop="name">
-        <ElInput v-model="form.name" />
+      <ElFormItem label="Name" :prop="`translate.${currentIndexLocale}.name`">
+        <ElInput v-model="form.translate[currentIndexLocale].name" />
       </ElFormItem>
-      <ElFormItem label="Job" prop="job">
-        <ElInput v-model="form.job" />
+      <ElFormItem label="Job" :prop="`translate.${currentIndexLocale}.job`">
+        <ElInput v-model="form.translate[currentIndexLocale].job" />
       </ElFormItem>
-      <ElFormItem label="Testimonial" prop="testimonial">
-        <ElInput v-model="form.testimonial" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Testimonial"
+        :prop="`translate.${currentIndexLocale}.testimonial`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].testimonial"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem required label="Photo" prop="photo">
         <AdminUploadFile ref="uploadRef" v-model="form.photo" />

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IMediaPresentation,
+  IMediaPresentationTranslate,
   PartialFileAdminApiDto,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
@@ -19,7 +20,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { media } = useAdmin();
+const { media, currentIndexLocale, initTranslateLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = media().presentation();
 
 const model = await methods.handleGetModel(id);
@@ -28,7 +29,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<IMediaPresentation>(model);
+const form = reactive<IMediaPresentation>({
+  ...model,
+  translate: initTranslateLocale<IMediaPresentationTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -60,8 +64,8 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
       <ElFormItem required label="Image" prop="image">

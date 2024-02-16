@@ -259,10 +259,14 @@ export interface IFaq {
   updated_at: string;
 }
 
-export interface ITermsStatic {
-  id: number;
+export interface ITermsStaticTranslate {
   title: string;
   description: string;
+}
+
+export interface ITermsStatic {
+  id: number;
+  translate: TranslateLang<ITermsStaticTranslate>[];
   created_at: string;
   updated_at: string;
 }
@@ -281,10 +285,14 @@ export interface IBio {
   updated_at: string;
 }
 
+export interface IGreetingIndexTranslate {
+  text: string;
+}
+
 export interface IGreetingIndex {
   id: number;
-  text: string;
   is_active: boolean;
+  translate: TranslateLang<IGreetingIndexTranslate>[];
   video: IFile;
   poster: IFile;
   created_at: string;
