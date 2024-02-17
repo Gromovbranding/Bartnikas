@@ -22,7 +22,6 @@ const translate = computed(() => {
     bio: useTranslateLanguage<IProjectTranslate>(props.project.translate).value,
   };
 });
-console.log(translate.value);
 
 const portImages = computed(() => {
   const portImage = props.project.details.filter((item) => item.is_show_poster);

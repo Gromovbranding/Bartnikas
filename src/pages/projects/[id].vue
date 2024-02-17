@@ -149,7 +149,7 @@ const changeDetailOrder = (
       :number="details.length"
     />
 
-    <AppProjectCollab v-if="collab" :collab="collab" />
+    <AppPortCollab v-if="collab" :collab="collab" />
 
     <div class="project">
       <section v-if="!project?.collab" class="author-quote">

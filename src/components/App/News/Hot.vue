@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IArticle } from "~/types/admin-api";
+import type { IArticle, IArticleTranslate } from "~/types/admin-api";
 
 const { getLastHotArticle } = usePublicData();
 
@@ -12,7 +12,8 @@ const { makeDateCorrect } = useDateFormat();
 
 const title = computed(() => {
   return ` — ${makeDateCorrect(article.value?.created_at.toString())} — ${
-    article.value?.title
+    useTranslateLanguage<IArticleTranslate>(article.value?.translate).value
+      ?.title
   }`.repeat(3);
 });
 </script>

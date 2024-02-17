@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import type { ITestimonial } from "~/types/admin-api";
+import type { ITestimonial, ITestimonialTranslate } from "~/types/admin-api";
 
-defineProps<{
+const props = defineProps<{
   testimonial: ITestimonial;
 }>();
 
 const showVideo = ref(false);
 const video = ref<HTMLVideoElement>();
+
+const translated = useTranslateLanguage<ITestimonialTranslate>(
+  props.testimonial.translate
+);
 
 function playVideo() {
   showVideo.value = true;
@@ -48,8 +52,8 @@ function getYTLink(url: string) {
       </div>
     </div>
     <div class="testimonial__info">
-      <h4>{{ testimonial.title }}</h4>
-      <span>{{ testimonial.additional_info }}</span>
+      <h4>{{ translated?.title }}</h4>
+      <span>{{ translated?.additional_info }}</span>
     </div>
   </div>
 </template>

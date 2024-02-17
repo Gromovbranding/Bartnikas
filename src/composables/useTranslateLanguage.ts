@@ -1,6 +1,6 @@
 import type { TranslateLang } from "@/types/admin-api";
 
-export default function <T = any>(translate: TranslateLang<T>[]) {
+export default function <T = any>(translate?: TranslateLang<T>[] | null) {
   const { locale } = useI18n();
 
   return computed<T | null>(() => {

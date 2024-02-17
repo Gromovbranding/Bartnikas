@@ -14,10 +14,8 @@ const { data: article } = await useAsyncData(
   async () => await getArticleById(route.params.id as string)
 );
 
-const translated = useTranslateLanguage<IArticleTranslate>(
-  article.value!.translate
-);
-const translatedObj = computed(() => ({
+const translated = computed(() => ({
+  bio: useTranslateLanguage<IArticleTranslate>(article.value!.translate).value,
   prev: {
     ...article.value!.prev,
     translate: useTranslateLanguage<IArticleTranslate>(
@@ -33,11 +31,11 @@ const translatedObj = computed(() => ({
 }));
 
 useHeadSafe({
-  title: `${t("titles.article")} ${translated.value?.title}`,
+  title: `${t("titles.article")} ${translated.value.bio?.title}`,
   meta: [
     {
       name: "description",
-      content: translated.value?.description ?? "My Desc",
+      content: translated.value.bio?.description ?? "My Desc",
     },
     {
       name: "robots",
@@ -53,7 +51,7 @@ useHeadSafe({
 
     <article class="article">
       <div class="article__headline">
-        <h1>{{ translated?.title }}</h1>
+        <h1>{{ translated.bio?.title }}</h1>
         <time> {{ makeDateCorrect(article?.created_at) }} </time>
       </div>
       <div class="article__img">
@@ -63,19 +61,19 @@ useHeadSafe({
         />
       </div>
       <div class="article__content">
-        <p v-html="translated?.description"></p>
-        <p v-html="translated?.text"></p>
+        <p v-html="translated.bio?.description"></p>
+        <p v-html="translated.bio?.text"></p>
       </div>
     </article>
 
     <AppMediaNextPrev
       :next="{
-        title: translatedObj?.next?.translate?.title,
-        id: translatedObj?.next?.id,
+        title: translated?.next?.translate?.title,
+        id: translated?.next?.id,
       }"
       :prev="{
-        title: translatedObj?.prev?.translate?.title,
-        id: article?.prev?.id,
+        title: translated?.prev?.translate?.title,
+        id: translated?.prev?.id,
       }"
       slug="news"
     />

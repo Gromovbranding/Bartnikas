@@ -49,10 +49,10 @@ useHeadSafe({
               <h3>{{ item.image_name }}</h3>
             </div>
             <div class="checkout__price">
-              <AppFormQuanity
+              <!-- <AppFormQuanity
                 v-model="item.quantity"
                 :maxlength="item.quantity"
-              />
+              /> -->
               <div class="checkout__purchase">
                 <b>{{ item.price }} €</b>
               </div>
@@ -323,7 +323,6 @@ useHeadSafe({
     }
   }
 
-  // AppFormQuanity
   :deep(.form) {
     small {
       font-size: 12px;

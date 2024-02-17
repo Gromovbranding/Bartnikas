@@ -189,7 +189,7 @@ function toOrder() {
       </Swiper>
     </section>
     <dialog v-if="projectImage && isShowOrderFormEmail">
-      <AppOrderForm
+      <AppProtOrder
         :image="projectImage"
         :project-id="projectId"
         :selected-size="

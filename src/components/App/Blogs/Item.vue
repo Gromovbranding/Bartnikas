@@ -19,8 +19,8 @@ const translated = useTranslateLanguage<IBlogTranslate>(props.blog.translate);
         <IconArrow is-arrow30-deg />
       </div>
       <div>
-        <h3>{{ translated.title }}</h3>
-        <p v-html="translated.description"></p>
+        <h3>{{ translated?.title }}</h3>
+        <p v-html="translated?.description"></p>
         <span>{{ makeDateCorrect(blog.created_at) }}</span>
       </div>
     </div>

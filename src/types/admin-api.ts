@@ -185,11 +185,15 @@ export interface IAwards {
   updated_at: string;
 }
 
-export interface ITestimonial {
-  id: number;
+export interface ITestimonialTranslate {
   title: string;
   additional_info: string;
+}
+
+export interface ITestimonial {
+  id: number;
   url: string | null;
+  translate: TranslateLang<ITestimonialTranslate>[];
   file: IFile;
 }
 

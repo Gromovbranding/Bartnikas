@@ -11,8 +11,8 @@ const { data: blog } = await useAsyncData(
   async () => await getBlogById(route.params.id as string)
 );
 
-const translated = useTranslateLanguage<IBlogTranslate>(blog.value!.translate);
-const translatedObj = computed(() => ({
+const translated = computed(() => ({
+  bio: useTranslateLanguage<IBlogTranslate>(blog.value!.translate).value,
   prev: {
     ...blog.value!.prev,
     translate: useTranslateLanguage<IBlogTranslate>(blog.value!.prev?.translate)
@@ -26,11 +26,11 @@ const translatedObj = computed(() => ({
 }));
 
 useHeadSafe({
-  title: `${t("titles.article")} ${translated.value?.title}`,
+  title: `${t("titles.article")} ${translated.value.bio?.title}`,
   meta: [
     {
       name: "description",
-      content: translated.value?.description ?? "My Blog",
+      content: translated.value.bio?.description ?? "My Blog",
     },
     {
       name: "robots",
@@ -47,24 +47,24 @@ useHeadSafe({
     <article class="article">
       <div class="article__headline">
         <time>{{ useDateFormat().makeDateCorrect(blog?.created_at) }} </time>
-        <h1>{{ translated?.title }}</h1>
+        <h1>{{ translated.bio?.title }}</h1>
       </div>
       <div class="article__img">
         <NuxtImg loading="lazy" :src="`/baseApiFiles/${blog?.image?.name}`" />
       </div>
       <div class="article__text">
-        <p>{{ translated?.text }}</p>
+        <p>{{ translated.bio?.text }}</p>
       </div>
     </article>
 
     <AppMediaNextPrev
       :prev="{
-        title: translatedObj?.prev?.translate?.title,
-        id: translatedObj?.prev?.id,
+        title: translated.prev?.translate?.title,
+        id: translated.prev?.id,
       }"
       :next="{
-        title: translatedObj?.next?.translate?.title,
-        id: translatedObj?.next?.id,
+        title: translated.next?.translate?.title,
+        id: translated.next?.id,
       }"
       slug="blog"
     />

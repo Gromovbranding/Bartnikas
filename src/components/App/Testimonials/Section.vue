@@ -49,7 +49,7 @@ onBeforeUnmount(() => {
     v-if="(testimonials ?? []).length > 0"
     ref="root"
     class="testimonials"
-    :class="{ 'active-slider': testimonials.length > 3 }"
+    :class="{ 'active-slider': testimonials!.length > 3 }"
   >
     <AppSectionHeader :is-link="false">{{
       $t("titles.testimonials")

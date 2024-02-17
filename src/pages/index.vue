@@ -1,24 +1,7 @@
 <script lang="ts" setup>
 import defBgImg from "@/assets/img/header_bg.jpg";
-const { breakpoint } = useBreakpoints();
+import type { IProjectTranslate } from "~/types/admin-api";
 const { getIndexSlider, getProjectByFooterCard } = usePublicData();
-
-const headerMain = ref<HTMLDivElement>();
-const defImgSize = ref(115);
-const imgSize = ref(`${defImgSize.value}%`);
-
-const onScroll = () => {
-  const height = headerMain.value?.offsetHeight ?? 0;
-  const res = (window.scrollY / height) * 15;
-  if (res <= 15) imgSize.value = `${Math.round(defImgSize.value - res)}%`;
-};
-
-const throttledListener = useThrottle(onScroll, 50);
-
-// const { data: activeIndexCard } = await useAsyncData(
-//   "activeIndexCard",
-//   async () => await getActiveIndexCardFooter()
-// );
 
 const { data: activeIndexCard } = await useAsyncData(
   "activeIndexCard",
@@ -33,22 +16,17 @@ const { data: sliderImages } = await useAsyncData(
   }
 );
 
-onMounted(() => {
-  defImgSize.value = breakpoint.value === "xs" ? 250 : 115;
-  window.addEventListener("scroll", throttledListener);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", throttledListener);
-});
+const activeCardTranslate = useTranslateLanguage<IProjectTranslate>(
+  activeIndexCard.value?.translate
+);
 </script>
 
 <template>
   <main>
     <Title>{{ $t("titles.home") }}</Title>
 
-    <header class="header" style="height: 150vh">
-      <div ref="headerMain" class="header__main">
+    <header class="header">
+      <div class="header__main">
         <IconLogo is-full-black />
       </div>
       <Swiper
@@ -64,7 +42,7 @@ onBeforeUnmount(() => {
         :slides-per-view="1"
         :speed="1300"
         effect="fade"
-        :loop="true"
+        loop
         :autoplay="{
           delay: 2000,
         }"
@@ -79,14 +57,14 @@ onBeforeUnmount(() => {
         </SwiperSlide>
       </Swiper>
     </header>
-    <AppSectionHotNews />
+    <AppNewsHot />
     <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
     <AppContentSpliter> {{ $t("titles.projects") }} </AppContentSpliter>
     <AppPortSection />
     <AppAwardsSection />
     <AppNewsSection />
-    <AppSectionInteriosOrderSlider />
+    <!-- <AppSectionInteriosOrderSlider /> -->
     <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
         <NuxtImg
@@ -99,9 +77,9 @@ onBeforeUnmount(() => {
         />
       </div>
       <div>
-        <h3>{{ activeIndexCard?.title }}</h3>
+        <h3>{{ activeCardTranslate?.title }}</h3>
         <p>
-          {{ activeIndexCard?.description }}
+          {{ activeCardTranslate?.description }}
         </p>
         <UIButton :to="`/projects/${activeIndexCard.id}`">
           {{ $t("buttons.viewProject") }}
@@ -161,6 +139,7 @@ onBeforeUnmount(() => {
 }
 
 .header {
+  height: 150vh;
   &__main {
     width: 100%;
     height: 675px;

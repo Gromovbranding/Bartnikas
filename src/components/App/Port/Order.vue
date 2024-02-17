@@ -60,10 +60,6 @@ const handleOrder = async () => {
       </div>
       <div class="order-form__left__img-info">
         <h3>{{ image.image_name }}</h3>
-        <!-- <AppFormQuanity
-          v-model="form.quantity"
-          :maxlength="selectedSize.quantity"
-        /> -->
       </div>
     </div>
     <div>
