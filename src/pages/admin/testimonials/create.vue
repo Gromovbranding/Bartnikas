@@ -6,7 +6,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { testimonials } = useAdmin();
+const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = testimonials();
 
 useHeadSafe({
@@ -17,8 +17,10 @@ const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 
 const form = reactive<PartialAdminApiDto<ITestimonial>>({
-  title: "",
-  additional_info: "",
+  translate: initTranslateLocale<ITestimonialTranslate>({
+    title: "",
+    additional_info: "",
+  }),
   url: null,
   file: null,
 });
@@ -61,14 +63,21 @@ const handleCreate = async () => {
     :navigate-back="navigateBack"
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem label="URL Youtube" prop="url">
         <ElInput v-model="form.url" />
       </ElFormItem>
-      <ElFormItem label="Additional Info" prop="additional_info">
-        <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Additional Info"
+        :prop="`translate.${currentIndexLocale}.additional_info`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].additional_info"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem label="Testimonial video" prop="file">
         <AdminUploadFile

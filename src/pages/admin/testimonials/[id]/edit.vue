@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ITestimonial } from "@/types/admin-api";
+import type { ITestimonial, ITestimonialTranslate } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
 definePageMeta({
@@ -14,7 +14,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
 const route = useRoute();
 const id = Number(route.params.id);
 
-const { testimonials } = useAdmin();
+const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { formRules, navigateBack, titles, methods } = testimonials();
 
 const model = await methods.handleGetModel(id);
@@ -23,7 +23,10 @@ useHeadSafe({
   title: titles.edit,
 });
 
-const form = reactive<ITestimonial>(model);
+const form = reactive<ITestimonial>({
+  ...model,
+  translate: initTranslateLocale<ITestimonialTranslate>(model.translate),
+});
 
 const handleDelete = async () => {
   await methods.handleDelete(id);
@@ -53,14 +56,21 @@ const handleUpdate = async () => {
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem label="Url for video from Youtube" prop="url">
         <ElInput v-model="form.url" />
       </ElFormItem>
-      <ElFormItem label="Additional Info" prop="additional_info">
-        <ElInput v-model="form.additional_info" :rows="5" type="textarea" />
+      <ElFormItem
+        label="Additional Info"
+        :prop="`translate.${currentIndexLocale}.additional_info`"
+      >
+        <ElInput
+          v-model="form.translate[currentIndexLocale].additional_info"
+          :rows="5"
+          type="textarea"
+        />
       </ElFormItem>
       <ElFormItem required label="Testimonial video" prop="file">
         <AdminUploadFile v-model="form.file" file-type="video" />

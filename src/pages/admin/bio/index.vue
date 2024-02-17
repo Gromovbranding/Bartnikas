@@ -28,8 +28,8 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Description" prop="description" />
+    <ElTableColumn label="Description" prop="translate.0.description" />
     <ElTableColumn label="Is Active" prop="is_active" />
-    <ElTableColumn label="Subdescription" prop="sub_description" />
+    <ElTableColumn label="Subdescription" prop="translate.0.sub_description" />
   </AdminTemplateCardIndexPage>
 </template>

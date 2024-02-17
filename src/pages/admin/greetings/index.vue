@@ -31,7 +31,7 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Text" prop="text" />
+    <ElTableColumn label="Text" prop="translate.0.text" />
     <ElTableColumn label="Greeting is active" prop="is_active" />
   </AdminTemplateCardIndexPage>
 </template>
