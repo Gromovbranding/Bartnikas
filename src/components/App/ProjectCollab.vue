@@ -1,9 +1,28 @@
 <script setup lang="ts">
-import type { IProjectCollab } from "~/types/admin-api";
+import type {
+  IProjectCollab,
+  IProjectCollabTranslate,
+  IProjectPressReleaseTranslate,
+} from "~/types/admin-api";
 
-defineProps<{
+const props = defineProps<{
   collab: IProjectCollab;
 }>();
+
+const translate = useTranslateLanguage<IProjectCollabTranslate>(
+  props.collab.translate!
+);
+
+const translated = computed(() => {
+  return props?.collab.press_release.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IProjectPressReleaseTranslate>(
+        item.translate
+      ).value,
+    };
+  });
+});
 
 const video = ref<HTMLVideoElement>();
 const activeVideo = ref(false);
@@ -21,7 +40,7 @@ function playVideo() {
   <div class="collab">
     <div class="collab__files">
       <div
-        v-for="press_release in collab.press_release"
+        v-for="press_release in translated"
         :key="press_release.id"
         class="collab__files__item"
       >
@@ -38,20 +57,20 @@ function playVideo() {
         </div>
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
-            <h2>{{ press_release.title }}</h2>
+            <h2>{{ press_release.translate?.title }}</h2>
             <UIButton :to="useGetFileByUrl(press_release.file.name)" download
               >PDF</UIButton
             >
           </div>
           <p>
-            {{ press_release.text }}
+            {{ press_release.translate?.text }}
           </p>
         </div>
       </div>
     </div>
     <div class="collab__text">
-      <div class="collab__text__title">{{ collab.title }}</div>
-      <div class="collab__text__desc" v-html="collab.description"></div>
+      <div class="collab__text__title">{{ translate!.title }}</div>
+      <div class="collab__text__desc" v-html="translate!.description"></div>
     </div>
     <div class="collab__with">
       <h2>{{ $t("projectCollab.howItWorks") }}</h2>
@@ -71,8 +90,8 @@ function playVideo() {
           </div>
         </div>
         <div class="collab__with__text">
-          <h3>{{ collab.collab_with }}</h3>
-          <p v-html="collab.description"></p>
+          <h3>{{ translate!.collab_with }}</h3>
+          <p v-html="translate!.description"></p>
         </div>
       </div>
     </div>

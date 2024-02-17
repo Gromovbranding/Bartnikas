@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from "swiper/types";
-import type { IProject } from "~/types/admin-api";
+import type { IProject, IProjectTranslate } from "~/types/admin-api";
 
 const route = useRoute();
 const projectId = Number(route.params.project);
@@ -31,6 +31,10 @@ const slidesPerView = computed(() => {
 
 const project = computed(() =>
   projects.value?.find((item) => item.id === +route.params.project)
+);
+
+const translatedProject = useTranslateLanguage<IProjectTranslate>(
+  project.value!.translate
 );
 
 const projectDetails = computed(() => project.value?.details ?? []);
@@ -87,7 +91,7 @@ function toOrder() {
           url: '/projects',
         },
         {
-          name: String(project?.title),
+          name: String(translatedProject?.title),
           url: `/projects/${project?.id}`,
         },
       ]"
@@ -153,7 +157,7 @@ function toOrder() {
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
       <h2 class="more__title">
-        {{ $t("projects.more") }} {{ project?.title }}
+        {{ $t("projects.more") }} {{ translatedProject?.title }}
       </h2>
       <p
         class="more__subtitle"

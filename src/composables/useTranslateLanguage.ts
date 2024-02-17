@@ -7,17 +7,16 @@ export default function <T = any>(translate: TranslateLang<T>[]) {
     if (!translate) return null;
 
     const currentLang = translate.find(
-      (item) => locale.value === item.language.code
+      (item) => locale.value === item?.language?.code
     );
 
     if (!currentLang) {
-      const enLang = translate.find((item) => item.language.code === "en");
+      const enLang = translate.find((item) => item?.language?.code === "en");
 
       if (enLang) {
         return enLang;
-      }
-
-      return translate[0];
+      } else if (translate?.[0]) return translate[0];
+      return null;
     }
 
     return currentLang;

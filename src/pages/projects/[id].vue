@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-import type { IProject, IProjectImageDetail } from "~/types/admin-api";
+import type {
+  IProject,
+  IProjectCollabTranslate,
+  IProjectImageDetail,
+  IProjectTranslate,
+} from "~/types/admin-api";
 
 const route = useRoute();
 const wrapper = ref<HTMLDivElement>();
@@ -19,12 +24,16 @@ const { data: project } = await useAsyncData(
   async () => await getProjectById(route.params.id as string)
 );
 
+const translated = useTranslateLanguage<IProjectTranslate>(
+  project.value!.translate
+);
+
 useHead({
-  title: `${t("titles.project")} ${project.value?.title}`,
+  title: `${t("titles.project")} ${translated.value?.title}`,
   meta: [
     {
       name: "description",
-      content: project.value?.description ?? "My Desc",
+      content: translated.value?.description ?? "My Desc",
     },
     {
       name: "robots",
@@ -41,6 +50,15 @@ const { data: projects } = await useAsyncData<IProject[]>(
 const moreProjects = computed(
   () => projects.value?.filter((item) => item.id !== +route.params.id) || []
 );
+
+const translatedMoreProjects = computed(() => {
+  return moreProjects?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value,
+    };
+  });
+});
 
 const onScroll = () => {
   if (!wrapper.value || !sticky.value) return;
@@ -68,8 +86,12 @@ const translate = computed(() => `${-scrollProgress.value}px`);
 
 const title = computed(() => {
   if (project.value?.collab)
-    return `Collab with ${project.value.collab.collab_with}`;
-  return project.value?.title;
+    return `${t("projects.collabWith")} ${
+      useTranslateLanguage<IProjectCollabTranslate>(
+        project.value.collab.translate
+      ).value?.collab_with
+    }`;
+  return translated.value?.title;
 });
 
 const details = computed(() =>
@@ -161,7 +183,7 @@ const changeDetailOrder = (
             </svg>
           </div>
           <div class="author-quote__text__desc">
-            <p v-html="project?.description"></p>
+            <p v-html="translated?.description"></p>
           </div>
           <div>
             <svg
@@ -204,7 +226,7 @@ const changeDetailOrder = (
                   <IconCorner />
                   <div class="zoom__modal-bottom-info">
                     <div>
-                      <h3>{{ activeOrderDetail.image_name }}</h3>
+                      <h3>{{ activeOrderDetail?.image_name }}</h3>
                     </div>
                     <div>
                       <NuxtLinkLocale
@@ -253,7 +275,7 @@ const changeDetailOrder = (
           </div>
           <div class="port-order__info">
             <div>
-              <h3>{{ detail.image_name }}</h3>
+              <h3>{{ detail?.image_name }}</h3>
             </div>
             <div>
               <NuxtLinkLocale
@@ -272,7 +294,7 @@ const changeDetailOrder = (
         <h2>{{ $t("projects.moreProjects") }}</h2>
         <div ref="wrapper" class="more__projects">
           <div
-            v-for="item in moreProjects"
+            v-for="item in translatedMoreProjects"
             :key="item.id"
             class="project-item"
             @click="navigateTo(useLocalePath()(`/projects/${item.id}`))"
@@ -285,8 +307,8 @@ const changeDetailOrder = (
                 />
               </div>
               <div class="project-item__text">
-                <h3>{{ item.title }}</h3>
-                <p v-html="item.description"></p>
+                <h3>{{ item?.translate?.title }}</h3>
+                <p v-html="item?.translate?.description"></p>
               </div>
             </template>
           </div>

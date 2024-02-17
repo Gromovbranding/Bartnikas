@@ -49,20 +49,28 @@ export interface IGeneralInfo {
   updated_at: string;
 }
 
-export interface IProjectPressRelease {
-  id: number;
+export interface IProjectPressReleaseTranslate {
   title: string;
   text: string;
+}
+
+export interface IProjectPressRelease {
+  id: number;
+  translate: TranslateLang<IProjectPressReleaseTranslate>[];
   file: IFile;
   created_at: string;
   updated_at: string;
 }
 
-export interface IProjectCollab {
-  id: number;
+export interface IProjectCollabTranslate {
   collab_with: string;
   title: string;
   description: string;
+}
+
+export interface IProjectCollab {
+  id: number;
+  translate: TranslateLang<IProjectCollabTranslate>[];
   video: IFile;
   press_release: IProjectPressRelease[];
   created_at: string;
@@ -92,11 +100,15 @@ export interface IProjectImageDetail {
   updated_at: string;
 }
 
+export interface IProjectTranslate {
+  title: string;
+  description: string;
+}
+
 export interface IProject {
   id: number;
-  title: string;
+  translate: TranslateLang<IProjectTranslate>[];
   is_show_index_footer_card: boolean;
-  description: string;
   details: IProjectImageDetail[];
   group: string | null;
   collab: IProjectCollab;

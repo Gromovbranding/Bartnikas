@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { IProject } from "~/types/admin-api";
+import type {
+  IProject,
+  IProjectCollabTranslate,
+  IProjectTranslate,
+} from "~/types/admin-api";
 
 interface Props {
   direction?: "row" | "row-reverse";
@@ -9,6 +13,16 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   direction: "row",
 });
+
+const translate = computed(() => {
+  return {
+    collab: useTranslateLanguage<IProjectCollabTranslate>(
+      props.project.collab?.translate
+    ).value,
+    bio: useTranslateLanguage<IProjectTranslate>(props.project.translate).value,
+  };
+});
+console.log(translate.value);
 
 const portImages = computed(() => {
   const portImage = props.project.details.filter((item) => item.is_show_poster);
@@ -35,11 +49,7 @@ const portImages = computed(() => {
 </script>
 
 <template>
-  <div
-    v-if="project.details.length >= 2"
-    class="port"
-    :class="{ reverse: direction === 'row-reverse' }"
-  >
+  <div class="port" :class="{ reverse: direction === 'row-reverse' }">
     <div v-if="portImages.length >= 1" class="port__img">
       <div class="scale">
         <NuxtImg
@@ -61,13 +71,13 @@ const portImages = computed(() => {
             <IconPhotoCamera />
             <p>{{ project.details.length }}</p>
           </div>
-          <div v-if="project.collab" class="port__text__collab">
+          <div v-if="translate?.collab?.collab_with" class="port__text__collab">
             <span>{{ $t("port.collaboration") }}</span>
-            <h2>{{ project.collab.collab_with }}</h2>
+            <h2>{{ translate.collab.collab_with }}</h2>
           </div>
           <h2 v-else>{{ project.group }}</h2>
           <div class="port__text__desc">
-            <p v-html="project.description"></p>
+            <p v-html="translate?.bio?.description"></p>
           </div>
         </NuxtLinkLocale>
       </div>

@@ -13,7 +13,7 @@ const { data: projects } = await useAsyncData<IProject[]>(
   <section class="projects">
     <AppPortItem
       v-for="(project, idx) in projects"
-      :key="project.title"
+      :key="project.id + 'project'"
       :project="project"
       :direction="idx % 2 ? 'row-reverse' : 'row'"
     />

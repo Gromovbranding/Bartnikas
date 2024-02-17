@@ -51,6 +51,7 @@ export default defineI18nConfig(() => ({
                 moreProjects: 'More projects',
                 more: 'More',
                 viewCollection: 'View the entire collection',
+                collabWith: 'Collab with',
                 order: {
                     preferSize:{
                         headline: 'Preferred size:',
@@ -171,6 +172,7 @@ export default defineI18nConfig(() => ({
                 moreProjects: 'Больше проектов',
                 more: 'Больше',
                 viewCollection: 'Просмотреть всю коллекцию целиком',
+                collabWith: 'Сотрудничество с',
                 order: {
                     preferSize:{
                         headline: 'Предпочтительный размер:',
@@ -287,6 +289,7 @@ export default defineI18nConfig(() => ({
                 moreProjects: 'Plus de projets',
                 more: 'Plus',
                 viewCollection: 'Voir toute la collection',
+                collabWith: 'Collaboration avec',
                 order: {
                     preferSize: {
                         headline: 'Taille préférée:',
@@ -402,6 +405,7 @@ export default defineI18nConfig(() => ({
                 moreProjects: 'Mehr Projekte',
                 more: 'Mehr',
                 viewCollection: 'Gesamte Sammlung anzeigen',
+                collabWith: 'Zusammenarbeit mit',
                 order: {
                     preferSize: {
                         headline: 'Bevorzugte Größe:',
