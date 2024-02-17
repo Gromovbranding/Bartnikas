@@ -4,10 +4,13 @@ import { Close, Delete } from "@element-plus/icons-vue";
 import {
   ListUnitSize,
   type IProject,
+  type IProjectTranslate,
   type IProjectImageDetail,
   type IProjectPressRelease,
+  type IProjectPressReleaseTranslate,
   type PartialAdminApiDto,
   type PartialFileAdminApiDto,
+  type IProjectCollabTranslate,
 } from "@/types/admin-api";
 import { AdminTemplateForm, AdminUploadFile } from "#components";
 
@@ -15,7 +18,7 @@ definePageMeta({
   layout: "admin",
 });
 
-const { projects } = useAdmin();
+const { projects, initTranslateLocale, currentIndexLocale } = useAdmin();
 const { titles, formRules, navigateBack, methods } = projects();
 
 useHeadSafe({
@@ -36,14 +39,18 @@ const uploadPressReleaseRefs = ref<
 >([]);
 
 const form = reactive<PartialAdminApiDto<IProject>>({
-  title: "",
-  description: "",
+  translate: initTranslateLocale<IProjectTranslate>({
+    description: "",
+    title: "",
+  }),
   is_show_index_footer_card: false,
   collab: {
-    collab_with: "",
-    description: "",
+    translate: initTranslateLocale<IProjectCollabTranslate>({
+      description: "",
+      collab_with: "",
+      title: "",
+    }),
     press_release: [],
-    title: "",
     video: null,
   },
   details: [],
@@ -68,8 +75,10 @@ const addPressRelease = () => {
   }
 
   form.collab.press_release.push({
-    title: "",
-    text: "",
+    translate: initTranslateLocale<IProjectPressReleaseTranslate>({
+      title: "",
+      text: "",
+    }),
     file: null,
     id: Date.now(),
   });
@@ -209,11 +218,13 @@ watch(
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem label="Title" prop="title">
-        <ElInput v-model="form.title" />
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
       <ElFormItem label="Description" prop="description">
-        <AdminEditorInput v-model="form.description" />
+        <AdminEditorInput
+          v-model="form.translate[currentIndexLocale].description"
+        />
       </ElFormItem>
 
       <ElFormItem label="Group" prop="group">
@@ -234,15 +245,19 @@ watch(
         </ElFormItem>
 
         <ElFormItem label="Collab with" prop="collab.collab_with">
-          <ElInput v-model="form.collab.collab_with" />
+          <ElInput
+            v-model="form.collab.translate[currentIndexLocale].collab_with"
+          />
         </ElFormItem>
 
         <ElFormItem label="Collab Titile" prop="collab.title">
-          <ElInput v-model="form.collab.title" />
+          <ElInput v-model="form.collab.translate[currentIndexLocale].title" />
         </ElFormItem>
 
         <ElFormItem label="Collab Description" prop="collab.description">
-          <AdminEditorInput v-model="form.collab.description" />
+          <AdminEditorInput
+            v-model="form.collab.translate[currentIndexLocale].description"
+          />
         </ElFormItem>
 
         <ElFormItem required label="Video" prop="collab.video">
@@ -278,7 +293,9 @@ watch(
               trigger: 'blur',
             }"
           >
-            <ElInput v-model="press_release.title" />
+            <ElInput
+              v-model="press_release.translate[currentIndexLocale].title"
+            />
           </ElFormItem>
 
           <ElFormItem
@@ -290,7 +307,9 @@ watch(
               trigger: 'blur',
             }"
           >
-            <AdminEditorInput v-model="press_release.text" />
+            <AdminEditorInput
+              v-model="press_release.translate[currentIndexLocale].text"
+            />
           </ElFormItem>
 
           <ElFormItem

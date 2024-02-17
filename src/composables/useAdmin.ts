@@ -490,23 +490,8 @@ export const useAdmin = () => {
       navigateBack: ref("/admin/projects"),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: "Field is required", trigger: "blur" },
-        ],
-        description: [
-          { required: true, message: "Field is required", trigger: "blur" },
-        ],
         group: [
           { message: "Group must be more than 3", trigger: "blur", min: 3 },
-        ],
-        "collab.collab_with": [
-          { required: true, message: "Field is required", trigger: "blur" },
-        ],
-        "collab.title": [
-          { required: true, message: "Field is required", trigger: "blur" },
-        ],
-        "collab.description": [
-          { required: true, message: "Field is required", trigger: "blur" },
         ],
       }),
     };
