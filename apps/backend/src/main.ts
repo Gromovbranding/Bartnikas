@@ -9,13 +9,15 @@ async function bootstrap() {
   });
 
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://127.0.0.1:3000',
-      'https://stanislavbartnikas.com',
-    ],
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? ['https://https://stanislavbartnikas.com/']
+        : true,
     methods: ['GET', 'PATCH', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
+
+  app.setGlobalPrefix('api');
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,7 +25,7 @@ async function bootstrap() {
     }),
   );
 
-  if (process.env.NODE_ENV === 'development' || process.env.DEBUG) {
+  if (process.env.NODE_ENV === 'development') {
     const swagger = new DocumentBuilder()
       .setTitle('Api for Bartnikas')
       .setDescription('The Bartnikas API description')
@@ -36,7 +38,7 @@ async function bootstrap() {
     SwaggerModule.setup('swagger', app, document);
   }
 
-  await app.listen(Number(process.env.APP_PORT), async () => {
+  await app.listen(3000, async () => {
     console.log(`App starting on ${await app.getUrl()}`);
   });
 }

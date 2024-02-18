@@ -1,81 +1,87 @@
-const DEV_BASE_API_URL = "http://localhost:8080";
-const PROD_BASE_API_URL = "https://api.stanislavbartnikas.com";
-const BASE_API_FILES = "/files";
-
+const DEV_BASE_API_URL = 'http://localhost:3000'
+const PROD_BASE_API_URL = 'https://stanislavbartnikas.com/api'
+const BASE_API_FILES = '/files'
+const AVAILABLE_LOCALES = [
+  { code: 'en', label: 'English', icon: 'en' },
+  { code: 'ru', label: 'Русский', icon: 'ru' },
+  { code: 'fr', label: 'Français', icon: 'fr' },
+  { code: 'de', label: 'Deutsche', icon: 'de' }
+]
 export default defineNuxtConfig({
-  srcDir: "src",
+  srcDir: 'src',
   modules: [
+    '@nuxt/image',
+    'nuxt-swiper',
     [
-      "@element-plus/nuxt",
+      '@element-plus/nuxt',
       {
-        importStyle: "css",
-      },
+        importStyle: 'css'
+      }
     ],
     [
-      "@nuxtjs/i18n",
+      '@nuxtjs/i18n',
       {
         skipSettingLocaleOnNavigate: true,
-        vueI18n: "./src/packages/i18n.ts",
-        locales: [
-          { code: "en", label: "English", icon: "en" },
-          { code: "ru", label: "Русский", icon: "ru" },
-          { code: "fr", label: "Français", icon: "fr" },
-          { code: "de", label: "Deutsche", icon: "de" },
-        ],
-        defaultLocale: "en",
+        vueI18n: './src/packages/i18n.ts',
+        locales: AVAILABLE_LOCALES,
+        defaultLocale: 'en',
         detectBrowserLanguage: {
           alwaysRedirect: true,
-          fallbackLocale: "en",
+          fallbackLocale: 'en',
           cookieSecure: true,
-          useCookie: true,
-        },
-      },
-    ],
-    "@nuxt/image",
-    "nuxt-swiper",
+          useCookie: true
+        }
+      }
+    ]
   ],
 
   $development: {
     runtimeConfig: {
       public: {
         apiBaseUrl: DEV_BASE_API_URL,
-        apiFilesUrl: `${DEV_BASE_API_URL}${BASE_API_FILES}`,
-      },
+        apiFilesUrl: `${DEV_BASE_API_URL}${BASE_API_FILES}`
+      }
     },
     image: {
       domains: [DEV_BASE_API_URL],
       alias: {
-        baseApiFiles: `${DEV_BASE_API_URL}${BASE_API_FILES}`,
-      },
-    },
+        baseApiFiles: `${DEV_BASE_API_URL}${BASE_API_FILES}`
+      }
+    }
   },
 
   $production: {
     runtimeConfig: {
       public: {
         apiBaseUrl: PROD_BASE_API_URL,
-        apiFilesUrl: `${PROD_BASE_API_URL}${BASE_API_FILES}`,
-      },
+        apiFilesUrl: `${PROD_BASE_API_URL}${BASE_API_FILES}`
+      }
     },
     image: {
       domains: [PROD_BASE_API_URL],
       alias: {
-        baseApiFiles: `${PROD_BASE_API_URL}${BASE_API_FILES}`,
-      },
-    },
+        baseApiFiles: `${PROD_BASE_API_URL}${BASE_API_FILES}`
+      }
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      avaiableLocales: AVAILABLE_LOCALES
+    }
   },
 
   image: {
-    format: ["webp", "avif", "png", "jpg", "jpeg", "svg"],
+    format: ['webp', 'avif', 'png', 'jpg', 'jpeg', 'svg']
   },
 
   routeRules: {
-    "/admin/": { redirect: "/admin/projects", ssr: false },
-    "/cart": { redirect: "/", ssr: false },
-    "/checkout": { redirect: "/", ssr: false },
-    "/payment": { redirect: "/", ssr: false },
-    "/admin/delivery-static": { redirect: "/admin/projects", ssr: false },
-    "/admin/media/cv": { redirect: "/admin/projects", ssr: false },
+    '/admin/': { redirect: '/admin/projects', ssr: false },
+    '/cart': { redirect: '/', ssr: false },
+    '/checkout': { redirect: '/', ssr: false },
+    '/payment': { redirect: '/', ssr: false },
+    '/admin/delivery-static': { redirect: '/admin/projects', ssr: false },
+    '/admin/media/cv': { redirect: '/admin/projects', ssr: false }
   },
 
   devServer: {
@@ -85,30 +91,30 @@ export default defineNuxtConfig({
 
   app: {
     // pageTransition: { name: "page", mode: "out-in" },
-    rootTag: "div",
+    rootTag: 'div',
     head: {
-      titleTemplate: `%s | Bartnikas`,
+      titleTemplate: '%s | Bartnikas',
       meta: [
-        { "http-equiv": "x-ua-compatible", content: "true" },
+        { 'http-equiv': 'x-ua-compatible', content: 'true' },
         {
-          name: "viewport",
+          name: 'viewport',
           content:
-            "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no",
+            'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
         },
-        { name: "HandheldFriendly", content: "true" },
+        { name: 'HandheldFriendly', content: 'true' },
         {
-          hid: "description",
-          name: "description",
-          content: "",
-        },
+          hid: 'description',
+          name: 'description',
+          content: ''
+        }
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    },
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
   },
 
   build: {
     transpile:
-      process.env.npm_lifecycle_event === "build" ? ["element-plus"] : [],
+      process.env.npm_lifecycle_event === 'build' ? ['element-plus'] : []
   },
 
   experimental: {
@@ -119,13 +125,13 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     prerender: {
-      crawlLinks: true,
+      crawlLinks: true
     },
     preset: 'node-server'
   },
 
   devtools: {
-    enabled: false,
+    enabled: false
   },
 
   vite: {
@@ -134,9 +140,9 @@ export default defineNuxtConfig({
         scss: {
           additionalData: `
             @use "@/assets/styles/_colors.scss" as *;
-          `,
-        },
-      },
-    },
-  },
-});
+          `
+        }
+      }
+    }
+  }
+})

@@ -147,7 +147,7 @@ export class ProjectsService {
           name: order.name,
           email: order.email,
           image_name: projectImage.image_name,
-          url: `${process.env.APP_FRONTEND_URL}/projects/${project.id}/order/${projectImage.id}`,
+          url: `/projects/${project.id}/order/${projectImage.id}`,
           price: projectImage.price,
           size: size,
           status: 'Sent Email',
@@ -190,7 +190,7 @@ export class ProjectsService {
 
       <p><b> Ordered image name: </b> <span>${projectImage.image_name}</span></p>
       <p><b> Ordered image size: </b> <span>${size.width} x ${size.height} ${size.unit}</span></p>
-      <p><b> Ordered image link: </b> <span>${process.env.APP_FRONTEND_URL}/projects/${project.id}/order/${projectImage.id}</span></p>
+      <p><b> Ordered image link: </b> <span>/projects/${project.id}/order/${projectImage.id}</span></p>
     `;
 
     return await this.emailSender.sendEmailToHome({

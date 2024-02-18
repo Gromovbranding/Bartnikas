@@ -1,4 +1,5 @@
-import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { NewsModule } from './news/news.module';
 import { BlogsModule } from './blogs/blogs.module';
@@ -8,7 +9,6 @@ import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
 import { IndexSliderModule } from './index-slider/index-slider.module';
 import { ContactsModule } from './contacts/contacts.module';
-import { TypeOrmConfig } from './typeOrm.config';
 import { TestimonialsModule } from './testimonials/testimonials.module';
 import { AwardsModule } from './awards/awards.module';
 import { VideoCollectionModule } from './video-collection/video-collection.module';
@@ -24,6 +24,8 @@ import { FooterContactsModule } from './footer-contacts/footer-contacts.module';
 import { IndexCardFooterModule } from './index-card-footer/index-card-footer.module';
 import { GeneralInfoModule } from './general-info/general-info.module';
 import { LanguageModule } from './shared/language/language.module';
+import migration from './config/migration';
+import emailSmpt from './config/email-smpt';
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
@@ -31,27 +33,21 @@ if (!process.env.NODE_ENV) {
 
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtpout.secureserver.net',
-        port: 465,
-        secure: true,
-        requireTLS: true,
-        debug: true,
-        tls: {
-          ciphers: 'SSLv3',
-        },
-        auth: {
-          user: 'love@stanislavbartnikas.com',
-          pass: 'zEgmyd-connih-hahni0',
-        },
-      },
+    MailerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) =>
+        configService.get('email-smtp'),
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: '.env.local',
+      load: [migration, emailSmpt],
     }),
-    TypeOrmConfig,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) =>
+        configService.get('database'),
+    }),
     NewsModule,
     BlogsModule,
     ProjectsModule,
