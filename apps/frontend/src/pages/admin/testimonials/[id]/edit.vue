@@ -73,7 +73,7 @@ const handleUpdate = async () => {
         />
       </ElFormItem>
       <ElFormItem required label="Testimonial video" prop="file">
-        <AdminUploadFile v-model="form.file" file-type="video" />
+        <AdminUploadFile ref="uploadRef" v-model="form.file" file-type="video" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">

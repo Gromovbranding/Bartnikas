@@ -286,7 +286,7 @@ watch(
 
           <ElFormItem
             label="Title"
-            :prop="`collab.press_release.${idx}.title`"
+            :prop="`collab.press_release.${idx}.translate.${currentIndexLocale}.title`"
             :rules="{
               required: true,
               message: 'Field is required',
@@ -300,7 +300,7 @@ watch(
 
           <ElFormItem
             label="Text"
-            :prop="`collab.press_release.${idx}.text`"
+            :prop="`collab.press_release.${idx}.translate.${currentIndexLocale}.text`"
             :rules="{
               required: true,
               message: 'Field  is required',
