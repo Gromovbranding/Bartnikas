@@ -1,6 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  console.log(to);
-  if (~to.path.indexOf('admin')) {
+  if (~to.path.indexOf('admin') !== 0) {
     const { fetchGet } = useApi()
 
     try {
