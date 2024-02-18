@@ -31,11 +31,8 @@ useHeadSafe({
     {
       name: 'description',
       content: translated.value.bio?.description ?? 'My Blog'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 </script>

@@ -24,11 +24,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Faq'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 </script>

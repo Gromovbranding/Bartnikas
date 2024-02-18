@@ -16,13 +16,7 @@ const handleCheckout = () => {
   router.push('/checkout')
 }
 useHeadSafe({
-  title: t('titles.cart'),
-  meta: [
-    {
-      name: 'robots',
-      content: 'noindex,nofollow'
-    }
-  ]
+  title: t('titles.cart')
 })
 </script>
 

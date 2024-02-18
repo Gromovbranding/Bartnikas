@@ -6,13 +6,7 @@ const { cart } = usePublicData()
 const { t } = useI18n()
 
 useHeadSafe({
-  title: t('titles.checkout'),
-  meta: [
-    {
-      name: 'robots',
-      content: 'noindex,nofollow'
-    }
-  ]
+  title: t('titles.checkout')
 })
 </script>
 

@@ -25,11 +25,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Awards'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 

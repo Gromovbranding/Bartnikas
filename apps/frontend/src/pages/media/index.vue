@@ -36,10 +36,6 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Media'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
   ]
 })

@@ -35,11 +35,8 @@ useHeadSafe({
     {
       name: 'description',
       content: translated.value?.description ?? ''
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 

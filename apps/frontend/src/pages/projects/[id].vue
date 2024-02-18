@@ -34,11 +34,8 @@ useHead({
     {
       name: 'description',
       content: translated.value?.description ?? 'My Desc'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 

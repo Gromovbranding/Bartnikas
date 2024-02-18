@@ -15,11 +15,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Payment & Delivery'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 </script>

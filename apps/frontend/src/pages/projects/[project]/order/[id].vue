@@ -51,11 +51,8 @@ useHeadSafe({
       content:
         `${projectImage.value?.image_name} with price ${projectImage.value?.price}` ??
         'My Desc'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 

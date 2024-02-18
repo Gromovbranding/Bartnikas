@@ -15,11 +15,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Terms & Conditions'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 </script>

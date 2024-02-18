@@ -7,11 +7,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'My Blog'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 </script>

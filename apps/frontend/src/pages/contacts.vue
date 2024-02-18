@@ -8,11 +8,8 @@ useHeadSafe({
     {
       name: 'description',
       content: 'titles.contacts'
-    },
-    {
-      name: 'robots',
-      content: 'index,follow'
     }
+
   ]
 })
 
