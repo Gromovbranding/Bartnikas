@@ -52,8 +52,6 @@ useHeadSafe({
   title: titles.edit,
 });
 
-console.log(model);
-
 const form = reactive<IProject>({
   ...model,
   collab: {

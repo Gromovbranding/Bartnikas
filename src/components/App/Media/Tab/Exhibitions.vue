@@ -33,7 +33,7 @@ const translated = computed(() => {
       <div>
         <h3>{{ item?.translate?.title }}</h3>
         <p>
-          {{ item?.translate?.award }}
+          {{ item?.translate?.awards }}
         </p>
       </div>
     </div>
