@@ -1,4 +1,4 @@
-const DEV_BASE_API_URL = 'http://localhost:3000'
+const DEV_BASE_API_URL = 'http://localhost:3000/api'
 const PROD_BASE_API_URL = 'https://stanislavbartnikas.com/api'
 const BASE_API_FILES = '/files'
 const AVAILABLE_LOCALES = [
