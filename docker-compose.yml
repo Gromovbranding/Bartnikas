@@ -1,0 +1,77 @@
+services:
+  db:
+    networks:
+      - db
+    image: postgres
+    restart: always
+    container_name: postgres-container
+    env_file:
+      - ./apps/backend/.env.local
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+
+  backend:
+    networks:
+      - backend-net
+      - db
+    depends_on:
+      - db
+    build: ./apps/backend
+    ports:
+      - 3000:3000
+    env_file:
+      - ./apps/backend/.env.local
+    volumes:
+      - ./certbot/www/:/var/www/certbot
+      - ./certbot/conf/:/etc/letsencrypt
+
+  frontend:
+    container_name: frontend
+    build: ./apps/frontend
+    networks:
+      - backend-net
+      - nginx-net
+    depends_on:
+      - backend
+      - nginx
+    ports:
+      - '5173:5173'
+
+  nginx:
+    networks:
+      - backend-net
+      - nginx-net
+    restart: unless-stopped
+    build: ./apps/nginx
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./certbot/www/:/var/www/certbot
+      - ./certbot/conf/:/etc/letsencrypt
+
+  certbot:
+    container_name: certbot
+    restart: unless-stopped
+    networks:
+      - nginx-net
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot
+      - ./certbot/conf/:/etc/letsencrypt
+
+volumes:
+  pgdata: 
+
+networks:
+  db:
+    driver: bridge
+  backend-net:
+    driver: bridge
+  nginx-net:
+    name: nginx-net

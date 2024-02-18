@@ -1,0 +1,40 @@
+{
+  "name": "@bartnikas/frontend",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "typecheck": "nuxt typecheck",
+    "clean": "nuxt cleanup",
+    "start:dev": "nuxt dev",
+    "start:prod": "PORT=5173 node .output/server/index.mjs",
+    "lint:fix": "eslint --ext .jsx,.vue,.js,.ts,.js ./src --fix",
+    "lint:check": "eslint .",
+    "generate": "nuxt generate",
+    "preview": "cross-env PORT=5173 nuxt preview",
+    "postinstall": "nuxt prepare",
+    "info": "nuxt info",
+    "upgrade": "nuxi upgrade --force"
+  },
+  "devDependencies": {
+    "@element-plus/nuxt": "^1.0.5",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/i18n": "^8.0.0",
+    "element-plus": "^2.3.7",
+    "nuxt": "^3.10.1",
+    "nuxt-swiper": "^0.1.9",
+    "vue": "^3.4.15",
+    "sass": "^1.56.1",
+    "typescript": "^4.9.4",
+    "vue-marquee-text-component": "^2.0.1"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.1.0",
+    "@stripe/stripe-js": "^1.54.0",
+    "@tinymce/tinymce-vue": "^5.1.1",
+    "vuedraggable": "^4.1.0"
+  }
+}

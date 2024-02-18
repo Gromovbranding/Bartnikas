@@ -1,7 +1,0 @@
-{
-    "prettier.requireConfig": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
-    "vue.features.codeActions.enable": false
-}

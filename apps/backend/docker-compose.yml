@@ -1,0 +1,35 @@
+services:
+  db:
+    networks:
+      - db
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_DB=${DATABASE_NAME}
+    container_name: postgres-container
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
+
+  backend:
+    networks:
+      - db
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    env_file:
+      - .env.production
+    volumes:
+      - ".:/app"
+
+volumes:
+  pgdata: 
+
+networks:
+  db:
+    driver: bridge

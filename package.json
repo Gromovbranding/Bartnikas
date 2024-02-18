@@ -1,46 +1,43 @@
 {
-  "version": "1.0.0",
   "private": true,
+  "version": "0.0.1",
+  "workspaces": [
+    "apps/frontend",
+    "apps/backend"
+  ],
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.9.0"
   },
   "scripts": {
-    "prepare": "husky install",
-    "build": "nuxi cleanup && nuxi build",
-    "dev": "nuxt dev --host 127.0.0.1",
-    "typecheck": "nuxi typecheck",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,js,vue}": "eslint --fix --ext .ts,.js,.vue ./src"
+    "prepare": "husky",
+    "back:dev": "npm run start:dev --workspace=@bartnikas/backend",
+    "front:dev": "npm run start:dev --workspace=@bartnikas/frontend",
+    "back:build": "npm run build --workspace=@bartnikas/backend",
+    "front:build": "npm run build --workspace=@bartnikas/frontend",
+    "start:dev": "npm-run-all --parallel back:dev front:dev",
+    "start:build": "npm-run-all --parallel back:build front:build"
   },
   "devDependencies": {
-    "@element-plus/nuxt": "^1.0.5",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
-    "@nuxtjs/i18n": "^8.0.0",
-    "element-plus": "^2.3.7",
-    "eslint": "^8.31.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-nuxt": "^4.0.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.3",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "husky": "^9.0.1",
     "lint-staged": "^13.2.2",
-    "nuxt": "^3.8.1",
-    "nuxt-swiper": "^0.1.9",
-    "prettier": "^2.8.2",
-    "sass": "^1.56.1",
-    "typescript": "^4.9.4",
-    "vue-marquee-text-component": "^2.0.1"
+    "npm-run-all": "^4.1.5"
   },
-  "dependencies": {
-    "@nuxt/image": "^1.1.0",
-    "@stripe/stripe-js": "^1.54.0",
-    "@tinymce/tinymce-vue": "^5.1.1",
-    "vuedraggable": "^4.1.0"
+  "lint-staged": {
+    "./apps/frontend/src/**/*.([jt]sx?|vue)": "npm run lint:fix --workspace=@bartnikas/frontend",
+    "./apps/backend/{src,apps,libs,test}/**/*.ts": "npm run lint:fix --workspace=@bartnikas/backend"
   },
-  "overrides": {
-    "vue": "latest"
+  "commitlint": {
+    "rules": {
+      "header-max-length": [
+        2,
+        "always",
+        130
+      ]
+    },
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
