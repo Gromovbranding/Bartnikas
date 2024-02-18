@@ -1,18 +1,18 @@
 export const useDateFormat = () => {
   const makeDateCorrect = (date: string | Date | undefined) => {
-    if (!date) return "";
-    const d = new Date(date);
-    const year = d.toLocaleString("default", { year: "numeric" });
-    const month = d.toLocaleString("default", { month: "2-digit" });
-    const day = d.toLocaleString("default", { day: "2-digit" });
+    if (!date) { return '' }
+    const d = new Date(date)
+    const year = d.toLocaleString('default', { year: 'numeric' })
+    const month = d.toLocaleString('default', { month: '2-digit' })
+    const day = d.toLocaleString('default', { day: '2-digit' })
 
-    return `${day}.${month}.${year}`;
-  };
+    return `${day}.${month}.${year}`
+  }
 
   return {
-    makeDateCorrect,
-  };
-};
+    makeDateCorrect
+  }
+}
 
 /**
  * Format Date
@@ -27,10 +27,10 @@ export const useDateFormat = () => {
  * formatDate("YYYY-DD-MM hh:mm:ss M", date);
  */
 export const formatDate = (formatStr: string, date: Date | string) => {
-  const padLeft = (str: string | number, num = 2, fill = "0") =>
-    String(str).padStart(num, fill);
+  const padLeft = (str: string | number, num = 2, fill = '0') =>
+    String(str).padStart(num, fill)
 
-  const d = new Date(date);
+  const d = new Date(date)
 
   const time: {
     [x: string]: string;
@@ -42,13 +42,13 @@ export const formatDate = (formatStr: string, date: Date | string) => {
     hh: padLeft(d.getHours()),
     mm: padLeft(d.getMinutes()),
     ss: padLeft(d.getSeconds()),
-    M: padLeft(d.getMilliseconds(), 3),
-  };
+    M: padLeft(d.getMilliseconds(), 3)
+  }
 
   return formatStr.replace(
-    new RegExp(`${Object.keys(time).join("|")}`, "g"),
+    new RegExp(`${Object.keys(time).join('|')}`, 'g'),
     (subStr: string) => {
-      return time[subStr] || "";
+      return time[subStr] || ''
     }
-  );
-};
+  )
+}

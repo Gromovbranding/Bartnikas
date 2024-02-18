@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { ITermsStatic, ITermsStaticTranslate } from "@/types/admin-api";
+import type { ITermsStatic, ITermsStaticTranslate } from '@/types/admin-api'
 
 interface Props {
   list: ITermsStatic[] | null;
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 const translated = computed(() => {
   return props.list?.map((item) => {
     return {
       ...item,
       translate: useTranslateLanguage<ITermsStaticTranslate>(item.translate)
-        .value,
-    };
-  });
-});
+        .value
+    }
+  })
+})
 </script>
 <template>
   <section class="terms">

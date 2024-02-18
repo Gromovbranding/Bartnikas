@@ -1,4 +1,4 @@
-import type { UploadUserFile } from "element-plus";
+import type { UploadUserFile } from 'element-plus'
 
 export interface ILanguage {
   id: number;
@@ -19,7 +19,7 @@ export interface IFile {
 
 export type PartialFileAdminApiDto = Omit<
   IFile,
-  "id" | "updated_at" | "created_at" | "url"
+  'id' | 'updated_at' | 'created_at' | 'url'
 >;
 
 export interface IBlogTranslate {
@@ -37,7 +37,7 @@ export interface IBlog {
 }
 
 export enum ListUnitSize {
-  cm = "cm",
+  cm = 'cm',
 }
 
 export interface IGeneralInfo {
@@ -150,9 +150,9 @@ export interface IIndexSlider {
 }
 
 export enum ListDegree {
-  Gold = "Gold",
-  Silver = "Silver",
-  Bronze = "Bronze",
+  Gold = 'Gold',
+  Silver = 'Silver',
+  Bronze = 'Bronze',
 }
 
 export interface IAwardsDegreeGroup {
@@ -368,11 +368,11 @@ export interface IndexCardFooter {
 
 type Primitive = undefined | null | boolean | string | number | Function;
 
-type ExcludeAdminApiCreated<T> = Omit<T, "id" | "updated_at" | "created_at">;
+type ExcludeAdminApiCreated<T> = Omit<T, 'id' | 'updated_at' | 'created_at'>;
 
 export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
   [Key in keyof T]: T[Key] extends TranslateLang<T[Key]>
-    ? Omit<T[Key] & { code: string }, "language">
+    ? Omit<T[Key] & { code: string }, 'language'>
     : T[Key] extends IFile
     ? UploadUserFile | PartialFileAdminApiDto | null
     : T[Key] extends IFile

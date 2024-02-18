@@ -3,56 +3,56 @@ import type {
   IGreetingIndex,
   IGreetingIndexTranslate,
   PartialAdminApiDto,
-  PartialFileAdminApiDto,
-} from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+  PartialFileAdminApiDto
+} from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { greetings, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { titles, formRules, navigateBack, methods } = greetings();
+const { greetings, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = greetings()
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const uploadPosterRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const uploadPosterRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<IGreetingIndex>>({
   video: null,
   poster: null,
   is_active: false,
   translate: initTranslateLocale<IGreetingIndexTranslate>({
-    text: "",
-  }),
-});
+    text: ''
+  })
+})
 
-const handleResetForm = () => formRef.value?.resetForm();
+const handleResetForm = () => formRef.value?.resetForm()
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
-      const poster = await uploadPosterRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer()
+      const poster = await uploadPosterRef.value!.uploadToServer()
 
       await methods.handleCreate({
         ...toValue(form),
         video: file as PartialFileAdminApiDto,
-        poster: poster as PartialFileAdminApiDto,
-      });
+        poster: poster as PartialFileAdminApiDto
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -85,8 +85,12 @@ const handleCreate = async () => {
         />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

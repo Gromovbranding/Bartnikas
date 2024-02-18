@@ -3,70 +3,70 @@ import type {
   IProject,
   IProjectTranslate,
   IVideoCollection,
-  IVideoCollectionTranslate,
-} from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+  IVideoCollectionTranslate
+} from '@/types/admin-api'
+import { AdminTemplateForm } from '#components'
 
 definePageMeta({
-  layout: "admin",
-  validate(route) {
-    return /^\d+$/.test(route.params.id as string);
-  },
-});
+  layout: 'admin',
+  validate (route) {
+    return /^\d+$/.test(route.params.id as string)
+  }
+})
 
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
-const route = useRoute();
-const id = Number(route.params.id);
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
+const route = useRoute()
+const id = Number(route.params.id)
 
-const { videos, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { formRules, navigateBack, titles, methods } = videos();
+const { videos, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { formRules, navigateBack, titles, methods } = videos()
 
-const { fetchGet } = useApi();
+const { fetchGet } = useApi()
 
 const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
-  async () => await fetchGet("/projects")
-);
+  'projects',
+  async () => await fetchGet('/projects')
+)
 
 const translated = computed(() => {
   return projects?.value?.map((item) => {
     return {
       ...item,
-      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value,
-    };
-  });
-});
+      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value
+    }
+  })
+})
 
-const model = await methods.handleGetModel(id);
+const model = await methods.handleGetModel(id)
 
 useHeadSafe({
-  title: titles.edit,
-});
+  title: titles.edit
+})
 
 const form = reactive<IVideoCollection>({
   ...model,
   translate: initTranslateLocale<IVideoCollectionTranslate>(model.translate),
-  project: model.project ?? projects.value?.[0],
-});
+  project: model.project ?? projects.value?.[0]
+})
 
 const handleDelete = async () => {
-  await methods.handleDelete(id);
-  await navigateTo(navigateBack.value);
-};
+  await methods.handleDelete(id)
+  await navigateTo(navigateBack.value)
+}
 
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handlePatch(id, toValue(form));
+      await methods.handlePatch(id, toValue(form))
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -91,8 +91,12 @@ const handleUpdate = async () => {
         <AdminUploadFile v-model="form.video" file-type="video" />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

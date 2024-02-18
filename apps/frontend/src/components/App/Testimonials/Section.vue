@@ -1,47 +1,46 @@
 <script lang="ts" setup>
-const wrapper = ref<HTMLDivElement>();
-const root = ref<HTMLDivElement>();
-const lastScrollTop = ref(0);
-const scrollProgress = ref(0);
-const { getAllTestimonials } = usePublicData();
+const wrapper = ref<HTMLDivElement>()
+const root = ref<HTMLDivElement>()
+const lastScrollTop = ref(0)
+const scrollProgress = ref(0)
+const { getAllTestimonials } = usePublicData()
 
 const { data: testimonials } = await useAsyncData(
-  "testimonials",
+  'testimonials',
   async () => await getAllTestimonials()
-);
+)
 
 const sectionHeight = computed(
   () => `${30 * (testimonials.value?.length || 1) + 15}rem`
-);
+)
 // const section_height = computed(() => `${30*3+20}rem`)
 // const section_height = computed(() => `${40*3+13}rem`)
 
 const onScroll = () => {
-  if (!root.value || !wrapper.value || testimonials.value!.length <= 3) return;
-  const rootHeight = root.value?.offsetHeight || 100;
-  const scrollTop = document.documentElement.scrollTop;
+  if (!root.value || !wrapper.value || testimonials.value!.length <= 3) { return }
+  const rootHeight = root.value?.offsetHeight || 100
+  const scrollTop = document.documentElement.scrollTop
   // const progress =
   //   scrollTop -
   //   (root.value.offsetTop +
   //     (root.value.querySelector("h2")?.offsetHeight || 0));
-  const progress = scrollTop - root.value.offsetTop;
+  const progress = scrollTop - root.value.offsetTop
   const progressPercent =
-    (progress / (rootHeight - wrapper.value.offsetHeight)) * 100;
-  if (progressPercent < 0) scrollProgress.value = 0;
-  else if (progressPercent >= 0 && progressPercent < 100) {
-    scrollProgress.value = Math.floor(progressPercent);
-  } else scrollProgress.value = 100;
-  lastScrollTop.value = scrollTop;
-};
+    (progress / (rootHeight - wrapper.value.offsetHeight)) * 100
+  if (progressPercent < 0) { scrollProgress.value = 0 } else if (progressPercent >= 0 && progressPercent < 100) {
+    scrollProgress.value = Math.floor(progressPercent)
+  } else { scrollProgress.value = 100 }
+  lastScrollTop.value = scrollTop
+}
 
 onMounted(() => {
-  lastScrollTop.value = document.documentElement.scrollTop;
-  window.addEventListener("scroll", onScroll);
-});
+  lastScrollTop.value = document.documentElement.scrollTop
+  window.addEventListener('scroll', onScroll)
+})
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-});
+  window.removeEventListener('scroll', onScroll)
+})
 </script>
 
 <template>
@@ -51,9 +50,11 @@ onBeforeUnmount(() => {
     class="testimonials"
     :class="{ 'active-slider': testimonials!.length > 3 }"
   >
-    <AppSectionHeader :is-link="false">{{
-      $t("titles.testimonials")
-    }}</AppSectionHeader>
+    <AppSectionHeader :is-link="false">
+      {{
+        $t("titles.testimonials")
+      }}
+    </AppSectionHeader>
     <div class="testimonials__content">
       <AppTestimonialsItem
         v-for="item in testimonials"

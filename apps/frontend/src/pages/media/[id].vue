@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { IArticleTranslate } from "~/types/admin-api";
+import type { IArticleTranslate } from '~/types/admin-api'
 
-const route = useRoute();
-const { makeDateCorrect } = useDateFormat();
-const { t } = useI18n();
+const route = useRoute()
+const { makeDateCorrect } = useDateFormat()
+const { t } = useI18n()
 
-const { getArticleById } = usePublicData();
+const { getArticleById } = usePublicData()
 
 const { data: article } = await useAsyncData(
-  "article",
+  'article',
   async () => await getArticleById(route.params.id as string)
-);
+)
 
 const translated = computed(() => ({
   bio: useTranslateLanguage<IArticleTranslate>(article.value!.translate).value,
@@ -18,29 +18,29 @@ const translated = computed(() => ({
     ...article.value!.prev,
     translate: useTranslateLanguage<IArticleTranslate>(
       article.value!.prev?.translate
-    ).value,
+    ).value
   },
   next: {
     ...article.value!.next,
     translate: useTranslateLanguage<IArticleTranslate>(
       article.value!.next?.translate
-    ).value,
-  },
-}));
+    ).value
+  }
+}))
 
 useHeadSafe({
-  title: `${t("titles.article")} ${translated.value.bio?.title}`,
+  title: `${t('titles.article')} ${translated.value.bio?.title}`,
   meta: [
     {
-      name: "description",
-      content: translated.value.bio?.description ?? "My Desc",
+      name: 'description',
+      content: translated.value.bio?.description ?? 'My Desc'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 
 <template>
@@ -56,10 +56,10 @@ useHeadSafe({
         <img
           src="https://static.tildacdn.com/tild3565-3534-4961-b036-643938396163/noroot.png"
           alt=""
-        />
+        >
       </div>
       <div class="article__content">
-        <p v-html="translated.bio?.description"></p>
+        <p v-html="translated.bio?.description" />
       </div>
     </article>
 

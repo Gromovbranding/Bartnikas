@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type {
   IMediaPublication,
-  IMediaPublicationTranslate,
-} from "~/types/admin-api";
+  IMediaPublicationTranslate
+} from '~/types/admin-api'
 
-const { fetchGet } = useApi();
+const { fetchGet } = useApi()
 
 const { data: publication } = await useAsyncData<IMediaPublication[]>(
-  "publication",
-  async () => await fetchGet("/media/publication")
-);
+  'publication',
+  async () => await fetchGet('/media/publication')
+)
 
 const translated = computed(() => {
   return publication?.value?.map((item) => {
@@ -17,10 +17,10 @@ const translated = computed(() => {
       ...item,
       translate: useTranslateLanguage<IMediaPublicationTranslate>(
         item.translate
-      ).value,
-    };
-  });
-});
+      ).value
+    }
+  })
+})
 </script>
 
 <template>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { IAwards } from "~/types/admin-api";
+import type { IAwards } from '~/types/admin-api'
 
-const { getAllAwards } = usePublicData();
+const { getAllAwards } = usePublicData()
 
 const { data: awards } = await useAsyncData<IAwards[]>(
-  "awards",
+  'awards',
   async () => await getAllAwards()
-);
+)
 
-const list = computed(() => (awards.value ?? []).slice(0, 12));
+const list = computed(() => (awards.value ?? []).slice(0, 12))
 </script>
 
 <template>

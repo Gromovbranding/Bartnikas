@@ -1,56 +1,56 @@
 <script lang="ts" setup>
-import type { ITestimonial, ITestimonialTranslate } from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+import type { ITestimonial, ITestimonialTranslate } from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-  validate(route) {
-    return /^\d+$/.test(route.params.id as string);
-  },
-});
+  layout: 'admin',
+  validate (route) {
+    return /^\d+$/.test(route.params.id as string)
+  }
+})
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
-const route = useRoute();
-const id = Number(route.params.id);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
+const route = useRoute()
+const id = Number(route.params.id)
 
-const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { formRules, navigateBack, titles, methods } = testimonials();
+const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { formRules, navigateBack, titles, methods } = testimonials()
 
-const model = await methods.handleGetModel(id);
+const model = await methods.handleGetModel(id)
 
 useHeadSafe({
-  title: titles.edit,
-});
+  title: titles.edit
+})
 
 const form = reactive<ITestimonial>({
   ...model,
-  translate: initTranslateLocale<ITestimonialTranslate>(model.translate),
-});
+  translate: initTranslateLocale<ITestimonialTranslate>(model.translate)
+})
 
 const handleDelete = async () => {
-  await methods.handleDelete(id);
-  await navigateTo(navigateBack.value);
-};
+  await methods.handleDelete(id)
+  await navigateTo(navigateBack.value)
+}
 
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer()
 
       await methods.handlePatch(id, {
         ...toValue(form),
-        file: file || null,
-      });
+        file: file || null
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -76,8 +76,12 @@ const handleUpdate = async () => {
         <AdminUploadFile v-model="form.file" file-type="video" />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

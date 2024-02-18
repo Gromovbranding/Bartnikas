@@ -1,26 +1,24 @@
 export const useBreakpoints = () => {
-  const width = ref<number>(0);
+  const width = ref<number>(0)
 
   const handleWindowResize = () => {
-    width.value = window.innerWidth;
-  };
+    width.value = window.innerWidth
+  }
 
   onMounted(() => {
-    window.addEventListener("resize", handleWindowResize);
-    handleWindowResize();
-  });
+    window.addEventListener('resize', handleWindowResize)
+    handleWindowResize()
+  })
 
   onUnmounted(() => {
-    window.removeEventListener("resize", handleWindowResize);
-  });
+    window.removeEventListener('resize', handleWindowResize)
+  })
 
   const breakpoint = computed(() => {
-    if (width.value > 1000) return "lg";
-    else if (width.value > 550 && width.value <= 1000) return "md";
-    else if (width.value <= 550) return "xs";
+    if (width.value > 1000) { return 'lg' } else if (width.value > 550 && width.value <= 1000) { return 'md' } else if (width.value <= 550) { return 'xs' }
 
-    return null;
-  });
+    return null
+  })
 
-  return { width, breakpoint };
-};
+  return { width, breakpoint }
+}

@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { ITestimonial } from "~/types/admin-api";
+import type { ITestimonial } from '~/types/admin-api'
 
-const headTitle = ref("Testimonials");
+const headTitle = ref('Testimonials')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<ITestimonial>(headTitle.value);
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<ITestimonial>(headTitle.value)
 </script>
 
 <template>

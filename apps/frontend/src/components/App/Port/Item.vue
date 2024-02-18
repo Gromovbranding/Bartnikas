@@ -2,49 +2,49 @@
 import type {
   IProject,
   IProjectCollabTranslate,
-  IProjectTranslate,
-} from "~/types/admin-api";
+  IProjectTranslate
+} from '~/types/admin-api'
 
 interface Props {
-  direction?: "row" | "row-reverse";
+  direction?: 'row' | 'row-reverse';
   project: IProject;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  direction: "row",
-});
+  direction: 'row'
+})
 
 const translate = computed(() => {
   return {
     collab: useTranslateLanguage<IProjectCollabTranslate>(
       props.project.collab?.translate
     ).value,
-    bio: useTranslateLanguage<IProjectTranslate>(props.project.translate).value,
-  };
-});
+    bio: useTranslateLanguage<IProjectTranslate>(props.project.translate).value
+  }
+})
 
 const portImages = computed(() => {
-  const portImage = props.project.details.filter((item) => item.is_show_poster);
+  const portImage = props.project.details.filter(item => item.is_show_poster)
 
   if (props.project.details.length >= 2) {
     if (portImage.length === 0) {
-      return [props.project.details[0], props.project.details[1]];
+      return [props.project.details[0], props.project.details[1]]
     } else if (portImage.length === 1) {
       return [
         portImage[0],
-        props.project.details.find((item) => !item.is_show_poster)!,
-      ];
+        props.project.details.find(item => !item.is_show_poster)!
+      ]
     }
 
-    return [portImage[0], portImage[1]];
+    return [portImage[0], portImage[1]]
   }
 
   if (props.project.details.length === 0) {
-    return [];
+    return []
   }
 
-  return [props.project.details[0]];
-});
+  return [props.project.details[0]]
+})
 </script>
 
 <template>
@@ -74,9 +74,11 @@ const portImages = computed(() => {
             <span>{{ $t("port.collaboration") }}</span>
             <h2>{{ translate.collab.collab_with }}</h2>
           </div>
-          <h2 v-else>{{ project.group }}</h2>
+          <h2 v-else>
+            {{ project.group }}
+          </h2>
           <div class="port__text__desc">
-            <p v-html="translate?.bio?.description"></p>
+            <p v-html="translate?.bio?.description" />
           </div>
         </NuxtLinkLocale>
       </div>

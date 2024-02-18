@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import Editor from "@tinymce/tinymce-vue";
+import Editor from '@tinymce/tinymce-vue'
 defineProps<{
   modelValue: string;
-}>();
+}>()
 
 defineEmits<{
-  (e: "update:modelValue", data: string): void;
-}>();
+  (e: 'update:modelValue', data: string): void;
+}>()
 </script>
 
 <template>

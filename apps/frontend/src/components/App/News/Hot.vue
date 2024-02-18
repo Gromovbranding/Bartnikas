@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { IArticle, IArticleTranslate } from "~/types/admin-api";
+import type { IArticle, IArticleTranslate } from '~/types/admin-api'
 
-const { getLastHotArticle } = usePublicData();
+const { getLastHotArticle } = usePublicData()
 
 const { data: article } = await useAsyncData<IArticle>(
-  "article",
+  'article',
   async () => await getLastHotArticle()
-);
+)
 
-const { makeDateCorrect } = useDateFormat();
+const { makeDateCorrect } = useDateFormat()
 
 const title = computed(() => {
   return ` — ${makeDateCorrect(article.value?.created_at.toString())} — ${
     useTranslateLanguage<IArticleTranslate>(article.value?.translate).value
       ?.title
-  }`.repeat(3);
-});
+  }`.repeat(3)
+})
 </script>
 
 <template>

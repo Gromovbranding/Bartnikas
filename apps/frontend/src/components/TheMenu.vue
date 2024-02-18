@@ -1,32 +1,32 @@
 <script lang="ts" setup>
-const { getActiveFooterContact, getActiveGeneralInfo } = usePublicData();
+const { getActiveFooterContact, getActiveGeneralInfo } = usePublicData()
 
-const route = useRoute();
-const isMenuVisible = ref(false);
+const route = useRoute()
+const isMenuVisible = ref(false)
 
 watch(
   () => route.path,
   () => {
-    isMenuVisible.value = false;
+    isMenuVisible.value = false
   }
-);
+)
 
 const { data: contacts } = await useAsyncData(
-  "generalInfoContacts",
+  'generalInfoContacts',
   async () => await getActiveFooterContact()
-);
+)
 
 const { data: emails } = await useAsyncData(
-  "generalInfoEmailss",
+  'generalInfoEmailss',
   async () => await getActiveGeneralInfo()
-);
+)
 </script>
 
 <template>
   <div :class="['menu', { 'menu--active': isMenuVisible }]">
     <AppLangSwitcher :is-bg-black="isMenuVisible" />
     <div class="menu__bar" @click="isMenuVisible = !isMenuVisible">
-      <span></span>
+      <span />
     </div>
     <nav class="menu__nav">
       <div>

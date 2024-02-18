@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { IBlog } from "~/types/admin-api";
+import type { IBlog } from '~/types/admin-api'
 
-const { getAllBlogs } = usePublicData();
+const { getAllBlogs } = usePublicData()
 
 const { data: blogs } = await useAsyncData<IBlog[]>(
-  "blogs",
+  'blogs',
   async () => await getAllBlogs()
-);
+)
 </script>
 
 <template>

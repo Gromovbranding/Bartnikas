@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import type { ITestimonial, ITestimonialTranslate } from "~/types/admin-api";
+import type { ITestimonial, ITestimonialTranslate } from '~/types/admin-api'
 
 const props = defineProps<{
   testimonial: ITestimonial;
-}>();
+}>()
 
-const showVideo = ref(false);
-const video = ref<HTMLVideoElement>();
+const showVideo = ref(false)
+const video = ref<HTMLVideoElement>()
 
 const translated = useTranslateLanguage<ITestimonialTranslate>(
   props.testimonial.translate
-);
+)
 
-function playVideo() {
-  showVideo.value = true;
-  if (video.value) video.value.play();
+function playVideo () {
+  showVideo.value = true
+  if (video.value) { video.value.play() }
 }
 
-function getYTLink(url: string) {
-  const arr = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+function getYTLink (url: string) {
+  const arr = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/)
   const videoId =
-    arr[2] !== undefined ? arr[2].split(/[^0-9a-z_-]/i)[0] : arr[0];
-  return `https://www.youtube.com/embed/${videoId}`;
+    arr[2] !== undefined ? arr[2].split(/[^0-9a-z_-]/i)[0] : arr[0]
+  return `https://www.youtube.com/embed/${videoId}`
 }
 </script>
 
@@ -35,14 +35,14 @@ function getYTLink(url: string) {
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
-      ></iframe>
+      />
       <video
         v-else
         ref="video"
         :src="useGetFileByUrl(testimonial.file?.name)"
         preload="metadata"
         :controls="showVideo"
-      ></video>
+      />
       <div
         v-if="!showVideo && !testimonial.url"
         class="testimonial__play"

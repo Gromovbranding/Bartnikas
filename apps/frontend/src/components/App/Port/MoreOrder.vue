@@ -6,13 +6,13 @@ interface Props {
   id?: number;
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
   <div class="more-order">
     <div class="more-order__img">
-      <img :src="url" alt="" />
+      <img :src="url" alt="">
     </div>
     <div class="more-order__info">
       <div>

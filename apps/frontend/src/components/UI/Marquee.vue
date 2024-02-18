@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import MarqueeText from "vue-marquee-text-component";
+import MarqueeText from 'vue-marquee-text-component'
 </script>
 <template>
   <ClientOnly>

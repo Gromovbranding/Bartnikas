@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 interface Props {
-  bgColor?: "grey" | "blue" | "white";
+  bgColor?: 'grey' | 'blue' | 'white';
   sub?:
     | {
         name: string;
@@ -14,22 +14,22 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  bgColor: "blue",
+  bgColor: 'blue',
   onlyLogo: false,
   sub: () => [],
-  title: "",
-  back: false,
-});
+  title: '',
+  back: false
+})
 
-const router = useRouter();
+const router = useRouter()
 
 const handleBack = () => {
   if (window.history.length > 2) {
-    router.back();
+    router.back()
   } else {
-    router.push("/");
+    router.push('/')
   }
-};
+}
 </script>
 
 <template>
@@ -46,7 +46,9 @@ const handleBack = () => {
     </div>
     <ul v-if="!back && title" class="page-head__breadcrumb">
       <li>
-        <NuxtLinkLocale to="/">{{ $t("titles.home") }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="/">
+          {{ $t("titles.home") }}
+        </NuxtLinkLocale>
       </li>
       <li v-for="item in sub" :key="item.name">
         <NuxtLinkLocale :to="item.url.toLowerCase()">

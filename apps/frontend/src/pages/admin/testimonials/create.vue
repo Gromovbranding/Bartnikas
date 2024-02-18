@@ -1,60 +1,60 @@
 <script lang="ts" setup>
-import type { ITestimonial, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+import type { ITestimonial, PartialAdminApiDto } from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { titles, formRules, navigateBack, methods } = testimonials();
+const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = testimonials()
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<ITestimonial>>({
   translate: initTranslateLocale<ITestimonialTranslate>({
-    title: "",
-    additional_info: "",
+    title: '',
+    additional_info: ''
   }),
   url: null,
-  file: null,
-});
+  file: null
+})
 
 const handleResetForm = () => {
-  formRef.value?.resetForm();
-};
+  formRef.value?.resetForm()
+}
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      let file = null;
-      let url = null;
+      let file = null
+      let url = null
 
       if (form.file) {
-        file = await uploadRef.value!.uploadToServer();
+        file = await uploadRef.value!.uploadToServer()
       } else {
-        url = form.url;
+        url = form.url
       }
 
       await methods.handleCreate({
         ...toValue(form),
         url,
-        file,
-      });
+        file
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -87,8 +87,12 @@ const handleCreate = async () => {
         />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

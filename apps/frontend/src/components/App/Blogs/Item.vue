@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { IBlog, IBlogTranslate } from "~/types/admin-api";
-const { makeDateCorrect } = useDateFormat();
+import type { IBlog, IBlogTranslate } from '~/types/admin-api'
+const { makeDateCorrect } = useDateFormat()
 
 const props = defineProps<{
   blog: IBlog;
-}>();
+}>()
 
-const translated = useTranslateLanguage<IBlogTranslate>(props.blog.translate);
+const translated = useTranslateLanguage<IBlogTranslate>(props.blog.translate)
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const translated = useTranslateLanguage<IBlogTranslate>(props.blog.translate);
       </div>
       <div>
         <h3>{{ translated?.title }}</h3>
-        <p v-html="translated?.description"></p>
+        <p v-html="translated?.description" />
         <span>{{ makeDateCorrect(blog.created_at) }}</span>
       </div>
     </div>

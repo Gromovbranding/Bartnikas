@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IBio } from "~/types/admin-api";
+import type { IBio } from '~/types/admin-api'
 
-const headTitle = ref("About me");
+const headTitle = ref('About me')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IBio>("bio");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IBio>('bio')
 </script>
 
 <template>

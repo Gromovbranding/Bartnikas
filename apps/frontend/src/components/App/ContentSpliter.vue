@@ -1,7 +1,7 @@
 <template>
   <section class="spliter">
     <h2 v-scroll-scale-text>
-      <slot></slot>
+      <slot />
     </h2>
   </section>
 </template>

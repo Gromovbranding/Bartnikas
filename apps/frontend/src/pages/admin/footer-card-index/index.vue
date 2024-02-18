@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import type { IndexCardFooter } from "~/types/admin-api";
+import type { IndexCardFooter } from '~/types/admin-api'
 
-const headTitle = ref("Footer card");
+const headTitle = ref('Footer card')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleDelete,
   handleEdit,
-  data: { entities, pending },
+  data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IndexCardFooter>(
-  "footer-card-index",
-  "index-card-footer"
-);
+  'footer-card-index',
+  'index-card-footer'
+)
 </script>
 
 <template>

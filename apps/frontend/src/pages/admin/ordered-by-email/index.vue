@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IProjectOrderByEmail } from "~/types/admin-api";
+import type { IProjectOrderByEmail } from '~/types/admin-api'
 
-const headTitle = ref("Ordered By Email");
+const headTitle = ref('Ordered By Email')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleDelete,
-  data: { entities, pending },
+  data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IProjectOrderByEmail>(
-  "projects/order/by-email"
-);
+  'projects/order/by-email'
+)
 </script>
 
 <template>

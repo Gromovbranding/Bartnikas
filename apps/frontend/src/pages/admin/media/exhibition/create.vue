@@ -3,54 +3,54 @@ import type {
   IMediaExhibition,
   IMediaExhibitionTranslate,
   PartialAdminApiDto,
-  PartialFileAdminApiDto,
-} from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+  PartialFileAdminApiDto
+} from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { media, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { titles, formRules, navigateBack, methods } = media().exhibition();
+const { media, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = media().exhibition()
 
-const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadImageRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
 const form = reactive<PartialAdminApiDto<IMediaExhibition>>({
   image: null,
   translate: initTranslateLocale<IMediaExhibitionTranslate>({
-    title: "",
-    awards: "",
-  }),
-});
+    title: '',
+    awards: ''
+  })
+})
 
 const handleResetForm = () => {
-  formRef.value?.resetForm();
-};
+  formRef.value?.resetForm()
+}
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const fileImage = await uploadImageRef.value!.uploadToServer();
+      const fileImage = await uploadImageRef.value!.uploadToServer()
 
       await methods.handleCreate({
         ...toValue(form),
-        image: fileImage as PartialFileAdminApiDto,
-      });
+        image: fileImage as PartialFileAdminApiDto
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -75,8 +75,12 @@ const handleCreate = async () => {
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

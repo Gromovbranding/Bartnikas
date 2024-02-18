@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import type { IArticle } from "~/types/admin-api";
-const { getAllNews } = usePublicData();
+import type { IArticle } from '~/types/admin-api'
+const { getAllNews } = usePublicData()
 
 const { data: news } = await useAsyncData<IArticle[]>(
-  "news",
+  'news',
   async () => await getAllNews()
-);
+)
 </script>
 
 <template>
   <section v-if="!!news?.length" class="news">
-    <AppSectionHeader to="/media">{{ $t("titles.news") }}</AppSectionHeader>
+    <AppSectionHeader to="/media">
+      {{ $t("titles.news") }}
+    </AppSectionHeader>
     <div class="news__content">
       <AppNewsItem
         v-for="item in news"

@@ -1,42 +1,42 @@
 <script lang="ts" setup>
-import type { ITermsStatic, PartialAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm } from "#components";
+import type { ITermsStatic, PartialAdminApiDto } from '@/types/admin-api'
+import { AdminTemplateForm } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { deliveryStatic } = useAdmin();
-const { titles, formRules, navigateBack, methods } = deliveryStatic();
+const { deliveryStatic } = useAdmin()
+const { titles, formRules, navigateBack, methods } = deliveryStatic()
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<ITermsStatic>>({
-  title: "",
-  description: "",
-});
+  title: '',
+  description: ''
+})
 
 const handleResetForm = () => {
-  formRef.value?.resetForm();
-};
+  formRef.value?.resetForm()
+}
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      await methods.handleCreate(toValue(form));
+      await methods.handleCreate(toValue(form))
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -52,8 +52,12 @@ const handleCreate = async () => {
         <AdminEditorInput v-model="form.description" />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { IMediaCV } from "@/types/admin-api";
+import type { IMediaCV } from '@/types/admin-api'
 
-const headTitle = ref("Media CV");
+const headTitle = ref('Media CV')
 
 const {
   handleDelete,
   handleCreate,
   handleEdit,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IMediaCV>("media/cv");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IMediaCV>('media/cv')
 </script>
 
 <template>

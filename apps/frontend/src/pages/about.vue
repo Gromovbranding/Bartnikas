@@ -3,69 +3,69 @@ import type {
   IBio,
   IBioTranslate,
   IBioTestimonials,
-  IBioTestimonialsTranslate,
-} from "@/types/admin-api";
+  IBioTestimonialsTranslate
+} from '@/types/admin-api'
 
-const { breakpoint } = useBreakpoints();
+const { breakpoint } = useBreakpoints()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const scrollActive = ref(false);
-const scrollStart = ref(0);
-const scroll = ref<HTMLDivElement>();
+const scrollActive = ref(false)
+const scrollStart = ref(0)
+const scroll = ref<HTMLDivElement>()
 const videoGreetingStyle = computed(() => {
   return {
-    "flex-direction":
-      breakpoint.value === "xs" ? "column-reverse" : "row-reverse",
-  };
-});
+    'flex-direction':
+      breakpoint.value === 'xs' ? 'column-reverse' : 'row-reverse'
+  }
+})
 
-const { getBio, getBioTestimonials } = usePublicData();
+const { getBio, getBioTestimonials } = usePublicData()
 
 const { data: bio } = await useAsyncData<IBio>(
-  "bio",
+  'bio',
   async () => await getBio()
-);
+)
 
-const translated = useTranslateLanguage<IBioTranslate>(bio.value!.translate);
+const translated = useTranslateLanguage<IBioTranslate>(bio.value!.translate)
 
 useHeadSafe({
-  title: t("titles.about"),
+  title: t('titles.about'),
   meta: [
     {
-      name: "description",
-      content: translated.value?.description ?? "",
+      name: 'description',
+      content: translated.value?.description ?? ''
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 
 const { data: bioTestimonials } = await useAsyncData<IBioTestimonials[]>(
-  "bioTestimonials",
+  'bioTestimonials',
   async () => await getBioTestimonials()
-);
+)
 
 const translateBioTestimonials = computed(() => {
   return bioTestimonials?.value?.map((item) => {
     return {
       ...item,
       translate: useTranslateLanguage<IBioTestimonialsTranslate>(item.translate)
-        .value,
-    };
-  });
-});
+        .value
+    }
+  })
+})
 
-function onPointerMove(e: PointerEvent) {
-  if (!scrollActive.value || !scroll.value) return;
-  scroll.value.scrollLeft -= e.movementX;
+function onPointerMove (e: PointerEvent) {
+  if (!scrollActive.value || !scroll.value) { return }
+  scroll.value.scrollLeft -= e.movementX
 }
 
-function onPointerDown(e: PointerEvent) {
-  scrollActive.value = true;
-  scrollStart.value = e.screenX;
+function onPointerDown (e: PointerEvent) {
+  scrollActive.value = true
+  scrollStart.value = e.screenX
 }
 </script>
 
@@ -81,7 +81,7 @@ function onPointerDown(e: PointerEvent) {
         <p>
           {{ translated?.sub_description }}
         </p>
-        <small v-html="translated?.description"> </small>
+        <small v-html="translated?.description" />
       </div>
     </section>
 

@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import defBgImg from "@/assets/img/header_bg.jpg";
-import type { IProjectTranslate } from "~/types/admin-api";
-const { getIndexSlider, getProjectByFooterCard } = usePublicData();
+import defBgImg from '@/assets/img/header_bg.jpg'
+import type { IProjectTranslate } from '~/types/admin-api'
+const { getIndexSlider, getProjectByFooterCard } = usePublicData()
 
 const { data: activeIndexCard } = await useAsyncData(
-  "activeIndexCard",
+  'activeIndexCard',
   async () => await getProjectByFooterCard()
-);
+)
 
 const { data: sliderImages } = await useAsyncData(
-  "sliderImages",
+  'sliderImages',
   async () => await getIndexSlider(),
   {
-    default: () => [{ id: defBgImg, image: { name: defBgImg } }],
+    default: () => [{ id: defBgImg, image: { name: defBgImg } }]
   }
-);
+)
 
 const activeCardTranslate = useTranslateLanguage<IProjectTranslate>(
   activeIndexCard.value?.translate
-);
+)
 </script>
 
 <template>
@@ -70,7 +70,7 @@ const activeCardTranslate = useTranslateLanguage<IProjectTranslate>(
         <NuxtImg
           :src="
             `/baseApiFiles/${activeIndexCard.details?.[0].image.name}` ||
-            'assets/img/index_parallax.jpg'
+              'assets/img/index_parallax.jpg'
           "
           loading="lazy"
           alt="Parallax bg"

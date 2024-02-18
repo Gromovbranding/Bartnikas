@@ -2,51 +2,51 @@
 import type {
   IFooterContact,
   PartialAdminApiDto,
-  PartialFileAdminApiDto,
-} from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+  PartialFileAdminApiDto
+} from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { footerContacts } = useAdmin();
-const { titles, formRules, navigateBack, methods } = footerContacts();
+const { footerContacts } = useAdmin()
+const { titles, formRules, navigateBack, methods } = footerContacts()
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<IFooterContact>>({
   active: false,
   menu_links: [],
   socials: [],
-  logo: null,
-});
+  logo: null
+})
 
-const handleResetForm = () => formRef.value?.resetForm();
+const handleResetForm = () => formRef.value?.resetForm()
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer()
 
       await methods.handleCreate({
         ...toValue(form),
-        logo: file as PartialFileAdminApiDto,
-      });
+        logo: file as PartialFileAdminApiDto
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -56,7 +56,9 @@ const handleCreate = async () => {
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem>
-        <h2 style="font-size: 24px">Menu Links</h2>
+        <h2 style="font-size: 24px">
+          Menu Links
+        </h2>
       </ElFormItem>
       <template v-for="(item, idx) in form.menu_links" :key="`ml-${idx}`">
         <ElFormItem
@@ -109,7 +111,9 @@ const handleCreate = async () => {
       </ElFormItem>
 
       <ElFormItem style="margin-top: 42px">
-        <h2 style="font-size: 24px">Socials Links</h2>
+        <h2 style="font-size: 24px">
+          Socials Links
+        </h2>
       </ElFormItem>
       <template v-for="(item, idx) in form.socials" :key="`sl-${idx}`">
         <ElFormItem
@@ -170,8 +174,12 @@ const handleCreate = async () => {
         <AdminUploadFile ref="uploadRef" v-model="form.logo" />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

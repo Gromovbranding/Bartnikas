@@ -3,55 +3,55 @@ import type {
   IBlog,
   IBlogTranslate,
   PartialAdminApiDto,
-  PartialFileAdminApiDto,
-} from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+  PartialFileAdminApiDto
+} from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { blogs, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { titles, formRules, navigateBack, methods } = blogs();
+const { blogs, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = blogs()
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
 const form = reactive<PartialAdminApiDto<IBlog>>({
   translate: initTranslateLocale<IBlogTranslate>({
-    title: "",
-    description: "",
-    text: "",
+    title: '',
+    description: '',
+    text: ''
   }),
-  image: null,
-});
+  image: null
+})
 
 const handleResetForm = () => {
-  formRef.value?.resetForm();
-};
+  formRef.value?.resetForm()
+}
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer()
 
       await methods.handleCreate({
         ...toValue(form),
-        image: file as PartialFileAdminApiDto,
-      });
+        image: file as PartialFileAdminApiDto
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
@@ -78,8 +78,12 @@ const handleCreate = async () => {
         <AdminUploadFile ref="uploadRef" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

@@ -9,11 +9,11 @@ interface Props {
   next: IDescribe;
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 const handleTo = async (id: number) => {
-  await navigateTo(useLocaleRoute()(`/${props.slug}/${id}`));
-};
+  await navigateTo(useLocaleRoute()(`/${props.slug}/${id}`))
+}
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const handleTo = async (id: number) => {
       <span class="switching__sup">{{ $t("media.previous") }}</span>
       <h3>{{ prev.title }}</h3>
     </div>
-    <div v-else class="switching__item_empty"></div>
+    <div v-else class="switching__item_empty" />
     <!-- Next -->
     <div
       v-if="next.id && next.title"
@@ -37,7 +37,7 @@ const handleTo = async (id: number) => {
       <span class="switching__sup">{{ $t("media.next") }}</span>
       <h3>{{ next.title }}</h3>
     </div>
-    <div v-else class="switching__item_empty"></div>
+    <div v-else class="switching__item_empty" />
   </section>
 </template>
 

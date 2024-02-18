@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IFooterContact } from "~/types/admin-api";
+import type { IFooterContact } from '~/types/admin-api'
 
-const headTitle = ref("Footer Contacts");
+const headTitle = ref('Footer Contacts')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleDelete,
   handleEdit,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IFooterContact>("footer-contacts");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IFooterContact>('footer-contacts')
 </script>
 
 <template>

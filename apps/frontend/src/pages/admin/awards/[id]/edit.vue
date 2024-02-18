@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { UploadUserFile } from "element-plus";
-import { Delete } from "@element-plus/icons-vue";
-import type { IAwards, IAwardsTranslate } from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+import type { UploadUserFile } from 'element-plus'
+import { Delete } from '@element-plus/icons-vue'
+import type { IAwards, IAwardsTranslate } from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 interface ImageDetails {
   [key: number]: {
     year: number;
     groups: {
-      type: "Gold" | "Silver";
+      type: 'Gold' | 'Silver';
       images: {
         name: string;
       }[];
@@ -17,140 +17,136 @@ interface ImageDetails {
 }
 
 definePageMeta({
-  layout: "admin",
-  validate(route) {
-    return /^\d+$/.test(route.params.id as string);
-  },
-});
+  layout: 'admin',
+  validate (route) {
+    return /^\d+$/.test(route.params.id as string)
+  }
+})
 
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
-const uploadAvatarRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const imageFiles = ref<UploadUserFile[]>([]);
-const awardImages = ref<ImageDetails>({});
-const route = useRoute();
-const id = Number(route.params.id);
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
+const uploadAvatarRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const imageFiles = ref<UploadUserFile[]>([])
+const awardImages = ref<ImageDetails>({})
+const route = useRoute()
+const id = Number(route.params.id)
 
-const { awards, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { formRules, navigateBack, titles, methods } = awards();
+const { awards, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { formRules, navigateBack, titles, methods } = awards()
 
-const model = await methods.handleGetModel(id);
+const model = await methods.handleGetModel(id)
 
 useHeadSafe({
-  title: titles.edit,
-});
+  title: titles.edit
+})
 
 const form = reactive<IAwards>({
   ...model,
-  translate: initTranslateLocale<IAwardsTranslate>(model.translate),
-});
+  translate: initTranslateLocale<IAwardsTranslate>(model.translate)
+})
 
 const selectOptions = [
-  { value: "Gold", label: "Gold" },
-  { value: "Silver", label: "Silver" },
-  { value: "Bronze", label: "Bronze" },
-];
+  { value: 'Gold', label: 'Gold' },
+  { value: 'Silver', label: 'Silver' },
+  { value: 'Bronze', label: 'Bronze' }
+]
 
 const handleDelete = async () => {
-  await methods.handleDelete(id);
-  await navigateTo(navigateBack.value);
-};
+  await methods.handleDelete(id)
+  await navigateTo(navigateBack.value)
+}
 
 const imagesToDegress = (arr: any[]) => {
   const years: {
     [key: number]: any[];
-  } = {};
+  } = {}
   arr.forEach((item) => {
-    const awardImg = awardImages.value[item.uid];
+    const awardImg = awardImages.value[item.uid]
     if (years[awardImg.year]) {
-      years[awardImg.year].push({ item, data: awardImg });
-      return;
+      years[awardImg.year].push({ item, data: awardImg })
+      return
     }
-    years[awardImg.year] = [{ item, data: awardImg }];
-  });
-  form.degress = [];
+    years[awardImg.year] = [{ item, data: awardImg }]
+  })
+  form.degress = []
   for (const i in years) {
-    const goldImgs: any[] = [];
-    const silvImgs: any[] = [];
-    const bronzeImgs: any[] = [];
+    const goldImgs: any[] = []
+    const silvImgs: any[] = []
+    const bronzeImgs: any[] = []
     years[i].forEach((yearItem) => {
-      if (yearItem.data.groups === "Gold")
-        return goldImgs.push({ name: yearItem.item.name });
-      if (yearItem.data.groups === "Silver")
-        return silvImgs.push({ name: yearItem.item.name });
-      if (yearItem.data.groups === "Bronze")
-        return bronzeImgs.push({ name: yearItem.item.name });
-    });
+      if (yearItem.data.groups === 'Gold') { return goldImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === 'Silver') { return silvImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === 'Bronze') { return bronzeImgs.push({ name: yearItem.item.name }) }
+    })
     const res = {
       year: +i,
-      groups: [] as any[],
-    };
-    if (goldImgs.length) res.groups.push({ type: "Gold", images: goldImgs });
-    if (silvImgs.length) res.groups.push({ type: "Silver", images: silvImgs });
-    if (bronzeImgs.length)
-      res.groups.push({ type: "Bronze", images: bronzeImgs });
-    form.degress.push(res);
+      groups: [] as any[]
+    }
+    if (goldImgs.length) { res.groups.push({ type: 'Gold', images: goldImgs }) }
+    if (silvImgs.length) { res.groups.push({ type: 'Silver', images: silvImgs }) }
+    if (bronzeImgs.length) { res.groups.push({ type: 'Bronze', images: bronzeImgs }) }
+    form.degress.push(res)
   }
-};
+}
 
 const handleUpdate = async () => {
-  const arr = [];
+  const arr = []
   for await (const file of imageFiles.value) {
-    arr.push(await uploadRef.value!.uploadToServer(file));
+    arr.push(await uploadRef.value!.uploadToServer(file))
   }
-  imagesToDegress(arr);
+  imagesToDegress(arr)
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadAvatarRef.value!.uploadToServer();
-      form.awards_avatar = file;
-      await methods.handlePatch(id, toValue(form));
+      const file = await uploadAvatarRef.value!.uploadToServer()
+      form.awards_avatar = file
+      await methods.handlePatch(id, toValue(form))
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 
 const onClickDelete = (e: Event) => {
-  const btn = e.target as HTMLButtonElement;
+  const btn = e.target as HTMLButtonElement
   btn.dispatchEvent(
-    new KeyboardEvent("keydown", { key: "backspace", bubbles: true })
-  );
-};
+    new KeyboardEvent('keydown', { key: 'backspace', bubbles: true })
+  )
+}
 
 onMounted(() => {
   imageFiles.value = form.degress.flatMap((item) => {
-    return item.groups.flatMap((grp) =>
+    return item.groups.flatMap(grp =>
       grp.images.map((img) => {
         awardImages.value[img.id] = {
           year: item.year,
-          groups: grp.type,
-        };
+          groups: grp.type
+        }
         return {
           ...img,
           uid: img.id,
-          edit: true,
-        };
+          edit: true
+        }
       })
-    );
-  });
-});
+    )
+  })
+})
 
 watch(
   () => imageFiles.value,
   (val) => {
     val.forEach((item) => {
-      if (awardImages.value[item.uid]) return;
+      if (awardImages.value[item.uid]) { return }
       awardImages.value[item.uid] = {
         year: 2022,
-        groups: "Gold",
-      };
-    });
+        groups: 'Gold'
+      }
+    })
   }
-);
+)
 </script>
 
 <template>
@@ -174,8 +170,7 @@ watch(
           ref="uploadAvatarRef"
           v-model="form.awards_avatar"
           file-type="image"
-        >
-        </AdminUploadFile>
+        />
       </ElFormItem>
       <ElFormItem label="Images" prop="degress" required>
         <AdminUploadFile ref="uploadRef" v-model="imageFiles" :single="false">
@@ -184,7 +179,7 @@ watch(
               class="el-upload-list__item-thumbnail"
               :src="file.url"
               alt=""
-            />
+            >
             <div v-if="awardImages[file.uid!]" class="img" @keydown.stop>
               <div class="img__details">
                 <ElFormItem label="Year" label-width="50">
@@ -216,13 +211,17 @@ watch(
               :icon="Delete"
               circle
               @click="onClickDelete"
-            ></el-button>
+            />
           </template>
         </AdminUploadFile>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

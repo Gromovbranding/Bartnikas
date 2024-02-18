@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import type {
   IVideoCollection,
-  IVideoCollectionTranslate,
-} from "~/types/admin-api";
+  IVideoCollectionTranslate
+} from '~/types/admin-api'
 
-const video = ref<HTMLVideoElement>();
-const activeVideo = ref(false);
+const video = ref<HTMLVideoElement>()
+const activeVideo = ref(false)
 
-const { makeDateCorrect } = useDateFormat();
+const { makeDateCorrect } = useDateFormat()
 
 const props = defineProps<{
   item: IVideoCollection;
-}>();
+}>()
 
-const showControls = computed(() => (activeVideo.value ? true : undefined));
+const showControls = computed(() => (activeVideo.value ? true : undefined))
 
 const translate = useTranslateLanguage<IVideoCollectionTranslate>(
   props.item.translate
-);
+)
 
-function playVideo() {
-  if (!video.value) return;
-  video.value.play();
-  activeVideo.value = true;
+function playVideo () {
+  if (!video.value) { return }
+  video.value.play()
+  activeVideo.value = true
 }
 </script>
 
@@ -33,7 +33,7 @@ function playVideo() {
         ref="video"
         :src="useGetFileByUrl(item.video.name)"
         :controls="showControls"
-      ></video>
+      />
       <div
         v-if="!activeVideo"
         class="video-collection__play"

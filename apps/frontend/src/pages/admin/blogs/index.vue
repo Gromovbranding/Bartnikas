@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IBlog } from "~/types/admin-api";
+import type { IBlog } from '~/types/admin-api'
 
-const headTitle = ref("Blogs");
+const headTitle = ref('Blogs')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IBlog>(headTitle.value);
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IBlog>(headTitle.value)
 </script>
 
 <template>

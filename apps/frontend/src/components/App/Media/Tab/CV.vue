@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { IMediaCV } from "~/types/admin-api";
+import type { IMediaCV } from '~/types/admin-api'
 
-const { fetchGet } = useApi();
+const { fetchGet } = useApi()
 
 const { data: cv } = await useAsyncData<IMediaCV[]>(
-  "cv",
-  async () => await fetchGet("/media/cv")
-);
+  'cv',
+  async () => await fetchGet('/media/cv')
+)
 </script>
 
 <template>

@@ -5,102 +5,104 @@
       :class="{ closed: !isOpen }"
       @click.prevent="onClick"
     >
-      <slot name="summary"></slot> <span>{{ isOpen ? "-" : "+" }}</span>
+      <slot name="summary" /> <span>{{ isOpen ? "-" : "+" }}</span>
     </summary>
-    <p ref="content"><slot></slot></p>
+    <p ref="content">
+      <slot />
+    </p>
   </details>
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 defineProps({
-  modelValue: { type: Boolean, default: false },
-});
+  modelValue: { type: Boolean, default: false }
+})
 
-const details = ref<HTMLDetailsElement>();
-const summary = ref<HTMLElement>();
-const content = ref<HTMLParagraphElement>();
-const animation = ref<Animation | null>();
-const isClosing = ref(false);
-const isExpanding = ref(false);
-const isOpen = ref(false);
+const details = ref<HTMLDetailsElement>()
+const summary = ref<HTMLElement>()
+const content = ref<HTMLParagraphElement>()
+const animation = ref<Animation | null>()
+const isClosing = ref(false)
+const isExpanding = ref(false)
+const isOpen = ref(false)
 
-function onClick() {
-  if (!details.value) return;
-  details.value.style.overflow = "hidden";
+function onClick () {
+  if (!details.value) { return }
+  details.value.style.overflow = 'hidden'
   if (isClosing.value || !details.value.open) {
-    return openDetails();
+    return openDetails()
   }
 
   if (isExpanding.value || details.value.open) {
-    shrinkDetails();
+    shrinkDetails()
   }
 }
 
-function openDetails() {
-  isOpen.value = true;
-  details.value!.style.height = `${details.value!.offsetHeight}px`;
-  details.value!.open = true;
-  window.requestAnimationFrame(() => expandDetails());
+function openDetails () {
+  isOpen.value = true
+  details.value!.style.height = `${details.value!.offsetHeight}px`
+  details.value!.open = true
+  window.requestAnimationFrame(() => expandDetails())
 }
 
-function shrinkDetails() {
-  isClosing.value = true;
+function shrinkDetails () {
+  isClosing.value = true
 
-  const startHeight = `${details.value!.offsetHeight}px`;
-  const endHeight = `${summary.value!.offsetHeight}px`;
+  const startHeight = `${details.value!.offsetHeight}px`
+  const endHeight = `${summary.value!.offsetHeight}px`
 
   if (animation.value) {
-    animation.value.cancel();
+    animation.value.cancel()
   }
 
   animation.value = details.value!.animate(
     {
-      height: [startHeight, endHeight],
+      height: [startHeight, endHeight]
     },
     {
       duration: 300,
-      easing: "ease-out",
+      easing: 'ease-out'
     }
-  );
+  )
 
-  animation.value.onfinish = () => onAnimationFinish(false);
-  animation.value.oncancel = () => (isClosing.value = false);
+  animation.value.onfinish = () => onAnimationFinish(false)
+  animation.value.oncancel = () => (isClosing.value = false)
 }
 
-function expandDetails() {
-  isExpanding.value = true;
-  const startHeight = `${details.value!.offsetHeight}px`;
+function expandDetails () {
+  isExpanding.value = true
+  const startHeight = `${details.value!.offsetHeight}px`
   const endHeight = `${
     summary.value!.offsetHeight + content.value!.offsetHeight
-  }px`;
+  }px`
 
   if (animation.value) {
-    animation.value.cancel();
+    animation.value.cancel()
   }
 
   animation.value = details.value!.animate(
     {
-      height: [startHeight, endHeight],
+      height: [startHeight, endHeight]
     },
     {
       duration: 300,
-      easing: "ease-out",
+      easing: 'ease-out'
     }
-  );
+  )
 
-  animation.value.onfinish = () => onAnimationFinish(true);
-  animation.value.oncancel = () => (isExpanding.value = false);
+  animation.value.onfinish = () => onAnimationFinish(true)
+  animation.value.oncancel = () => (isExpanding.value = false)
 }
 
-function onAnimationFinish(open: boolean) {
-  details.value!.open = open;
-  isOpen.value = open;
-  emit("update:modelValue", open);
-  animation.value = null;
-  isClosing.value = false;
-  isExpanding.value = false;
-  details.value!.style.height = details.value!.style.overflow = "";
+function onAnimationFinish (open: boolean) {
+  details.value!.open = open
+  isOpen.value = open
+  emit('update:modelValue', open)
+  animation.value = null
+  isClosing.value = false
+  isExpanding.value = false
+  details.value!.style.height = details.value!.style.overflow = ''
 }
 </script>
 

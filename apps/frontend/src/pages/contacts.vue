@@ -1,47 +1,47 @@
 <script setup lang="ts">
-const { fetchPost } = useApi();
-const { t } = useI18n();
+const { fetchPost } = useApi()
+const { t } = useI18n()
 
 useHeadSafe({
-  title: t("titles.contacts"),
+  title: t('titles.contacts'),
   meta: [
     {
-      name: "description",
-      content: "titles.contacts",
+      name: 'description',
+      content: 'titles.contacts'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 
 const form = ref<{
   name: string;
   email: string;
   comment: string;
 }>({
-  name: "",
-  email: "",
-  comment: "",
-});
+  name: '',
+  email: '',
+  comment: ''
+})
 
 const handleAddContact = async () => {
-  await fetchPost("/contacts", form.value);
+  await fetchPost('/contacts', form.value)
 
   form.value = {
-    name: "",
-    email: "",
-    comment: "",
-  };
-};
+    name: '',
+    email: '',
+    comment: ''
+  }
+}
 
-const { getActiveGeneralInfo } = usePublicData();
+const { getActiveGeneralInfo } = usePublicData()
 
 const { data: emails } = await useAsyncData(
-  "generalInfoEmailssss",
+  'generalInfoEmailssss',
   async () => await getActiveGeneralInfo()
-);
+)
 </script>
 
 <template>
@@ -50,7 +50,7 @@ const { data: emails } = await useAsyncData(
 
     <section class="contacts">
       <div>
-        <img src="assets/img/bartnikas_contacts.jpg" alt="Bartnikas contacts" />
+        <img src="assets/img/bartnikas_contacts.jpg" alt="Bartnikas contacts">
       </div>
       <div>
         <p>{{ $t("contacts.locationLive") }}</p>

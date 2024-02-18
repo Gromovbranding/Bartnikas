@@ -1,60 +1,62 @@
 <script lang="ts" setup>
-import type { IFooterContact, PartialFileAdminApiDto } from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+import type { IFooterContact, PartialFileAdminApiDto } from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-  validate(route) {
-    return /^\d+$/.test(route.params.id as string);
-  },
-});
+  layout: 'admin',
+  validate (route) {
+    return /^\d+$/.test(route.params.id as string)
+  }
+})
 
-const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null);
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
-const route = useRoute();
-const id = Number(route.params.id);
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
+const route = useRoute()
+const id = Number(route.params.id)
 
-const { footerContacts } = useAdmin();
-const { formRules, navigateBack, titles, methods } = footerContacts();
+const { footerContacts } = useAdmin()
+const { formRules, navigateBack, titles, methods } = footerContacts()
 
-const model = await methods.handleGetModel(id);
+const model = await methods.handleGetModel(id)
 
 useHeadSafe({
-  title: titles.edit,
-});
+  title: titles.edit
+})
 
-const form = reactive<IFooterContact>(model);
+const form = reactive<IFooterContact>(model)
 
 const handleDelete = async () => {
-  await methods.handleDelete(id);
-  await navigateTo(navigateBack.value);
-};
+  await methods.handleDelete(id)
+  await navigateTo(navigateBack.value)
+}
 
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer();
+      const file = await uploadRef.value!.uploadToServer()
 
       await methods.handlePatch(id, {
         ...toValue(form),
-        logo: file as PartialFileAdminApiDto,
-      });
+        logo: file as PartialFileAdminApiDto
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 </script>
 
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem>
-        <h2 style="font-size: 24px">Menu Links</h2>
+        <h2 style="font-size: 24px">
+          Menu Links
+        </h2>
       </ElFormItem>
       <template v-for="(item, idx) in form.menu_links" :key="`ml-${idx}`">
         <ElFormItem
@@ -107,7 +109,9 @@ const handleUpdate = async () => {
       </ElFormItem>
 
       <ElFormItem style="margin-top: 42px">
-        <h2 style="font-size: 24px">Socials Links</h2>
+        <h2 style="font-size: 24px">
+          Socials Links
+        </h2>
       </ElFormItem>
       <template v-for="(item, idx) in form.socials" :key="`sl-${idx}`">
         <ElFormItem
@@ -169,8 +173,12 @@ const handleUpdate = async () => {
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" @click="handleUpdate"> Update </ElButton>
-        <ElButton type="danger" @click="handleDelete"> Delete </ElButton>
+        <ElButton type="primary" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" @click="handleDelete">
+          Delete
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ProfileAvatar from "@/assets/img/profile.png";
+import ProfileAvatar from '@/assets/img/profile.png'
 
 const sidebarItems: {
   text: string;
@@ -7,110 +7,112 @@ const sidebarItems: {
   icon: string;
 }[] = [
   {
-    text: "Index Slider",
-    url: "/admin/index-slider",
-    icon: "ep:suitcase-line",
+    text: 'Index Slider',
+    url: '/admin/index-slider',
+    icon: 'ep:suitcase-line'
   },
   {
-    text: "General Info",
-    url: "/admin/general-info",
-    icon: "ep:suitcase-line",
+    text: 'General Info',
+    url: '/admin/general-info',
+    icon: 'ep:suitcase-line'
   },
   {
-    text: "Projects",
-    url: "/admin/projects",
-    icon: "ep:suitcase-line",
+    text: 'Projects',
+    url: '/admin/projects',
+    icon: 'ep:suitcase-line'
   },
   {
-    text: "News",
-    url: "/admin/news",
-    icon: "ep:tickets",
+    text: 'News',
+    url: '/admin/news',
+    icon: 'ep:tickets'
   },
   {
-    text: "Blogs",
-    url: "/admin/blogs",
-    icon: "ep:chat-line-square",
+    text: 'Blogs',
+    url: '/admin/blogs',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Contacts",
-    url: "/admin/contacts",
-    icon: "ep:chat-line-square",
+    text: 'Contacts',
+    url: '/admin/contacts',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Video Collection",
-    url: "/admin/videos",
-    icon: "ep:chat-line-square",
+    text: 'Video Collection',
+    url: '/admin/videos',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Testimonials",
-    url: "/admin/testimonials",
-    icon: "ep:chat-line-square",
+    text: 'Testimonials',
+    url: '/admin/testimonials',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Awards",
-    url: "/admin/awards",
-    icon: "ep:chat-line-square",
+    text: 'Awards',
+    url: '/admin/awards',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Concept",
-    url: "/admin/greetings",
-    icon: "ep:chat-line-square",
+    text: 'Concept',
+    url: '/admin/greetings',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Media",
-    url: "/admin/media",
-    icon: "ep:chat-line-square",
+    text: 'Media',
+    url: '/admin/media',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "FAQ",
-    url: "/admin/faq",
-    icon: "ep:chat-line-square",
+    text: 'FAQ',
+    url: '/admin/faq',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "About me",
-    url: "/admin/bio",
-    icon: "ep:chat-line-square",
+    text: 'About me',
+    url: '/admin/bio',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Terms & Condition",
-    url: "/admin/terms-static",
-    icon: "ep:chat-line-square",
+    text: 'Terms & Condition',
+    url: '/admin/terms-static',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Ordered By Email",
-    url: "/admin/ordered-by-email",
-    icon: "ep:chat-line-square",
+    text: 'Ordered By Email',
+    url: '/admin/ordered-by-email',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Reviews about me",
-    url: "/admin/bio-testimonials",
-    icon: "ep:chat-line-square",
+    text: 'Reviews about me',
+    url: '/admin/bio-testimonials',
+    icon: 'ep:chat-line-square'
   },
   {
-    text: "Footer contacts",
-    url: "/admin/footer-contacts",
-    icon: "ep:chat-line-square",
-  },
-];
-const { logout } = useApi();
-const { currentLocale } = useAdmin();
-const locales = useRuntimeConfig().public.avaiableLocales;
-const search = ref("");
+    text: 'Footer contacts',
+    url: '/admin/footer-contacts',
+    icon: 'ep:chat-line-square'
+  }
+]
+const { logout } = useApi()
+const { currentLocale } = useAdmin()
+const locales = useRuntimeConfig().public.avaiableLocales
+const search = ref('')
 
 const filterBySearchSidebar = computed(() => {
   return sidebarItems.filter((item) => {
-    if (!search.value) return true;
+    if (!search.value) { return true }
 
-    return !!~item.text.toLowerCase().indexOf(search.value.toLowerCase());
-  });
-});
+    return !!~item.text.toLowerCase().indexOf(search.value.toLowerCase())
+  })
+})
 </script>
 
 <template>
   <div class="admin-layout">
     <ElContainer>
       <ElAside class="admin-layout__sidebar" width="250px">
-        <div class="admin-layout__sidebar-dashboard">Dashboard</div>
+        <div class="admin-layout__sidebar-dashboard">
+          Dashboard
+        </div>
         <ElInput v-model="search" placeholder="Find menu" clearable />
         <ul class="admin-layout__sidebar-menu">
           <li

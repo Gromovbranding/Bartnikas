@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import type { IArticle } from "~/types/admin-api";
+import type { IArticle } from '~/types/admin-api'
 
-const headTitle = ref("Concept");
+const headTitle = ref('Concept')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleDelete,
   handleEdit,
-  data: { entities, pending },
+  data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IArticle>(
-  "greetings",
-  "greeting-index"
-);
+  'greetings',
+  'greeting-index'
+)
 </script>
 
 <template>

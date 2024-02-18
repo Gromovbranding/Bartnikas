@@ -2,7 +2,7 @@
 defineProps<{
   navigateBack: string;
   title: string;
-}>();
+}>()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ defineProps<{
     </template>
 
     <ClientOnly>
-      <slot></slot>
+      <slot />
     </ClientOnly>
   </ElCard>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const input = ref<HTMLInputElement>();
+const input = ref<HTMLInputElement>()
 
 const props = withDefaults(
   defineProps<{
@@ -8,27 +8,27 @@ const props = withDefaults(
     minLength?: number;
   }>(),
   {
-    minLength: 1,
+    minLength: 1
   }
-);
+)
 
 const emit = defineEmits<{
-  (e: "update:modelValue", val: number): void;
-}>();
+  (e: 'update:modelValue', val: number): void;
+}>()
 
 const value = computed({
-  set(val: number) {
-    emit("update:modelValue", val);
+  set (val: number) {
+    emit('update:modelValue', val)
   },
-  get() {
-    return props.modelValue;
-  },
-});
+  get () {
+    return props.modelValue
+  }
+})
 
-function updateValue(e: "+" | "-") {
-  if (e === "+") return value.value++;
-  if (value.value === props.minLength) return;
-  value.value--;
+function updateValue (e: '+' | '-') {
+  if (e === '+') { return value.value++ }
+  if (value.value === props.minLength) { return }
+  value.value--
 }
 </script>
 
@@ -43,7 +43,7 @@ function updateValue(e: "+" | "-") {
         disabled
         :minlength="minLength"
         :maxlength="maxlength"
-      />
+      >
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"

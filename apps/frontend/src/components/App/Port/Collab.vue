@@ -2,16 +2,16 @@
 import type {
   IProjectCollab,
   IProjectCollabTranslate,
-  IProjectPressReleaseTranslate,
-} from "~/types/admin-api";
+  IProjectPressReleaseTranslate
+} from '~/types/admin-api'
 
 const props = defineProps<{
   collab: IProjectCollab;
-}>();
+}>()
 
 const translate = useTranslateLanguage<IProjectCollabTranslate>(
   props.collab.translate!
-);
+)
 
 const translated = computed(() => {
   return props?.collab.press_release.map((item) => {
@@ -19,20 +19,20 @@ const translated = computed(() => {
       ...item,
       translate: useTranslateLanguage<IProjectPressReleaseTranslate>(
         item.translate
-      ).value,
-    };
-  });
-});
+      ).value
+    }
+  })
+})
 
-const video = ref<HTMLVideoElement>();
-const activeVideo = ref(false);
+const video = ref<HTMLVideoElement>()
+const activeVideo = ref(false)
 
-const showControls = computed(() => (activeVideo.value ? true : undefined));
+const showControls = computed(() => (activeVideo.value ? true : undefined))
 
-function playVideo() {
-  if (!video.value) return;
-  video.value.play();
-  activeVideo.value = true;
+function playVideo () {
+  if (!video.value) { return }
+  video.value.play()
+  activeVideo.value = true
 }
 </script>
 
@@ -58,9 +58,12 @@ function playVideo() {
         <div class="collab__files__item__info">
           <div class="collab__files__item__info__header">
             <h2>{{ press_release.translate?.title }}</h2>
-            <UIButton :to="useGetFileByUrl(press_release.file.name)" download
-              >PDF</UIButton
+            <UIButton
+              :to="useGetFileByUrl(press_release.file.name)"
+              download
             >
+              PDF
+            </UIButton>
           </div>
           <p>
             {{ press_release.translate?.text }}
@@ -69,8 +72,10 @@ function playVideo() {
       </div>
     </div>
     <div class="collab__text">
-      <div class="collab__text__title">{{ translate!.title }}</div>
-      <div class="collab__text__desc" v-html="translate!.description"></div>
+      <div class="collab__text__title">
+        {{ translate!.title }}
+      </div>
+      <div class="collab__text__desc" v-html="translate!.description" />
     </div>
     <div class="collab__with">
       <h2>{{ $t("projectCollab.howItWorks") }}</h2>
@@ -80,7 +85,7 @@ function playVideo() {
             ref="video"
             :src="useGetFileByUrl(collab.video.name)"
             :controls="showControls"
-          ></video>
+          />
           <div
             v-if="!activeVideo"
             class="collab__with__img__play"
@@ -91,7 +96,7 @@ function playVideo() {
         </div>
         <div class="collab__with__text">
           <h3>{{ translate!.collab_with }}</h3>
-          <p v-html="translate!.description"></p>
+          <p v-html="translate!.description" />
         </div>
       </div>
     </div>

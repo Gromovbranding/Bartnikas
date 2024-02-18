@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 interface Props {
   zoomIconPosition?:
-    | "center-center"
-    | "top-right"
-    | "top-left"
-    | "bottom-right"
-    | "bottom-left";
+    | 'center-center'
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left';
   zoomIconFill?: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  zoomIconPosition: "top-right",
-  zoomIconFill: "#000",
-});
+  zoomIconPosition: 'top-right',
+  zoomIconFill: '#000'
+})
 
-const isVisible = ref(false);
+const isVisible = ref(false)
 </script>
 
 <template>

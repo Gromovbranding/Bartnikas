@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { IMediaKit } from "@/types/admin-api";
+import type { IMediaKit } from '@/types/admin-api'
 
-const headTitle = ref("Media Kit");
+const headTitle = ref('Media Kit')
 
 const {
   handleDelete,
   handleCreate,
   handleEdit,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IMediaKit>("media/kit");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IMediaKit>('media/kit')
 </script>
 
 <template>

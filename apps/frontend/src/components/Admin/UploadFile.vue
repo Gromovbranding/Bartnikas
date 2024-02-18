@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { UploadInstance, UploadUserFile } from "element-plus";
-import type { PartialFileAdminApiDto } from "@/types/admin-api";
+import type { UploadInstance, UploadUserFile } from 'element-plus'
+import type { PartialFileAdminApiDto } from '@/types/admin-api'
 
-const { apiFilesUrl } = useRuntimeConfig().public;
-const { fetchPost } = useApi();
+const { apiFilesUrl } = useRuntimeConfig().public
+const { fetchPost } = useApi()
 
 const props = withDefaults(
   defineProps<{
     modelValue: UploadUserFile | UploadUserFile[] | null;
-    fileType?: "image" | "files" | "video";
+    fileType?: 'image' | 'files' | 'video';
     single?: boolean;
     multiple?: boolean;
     isShowFiles?: boolean;
@@ -16,36 +16,36 @@ const props = withDefaults(
   {
     modelValue: null,
     single: true,
-    fileType: "image",
+    fileType: 'image',
     multiple: false,
-    isShowFiles: true,
+    isShowFiles: true
   }
-);
+)
 
 const emits = defineEmits<{
-  (e: "update:modelValue", files: UploadUserFile[] | UploadUserFile): void;
-}>();
+  (e: 'update:modelValue', files: UploadUserFile[] | UploadUserFile): void;
+}>()
 
 const fileList = ref<UploadUserFile[]>(
   (Array.isArray(props.modelValue)
     ? props.modelValue
     : props.modelValue === null
-    ? []
-    : [props.modelValue].filter((item) => !!item)
+      ? []
+      : [props.modelValue].filter(item => !!item)
   ).map((item) => {
-    if (!item.url) item.url = useGetFileByUrl(item.name);
+    if (!item.url) { item.url = useGetFileByUrl(item.name) }
 
-    return item;
+    return item
   })
-);
+)
 
 const handleConvertFileList = computed(() => {
   if (props.single) {
-    return fileList.value[0];
+    return fileList.value[0]
   }
 
-  return fileList.value;
-});
+  return fileList.value
+})
 
 watch(
   () => props.modelValue,
@@ -53,84 +53,85 @@ watch(
     fileList.value = Array.isArray(props.modelValue)
       ? props.modelValue
       : props.modelValue === null
-      ? []
-      : [props.modelValue].filter((item) => !!item);
+        ? []
+        : [props.modelValue].filter(item => !!item)
   }
-);
+)
 
 watchEffect(() => {
-  emits("update:modelValue", handleConvertFileList.value);
-});
+  emits('update:modelValue', handleConvertFileList.value)
+})
 
 const fileTypes = computed(() => {
-  let types = [".jpeg", ".png", ".jpg", ".svg", ".gif", ".webp", ".avif"];
+  let types = ['.jpeg', '.png', '.jpg', '.svg', '.gif', '.webp', '.avif']
 
-  if (props.fileType === "files") {
-    types = [".pdf"];
-  } else if (props.fileType === "video") {
-    types = ["video/*"];
+  if (props.fileType === 'files') {
+    types = ['.pdf']
+  } else if (props.fileType === 'video') {
+    types = ['video/*']
   }
 
-  return types.join(", ");
-});
+  return types.join(', ')
+})
 
 const messageFileTypes = computed(() => {
-  if (props.fileType === "video") {
-    return "Any video format";
+  if (props.fileType === 'video') {
+    return 'Any video format'
   }
 
-  return fileTypes.value;
-});
+  return fileTypes.value
+})
 
-const uploadRef = ref<UploadInstance>();
+const uploadRef = ref<UploadInstance>()
 
 defineExpose({
-  async uploadToServer(file?: any) {
-    const formData = new FormData();
+  async uploadToServer (file?: any) {
+    const formData = new FormData()
 
     if (file) {
-      formData.append("file", file.raw as File | Blob);
-      if (file.edit)
+      formData.append('file', file.raw as File | Blob)
+      if (file.edit) {
         return {
           uid: file.uid,
-          name: file.image?.name || file.name,
-        };
-      const res = await fetchPost<PartialFileAdminApiDto>("files", formData);
+          name: file.image?.name || file.name
+        }
+      }
+      const res = await fetchPost<PartialFileAdminApiDto>('files', formData)
       return {
         uid: file.uid,
-        name: res.name,
-      };
+        name: res.name
+      }
     }
 
     if (props.single) {
-      if (handleConvertFileList.value.status === "success") {
-        return handleConvertFileList.value;
+      if (handleConvertFileList.value.status === 'success') {
+        return handleConvertFileList.value
       }
 
-      formData.append("file", handleConvertFileList.value.raw as File | Blob);
+      formData.append('file', handleConvertFileList.value.raw as File | Blob)
 
-      return await fetchPost<PartialFileAdminApiDto>("files", formData);
+      return await fetchPost<PartialFileAdminApiDto>('files', formData)
     }
 
-    const uploadedFiles: PartialFileAdminApiDto[] = [];
+    const uploadedFiles: PartialFileAdminApiDto[] = []
 
     handleConvertFileList.value.forEach((item) => {
-      if (item.status === "ready") {
-        formData.append("files", item.raw as File | Blob);
-      } else if (item.status === "success") {
-        uploadedFiles.push(item);
+      if (item.status === 'ready') {
+        formData.append('files', item.raw as File | Blob)
+      } else if (item.status === 'success') {
+        uploadedFiles.push(item)
       }
-    });
+    })
 
     return [
       ...(await fetchPost<PartialFileAdminApiDto[]>(
-        "files/multiple",
+        'files/multiple',
         formData
       )),
-      ...uploadedFiles,
-    ];
-  },
-});
+      ...uploadedFiles
+    ]
+  }
+})
 </script>
 
 <template>
@@ -147,16 +148,20 @@ defineExpose({
       :auto-upload="false"
       :show-file-list="isShowFiles"
     >
-      <ElIcon class="el-icon--upload"><ElIconUploadFilled /></ElIcon>
+      <ElIcon class="el-icon--upload">
+        <ElIconUploadFilled />
+      </ElIcon>
       <div class="el-upload__text">
         Drop file here or <em>click to upload</em>
       </div>
       <template #file="{ file }">
-        <slot :file="file"></slot>
+        <slot :file="file" />
       </template>
 
       <template #tip>
-        <div class="el-upload__tip">{{ messageFileTypes }} files</div>
+        <div class="el-upload__tip">
+          {{ messageFileTypes }} files
+        </div>
       </template>
     </ElUpload>
   </div>

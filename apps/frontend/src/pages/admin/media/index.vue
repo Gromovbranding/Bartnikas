@@ -4,67 +4,67 @@ import {
   AdminCreateMediaExhibition,
   AdminCreateMediaKit,
   AdminCreateMediaPresentation,
-  AdminCreateMediaPublication,
-} from "#components";
+  AdminCreateMediaPublication
+} from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: "Media",
-});
+  title: 'Media'
+})
 
-const route = useRoute();
+const route = useRoute()
 
 const mediaList = ref([
   {
-    value: "kit",
-    label: "Media Kit",
-    component: shallowRef(AdminCreateMediaKit),
+    value: 'kit',
+    label: 'Media Kit',
+    component: shallowRef(AdminCreateMediaKit)
   },
   {
-    value: "presentation",
-    label: "Media Presentation",
-    component: shallowRef(AdminCreateMediaPresentation),
+    value: 'presentation',
+    label: 'Media Presentation',
+    component: shallowRef(AdminCreateMediaPresentation)
   },
   {
-    value: "publication",
-    label: "Media Publication",
-    component: shallowRef(AdminCreateMediaPublication),
+    value: 'publication',
+    label: 'Media Publication',
+    component: shallowRef(AdminCreateMediaPublication)
   },
   {
-    value: "exhibition",
-    label: "Media Exhibition",
-    component: shallowRef(AdminCreateMediaExhibition),
+    value: 'exhibition',
+    label: 'Media Exhibition',
+    component: shallowRef(AdminCreateMediaExhibition)
   },
   {
-    value: "cv",
-    label: "Media CV",
-    component: shallowRef(AdminCreateMediaCvv),
-  },
-]);
+    value: 'cv',
+    label: 'Media CV',
+    component: shallowRef(AdminCreateMediaCvv)
+  }
+])
 
-const mediaValue = ref(mediaList.value[0].value);
+const mediaValue = ref(mediaList.value[0].value)
 
 watch(
   () => route.query,
   () => {
     const isFound = !!mediaList.value.find(
-      (item) => item.value === route.query?.type
-    );
+      item => item.value === route.query?.type
+    )
 
-    mediaValue.value = isFound ? route.query.type : mediaList.value[0].value;
+    mediaValue.value = isFound ? route.query.type : mediaList.value[0].value
   },
   {
-    immediate: true,
+    immediate: true
   }
-);
+)
 
 const mediaComponent = computed(() => {
-  return mediaList.value.find((item) => item.value === mediaValue.value)!
-    .component;
-});
+  return mediaList.value.find(item => item.value === mediaValue.value)!
+    .component
+})
 </script>
 
 <template>

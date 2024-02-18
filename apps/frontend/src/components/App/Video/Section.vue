@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const { getAllVideoCollection } = usePublicData();
+const { getAllVideoCollection } = usePublicData()
 
 const { data: videos } = await useAsyncData(
-  "video-collection",
+  'video-collection',
   async () => await getAllVideoCollection()
-);
+)
 
-const latestVideos = computed(() => videos.value?.slice(-3) || []);
+const latestVideos = computed(() => videos.value?.slice(-3) || [])
 </script>
 
 <template>

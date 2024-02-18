@@ -8,9 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
-import {
-  CreateProjectDto,
-} from './dto/create-project.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { IsNull, Not } from 'typeorm';
 import { OrderByEmailDto } from './dto/order-by-email.dto';
@@ -95,7 +93,7 @@ export class ProjectsService {
     if (!project) {
       throw new UnprocessableEntityException();
     }
-    
+
     let collab = project.collab;
 
     const translate = await this.langService.translate(dto.translate);

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-const { t } = useI18n();
+const { t } = useI18n()
 
 useHeadSafe({
-  title: t("titles.projects"),
+  title: t('titles.projects'),
   meta: [
     {
-      name: "description",
-      content: "My Projects",
+      name: 'description',
+      content: 'My Projects'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 
 <template>

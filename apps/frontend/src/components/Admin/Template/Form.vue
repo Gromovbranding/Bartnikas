@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import type { FormInstance, FormProps } from "element-plus";
+import type { FormInstance, FormProps } from 'element-plus'
 
 defineProps<{
-  rules: FormProps["rules"];
-  model: FormProps["model"];
-}>();
+  rules: FormProps['rules'];
+  model: FormProps['model'];
+}>()
 
-const form = ref<FormInstance | null>(null);
+const form = ref<FormInstance | null>(null)
 
 defineExpose({
-  async validate() {
+  async validate () {
     if (!form.value) {
-      return false;
+      return false
     }
 
-    return await form.value?.validate();
+    return await form.value?.validate()
   },
 
-  resetForm() {
+  resetForm () {
     if (!form.value) {
-      return false;
+      return false
     }
 
-    return form.value?.resetFields();
-  },
-});
+    return form.value?.resetFields()
+  }
+})
 </script>
 
 <template>
@@ -36,6 +36,6 @@ defineExpose({
     :model="model"
     :rules="rules"
   >
-    <slot></slot>
+    <slot />
   </ElForm>
 </template>

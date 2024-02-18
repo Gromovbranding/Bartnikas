@@ -1,43 +1,43 @@
 <script lang="ts" setup>
-import type { IBlogTranslate } from "~/types/admin-api";
+import type { IBlogTranslate } from '~/types/admin-api'
 
-const route = useRoute();
+const route = useRoute()
 
-const { getBlogById } = usePublicData();
-const { t } = useI18n();
+const { getBlogById } = usePublicData()
+const { t } = useI18n()
 
 const { data: blog } = await useAsyncData(
-  "blog",
+  'blog',
   async () => await getBlogById(route.params.id as string)
-);
+)
 
 const translated = computed(() => ({
   bio: useTranslateLanguage<IBlogTranslate>(blog.value!.translate).value,
   prev: {
     ...blog.value!.prev,
     translate: useTranslateLanguage<IBlogTranslate>(blog.value!.prev?.translate)
-      .value,
+      .value
   },
   next: {
     ...blog.value!.next,
     translate: useTranslateLanguage<IBlogTranslate>(blog.value!.next?.translate)
-      .value,
-  },
-}));
+      .value
+  }
+}))
 
 useHeadSafe({
-  title: `${t("titles.article")} ${translated.value.bio?.title}`,
+  title: `${t('titles.article')} ${translated.value.bio?.title}`,
   meta: [
     {
-      name: "description",
-      content: translated.value.bio?.description ?? "My Blog",
+      name: 'description',
+      content: translated.value.bio?.description ?? 'My Blog'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 
 <template>

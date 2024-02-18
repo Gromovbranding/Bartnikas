@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import type {
   IMediaPresentation,
-  IMediaPresentationTranslate,
-} from "~/types/admin-api";
+  IMediaPresentationTranslate
+} from '~/types/admin-api'
 
-const { fetchGet } = useApi();
+const { fetchGet } = useApi()
 
 const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
-  "presentation",
-  async () => await fetchGet("/media/presentation")
-);
+  'presentation',
+  async () => await fetchGet('/media/presentation')
+)
 const translated = computed(() => {
   return presentation?.value?.map((item) => {
     return {
       ...item,
       translate: useTranslateLanguage<IMediaPresentationTranslate>(
         item.translate
-      ).value,
-    };
-  });
-});
+      ).value
+    }
+  })
+})
 </script>
 
 <template>

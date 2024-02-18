@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import type { IAwards, IAwardsTranslate } from "~/types/admin-api";
+import type { IAwards, IAwardsTranslate } from '~/types/admin-api'
 
-const showModal = ref(false);
-const { getAllAwards } = usePublicData();
-const { t } = useI18n();
+const showModal = ref(false)
+const { getAllAwards } = usePublicData()
+const { t } = useI18n()
 
 const { data: awards } = await useAsyncData<IAwards[]>(
-  "awards",
+  'awards',
   async () => await getAllAwards()
-);
+)
 
 const translated = computed(() => {
   return awards?.value?.map((item) => {
     return {
       ...item,
-      translate: useTranslateLanguage<IAwardsTranslate>(item.translate).value,
-    };
-  });
-});
+      translate: useTranslateLanguage<IAwardsTranslate>(item.translate).value
+    }
+  })
+})
 
 useHeadSafe({
-  title: t("titles.awards"),
+  title: t('titles.awards'),
   meta: [
     {
-      name: "description",
-      content: "My Awards",
+      name: 'description',
+      content: 'My Awards'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 
-const activeImg = ref();
+const activeImg = ref()
 
-function showImg(name: string) {
-  activeImg.value = useGetFileByUrl(name);
-  showModal.value = true;
+function showImg (name: string) {
+  activeImg.value = useGetFileByUrl(name)
+  showModal.value = true
 }
 </script>
 
@@ -64,7 +64,7 @@ function showImg(name: string) {
             <b>{{ award?.translate?.title }}</b>
           </div>
           <div>
-            <p v-html="award?.translate?.description"></p>
+            <p v-html="award?.translate?.description" />
           </div>
         </div>
         <div class="awards__photo">
@@ -75,7 +75,9 @@ function showImg(name: string) {
             :key="item.id"
             class="awards__photo__item"
           >
-            <div class="year">{{ item.year }}</div>
+            <div class="year">
+              {{ item.year }}
+            </div>
             <div class="groups">
               <div
                 v-for="group in item.groups"
@@ -127,14 +129,14 @@ function showImg(name: string) {
               y="-3.6862915"
               width="2"
               height="30"
-            ></rect>
+            />
             <rect
               transform="translate(11.313708, 11.313708) rotate(-315.000000) translate(-11.313708, -11.313708) "
               x="10.3137085"
               y="-3.6862915"
               width="2"
               height="30"
-            ></rect>
+            />
           </g>
         </svg>
       </button>

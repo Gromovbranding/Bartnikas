@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IBioTestimonials } from "~/types/admin-api";
+import type { IBioTestimonials } from '~/types/admin-api'
 
-const headTitle = ref("Bio Testimonials");
+const headTitle = ref('Bio Testimonials')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IBioTestimonials>("bio-testimonials");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IBioTestimonials>('bio-testimonials')
 </script>
 
 <template>

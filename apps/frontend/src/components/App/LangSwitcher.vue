@@ -4,24 +4,24 @@ withDefaults(
     isBgBlack: boolean;
   }>(),
   {
-    isBgBlack: false,
+    isBgBlack: false
   }
-);
+)
 
-const route = useRoute();
+const route = useRoute()
 
 watch(
   () => route.fullPath,
   () => {
-    isLangSwitcherVisible.value = false;
+    isLangSwitcherVisible.value = false
   }
-);
+)
 
-const { locale, locales } = useI18n();
+const { locale, locales } = useI18n()
 
-const switchLocalePath = useSwitchLocalePath();
+const switchLocalePath = useSwitchLocalePath()
 
-const isLangSwitcherVisible = ref(false);
+const isLangSwitcherVisible = ref(false)
 </script>
 
 <template>
@@ -30,16 +30,15 @@ const isLangSwitcherVisible = ref(false);
       :class="['lang__bar', { 'lang__bar--open': isBgBlack }]"
       @click="isLangSwitcherVisible = !isLangSwitcherVisible"
     >
-      <span v-if="isLangSwitcherVisible"
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="26"
-          height="14"
-          viewBox="0 0 26 14"
-          fill="none"
-        >
-          <path d="M1 13L13 2L25 13" stroke="white" stroke-width="2" />
-        </svg>
+      <span v-if="isLangSwitcherVisible"><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="14"
+        viewBox="0 0 26 14"
+        fill="none"
+      >
+        <path d="M1 13L13 2L25 13" stroke="white" stroke-width="2" />
+      </svg>
       </span>
       <span v-else>{{ locale }}</span>
     </div>

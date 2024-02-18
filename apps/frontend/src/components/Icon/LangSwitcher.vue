@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-defineProps<{ icon: string }>();
+defineProps<{ icon: string }>()
 </script>
 <template>
   <svg

@@ -1,55 +1,55 @@
 <script setup lang="ts">
 import type {
   IProjectImageDetail,
-  IProjectImageSizes,
-} from "~/types/admin-api";
+  IProjectImageSizes
+} from '~/types/admin-api'
 
-const { fetchPost } = useApi();
+const { fetchPost } = useApi()
 
 const props = defineProps<{
   image: IProjectImageDetail;
   selectedSize: IProjectImageSizes;
   projectId: number;
-}>();
+}>()
 
 const emits = defineEmits<{
-  (e: "order"): void;
-}>();
+  (e: 'order'): void;
+}>()
 
 const form = ref<{
   name: string;
   email: string;
   quantity: number;
 }>({
-  name: "",
-  email: "",
-  quantity: 1,
-});
+  name: '',
+  email: '',
+  quantity: 1
+})
 
 const handleOrder = async () => {
   try {
-    await fetchPost("projects/order/by-email", {
+    await fetchPost('projects/order/by-email', {
       email: form.value.email,
       name: form.value.name,
       quantity: form.value.quantity,
       image_id: props.image.id,
       project_id: props.projectId,
-      selected_size_id: props.selectedSize.id,
-    });
+      selected_size_id: props.selectedSize.id
+    })
 
     form.value = {
-      name: "",
-      email: "",
-      quantity: 0,
-    };
+      name: '',
+      email: '',
+      quantity: 0
+    }
 
     ElMessage.info({
-      message: "Project was ordered",
-    });
+      message: 'Project was ordered'
+    })
 
-    emits("order");
+    emits('order')
   } catch {}
-};
+}
 </script>
 
 <template>

@@ -1,82 +1,82 @@
 <script lang="ts" setup>
-import type { Swiper } from "swiper/types";
-import type { IProject, IProjectTranslate } from "~/types/admin-api";
+import type { Swiper } from 'swiper/types'
+import type { IProject, IProjectTranslate } from '~/types/admin-api'
 
-const route = useRoute();
-const projectId = Number(route.params.project);
-const imageId = Number(route.params.id);
+const route = useRoute()
+const projectId = Number(route.params.project)
+const imageId = Number(route.params.id)
 
-const { getAllProjects } = usePublicData();
+const { getAllProjects } = usePublicData()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
+  'projects',
   async () => await getAllProjects()
-);
+)
 
-const isShowOrderFormEmail = ref(false);
+const isShowOrderFormEmail = ref(false)
 
-const moreOrdersSwiper = ref<Swiper | null>(null);
+const moreOrdersSwiper = ref<Swiper | null>(null)
 
 const initMoreOrdersSwiper = (swiper: Swiper) => {
-  moreOrdersSwiper.value = swiper;
-};
+  moreOrdersSwiper.value = swiper
+}
 
-const { breakpoint } = useBreakpoints();
+const { breakpoint } = useBreakpoints()
 
 const slidesPerView = computed(() => {
-  return breakpoint.value === "xs" ? 1 : 2;
-});
+  return breakpoint.value === 'xs' ? 1 : 2
+})
 
 const project = computed(() =>
-  projects.value?.find((item) => item.id === +route.params.project)
-);
+  projects.value?.find(item => item.id === +route.params.project)
+)
 
 const translatedProject = useTranslateLanguage<IProjectTranslate>(
   project.value!.translate
-);
+)
 
-const projectDetails = computed(() => project.value?.details ?? []);
+const projectDetails = computed(() => project.value?.details ?? [])
 
 const projectImage = computed(() =>
-  projectDetails.value.find((img) => img.id === imageId)
-);
+  projectDetails.value.find(img => img.id === imageId)
+)
 
 useHeadSafe({
-  title: `${t("titles.projectImage")} ${projectImage.value?.image_name}`,
+  title: `${t('titles.projectImage')} ${projectImage.value?.image_name}`,
   meta: [
     {
-      name: "description",
+      name: 'description',
       content:
         `${projectImage.value?.image_name} with price ${projectImage.value?.price}` ??
-        "My Desc",
+        'My Desc'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 
 const moreProjectImages = computed(() =>
-  projectDetails.value.filter((img) => img.id !== imageId).slice(0, 9)
-);
+  projectDetails.value.filter(img => img.id !== imageId).slice(0, 9)
+)
 
 const sizes = computed(() => {
-  return (projectImage.value?.sizes ?? []).map((item) => ({
+  return (projectImage.value?.sizes ?? []).map(item => ({
     label: `${item.width}x${item.height} ${item.unit}`,
-    value: item.id,
-  }));
-});
+    value: item.id
+  }))
+})
 
 const selectedSize = ref<{
   value: string | number;
   label: string;
-}>(sizes.value[0]);
+}>(sizes.value[0])
 
-function toOrder() {
-  isShowOrderFormEmail.value = true;
+function toOrder () {
+  isShowOrderFormEmail.value = true
 }
 </script>
 
@@ -97,7 +97,9 @@ function toOrder() {
       ]"
     />
     <section class="order">
-      <h3 class="order__title_mobile">{{ projectImage?.image_name }}</h3>
+      <h3 class="order__title_mobile">
+        {{ projectImage?.image_name }}
+      </h3>
       <div class="order__gallery">
         <NuxtImg
           loading="lazy"
@@ -118,8 +120,7 @@ function toOrder() {
             </div>
           </li>
           <li>
-            <b
-              >{{ $t("projects.order.allPhotosProportions.headline") + " " }}
+            <b>{{ $t("projects.order.allPhotosProportions.headline") + " " }}
             </b>
             <small>
               {{ $t("projects.order.allPhotosProportions.print") }}
@@ -141,16 +142,18 @@ function toOrder() {
             <b> {{ $t("projects.order.bestColors") }} </b>
             <div class="order__info-color-interior">
               <ul class="order__info-colors">
-                <li style="background-color: #07343d"></li>
-                <li style="background-color: #63aebd"></li>
-                <li style="background-color: #b99766"></li>
-                <li style="background-color: #ffd73e"></li>
+                <li style="background-color: #07343d" />
+                <li style="background-color: #63aebd" />
+                <li style="background-color: #b99766" />
+                <li style="background-color: #ffd73e" />
               </ul>
               <!-- <div class="order__info-interior upper-slide">In Interior</div> -->
             </div>
           </div>
         </div>
-        <UIButton @click="toOrder">{{ $t("projects.request") }}</UIButton>
+        <UIButton @click="toOrder">
+          {{ $t("projects.request") }}
+        </UIButton>
       </div>
     </section>
 

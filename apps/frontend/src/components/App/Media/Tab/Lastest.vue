@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { IArticle } from "~/types/admin-api";
+import type { IArticle } from '~/types/admin-api'
 
-const { getAllNews } = usePublicData();
+const { getAllNews } = usePublicData()
 
 const { data: news } = await useAsyncData<IArticle[]>(
-  "news",
+  'news',
   async () => await getAllNews()
-);
+)
 
 const sortedNews = computed(() => {
   return (news.value ?? []).sort(
     (a: IArticle, b: IArticle) =>
       +new Date(b?.created_at) - +new Date(a?.created_at)
-  );
-});
+  )
+})
 </script>
 
 <template>

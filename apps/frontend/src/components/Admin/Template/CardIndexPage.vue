@@ -1,8 +1,8 @@
 <script lang="ts" generic="T" setup>
 enum ListHandlersOff {
-  EDIT = "edit",
-  CREATE = "create",
-  DELETE = "delete",
+  EDIT = 'edit',
+  CREATE = 'create',
+  DELETE = 'delete',
 }
 
 withDefaults(
@@ -12,35 +12,35 @@ withDefaults(
     handlersOff?: ListHandlersOff[];
   }>(),
   {
-    handlersOff: () => [],
+    handlersOff: () => []
   }
-);
+)
 
 const emits = defineEmits<{
   (emit: ListHandlersOff.CREATE): void;
   (emit: ListHandlersOff.EDIT, id: string): void;
   (emit: ListHandlersOff.DELETE, id: string): void;
-}>();
+}>()
 
-const isDialogDelete = ref<boolean>(false);
-const dialogIDDelete = ref<string | null>(null);
+const isDialogDelete = ref<boolean>(false)
+const dialogIDDelete = ref<string | null>(null)
 
 const handlers = {
-  handleCreate() {
-    emits(ListHandlersOff.CREATE);
+  handleCreate () {
+    emits(ListHandlersOff.CREATE)
   },
 
-  handleEdit({ id }: { id: string }) {
-    emits(ListHandlersOff.EDIT, id);
+  handleEdit ({ id }: { id: string }) {
+    emits(ListHandlersOff.EDIT, id)
   },
 
-  handleDelete(id: string) {
-    emits(ListHandlersOff.DELETE, id);
+  handleDelete (id: string) {
+    emits(ListHandlersOff.DELETE, id)
 
-    isDialogDelete.value = false;
-    dialogIDDelete.value = null;
-  },
-};
+    isDialogDelete.value = false
+    dialogIDDelete.value = null
+  }
+}
 </script>
 
 <template>
@@ -62,7 +62,7 @@ const handlers = {
       <ElTable :data="data" border style="width: 100%">
         <ElTableColumn label="Id" prop="id" width="120" />
 
-        <slot></slot>
+        <slot />
 
         <ElTableColumn label="Created" prop="created_at" width="120">
           <template #default="{ row }">

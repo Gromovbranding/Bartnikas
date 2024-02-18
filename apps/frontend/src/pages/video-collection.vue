@@ -1,29 +1,29 @@
 <script setup lang="ts">
-const { getAllVideoCollection } = usePublicData();
+const { getAllVideoCollection } = usePublicData()
 
-const { t } = useI18n();
+const { t } = useI18n()
 const { data: videos } = await useAsyncData(
-  "video-collection",
+  'video-collection',
   async () => await getAllVideoCollection()
-);
+)
 
 const groups = computed(() =>
-  videos.value?.map((item) => item.project?.group).filter((group) => group)
-);
+  videos.value?.map(item => item.project?.group).filter(group => group)
+)
 
-function getGroupVideos(group: any) {
-  return (videos.value ?? []).filter((video) => video.project?.group === group);
+function getGroupVideos (group: any) {
+  return (videos.value ?? []).filter(video => video.project?.group === group)
 }
 
 useHeadSafe({
-  title: t("titles.videoCollection"),
+  title: t('titles.videoCollection'),
   meta: [
     {
-      name: "description",
-      content: "My Video Collection",
-    },
-  ],
-});
+      name: 'description',
+      content: 'My Video Collection'
+    }
+  ]
+})
 </script>
 
 <template>
@@ -47,7 +47,9 @@ useHeadSafe({
         :key="'group-' + group"
         class="collection__item"
       >
-        <h2 class="collection__caption">{{ group }}</h2>
+        <h2 class="collection__caption">
+          {{ group }}
+        </h2>
         <div class="grid">
           <AppVideoItem
             v-for="item in getGroupVideos(group)"

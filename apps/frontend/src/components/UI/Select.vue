@@ -9,29 +9,29 @@ interface Props {
 }
 
 const emit = defineEmits<{
-  (e: "change", item: IItem): void;
-}>();
+  (e: 'change', item: IItem): void;
+}>()
 
 const props = withDefaults(defineProps<Props>(), {
-  list: () => [],
-});
+  list: () => []
+})
 
 const selected = ref<IItem>({
-  label: "",
-  value: "",
-});
+  label: '',
+  value: ''
+})
 
-const isSelectOpen = ref(false);
+const isSelectOpen = ref(false)
 
 const handleSelect = (item: IItem) => {
-  selected.value = item;
-  isSelectOpen.value = false;
-  emit("change", item);
-};
+  selected.value = item
+  isSelectOpen.value = false
+  emit('change', item)
+}
 
 onMounted(() => {
-  selected.value = props.list[0];
-});
+  selected.value = props.list[0]
+})
 </script>
 
 <template>

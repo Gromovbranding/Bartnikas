@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { UploadUserFile } from "element-plus";
-import { Close, Delete } from "@element-plus/icons-vue";
+import type { UploadUserFile } from 'element-plus'
+import { Close, Delete } from '@element-plus/icons-vue'
 import {
   ListUnitSize,
   type IProject,
@@ -10,127 +10,127 @@ import {
   type IProjectPressReleaseTranslate,
   type PartialAdminApiDto,
   type PartialFileAdminApiDto,
-  type IProjectCollabTranslate,
-} from "@/types/admin-api";
-import { AdminTemplateForm, AdminUploadFile } from "#components";
+  type IProjectCollabTranslate
+} from '@/types/admin-api'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
-const { projects, initTranslateLocale, currentIndexLocale } = useAdmin();
-const { titles, formRules, navigateBack, methods } = projects();
+const { projects, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = projects()
 
 useHeadSafe({
-  title: titles.create,
-});
+  title: titles.create
+})
 
-const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null);
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 const uploadProjectImagesRef = ref<InstanceType<typeof AdminUploadFile> | null>(
   null
-);
+)
 
 const uploadCollabVideoRef = ref<InstanceType<typeof AdminUploadFile> | null>(
   null
-);
+)
 
 const uploadPressReleaseRefs = ref<
   InstanceType<typeof AdminUploadFile>[] | null
->([]);
+>([])
 
 const form = reactive<PartialAdminApiDto<IProject>>({
   translate: initTranslateLocale<IProjectTranslate>({
-    description: "",
-    title: "",
+    description: '',
+    title: ''
   }),
   is_show_index_footer_card: false,
   collab: {
     translate: initTranslateLocale<IProjectCollabTranslate>({
-      description: "",
-      collab_with: "",
-      title: "",
+      description: '',
+      collab_with: '',
+      title: ''
     }),
     press_release: [],
-    video: null,
+    video: null
   },
   details: [],
-  group: null,
-});
+  group: null
+})
 
-const imageFiles = ref<UploadUserFile[]>([]);
+const imageFiles = ref<UploadUserFile[]>([])
 
 const projectImages = ref<
   PartialAdminApiDto<(IProjectImageDetail & { uid?: number })[]>
->([]);
+    >([])
 
-const isCollab = ref(false);
+const isCollab = ref(false)
 
 const handleResetForm = () => {
-  formRef.value?.resetForm();
-};
+  formRef.value?.resetForm()
+}
 
 const addPressRelease = () => {
   if (!form?.collab?.press_release) {
-    form.collab.press_release = [];
+    form.collab.press_release = []
   }
 
   form.collab.press_release.push({
     translate: initTranslateLocale<IProjectPressReleaseTranslate>({
-      title: "",
-      text: "",
+      title: '',
+      text: ''
     }),
     file: null,
-    id: Date.now(),
-  });
-};
+    id: Date.now()
+  })
+}
 
 const removePressRelease = (
   pressRelease: PartialAdminApiDto<IProjectPressRelease>
 ) => {
   form.collab.press_release = form.collab.press_release.filter(
-    (item) => item.id !== pressRelease.id
-  );
-};
+    item => item.id !== pressRelease.id
+  )
+}
 
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
       projectImages.value = projectImages.value.map((item, idx) => ({
         ...item,
-        order: idx + 1,
-      }));
+        order: idx + 1
+      }))
 
       const arr: {
         file: PartialFileAdminApiDto;
         uid?: number;
-      }[] = [];
+      }[] = []
 
       for await (const file of imageFiles.value) {
         const uploadedFile = await uploadProjectImagesRef.value!.uploadToServer(
           file
-        );
+        )
         arr.push({
           file: uploadedFile,
-          uid: file.uid,
-        });
+          uid: file.uid
+        })
       }
 
       projectImages.value = projectImages.value.map((item) => {
         const uploadedFile = arr.find(
-          (uploadedFile) => uploadedFile.uid === item?.uid
-        );
+          uploadedFile => uploadedFile.uid === item?.uid
+        )
 
         if (uploadedFile) {
           return {
             ...item,
             image: {
-              name: uploadedFile.file.name,
-            },
-          };
+              name: uploadedFile.file.name
+            }
+          }
         }
 
-        return item;
-      });
+        return item
+      })
 
       await methods.handleCreate({
         ...toValue(form),
@@ -142,73 +142,73 @@ const handleCreate = async () => {
                 (form.collab?.press_release ?? []).map(async (item, idx) => {
                   const file = await uploadPressReleaseRefs.value![
                     idx
-                  ]!.uploadToServer();
+                  ]!.uploadToServer()
 
                   return {
                     ...item,
-                    file,
-                  };
+                    file
+                  }
                 })
               ),
-              video: await uploadCollabVideoRef.value!.uploadToServer(),
-            },
-      });
+              video: await uploadCollabVideoRef.value!.uploadToServer()
+            }
+      })
 
-      await refreshNuxtData();
+      await refreshNuxtData()
 
-      await navigateTo(navigateBack.value);
+      await navigateTo(navigateBack.value)
     } catch (exc) {
-      console.error(exc);
+      console.error(exc)
     }
   }
-};
+}
 
 const handleProjectDetailDelete = (
   item: PartialAdminApiDto<IProjectImageDetail & { uid?: number }>
 ) => {
   projectImages.value = projectImages.value.filter(
-    (projectItem) => projectItem.uid !== item?.uid
-  );
+    projectItem => projectItem.uid !== item?.uid
+  )
 
-  imageFiles.value = imageFiles.value.filter((s) => s.uid !== item?.uid);
-};
+  imageFiles.value = imageFiles.value.filter(s => s.uid !== item?.uid)
+}
 
 onMounted(() => {
   projectImages.value = form.details
     .toSorted((a, b) => a.order - b.order)
-    .map((item) => ({
+    .map(item => ({
       ...item,
-      uid: item.id,
-    }));
-});
+      uid: item.id
+    }))
+})
 
 watch(
   () => imageFiles.value,
   (val) => {
     val.forEach((item) => {
       const foundProject = projectImages.value.find(
-        (projectItem) => projectItem?.uid === item?.uid
-      );
+        projectItem => projectItem?.uid === item?.uid
+      )
       if (!foundProject) {
         projectImages.value.unshift({
           uid: item.uid,
           is_show_poster: false,
           order: imageFiles.value.length,
           sizes: [
-            { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 },
+            { width: 100, height: 100, unit: ListUnitSize.cm, quantity: 1 }
           ],
           is_active: true,
           price: 100,
           image_name: item.name,
           url: item.url,
           image: {
-            name: item.name,
-          },
-        });
+            name: item.name
+          }
+        })
       }
-    });
+    })
   }
-);
+)
 </script>
 
 <template>
@@ -355,17 +355,19 @@ watch(
                   class="el-upload-list__item-thumbnail"
                   :src="file?.url || useGetFileByUrl(file?.image?.name)"
                   alt=""
-                />
+                >
                 <div v-if="file?.uid" class="img" @keydown.stop>
                   <div class="img__details">
-                    <label
-                      >Is active:
-                      <input v-model="file.is_active" type="checkbox"
-                    /></label>
-                    <label
-                      >Is Show poster:
-                      <input v-model="file.is_show_poster" type="checkbox"
-                    /></label>
+                    <label>Is active:
+                      <input
+                        v-model="file.is_active"
+                        type="checkbox"
+                      ></label>
+                    <label>Is Show poster:
+                      <input
+                        v-model="file.is_show_poster"
+                        type="checkbox"
+                      ></label>
                     <ElFormItem required label="Name" label-width="60">
                       <ElInput v-model="file.image_name" size="small" />
                     </ElFormItem>
@@ -383,35 +385,31 @@ watch(
                     :key="idx"
                     class="img__sizes"
                   >
-                    <label
-                      >Width, cm
+                    <label>Width, cm
                       <el-input-number
                         v-model="item.width"
                         :min="1"
                         size="small"
-                    /></label>
-                    <label
-                      >Height, cm
+                      /></label>
+                    <label>Height, cm
                       <el-input-number
                         v-model="item.height"
                         :min="1"
                         size="small"
-                    /></label>
-                    <label
-                      >Quantity
+                      /></label>
+                    <label>Quantity
                       <el-input-number
                         v-model="item.quantity"
                         :min="0"
                         size="small"
-                    /></label>
+                      /></label>
                     <el-button
                       v-if="idx !== 0"
                       type="danger"
                       :icon="Delete"
                       circle
                       @click="file.sizes.splice(idx, 1)"
-                    >
-                    </el-button>
+                    />
                   </div>
                   <el-button
                     type="primary"
@@ -432,7 +430,7 @@ watch(
                   :icon="Close"
                   circle
                   @click="handleProjectDetailDelete(file)"
-                ></el-button>
+                />
               </div>
             </template>
           </draggable>
@@ -440,8 +438,12 @@ watch(
       </ElFormItem>
 
       <ElFormItem>
-        <ElButton type="primary" @click="handleCreate"> Create </ElButton>
-        <ElButton @click="handleResetForm"> Clear </ElButton>
+        <ElButton type="primary" @click="handleCreate">
+          Create
+        </ElButton>
+        <ElButton @click="handleResetForm">
+          Clear
+        </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
   </AdminTemplateCardWithForm>

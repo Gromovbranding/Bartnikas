@@ -3,137 +3,137 @@ import type {
   IProject,
   IProjectCollabTranslate,
   IProjectImageDetail,
-  IProjectTranslate,
-} from "~/types/admin-api";
+  IProjectTranslate
+} from '~/types/admin-api'
 
-const route = useRoute();
-const wrapper = ref<HTMLDivElement>();
+const route = useRoute()
+const wrapper = ref<HTMLDivElement>()
 // const wrapperHeight = ref("");
-const sticky = ref<HTMLDivElement>();
-const section = ref<HTMLElement>();
-const scrollProgress = ref(0);
-const wsHeight = ref(0);
+const sticky = ref<HTMLDivElement>()
+const section = ref<HTMLElement>()
+const scrollProgress = ref(0)
+const wsHeight = ref(0)
 
-const { getAllProjects, getProjectById } = usePublicData();
-const { breakpoint } = useBreakpoints();
+const { getAllProjects, getProjectById } = usePublicData()
+const { breakpoint } = useBreakpoints()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const { data: project } = await useAsyncData(
-  "project",
+  'project',
   async () => await getProjectById(route.params.id as string)
-);
+)
 
 const translated = useTranslateLanguage<IProjectTranslate>(
   project.value!.translate
-);
+)
 
 useHead({
-  title: `${t("titles.project")} ${translated.value?.title}`,
+  title: `${t('titles.project')} ${translated.value?.title}`,
   meta: [
     {
-      name: "description",
-      content: translated.value?.description ?? "My Desc",
+      name: 'description',
+      content: translated.value?.description ?? 'My Desc'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 
 const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
+  'projects',
   async () => await getAllProjects()
-);
+)
 
 const moreProjects = computed(
-  () => projects.value?.filter((item) => item.id !== +route.params.id) || []
-);
+  () => projects.value?.filter(item => item.id !== +route.params.id) || []
+)
 
 const translatedMoreProjects = computed(() => {
   return moreProjects?.value?.map((item) => {
     return {
       ...item,
-      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value,
-    };
-  });
-});
+      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value
+    }
+  })
+})
 
 const onScroll = () => {
-  if (!wrapper.value || !sticky.value) return;
-  const rem = window.innerWidth / 100;
-  const diff2 = window.scrollY - (section.value?.offsetTop || 0);
-  if (diff2 > wrapper.value.offsetWidth - sticky.value.offsetWidth) return;
-  if (diff2 > 0) return (scrollProgress.value = diff2 + 2 * rem);
-  scrollProgress.value = 0;
-};
+  if (!wrapper.value || !sticky.value) { return }
+  const rem = window.innerWidth / 100
+  const diff2 = window.scrollY - (section.value?.offsetTop || 0)
+  if (diff2 > wrapper.value.offsetWidth - sticky.value.offsetWidth) { return }
+  if (diff2 > 0) { return (scrollProgress.value = diff2 + 2 * rem) }
+  scrollProgress.value = 0
+}
 
 onMounted(() => {
-  if (!wrapper.value || projects.value?.length < 3 || breakpoint.value !== "lg")
-    return;
-  const diff = wrapper.value.offsetWidth - sticky.value.offsetWidth;
-  wsHeight.value = diff + "px";
+  if (!wrapper.value || projects.value?.length < 3 || breakpoint.value !== 'lg') { return }
+  const diff = wrapper.value.offsetWidth - sticky.value.offsetWidth
+  wsHeight.value = diff + 'px'
   // wrapperHeight.value = wrapper.value.scrollWidth + "px";
-  window.addEventListener("scroll", onScroll);
-});
+  window.addEventListener('scroll', onScroll)
+})
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-});
+  window.removeEventListener('scroll', onScroll)
+})
 
-const translate = computed(() => `${-scrollProgress.value}px`);
+const translate = computed(() => `${-scrollProgress.value}px`)
 
 const title = computed(() => {
-  if (project.value?.collab)
-    return `${t("projects.collabWith")} ${
+  if (project.value?.collab) {
+    return `${t('projects.collabWith')} ${
       useTranslateLanguage<IProjectCollabTranslate>(
         project.value.collab.translate
       ).value?.collab_with
-    }`;
-  return translated.value?.title;
-});
+    }`
+  }
+  return translated.value?.title
+})
 
 const details = computed(() =>
-  (project.value?.details ?? []).filter((item) => item.is_active)
-);
+  (project.value?.details ?? []).filter(item => item.is_active)
+)
 
-const collab = computed(() => project.value?.collab);
+const collab = computed(() => project.value?.collab)
 
-const activeOrderDetail = ref<IProjectImageDetail | null>(null);
+const activeOrderDetail = ref<IProjectImageDetail | null>(null)
 
 const changeDetailOrder = (
   detail: IProjectImageDetail,
-  slide?: "next" | "prev"
+  slide?: 'next' | 'prev'
 ) => {
-  let changeDetail = detail;
+  let changeDetail = detail
 
   if (slide) {
     const findIndexItem = details.value.findIndex(
-      (item) => item.id === detail.id
-    );
+      item => item.id === detail.id
+    )
 
-    let nextIndex = 0;
+    let nextIndex = 0
 
-    if (slide === "next") {
+    if (slide === 'next') {
       if (findIndexItem >= details.value.length - 1) {
-        nextIndex = 0;
+        nextIndex = 0
       } else {
-        nextIndex = findIndexItem + 1;
+        nextIndex = findIndexItem + 1
       }
-    } else if (slide === "prev") {
+    } else if (slide === 'prev') {
       if (findIndexItem > 0) {
-        nextIndex = findIndexItem - 1;
+        nextIndex = findIndexItem - 1
       } else {
-        nextIndex = details.value.length - 1;
+        nextIndex = details.value.length - 1
       }
     }
 
-    changeDetail = details.value.find((_, idx) => idx === nextIndex)!;
+    changeDetail = details.value.find((_, idx) => idx === nextIndex)!
   }
 
-  activeOrderDetail.value = changeDetail;
-};
+  activeOrderDetail.value = changeDetail
+}
 </script>
 
 <template>
@@ -155,11 +155,11 @@ const changeDetailOrder = (
       <section v-if="!project?.collab" class="author-quote">
         <div class="author-quote__person">
           <div>
-            <img src="assets/img/bartnikas.jpg" alt="Bartnikas Logo" />
+            <img src="assets/img/bartnikas.jpg" alt="Bartnikas Logo">
           </div>
           <div>
             <h3>
-              {{ $t("name.first") }} <br />
+              {{ $t("name.first") }} <br>
               {{ $t("name.second") }}
             </h3>
           </div>
@@ -183,7 +183,7 @@ const changeDetailOrder = (
             </svg>
           </div>
           <div class="author-quote__text__desc">
-            <p v-html="translated?.description"></p>
+            <p v-html="translated?.description" />
           </div>
           <div>
             <svg
@@ -308,13 +308,13 @@ const changeDetailOrder = (
               </div>
               <div class="project-item__text">
                 <h3>{{ item?.translate?.title }}</h3>
-                <p v-html="item?.translate?.description"></p>
+                <p v-html="item?.translate?.description" />
               </div>
             </template>
           </div>
         </div>
       </div>
-      <div class="whitespace"></div>
+      <div class="whitespace" />
     </section>
   </main>
 </template>

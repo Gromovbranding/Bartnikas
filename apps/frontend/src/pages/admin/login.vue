@@ -1,35 +1,35 @@
 <script lang="ts" setup>
-import { UserFilled, Lock } from "@element-plus/icons-vue";
+import { UserFilled, Lock } from '@element-plus/icons-vue'
 
 definePageMeta({
-  layout: "empty",
-});
+  layout: 'empty'
+})
 
 useHeadSafe({
-  title: "Login",
-});
+  title: 'Login'
+})
 
-const { login } = useApi();
+const { login } = useApi()
 
-const username = ref("");
-const password = ref("");
-const loading = ref(false);
+const username = ref('')
+const password = ref('')
+const loading = ref(false)
 
 const onSubmit = async () => {
-  if (loading.value) return;
+  if (loading.value) { return }
 
   try {
-    loading.value = true;
+    loading.value = true
     await login({
       username: username.value,
-      password: password.value,
-    });
+      password: password.value
+    })
   } catch (exc) {
-    console.error(exc);
+    console.error(exc)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 </script>
 
 <template>
@@ -37,13 +37,15 @@ const onSubmit = async () => {
     <ClientOnly>
       <main class="admin-auth-layout__main">
         <div class="login">
-          <h3 class="login__header">Login Form</h3>
+          <h3 class="login__header">
+            Login Form
+          </h3>
           <form class="login__form">
             <div class="login__form-input">
               <ElIcon class="login__form-input-icon" size="20px">
                 <UserFilled />
               </ElIcon>
-              <input v-model="username" placeholder="Username" />
+              <input v-model="username" placeholder="Username">
             </div>
             <div class="login__form-input">
               <ElIcon class="login__form-input-icon" size="20px">
@@ -54,7 +56,7 @@ const onSubmit = async () => {
                 autocomplete="true"
                 type="password"
                 placeholder="Password"
-              />
+              >
             </div>
             <ElButton
               class="login__form-submit"

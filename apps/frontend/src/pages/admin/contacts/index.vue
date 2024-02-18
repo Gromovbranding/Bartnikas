@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import type { IContact } from "~/types/admin-api";
+import type { IContact } from '~/types/admin-api'
 
-const headTitle = ref("Contacts");
+const headTitle = ref('Contacts')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IContact>(headTitle.value);
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IContact>(headTitle.value)
 </script>
 
 <template>

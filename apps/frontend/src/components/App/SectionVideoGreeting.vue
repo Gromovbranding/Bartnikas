@@ -1,26 +1,26 @@
 <script setup lang="ts">
 import type {
   IGreetingIndex,
-  IGreetingIndexTranslate,
-} from "~/types/admin-api";
+  IGreetingIndexTranslate
+} from '~/types/admin-api'
 
-const { getActiveGreetingIndex } = usePublicData();
+const { getActiveGreetingIndex } = usePublicData()
 
 const { data: greeting } = await useAsyncData<IGreetingIndex>(
-  "greetingIndex",
+  'greetingIndex',
   async () => await getActiveGreetingIndex()
-);
+)
 
 const translate = useTranslateLanguage<IGreetingIndexTranslate>(
   greeting.value!.translate
-);
+)
 
-const showVideo = ref(false);
-const video = ref<HTMLVideoElement>();
+const showVideo = ref(false)
+const video = ref<HTMLVideoElement>()
 
-function playVideo() {
-  showVideo.value = true;
-  if (video.value) video.value.play();
+function playVideo () {
+  showVideo.value = true
+  if (video.value) { video.value.play() }
 }
 </script>
 
@@ -33,7 +33,7 @@ function playVideo() {
         :poster="useGetFileByUrl(greeting?.poster?.name)"
         preload="metadata"
         :controls="showVideo"
-      ></video>
+      />
       <div v-if="!showVideo" class="video-greeting__play" @click="playVideo">
         <IconPlay />
       </div>

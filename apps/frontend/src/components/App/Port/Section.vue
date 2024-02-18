@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { IProject } from "~/types/admin-api";
+import type { IProject } from '~/types/admin-api'
 
-const { getAllProjects } = usePublicData();
+const { getAllProjects } = usePublicData()
 
 const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
+  'projects',
   async () => await getAllProjects()
-);
+)
 </script>
 
 <template>

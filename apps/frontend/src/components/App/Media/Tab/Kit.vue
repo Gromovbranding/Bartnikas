@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { IMediaKit } from "~/types/admin-api";
+import type { IMediaKit } from '~/types/admin-api'
 
-const { fetchGet } = useApi();
+const { fetchGet } = useApi()
 
 const { data: mediakit } = await useAsyncData<IMediaKit[]>(
-  "mediakit",
-  async () => await fetchGet("/media/kit")
-);
+  'mediakit',
+  async () => await fetchGet('/media/kit')
+)
 </script>
 
 <template>

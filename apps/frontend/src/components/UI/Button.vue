@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { RouteLocationRaw } from "vue-router";
+import type { RouteLocationRaw } from 'vue-router'
 
 interface Props {
   isGrey?: boolean;
@@ -12,19 +12,19 @@ const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
   isTextUppercase: true,
   isWhite: false,
-  to: "",
-});
+  to: ''
+})
 
 const classes = computed(() => {
   return [
-    "btn-default",
+    'btn-default',
     {
-      "btn-default--grey": props.isGrey,
-      "btn-default--white": props.isWhite,
-      "btn-default--uppercase": props.isTextUppercase,
-    },
-  ];
-});
+      'btn-default--grey': props.isGrey,
+      'btn-default--white': props.isWhite,
+      'btn-default--uppercase': props.isTextUppercase
+    }
+  ]
+})
 </script>
 
 <template>

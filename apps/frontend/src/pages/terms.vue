@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import type { ITermsStatic } from "@/types/admin-api";
+import type { ITermsStatic } from '@/types/admin-api'
 
-const { t } = useI18n();
-const { getTermsStatic } = usePublicData();
+const { t } = useI18n()
+const { getTermsStatic } = usePublicData()
 
 const { data: termsStatic } = await useAsyncData<ITermsStatic[]>(
-  "termsStatic",
+  'termsStatic',
   async () => await getTermsStatic()
-);
+)
 
 useHeadSafe({
-  title: t("titles.termsConditions"),
+  title: t('titles.termsConditions'),
   meta: [
     {
-      name: "description",
-      content: "My Terms & Conditions",
+      name: 'description',
+      content: 'My Terms & Conditions'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 
 <template>

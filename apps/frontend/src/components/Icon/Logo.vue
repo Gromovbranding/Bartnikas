@@ -9,8 +9,8 @@ withDefaults(defineProps<Props>(), {
   isFullBlack: false,
   isFullWhite: false,
   isOnlyAuthorWhite: false,
-  isOnlyAuthorBlack: false,
-});
+  isOnlyAuthorBlack: false
+})
 </script>
 <template>
   <svg

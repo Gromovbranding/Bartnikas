@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-const { getActiveFooterContact } = usePublicData();
+const { getActiveFooterContact } = usePublicData()
 
 const { data: contacts } = await useAsyncData(
-  "generalInfoContactss",
+  'generalInfoContactss',
   async () => await getActiveFooterContact()
-);
+)
 </script>
 
 <template>
@@ -22,10 +22,10 @@ const { data: contacts } = await useAsyncData(
           <small>
             © 2012-{{
               new Date().getFullYear() +
-              " " +
-              $t("name.first") +
-              " " +
-              $t("name.second")
+                " " +
+                $t("name.first") +
+                " " +
+                $t("name.second")
             }}
           </small>
         </div>

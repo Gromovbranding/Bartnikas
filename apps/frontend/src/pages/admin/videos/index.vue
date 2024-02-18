@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import type { IVideoCollection } from "~/types/admin-api";
+import type { IVideoCollection } from '~/types/admin-api'
 
-const headTitle = ref("Videos");
+const headTitle = ref('Videos')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
+  data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IVideoCollection>(
   headTitle.value,
-  "video-collection"
-);
+  'video-collection'
+)
 </script>
 
 <template>

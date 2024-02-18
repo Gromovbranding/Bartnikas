@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { usePublicData } from "@/composables/usePublicData";
+import { usePublicData } from '@/composables/usePublicData'
 
-const { cart } = usePublicData();
+const { cart } = usePublicData()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 useHeadSafe({
-  title: t("titles.checkout"),
+  title: t('titles.checkout'),
   meta: [
     {
-      name: "robots",
-      content: "noindex,nofollow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'noindex,nofollow'
+    }
+  ]
+})
 </script>
 
 <template>

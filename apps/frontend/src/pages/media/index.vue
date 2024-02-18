@@ -1,48 +1,48 @@
 <script lang="ts" setup>
-const { t } = useI18n();
+const { t } = useI18n()
 
 const mediaTabs = ref([
   {
-    component: shallowRef(resolveComponent("AppMediaTabLastest")),
-    label: t("media.latestNews"),
+    component: shallowRef(resolveComponent('AppMediaTabLastest')),
+    label: t('media.latestNews')
   },
   {
-    component: shallowRef(resolveComponent("AppMediaTabExhibitions")),
-    label: t("media.exhibitions"),
+    component: shallowRef(resolveComponent('AppMediaTabExhibitions')),
+    label: t('media.exhibitions')
   },
   {
-    component: shallowRef(resolveComponent("AppMediaTabPublications")),
-    label: t("media.publications"),
+    component: shallowRef(resolveComponent('AppMediaTabPublications')),
+    label: t('media.publications')
   },
   {
-    component: shallowRef(resolveComponent("AppMediaTabKit")),
-    label: t("media.mediaKit"),
+    component: shallowRef(resolveComponent('AppMediaTabKit')),
+    label: t('media.mediaKit')
   },
   {
-    component: shallowRef(resolveComponent("AppMediaTabPresentation")),
-    label: t("media.presentation"),
-  },
+    component: shallowRef(resolveComponent('AppMediaTabPresentation')),
+    label: t('media.presentation')
+  }
   // {
   //   component: shallowRef(resolveComponent("AppMediaTabCV")),
   //   label: "CV",
   // },
-]);
+])
 
-const selectedTab = ref(mediaTabs.value[0]);
+const selectedTab = ref(mediaTabs.value[0])
 
 useHeadSafe({
-  title: t("titles.media"),
+  title: t('titles.media'),
   meta: [
     {
-      name: "description",
-      content: "My Media",
+      name: 'description',
+      content: 'My Media'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 <template>
   <main>

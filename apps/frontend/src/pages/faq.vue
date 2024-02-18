@@ -1,36 +1,36 @@
 <script lang="ts" setup>
-import type { IFaqTranslate, IFaq } from "@/types/admin-api";
+import type { IFaqTranslate, IFaq } from '@/types/admin-api'
 
-const { getAllFaq } = usePublicData();
-const { t } = useI18n();
+const { getAllFaq } = usePublicData()
+const { t } = useI18n()
 
 const { data: faqs } = await useAsyncData<IFaq[]>(
-  "faqs",
+  'faqs',
   async () => await getAllFaq()
-);
+)
 
 const translated = computed(() => {
   return faqs?.value?.map((item) => {
     return {
       ...item,
-      translate: useTranslateLanguage<IFaqTranslate>(item.translate).value,
-    };
-  });
-});
+      translate: useTranslateLanguage<IFaqTranslate>(item.translate).value
+    }
+  })
+})
 
 useHeadSafe({
-  title: t("titles.faq"),
+  title: t('titles.faq'),
   meta: [
     {
-      name: "description",
-      content: "My Faq",
+      name: 'description',
+      content: 'My Faq'
     },
     {
-      name: "robots",
-      content: "index,follow",
-    },
-  ],
-});
+      name: 'robots',
+      content: 'index,follow'
+    }
+  ]
+})
 </script>
 
 <template>
@@ -42,7 +42,7 @@ useHeadSafe({
           <template #summary>
             {{ item?.translate?.title }}
           </template>
-          <div v-html="item?.translate?.description"></div>
+          <div v-html="item?.translate?.description" />
         </AppDetails>
       </div>
     </section>

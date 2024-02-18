@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { IMediaExhibition } from "@/types/admin-api";
+import type { IMediaExhibition } from '@/types/admin-api'
 
-const headTitle = ref("Media Exhibition");
+const headTitle = ref('Media Exhibition')
 
 const {
   handleDelete,
   handleCreate,
   handleEdit,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IMediaExhibition>("media/exhibition");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IMediaExhibition>('media/exhibition')
 </script>
 
 <template>

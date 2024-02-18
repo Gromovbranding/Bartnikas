@@ -1,64 +1,64 @@
 <script lang="ts" setup>
-import type { Swiper } from "swiper/types";
-import type { IProject } from "~/types/admin-api";
+import type { Swiper } from 'swiper/types'
+import type { IProject } from '~/types/admin-api'
 
-const thumbsSwiper = ref<Swiper | null>(null);
-const mainSwiper = ref<Swiper | null>(null);
-const selectedIdx = ref(0);
+const thumbsSwiper = ref<Swiper | null>(null)
+const mainSwiper = ref<Swiper | null>(null)
+const selectedIdx = ref(0)
 
 const initThumbsSwiper = (swiper: Swiper) => {
-  thumbsSwiper.value = swiper;
-};
+  thumbsSwiper.value = swiper
+}
 
 const initMainSwiper = (swiper: Swiper) => {
-  mainSwiper.value = swiper;
-};
+  mainSwiper.value = swiper
+}
 
-const handleSlideChange = (direction: "slideNext" | "slidePrev") => {
+const handleSlideChange = (direction: 'slideNext' | 'slidePrev') => {
   if (mainSwiper.value) {
-    mainSwiper.value[direction]();
+    mainSwiper.value[direction]()
   }
-};
+}
 
-const { getAllProjects } = usePublicData();
+const { getAllProjects } = usePublicData()
 
 const { data: projects } = await useAsyncData<IProject[]>(
-  "projects",
+  'projects',
   async () => await getAllProjects()
-);
+)
 
 const options = computed(() =>
   (projects.value ?? []).map((item, idx) => ({
     label: item.title,
-    value: idx,
+    value: idx
   }))
-);
+)
 
 const project = computed(
   () =>
     projects.value?.[selectedIdx.value] ?? {
       details: [],
-      id: null,
+      id: null
     }
-);
+)
 
 const orderImgLink = computed(() => {
-  if (!project.value.id || !mainSwiper.value) return "/projects";
-  const imgId = project.value.details[mainSwiper.value.activeIndex].id;
-  return `/projects/${project.value.id}/order/${imgId}`;
-});
+  if (!project.value.id || !mainSwiper.value) { return '/projects' }
+  const imgId = project.value.details[mainSwiper.value.activeIndex].id
+  return `/projects/${project.value.id}/order/${imgId}`
+})
 
 const colors = [
-  "#1a1c28",
-  "#353736",
-  "#545c20",
-  "#a66456",
-  "#a49484",
-  "#8a88a0",
-];
+  '#1a1c28',
+  '#353736',
+  '#545c20',
+  '#a66456',
+  '#a49484',
+  '#8a88a0'
+]
 
-function copyColor(idx: number) {
-  navigator.clipboard.writeText(colors[idx]);
+function copyColor (idx: number) {
+  navigator.clipboard.writeText(colors[idx])
 }
 </script>
 
@@ -88,11 +88,15 @@ function copyColor(idx: number) {
                 :style="{ 'background-color': color }"
                 title="copy HEX code to clipboard"
                 @click="copyColor(idx)"
-              ></div>
+              />
             </div>
             <div class="controls">
-              <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
-              <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
+              <UIButton @click="handleSlideChange('slidePrev')">
+                ←
+              </UIButton>
+              <UIButton @click="handleSlideChange('slideNext')">
+                →
+              </UIButton>
               <UIButton :to="orderImgLink">
                 {{ $t("secrionInteriosOrder.request") }}
               </UIButton>
@@ -146,8 +150,12 @@ function copyColor(idx: number) {
           </Swiper>
 
           <div class="swiper-slider__main-navigation">
-            <UIButton @click="handleSlideChange('slidePrev')"> ← </UIButton>
-            <UIButton @click="handleSlideChange('slideNext')"> → </UIButton>
+            <UIButton @click="handleSlideChange('slidePrev')">
+              ←
+            </UIButton>
+            <UIButton @click="handleSlideChange('slideNext')">
+              →
+            </UIButton>
           </div>
         </div>
       </div>

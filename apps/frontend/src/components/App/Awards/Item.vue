@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { IAwards, IAwardsTranslate } from "~/types/admin-api";
+import type { IAwards, IAwardsTranslate } from '~/types/admin-api'
 
 const props = defineProps<{
   award: IAwards;
-}>();
+}>()
 
 const translate = useTranslateLanguage<IAwardsTranslate>(
   props.award.translate!
-);
+)
 </script>
 
 <template>

@@ -6,23 +6,23 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: "",
-  modelValue: "",
-  type: "text",
-});
+  placeholder: '',
+  modelValue: '',
+  type: 'text'
+})
 
 const emit = defineEmits<{
-  (e: "update:modelValue", str: string): void;
-}>();
+  (e: 'update:modelValue', str: string): void;
+}>()
 
 const inputState = computed({
-  get() {
-    return props.modelValue;
+  get () {
+    return props.modelValue
   },
-  set(value: string) {
-    emit("update:modelValue", value);
-  },
-});
+  set (value: string) {
+    emit('update:modelValue', value)
+  }
+})
 </script>
 <template>
   <input
@@ -30,7 +30,7 @@ const inputState = computed({
     class="input"
     :type="type"
     :placeholder="placeholder"
-  />
+  >
 </template>
 
 <style lang="scss" scoped>

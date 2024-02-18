@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { IMediaPresentation } from "@/types/admin-api";
+import type { IMediaPresentation } from '@/types/admin-api'
 
-const headTitle = ref("Media Presentation");
+const headTitle = ref('Media Presentation')
 
 const {
   handleDelete,
   handleCreate,
   handleEdit,
-  data: { entities, pending },
+  data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IMediaPresentation>(
-  "media/presentation"
-);
+  'media/presentation'
+)
 </script>
 
 <template>

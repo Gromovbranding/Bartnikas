@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { ITermsStatic } from "~/types/admin-api";
+import type { ITermsStatic } from '~/types/admin-api'
 
-const headTitle = ref("Payment & Delivery");
+const headTitle = ref('Payment & Delivery')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<ITermsStatic>("delivery-static");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<ITermsStatic>('delivery-static')
 </script>
 
 <template>

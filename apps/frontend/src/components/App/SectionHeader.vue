@@ -7,11 +7,11 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  toCaption: "",
+  toCaption: '',
   isLink: true,
-  to: "/",
-  white: false,
-});
+  to: '/',
+  white: false
+})
 </script>
 
 <template>

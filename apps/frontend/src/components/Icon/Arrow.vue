@@ -4,8 +4,8 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  isArrow30Deg: false,
-});
+  isArrow30Deg: false
+})
 </script>
 
 <template>

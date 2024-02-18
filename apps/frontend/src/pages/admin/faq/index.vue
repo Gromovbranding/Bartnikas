@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IFaq } from "~/types/admin-api";
+import type { IFaq } from '~/types/admin-api'
 
-const headTitle = ref("Faq");
+const headTitle = ref('Faq')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IFaq>(headTitle.value);
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IFaq>(headTitle.value)
 </script>
 
 <template>

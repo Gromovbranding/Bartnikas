@@ -1,10 +1,6 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsNotEmpty,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { CreateTranslateLanguageDto } from '../../shared/language/dto/create-translate.dto';
 
 export class CreateTranslateFaqDto extends IntersectionType(

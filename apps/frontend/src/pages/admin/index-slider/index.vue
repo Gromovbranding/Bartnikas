@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { IIndexSlider } from "~/types/admin-api";
+import type { IIndexSlider } from '~/types/admin-api'
 
-const headTitle = ref("Index Slider");
+const headTitle = ref('Index Slider')
 
 definePageMeta({
-  layout: "admin",
-});
+  layout: 'admin'
+})
 
 useHeadSafe({
-  title: headTitle.value,
-});
+  title: headTitle.value
+})
 
 const {
   handleCreate,
   handleEdit,
   handleDelete,
-  data: { entities, pending },
-} = useAdmin().makeFetchersForIndexCard<IIndexSlider>("index-slider");
+  data: { entities, pending }
+} = useAdmin().makeFetchersForIndexCard<IIndexSlider>('index-slider')
 </script>
 
 <template>
