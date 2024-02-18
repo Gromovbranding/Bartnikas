@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {
   IProject,
+  IProjectTranslate,
   IVideoCollection,
   IVideoCollectionTranslate,
   PartialAdminApiDto,
@@ -28,6 +29,15 @@ const { data: projects } = await useAsyncData<IProject[]>(
   'projects',
   async () => await fetchGet('/projects')
 )
+
+const translated = computed(() => {
+  return projects?.value?.map((item) => {
+    return {
+      ...item,
+      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value
+    }
+  })
+})
 
 const form = reactive<PartialAdminApiDto<IVideoCollection>>({
   translate: initTranslateLocale<IVideoCollectionTranslate>({
@@ -74,9 +84,9 @@ const handleCreate = async () => {
       <ElFormItem label="Project" prop="project">
         <ElSelect v-model="form.project">
           <ElOption
-            v-for="item in projects"
+            v-for="item in translated"
             :key="item.id"
-            :label="item.title"
+            :label="item.translate?.title"
             :value="item"
           />
         </ElSelect>

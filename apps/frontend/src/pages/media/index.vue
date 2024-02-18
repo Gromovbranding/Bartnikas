@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 
-const mediaTabs = ref([
+const mediaTabs = computed(() => [
   {
     component: shallowRef(resolveComponent('AppMediaTabLastest')),
     label: t('media.latestNews')
