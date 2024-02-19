@@ -33,11 +33,23 @@ export class ProjectsService {
 
     const translate = await this.langService.translate(dto.translate);
     if (collab) {
+      let press_release = collab.press_release ?? [];
+
+      press_release = await Promise.all(
+        press_release.map(async (item) => {
+          return {
+            ...item,
+            translate: await this.langService.translate(item.translate),
+          };
+        }),
+      );
+
       collab = {
         ...dto.collab,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         translate: await this.langService.translate(dto.collab?.translate),
+        press_release,
       };
     }
 
