@@ -1,4 +1,4 @@
-import type { FormRules } from 'element-plus'
+import { translate, type FormRules } from 'element-plus'
 import type {
   PartialAdminApiDto,
   IArticle,
@@ -34,10 +34,7 @@ export const useAdmin = () => {
     icon: string;
   }
 
-  const currentLocale = useCookie<IAvailableLocale>('current-locale', {
-    default: () =>
-      cfg.public.avaiableLocales!.find(item => item.code === 'en')!
-  })
+  const currentLocale = useState<IAvailableLocale>('current-locale', () => cfg.public.avaiableLocales!.find(item => item.code === 'en')! as IAvailableLocale)
 
   const currentIndexLocale = computed(() => {
     return (
@@ -124,14 +121,12 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/news'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        text: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
+        translate: [
+          {
+            type: 'array',
+            required: true,
+            trigger: 'change',
+          }
         ]
       })
     }
