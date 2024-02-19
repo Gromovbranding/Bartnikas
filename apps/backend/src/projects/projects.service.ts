@@ -15,6 +15,7 @@ import { OrderByEmailDto } from './dto/order-by-email.dto';
 import { OrderByPaymentDto } from '../shared/dto/order-by-payment.dto';
 import { ProjectPaymentByEmail } from './entities/project-payment-by-email.entity';
 import { LanguageService } from '../shared/language/language.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ProjectsService {
@@ -26,6 +27,7 @@ export class ProjectsService {
     private readonly emailSender: EmailSender,
     private readonly paymentsService: PaymentsService,
     private readonly langService: LanguageService,
+    private readonly configService: ConfigService,
   ) {}
 
   async createProject(dto: CreateProjectDto) {
@@ -159,7 +161,7 @@ export class ProjectsService {
           name: order.name,
           email: order.email,
           image_name: projectImage.image_name,
-          url: `/projects/${project.id}/order/${projectImage.id}`,
+          url: `${this.configService.get('DOMAIN')}/projects/${project.id}/order/${projectImage.id}`,
           price: projectImage.price,
           size: size,
           status: 'Sent Email',
@@ -202,7 +204,7 @@ export class ProjectsService {
 
       <p><b> Ordered image name: </b> <span>${projectImage.image_name}</span></p>
       <p><b> Ordered image size: </b> <span>${size.width} x ${size.height} ${size.unit}</span></p>
-      <p><b> Ordered image link: </b> <span>/projects/${project.id}/order/${projectImage.id}</span></p>
+      <p><b> Ordered image link: </b> <span>${this.configService.get('DOMAIN')}/projects/${project.id}/order/${projectImage.id}</span></p>
     `;
 
     return await this.emailSender.sendEmailToHome({
