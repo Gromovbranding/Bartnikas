@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import {
   Injectable,
   Logger,
@@ -11,13 +12,10 @@ import * as util from 'util';
 export class PaymentsService {
   private stripe: Stripe;
 
-  constructor() {
-    this.stripe = new Stripe(
-      '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',
-      {
-        apiVersion: '2022-11-15',
-      },
-    );
+  constructor(private readonly configService: ConfigService) {
+    this.stripe = new Stripe(this.configService.get('STRIPE_API_KEY'), {
+      apiVersion: '2022-11-15',
+    });
   }
 
   async createPayment(dto: OrderByPaymentDto) {
