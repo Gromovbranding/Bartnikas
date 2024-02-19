@@ -9,10 +9,7 @@ async function bootstrap() {
   });
 
   app.enableCors({
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? ['https://https://stanislavbartnikas.com/']
-        : true,
+    origin: process.env.NODE_ENV === 'production' ? [process.env.DOMAIN] : true,
     methods: ['GET', 'PATCH', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
