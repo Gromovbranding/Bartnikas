@@ -87,7 +87,11 @@ export default defineNuxtConfig({
   sitemap: {
     exclude: [
       '/admin/**',
-      '/cart/**'
+      '/cart/**',
+      '/admin/delivery-static',
+      '/admin/media/cv',
+      '/payment/**',
+      '/checkout/**'
     ]
   },
 
