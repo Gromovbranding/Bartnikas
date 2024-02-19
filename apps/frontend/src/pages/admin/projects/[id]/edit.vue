@@ -211,11 +211,11 @@ watch(
 <template>
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
-      <ElFormItem label="Title" prop="title">
+      <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
-      <ElFormItem label="Description" prop="description">
+      <ElFormItem label="Description" :prop="`translate.${currentIndexLocale}.description`">
         <AdminEditorInput
           v-model="form.translate[currentIndexLocale].description"
         />
@@ -238,17 +238,17 @@ watch(
           <h2>Collab</h2>
         </ElFormItem>
 
-        <ElFormItem label="Collab with" prop="collab.collab_with">
+        <ElFormItem label="Collab with" :prop="`collab.translate.${currentIndexLocale}.collab_with`">
           <ElInput
             v-model="form.collab.translate[currentIndexLocale].collab_with"
           />
         </ElFormItem>
 
-        <ElFormItem label="Collab Titile" prop="collab.title">
+        <ElFormItem label="Collab Titile" :prop="`collab.translate.${currentIndexLocale}.title`">
           <ElInput v-model="form.collab.translate[currentIndexLocale].title" />
         </ElFormItem>
 
-        <ElFormItem label="Collab Description" prop="collab.description">
+        <ElFormItem label="Collab Description" :prop="`collab.translate.${currentIndexLocale}.description`">
           <AdminEditorInput
             v-model="form.collab.translate[currentIndexLocale].description"
           />

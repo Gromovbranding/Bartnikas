@@ -63,11 +63,6 @@ const handleCreate = async () => {
       <ElFormItem
         label="Button text"
         prop="button.text"
-        :rules="{
-          required: true,
-          message: 'field is required',
-          trigger: 'blur',
-        }"
       >
         <ElInput v-model="form.button.text" />
       </ElFormItem>
@@ -75,11 +70,6 @@ const handleCreate = async () => {
       <ElFormItem
         label="Button url"
         prop="button.url"
-        :rules="{
-          required: true,
-          message: 'field is required',
-          trigger: 'blur',
-        }"
       >
         <ElInput v-model="form.button.url" />
       </ElFormItem>

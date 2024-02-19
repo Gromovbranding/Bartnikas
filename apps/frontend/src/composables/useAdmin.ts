@@ -1,4 +1,4 @@
-import { translate, type FormRules } from 'element-plus'
+import { type FormItemRule, type FormRules } from 'element-plus'
 import type {
   PartialAdminApiDto,
   IArticle,
@@ -43,6 +43,22 @@ export const useAdmin = () => {
       ) ?? 0
     )
   })
+
+  const createTranslaterFormRules = (props: string[], pre: string = '') => {
+    const result: {[x: string]: FormItemRule} = {}
+
+    cfg.public.avaiableLocales.forEach((locale, idx) => {
+      props.forEach((prop) => {
+        result[`${pre ? `${pre}.` : ''}translate.${idx}.${prop}`] = {
+          required: true,
+          trigger: 'blur',
+          message: `Field ${prop} doesn't have translate for locale ${locale.label}`
+        }
+      })
+    })
+
+    return result
+  }
 
   const initTranslateLocale = <T = unknown>(props: T | T[]) => {
     if (Array.isArray(props)) {
@@ -121,13 +137,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/news'),
 
       formRules: ref<FormRules>({
-        translate: [
-          {
-            type: 'array',
-            required: true,
-            trigger: 'change',
-          }
-        ]
+        ...createTranslaterFormRules(['title', 'text', 'description'])
       })
     }
   }
@@ -171,15 +181,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/blogs'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        text: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'text', 'description'])
       })
     }
   }
@@ -200,13 +202,8 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/testimonials'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
         url: [{ message: 'Field is required', trigger: 'blur' }],
-        additional_info: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'additional_info'])
       })
     }
   }
@@ -226,7 +223,16 @@ export const useAdmin = () => {
 
       navigateBack: ref('/admin/general-info'),
 
-      formRules: ref<FormRules>({})
+      formRules: ref<FormRules>({
+        email_press: {
+          trigger: 'blur',
+          type: 'email'
+        },
+        email_gallery: {
+          trigger: 'blur',
+          type: 'email'
+        }
+      })
     }
   }
 
@@ -246,12 +252,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/faq'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'description'])
       })
     }
   }
@@ -272,13 +273,8 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/videos'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        url: [{ message: 'Field is required', trigger: 'blur' }],
-        additional_info: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        url: [{ message: 'Field is required', trigger: 'blur', type: 'url' }],
+        ...createTranslaterFormRules(['title', 'additional_info'])
       })
     }
   }
@@ -299,9 +295,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/greetings'),
 
       formRules: ref<FormRules>({
-        text: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['text'])
       })
     }
   }
@@ -322,12 +316,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/awards'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'description'])
       })
     }
   }
@@ -388,7 +377,9 @@ export const useAdmin = () => {
 
         navigateBack: ref('/admin/media?type=presentation'),
 
-        formRules: ref<FormRules>({})
+        formRules: ref<FormRules>({
+          ...createTranslaterFormRules(['title'])
+        })
       }
     }
 
@@ -408,12 +399,7 @@ export const useAdmin = () => {
         navigateBack: ref('/admin/media?type=exhibition'),
 
         formRules: ref<FormRules>({
-          title: [
-            { required: true, message: 'Field is required', trigger: 'blur' }
-          ],
-          awards: [
-            { required: true, message: 'Field is required', trigger: 'blur' }
-          ]
+          ...createTranslaterFormRules(['title', 'awards'])
         })
       }
     }
@@ -434,12 +420,7 @@ export const useAdmin = () => {
         navigateBack: ref('/admin/media?type=publication'),
 
         formRules: ref<FormRules>({
-          program: [
-            { required: true, message: 'Field is required', trigger: 'blur' }
-          ],
-          subtitle: [
-            { required: true, message: 'Field is required', trigger: 'blur' }
-          ],
+          ...createTranslaterFormRules(['program', 'subtitle']),
           url: [
             {
               required: true,
@@ -485,6 +466,8 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/projects'),
 
       formRules: ref<FormRules>({
+        ...createTranslaterFormRules(['title', 'text', 'description']),
+        ...createTranslaterFormRules(['title', 'collab_with', 'description'], 'collab'),
         group: [
           { message: 'Group must be more than 3', trigger: 'blur', min: 3 }
         ]
@@ -508,12 +491,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/terms-static'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'description'])
       })
     }
   }
@@ -534,15 +512,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/delivery-static'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        sub_title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['title', 'sub_title', 'description'])
       })
     }
   }
@@ -563,12 +533,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/bio'),
 
       formRules: ref<FormRules>({
-        sub_description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['sub_description', 'description'])
       })
     }
   }
@@ -589,15 +554,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/bio-testimonials'),
 
       formRules: ref<FormRules>({
-        name: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        job: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        testimonial: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        ...createTranslaterFormRules(['name', 'job', 'testimonial']),
       })
     }
   }
@@ -637,12 +594,30 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/footer-card-index'),
 
       formRules: ref<FormRules>({
-        title: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ],
-        text: [
-          { required: true, message: 'Field is required', trigger: 'blur' }
-        ]
+        'button.url': {
+          required: true,
+          message: 'field is required',
+          trigger: 'blur',
+          type: 'url'
+        },
+        'button.text': {
+          required: true,
+          message: 'field is required',
+          trigger: 'blur',
+          type: 'string'
+        },
+        text: {
+          required: true,
+          message: 'field is required',
+          trigger: 'blur',
+          type: 'string'
+        },
+        title: {
+          required: true,
+          message: 'field is required',
+          trigger: 'blur',
+          type: 'string'
+        }
       })
     }
   }
