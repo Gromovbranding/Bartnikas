@@ -4,6 +4,22 @@ const { finalizePendingLocaleChange } = useI18n()
 const onBeforeEnter = async () => {
   await finalizePendingLocaleChange()
 }
+
+const DOMAIN = useRuntimeConfig().public.DOMAIN
+const route = useRoute()
+
+useHead(() => ({
+  link: [
+    {
+      rel: 'canonical',
+      href: DOMAIN + route.path
+    }
+  ]
+}))
+
+useSeoMeta({
+  ogUrl: DOMAIN + route.path
+})
 </script>
 
 <template>

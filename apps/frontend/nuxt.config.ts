@@ -1,21 +1,36 @@
-const DEV_BASE_API_URL = 'http://localhost:3000/api'
-const PROD_BASE_API_URL = 'https://stanislavbartnikas.com/api'
-const BASE_API_FILES = '/files'
-const AVAILABLE_LOCALES = [
-  { code: 'en', label: 'English', icon: 'en' },
-  { code: 'ru', label: 'Русский', icon: 'ru' },
-  { code: 'fr', label: 'Français', icon: 'fr' },
-  { code: 'de', label: 'Deutsche', icon: 'de' }
-]
+const APP_CONFIG = {
+  DEV_BASE_API_URL: 'http://localhost:3000/api',
+  PROD_BASE_API_URL: 'https://stanislavbartnikas.com/api',
+  BASE_API_FILES: '/files',
+  AVAILABLE_LOCALES: [
+    { code: 'en', label: 'English', icon: 'en' },
+    { code: 'ru', label: 'Русский', icon: 'ru' },
+    { code: 'fr', label: 'Français', icon: 'fr' },
+    { code: 'de', label: 'Deutsche', icon: 'de' }
+  ],
+  DOMAIN: 'https://stanislavbartnikas.com'
+}
 export default defineNuxtConfig({
   srcDir: 'src',
   modules: [
     '@nuxt/image',
-    'nuxt-swiper',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    [
+      'nuxt-swiper', {
+        modules: [
+          'thumbs',
+          'autoplay',
+          'effect-fade',
+          'mousewheel'
+        ],
+        styleLang: 'scss'
+      }
+    ],
     [
       '@element-plus/nuxt',
       {
-        importStyle: 'css'
+        importStyle: 'scss'
       }
     ],
     [
@@ -23,7 +38,7 @@ export default defineNuxtConfig({
       {
         skipSettingLocaleOnNavigate: true,
         vueI18n: './src/packages/i18n.ts',
-        locales: AVAILABLE_LOCALES,
+        locales: APP_CONFIG.AVAILABLE_LOCALES,
         defaultLocale: 'en',
         detectBrowserLanguage: {
           alwaysRedirect: true,
@@ -38,14 +53,14 @@ export default defineNuxtConfig({
   $development: {
     runtimeConfig: {
       public: {
-        apiBaseUrl: DEV_BASE_API_URL,
-        apiFilesUrl: `${DEV_BASE_API_URL}${BASE_API_FILES}`
+        apiBaseUrl: APP_CONFIG.DEV_BASE_API_URL,
+        apiFilesUrl: `${APP_CONFIG.DEV_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
       }
     },
     image: {
-      domains: [DEV_BASE_API_URL],
+      domains: [APP_CONFIG.DEV_BASE_API_URL],
       alias: {
-        baseApiFiles: `${DEV_BASE_API_URL}${BASE_API_FILES}`
+        baseApiFiles: `${APP_CONFIG.DEV_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
       }
     }
   },
@@ -53,21 +68,33 @@ export default defineNuxtConfig({
   $production: {
     runtimeConfig: {
       public: {
-        apiBaseUrl: PROD_BASE_API_URL,
-        apiFilesUrl: `${PROD_BASE_API_URL}${BASE_API_FILES}`
+        apiBaseUrl: APP_CONFIG.PROD_BASE_API_URL,
+        apiFilesUrl: `${APP_CONFIG.PROD_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
       }
     },
     image: {
-      domains: [PROD_BASE_API_URL],
+      domains: [APP_CONFIG.PROD_BASE_API_URL],
       alias: {
-        baseApiFiles: `${PROD_BASE_API_URL}${BASE_API_FILES}`
+        baseApiFiles: `${APP_CONFIG.PROD_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
       }
     }
   },
 
+  site: {
+    url: APP_CONFIG.DOMAIN
+  },
+
+  sitemap: {
+    exclude: [
+      '/admin/**',
+      '/cart/**'
+    ]
+  },
+
   runtimeConfig: {
     public: {
-      avaiableLocales: AVAILABLE_LOCALES
+      avaiableLocales: APP_CONFIG.AVAILABLE_LOCALES,
+      DOMAIN: APP_CONFIG.DOMAIN
     }
   },
 
@@ -90,23 +117,23 @@ export default defineNuxtConfig({
   },
 
   app: {
-    // pageTransition: { name: "page", mode: "out-in" },
     rootTag: 'div',
     head: {
       titleTemplate: '%s | Bartnikas',
       meta: [
-        { 'http-equiv': 'x-ua-compatible', content: 'true' },
+        { charset: 'utf-8' },
+        { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+        { name: 'description', content: '' },
         {
           name: 'viewport',
-          content:
-            'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
+          content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
         },
         { name: 'HandheldFriendly', content: 'true' },
-        {
-          hid: 'description',
-          name: 'description',
-          content: ''
-        }
+        { name: 'theme-color', content: '#fff' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site:name', content: 'StanislavBartnikas' },
+        { property: 'og:description', content: '' }
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
