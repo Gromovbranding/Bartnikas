@@ -39,9 +39,7 @@ function playVideo () {
       </div>
     </div>
     <div class="video-greeting__text">
-      <p>
-        {{ translate?.text }}
-      </p>
+      <p v-html="translate?.text" />
     </div>
   </section>
 </template>
