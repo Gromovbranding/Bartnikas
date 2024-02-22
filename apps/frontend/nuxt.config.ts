@@ -1,6 +1,6 @@
 const APP_CONFIG = {
   BASE_API_URL: process.env.BASE_API,
-  BASE_API_FILES: `${process.env.BASE_API}/files`,
+  BASE_API_FILES: process.env.BASE_API_FILES,
   AVAILABLE_LOCALES: [
     { code: 'en', label: 'English', icon: 'en' },
     { code: 'ru', label: 'Русский', icon: 'ru' },
@@ -81,6 +81,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/admin': { redirect: '/admin/projects' },
     '/cart': { redirect: '/', ssr: false },
     '/checkout': { redirect: '/', ssr: false },
     '/payment': { redirect: '/', ssr: false },
