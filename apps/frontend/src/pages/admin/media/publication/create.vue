@@ -38,12 +38,9 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const fileImage = await uploadImageRef.value!.uploadToServer()
+      form.image = await uploadImageRef.value!.uploadToServer() as PartialFileAdminApiDto
 
-      await methods.handleCreate({
-        ...toValue(form),
-        image: fileImage as PartialFileAdminApiDto
-      })
+      await methods.handleCreate(toValue(form))
 
       await refreshNuxtData()
 

@@ -3,9 +3,10 @@ import type {
   IProject,
   IProjectTranslate,
   IVideoCollection,
-  IVideoCollectionTranslate
+  IVideoCollectionTranslate,
+  PartialFileAdminApiDto
 } from '@/types/admin-api'
-import { AdminTemplateForm } from '#components'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
   layout: 'admin',
@@ -14,6 +15,7 @@ definePageMeta({
   }
 })
 
+const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 const route = useRoute()
 const id = Number(route.params.id)
@@ -57,6 +59,7 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
+      form.video = await uploadRef.value!.uploadToServer() as PartialFileAdminApiDto
       await methods.handlePatch(id, toValue(form))
 
       await refreshNuxtData()
@@ -87,7 +90,7 @@ const handleUpdate = async () => {
         </ElSelect>
       </ElFormItem>
 
-      <ElFormItem required label="Video" prop="video">
+      <ElFormItem ref="uploadRef" required label="Video" prop="video">
         <AdminUploadFile v-model="form.video" file-type="video" />
       </ElFormItem>
       <ElFormItem>

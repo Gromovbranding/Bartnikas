@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ITestimonial, PartialAdminApiDto } from '@/types/admin-api'
+import type { ITestimonial, PartialAdminApiDto, PartialFileAdminApiDto } from '@/types/admin-api'
 import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
@@ -32,19 +32,17 @@ const handleResetForm = () => {
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      let file = null
       let url = null
 
       if (form.file) {
-        file = await uploadRef.value!.uploadToServer()
+        form.file = await uploadRef.value!.uploadToServer() as PartialFileAdminApiDto
       } else {
         url = form.url
       }
 
       await methods.handleCreate({
         ...toValue(form),
-        url,
-        file
+        url
       })
 
       await refreshNuxtData()

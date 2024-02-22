@@ -36,14 +36,10 @@ const handleResetForm = () => formRef.value?.resetForm()
 const handleCreate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer()
-      const poster = await uploadPosterRef.value!.uploadToServer()
+      form.video = await uploadRef.value!.uploadToServer() as PartialFileAdminApiDto
+      form.poster = await uploadPosterRef.value!.uploadToServer() as PartialFileAdminApiDto
 
-      await methods.handleCreate({
-        ...toValue(form),
-        video: file as PartialFileAdminApiDto,
-        poster: poster as PartialFileAdminApiDto
-      })
+      await methods.handleCreate(toValue(form))
 
       await refreshNuxtData()
 

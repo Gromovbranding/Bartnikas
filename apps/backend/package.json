@@ -26,6 +26,7 @@
       "@nestjs/jwt": "^10.2.0",
       "@nestjs/mapped-types": "*",
       "@nestjs/platform-express": "^10.0.0",
+      "@nestjs/serve-static": "^4.0.1",
       "@nestjs/swagger": "^6.3.0",
       "@nestjs/typeorm": "^10.0.0",
       "bcrypt": "^5.1.0",
@@ -69,19 +70,19 @@
    },
    "jest": {
       "moduleFileExtensions": [
-        "js",
-        "json",
-        "ts"
+         "js",
+         "json",
+         "ts"
       ],
       "rootDir": "src",
       "testRegex": ".*\\.spec\\.ts$",
       "transform": {
-        "^.+\\.(t|j)s$": "ts-jest"
+         "^.+\\.(t|j)s$": "ts-jest"
       },
       "collectCoverageFrom": [
-        "**/*.(t|j)s"
+         "**/*.(t|j)s"
       ],
       "coverageDirectory": "./coverage",
       "testEnvironment": "node"
-    }
+   }
 }

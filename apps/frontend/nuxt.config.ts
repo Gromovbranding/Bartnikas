@@ -1,14 +1,13 @@
 const APP_CONFIG = {
-  DEV_BASE_API_URL: 'http://localhost:3000/api',
-  PROD_BASE_API_URL: 'https://stanislavbartnikas.com/api',
-  BASE_API_FILES: '/files',
+  BASE_API_URL: `${process.env.DOMAIN}/api`,
+  BASE_API_FILES: `${process.env.DOMAIN}/files`,
   AVAILABLE_LOCALES: [
     { code: 'en', label: 'English', icon: 'en' },
     { code: 'ru', label: 'Русский', icon: 'ru' },
     { code: 'fr', label: 'Français', icon: 'fr' },
     { code: 'de', label: 'Deutsche', icon: 'de' }
   ],
-  DOMAIN: 'https://stanislavbartnikas.com'
+  DOMAIN: process.env.DOMAIN
 }
 export default defineNuxtConfig({
   srcDir: 'src',
@@ -41,7 +40,6 @@ export default defineNuxtConfig({
         locales: APP_CONFIG.AVAILABLE_LOCALES,
         defaultLocale: 'en',
         detectBrowserLanguage: {
-          alwaysRedirect: true,
           fallbackLocale: 'en',
           cookieSecure: true,
           useCookie: true
@@ -49,36 +47,6 @@ export default defineNuxtConfig({
       }
     ]
   ],
-
-  $development: {
-    runtimeConfig: {
-      public: {
-        apiBaseUrl: APP_CONFIG.DEV_BASE_API_URL,
-        apiFilesUrl: `${APP_CONFIG.DEV_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
-      }
-    },
-    image: {
-      domains: [APP_CONFIG.DEV_BASE_API_URL],
-      alias: {
-        baseApiFiles: `${APP_CONFIG.DEV_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
-      }
-    }
-  },
-
-  $production: {
-    runtimeConfig: {
-      public: {
-        apiBaseUrl: APP_CONFIG.PROD_BASE_API_URL,
-        apiFilesUrl: `${APP_CONFIG.PROD_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
-      }
-    },
-    image: {
-      domains: [APP_CONFIG.PROD_BASE_API_URL],
-      alias: {
-        baseApiFiles: `${APP_CONFIG.PROD_BASE_API_URL}${APP_CONFIG.BASE_API_FILES}`
-      }
-    }
-  },
 
   site: {
     url: APP_CONFIG.DOMAIN
@@ -97,13 +65,19 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      apiBaseUrl: APP_CONFIG.BASE_API_URL,
+      apiFilesUrl: APP_CONFIG.BASE_API_FILES,
       avaiableLocales: APP_CONFIG.AVAILABLE_LOCALES,
       DOMAIN: APP_CONFIG.DOMAIN
     }
   },
 
   image: {
-    format: ['webp', 'avif', 'png', 'jpg', 'jpeg', 'svg']
+    format: ['webp', 'avif', 'png', 'jpg', 'jpeg', 'svg'],
+    domains: [APP_CONFIG.BASE_API_FILES],
+    alias: {
+      baseApiFiles: APP_CONFIG.BASE_API_FILES
+    }
   },
 
   routeRules: {

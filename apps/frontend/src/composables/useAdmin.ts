@@ -554,7 +554,7 @@ export const useAdmin = () => {
       navigateBack: ref('/admin/bio-testimonials'),
 
       formRules: ref<FormRules>({
-        ...createTranslaterFormRules(['name', 'job', 'testimonial']),
+        ...createTranslaterFormRules(['name', 'job', 'testimonial'])
       })
     }
   }

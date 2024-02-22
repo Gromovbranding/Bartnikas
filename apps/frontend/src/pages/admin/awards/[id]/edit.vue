@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { UploadUserFile } from 'element-plus'
 import { Delete } from '@element-plus/icons-vue'
-import type { IAwards, IAwardsTranslate } from '@/types/admin-api'
+import type { IAwards, IAwardsTranslate, PartialFileAdminApiDto } from '@/types/admin-api'
 import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 interface ImageDetails {
@@ -97,8 +97,7 @@ const handleUpdate = async () => {
   imagesToDegress(arr)
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadAvatarRef.value!.uploadToServer()
-      form.awards_avatar = file
+      form.awards_avatar = await uploadAvatarRef.value!.uploadToServer() as PartialFileAdminApiDto
       await methods.handlePatch(id, toValue(form))
 
       await refreshNuxtData()

@@ -92,12 +92,9 @@ const handleCreate = async () => {
   imagesToDegress(arr)
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadAvatarRef.value!.uploadToServer()
+      form.awards_avatar = await uploadAvatarRef.value!.uploadToServer() as PartialFileAdminApiDto
 
-      await methods.handleCreate({
-        ...toValue(form),
-        awards_avatar: file as PartialFileAdminApiDto
-      })
+      await methods.handleCreate(toValue(form))
 
       await refreshNuxtData()
 

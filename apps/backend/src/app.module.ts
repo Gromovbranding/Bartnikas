@@ -26,6 +26,8 @@ import { GeneralInfoModule } from './general-info/general-info.module';
 import { LanguageModule } from './shared/language/language.module';
 import migration from './config/migration';
 import emailSmpt from './config/email-smpt';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
@@ -42,6 +44,11 @@ if (!process.env.NODE_ENV) {
       isGlobal: true,
       envFilePath: '.env.local',
       load: [migration, emailSmpt],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../uploads/files'),
+      exclude: ['/api/(.*)'],
+      serveRoot: '/files',
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

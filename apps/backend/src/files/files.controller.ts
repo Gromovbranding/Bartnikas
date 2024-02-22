@@ -1,16 +1,14 @@
 import {
   Controller,
   Delete,
-  Get,
   Param,
   Post,
-  Res,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { Express, Response } from 'express';
+import { Express } from 'express';
 import { FilesService } from './files.service';
 import {
   ApiBearerAuth,
@@ -21,10 +19,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { storage } from './data/storage';
-import { Public } from '../auth/constants';
 import { CreateFileDbDto } from './dto/create-file-db.dto';
 import { DeleteAnyResponseDto } from '../shared/dto/delete-any-response.dto';
-import { join } from 'path';
 
 @ApiTags('Files')
 @Controller('files')
@@ -85,14 +81,14 @@ export class FilesController {
     return await this.filesService.createFiles(files);
   }
 
-  @ApiOkResponse({
-    type: Buffer,
-  })
-  @Public()
-  @Get(':filename')
-  async getFile(@Param('filename') filename: string, @Res() res: Response) {
-    res.sendFile(join(process.cwd(), `./uploads/files/${filename}`));
-  }
+  // @ApiOkResponse({
+  //   type: Buffer,
+  // })
+  // @Public()
+  // @Get(':filename')
+  // async getFile(@Param('filename') filename: string, @Res() res: Response) {
+  //   res.sendFile(join(process.cwd(), `./uploads/files/${filename}`));
+  // }
 
   @ApiOkResponse({
     type: DeleteAnyResponseDto,

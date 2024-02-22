@@ -33,12 +33,9 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const file = await uploadRef.value!.uploadToServer()
+      form.logo = await uploadRef.value!.uploadToServer() as PartialFileAdminApiDto
 
-      await methods.handlePatch(id, {
-        ...toValue(form),
-        logo: file as PartialFileAdminApiDto
-      })
+      await methods.handlePatch(id, toValue(form))
 
       await refreshNuxtData()
 

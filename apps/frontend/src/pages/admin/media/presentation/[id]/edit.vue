@@ -42,14 +42,10 @@ const handleDelete = async () => {
 const handleUpdate = async () => {
   if (await formRef.value?.validate()) {
     try {
-      const image = await uploadImageRef.value!.uploadToServer()
-      const pdf = await uploadPdfRef.value!.uploadToServer()
+      form.image = await uploadImageRef.value!.uploadToServer() as PartialFileAdminApiDto
+      form.pdf = await uploadPdfRef.value!.uploadToServer() as PartialFileAdminApiDto
 
-      await methods.handlePatch(id, {
-        ...toValue(form),
-        pdf: pdf as PartialFileAdminApiDto,
-        image: image as PartialFileAdminApiDto
-      })
+      await methods.handlePatch(id, toValue(form))
 
       await refreshNuxtData()
 
