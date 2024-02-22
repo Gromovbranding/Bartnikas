@@ -20,6 +20,7 @@ const {
   'greetings',
   'greeting-index'
 )
+const { currentIndexLocale } = useAdmin()
 </script>
 
 <template>
@@ -31,7 +32,7 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Text" prop="translate.0.text" />
+    <ElTableColumn label="Text" :prop="`translate.${currentIndexLocale}.text`" />
     <ElTableColumn label="Greeting is active" prop="is_active" />
   </AdminTemplateCardIndexPage>
 </template>

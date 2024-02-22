@@ -20,6 +20,7 @@ const {
   'footer-card-index',
   'index-card-footer'
 )
+const { currentIndexLocale } = useAdmin()
 </script>
 
 <template>
@@ -31,8 +32,8 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Title" prop="translate.0.title" />
+    <ElTableColumn label="Title" :prop="`translate.${currentIndexLocale}.title`" />
     <ElTableColumn label="Is active" prop="active" />
-    <ElTableColumn label="Text" prop="translate.0.text" />
+    <ElTableColumn label="Text" :prop="`translate.${currentIndexLocale}.text`" />
   </AdminTemplateCardIndexPage>
 </template>

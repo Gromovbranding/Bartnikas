@@ -17,6 +17,8 @@ const {
   handleDelete,
   data: { entities, pending }
 } = useAdmin().makeFetchersForIndexCard<IAwards>(headTitle.value)
+
+const { currentIndexLocale } = useAdmin()
 </script>
 
 <template>
@@ -28,7 +30,7 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Title" prop="translate.0.title" />
-    <ElTableColumn label="Description" prop="translate.0.description" />
+    <ElTableColumn label="Title" :prop="`translate.${currentIndexLocale}.title`" />
+    <ElTableColumn label="Description" :prop="`translate.${currentIndexLocale}.description`" />
   </AdminTemplateCardIndexPage>
 </template>

@@ -20,6 +20,7 @@ const {
   headTitle.value,
   'video-collection'
 )
+const { currentIndexLocale } = useAdmin()
 </script>
 
 <template>
@@ -31,7 +32,7 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Title" prop="translate.0.title" />
-    <ElTableColumn label="Project" prop="project.title" />
+    <ElTableColumn label="Title" :prop="`translate.${currentIndexLocale}.title`" />
+    <ElTableColumn label="Project" :prop="`project.translate.${currentIndexLocale}.title`" />
   </AdminTemplateCardIndexPage>
 </template>

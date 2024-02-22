@@ -20,8 +20,8 @@ const {
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Program" prop="translate.0.program" />
-    <ElTableColumn label="Subtitle" prop="translate.0.subtitle" />
+    <ElTableColumn label="Program" prop="translate.${currentIndexLocale}.program" />
+    <ElTableColumn label="Subtitle" prop="translate.${currentIndexLocale}.subtitle" />
     <ElTableColumn label="URL" prop="url" />
     <ElTableColumn label="Date" prop="date">
       <template #default="{ row }">
