@@ -36,6 +36,7 @@ export class MediaPublication {
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     cascade: true,
     eager: true,
   })

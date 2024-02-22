@@ -23,6 +23,7 @@ export class Awards {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   awards_avatar: File;

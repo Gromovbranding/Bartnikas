@@ -105,7 +105,7 @@ const handleUpdate = async () => {
         uid?: number;
       }[] = []
 
-      for await (const file of imageFiles.value) {
+      imageFiles.value = await Promise.all(toValue(imageFiles.value).map(async (file) => {
         const uploadedFile = await uploadProjectImagesRef.value!.uploadToServer(
           file
         )
@@ -113,7 +113,12 @@ const handleUpdate = async () => {
           file: uploadedFile,
           uid: file.uid
         })
-      }
+        return {
+          ...file,
+          edit: true,
+          ...uploadedFile
+        }
+      }))
 
       projectImages.value = projectImages.value.map((item) => {
         const uploadedFile = arr.find(

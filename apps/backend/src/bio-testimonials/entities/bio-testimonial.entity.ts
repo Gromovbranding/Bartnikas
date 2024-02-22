@@ -29,6 +29,7 @@ export class BioTestimonial {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   photo: File;

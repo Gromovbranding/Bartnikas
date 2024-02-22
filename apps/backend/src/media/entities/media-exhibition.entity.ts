@@ -29,6 +29,7 @@ export class MediaExhibition {
     onDelete: 'CASCADE',
     cascade: true,
     eager: true,
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   image: File;

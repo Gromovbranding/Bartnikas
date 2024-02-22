@@ -30,6 +30,7 @@ export class ProjectCollab {
   @OneToOne(() => File, {
     cascade: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     eager: true,
   })
   @JoinColumn()

@@ -44,6 +44,7 @@ export class ProjectPressRelease {
   @OneToOne(() => File, {
     cascade: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     eager: true,
   })
   @JoinColumn()

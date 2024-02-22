@@ -31,6 +31,7 @@ export class VideoCollection {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   video: File;

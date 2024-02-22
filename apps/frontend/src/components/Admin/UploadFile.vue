@@ -93,13 +93,15 @@ defineExpose({
       if (file.edit) {
         return {
           uid: file.uid,
-          name: file.image?.name || file.name
+          name: file.image?.name || file.name,
+          edit: true
         }
       }
       const res = await fetchPost<PartialFileAdminApiDto>('files', formData)
       return {
         uid: file.uid,
-        name: res.name
+        name: res.name,
+        edit: true
       }
     }
 

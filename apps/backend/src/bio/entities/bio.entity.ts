@@ -34,6 +34,7 @@ export class Bio {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   awatar: File;

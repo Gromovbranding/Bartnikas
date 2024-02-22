@@ -29,6 +29,7 @@ export class Blog {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   image: File;

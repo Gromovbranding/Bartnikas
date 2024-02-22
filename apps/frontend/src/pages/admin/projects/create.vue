@@ -40,8 +40,8 @@ const uploadPressReleaseRefs = ref<
 
 const form = reactive<PartialAdminApiDto<IProject>>({
   translate: initTranslateLocale<IProjectTranslate>({
-    description: 'asd',
-    title: 'asd'
+    description: '',
+    title: ''
   }),
   is_show_index_footer_card: false,
   collab: {
@@ -105,7 +105,7 @@ const handleCreate = async () => {
         uid?: number;
       }[] = []
 
-      for await (const file of imageFiles.value) {
+      imageFiles.value = await Promise.all(toValue(imageFiles.value).map(async (file) => {
         const uploadedFile = await uploadProjectImagesRef.value!.uploadToServer(
           file
         )
@@ -113,7 +113,11 @@ const handleCreate = async () => {
           file: uploadedFile,
           uid: file.uid
         })
-      }
+        return {
+          ...file,
+          ...uploadedFile
+        }
+      }))
 
       projectImages.value = projectImages.value.map((item) => {
         const uploadedFile = arr.find(

@@ -20,6 +20,7 @@ export class MediaCV {
     onDelete: 'CASCADE',
     cascade: true,
     eager: true,
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   image: File;
@@ -29,6 +30,7 @@ export class MediaCV {
     onDelete: 'CASCADE',
     cascade: true,
     eager: true,
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   pdf: File;

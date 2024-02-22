@@ -43,6 +43,7 @@ export class FooterContact {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   logo: File;

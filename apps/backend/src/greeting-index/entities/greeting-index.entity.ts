@@ -35,6 +35,7 @@ export class GreetingIndex {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   video: File;
@@ -44,6 +45,7 @@ export class GreetingIndex {
     cascade: true,
     eager: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   poster: File;
