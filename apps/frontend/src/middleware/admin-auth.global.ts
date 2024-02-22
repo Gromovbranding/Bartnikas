@@ -13,8 +13,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
           return await navigateTo('/admin/login')
         }
       }
+    } else {
+      return false
     }
-    return false
   }
 
   return true
