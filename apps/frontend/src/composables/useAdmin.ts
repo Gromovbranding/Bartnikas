@@ -624,7 +624,8 @@ export const useAdmin = () => {
 
   const makeFetchersForIndexCard = <T>(
     pathFrontend: string,
-    pathServer?: string
+    pathServer?: string,
+    pathGet?: string
   ) => {
     pathFrontend = pathFrontend.toLowerCase()
 
@@ -641,7 +642,7 @@ export const useAdmin = () => {
       ...data
     } = useAsyncData<T[]>(
       `entity-${pathFrontend}`,
-      async () => await fetchGet<T[]>(`/${pathServer}`)
+      async () => await fetchGet<T[]>(`/${pathGet ?? pathServer}`)
     )
 
     const handleCreate = async () => {

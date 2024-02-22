@@ -30,6 +30,7 @@ export class VideoCollection {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   video: File;

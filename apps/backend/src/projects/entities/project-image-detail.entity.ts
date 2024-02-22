@@ -25,6 +25,7 @@ export class ProjectImageDetail {
   @ManyToMany(() => ProjectImageSizes, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinTable()
   sizes: ProjectImageSizes[];
@@ -53,6 +54,7 @@ export class ProjectImageDetail {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   image: File;

@@ -62,12 +62,25 @@ export class ProjectsService {
     });
   }
 
+  async findAllNonOrderProjects() {
+    return await this.projectRepository.find({
+      relations: {
+        collab: true,
+        details: true,
+      },
+    });
+  }
+
   async findAllProjects() {
     return await this.projectRepository.find({
       order: {
         details: {
           order: 'ASC',
         },
+      },
+      relations: {
+        collab: true,
+        details: true,
       },
     });
   }
@@ -93,6 +106,10 @@ export class ProjectsService {
         details: {
           order: 'ASC',
         },
+      },
+      relations: {
+        collab: true,
+        details: true,
       },
     });
   }

@@ -56,7 +56,7 @@ const form = reactive<IProject>({
   ...model,
   collab: {
     translate: initTranslateLocale<IProjectCollabTranslate>(
-      model.collab?.translate ?? { collab_with: 'asd', description: 'asd', title: 'asd' }
+      model.collab?.translate ?? { collab_with: '', description: '', title: '' }
     ),
     ...(model.collab ?? {})
   },

@@ -29,6 +29,7 @@ export class ProjectCollab {
   @ApiProperty({ type: () => File })
   @OneToOne(() => File, {
     cascade: true,
+    onDelete: 'CASCADE',
     eager: true,
   })
   @JoinColumn()

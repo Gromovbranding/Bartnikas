@@ -17,6 +17,7 @@ export class MediaKit {
 
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
+    onDelete: 'CASCADE',
     cascade: true,
     eager: true,
   })
@@ -25,6 +26,7 @@ export class MediaKit {
 
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
+    onDelete: 'CASCADE',
     cascade: true,
     eager: true,
   })

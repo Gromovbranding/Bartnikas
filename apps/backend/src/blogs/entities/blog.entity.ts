@@ -28,6 +28,7 @@ export class Blog {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   image: File;

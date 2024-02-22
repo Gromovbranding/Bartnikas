@@ -40,8 +40,8 @@ const uploadPressReleaseRefs = ref<
 
 const form = reactive<PartialAdminApiDto<IProject>>({
   translate: initTranslateLocale<IProjectTranslate>({
-    description: '',
-    title: ''
+    description: 'asd',
+    title: 'asd'
   }),
   is_show_index_footer_card: false,
   collab: {
@@ -132,6 +132,8 @@ const handleCreate = async () => {
         return item
       })
 
+      form.details = toValue(projectImages.value)
+
       await methods.handleCreate({
         ...toValue(form),
         collab: !isCollab.value
@@ -172,15 +174,6 @@ const handleProjectDetailDelete = (
 
   imageFiles.value = imageFiles.value.filter(s => s.uid !== item?.uid)
 }
-
-onMounted(() => {
-  projectImages.value = form.details
-    .toSorted((a, b) => a.order - b.order)
-    .map(item => ({
-      ...item,
-      uid: item.id
-    }))
-})
 
 watch(
   () => imageFiles.value,

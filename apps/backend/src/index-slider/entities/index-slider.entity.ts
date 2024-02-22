@@ -28,6 +28,7 @@ export class IndexSlider {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   image: File;

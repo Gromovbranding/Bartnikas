@@ -22,6 +22,7 @@ export class Awards {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   awards_avatar: File;

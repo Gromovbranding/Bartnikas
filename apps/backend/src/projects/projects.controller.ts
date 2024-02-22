@@ -45,6 +45,15 @@ export class ProjectsController {
   }
 
   @ApiOkResponse({
+    type: [Project],
+  })
+  @Public()
+  @Get('/non-order')
+  findAllNonOrder() {
+    return this.projectsService.findAllNonOrderProjects();
+  }
+
+  @ApiOkResponse({
     type: Project,
   })
   @Public()

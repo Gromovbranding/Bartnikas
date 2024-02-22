@@ -26,6 +26,7 @@ export class MediaExhibition {
 
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
+    onDelete: 'CASCADE',
     cascade: true,
     eager: true,
   })

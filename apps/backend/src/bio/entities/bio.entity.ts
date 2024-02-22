@@ -33,6 +33,7 @@ export class Bio {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   awatar: File;

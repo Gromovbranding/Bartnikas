@@ -28,6 +28,7 @@ export class BioTestimonial {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   photo: File;

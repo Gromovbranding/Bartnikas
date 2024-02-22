@@ -34,6 +34,7 @@ export class GreetingIndex {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   video: File;
@@ -42,6 +43,7 @@ export class GreetingIndex {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   poster: File;

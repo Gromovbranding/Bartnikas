@@ -30,6 +30,7 @@ export class MediaPresentation {
 
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
+    onDelete: 'CASCADE',
     cascade: true,
     eager: true,
   })
@@ -39,6 +40,7 @@ export class MediaPresentation {
   @ApiProperty({ type: File })
   @OneToOne(() => File, {
     cascade: true,
+    onDelete: 'CASCADE',
     eager: true,
   })
   @JoinColumn()

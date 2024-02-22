@@ -43,6 +43,7 @@ export class ProjectPressRelease {
   @ApiProperty({ type: () => File })
   @OneToOne(() => File, {
     cascade: true,
+    onDelete: 'CASCADE',
     eager: true,
   })
   @JoinColumn()

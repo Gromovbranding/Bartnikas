@@ -16,7 +16,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard<IProject>(headTitle.value)
+} = useAdmin().makeFetchersForIndexCard<IProject>('projects', 'projects', 'projects/non-order')
 const { currentIndexLocale } = useAdmin()
 </script>
 

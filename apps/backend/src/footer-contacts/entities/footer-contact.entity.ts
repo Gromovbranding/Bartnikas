@@ -42,6 +42,7 @@ export class FooterContact {
   @OneToOne(() => File, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   logo: File;

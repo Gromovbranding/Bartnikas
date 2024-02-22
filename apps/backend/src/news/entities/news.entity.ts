@@ -31,6 +31,7 @@ export class News {
 
   @ApiProperty({ type: () => File })
   @OneToOne(() => File, {
+    onDelete: 'CASCADE',
     cascade: true,
     eager: true,
   })
