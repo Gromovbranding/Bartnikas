@@ -1,6 +1,6 @@
 const APP_CONFIG = {
-  BASE_API_URL: `${process.env.DOMAIN}/api`,
-  BASE_API_FILES: `${process.env.DOMAIN}/files`,
+  BASE_API_URL: process.env.BASE_API,
+  BASE_API_FILES: `${process.env.BASE_API}/files`,
   AVAILABLE_LOCALES: [
     { code: 'en', label: 'English', icon: 'en' },
     { code: 'ru', label: 'Русский', icon: 'ru' },
