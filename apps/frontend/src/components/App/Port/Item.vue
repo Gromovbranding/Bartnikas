@@ -14,16 +14,12 @@ const props = withDefaults(defineProps<Props>(), {
   direction: 'row'
 })
 
-const translate = computed(() => {
-  return {
-    collab: useTranslateLanguage<IProjectCollabTranslate>(
-      props.project.collab?.translate
-    ).value,
-    bio: useTranslateLanguage<IProjectTranslate>(props.project.translate).value
-  }
+const translate = reactive({
+  collab: useTranslateLanguage<IProjectCollabTranslate>(
+    props.project.collab?.translate
+  ),
+  bio: useTranslateLanguage<IProjectTranslate>(props.project.translate)
 })
-
-const translateBio = useTranslateLanguage<IProjectTranslate>(props.project.translate)
 
 const portImages = computed(() => {
   const portImage = props.project.details.filter(item => item.is_show_poster)
@@ -79,7 +75,7 @@ const portImages = computed(() => {
           <h2 v-else>
             {{ project.group }}
           </h2>
-          <div class="port__text__desc" v-html="translateBio?.description" />
+          <div class="port__text__desc" v-html="translate.bio?.description" />
         </NuxtLinkLocale>
       </div>
     </div>
