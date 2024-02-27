@@ -39,11 +39,7 @@ export default defineNuxtConfig({
         vueI18n: './src/packages/i18n.ts',
         locales: APP_CONFIG.AVAILABLE_LOCALES,
         defaultLocale: 'en',
-        detectBrowserLanguage: {
-          fallbackLocale: 'en',
-          cookieSecure: true,
-          useCookie: true
-        }
+        detectBrowserLanguage: false
       }
     ]
   ],

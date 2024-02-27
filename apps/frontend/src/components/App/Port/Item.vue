@@ -23,6 +23,8 @@ const translate = computed(() => {
   }
 })
 
+console.log(translate.value, props.project)
+
 const portImages = computed(() => {
   const portImage = props.project.details.filter(item => item.is_show_poster)
 
