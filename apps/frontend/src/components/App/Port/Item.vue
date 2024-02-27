@@ -23,8 +23,6 @@ const translate = computed(() => {
   }
 })
 
-console.log(translate.value, props.project)
-
 const portImages = computed(() => {
   const portImage = props.project.details.filter(item => item.is_show_poster)
 
@@ -80,7 +78,7 @@ const portImages = computed(() => {
             {{ project.group }}
           </h2>
           <div class="port__text__desc">
-            <p v-html="translate?.bio?.description" />
+            {{ translate?.bio?.description }}
           </div>
         </NuxtLinkLocale>
       </div>
