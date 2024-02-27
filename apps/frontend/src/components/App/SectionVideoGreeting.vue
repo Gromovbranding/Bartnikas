@@ -38,9 +38,7 @@ function playVideo () {
         <IconPlay />
       </div>
     </div>
-    <div class="video-greeting__text">
-      <p v-html="translate?.text" />
-    </div>
+    <div class="video-greeting__text" v-html="translate?.text" />
   </section>
 </template>
 
@@ -120,16 +118,6 @@ function playVideo () {
     height: fit-content;
     &__video {
       width: 100%;
-      video,
-      picture,
-      img,
-      iframe {
-      }
-    }
-
-    &__play {
-      &:hover {
-      }
     }
 
     &__text {

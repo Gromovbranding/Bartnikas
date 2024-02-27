@@ -125,19 +125,6 @@ const translate = useTranslateLanguage<IAwardsTranslate>(
           font-size: 14px;
         }
       }
-
-      &:hover {
-        > img,
-        picture {
-        }
-
-        > div {
-        }
-      }
-
-      > img,
-      picture {
-      }
     }
   }
 }
