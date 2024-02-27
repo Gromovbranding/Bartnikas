@@ -49,6 +49,7 @@ services:
     build: ./apps/nginx
     depends_on:
       - backend
+      - frontend
     ports:
       - 80:80
       - 443:443
