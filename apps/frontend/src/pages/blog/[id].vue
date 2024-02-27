@@ -11,26 +11,24 @@ const { data: blog } = await useAsyncData(
   async () => await getBlogById(route.params.id as string)
 )
 
-const translated = computed(() => ({
-  bio: useTranslateLanguage<IBlogTranslate>(blog.value!.translate).value,
+const translated = reactive({
+  bio: useTranslateLanguage<IBlogTranslate>(blog.value!.translate),
   prev: {
     ...blog.value!.prev,
     translate: useTranslateLanguage<IBlogTranslate>(blog.value!.prev?.translate)
-      .value
   },
   next: {
     ...blog.value!.next,
     translate: useTranslateLanguage<IBlogTranslate>(blog.value!.next?.translate)
-      .value
   }
-}))
+})
 
 useHeadSafe({
-  title: `${t('titles.article')} ${translated.value.bio?.title}`,
+  title: `${t('titles.article')} ${translated.bio?.title}`,
   meta: [
     {
       name: 'description',
-      content: translated.value.bio?.description ?? 'My Blog'
+      content: translated.bio?.description ?? 'My Blog'
     }
 
   ]

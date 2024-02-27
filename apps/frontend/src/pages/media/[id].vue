@@ -12,28 +12,28 @@ const { data: article } = await useAsyncData(
   async () => await getArticleById(route.params.id as string)
 )
 
-const translated = computed(() => ({
-  bio: useTranslateLanguage<IArticleTranslate>(article.value!.translate).value,
+const translated = reactive({
+  bio: useTranslateLanguage<IArticleTranslate>(article.value!.translate),
   prev: {
     ...article.value!.prev,
     translate: useTranslateLanguage<IArticleTranslate>(
       article.value!.prev?.translate
-    ).value
+    )
   },
   next: {
     ...article.value!.next,
     translate: useTranslateLanguage<IArticleTranslate>(
       article.value!.next?.translate
-    ).value
+    )
   }
-}))
+})
 
 useHeadSafe({
-  title: `${t('titles.article')} ${translated.value.bio?.title}`,
+  title: `${t('titles.article')} ${translated.bio?.title}`,
   meta: [
     {
       name: 'description',
-      content: translated.value.bio?.description ?? 'My Desc'
+      content: translated.bio?.description ?? 'My Desc'
     }
 
   ]
