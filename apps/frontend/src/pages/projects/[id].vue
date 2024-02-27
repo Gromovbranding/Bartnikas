@@ -217,6 +217,7 @@ const changeDetailOrder = (
                   <NuxtImg
                     loading="lazy"
                     :src="`/baseApiFiles/${activeOrderDetail.image.name}`"
+                    class="zoom__modal-nuxtimg"
                   />
                 </div>
                 <div class="zoom__modal-bottom">
@@ -514,7 +515,6 @@ const changeDetailOrder = (
 
     &-content {
       flex: 9;
-      width: 100%;
       overflow: hidden;
       border-radius: $borderRadiusMain;
 
@@ -524,6 +524,10 @@ const changeDetailOrder = (
         height: 100%;
         border-radius: 0;
       }
+    }
+    &-nuxtimg{
+      width: 100%;
+      height: auto;
     }
   }
 }

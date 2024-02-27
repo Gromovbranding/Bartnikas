@@ -146,7 +146,7 @@ const handleBack = () => {
   }
 
   &__caption {
-    font-size: 12.5rem;
+    font-size: 9rem;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;

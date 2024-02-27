@@ -38,7 +38,7 @@ export default defineI18nConfig(() => ({
       contacts: {
         locationLive: 'Stas Bartnikas resides in Moscow, Russia',
         pressInquiry: 'Press inquiry',
-        gallery: 'Gallery representation',
+        gallery: 'Gallery',
         formDescript: `For corporate or personal purchase of prints please contact us through
                 the form`,
         yourName: 'Your Name',
@@ -160,7 +160,7 @@ export default defineI18nConfig(() => ({
       contacts: {
         locationLive: 'Стас Бартникас проживает в Москве, Россия.',
         pressInquiry: 'Пресс-запрос',
-        gallery: 'Представительство в галерее',
+        gallery: 'Галерея',
         formDescript: 'Для корпоративной или личной покупки принтов, пожалуйста, свяжитесь с нами через форму',
         yourName: 'Ваше имя',
         yourEmail: 'Ваша электронная почта',
@@ -277,7 +277,7 @@ export default defineI18nConfig(() => ({
       contacts: {
         locationLive: 'Stanislav Bartnikas réside à Moscou, Russie.',
         pressInquiry: 'Demande de presse',
-        gallery: 'Représentation en galerie',
+        gallery: 'galérie',
         formDescript: 'Pour l\'achat corporatif ou personnel de tirages, veuillez nous contacter via le formulaire',
         yourName: 'Votre nom',
         yourEmail: 'Votre adresse e-mail',
@@ -393,7 +393,7 @@ export default defineI18nConfig(() => ({
       contacts: {
         locationLive: 'Stanislaw Bartnikas lebt in Moskau, Russland.',
         pressInquiry: 'Presseanfrage',
-        gallery: 'Vertretung in der Galerie',
+        gallery: 'Galerie',
         formDescript: 'Für den Firmen- oder persönlichen Kauf von Drucken kontaktieren Sie uns bitte über das Formular',
         yourName: 'Ihr Name',
         yourEmail: 'Ihre E-Mail-Adresse',
