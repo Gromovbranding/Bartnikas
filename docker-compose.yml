@@ -37,7 +37,6 @@ services:
       - nginx-net
     depends_on:
       - backend
-      - nginx
     ports:
       - '5173:5173'
 
