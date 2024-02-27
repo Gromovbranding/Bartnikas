@@ -7,15 +7,13 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const translated = computed(() => {
-  return props.list?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<ITermsStaticTranslate>(item.translate)
-        .value
-    }
-  })
-})
+const translated = reactive((props.list ?? []).map((item) => {
+  return {
+    ...item,
+    translate: useTranslateLanguage<ITermsStaticTranslate>(item.translate)
+  }
+}))
+
 </script>
 <template>
   <section class="terms">

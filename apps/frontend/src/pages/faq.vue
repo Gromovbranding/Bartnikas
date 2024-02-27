@@ -9,14 +9,12 @@ const { data: faqs } = await useAsyncData<IFaq[]>(
   async () => await getAllFaq()
 )
 
-const translated = computed(() => {
-  return faqs?.value?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IFaqTranslate>(item.translate).value
-    }
-  })
-})
+const translated = reactive((faqs.value ?? []).map((item) => {
+  return {
+    ...item,
+    translate: useTranslateLanguage<IFaqTranslate>(item.translate)
+  }
+}))
 
 useHeadSafe({
   title: t('titles.faq'),
