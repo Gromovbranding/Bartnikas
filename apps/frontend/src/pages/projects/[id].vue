@@ -48,14 +48,12 @@ const moreProjects = computed(
   () => projects.value?.filter(item => item.id !== +route.params.id) || []
 )
 
-const translatedMoreProjects = computed(() => {
-  return moreProjects?.value?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value
-    }
-  })
-})
+const translatedMoreProjects = reactive((moreProjects.value ?? []).map((item) => {
+  return {
+    ...item,
+    translate: reactive(useTranslateLanguage<IProjectTranslate>(item.translate))
+  }
+}))
 
 const onScroll = () => {
   if (!wrapper.value || !sticky.value) { return }

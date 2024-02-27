@@ -10,16 +10,14 @@ const { data: presentation } = await useAsyncData<IMediaPresentation[]>(
   'presentation',
   async () => await fetchGet('/media/presentation')
 )
-const translated = computed(() => {
-  return presentation?.value?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IMediaPresentationTranslate>(
-        item.translate
-      ).value
-    }
-  })
-})
+const translated = reactive((presentation.value ?? []).map((item) => {
+  return {
+    ...item,
+    translate: reactive(useTranslateLanguage<IMediaPresentationTranslate>(
+      item.translate
+    ))
+  }
+}))
 </script>
 
 <template>

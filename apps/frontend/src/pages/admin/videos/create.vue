@@ -30,14 +30,12 @@ const { data: projects } = await useAsyncData<IProject[]>(
   async () => await fetchGet('/projects')
 )
 
-const translated = computed(() => {
-  return projects?.value?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IProjectTranslate>(item.translate).value
-    }
-  })
-})
+const translated = reactive((projects.value ?? []).map((item) => {
+  return {
+    ...item,
+    translate: reactive(useTranslateLanguage<IProjectTranslate>(item.translate))
+  }
+}))
 
 const form = reactive<PartialAdminApiDto<IVideoCollection>>({
   translate: initTranslateLocale<IVideoCollectionTranslate>({

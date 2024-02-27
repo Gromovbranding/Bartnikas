@@ -12,7 +12,7 @@ const { data: faqs } = await useAsyncData<IFaq[]>(
 const translated = reactive((faqs.value ?? []).map((item) => {
   return {
     ...item,
-    translate: useTranslateLanguage<IFaqTranslate>(item.translate)
+    translate: reactive(useTranslateLanguage<IFaqTranslate>(item.translate))
   }
 }))
 

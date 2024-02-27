@@ -10,14 +10,12 @@ const { data: awards } = await useAsyncData<IAwards[]>(
   async () => await getAllAwards()
 )
 
-const translated = computed(() => {
-  return awards?.value?.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IAwardsTranslate>(item.translate).value
-    }
-  })
-})
+const translated = reactive((awards.value ?? []).map((item) => {
+  return {
+    ...item,
+    translate: reactive(useTranslateLanguage<IAwardsTranslate>(item.translate))
+  }
+}))
 
 useHeadSafe({
   title: t('titles.awards'),

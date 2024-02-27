@@ -13,17 +13,14 @@ const translate = useTranslateLanguage<IProjectCollabTranslate>(
   props.collab.translate!
 )
 
-const translated = computed(() => {
-  return props?.collab.press_release.map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IProjectPressReleaseTranslate>(
-        item.translate
-      ).value
-    }
-  })
-})
-
+const translated = reactive((props.collab.press_release ?? []).map((item) => {
+  return {
+    ...item,
+    translate: reactive(useTranslateLanguage<IProjectPressReleaseTranslate>(
+      item.translate
+    ))
+  }
+}))
 const video = ref<HTMLVideoElement>()
 const activeVideo = ref(false)
 
