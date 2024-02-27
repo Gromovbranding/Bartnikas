@@ -78,9 +78,7 @@ const activeCardTranslate = useTranslateLanguage<IProjectTranslate>(
       </div>
       <div>
         <h3>{{ activeCardTranslate?.title }}</h3>
-        <p>
-          {{ activeCardTranslate?.description }}
-        </p>
+        <p v-html="activeCardTranslate?.description" />
         <UIButton :to="`/projects/${activeIndexCard.id}`">
           {{ $t("buttons.viewProject") }}
         </UIButton>

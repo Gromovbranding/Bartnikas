@@ -36,12 +36,13 @@ withDefaults(defineProps<Props>(), {
   margin-bottom: 80px;
 
   h2 {
-    word-break: break-all;
-    font-size: 12.5rem;
+    font-size: 9rem;
     display: flex;
     text-transform: uppercase;
     font-weight: bold;
     line-height: 1em;
+    overflow-wrap: break-word;
+    word-break: break-all;
 
     span {
       font-size: 40px;
