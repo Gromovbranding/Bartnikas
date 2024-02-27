@@ -37,7 +37,6 @@ services:
       - nginx-net
     depends_on:
       - backend
-      - nginx
     ports:
       - '5173:5173'
 
@@ -49,6 +48,7 @@ services:
     build: ./apps/nginx
     depends_on:
       - backend
+      - frontend
     ports:
       - 80:80
       - 443:443

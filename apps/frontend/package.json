@@ -10,7 +10,7 @@
     "typecheck": "nuxt typecheck",
     "clean": "nuxt cleanup",
     "start:dev": "nuxt dev",
-    "start:prod": "PORT=5173 node .output/server/index.mjs",
+    "start:prod": "PORT=5173 HOST=127.0.0.1 node .output/server/index.mjs",
     "lint:fix": "eslint --ext .jsx,.vue,.js,.ts,.js ./src --fix",
     "lint:check": "eslint .",
     "generate": "nuxt generate",
