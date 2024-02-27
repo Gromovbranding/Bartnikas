@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 import type { ITermsStatic, ITermsStaticTranslate } from '@/types/admin-api'
 
-interface Props {
+const props = defineProps<{
   list: ITermsStatic[] | null;
-}
-
-const props = defineProps<Props>()
+}>()
 
 const translated = reactive((props.list ?? []).map((item) => {
   return {
     ...item,
-    translate: useTranslateLanguage<ITermsStaticTranslate>(item.translate)
+    translate: reactive(useTranslateLanguage<ITermsStaticTranslate>(item.translate))
   }
 }))
 
@@ -24,9 +22,7 @@ const translated = reactive((props.list ?? []).map((item) => {
             {{ item.translate?.title }}
           </h3>
         </div>
-        <div>
-          <p v-html="item.translate?.description" />
-        </div>
+        <div v-html="item.translate?.description" />
       </div>
     </div>
   </section>
@@ -80,8 +76,6 @@ const translated = reactive((props.list ?? []).map((item) => {
       grid-template-columns: 1fr;
       padding: 40px 25px 70px;
       gap: 25px;
-      &:nth-child(even) {
-      }
 
       > div {
         &:first-child {
