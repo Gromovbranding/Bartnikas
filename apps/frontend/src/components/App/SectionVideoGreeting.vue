@@ -86,13 +86,11 @@ function playVideo () {
     align-items: center;
     width: 50%;
 
-    p {
-      color: $colorTextDark;
-      font-size: 1.5rem;
-      line-height: 1.55;
-      word-break: normal;
-      font-weight: 400;
-    }
+    color: $colorTextDark;
+    font-size: 1.5rem;
+    line-height: 1.55;
+    word-break: normal;
+    font-weight: 400;
   }
 }
 
