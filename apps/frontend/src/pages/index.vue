@@ -114,7 +114,7 @@ const activeCardTranslate = reactive(
       position: absolute;
       bottom: 10rem;
       padding: 5rem 2.5rem;
-      max-width: 800px;
+      max-width: 650px;
       left: 2rem;
       border-radius: $borderRadiusMain;
       background-color: $colorBackgroundGrey;
@@ -191,12 +191,6 @@ const activeCardTranslate = reactive(
     height: 2000px;
 
     > div {
-      &:first-child {
-        img,
-        picture {
-        }
-      }
-
       &:last-child {
         padding: 60px 16px;
         left: 16px;

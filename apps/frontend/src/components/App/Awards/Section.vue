@@ -41,7 +41,7 @@ const list = computed(() => (awards.value ?? []).slice(0, 12))
 
     > div {
       &:nth-child(odd) {
-        margin-top: 3rem;
+        margin-top: 4.5rem;
       }
     }
   }
