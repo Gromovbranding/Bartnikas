@@ -228,14 +228,14 @@ const portImages = computed(() => {
       > a > div {
         &:first-child {
           margin-bottom: 20px;
-          p {
+          :deep(p) {
             font-size: 28px;
           }
         }
 
         &:last-child {
           margin-top: 40px;
-          p {
+          :deep(p) {
             word-break: break-word;
             font-size: 22px;
           }

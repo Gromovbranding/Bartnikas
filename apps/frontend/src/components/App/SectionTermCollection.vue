@@ -46,7 +46,7 @@ const translated = reactive((props.list ?? []).map((item) => {
     > div {
       &:first-child {
         flex: 0 0 55%;
-        h3 {
+        :deeo(h3) {
           word-wrap: break-word;
           word-break: break-word;
           font-size: 5.3rem;
@@ -59,7 +59,7 @@ const translated = reactive((props.list ?? []).map((item) => {
       &:last-child {
         flex: 0 0 45%;
 
-        p {
+        :deeo(p) {
           font-size: 1.5rem;
           line-height: 1.4;
           font-weight: 500;
@@ -79,14 +79,14 @@ const translated = reactive((props.list ?? []).map((item) => {
 
       > div {
         &:first-child {
-          h3 {
+          :deep(h3) {
             font-size: 13vw;
             line-height: 1.3;
           }
         }
 
         &:last-child {
-          p {
+          :deep(p){
             font-size: 6vw;
             max-width: 100%;
             line-height: 1.5;
