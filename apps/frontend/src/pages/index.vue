@@ -80,7 +80,7 @@ const activeCardTranslate = reactive(
       </div>
       <div>
         <h3>{{ activeCardTranslate?.title }}</h3>
-        <p v-html="activeCardTranslate?.description" />
+        <div v-html="activeCardTranslate?.description" />
         <UIButton :to="`/projects/${activeIndexCard.id}`">
           {{ $t("buttons.viewProject") }}
         </UIButton>
@@ -125,7 +125,7 @@ const activeCardTranslate = reactive(
         font-weight: bold;
       }
 
-      p {
+      > div {
         font-size: 24px;
         font-weight: 400;
         line-height: 1.7;

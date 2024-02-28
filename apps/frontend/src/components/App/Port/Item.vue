@@ -21,9 +21,6 @@ const translate = reactive({
   bio: useTranslateLanguage<IProjectTranslate>(props.project.translate)
 })
 
-console.log(translate)
-console.log(props.project)
-
 const portImages = computed(() => {
   const portImage = props.project.details.filter(item => item.is_show_poster)
 
