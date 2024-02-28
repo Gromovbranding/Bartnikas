@@ -156,7 +156,7 @@ const portImages = computed(() => {
     }
 
     > a > div {
-      p {
+      :deep(p) {
         font-size: 1.5rem;
         font-weight: 400;
         line-height: 1.5em;
