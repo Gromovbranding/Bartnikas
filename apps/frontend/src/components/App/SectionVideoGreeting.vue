@@ -11,8 +11,10 @@ const { data: greeting } = await useAsyncData<IGreetingIndex>(
   async () => await getActiveGreetingIndex()
 )
 
-const translate = useTranslateLanguage<IGreetingIndexTranslate>(
-  greeting.value!.translate
+const translate = reactive(
+  useTranslateLanguage<IGreetingIndexTranslate>(
+    greeting.value!.translate
+  )
 )
 
 const showVideo = ref(false)

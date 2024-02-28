@@ -8,8 +8,10 @@ const props = defineProps<{
 const showVideo = ref(false)
 const video = ref<HTMLVideoElement>()
 
-const translated = useTranslateLanguage<ITestimonialTranslate>(
-  props.testimonial.translate
+const translated = reactive(
+  useTranslateLanguage<ITestimonialTranslate>(
+    props.testimonial.translate
+  )
 )
 
 function playVideo () {

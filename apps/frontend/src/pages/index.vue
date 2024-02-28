@@ -16,8 +16,10 @@ const { data: sliderImages } = await useAsyncData(
   }
 )
 
-const activeCardTranslate = useTranslateLanguage<IProjectTranslate>(
-  activeIndexCard.value?.translate
+const activeCardTranslate = reactive(
+  useTranslateLanguage<IProjectTranslate>(
+    activeIndexCard.value?.translate
+  )
 )
 </script>
 

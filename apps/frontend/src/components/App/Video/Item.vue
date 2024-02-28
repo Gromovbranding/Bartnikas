@@ -15,9 +15,9 @@ const props = defineProps<{
 
 const showControls = computed(() => (activeVideo.value ? true : undefined))
 
-const translate = useTranslateLanguage<IVideoCollectionTranslate>(
+const translate = reactive(useTranslateLanguage<IVideoCollectionTranslate>(
   props.item.translate
-)
+))
 
 function playVideo () {
   if (!video.value) { return }

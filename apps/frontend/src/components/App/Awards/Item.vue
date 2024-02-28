@@ -5,8 +5,10 @@ const props = defineProps<{
   award: IAwards;
 }>()
 
-const translate = useTranslateLanguage<IAwardsTranslate>(
+const translate = reactive(
+  useTranslateLanguage<IAwardsTranslate>(
   props.award.translate!
+  )
 )
 </script>
 

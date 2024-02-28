@@ -6,8 +6,10 @@ const props = defineProps<{
   article: IArticle;
 }>()
 
-const translated = useTranslateLanguage<IArticleTranslate>(
-  props.article.translate
+const translated = reactive(
+  useTranslateLanguage<IArticleTranslate>(
+    props.article.translate
+  )
 )
 </script>
 

@@ -33,9 +33,9 @@ const project = computed(() =>
   projects.value?.find(item => item.id === +route.params.project)
 )
 
-const translatedProject = useTranslateLanguage<IProjectTranslate>(
+const translatedProject = reactive(useTranslateLanguage<IProjectTranslate>(
   project.value!.translate
-)
+))
 
 const projectDetails = computed(() => project.value?.details ?? [])
 

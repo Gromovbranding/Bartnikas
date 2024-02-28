@@ -24,8 +24,10 @@ const { data: project } = await useAsyncData(
   async () => await getProjectById(route.params.id as string)
 )
 
-const translated = useTranslateLanguage<IProjectTranslate>(
-  project.value!.translate
+const translated = reactive(
+  useTranslateLanguage<IProjectTranslate>(
+    project.value!.translate
+  )
 )
 
 useHead({

@@ -27,7 +27,9 @@ const { data: bio } = await useAsyncData<IBio>(
   async () => await getBio()
 )
 
-const translated = useTranslateLanguage<IBioTranslate>(bio.value!.translate)
+const translated = reactive(
+  useTranslateLanguage<IBioTranslate>(bio.value!.translate)
+)
 
 useHeadSafe({
   title: t('titles.about'),
@@ -45,15 +47,14 @@ const { data: bioTestimonials } = await useAsyncData<IBioTestimonials[]>(
   async () => await getBioTestimonials()
 )
 
-const translateBioTestimonials = computed(() => {
-  return bioTestimonials?.value?.map((item) => {
+const translateBioTestimonials = reactive(
+  (bioTestimonials.value ?? []).map((item) => {
     return {
       ...item,
       translate: useTranslateLanguage<IBioTestimonialsTranslate>(item.translate)
-        .value
     }
   })
-})
+)
 
 function onPointerMove (e: PointerEvent) {
   if (!scrollActive.value || !scroll.value) { return }
