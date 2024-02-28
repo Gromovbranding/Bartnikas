@@ -79,7 +79,7 @@ function onPointerDown (e: PointerEvent) {
         <p>
           {{ translated?.sub_description }}
         </p>
-        <small v-html="translated?.description" />
+        <div v-html="translated?.description" />
       </div>
     </section>
 
@@ -176,7 +176,7 @@ function onPointerDown (e: PointerEvent) {
     gap: 10px;
     padding: 3vw;
 
-    p {
+    :deep(p) {
       font-size: 1.5vw;
       line-height: 1.5;
       font-weight: 400;
@@ -236,7 +236,7 @@ function onPointerDown (e: PointerEvent) {
           font-weight: bold;
         }
 
-        p {
+        :deep(p) {
           line-height: 1.3;
           font-size: 28px;
         }
@@ -268,7 +268,7 @@ function onPointerDown (e: PointerEvent) {
       }
     }
 
-    p {
+    :deep(p) {
       font-size: 26px;
       line-height: 1.5;
     }
@@ -278,7 +278,7 @@ function onPointerDown (e: PointerEvent) {
 @media screen and (min-width: 551px) and (max-width: 1000px) {
   .biography-about {
     &__text {
-      p {
+      :deep(p) {
         font-size: 1.3rem;
       }
       small {
@@ -308,7 +308,7 @@ function onPointerDown (e: PointerEvent) {
       }
     }
     &__text {
-      p {
+      :deep(p) {
         line-height: 1.3;
         font-size: 1.2rem;
       }
@@ -321,13 +321,8 @@ function onPointerDown (e: PointerEvent) {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    &__img {
-      img {
-      }
-    }
-
     &__text {
-      p {
+      :deep(p) {
         font-size: 4vw;
       }
 
@@ -373,22 +368,14 @@ function onPointerDown (e: PointerEvent) {
     &__text {
       gap: 16px;
       > div {
-        &:first-child {
-          svg {
-          }
-        }
-
         &:nth-child(odd) {
           svg {
             width: 32px;
           }
         }
-
-        &:last-child {
-        }
       }
 
-      p {
+      :deep(p) {
         font-size: 5vw;
       }
     }
