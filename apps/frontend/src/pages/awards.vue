@@ -31,7 +31,7 @@ useHeadSafe({
 const activeImg = ref()
 
 function showImg (name: string) {
-  activeImg.value = useGetFileByUrl(name)
+  activeImg.value = name
   showModal.value = true
 }
 </script>
@@ -105,7 +105,7 @@ function showImg (name: string) {
       </div>
     </section>
     <div v-if="showModal" class="dialog">
-      <NuxtImg loading="lazy" :src="activeImg" />
+      <NuxtImg loading="lazy" :src="`/baseApiFiles/${activeImg}`" />
       <button type="button" @click="showModal = false">
         <svg
           role="presentation"
