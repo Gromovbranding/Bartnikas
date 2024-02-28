@@ -121,7 +121,6 @@ export default defineI18nConfig(() => ({
         photo: 'Photo',
         and: 'And',
         awardsMore: 'awards more'
-
       },
       footer: 'Designed by Gromov Branding'
     },
@@ -237,8 +236,11 @@ export default defineI18nConfig(() => ({
         request: 'Запрос'
       },
       awards: {
-        additionalInfo: 'За свою карьеру Станислав завоевал более 200 различных наград. Ниже приведены некоторые из них.'
-
+        additionalInfo: 'За свою карьеру Станислав завоевал более 200 различных наград. Ниже приведены некоторые из них.',
+        gold: 'Gold',
+        photo: 'Фото',
+        and: 'И',
+        awardsMore: 'более наград'
       },
       footer: 'Разработан компанией Gromov Branding'
     },
@@ -354,7 +356,11 @@ export default defineI18nConfig(() => ({
         request: 'Demande'
       },
       awards: {
-        additionalInfo: 'Au cours de sa carrière, Stanislav a remporté plus de 200 récompenses différentes. Certaines d\'entre elles sont répertoriées ci-dessous.'
+        additionalInfo: 'Au cours de sa carrière, Stanislav a remporté plus de 200 récompenses différentes. Certaines d\'entre elles sont répertoriées ci-dessous.',
+        gold: 'Gold',
+        photo: 'Photo',
+        and: 'Et',
+        awardsMore: 'plus de récompenses'
       },
       footer: 'Développé par Gromov Branding'
     },
@@ -470,7 +476,11 @@ export default defineI18nConfig(() => ({
         request: 'Anfrage'
       },
       awards: {
-        additionalInfo: 'Im Laufe seiner Karriere hat Stanislav mehr als 200 verschiedene Auszeichnungen gewonnen. Einige davon sind unten aufgeführt.'
+        additionalInfo: 'Im Laufe seiner Karriere hat Stanislav mehr als 200 verschiedene Auszeichnungen gewonnen. Einige davon sind unten aufgeführt.',
+        gold: 'Gold',
+        photo: 'Photo',
+        and: 'Und',
+        awardsMore: 'weitere auszeichnungen'
       },
       footer: 'Entwickelt von Gromov Branding'
     }
