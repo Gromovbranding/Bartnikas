@@ -33,6 +33,6 @@ const { currentIndexLocale } = useAdmin()
     @delete="handleDelete"
   >
     <ElTableColumn label="Title" :prop="`translate.${currentIndexLocale}.title`" />
-    <ElTableColumn label="Project" :prop="`project.translate.${currentIndexLocale}.title`" />
+    <ElTableColumn label="Group" prop="group" />
   </AdminTemplateCardIndexPage>
 </template>

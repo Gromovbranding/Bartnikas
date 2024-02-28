@@ -4,11 +4,9 @@ import {
   IsNotEmpty,
   IsObject,
   IsString,
-  ValidateIf,
   ValidateNested,
 } from 'class-validator';
 import { CreateFileDbDto } from '../../files/dto/create-file-db.dto';
-import { Project } from '../../projects/entities/project.entity';
 import { CreateTranslateLanguageDto } from 'src/shared/language/dto/create-translate.dto';
 
 export class CreateTranslateVideoCollectionDto extends IntersectionType(
@@ -32,8 +30,8 @@ export class CreateVideoCollectionDto {
   @Type(() => CreateFileDbDto)
   video: CreateFileDbDto;
 
-  @ApiProperty({ type: Project, nullable: true })
-  @ValidateIf((_, value) => value !== null)
-  @IsObject()
-  project?: Project;
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  group: string;
 }

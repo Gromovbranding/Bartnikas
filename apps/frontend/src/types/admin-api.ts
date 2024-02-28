@@ -205,7 +205,7 @@ export interface IVideoCollection {
   id: number;
   video: IFile;
   translate: TranslateLang<IVideoCollectionTranslate>[];
-  project?: IProject;
+  group: string;
   created_at: string;
   updated_at: string;
 }

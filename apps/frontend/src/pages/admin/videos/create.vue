@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import type {
-  IProject,
-  IProjectTranslate,
   IVideoCollection,
   IVideoCollectionTranslate,
   PartialAdminApiDto,
@@ -23,26 +21,12 @@ useHeadSafe({
 const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
-const { fetchGet } = useApi()
-
-const { data: projects } = await useAsyncData<IProject[]>(
-  'projects',
-  async () => await fetchGet('/projects')
-)
-
-const translated = reactive((projects.value ?? []).map((item) => {
-  return {
-    ...item,
-    translate: reactive(useTranslateLanguage<IProjectTranslate>(item.translate))
-  }
-}))
-
 const form = reactive<PartialAdminApiDto<IVideoCollection>>({
   translate: initTranslateLocale<IVideoCollectionTranslate>({
     title: ''
   }),
   video: null,
-  project: projects.value?.[0] ?? ({} as IProject)
+  group: ''
 })
 
 const handleResetForm = () => {
@@ -76,15 +60,8 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
-      <ElFormItem label="Project" prop="project">
-        <ElSelect v-model="form.project">
-          <ElOption
-            v-for="item in translated"
-            :key="item.id"
-            :label="item.translate?.title"
-            :value="item"
-          />
-        </ElSelect>
+      <ElFormItem label="Group" prop="group">
+        <ElInput v-model="form.group" />
       </ElFormItem>
 
       <ElFormItem required label="Video" prop="video">

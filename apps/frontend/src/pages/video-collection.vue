@@ -8,11 +8,11 @@ const { data: videos } = await useAsyncData(
 )
 
 const groups = computed(() =>
-  videos.value?.map(item => item.project?.group).filter(group => group)
+  videos.value?.map(item => item.group).filter(group => group)
 )
 
 function getGroupVideos (group: any) {
-  return (videos.value ?? []).filter(video => video.project?.group === group)
+  return (videos.value ?? []).filter(video => video.group === group)
 }
 
 useHeadSafe({

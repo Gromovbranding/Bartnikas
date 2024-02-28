@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { File } from '../../files/entities/file.entity';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -9,7 +10,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Project } from '../../projects/entities/project.entity';
 import { VideoCollectionTranslate } from './video-collection-translate.entity';
 
 @Entity()
@@ -36,15 +36,9 @@ export class VideoCollection {
   @JoinColumn()
   video: File;
 
-  @ApiProperty({ type: Project, nullable: true })
-  @OneToOne(() => Project, {
-    cascade: false,
-    eager: true,
-    nullable: true,
-    onDelete: 'SET NULL',
-  })
-  @JoinColumn()
-  project: Project | null;
+  @ApiProperty()
+  @Column()
+  group: string;
 
   @ApiProperty()
   @CreateDateColumn()
