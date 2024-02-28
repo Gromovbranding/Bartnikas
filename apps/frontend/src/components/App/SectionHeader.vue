@@ -42,7 +42,7 @@ withDefaults(defineProps<Props>(), {
     font-weight: bold;
     line-height: 1em;
     overflow-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
 
     span {
       font-size: 40px;

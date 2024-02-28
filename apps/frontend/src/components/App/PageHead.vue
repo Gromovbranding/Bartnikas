@@ -153,7 +153,7 @@ const handleBack = () => {
     margin-left: -10px;
     letter-spacing: 0.21rem;
     line-height: 1em;
-    word-break: break-all;
+    word-break: break-word;
     sup {
       vertical-align: top;
       font-size: 29px;
@@ -223,9 +223,6 @@ const handleBack = () => {
       margin-top: 40px;
       > span {
         font-size: 6vw;
-      }
-
-      &:hover {
       }
     }
   }
