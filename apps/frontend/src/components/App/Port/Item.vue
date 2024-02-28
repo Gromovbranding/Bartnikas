@@ -75,9 +75,7 @@ const portImages = computed(() => {
           <h2 v-else>
             {{ project.group }}
           </h2>
-          <div class="port__text__desc">
-            <p v-html="translate.bio?.description" />
-          </div>
+          <div class="port__text__desc" v-html="translate.bio?.description" />
         </NuxtLinkLocale>
       </div>
     </div>
