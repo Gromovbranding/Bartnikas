@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ITestimonial, PartialAdminApiDto, PartialFileAdminApiDto } from '@/types/admin-api'
+import type { ITestimonial, ITestimonialTranslate, PartialAdminApiDto, PartialFileAdminApiDto } from '@/types/admin-api'
 import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
