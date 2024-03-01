@@ -8,11 +8,11 @@ const { data: videos } = await useAsyncData(
 )
 
 const groups = computed(() =>
-  videos.value?.map(item => item.group).filter(group => group)
+  [...new Set(videos.value?.map(item => item.group?.toLowerCase?.()).filter(group => group))]
 )
 
 function getGroupVideos (group: any) {
-  return (videos.value ?? []).filter(video => video.group === group)
+  return (videos.value ?? []).filter(video => video.group.toLowerCase() === group.toLowerCase())
 }
 
 useHeadSafe({
@@ -33,7 +33,7 @@ useHeadSafe({
       <UIButton
         v-for="group in groups"
         :key="'group_link-' + group"
-        style="font-weight: 700"
+        style="font-weight: 700; text-transform: capitalize;"
         :to="{ hash: `#${group}` }"
         is-white
       >
