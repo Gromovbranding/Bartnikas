@@ -16,7 +16,7 @@ services:
   backend:
     container_name: backend
     networks:
-      - backend-net
+      - nginx-net
       - db
     depends_on:
       - db
@@ -34,7 +34,6 @@ services:
     container_name: frontend
     build: ./apps/frontend
     networks:
-      - backend-net
       - nginx-net
     depends_on:
       - backend
@@ -43,7 +42,6 @@ services:
 
   nginx:
     networks:
-      - backend-net
       - nginx-net
     restart: unless-stopped
     build: ./apps/nginx
@@ -72,8 +70,6 @@ volumes:
 
 networks:
   db:
-    driver: bridge
-  backend-net:
     driver: bridge
   nginx-net:
     name: nginx-net
