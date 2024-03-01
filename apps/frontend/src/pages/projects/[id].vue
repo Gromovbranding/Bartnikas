@@ -393,6 +393,7 @@ const changeDetailOrder = (
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       width: 100%;
       padding-top: 15px;
     }
@@ -517,7 +518,6 @@ const changeDetailOrder = (
       flex: 9;
       overflow: hidden;
       border-radius: $borderRadiusMain;
-
       > :deep(picture) {
         object-fit: cover;
         width: 100%;
@@ -526,6 +526,7 @@ const changeDetailOrder = (
       }
     }
     &-nuxtimg{
+      display: flex;
       width: 100%;
       height: auto;
     }
