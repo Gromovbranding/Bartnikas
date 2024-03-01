@@ -12,7 +12,7 @@ const groups = computed(() =>
 )
 
 function getGroupVideos (group: any) {
-  return (videos.value ?? []).filter(video => video.group.toLowerCase() === group.toLowerCase())
+  return (videos.value ?? []).filter(video => video.group?.toLowerCase?.() === group.toLowerCase?.())
 }
 
 useHeadSafe({
