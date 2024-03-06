@@ -418,7 +418,6 @@ const changeDetailOrder = (
         align-items: center;
 
         > div {
-          padding: 0 30px;
           &:first-child {
             h3 {
               font-size: 28px;
@@ -556,10 +555,8 @@ const changeDetailOrder = (
   }
   .zoom__modal-bottom-info {
     > div {
-      padding: 0 30px;
       &:first-child {
         align-self: flex-start;
-        padding: 0 20px;
         h3 {
           font-size: 26px;
           font-weight: bold;
@@ -664,10 +661,8 @@ const changeDetailOrder = (
     &__info {
       margin-top: 16px;
       > div {
-        padding: 0 30px;
         &:first-child {
           align-self: flex-start;
-          padding: 0 20px;
           h3 {
             font-size: 26px;
             font-weight: bold;
