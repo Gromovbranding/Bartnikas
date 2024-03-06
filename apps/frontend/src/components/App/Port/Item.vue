@@ -237,7 +237,7 @@ const portImages = computed(() => {
           margin-top: 40px;
           :deep(p) {
             word-break: break-word;
-            font-size: 22px;
+            font-size: 18px;
           }
         }
       }
