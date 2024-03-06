@@ -238,6 +238,8 @@ const { data: emails } = await useAsyncData(
   &__email {
     a {
       @include hoverLink();
+      width: auto;
+      word-break: break-all;
       color: #fff;
       font-size: 40px;
       font-weight: bold;
@@ -477,8 +479,6 @@ const { data: emails } = await useAsyncData(
 
     &__email {
       a {
-        width: auto;
-        word-break: break-all;
         font-size: 28px;
       }
     }
