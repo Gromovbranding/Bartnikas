@@ -2,6 +2,7 @@
 import type { UploadUserFile } from 'element-plus'
 import { Close, Delete } from '@element-plus/icons-vue'
 import draggable from 'vuedraggable'
+import { Cropper } from 'vue-advanced-cropper'
 import {
   ListUnitSize,
   type IProject,
@@ -14,6 +15,7 @@ import {
   type IProjectPressReleaseTranslate
 } from '@/types/admin-api'
 import { AdminTemplateForm, AdminUploadFile } from '#components'
+import 'vue-advanced-cropper/dist/style.css'
 
 definePageMeta({
   layout: 'admin',
@@ -62,6 +64,22 @@ const form = reactive<IProject>({
   },
   translate: initTranslateLocale<IProjectTranslate>(model.translate)
 })
+
+const dialogVisible = ref(false)
+const dialogImageUrl = ref('')
+
+const showPreviewCutter = (img: string) => {
+  dialogVisible.value = true
+  dialogImageUrl.value = img
+}
+
+const handleChangeImgPreview = ({ coordinates, canvas }) => {
+  console.log(coordinates, canvas)
+}
+
+const handleSaveCropPreviewImage = () => {
+
+}
 
 const isCollab = ref(!!toValue(model.collab))
 
@@ -221,7 +239,7 @@ watch(
       </ElFormItem>
 
       <ElFormItem label="Description" :prop="`translate.${currentIndexLocale}.description`">
-        <AdminEditorInput
+        <ElInput
           v-model="form.translate[currentIndexLocale].description"
         />
       </ElFormItem>
@@ -353,6 +371,7 @@ watch(
                   class="el-upload-list__item-thumbnail"
                   :src="file?.url || useGetFileByUrl(file?.image?.name)"
                   alt=""
+                  @click.stop.prevent="file.is_show_poster && showPreviewCutter(file?.url || useGetFileByUrl(file?.image?.name))"
                 >
                 <div v-if="file?.uid" class="img" @keydown.stop>
                   <div class="img__details">
@@ -442,6 +461,24 @@ watch(
         </ElButton>
       </ElFormItem>
     </AdminTemplateForm>
+    <ElDialog v-model="dialogVisible" center width="1200">
+      <template #header>
+        <h3>
+          Crop Image
+        </h3>
+      </template>
+      <cropper
+        class="cropper"
+        :src="dialogImageUrl"
+        :stencil-props="{
+          aspectRatio: 10/12
+        }"
+        @change="handleChangeImgPreview"
+      />
+      <ElButton style="margin-top: 30px; margin-left: auto;" type="primary" @click="handleSaveCropPreviewImage">
+        Save
+      </ElButton>
+    </ElDialog>
   </AdminTemplateCardWithForm>
 </template>
 

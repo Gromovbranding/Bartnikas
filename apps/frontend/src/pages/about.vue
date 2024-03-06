@@ -10,9 +10,6 @@ const { breakpoint } = useBreakpoints()
 
 const { t } = useI18n()
 
-const scrollActive = ref(false)
-const scrollStart = ref(0)
-const scroll = ref<HTMLDivElement>()
 const videoGreetingStyle = computed(() => {
   return {
     'flex-direction':
@@ -55,20 +52,10 @@ const translateBioTestimonials = reactive(
     }
   })
 )
-
-function onPointerMove (e: PointerEvent) {
-  if (!scrollActive.value || !scroll.value) { return }
-  scroll.value.scrollLeft -= e.movementX
-}
-
-function onPointerDown (e: PointerEvent) {
-  scrollActive.value = true
-  scrollStart.value = e.screenX
-}
 </script>
 
 <template>
-  <main @pointerup="scrollActive = false">
+  <main>
     <AppPageHead :title="$t('titles.about')" />
 
     <section class="biography-about">
@@ -83,14 +70,12 @@ function onPointerDown (e: PointerEvent) {
       </div>
     </section>
 
-    <section ref="scroll" class="testimonials">
+    <section class="testimonials">
       <div
         class="testimonials__wrapper"
-        @pointerdown.prevent="onPointerDown"
-        @pointermove="onPointerMove"
       >
         <div
-          v-for="item in translateBioTestimonials"
+          v-for="item in [translateBioTestimonials[0], translateBioTestimonials[0], translateBioTestimonials[0]]"
           :key="item.id"
           class="testimonials__item"
         >
@@ -196,12 +181,20 @@ function onPointerDown (e: PointerEvent) {
   padding: 0 40px 80px;
   overflow: hidden;
   &__wrapper {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
     display: flex;
     gap: 100px;
     cursor: grab;
+    touch-action: pan-x;
+
+    &::-webkit-scrollbar {
+      display: none;
+  }
   }
 
   &__item {
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     gap: 50px;

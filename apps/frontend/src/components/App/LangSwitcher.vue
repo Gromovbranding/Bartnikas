@@ -210,4 +210,15 @@ const isLangSwitcherVisible = ref(false)
     }
   }
 }
+
+@media screen and (max-width: 550px) {
+  .lang__bar {
+    right: 89px;
+    top: 16px;
+  }
+
+  .lang__container {
+    right: 8px;
+  }
+}
 </style>

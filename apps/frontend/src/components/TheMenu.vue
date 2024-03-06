@@ -438,8 +438,6 @@ const { data: emails } = await useAsyncData(
 
     &__cart {
       display: none;
-      // position: absolute;
-      // top: 0.5rem;
     }
   }
 }
@@ -463,14 +461,6 @@ const { data: emails } = await useAsyncData(
           font-weight: bold;
           top: -9px;
         }
-
-        &:hover {
-          svg {
-          }
-
-          &::before {
-          }
-        }
       }
 
       svg {
@@ -480,21 +470,20 @@ const { data: emails } = await useAsyncData(
     }
 
     &__additional-info {
+      padding-right: 0;
       display: grid;
-      grid-template-columns: 170px auto;
+      grid-template-columns: 1fr;
     }
 
     &__email {
-      grid-row: 3;
-
       a {
+        width: auto;
+        word-break: break-all;
         font-size: 28px;
       }
     }
 
     &__terms {
-      grid-row: 1/6;
-
       &-menu {
         margin-bottom: 25px;
 
@@ -521,11 +510,6 @@ const { data: emails } = await useAsyncData(
             > :deep(svg) {
               width: 58px;
               height: 58px;
-            }
-
-            &:hover {
-              > :deep(svg) {
-              }
             }
           }
         }
@@ -576,45 +560,6 @@ const { data: emails } = await useAsyncData(
     &__bar {
       right: 16px;
       top: 16px;
-
-      &:hover {
-        &::before,
-        &::after,
-        span {
-        }
-      }
-
-      &::before,
-      &::after,
-      span {
-      }
-
-      &::before {
-      }
-
-      &::after {
-      }
-    }
-
-    &--active {
-      > .menu__bar {
-        &::before,
-        &::after,
-        span {
-        }
-
-        &::before {
-        }
-
-        span {
-        }
-
-        &::after {
-        }
-      }
-
-      > .menu__nav {
-      }
     }
   }
 }

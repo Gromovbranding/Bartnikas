@@ -37,7 +37,7 @@ const activeCardTranslate = reactive(
           top: 0;
           z-index: -1;
           perspective: 1px;
-          height: 120vh;
+          height: 100%;
         "
         :mousewheel="false"
         :modules="[SwiperAutoplay, SwiperEffectFade]"
@@ -164,6 +164,7 @@ const activeCardTranslate = reactive(
 
 @media screen and (max-width: 1000px) {
   .header {
+
     &__main {
       height: calc(100vh + 10px);
       &:deep(svg) {
@@ -173,10 +174,23 @@ const activeCardTranslate = reactive(
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 825px) {
   .header {
     &__main {
-      height: 50vh;
+      height: calc(65vh + 10px);
+      &:deep(svg) {
+        max-width: 30rem;
+      }
+    }
+    height: 130vh;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    height: 90vh;
+    &__main {
+      height: 45vh;
       &:deep(svg) {
         width: 88%;
       }

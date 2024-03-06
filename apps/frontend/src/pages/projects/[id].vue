@@ -600,7 +600,6 @@ const changeDetailOrder = (
     margin-top: 20px;
 
     > div {
-      padding: 0 30px;
       &:first-child {
         h3 {
           font-size: 36px;
@@ -744,7 +743,8 @@ const changeDetailOrder = (
   padding-top: 4rem;
   // height: v-bind(wrapperHeight);
   h2 {
-    font-size: 10rem;
+    font-size: 10vw;
+    margin-bottom: 20px;
     font-weight: 600;
     text-transform: uppercase;
   }

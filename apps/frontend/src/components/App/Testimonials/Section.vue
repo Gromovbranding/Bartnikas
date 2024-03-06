@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
 
 :deep(.caption) {
   h2 {
-    font-size: 12vw;
+    font-size: 11.5vw;
   }
 }
 

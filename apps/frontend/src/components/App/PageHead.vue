@@ -146,7 +146,7 @@ const handleBack = () => {
   }
 
   &__caption {
-    font-size: 9rem;
+    font-size: 12vw;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
@@ -162,13 +162,11 @@ const handleBack = () => {
   }
 
   &__logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
+    margin: 0 auto;
 
     &:deep(svg) {
-      width: 475px;
+      width: max-content;
       height: 100%;
     }
   }
@@ -211,10 +209,7 @@ const handleBack = () => {
       font-size: 5rem;
     }
     &__logo {
-      margin-top: 7px;
       height: 7.5vw;
-      position: relative;
-      right: 4%;
     }
     &__breadcrumb {
       margin-top: 40px;

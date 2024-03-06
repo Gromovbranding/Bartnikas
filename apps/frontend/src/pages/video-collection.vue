@@ -72,7 +72,7 @@ main {
   flex-direction: column;
   gap: 5rem;
   &__caption {
-    font-size: 10rem;
+    font-size: 10vw;
     display: flex;
     text-transform: uppercase;
     font-weight: bold;
