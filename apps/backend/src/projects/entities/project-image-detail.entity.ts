@@ -15,6 +15,13 @@ import { ProjectImageSizes } from './project-image-sizes.entity';
 import { Project } from './project.entity';
 import { File } from '../../files/entities/file.entity';
 
+export interface coordinate_image {
+  width: number;
+  height: number;
+  left: number;
+  top: number;
+}
+
 @Entity()
 export class ProjectImageDetail {
   @ApiProperty()
@@ -45,6 +52,14 @@ export class ProjectImageDetail {
   @ApiProperty({ default: true })
   @Column({ default: true })
   is_active: boolean;
+
+  @ApiProperty()
+  @Column({
+    type: 'jsonb',
+    nullable: true,
+    default: null,
+  })
+  coordinate: coordinate_image | null;
 
   @ApiProperty()
   @Column()
