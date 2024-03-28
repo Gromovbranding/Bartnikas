@@ -149,7 +149,7 @@ export default defineI18nConfig(() => ({
         media: 'Медиа',
         about: 'Обо мне',
         projectImage: 'Изображение проекта',
-        testimonials: 'Рекомендации'
+        testimonials: 'Отзывы'
       },
       buttons: {
         viewProject: 'Показать проекты',
