@@ -1,68 +1,84 @@
 <script lang="ts" setup>
-import defBgImg from '@/assets/img/header_bg.jpg'
-import type { IProjectTranslate } from '~/types/admin-api'
-const { getIndexSlider, getProjectByFooterCard } = usePublicData()
+import type { IProjectTranslate, IIntroAdvantage } from '~/types/admin-api'
+const { getProjectByFooterCard } = usePublicData()
 
 const { data: activeIndexCard } = await useAsyncData(
   'activeIndexCard',
   async () => await getProjectByFooterCard()
 )
 
-const { data: sliderImages } = await useAsyncData(
-  'sliderImages',
-  async () => await getIndexSlider(),
-  {
-    default: () => [{ id: defBgImg, image: { name: defBgImg } }]
-  }
-)
-
 const activeCardTranslate = reactive(
-  useTranslateLanguage<IProjectTranslate>(
-    activeIndexCard.value?.translate
-  )
+  useTranslateLanguage<IProjectTranslate>(activeIndexCard.value?.translate)
 )
 </script>
 
 <template>
   <main>
-    <Title>{{ $t("titles.home") }}</Title>
+    <Title>{{ $t('titles.home') }}</Title>
 
-    <header class="header">
-      <div class="header__main">
-        <IconLogo is-full-black />
+    <section class="intro">
+      <h1 class="intro__title">
+        {{ $t('intro.title') }}
+      </h1>
+      <div class="intro__info">
+        <div class="intro__info-text-block">
+          <p class="intro__subtitle">
+            {{ $t('intro.subtitle') }}
+          </p>
+
+          <ul class="intro__advantages">
+            <li
+              v-for="advantage in ($tm('intro.advantages') as IIntroAdvantage[])"
+              :key="advantage.text"
+              class="intro__advantage"
+            >
+              <span class="intro__advantage-value">>&#8239;{{ $rt(advantage.value) }}</span>
+              <span class="intro__advantage-text">{{
+                $rt(advantage.text)
+              }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <NuxtImg
+          class="intro__img"
+          loading="lazy"
+          src="/img/intro_bartnikas.jpg"
+        />
+        <p class="intro__subtitle intro__subtitle_mobile">
+          {{ $t('intro.subtitle') }}
+        </p>
       </div>
-      <Swiper
-        style="
-          position: sticky;
-          top: 0;
-          z-index: -1;
-          perspective: 1px;
-          height: 100%;
-        "
-        :mousewheel="false"
-        :modules="[SwiperAutoplay, SwiperEffectFade]"
-        :slides-per-view="1"
-        :speed="1300"
-        effect="fade"
-        loop
-        :autoplay="{
-          delay: 2000,
-        }"
-      >
-        <SwiperSlide v-for="item in sliderImages" :key="item.id">
-          <NuxtImg
-            v-scroll-scale-image
-            loading="lazy"
-            :src="`/baseApiFiles/${item?.image?.name}`"
-            style="width: 100%; height: 100%; transition-duration: 100ms"
-          />
-        </SwiperSlide>
-      </Swiper>
-    </header>
+    </section>
+
     <AppNewsHot />
-    <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
+    <AppContentSpliter> {{ $t('titles.concept') }} </AppContentSpliter>
+
+    <section class="concept">
+      <div class="concept__main-block">
+        <div class="concept__text-block">
+          <p
+            v-for="p in $tm('concept.text')"
+            :key="p"
+            class="concept__text-p"
+          >
+            {{ $rt(p) }}
+          </p>
+        </div>
+        <NuxtImg
+          class="concept__nature-img"
+          loading="lazy"
+          src="/img/concept_nature.jpg"
+        />
+      </div>
+      <NuxtImg
+        class="concept__gallery-img"
+        loading="lazy"
+        src="/img/concept_gallery.jpg"
+      />
+    </section>
     <AppSectionVideoGreeting class="app-video-greeting" />
-    <AppContentSpliter> {{ $t("titles.projects") }} </AppContentSpliter>
+    <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter>
     <AppPortSection />
     <AppAwardsSection />
     <AppNewsSection />
@@ -82,7 +98,7 @@ const activeCardTranslate = reactive(
         <h3>{{ activeCardTranslate?.title }}</h3>
         <div v-html="activeCardTranslate?.description" />
         <UIButton :to="`/projects/${activeIndexCard.id}`">
-          {{ $t("buttons.viewProject") }}
+          {{ $t('buttons.viewProject') }}
         </UIButton>
       </div>
     </section>
@@ -92,6 +108,97 @@ const activeCardTranslate = reactive(
 </template>
 
 <style lang="scss" scoped>
+.intro {
+  padding-bottom: 3rem;
+  &__title {
+    font-size: 5.208rem;
+    padding: 0 3rem;
+    margin-bottom: 1.35rem;
+  }
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.031rem;
+  }
+
+  &__info-text-block {
+    max-width: 51%;
+  }
+
+  &__subtitle {
+    font-size: 2.083rem;
+    line-height: 1.2;
+    margin-bottom: 3.646rem;
+    padding-left: 3rem;
+
+    &_mobile {
+      display: none;
+    }
+  }
+
+  &__advantages {
+    display: flex;
+    flex-direction: column;
+    gap: 3.125rem;
+    padding-left: 3rem;
+  }
+
+  &__advantage {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.042rem;
+  }
+
+  &__advantage-value {
+    color: $colorAccentBlue;
+    font-size: 6.25rem;
+    line-height: 1;
+  }
+
+  &__advantage-text {
+    font-size: 1.56rem;
+    max-width: 18.229rem;
+    margin-bottom: 1rem;
+  }
+
+  &__img {
+    width: 100%;
+    max-width: 47%;
+    margin-left: auto;
+  }
+}
+
+.concept {
+  display: flex;
+  align-items: flex-start;
+
+  &__main-block {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+
+  &__text-block {
+    font-size: 1.563rem;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.563rem;
+    padding: 3rem 3.385rem 4.3rem 4.323rem;
+  }
+
+  &__nature-img {
+    width: 100%;
+  }
+
+  &__gallery-img {
+    width: 40%;
+  }
+}
+
 .home-info-project-paralax {
   height: 250vh;
   position: relative;
@@ -163,8 +270,39 @@ const activeCardTranslate = reactive(
 }
 
 @media screen and (max-width: 1000px) {
-  .header {
+  .intro {
+    &__title {
+      font-size: 3.8rem;
+    }
 
+    &__subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    &__advantages {
+      gap: 2rem;
+    }
+
+    &__advantage-value {
+      font-size: 4rem;
+    }
+
+    &__advantage-text {
+      font-size: 1rem;
+      max-width: 14rem;
+    }
+  }
+
+  .concept {
+    &__text-block {
+      font-size: 1.15rem;
+      padding: 2rem;
+      gap: 1.3rem;
+    }
+  }
+
+  .header {
     &__main {
       height: calc(100vh + 10px);
       &:deep(svg) {
@@ -186,7 +324,80 @@ const activeCardTranslate = reactive(
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 550px) {
+  .intro {
+    padding-bottom: 4.071rem;
+
+    &__title {
+      font-size: 2.646rem;
+      padding: 0 1.628rem;
+      margin-bottom: 0.611rem;
+    }
+
+    &__info {
+      flex-direction: column-reverse;
+      gap: unset;
+    }
+
+    &__info-text-block {
+      max-width: 100%;
+    }
+
+    &__subtitle {
+      font-size: 1.628rem;
+      padding: 0 1.628rem;
+      margin-bottom: 1.628rem;
+      max-width: 100%;
+      display: none;
+
+      &_mobile {
+        display: flex;
+      }
+    }
+
+    &__advantages {
+      padding: 0 1.628rem;
+      gap: 2rem;
+      max-width: 100%;
+    }
+
+    &__advantage-value {
+      font-size: 5.089rem;
+      white-space: nowrap;
+    }
+
+    &__advantage-text {
+      font-size: 1.425rem;
+      max-width: 18.83rem;
+      margin-bottom: 0.75rem;
+    }
+
+    &__img {
+      max-width: 100%;
+      margin-bottom: 3.053rem;
+    }
+  }
+
+  .concept {
+    flex-direction: column;
+
+    &__main-block {
+      width: 100%;
+    }
+
+    &__text-block {
+      padding: 2.036rem 1.628rem 3.053rem;
+    }
+
+    &__nature-img {
+      display: none;
+    }
+
+    &__gallery-img {
+      width: 100%;
+    }
+  }
+
   .header {
     height: 90vh;
     &__main {
