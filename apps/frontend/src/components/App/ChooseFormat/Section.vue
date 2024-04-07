@@ -14,7 +14,7 @@ import type { IChooseFormatCard } from '~/types/admin-api'
         :key="$rt(card.title)"
         class="choose-format__card"
       >
-        <NuxtImg :src="`/img/format_${index + 1}.png`" class="choose-format__card-img" />
+        <NuxtImg :src="`/img/format_${index + 1}.png`" loading="lazy" class="choose-format__card-img" />
         <div class="choose-format__card-info">
           <h3 class="choose-format__card-title">
             <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{ $rt(card.title) }}
@@ -59,12 +59,12 @@ import type { IChooseFormatCard } from '~/types/admin-api'
     justify-content: space-between;
     transition: all 150ms ease-in;
     position: relative;
-    top: 0;
     border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    transform: translateY(0);
 
     &:hover {
-      top: -10px;
-      box-shadow: 10px 10px 20px $colorBackgroundGrey;
+      transform: translateY(-12px);
     }
   }
 

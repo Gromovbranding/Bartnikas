@@ -79,6 +79,7 @@ import type { IIntroAdvantage } from '~/types/admin-api'
     </section>
 
     <AppChooseFormatSection />
+    <AppSpecialSection />
     <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
     <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter>
     <!-- <AppPortSection /> -->
