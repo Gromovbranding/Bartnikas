@@ -17,6 +17,8 @@ import type { IIntroAdvantage } from '~/types/admin-api'
     <Title>{{ $t('titles.home') }}</Title>
 
     <section class="intro">
+      <IconLogoIcon class="intro__logo" />
+
       <h1 class="intro__title">
         {{ $t('intro.title') }}
       </h1>
@@ -80,17 +82,17 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
     <AppChooseFormatSection />
     <AppSpecialSection />
-    <!-- <AppAwardsSection /> -->
+    <AppAwardsSection />
     <AppContentTicker
       :ticker-title="$t('main_page_ticker1.title')"
       :ticker-text="$t('main_page_ticker1.text')"
     />
 
-    <AppContentSpliter class="recognition-title" :color="'#000'" :font-weight="'normal'">
-      {{ $t('recognition.title') }}
-    </AppContentSpliter>
-
     <section class="recognition">
+      <AppContentSpliter class="recognition__title" :color="'#000'" :font-weight="'normal'">
+        {{ $t('recognition.title') }}
+      </AppContentSpliter>
+
       <p class="recognition__description">
         {{ $t('recognition.description') }}
       </p>
@@ -104,6 +106,18 @@ import type { IIntroAdvantage } from '~/types/admin-api'
         </div>
       </div>
     </section>
+
+    <section class="achievements">
+      <div v-for="(ach, i) in $tm('achievements.items')" :key="$rt(ach)" class="achievements__item" :class="`achievements__item_${i}`">
+        <NuxtImg class="achievements__item-img" loading="lazy" :src="`/img/ach_${i}.png`" />
+        <p class="achievements__item-text">
+          {{ $rt(ach) }}
+        </p>
+      </div>
+    </section>
+
+    <!-- <AppVideoSection />
+    <AppTestimonialsSection /> -->
 
     <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
     <!-- <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter> -->
@@ -129,8 +143,6 @@ import type { IIntroAdvantage } from '~/types/admin-api'
         </UIButton>
       </div>
     </section> -->
-    <!-- <AppVideoSection /> -->
-    <!-- <AppTestimonialsSection /> -->
   </main>
 </template>
 
@@ -138,7 +150,18 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
 // SECTION INTRO
 .intro {
+  padding-top: 1.042rem;
   padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+
+  &__logo {
+    align-self: center;
+    width: 6.458rem;
+    height: 6.458rem;
+    margin-bottom: 1.094rem;
+  }
+
   &__title {
     font-size: 5.208rem;
     padding: 0 3.385rem;
@@ -230,15 +253,15 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 }
 
 // SECTION RECOGNITION
-.recognition-title {
-  padding-top: 4.219rem;
-  padding-bottom: 2.083rem;
-  background: transparent;
-}
-
 .recognition {
   overflow: hidden;
   padding-bottom: 4.167rem;
+
+  &__title {
+    padding-top: 4.219rem;
+    padding-bottom: 2.083rem;
+    background: transparent;
+  }
 
   &__description {
     font-size: 1.563rem;
@@ -278,6 +301,46 @@ import type { IIntroAdvantage } from '~/types/admin-api'
   &__city-text {
     font-size: 2.083rem;
     white-space: nowrap;
+  }
+}
+
+// SECTION achievements
+.achievements {
+  min-height: 46.354rem;
+  background: url('/img/bartnikas_achievements.png') no-repeat center/cover;
+  position: relative;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    width: 18.906rem;
+    min-height: 13.073rem;
+    padding: 1.042rem 2.083rem 1.302rem;
+    border-radius: $borderRadiusMain;
+    background: #fff;
+    position: absolute;
+
+    &_0 {
+      top: 12.5rem;
+      left: 13.854rem;
+    }
+
+    &_1 {
+      top: 4.74rem;
+      right: 15.208rem;
+    }
+  }
+
+  &__item-img {
+    max-width: 100%;
+  }
+
+  &__item-text {
+    font-size: 1.25rem;
+    line-height: 1.2;
   }
 }
 
@@ -384,6 +447,23 @@ import type { IIntroAdvantage } from '~/types/admin-api'
     }
   }
 
+  .achievements {
+    min-height: 32rem;
+
+    &__item {
+
+      &_0 {
+        top: 7rem;
+        left: 4rem;
+      }
+
+      &_1 {
+        top: 3rem;
+        right: 3rem;
+      }
+    }
+  }
+
   .header {
     &__main {
       height: calc(100vh + 10px);
@@ -408,7 +488,14 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
 @media screen and (max-width: 550px) {
   .intro {
+    padding-top: 1.018rem;
     padding-bottom: 4.071rem;
+
+    &__logo {
+      width: 6.107rem;
+      height: 6.107rem;
+      margin-bottom: 1.018rem;
+    }
 
     &__title {
       font-size: 2.646rem;
@@ -481,13 +568,13 @@ import type { IIntroAdvantage } from '~/types/admin-api'
     }
   }
 
-  .recognition-title {
-    padding-top: 4.071rem;
-    padding-bottom: 2.036rem;
-  }
-
   .recognition {
     padding-bottom: 4.071rem;
+
+    &__title {
+      padding-top: 4.071rem;
+      padding-bottom: 2.036rem;
+    }
 
     &__description {
       font-size: 1.425rem;
@@ -513,6 +600,37 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
     &__city-text {
       font-size: 1.628rem;
+    }
+  }
+
+  .achievements {
+    min-height: 39.898rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.221rem;
+    padding: 2.748rem 1.628rem;
+    background-position-x: 70%;
+
+    &__item {
+      position: static;
+      min-height: 12.723rem;
+
+      &_0 {
+        .achievements__item-img {
+          width: 6.005rem;
+        }
+      }
+
+      &_1 {
+        .achievements__item-img {
+          width: 11.196rem;
+        }
+      }
+    }
+
+    &__item-text {
+      font-size: 1.221rem;
     }
   }
 

@@ -70,6 +70,9 @@ export default defineI18nConfig(() => ({
           ['Барселона', 'Чикаго', 'Москва', 'Берлин']
         ]
       },
+      achievements: {
+        items: ['Обладатель Golden Residence Visa в ОАЭ для творческих талантов', 'Коллаборация и публикации в National Geographic']
+      },
       welcome: 'Welcome',
       titles: {
         news: 'News',

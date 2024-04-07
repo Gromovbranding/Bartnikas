@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <!-- <TheMenu /> -->
+    <TheMenu />
     <slot />
-    <!-- <TheFooter /> -->
+    <TheFooter />
   </div>
 </template>
 <style lang="scss">
