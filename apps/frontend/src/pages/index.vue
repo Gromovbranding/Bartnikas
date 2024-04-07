@@ -80,10 +80,34 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
     <AppChooseFormatSection />
     <AppSpecialSection />
-    <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
-    <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter>
-    <!-- <AppPortSection /> -->
     <!-- <AppAwardsSection /> -->
+    <AppContentTicker
+      :ticker-title="$t('main_page_ticker1.title')"
+      :ticker-text="$t('main_page_ticker1.text')"
+    />
+
+    <AppContentSpliter class="recognition-title" :color="'#000'" :font-weight="'normal'">
+      {{ $t('recognition.title') }}
+    </AppContentSpliter>
+
+    <section class="recognition">
+      <p class="recognition__description">
+        {{ $t('recognition.description') }}
+      </p>
+
+      <div class="recognition__tickers">
+        <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
+          <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
+            <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
+            <span class="recognition__city-text">{{ city }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
+    <!-- <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter> -->
+    <!-- <AppPortSection /> -->
     <!-- <AppNewsSection /> -->
     <!-- <AppSectionInteriosOrderSlider /> -->
     <!-- <section v-if="activeIndexCard" class="home-info-project-paralax">
@@ -111,11 +135,13 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 </template>
 
 <style lang="scss" scoped>
+
+// SECTION INTRO
 .intro {
   padding-bottom: 3rem;
   &__title {
     font-size: 5.208rem;
-    padding: 0 3rem;
+    padding: 0 3.385rem;
     margin-bottom: 1.35rem;
   }
 
@@ -172,6 +198,7 @@ import type { IIntroAdvantage } from '~/types/admin-api'
   }
 }
 
+// SECTION CONCEPT
 .concept {
   display: flex;
   align-items: flex-start;
@@ -199,6 +226,58 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
   &__gallery-img {
     width: 40%;
+  }
+}
+
+// SECTION RECOGNITION
+.recognition-title {
+  padding-top: 4.219rem;
+  padding-bottom: 2.083rem;
+  background: transparent;
+}
+
+.recognition {
+  overflow: hidden;
+  padding-bottom: 4.167rem;
+
+  &__description {
+    font-size: 1.563rem;
+    padding: 0 3.385rem;
+    max-width: 33.854rem;
+    margin-bottom: 2.604rem;
+  }
+
+  &__tickers {
+    display: flex;
+    flex-direction: column;
+    gap: 2.083rem;
+  }
+
+  &__ticker {
+    display: flex;
+    gap: 7.813rem;
+    width: max-content;
+    animation: 25s linear 0 ticker;
+    animation-iteration-count: infinite;
+
+    &_reverse {
+      animation-direction: reverse;
+    }
+  }
+
+  &__city {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.563rem;
+  }
+
+  &__city-img {
+    width: 15.99rem;
+  }
+
+  &__city-text {
+    font-size: 2.083rem;
+    white-space: nowrap;
   }
 }
 
@@ -389,6 +468,7 @@ import type { IIntroAdvantage } from '~/types/admin-api'
     }
 
     &__text-block {
+      font-size: 1.425rem;
       padding: 2.036rem 1.628rem 3.053rem;
     }
 
@@ -398,6 +478,41 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 
     &__gallery-img {
       width: 100%;
+    }
+  }
+
+  .recognition-title {
+    padding-top: 4.071rem;
+    padding-bottom: 2.036rem;
+  }
+
+  .recognition {
+    padding-bottom: 4.071rem;
+
+    &__description {
+      font-size: 1.425rem;
+      margin-bottom: 3.053rem;
+      padding: 0 1.628rem;
+    }
+
+    &__tickers {
+      gap: 1.018rem;
+    }
+
+    &__ticker {
+      gap: 3.053rem;
+    }
+
+    &__city {
+      gap: 1.018rem;
+    }
+
+    &__city-img {
+      width: 11.196rem;
+    }
+
+    &__city-text {
+      font-size: 1.628rem;
     }
   }
 

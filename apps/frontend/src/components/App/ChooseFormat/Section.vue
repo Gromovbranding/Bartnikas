@@ -40,13 +40,13 @@ import type { IChooseFormatCard } from '~/types/admin-api'
 
   &__title {
     font-size: 5.208rem;
-    padding: 0 3rem;
+    padding: 0 3.385rem;
     margin-bottom: 3.125rem;
   }
 
   &__cards {
-    max-width: 81rem;
-    padding: 0 3rem;
+    max-width: 81.770rem;
+    padding: 0 3.385rem;
     display: flex;
     flex-direction: column;
     gap: 5.208rem;
@@ -59,7 +59,7 @@ import type { IChooseFormatCard } from '~/types/admin-api'
     justify-content: space-between;
     transition: all 150ms ease-in;
     position: relative;
-    border-radius: 10px;
+    border-radius: $borderRadiusMain;
     transition: transform 0.2s ease-in-out;
     transform: translateY(0);
 

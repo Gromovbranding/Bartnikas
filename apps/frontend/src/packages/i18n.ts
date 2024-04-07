@@ -58,6 +58,18 @@ export default defineI18nConfig(() => ({
         footer_text: 'Универсальный фотопортал, который можно купить прямо сейчас. Работа 60x40 см с энергией любви и абсолюта.',
         action: 'Приобрести фотопортал'
       },
+      main_page_ticker1: {
+        title: 'Кадры публикуются в журналах:',
+        text: '— Sunday Times Travel Magazine — Maxim — GEO — Vanity Fair — Bild — View — L’Officiel Voyage — National Geographic China — Daily Dozen National Geographic'
+      },
+      recognition: {
+        title: 'Признание',
+        description: 'Сотрудничество с галереями в разных городах мира',
+        tickers: [
+          ['Нью-Йорк', 'Майами', 'Лондон', 'Париж'],
+          ['Барселона', 'Чикаго', 'Москва', 'Берлин']
+        ]
+      },
       welcome: 'Welcome',
       titles: {
         news: 'News',

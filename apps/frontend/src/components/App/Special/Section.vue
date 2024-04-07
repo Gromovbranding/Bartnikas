@@ -30,7 +30,7 @@
     padding-right: 6.667rem;
     width: 59.8%;
     background: $colorAccentBlue;
-    border-radius: 0.521rem;
+    border-radius: $borderRadiusMain;
   }
 
   &__title {
