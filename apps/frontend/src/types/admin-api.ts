@@ -387,3 +387,9 @@ export interface IIntroAdvantage {
   value: string;
   text: string;
 }
+
+export interface IChooseFormatCard {
+  title: string;
+  text: string;
+  action: string;
+}

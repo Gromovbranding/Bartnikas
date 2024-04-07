@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { IProjectTranslate, IIntroAdvantage } from '~/types/admin-api'
-const { getProjectByFooterCard } = usePublicData()
+import type { IIntroAdvantage } from '~/types/admin-api'
+// const { getProjectByFooterCard } = usePublicData()
 
-const { data: activeIndexCard } = await useAsyncData(
-  'activeIndexCard',
-  async () => await getProjectByFooterCard()
-)
+// const { data: activeIndexCard } = await useAsyncData(
+//   'activeIndexCard',
+//   async () => await getProjectByFooterCard()
+// )
 
-const activeCardTranslate = reactive(
-  useTranslateLanguage<IProjectTranslate>(activeIndexCard.value?.translate)
-)
+// const activeCardTranslate = reactive(
+//   useTranslateLanguage<IProjectTranslate>(activeIndexCard.value?.translate)
+// )
 </script>
 
 <template>
@@ -51,7 +51,7 @@ const activeCardTranslate = reactive(
       </div>
     </section>
 
-    <AppNewsHot />
+    <!-- <AppNewsHot /> -->
     <AppContentSpliter> {{ $t('titles.concept') }} </AppContentSpliter>
 
     <section class="concept">
@@ -59,7 +59,7 @@ const activeCardTranslate = reactive(
         <div class="concept__text-block">
           <p
             v-for="p in $tm('concept.text')"
-            :key="p"
+            :key="$rt(p)"
             class="concept__text-p"
           >
             {{ $rt(p) }}
@@ -77,13 +77,15 @@ const activeCardTranslate = reactive(
         src="/img/concept_gallery.jpg"
       />
     </section>
-    <AppSectionVideoGreeting class="app-video-greeting" />
+
+    <AppChooseFormatSection />
+    <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
     <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter>
-    <AppPortSection />
-    <AppAwardsSection />
-    <AppNewsSection />
+    <!-- <AppPortSection /> -->
+    <!-- <AppAwardsSection /> -->
+    <!-- <AppNewsSection /> -->
     <!-- <AppSectionInteriosOrderSlider /> -->
-    <section v-if="activeIndexCard" class="home-info-project-paralax">
+    <!-- <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
         <NuxtImg
           :src="
@@ -101,9 +103,9 @@ const activeCardTranslate = reactive(
           {{ $t('buttons.viewProject') }}
         </UIButton>
       </div>
-    </section>
-    <AppVideoSection />
-    <AppTestimonialsSection />
+    </section> -->
+    <!-- <AppVideoSection /> -->
+    <!-- <AppTestimonialsSection /> -->
   </main>
 </template>
 
