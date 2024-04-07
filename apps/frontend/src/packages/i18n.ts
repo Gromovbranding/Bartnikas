@@ -85,7 +85,7 @@ export default defineI18nConfig(() => ({
         awards: 'Awards',
         paymentDylivery: 'Payment & Delivery',
         termsConditions: 'Terms & Conditions',
-        videoCollection: 'Video Collection',
+        videoCollection: 'Music',
         cart: 'Cart',
         checkout: 'Checkout',
         article: 'Article',

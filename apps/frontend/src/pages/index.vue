@@ -116,8 +116,8 @@ import type { IIntroAdvantage } from '~/types/admin-api'
       </div>
     </section>
 
-    <!-- <AppVideoSection />
-    <AppTestimonialsSection /> -->
+    <AppVideoSection />
+    <AppTestimonialsSection />
 
     <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
     <!-- <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter> -->

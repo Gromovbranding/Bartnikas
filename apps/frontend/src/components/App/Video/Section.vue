@@ -11,7 +11,7 @@ const latestVideos = computed(() => videos.value?.slice(-3) || [])
 
 <template>
   <section class="video-collections">
-    <AppSectionHeader to="/video-collection">
+    <AppSectionHeader :is-link="false">
       {{ $t("titles.videoCollection") }}
     </AppSectionHeader>
     <div class="video-collections__content">
