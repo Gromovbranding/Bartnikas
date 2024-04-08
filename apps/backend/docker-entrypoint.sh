@@ -2,6 +2,6 @@
 
 npm run build
 
-npm run migration:run
+npm run migration:docker:run
 
 npm run start:prod

@@ -14,6 +14,7 @@
       "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\"",
       "typeorm": "npm run build && node --env-file .env.local --require ts-node/register ../../node_modules/typeorm/cli",
       "migration:run": "npm run typeorm migration:run -- -d ./src/config/migration.ts",
+      "migration:docker:run": "node --env-file .env --require ts-node/register ./node_modules/typeorm/cli migration:run -d ./src/config/migration.ts",
       "migration:generate": "npm run typeorm -- -d ./src/config/migration.ts migration:generate ./src/migrations/___new-migration___",
       "migration:create": "npm run typeorm -- migration:create ./src/migrations/___new-migration___",
       "migration:revert": "npm run typeorm -- -d ./src/config/migration.ts migration:revert"
