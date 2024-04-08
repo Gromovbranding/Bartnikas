@@ -85,7 +85,7 @@ export default defineI18nConfig(() => ({
         awards: 'Awards',
         paymentDylivery: 'Payment & Delivery',
         termsConditions: 'Terms & Conditions',
-        videoCollection: 'Music',
+        videoCollection: 'Video Collection',
         cart: 'Cart',
         checkout: 'Checkout',
         article: 'Article',
@@ -93,7 +93,8 @@ export default defineI18nConfig(() => ({
         media: 'Media',
         about: 'About',
         projectImage: 'Project Image',
-        testimonials: 'Testimonials'
+        testimonials: 'Testimonials',
+        services: 'Services'
       },
       buttons: {
         viewProject: 'View project',
@@ -232,7 +233,8 @@ export default defineI18nConfig(() => ({
         media: 'Медиа',
         about: 'Обо мне',
         projectImage: 'Изображение проекта',
-        testimonials: 'Отзывы'
+        testimonials: 'Отзывы',
+        services: 'Услуги'
       },
       buttons: {
         viewProject: 'Показать проекты',
