@@ -1,0 +1,377 @@
+<script setup lang="ts">
+const { t } = useI18n()
+
+const breadcrumbLinks = ref([
+  {
+    href: '/',
+    text: t('titles.home')
+  },
+  {
+    href: '/services',
+    text: t('titles.services')
+  },
+  {
+    href: '/services/place-of-power',
+    text: t('titles.placeOfPower')
+  }
+])
+</script>
+
+<template>
+  <main class="place-of-power-page">
+    <Title>{{ $t('titles.placeOfPower') }}</Title>
+
+    <section class="intro">
+      <AppContainer class="intro__container">
+        <AppBreadCrumb
+          class="place-of-power-page__breadcrumb"
+          :links="breadcrumbLinks"
+        />
+        <h1 class="intro__title">
+          {{ $t('placeOfPower.title') }}
+        </h1>
+        <div class="intro__info">
+          <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
+            <IconSmallArrow class="intro__ultra-anchor-icon" />
+            {{ $t('placeOfPower.ultraExclusiveAnchor') }}
+          </NuxtLink>
+          <p class="intro__subtitle">
+            {{ $t('placeOfPower.subtitle') }}
+          </p>
+        </div>
+      </AppContainer>
+      <NuxtImg
+        class="intro__img"
+        loading="lazy"
+        src="/img/place_of_power_intro.png"
+      />
+    </section>
+
+    <section class="bartnikas-quote">
+      <NuxtImg
+        class="bartnikas-quote__img"
+        loading="lazy"
+        src="/img/place_of_power_bartnikas.png"
+      />
+      <div class="bartnikas-quote__quote">
+        <p class="bartnikas-quote__text">
+          {{ $t('placeOfPower.quote.text') }}
+        </p>
+        <p class="bartnikas-quote__author">
+          {{ $t('placeOfPower.quote.author') }}
+        </p>
+      </div>
+    </section>
+
+    <section class="transformation">
+      <AppContentSpliter class="transformation__title" :font-weight="'normal'">
+        {{ $t('placeOfPower.transformation.title') }}
+      </AppContentSpliter>
+      <div class="transformation__main">
+        <div class="transformation__text">
+          <p class="transformation__text-description">
+            {{ $t('placeOfPower.transformation.list.title') }}
+          </p>
+          <ul class="transformation__text-list">
+            <li
+              v-for="item in $tm('placeOfPower.transformation.list.items')"
+              :key="$rt(item)"
+              class="transformation__text-item"
+            >
+              <IconLogoIcon class="transformation__text-item-icon" />
+              {{ $rt(item) }}
+            </li>
+          </ul>
+        </div>
+        <Swiper
+          class="transformation__swiper"
+          :modules="[SwiperAutoplay]"
+          autoplay
+        >
+          <SwiperSlide
+            v-for="i in 3"
+            :key="i"
+            class="transformation__swiper-item"
+          >
+            <NuxtImg
+              class="transformation__swiper-img"
+              loading="lazy"
+              :src="`/img/transformation_${i}.png`"
+            />
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </section>
+
+    <section class="artefact">
+      <AppContainer class="artefact__container">
+        <h2 class="artefact__title">
+          {{ $t('placeOfPower.artefact.title') }}
+        </h2>
+        <div class="artefact__text">
+          <p
+            v-for="p in $tm('placeOfPower.artefact.paragraphs')"
+            :key="$rt(p)"
+            class="artefact__paragraph"
+          >
+            {{ $rt(p) }}
+          </p>
+        </div>
+      </AppContainer>
+    </section>
+
+    <section class="exclusive">
+      <AppContentSpliter class="exclusive__title" :font-weight="'normal'">
+        {{ $t('placeOfPower.exclusive.title') }}
+      </AppContentSpliter>
+    </section>
+  </main>
+</template>
+
+<style scoped lang="scss">
+.place-of-power-page {
+  padding-top: 2.083rem;
+
+  &__breadcrumb {
+    font-size: 1.25rem;
+    margin-bottom: 2.083rem;
+  }
+}
+
+.intro {
+  &__container {
+    margin-bottom: 3.125rem;
+  }
+
+  &__title {
+    font-size: 7.292rem;
+    max-width: 69.635rem;
+    margin-bottom: 1.563rem;
+  }
+
+  &__info {
+    font-size: 2.083rem;
+    display: flex;
+    gap: 1.563rem;
+  }
+
+  &__ultra-anchor {
+    color: $colorAccentBlue;
+    font-weight: bold;
+  }
+
+  &__ultra-anchor-icon {
+    width: 1.12rem;
+    height: 1.12rem;
+  }
+
+  &__subtitle {
+    max-width: 38.802rem;
+  }
+
+  &__img {
+    width: 100%;
+    display: flex;
+  }
+}
+
+.bartnikas-quote {
+  display: flex;
+
+  &__img {
+    width: 54.5%;
+  }
+
+  &__quote {
+    font-size: 1.563rem;
+    width: 45.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.563rem;
+    padding: 2.083rem 3.385rem 2.083rem 2.083rem;
+  }
+
+  &__text {
+    font-style: italic;
+    line-height: 1.2;
+  }
+}
+
+.transformation {
+  &__main {
+    display: flex;
+  }
+
+  &__text {
+    font-size: 1.563rem;
+    padding: 4rem 1rem 1rem 3.385rem;
+    width: 54.5%;
+  }
+
+  &__text-description {
+    line-height: 1.2;
+    margin-bottom: 1.042rem;
+  }
+
+  &__text-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-left: 2.188rem;
+  }
+
+  &__text-item {
+    display: flex;
+    align-items: center;
+    gap: 0.521rem;
+  }
+
+  &__text-item-icon {
+    width: 1.146rem;
+    height: 1.146rem;
+  }
+
+  &__swiper {
+    width: 45.5%;
+    align-self: center;
+  }
+
+  &__swiper-img {
+    width: 100%;
+    display: flex;
+  }
+}
+
+.artefact {
+  padding-top: 4.167rem;
+  padding-bottom: 3.646rem;
+
+  &__title {
+    font-size: 6.25rem;
+    max-width: 83.333rem;
+    margin-bottom: 1.563rem;
+  }
+
+  &__text {
+    font-size: 1.563rem;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.563rem;
+    max-width: 60.521rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .place-of-power-page {
+    padding-top: 5rem;
+  }
+
+  .bartnikas-quote {
+    &__quote {
+      font-size: 1rem;
+    }
+  }
+
+  .transformation {
+    &__text {
+      font-size: 1rem;
+      padding-top: 2rem;
+    }
+  }
+
+  .artefact {
+    padding-top: 2rem;
+    &__title {
+      font-size: 4.2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .place-of-power-page {
+    padding-top: 7.532rem;
+
+    &__breadcrumb {
+      font-size: 1.221rem;
+      margin-bottom: 3.053rem;
+    }
+  }
+
+  .intro {
+    &__container {
+      margin-bottom: 3.053rem;
+    }
+
+    &__title {
+      font-size: 2.646rem;
+      margin-bottom: 1.628rem;
+    }
+
+    &__info {
+      font-size: 1.628rem;
+      flex-direction: column;
+      gap: 0.407rem;
+    }
+
+    &__utlra-anchor-icon {
+      width: 1.094rem;
+      height: 1.094rem;
+    }
+
+    &__img {
+      height: 61.069rem;
+      object-fit: cover;
+    }
+  }
+
+  .bartnikas-quote {
+    flex-direction: column;
+
+    &__img {
+      width: 100%;
+    }
+
+    &__quote {
+      font-size: 1.425rem;
+      width: 100%;
+      padding: 2.036rem 1.628rem 4.071rem;
+    }
+  }
+
+  .transformation {
+    &__main {
+      flex-direction: column-reverse;
+    }
+
+    &__text {
+      font-size: 1.425rem;
+      width: 100%;
+      padding: 2.036rem 1.628rem;
+    }
+
+    &__text-list {
+      padding-left: 0;
+    }
+
+    &__swiper {
+      width: 100%;
+    }
+  }
+
+  .artefact {
+    padding-top: 1rem;
+    padding-bottom: 4.071rem;
+
+    &__title {
+      font-size: 2.646rem;
+      margin-bottom: 1.221rem;
+    }
+
+    &__text {
+      font-size: 1.425rem;
+    }
+  }
+}
+</style>

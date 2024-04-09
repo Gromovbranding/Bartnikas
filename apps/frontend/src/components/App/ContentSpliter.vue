@@ -33,8 +33,7 @@ defineProps<{
     padding: 3rem 2rem;
 
     h2 {
-      letter-spacing: 3px;
-      font-size: 4rem;
+      font-size: 3.664rem;
     }
   }
 }
