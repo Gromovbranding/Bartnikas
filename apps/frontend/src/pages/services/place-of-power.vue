@@ -1,4 +1,9 @@
 <script setup lang="ts">
+interface ExclusiveRate {
+  title: string
+  benefits: string[]
+}
+
 const { t } = useI18n()
 
 const breadcrumbLinks = ref([
@@ -124,6 +129,45 @@ const breadcrumbLinks = ref([
       <AppContentSpliter class="exclusive__title" :font-weight="'normal'">
         {{ $t('placeOfPower.exclusive.title') }}
       </AppContentSpliter>
+      <div class="exclusive__head">
+        <NuxtImg
+          class="exclusive__head-img"
+          loading="lazy"
+          src="/img/exclusive_head.png"
+        />
+        <p class="exclusive__head-text">
+          {{ $t('placeOfPower.exclusive.head_text') }}
+        </p>
+      </div>
+
+      <AppContainer class="exclusive__container">
+        <h3 class="exclusive__subtitle">
+          {{ $t('placeOfPower.exclusive.subtitle') }}
+        </h3>
+
+        <div class="exclusive__rates">
+          <div
+            v-for="item in ($tm('placeOfPower.exclusive.rates') as ExclusiveRate[])"
+            :key="$rt(item.title)"
+            class="exclusive__rates-item"
+          >
+            <h4 class="exclusive__rates-item-title">
+              {{ $rt(item.title) }}
+            </h4>
+            <ul class="exclusive__rates-item-benefits">
+              <li v-for="benefit in item.benefits" :key="benefit" class="exclusive__rates-item-benefit">
+                {{ $rt(benefit) }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="exclusive__footer-info">
+          {{ $t('placeOfPower.exclusive.footer_info') }}
+        </p>
+        <UIButton class="exclusive__footer-action">
+          <span class="exclusive__footer-action-text">{{ $t('placeOfPower.exclusive.footer_action') }}</span>
+        </UIButton>
+      </AppContainer>
     </section>
   </main>
 </template>
@@ -263,6 +307,99 @@ const breadcrumbLinks = ref([
   }
 }
 
+.exclusive {
+  padding-bottom: 4.167rem;
+  &__head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.646rem;
+  }
+
+  &__head-img {
+    flex: 1;
+  }
+
+  &__head-text {
+    font-size: 2.083rem;
+    padding-left: 2.604rem;
+    padding-right: 3.385rem;
+    width: 50rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__subtitle {
+    font-size: 6.25rem;
+    margin-bottom: 3.281rem;
+  }
+
+  &__rates {
+    display: flex;
+    gap: 1.563rem;
+    margin-bottom: 2.083rem;
+  }
+
+  &__rates-item {
+    padding: 1.302rem 2.083rem;
+    border-radius: $borderRadiusMain;
+
+    &:nth-child(1) {
+      flex: 1;
+      background: $colorBackgroundGreyDarken;
+    }
+
+    &:nth-child(2) {
+      flex: 2;
+      color: #fff;
+      background: #000;
+    }
+
+    &:nth-child(3) {
+      flex: 1;
+      color: #fff;
+      background: $colorAccentBlue;
+    }
+  }
+
+  &__rates-item-title {
+    color: inherit;
+    font-size: 2.083rem;
+    font-weight: 700;
+    margin-bottom: 1.563rem;
+    text-align: center;
+  }
+
+  &__rates-item-benefits {
+    font-size: 1.146rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.521rem;
+    margin-bottom: 1.927rem;
+    list-style: disc inside;
+  }
+
+  &__footer-info {
+    font-size: 3.125rem;
+    margin-bottom: 1.563rem;
+    text-align: center;
+  }
+
+  &__footer-action {
+    align-self: center;
+    padding: 1.563rem 3.333rem !important;
+  }
+
+  &__footer-action-text {
+    color: #fff;
+    font-size: 1.563rem;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .place-of-power-page {
     padding-top: 5rem;
@@ -285,6 +422,26 @@ const breadcrumbLinks = ref([
     padding-top: 2rem;
     &__title {
       font-size: 4.2rem;
+    }
+  }
+
+  .exclusive {
+    &__subtitle {
+      font-size: 5rem;
+    }
+
+    &__head-img {
+      width: 50%;
+    }
+
+    &__head-text {
+      font-size: 1.7rem;
+      line-height: 1.2;
+      width: 50%;
+    }
+
+    &__footer-info {
+      font-size: 2.8rem;
     }
   }
 }
@@ -371,6 +528,59 @@ const breadcrumbLinks = ref([
 
     &__text {
       font-size: 1.425rem;
+    }
+  }
+
+  .exclusive {
+    padding-bottom: 5.089rem;
+
+    &__head {
+      flex-direction: column;
+      margin-bottom: 2.036rem;
+    }
+
+    &__head-img {
+      width: 100%;
+    }
+
+    &__head-text {
+      font-size: 1.628rem;
+      width: 100%;
+      padding: 2.036rem 1.628rem;
+    }
+
+    &__subtitle {
+      font-size: 2.646rem;
+      margin-bottom: 2.036rem;
+    }
+
+    &__rates {
+      display: flex;
+      flex-direction: column;
+      gap: 1.018rem;
+    }
+
+    &__rates-item {
+      padding: 2.036rem;
+    }
+
+    &__rates-item-title {
+      font-size: 1.628rem;
+      margin-bottom: 1.425rem;
+    }
+
+    &__rates-item-benefits {
+      font-size: 1.425rem;
+    }
+
+    &__footer-action {
+      align-self: stretch;
+      padding-top: 1.425rem !important;
+      padding-bottom: 1.425rem !important;
+    }
+
+    &__footer-action-text {
+      font-size: 2.443rem;
     }
   }
 }

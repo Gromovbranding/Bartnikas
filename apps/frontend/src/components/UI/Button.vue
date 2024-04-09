@@ -5,6 +5,7 @@ interface Props {
   isGrey?: boolean;
   isWhite?: boolean;
   isTextUppercase?: boolean;
+  isWeightNormal?: boolean;
   to?: RouteLocationRaw;
 }
 
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
   isTextUppercase: true,
   isWhite: false,
+  isWeightNormal: false,
   to: ''
 })
 
@@ -21,7 +23,8 @@ const classes = computed(() => {
     {
       'btn-default--grey': props.isGrey,
       'btn-default--white': props.isWhite,
-      'btn-default--uppercase': props.isTextUppercase
+      'btn-default--uppercase': props.isTextUppercase,
+      'btn-default--normal': props.isWeightNormal
     }
   ]
 })
@@ -38,6 +41,7 @@ const classes = computed(() => {
 
 <style lang="scss" scoped>
 .btn-default {
+  font-family: inherit;
   display: block;
   padding: 30px;
   border-radius: 50px;
@@ -68,6 +72,10 @@ const classes = computed(() => {
 
   &--uppercase {
     text-transform: uppercase;
+  }
+
+  &--normal {
+    font-weight: 400;
   }
 }
 
