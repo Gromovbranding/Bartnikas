@@ -41,7 +41,8 @@ export default defineNuxtConfig({
         defaultLocale: 'en',
         detectBrowserLanguage: false
       }
-    ]
+    ],
+    '@hypernym/nuxt-anime'
   ],
 
   site: {

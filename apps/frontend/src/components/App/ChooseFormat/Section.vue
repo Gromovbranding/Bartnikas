@@ -66,6 +66,10 @@ import type { IChooseFormatCard } from '~/types/admin-api'
     &:hover {
       transform: translateY(-12px);
     }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+    }
   }
 
   &__card-img {
@@ -106,8 +110,12 @@ import type { IChooseFormatCard } from '~/types/admin-api'
       font-size: 3.2rem;
     }
 
+    &__card-title {
+      font-size: 1.5rem;
+    }
+
     &__card-text {
-      font-size: 1.2rem;
+      font-size: .9rem;
       margin-bottom: 1.5rem;
     }
   }
@@ -131,6 +139,10 @@ import type { IChooseFormatCard } from '~/types/admin-api'
 
     &__card {
       flex-direction: column;
+
+      &:nth-child(even) {
+        flex-direction: column;
+      }
     }
 
     &__card-img {

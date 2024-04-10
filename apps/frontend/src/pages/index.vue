@@ -10,6 +10,27 @@ import type { IIntroAdvantage } from '~/types/admin-api'
 // const activeCardTranslate = reactive(
 //   useTranslateLanguage<IProjectTranslate>(activeIndexCard.value?.translate)
 // )
+
+const { $anime } = useNuxtApp()
+const advantagesBlock = ref()
+const advantagesAnimation = ref()
+
+onMounted(() => {
+  advantagesAnimation.value = $anime({
+    targets: '.intro__advantage',
+    translateX: ['-100%', 0],
+    delay: $anime.stagger(1000),
+    autoplay: false,
+    easing: 'linear'
+  })
+
+  document.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / advantagesBlock.value.offsetTop * 100
+    console.log(scrollPercent)
+    console.log((scrollPercent / 100) * advantagesAnimation.value.duration)
+    advantagesAnimation.value.seek((scrollPercent / 100) * advantagesAnimation.value.duration)
+  })
+})
 </script>
 
 <template>
@@ -28,7 +49,7 @@ import type { IIntroAdvantage } from '~/types/admin-api'
             {{ $t('intro.subtitle') }}
           </p>
 
-          <ul class="intro__advantages">
+          <ul ref="advantagesBlock" class="intro__advantages">
             <li
               v-for="advantage in ($tm('intro.advantages') as IIntroAdvantage[])"
               :key="advantage.text"
