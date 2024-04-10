@@ -4,19 +4,21 @@ interface Props {
   isLink?: boolean;
   to?: string;
   white?: boolean;
+  fontWeight?: string;
 }
 
 withDefaults(defineProps<Props>(), {
   toCaption: '',
   isLink: true,
   to: '/',
-  white: false
+  white: false,
+  fontWeight: 'bold'
 })
 </script>
 
 <template>
   <div :class="['caption', { 'caption--white': white }]">
-    <h2 v-scroll-scale-text>
+    <h2 v-scroll-scale-text :style="{fontWeight}">
       <slot />
       <span>
         {{ toCaption }}
@@ -87,24 +89,15 @@ withDefaults(defineProps<Props>(), {
       font-size: 16vw;
       letter-spacing: 3px;
       span {
-        // padding-top: 10px;
         font-size: 4.6vw;
         letter-spacing: 0;
         padding-left: 6px;
-        // font-weight: 400;
-      }
-    }
-
-    &--white {
-      h2 {
       }
     }
 
     a {
       font-size: 20px;
       margin-top: 8px;
-      span {
-      }
     }
   }
 }

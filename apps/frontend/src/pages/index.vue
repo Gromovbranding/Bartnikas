@@ -1,151 +1,73 @@
 <script lang="ts" setup>
-import type { IIntroAdvantage } from '~/types/admin-api'
-// const { getProjectByFooterCard } = usePublicData()
+import defBgImg from '@/assets/img/header_bg.jpg'
+import type { IProjectTranslate } from '~/types/admin-api'
+const { getIndexSlider, getProjectByFooterCard } = usePublicData()
 
-// const { data: activeIndexCard } = await useAsyncData(
-//   'activeIndexCard',
-//   async () => await getProjectByFooterCard()
-// )
+const { data: activeIndexCard } = await useAsyncData(
+  'activeIndexCard',
+  async () => await getProjectByFooterCard()
+)
 
-// const activeCardTranslate = reactive(
-//   useTranslateLanguage<IProjectTranslate>(activeIndexCard.value?.translate)
-// )
+const { data: sliderImages } = await useAsyncData(
+  'sliderImages',
+  async () => await getIndexSlider(),
+  {
+    default: () => [{ id: defBgImg, image: { name: defBgImg } }]
+  }
+)
 
-const { $anime } = useNuxtApp()
-const advantagesBlock = ref()
-const advantagesAnimation = ref()
-
-onMounted(() => {
-  advantagesAnimation.value = $anime({
-    targets: '.intro__advantage',
-    translateX: ['-100%', 0],
-    delay: $anime.stagger(1000),
-    autoplay: false,
-    easing: 'linear'
-  })
-
-  document.addEventListener('scroll', () => {
-    const scrollPercent = window.scrollY / advantagesBlock.value.offsetTop * 100
-    console.log(scrollPercent)
-    console.log((scrollPercent / 100) * advantagesAnimation.value.duration)
-    advantagesAnimation.value.seek((scrollPercent / 100) * advantagesAnimation.value.duration)
-  })
-})
+const activeCardTranslate = reactive(
+  useTranslateLanguage<IProjectTranslate>(
+    activeIndexCard.value?.translate
+  )
+)
 </script>
 
 <template>
   <main>
-    <Title>{{ $t('titles.home') }}</Title>
+    <Title>{{ $t("titles.home") }}</Title>
 
-    <section class="intro">
-      <IconLogoIcon class="intro__logo" />
-
-      <h1 class="intro__title">
-        {{ $t('intro.title') }}
-      </h1>
-      <div class="intro__info">
-        <div class="intro__info-text-block">
-          <p class="intro__subtitle">
-            {{ $t('intro.subtitle') }}
-          </p>
-
-          <ul ref="advantagesBlock" class="intro__advantages">
-            <li
-              v-for="advantage in ($tm('intro.advantages') as IIntroAdvantage[])"
-              :key="advantage.text"
-              class="intro__advantage"
-            >
-              <span class="intro__advantage-value">>&#8239;{{ $rt(advantage.value) }}</span>
-              <span class="intro__advantage-text">{{
-                $rt(advantage.text)
-              }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <NuxtImg
-          class="intro__img"
-          loading="lazy"
-          src="/img/intro_bartnikas.jpg"
-        />
-        <p class="intro__subtitle intro__subtitle_mobile">
-          {{ $t('intro.subtitle') }}
-        </p>
+    <header class="header">
+      <div class="header__main">
+        <IconLogo is-full-black />
       </div>
-    </section>
-
-    <!-- <AppNewsHot /> -->
-    <AppContentSpliter> {{ $t('titles.concept') }} </AppContentSpliter>
-
-    <section class="concept">
-      <div class="concept__main-block">
-        <div class="concept__text-block">
-          <p
-            v-for="p in $tm('concept.text')"
-            :key="$rt(p)"
-            class="concept__text-p"
-          >
-            {{ $rt(p) }}
-          </p>
-        </div>
-        <NuxtImg
-          class="concept__nature-img"
-          loading="lazy"
-          src="/img/concept_nature.jpg"
-        />
-      </div>
-      <NuxtImg
-        class="concept__gallery-img"
-        loading="lazy"
-        src="/img/concept_gallery.jpg"
-      />
-    </section>
-
-    <AppChooseFormatSection />
-    <AppSpecialSection />
+      <Swiper
+        style="
+          position: sticky;
+          top: 0;
+          z-index: -1;
+          perspective: 1px;
+          height: 100%;
+        "
+        :mousewheel="false"
+        :modules="[SwiperAutoplay, SwiperEffectFade]"
+        :slides-per-view="1"
+        :speed="1300"
+        effect="fade"
+        loop
+        :autoplay="{
+          delay: 2000,
+        }"
+      >
+        <SwiperSlide v-for="item in sliderImages" :key="item.id">
+          <NuxtImg
+            v-scroll-scale-image
+            loading="lazy"
+            :src="`/baseApiFiles/${item?.image?.name}`"
+            style="width: 100%; height: 100%; transition-duration: 100ms"
+          />
+        </SwiperSlide>
+      </Swiper>
+    </header>
+    <AppNewsHot />
+    <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
+    <AppSectionVideoGreeting class="app-video-greeting" />
+    <AppContentSpliter> {{ $t("titles.projects") }} </AppContentSpliter>
+    <AppPortSection />
     <AppAwardsSection />
-    <AppContentTicker
-      :ticker-title="$t('main_page_ticker1.title')"
-      :ticker-text="$t('main_page_ticker1.text')"
-    />
-
-    <section class="recognition">
-      <AppContentSpliter class="recognition__title" :color="'#000'" :font-weight="'normal'">
-        {{ $t('recognition.title') }}
-      </AppContentSpliter>
-
-      <p class="recognition__description">
-        {{ $t('recognition.description') }}
-      </p>
-
-      <div class="recognition__tickers">
-        <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
-          <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
-            <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
-            <span class="recognition__city-text">{{ city }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="achievements">
-      <div v-for="(ach, i) in $tm('achievements.items')" :key="$rt(ach)" class="achievements__item" :class="`achievements__item_${i}`">
-        <NuxtImg class="achievements__item-img" loading="lazy" :src="`/img/ach_${i}.png`" />
-        <p class="achievements__item-text">
-          {{ $rt(ach) }}
-        </p>
-      </div>
-    </section>
-
-    <AppVideoSection />
-    <AppTestimonialsSection />
-
-    <!-- <AppSectionVideoGreeting class="app-video-greeting" /> -->
-    <!-- <AppContentSpliter> {{ $t('titles.projects') }} </AppContentSpliter> -->
-    <!-- <AppPortSection /> -->
-    <!-- <AppNewsSection /> -->
+    <AppNewsSection />
     <!-- <AppSectionInteriosOrderSlider /> -->
-    <!-- <section v-if="activeIndexCard" class="home-info-project-paralax">
+    <section v-if="activeIndexCard" class="home-info-project-paralax">
       <div>
         <NuxtImg
           :src="
@@ -160,211 +82,16 @@ onMounted(() => {
         <h3>{{ activeCardTranslate?.title }}</h3>
         <div v-html="activeCardTranslate?.description" />
         <UIButton :to="`/projects/${activeIndexCard.id}`">
-          {{ $t('buttons.viewProject') }}
+          {{ $t("buttons.viewProject") }}
         </UIButton>
       </div>
-    </section> -->
+    </section>
+    <AppVideoSection />
+    <AppTestimonialsSection />
   </main>
 </template>
 
 <style lang="scss" scoped>
-
-// SECTION INTRO
-.intro {
-  padding-top: 1.042rem;
-  padding-bottom: 3rem;
-  display: flex;
-  flex-direction: column;
-
-  &__logo {
-    align-self: center;
-    width: 6.458rem;
-    height: 6.458rem;
-    margin-bottom: 1.094rem;
-  }
-
-  &__title {
-    font-size: 5.208rem;
-    padding: 0 3.385rem;
-    margin-bottom: 1.35rem;
-  }
-
-  &__info {
-    display: flex;
-    align-items: flex-start;
-    gap: 2.031rem;
-  }
-
-  &__info-text-block {
-    max-width: 51%;
-  }
-
-  &__subtitle {
-    font-size: 2.083rem;
-    line-height: 1.2;
-    margin-bottom: 3.646rem;
-    padding-left: 3rem;
-
-    &_mobile {
-      display: none;
-    }
-  }
-
-  &__advantages {
-    display: flex;
-    flex-direction: column;
-    gap: 3.125rem;
-    padding-left: 3rem;
-  }
-
-  &__advantage {
-    display: flex;
-    align-items: flex-end;
-    gap: 1.042rem;
-  }
-
-  &__advantage-value {
-    color: $colorAccentBlue;
-    font-size: 6.25rem;
-    line-height: 1;
-  }
-
-  &__advantage-text {
-    font-size: 1.56rem;
-    max-width: 18.229rem;
-    margin-bottom: 1rem;
-  }
-
-  &__img {
-    width: 100%;
-    max-width: 47%;
-    margin-left: auto;
-  }
-}
-
-// SECTION CONCEPT
-.concept {
-  display: flex;
-  align-items: flex-start;
-
-  &__main-block {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-self: stretch;
-  }
-
-  &__text-block {
-    font-size: 1.563rem;
-    line-height: 1.2;
-    display: flex;
-    flex-direction: column;
-    gap: 1.563rem;
-    padding: 3rem 3.385rem 4.3rem 4.323rem;
-  }
-
-  &__nature-img {
-    width: 100%;
-  }
-
-  &__gallery-img {
-    width: 40%;
-  }
-}
-
-// SECTION RECOGNITION
-.recognition {
-  overflow: hidden;
-  padding-bottom: 4.167rem;
-
-  &__title {
-    padding-top: 4.219rem;
-    padding-bottom: 2.083rem;
-    background: transparent;
-  }
-
-  &__description {
-    font-size: 1.563rem;
-    padding: 0 3.385rem;
-    max-width: 33.854rem;
-    margin-bottom: 2.604rem;
-  }
-
-  &__tickers {
-    display: flex;
-    flex-direction: column;
-    gap: 2.083rem;
-  }
-
-  &__ticker {
-    display: flex;
-    gap: 7.813rem;
-    width: max-content;
-    animation: 25s linear 0 ticker;
-    animation-iteration-count: infinite;
-
-    &_reverse {
-      animation-direction: reverse;
-    }
-  }
-
-  &__city {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.563rem;
-  }
-
-  &__city-img {
-    width: 15.99rem;
-  }
-
-  &__city-text {
-    font-size: 2.083rem;
-    white-space: nowrap;
-  }
-}
-
-// SECTION achievements
-.achievements {
-  min-height: 46.354rem;
-  background: url('/img/bartnikas_achievements.png') no-repeat center/cover;
-  position: relative;
-
-  &__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.7rem;
-    width: 18.906rem;
-    min-height: 13.073rem;
-    padding: 1.042rem 2.083rem 1.302rem;
-    border-radius: $borderRadiusMain;
-    background: #fff;
-    position: absolute;
-
-    &_0 {
-      top: 12.5rem;
-      left: 13.854rem;
-    }
-
-    &_1 {
-      top: 4.74rem;
-      right: 15.208rem;
-    }
-  }
-
-  &__item-img {
-    max-width: 100%;
-  }
-
-  &__item-text {
-    font-size: 1.25rem;
-    line-height: 1.2;
-  }
-}
-
 .home-info-project-paralax {
   height: 250vh;
   position: relative;
@@ -436,56 +163,8 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 1000px) {
-  .intro {
-    &__title {
-      font-size: 3.8rem;
-    }
-
-    &__subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
-    }
-
-    &__advantages {
-      gap: 2rem;
-    }
-
-    &__advantage-value {
-      font-size: 4rem;
-    }
-
-    &__advantage-text {
-      font-size: 1rem;
-      max-width: 14rem;
-    }
-  }
-
-  .concept {
-    &__text-block {
-      font-size: 1.15rem;
-      padding: 2rem;
-      gap: 1.3rem;
-    }
-  }
-
-  .achievements {
-    min-height: 32rem;
-
-    &__item {
-
-      &_0 {
-        top: 7rem;
-        left: 4rem;
-      }
-
-      &_1 {
-        top: 3rem;
-        right: 3rem;
-      }
-    }
-  }
-
   .header {
+
     &__main {
       height: calc(100vh + 10px);
       &:deep(svg) {
@@ -507,154 +186,7 @@ onMounted(() => {
   }
 }
 
-@media screen and (max-width: 550px) {
-  .intro {
-    padding-top: 1.018rem;
-    padding-bottom: 4.071rem;
-
-    &__logo {
-      width: 6.107rem;
-      height: 6.107rem;
-      margin-bottom: 1.018rem;
-    }
-
-    &__title {
-      font-size: 2.646rem;
-      padding: 0 1.628rem;
-      margin-bottom: 0.611rem;
-    }
-
-    &__info {
-      flex-direction: column-reverse;
-      gap: unset;
-    }
-
-    &__info-text-block {
-      max-width: 100%;
-    }
-
-    &__subtitle {
-      font-size: 1.628rem;
-      padding: 0 1.628rem;
-      margin-bottom: 1.628rem;
-      max-width: 100%;
-      display: none;
-
-      &_mobile {
-        display: flex;
-      }
-    }
-
-    &__advantages {
-      padding: 0 1.628rem;
-      gap: 2rem;
-      max-width: 100%;
-    }
-
-    &__advantage-value {
-      font-size: 5.089rem;
-      white-space: nowrap;
-    }
-
-    &__advantage-text {
-      font-size: 1.425rem;
-      max-width: 18.83rem;
-      margin-bottom: 0.75rem;
-    }
-
-    &__img {
-      max-width: 100%;
-      margin-bottom: 3.053rem;
-    }
-  }
-
-  .concept {
-    flex-direction: column;
-
-    &__main-block {
-      width: 100%;
-    }
-
-    &__text-block {
-      font-size: 1.425rem;
-      padding: 2.036rem 1.628rem 3.053rem;
-    }
-
-    &__nature-img {
-      display: none;
-    }
-
-    &__gallery-img {
-      width: 100%;
-    }
-  }
-
-  .recognition {
-    padding-bottom: 4.071rem;
-
-    &__title {
-      padding-top: 4.071rem;
-      padding-bottom: 2.036rem;
-    }
-
-    &__description {
-      font-size: 1.425rem;
-      margin-bottom: 3.053rem;
-      padding: 0 1.628rem;
-    }
-
-    &__tickers {
-      gap: 1.018rem;
-    }
-
-    &__ticker {
-      gap: 3.053rem;
-    }
-
-    &__city {
-      gap: 1.018rem;
-    }
-
-    &__city-img {
-      width: 11.196rem;
-    }
-
-    &__city-text {
-      font-size: 1.628rem;
-    }
-  }
-
-  .achievements {
-    min-height: 39.898rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1.221rem;
-    padding: 2.748rem 1.628rem;
-    background-position-x: 70%;
-
-    &__item {
-      position: static;
-      min-height: 12.723rem;
-
-      &_0 {
-        .achievements__item-img {
-          width: 6.005rem;
-        }
-      }
-
-      &_1 {
-        .achievements__item-img {
-          width: 11.196rem;
-        }
-      }
-    }
-
-    &__item-text {
-      font-size: 1.221rem;
-    }
-  }
-
+@media screen and (max-width: 600px) {
   .header {
     height: 90vh;
     &__main {

@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import type { IChooseFormatCard } from '~/types/admin-api'
+
+const titleBlock = ref()
+
+onMounted(() => {
+  if (titleBlock.value) {
+    useColorChangerOnScroll(titleBlock.value, 'rgb(66, 136, 193)')
+  }
+})
 </script>
 
 <template>
   <section class="choose-format">
-    <h2 class="choose-format__title">
+    <h2 ref="titleBlock" class="choose-format__title">
       {{ $t('choose_format.title') }}
     </h2>
 
@@ -22,7 +30,7 @@ import type { IChooseFormatCard } from '~/types/admin-api'
           <p class="choose-format__card-text">
             {{ $rt(card.text) }}
           </p>
-          <NuxtLink class="choose-format__card-action">
+          <NuxtLink class="choose-format__card-action" :to="`${card.link}`">
             {{ $rt(card.action) }}
           </NuxtLink>
         </div>

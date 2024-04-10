@@ -1,382 +1,673 @@
 <script lang="ts" setup>
-import type {
-  IBio,
-  IBioTranslate,
-  IBioTestimonials,
-  IBioTestimonialsTranslate
-} from '@/types/admin-api'
+import type { IIntroAdvantage } from '~/types/admin-api'
 
-const { breakpoint } = useBreakpoints()
+const { $anime } = useNuxtApp()
+const advantagesBlock = ref()
+const advantagesAnimation = ref()
+const introTitleBlock = ref<HTMLElement>()
 
-const { t } = useI18n()
+onMounted(() => {
+  advantagesAnimation.value = $anime({
+    targets: '.intro__advantage',
+    translateX: ['-100%', 0],
+    delay: $anime.stagger(100),
+    duration: 500,
+    autoplay: false,
+    easing: 'linear'
+  })
 
-const videoGreetingStyle = computed(() => {
-  return {
-    'flex-direction':
-      breakpoint.value === 'xs' ? 'column-reverse' : 'row-reverse'
+  window.addEventListener('scroll', advantagesAppearance)
+
+  if (introTitleBlock.value) {
+    useColorChangerOnScroll(introTitleBlock.value, 'rgb(66, 136, 193)')
   }
 })
 
-const { getBio, getBioTestimonials } = usePublicData()
+function advantagesAppearance () {
+  const scrollPercent = (window.scrollY - advantagesBlock.value.offsetTop + 200) / advantagesBlock.value.offsetHeight * 100
+  if (scrollPercent > 0) {
+    advantagesAnimation.value.play()
+    window.removeEventListener('scroll', advantagesAppearance)
+  }
+}
 
-const { data: bio } = await useAsyncData<IBio>(
-  'bio',
-  async () => await getBio()
-)
-
-const translated = reactive(
-  useTranslateLanguage<IBioTranslate>(bio.value!.translate)
-)
-
-useHeadSafe({
-  title: t('titles.about'),
-  meta: [
-    {
-      name: 'description',
-      content: translated.value?.description ?? ''
-    }
-
-  ]
-})
-
-const { data: bioTestimonials } = await useAsyncData<IBioTestimonials[]>(
-  'bioTestimonials',
-  async () => await getBioTestimonials()
-)
-
-const translateBioTestimonials = reactive(
-  (bioTestimonials.value ?? []).map((item) => {
-    return {
-      ...item,
-      translate: useTranslateLanguage<IBioTestimonialsTranslate>(item.translate)
-    }
-  })
-)
 </script>
 
 <template>
   <main>
-    <AppPageHead :title="$t('titles.about')" />
+    <Title>{{ $t('titles.about') }}</Title>
 
-    <section class="biography-about">
-      <div class="biography-about__img">
-        <NuxtImg loading="lazy" :src="`/baseApiFiles/${bio?.awatar.name}`" />
-      </div>
-      <div class="biography-about__text">
-        <p>
-          {{ translated?.sub_description }}
+    <section class="intro">
+      <IconLogoIcon class="intro__logo" />
+
+      <h1 ref="introTitleBlock" class="intro__title">
+        {{ $t('intro.title') }}
+      </h1>
+      <div class="intro__info">
+        <div class="intro__info-text-block">
+          <p class="intro__subtitle">
+            {{ $t('intro.subtitle') }}
+          </p>
+
+          <ul ref="advantagesBlock" class="intro__advantages">
+            <li
+              v-for="advantage in ($tm('intro.advantages') as IIntroAdvantage[])"
+              :key="advantage.text"
+              class="intro__advantage"
+            >
+              <span class="intro__advantage-value">>&#8239;{{ $rt(advantage.value) }}</span>
+              <span class="intro__advantage-text">{{
+                $rt(advantage.text)
+              }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <NuxtImg
+          class="intro__img"
+          loading="lazy"
+          src="/img/intro_bartnikas.jpg"
+        />
+        <p class="intro__subtitle intro__subtitle_mobile">
+          {{ $t('intro.subtitle') }}
         </p>
-        <div v-html="translated?.description" />
       </div>
     </section>
 
-    <section class="testimonials">
-      <div
-        class="testimonials__wrapper"
-      >
-        <div
-          v-for="item in [translateBioTestimonials[0], translateBioTestimonials[0], translateBioTestimonials[0]]"
-          :key="item.id"
-          class="testimonials__item"
-        >
-          <div class="testimonials__person">
-            <div>
-              <NuxtImg
-                loading="lazy"
-                :src="`/baseApiFiles/${item.photo.name}`"
-              />
-            </div>
-            <div>
-              <h3>{{ item.translate?.name }}</h3>
-              <p>{{ item.translate?.job }}</p>
-            </div>
-          </div>
-          <div class="testimonials__text">
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-                stroke-linejoin="round"
-                stroke-miterlimit="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-                  fill-rule="nonzero"
-                />
-              </svg>
-            </div>
-            <div>
-              <p>
-                {{ item.translate?.testimonial }}
-              </p>
-            </div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-                stroke-linejoin="round"
-                stroke-miterlimit="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="m2.699 20c-.411 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.016.092-4.326-2.582-4.326-4.258 0-2.006 1.738-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.834 10.693-8.468 10.693zm10.833 0c-.41 0-.699-.312-.699-.662 0-.249.145-.516.497-.703 1.788-.947 3.858-4.226 3.858-6.248-3.015.092-4.326-2.582-4.326-4.258 0-2.006 1.739-4.129 4.308-4.129 3.241 0 4.83 2.547 4.83 5.307 0 5.981-6.833 10.693-8.468 10.693z"
-                  fill-rule="nonzero"
-                />
-              </svg>
-            </div>
+    <AppContentSpliter :font-weight="'normal'">
+      {{ $t('titles.concept') }}
+    </AppContentSpliter>
+
+    <section class="concept">
+      <div class="concept__main-block">
+        <div class="concept__text-block">
+          <p
+            v-for="p in $tm('concept.text')"
+            :key="$rt(p)"
+            class="concept__text-p"
+          >
+            {{ $rt(p) }}
+          </p>
+        </div>
+        <NuxtImg
+          class="concept__nature-img"
+          loading="lazy"
+          src="/img/concept_nature.jpg"
+        />
+      </div>
+      <NuxtImg
+        class="concept__gallery-img"
+        loading="lazy"
+        src="/img/concept_gallery.jpg"
+      />
+    </section>
+
+    <AppChooseFormatSection />
+    <AppSpecialSection />
+    <AppAwardsSection :title-font-weight="'normal'" />
+    <AppContentTicker
+      :ticker-title="$t('main_page_ticker1.title')"
+      :ticker-text="$t('main_page_ticker1.text')"
+    />
+
+    <section class="recognition">
+      <AppContentSpliter class="recognition__title" :color="'#000'" :font-weight="'normal'">
+        {{ $t('recognition.title') }}
+      </AppContentSpliter>
+
+      <p class="recognition__description">
+        {{ $t('recognition.description') }}
+      </p>
+
+      <div class="recognition__tickers">
+        <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
+          <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
+            <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
+            <span class="recognition__city-text">{{ city }}</span>
           </div>
         </div>
       </div>
     </section>
-    <AppAwardsSection />
-    <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
-    <AppSectionVideoGreeting :style="videoGreetingStyle" />
+
+    <section class="achievements">
+      <div v-for="(ach, i) in $tm('achievements.items')" :key="$rt(ach)" class="achievements__item" :class="`achievements__item_${i}`">
+        <NuxtImg class="achievements__item-img" loading="lazy" :src="`/img/ach_${i}.png`" />
+        <p class="achievements__item-text">
+          {{ $rt(ach) }}
+        </p>
+      </div>
+    </section>
+
+    <AppVideoSection />
+    <AppTestimonialsSection />
   </main>
 </template>
 
 <style lang="scss" scoped>
-.biography-about {
+
+// SECTION INTRO
+.intro {
+  padding-top: 1.042rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+
+  &__logo {
+    align-self: center;
+    width: 6.458rem;
+    height: 6.458rem;
+    margin-bottom: 1.094rem;
+  }
+
+  &__title {
+    font-size: 5.208rem;
+    padding: 0 3.385rem;
+    margin-bottom: 1.35rem;
+  }
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.031rem;
+  }
+
+  &__info-text-block {
+    max-width: 51%;
+  }
+
+  &__subtitle {
+    font-size: 2.083rem;
+    line-height: 1.2;
+    margin-bottom: 3.646rem;
+    padding-left: 3rem;
+
+    &_mobile {
+      display: none;
+    }
+  }
+
+  &__advantages {
+    display: flex;
+    flex-direction: column;
+    gap: 3.125rem;
+    padding-left: 3rem;
+  }
+
+  &__advantage {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.042rem;
+  }
+
+  &__advantage-value {
+    color: $colorAccentBlue;
+    font-size: 6.25rem;
+    line-height: 1;
+  }
+
+  &__advantage-text {
+    font-size: 1.56rem;
+    max-width: 18.229rem;
+    margin-bottom: 1rem;
+  }
+
+  &__img {
+    width: 100%;
+    max-width: 47%;
+    margin-left: auto;
+  }
+}
+
+// SECTION CONCEPT
+.concept {
   display: flex;
   align-items: flex-start;
 
-  &__img {
-    flex: 0 0 50%;
-
-    img,
-    picture {
-      border-radius: $borderRadiusMain;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__text {
+  &__main-block {
+    width: 60%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    padding: 3vw;
+    justify-content: space-between;
+    align-self: stretch;
+  }
 
-    :deep(p) {
-      font-size: 1.5vw;
-      line-height: 1.5;
-      font-weight: 400;
-    }
+  &__text-block {
+    font-size: 1.563rem;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.563rem;
+    padding: 3rem 3.385rem 4.3rem 4.323rem;
+  }
 
-    small {
-      color: $colorTextDark;
-      font-size: 1.2vw;
-      font-weight: 400;
-      line-height: 1.5;
-    }
+  &__nature-img {
+    width: 100%;
+  }
+
+  &__gallery-img {
+    width: 40%;
   }
 }
 
-.testimonials {
-  margin-block: 80px 0;
-  padding: 0 40px 80px;
+// SECTION RECOGNITION
+.recognition {
   overflow: hidden;
-  &__wrapper {
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    display: flex;
-    gap: 100px;
-    cursor: grab;
-    touch-action: pan-x;
+  padding-bottom: 4.167rem;
 
-    &::-webkit-scrollbar {
-      display: none;
+  &__title {
+    padding-top: 4.219rem;
+    padding-bottom: 2.083rem;
+    background: transparent;
   }
+
+  &__description {
+    font-size: 1.563rem;
+    padding: 0 3.385rem;
+    max-width: 33.854rem;
+    margin-bottom: 2.604rem;
   }
+
+  &__tickers {
+    display: flex;
+    flex-direction: column;
+    gap: 2.083rem;
+  }
+
+  &__ticker {
+    display: flex;
+    gap: 7.813rem;
+    width: max-content;
+    animation: 25s linear 0 ticker;
+    animation-iteration-count: infinite;
+
+    &_reverse {
+      animation-direction: reverse;
+    }
+  }
+
+  &__city {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.563rem;
+  }
+
+  &__city-img {
+    width: 15.99rem;
+  }
+
+  &__city-text {
+    font-size: 2.083rem;
+    white-space: nowrap;
+  }
+}
+
+// SECTION achievements
+.achievements {
+  min-height: 46.354rem;
+  background: url('/img/bartnikas_achievements.png') no-repeat center/cover;
+  position: relative;
 
   &__item {
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    flex: 0 0 40vw;
-  }
-
-  &__person {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 0.7rem;
+    width: 18.906rem;
+    min-height: 13.073rem;
+    padding: 1.042rem 2.083rem 1.302rem;
+    border-radius: $borderRadiusMain;
+    background: #fff;
+    position: absolute;
 
-    > div {
-      &:first-child {
-        width: 160px;
-        height: 160px;
+    &_0 {
+      top: 12.5rem;
+      left: 13.854rem;
+    }
 
-        img,
-        picture {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
-          border-radius: $borderRadiusMain;
-        }
-      }
-
-      &:last-child {
-        max-width: 380px;
-
-        h3 {
-          font-size: 34px;
-          font-weight: bold;
-        }
-
-        :deep(p) {
-          line-height: 1.3;
-          font-size: 28px;
-        }
-      }
+    &_1 {
+      top: 4.74rem;
+      right: 15.208rem;
     }
   }
 
-  &__text {
-    display: flex;
-    gap: 40px;
+  &__item-img {
+    max-width: 100%;
+  }
 
-    > div {
-      &:first-child {
-        svg {
-          transform: rotate(180deg);
-        }
-      }
+  &__item-text {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+}
 
-      &:nth-child(odd) {
-        svg {
-          fill: $colorAccentBlue;
-          stroke: $colorAccentBlue;
-          width: 42px;
-        }
-      }
+.home-info-project-paralax {
+  height: 250vh;
+  position: relative;
+  border-radius: $borderRadiusMain;
 
-      &:last-child {
-        align-self: flex-end;
+  > div {
+    &:first-child {
+      position: sticky;
+      top: 0;
+
+      img,
+      picture {
+        height: 100vh;
+        width: 100%;
+        object-fit: cover;
       }
     }
 
-    :deep(p) {
-      font-size: 26px;
-      line-height: 1.5;
+    &:last-child {
+      position: absolute;
+      bottom: 10rem;
+      padding: 5rem 2.5rem;
+      max-width: 650px;
+      left: 2rem;
+      border-radius: $borderRadiusMain;
+      background-color: $colorBackgroundGrey;
+
+      h3 {
+        font-size: 5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      > div {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.7;
+      }
+
+      a {
+        margin-top: 60px;
+      }
     }
   }
 }
 
-@media screen and (min-width: 551px) and (max-width: 1000px) {
-  .biography-about {
-    &__text {
-      :deep(p) {
-        font-size: 1.3rem;
+.header {
+  height: 150vh;
+  &__main {
+    width: 100%;
+    height: 675px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    &:deep(svg) {
+      max-width: 575px;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .intro {
+    &__title {
+      font-size: 3.8rem;
+    }
+
+    &__subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    &__advantages {
+      gap: 2rem;
+    }
+
+    &__advantage-value {
+      font-size: 4rem;
+    }
+
+    &__advantage-text {
+      font-size: 1rem;
+      max-width: 14rem;
+    }
+  }
+
+  .concept {
+    &__text-block {
+      font-size: 1.15rem;
+      padding: 2rem;
+      gap: 1.3rem;
+    }
+  }
+
+  .achievements {
+    min-height: 32rem;
+
+    &__item {
+
+      &_0 {
+        top: 7rem;
+        left: 4rem;
       }
-      small {
-        font-size: 1.1rem;
+
+      &_1 {
+        top: 3rem;
+        right: 3rem;
       }
     }
   }
-  .testimonials {
-    &__person {
-      > div {
-        &:first-child {
-          width: 7.22rem;
-          height: 7.22rem;
-        }
 
-        &:last-child {
-          max-width: 16rem;
-
-          h3 {
-            font-size: 1.52rem;
-            font-weight: bold;
-          }
-          p {
-            font-size: 1.3rem;
-          }
-        }
+  .header {
+    &__main {
+      height: calc(100vh + 10px);
+      &:deep(svg) {
+        max-width: 30rem;
       }
     }
-    &__text {
-      :deep(p) {
-        line-height: 1.3;
-        font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 825px) {
+  .header {
+    &__main {
+      height: calc(65vh + 10px);
+      &:deep(svg) {
+        max-width: 30rem;
       }
     }
+    height: 130vh;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .biography-about {
+  .intro {
+    padding-top: 1.018rem;
+    padding-bottom: 4.071rem;
+
+    &__logo {
+      width: 6.107rem;
+      height: 6.107rem;
+      margin-bottom: 1.018rem;
+    }
+
+    &__title {
+      font-size: 2.646rem;
+      padding: 0 1.628rem;
+      margin-bottom: 0.611rem;
+    }
+
+    &__info {
+      flex-direction: column-reverse;
+      gap: unset;
+    }
+
+    &__info-text-block {
+      max-width: 100%;
+    }
+
+    &__subtitle {
+      font-size: 1.628rem;
+      padding: 0 1.628rem;
+      margin-bottom: 1.628rem;
+      max-width: 100%;
+      display: none;
+
+      &_mobile {
+        display: flex;
+      }
+    }
+
+    &__advantages {
+      padding: 0 1.628rem;
+      gap: 2rem;
+      max-width: 100%;
+    }
+
+    &__advantage-value {
+      font-size: 5.089rem;
+      white-space: nowrap;
+    }
+
+    &__advantage-text {
+      font-size: 1.425rem;
+      max-width: 18.83rem;
+      margin-bottom: 0.75rem;
+    }
+
+    &__img {
+      max-width: 100%;
+      margin-bottom: 3.053rem;
+    }
+  }
+
+  .concept {
+    flex-direction: column;
+
+    &__main-block {
+      width: 100%;
+    }
+
+    &__text-block {
+      font-size: 1.425rem;
+      padding: 2.036rem 1.628rem 3.053rem;
+    }
+
+    &__nature-img {
+      display: none;
+    }
+
+    &__gallery-img {
+      width: 100%;
+    }
+  }
+
+  .recognition {
+    padding-bottom: 4.071rem;
+
+    &__title {
+      padding-top: 4.071rem;
+      padding-bottom: 2.036rem;
+    }
+
+    &__description {
+      font-size: 1.425rem;
+      margin-bottom: 3.053rem;
+      padding: 0 1.628rem;
+    }
+
+    &__tickers {
+      gap: 1.018rem;
+    }
+
+    &__ticker {
+      gap: 3.053rem;
+    }
+
+    &__city {
+      gap: 1.018rem;
+    }
+
+    &__city-img {
+      width: 11.196rem;
+    }
+
+    &__city-text {
+      font-size: 1.628rem;
+    }
+  }
+
+  .achievements {
+    min-height: 39.898rem;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    &__text {
-      :deep(p) {
-        font-size: 4vw;
-      }
+    align-items: flex-end;
+    gap: 1.221rem;
+    padding: 2.748rem 1.628rem;
+    background-position-x: 70%;
 
-      small {
-        font-size: 3vw;
-      }
-    }
-  }
-
-  .testimonials {
-    padding: 0 1rem 5rem;
-    flex-direction: column;
-    gap: 180px;
     &__item {
-      flex-basis: 100%;
-    }
+      position: static;
+      min-height: 12.723rem;
 
-    &__person {
-      > div {
-        &:first-child {
-          width: fit-content;
-          height: fit-content;
-          img,
-          picture {
-            width: 96px;
-            height: 96px;
-          }
+      &_0 {
+        .achievements__item-img {
+          width: 6.005rem;
         }
+      }
 
-        &:last-child {
-          h3 {
-            font-size: 6vw;
-          }
-
-          p {
-            font-size: 6vw;
-            margin-top: 8px;
-          }
+      &_1 {
+        .achievements__item-img {
+          width: 11.196rem;
         }
       }
     }
 
-    &__text {
-      gap: 16px;
-      > div {
-        &:nth-child(odd) {
-          svg {
-            width: 32px;
-          }
-        }
-      }
+    &__item-text {
+      font-size: 1.221rem;
+    }
+  }
 
-      :deep(p) {
-        font-size: 5vw;
+  .header {
+    height: 90vh;
+    &__main {
+      height: 45vh;
+      &:deep(svg) {
+        width: 88%;
       }
     }
   }
 
-  :deep(.video-greeting) {
-    .video-greeting__text {
-      margin-top: 40px;
+  .app-video-greeting {
+    margin-bottom: 80px;
+  }
+
+  .home-info-project-paralax {
+    height: 2000px;
+
+    > div {
+      &:last-child {
+        padding: 60px 16px;
+        left: 16px;
+        right: 16px;
+        h3 {
+          font-size: 50px;
+          word-wrap: break-word;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-size: 20px;
+          line-height: 1.6;
+        }
+
+        button {
+          font-size: 32px;
+        }
+      }
     }
   }
 }

@@ -2,6 +2,10 @@
 interface ExclusiveRate {
   title: string
   benefits: string[]
+  footer: {
+    description: string
+    text: string
+  }
 }
 
 const { t } = useI18n()
@@ -20,6 +24,36 @@ const breadcrumbLinks = ref([
     text: t('titles.placeOfPower')
   }
 ])
+
+const artefactTitleBlock = ref()
+const { $anime } = useNuxtApp()
+const transformationListBlock = ref()
+const transformationItemsAnimation = ref()
+
+onMounted(() => {
+  transformationItemsAnimation.value = $anime({
+    targets: '.transformation__text-item',
+    translateX: ['-100%', 0],
+    delay: $anime.stagger(100),
+    duration: 600,
+    autoplay: false,
+    easing: 'linear'
+  })
+
+  window.addEventListener('scroll', transformationItemsAppearance)
+
+  if (artefactTitleBlock.value) {
+    useColorChangerOnScroll(artefactTitleBlock.value, 'rgb(66, 136, 193)')
+  }
+})
+
+function transformationItemsAppearance () {
+  const scrollPercent = (window.scrollY - transformationListBlock.value.offsetTop + 250) / transformationListBlock.value.offsetHeight * 100
+  if (scrollPercent > 0) {
+    transformationItemsAnimation.value.play()
+    window.removeEventListener('scroll', transformationItemsAppearance)
+  }
+}
 </script>
 
 <template>
@@ -77,7 +111,7 @@ const breadcrumbLinks = ref([
           <p class="transformation__text-description">
             {{ $t('placeOfPower.transformation.list.title') }}
           </p>
-          <ul class="transformation__text-list">
+          <ul ref="transformationListBlock" class="transformation__text-list">
             <li
               v-for="item in $tm('placeOfPower.transformation.list.items')"
               :key="$rt(item)"
@@ -110,7 +144,7 @@ const breadcrumbLinks = ref([
 
     <section class="artefact">
       <AppContainer class="artefact__container">
-        <h2 class="artefact__title">
+        <h2 ref="artefactTitleBlock" class="artefact__title">
           {{ $t('placeOfPower.artefact.title') }}
         </h2>
         <div class="artefact__text">
@@ -125,7 +159,7 @@ const breadcrumbLinks = ref([
       </AppContainer>
     </section>
 
-    <section class="exclusive">
+    <section id="ultra-exclusive" class="exclusive">
       <AppContentSpliter class="exclusive__title" :font-weight="'normal'">
         {{ $t('placeOfPower.exclusive.title') }}
       </AppContentSpliter>
@@ -159,13 +193,19 @@ const breadcrumbLinks = ref([
                 {{ $rt(benefit) }}
               </li>
             </ul>
+            <p v-if="$rt(item.footer.text)" class="exclusive__rates-footer">
+              <span v-if="$rt(item.footer.description)" class="exclusive__rates-footer-description">
+                {{ $rt(item.footer.description) }}
+              </span>
+              <span class="exclusive__rates-footer-text">{{ $rt(item.footer.text) }}</span>
+            </p>
           </div>
         </div>
         <p class="exclusive__footer-info">
           {{ $t('placeOfPower.exclusive.footer_info') }}
         </p>
-        <UIButton class="exclusive__footer-action">
-          <span class="exclusive__footer-action-text">{{ $t('placeOfPower.exclusive.footer_action') }}</span>
+        <UIButton class="exclusive__footer-action" :is-text-uppercase="false">
+          {{ $t('placeOfPower.exclusive.footer_action') }}
         </UIButton>
       </AppContainer>
     </section>
@@ -343,7 +383,7 @@ const breadcrumbLinks = ref([
   }
 
   &__rates-item {
-    padding: 1.302rem 2.083rem;
+    padding: 1.302rem 2.083rem 3.698rem;
     border-radius: $borderRadiusMain;
 
     &:nth-child(1) {
@@ -355,6 +395,13 @@ const breadcrumbLinks = ref([
       flex: 2;
       color: #fff;
       background: #000;
+
+      .exclusive__rates-item-benefits {
+        display: grid;
+        grid-template-rows: repeat(6, max-content);
+        grid-auto-flow: column;
+        grid-auto-columns: 17.188rem;
+      }
     }
 
     &:nth-child(3) {
@@ -376,9 +423,33 @@ const breadcrumbLinks = ref([
     font-size: 1.146rem;
     display: flex;
     flex-direction: column;
-    gap: 0.521rem;
+    gap: 0.8rem;
     margin-bottom: 1.927rem;
-    list-style: disc inside;
+  }
+
+  &__rates-item-benefit {
+    display: flex;
+    gap: 0.365rem;
+
+    &::before {
+      content: '•';
+    }
+  }
+
+  &__rates-footer {
+    font-size: 1.146rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.26rem;
+    max-width: 30.208rem;
+  }
+
+  &__rates-footer-description {
+    color: $colorAccentBlue;
+  }
+
+  &__rates-footer, &__rates-footer-text {
+    color: inherit;
   }
 
   &__footer-info {
@@ -390,13 +461,9 @@ const breadcrumbLinks = ref([
   &__footer-action {
     align-self: center;
     padding: 1.563rem 3.333rem !important;
-  }
-
-  &__footer-action-text {
-    color: #fff;
-    font-size: 1.563rem;
-    font-weight: 400;
-    text-transform: capitalize;
+    color: #fff !important;
+    font-size: 1.563rem !important;
+    font-weight: 400 !important;
   }
 }
 
@@ -438,6 +505,10 @@ const breadcrumbLinks = ref([
       font-size: 1.7rem;
       line-height: 1.2;
       width: 50%;
+    }
+
+    &__rates {
+      flex-direction: column;
     }
 
     &__footer-info {
@@ -562,6 +633,14 @@ const breadcrumbLinks = ref([
 
     &__rates-item {
       padding: 2.036rem;
+      padding-bottom: 4.071rem;
+
+      &:nth-child(n) {
+        .exclusive__rates-item-benefits {
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
 
     &__rates-item-title {
@@ -573,14 +652,16 @@ const breadcrumbLinks = ref([
       font-size: 1.425rem;
     }
 
-    &__footer-action {
-      align-self: stretch;
-      padding-top: 1.425rem !important;
-      padding-bottom: 1.425rem !important;
+    &__rates-footer {
+      font-size: 1.425rem;
+      gap: 0.9rem;
     }
 
-    &__footer-action-text {
-      font-size: 2.443rem;
+    &__footer-action {
+      font-size: 2.443rem !important;
+      align-self: stretch !important;
+      padding-top: 1.425rem !important;
+      padding-bottom: 1.425rem !important;
     }
   }
 }

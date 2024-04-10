@@ -10,7 +10,12 @@
       <p class="special__footer">
         {{ $t('special.footer_text') }}
       </p>
-      <UIButton :to="`/`" class="special__action-btn" :is-text-uppercase="false" :is-white="true">
+      <UIButton
+        :to="`/`"
+        class="special__action-btn"
+        :is-text-uppercase="false"
+        :is-white="true"
+      >
         {{ $t('special.action') }}
       </UIButton>
     </div>
@@ -52,10 +57,10 @@
   }
 
   &__action-btn {
-    color: #000;
-    font-size: 1.563rem;
-    font-weight: 400;
-    padding: 1.563rem;
+    color: #000 !important;
+    font-size: 1.563rem !important;
+    font-weight: 400 !important;
+    padding: 1.563rem !important;
   }
 
   &__img {
@@ -111,14 +116,14 @@
     }
 
     &__action-btn {
-      font-size: 2.443rem;
-      padding: 1.425rem 3.257rem;
+      font-size: 2.443rem !important;
+      padding: 1.425rem 3.257rem !important;
     }
 
     &__img {
       width: 100%;
       max-height: 19.338rem;
-      object-fit: cover
+      object-fit: cover;
     }
   }
 }

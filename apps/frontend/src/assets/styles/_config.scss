@@ -66,6 +66,10 @@ a {
     }
 }
 
+.color-transition {
+    transition: color 200ms linear;
+}
+
 img,picture {
     border-radius: $borderRadiusMain;
     pointer-events: none;

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { IAwards } from '~/types/admin-api'
 
+defineProps<{
+  titleFontWeight?: string
+}>()
+
 const { getAllAwards } = usePublicData()
 
 const { data: awards } = await useAsyncData<IAwards[]>(
@@ -13,7 +17,7 @@ const list = computed(() => (awards.value ?? []).slice(0, 12))
 
 <template>
   <section v-if="list.length > 0" class="awards">
-    <AppSectionHeader :to-caption="`> 200`" to="/awards">
+    <AppSectionHeader :to-caption="`> 200`" to="/awards" :font-weight="titleFontWeight">
       {{ $t("titles.awards") }}
     </AppSectionHeader>
     <div class="awards__content">
