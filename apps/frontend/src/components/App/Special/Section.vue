@@ -14,6 +14,7 @@
         :to="`/`"
         class="special__action-btn"
         :is-text-uppercase="false"
+        :is-weight-normal="true"
         :is-white="true"
       >
         {{ $t('special.action') }}
@@ -59,7 +60,6 @@
   &__action-btn {
     color: #000 !important;
     font-size: 1.563rem !important;
-    font-weight: 400 !important;
     padding: 1.563rem !important;
   }
 

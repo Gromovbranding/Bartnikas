@@ -153,6 +153,7 @@ function advantagesAppearance () {
   flex-direction: column;
 
   &__logo {
+    color: $colorAccentBlue;
     align-self: center;
     width: 6.458rem;
     height: 6.458rem;

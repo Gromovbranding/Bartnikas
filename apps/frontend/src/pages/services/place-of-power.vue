@@ -10,6 +10,17 @@ interface ExclusiveRate {
 
 const { t } = useI18n()
 
+const popupTextFields = ref([
+  {
+    label: t('placeOfPower.popup.textfields.name.label'),
+    placeholder: t('placeOfPower.popup.textfields.name.placeholder')
+  },
+  {
+    label: t('placeOfPower.popup.textfields.mail.label'),
+    placeholder: t('placeOfPower.popup.textfields.mail.placeholder')
+  }
+])
+
 const breadcrumbLinks = ref([
   {
     href: '/',
@@ -29,6 +40,7 @@ const artefactTitleBlock = ref()
 const { $anime } = useNuxtApp()
 const transformationListBlock = ref()
 const transformationItemsAnimation = ref()
+const popupIsOpen = ref(false)
 
 onMounted(() => {
   transformationItemsAnimation.value = $anime({
@@ -48,7 +60,10 @@ onMounted(() => {
 })
 
 function transformationItemsAppearance () {
-  const scrollPercent = (window.scrollY - transformationListBlock.value.offsetTop + 250) / transformationListBlock.value.offsetHeight * 100
+  const scrollPercent =
+    ((window.scrollY - transformationListBlock.value.offsetTop + 250) /
+      transformationListBlock.value.offsetHeight) *
+    100
   if (scrollPercent > 0) {
     transformationItemsAnimation.value.play()
     window.removeEventListener('scroll', transformationItemsAppearance)
@@ -181,7 +196,9 @@ function transformationItemsAppearance () {
 
         <div class="exclusive__rates">
           <div
-            v-for="item in ($tm('placeOfPower.exclusive.rates') as ExclusiveRate[])"
+            v-for="item in ($tm(
+              'placeOfPower.exclusive.rates'
+            ) as ExclusiveRate[])"
             :key="$rt(item.title)"
             class="exclusive__rates-item"
           >
@@ -189,26 +206,53 @@ function transformationItemsAppearance () {
               {{ $rt(item.title) }}
             </h4>
             <ul class="exclusive__rates-item-benefits">
-              <li v-for="benefit in item.benefits" :key="benefit" class="exclusive__rates-item-benefit">
+              <li
+                v-for="benefit in item.benefits"
+                :key="benefit"
+                class="exclusive__rates-item-benefit"
+              >
                 {{ $rt(benefit) }}
               </li>
             </ul>
             <p v-if="$rt(item.footer.text)" class="exclusive__rates-footer">
-              <span v-if="$rt(item.footer.description)" class="exclusive__rates-footer-description">
+              <span
+                v-if="$rt(item.footer.description)"
+                class="exclusive__rates-footer-description"
+              >
                 {{ $rt(item.footer.description) }}
               </span>
-              <span class="exclusive__rates-footer-text">{{ $rt(item.footer.text) }}</span>
+              <span class="exclusive__rates-footer-text">{{
+                $rt(item.footer.text)
+              }}</span>
             </p>
           </div>
         </div>
         <p class="exclusive__footer-info">
           {{ $t('placeOfPower.exclusive.footer_info') }}
         </p>
-        <UIButton class="exclusive__footer-action" :is-text-uppercase="false">
+        <UIButton
+          class="exclusive__footer-action"
+          :is-text-uppercase="false"
+          :is-weight-normal="true"
+          @click="popupIsOpen = true"
+        >
           {{ $t('placeOfPower.exclusive.footer_action') }}
         </UIButton>
       </AppContainer>
     </section>
+
+    <Transition name="slide-left">
+      <AppPopup
+        v-if="popupIsOpen"
+        :title="$t('placeOfPower.popup.title')"
+        :subtitle="$t('placeOfPower.popup.subtitle')"
+        :note="$t('placeOfPower.popup.note')"
+        :button-text="$t('placeOfPower.popup.btn')"
+        :agreement="$t('placeOfPower.popup.agreement')"
+        :textfields="popupTextFields"
+        @close="popupIsOpen = false"
+      />
+    </Transition>
   </main>
 </template>
 
@@ -438,6 +482,7 @@ function transformationItemsAppearance () {
 
   &__rates-footer {
     font-size: 1.146rem;
+    line-height: 1.3;
     display: flex;
     flex-direction: column;
     gap: 0.26rem;
@@ -448,7 +493,8 @@ function transformationItemsAppearance () {
     color: $colorAccentBlue;
   }
 
-  &__rates-footer, &__rates-footer-text {
+  &__rates-footer,
+  &__rates-footer-text {
     color: inherit;
   }
 
@@ -463,7 +509,6 @@ function transformationItemsAppearance () {
     padding: 1.563rem 3.333rem !important;
     color: #fff !important;
     font-size: 1.563rem !important;
-    font-weight: 400 !important;
   }
 }
 
