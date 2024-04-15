@@ -129,6 +129,9 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    optimizeDeps: {
+      include: ['dayjs', 'dayjs/plugin/*', 'element-plus']
+    },
     css: {
       preprocessorOptions: {
         scss: {
