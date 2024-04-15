@@ -114,11 +114,6 @@ export default defineNuxtConfig({
     }
   },
 
-  build: {
-    transpile:
-      process.env.npm_lifecycle_event === 'build' ? ['element-plus'] : []
-  },
-
   experimental: {
     scanPageMeta: true,
     cookieStore: true
@@ -134,6 +129,9 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    optimizeDeps: {
+      include: ['dayjs', 'dayjs/plugin/*', 'element-plus']
+    },
     css: {
       preprocessorOptions: {
         scss: {
