@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import type { ITextField } from '~/types/types'
+
 defineProps<{
-  label: string
-  placeholder: string
+  textfield: ITextField
 }>()
+
+const model = defineModel({ type: String })
 </script>
 
 <template>
   <div class="textfield">
-    <label class="textfield__label">{{ label }}</label>
-    <input class="textfield__input" type="text" :placeholder="placeholder">
+    <label class="textfield__label">{{ textfield.label }}</label>
+    <input
+      v-model="model"
+      class="textfield__input"
+      type="text"
+      :placeholder="textfield.placeholder"
+    >
   </div>
 </template>
 

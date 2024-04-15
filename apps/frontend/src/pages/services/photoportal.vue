@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ITextField } from '~/types/types'
+
 const { t } = useI18n()
 const breadcrumbLinks = ref([
   {
@@ -16,22 +18,26 @@ const breadcrumbLinks = ref([
 ])
 
 const popupIsOpen = ref(false)
-const popupTextFields = ref([
+const popupTextFields: Ref<ITextField[]> = ref([
   {
     label: t('photoportal.popup.textfields.name.label'),
-    placeholder: t('photoportal.popup.textfields.name.placeholder')
+    placeholder: t('photoportal.popup.textfields.name.placeholder'),
+    key: 'name'
   },
   {
     label: t('photoportal.popup.textfields.mail.label'),
-    placeholder: t('photoportal.popup.textfields.mail.placeholder')
+    placeholder: t('photoportal.popup.textfields.mail.placeholder'),
+    key: 'mail'
   },
   {
     label: t('photoportal.popup.textfields.phone.label'),
-    placeholder: t('photoportal.popup.textfields.phone.placeholder')
+    placeholder: t('photoportal.popup.textfields.phone.placeholder'),
+    key: 'phone'
   },
   {
     label: t('photoportal.popup.textfields.address.label'),
-    placeholder: t('photoportal.popup.textfields.address.placeholder')
+    placeholder: t('photoportal.popup.textfields.address.placeholder'),
+    key: 'address'
   }
 ])
 

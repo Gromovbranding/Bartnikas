@@ -1,23 +1,18 @@
 <script setup lang="ts">
-interface ExclusiveRate {
-  title: string
-  benefits: string[]
-  footer: {
-    description: string
-    text: string
-  }
-}
+import type { ITextField, IExclusiveRate } from '~/types/types'
 
 const { t } = useI18n()
 
-const popupTextFields = ref([
+const popupTextFields: Ref<ITextField[]> = ref([
   {
     label: t('placeOfPower.popup.textfields.name.label'),
-    placeholder: t('placeOfPower.popup.textfields.name.placeholder')
+    placeholder: t('placeOfPower.popup.textfields.name.placeholder'),
+    key: 'name'
   },
   {
     label: t('placeOfPower.popup.textfields.mail.label'),
-    placeholder: t('placeOfPower.popup.textfields.mail.placeholder')
+    placeholder: t('placeOfPower.popup.textfields.mail.placeholder'),
+    key: 'mail'
   }
 ])
 
@@ -198,7 +193,7 @@ function transformationItemsAppearance () {
           <div
             v-for="item in ($tm(
               'placeOfPower.exclusive.rates'
-            ) as ExclusiveRate[])"
+            ) as IExclusiveRate[])"
             :key="$rt(item.title)"
             class="exclusive__rates-item"
           >

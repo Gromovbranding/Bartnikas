@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import type { IChooseFormatCard } from '~/types/admin-api'
-
 const titleBlock = ref()
+
+const links = ref([
+  '/services',
+  '/services/photoportal',
+  '/services/place-of-power'
+])
 
 onMounted(() => {
   if (titleBlock.value) {
@@ -18,20 +22,26 @@ onMounted(() => {
 
     <div class="choose-format__cards">
       <article
-        v-for="(card, index) in ($tm('choose_format.cards') as IChooseFormatCard[])"
-        :key="$rt(card.title)"
+        v-for="(link, i) in links"
+        :key="link"
         class="choose-format__card"
       >
-        <NuxtImg :src="`/img/format_${index + 1}.png`" loading="lazy" class="choose-format__card-img" />
+        <NuxtImg
+          :src="`/img/format_${i + 1}.png`"
+          loading="lazy"
+          class="choose-format__card-img"
+        />
         <div class="choose-format__card-info">
           <h3 class="choose-format__card-title">
-            <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{ $rt(card.title) }}
+            <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{
+              $t(`choose_format.cards[${i}].title`)
+            }}
           </h3>
           <p class="choose-format__card-text">
-            {{ $rt(card.text) }}
+            {{ $t(`choose_format.cards[${i}].text`) }}
           </p>
-          <NuxtLink class="choose-format__card-action" :to="`${card.link}`">
-            {{ $rt(card.action) }}
+          <NuxtLink class="choose-format__card-action" :to="`${link}`">
+            {{ $t(`choose_format.cards[${i}].action`) }}
           </NuxtLink>
         </div>
       </article>
@@ -53,7 +63,7 @@ onMounted(() => {
   }
 
   &__cards {
-    max-width: 81.770rem;
+    max-width: 81.77rem;
     padding: 0 3.385rem;
     display: flex;
     flex-direction: column;
@@ -113,7 +123,6 @@ onMounted(() => {
 
 @media screen and (max-width: 1000px) {
   .choose-format {
-
     &__title {
       font-size: 3.2rem;
     }
@@ -123,7 +132,7 @@ onMounted(() => {
     }
 
     &__card-text {
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-bottom: 1.5rem;
     }
   }

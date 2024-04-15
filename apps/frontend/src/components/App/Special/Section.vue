@@ -11,7 +11,7 @@
         {{ $t('special.footer_text') }}
       </p>
       <UIButton
-        :to="`/`"
+        :to="`/services/photoportal`"
         class="special__action-btn"
         :is-text-uppercase="false"
         :is-weight-normal="true"

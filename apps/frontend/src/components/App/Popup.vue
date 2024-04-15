@@ -1,13 +1,10 @@
 <script setup lang="ts">
-interface Textfield {
-  label: string
-  placeholder: string
-}
+import type { IFormData, ITextField } from '~/types/types'
 
 defineProps<{
   title: string
   subtitle: string
-  textfields: Textfield[]
+  textfields: ITextField[]
   buttonText: string
   agreement: string
   subtitleAccent?: string
@@ -18,6 +15,17 @@ defineProps<{
 defineEmits<{
   close: []
 }>()
+
+const formData: IFormData = reactive({
+  name: '',
+  mail: '',
+  address: '',
+  phone: ''
+})
+
+function handleSubmit () {
+  console.log(formData)
+}
 </script>
 
 <template>
@@ -38,13 +46,13 @@ defineEmits<{
           {{ note }}
         </p>
       </div>
-      <form class="popup__form">
+      <form class="popup__form" @submit.prevent="handleSubmit">
         <div class="popup__form-fields">
           <UITextField
             v-for="textfield in textfields"
             :key="textfield.label"
-            :label="textfield.label"
-            :placeholder="textfield.placeholder"
+            v-model="formData[textfield.key]"
+            :textfield="textfield"
           />
         </div>
         <UIButton
