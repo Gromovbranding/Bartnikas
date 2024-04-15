@@ -60,6 +60,11 @@ export default defineNuxtConfig({
     ]
   },
 
+  build: {
+    transpile:
+      process.env.npm_lifecycle_event === 'build' ? ['element-plus'] : []
+  },
+
   runtimeConfig: {
     public: {
       apiBaseUrl: APP_CONFIG.BASE_API_URL,
