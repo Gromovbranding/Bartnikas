@@ -38,6 +38,7 @@
     "@nuxtjs/robots": "^3.0.0",
     "@stripe/stripe-js": "^1.54.0",
     "@tinymce/tinymce-vue": "^5.1.1",
+    "dayjs": "^1.11.10",
     "vue-advanced-cropper": "^2.8.8",
     "vuedraggable": "^4.1.0"
   }
