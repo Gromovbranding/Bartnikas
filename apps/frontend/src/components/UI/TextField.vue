@@ -14,7 +14,7 @@ const model = defineModel({ type: String })
     <input
       v-model="model"
       class="textfield__input"
-      type="text"
+      :type="textfield.inputType"
       :placeholder="textfield.placeholder"
     >
   </div>

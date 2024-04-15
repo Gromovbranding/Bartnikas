@@ -7,12 +7,14 @@ const popupTextFields: Ref<ITextField[]> = ref([
   {
     label: t('placeOfPower.popup.textfields.name.label'),
     placeholder: t('placeOfPower.popup.textfields.name.placeholder'),
-    key: 'name'
+    key: 'name',
+    inputType: 'text'
   },
   {
     label: t('placeOfPower.popup.textfields.mail.label'),
     placeholder: t('placeOfPower.popup.textfields.mail.placeholder'),
-    key: 'mail'
+    key: 'mail',
+    inputType: 'email'
   }
 ])
 

@@ -22,22 +22,26 @@ const popupTextFields: Ref<ITextField[]> = ref([
   {
     label: t('photoportal.popup.textfields.name.label'),
     placeholder: t('photoportal.popup.textfields.name.placeholder'),
-    key: 'name'
+    key: 'name',
+    inputType: 'text'
   },
   {
     label: t('photoportal.popup.textfields.mail.label'),
     placeholder: t('photoportal.popup.textfields.mail.placeholder'),
-    key: 'mail'
+    key: 'mail',
+    inputType: 'email'
   },
   {
     label: t('photoportal.popup.textfields.phone.label'),
     placeholder: t('photoportal.popup.textfields.phone.placeholder'),
-    key: 'phone'
+    key: 'phone',
+    inputType: 'tel'
   },
   {
     label: t('photoportal.popup.textfields.address.label'),
     placeholder: t('photoportal.popup.textfields.address.placeholder'),
-    key: 'address'
+    key: 'address',
+    inputType: 'text'
   }
 ])
 
