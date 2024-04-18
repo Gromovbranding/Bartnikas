@@ -54,6 +54,7 @@
   &__footer {
     color: inherit;
     font-size: 1.563rem;
+    line-height: 1.2;
     margin-bottom: 2.083rem;
   }
 

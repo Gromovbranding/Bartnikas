@@ -139,7 +139,7 @@ function advantagesAppearance () {
     </section>
 
     <AppVideoSection />
-    <AppTestimonialsSection />
+    <AppTestimonialsSection :title-font-weight="'normal'" />
   </main>
 </template>
 

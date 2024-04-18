@@ -20,7 +20,7 @@ withDefaults(defineProps<Props>(), {
   <div :class="['caption', { 'caption--white': white }]">
     <h2 v-scroll-scale-text :style="{fontWeight}">
       <slot />
-      <span>
+      <span v-if="toCaption">
         {{ toCaption }}
       </span>
     </h2>

@@ -216,7 +216,7 @@ export default defineI18nConfig(() => ({
           title: 'Заказать фотопортал за 88 888 ₽',
           subtitle_accent: 'Что входит:',
           subtitle: 'Фоторабота, аудио-медитация для сонастройки с работой',
-          btn: 'Оставить заявку',
+          btn: 'Оплатить',
           textfields: {
             name: {
               label: 'Ваше имя',
