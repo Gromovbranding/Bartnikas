@@ -28,6 +28,14 @@ defineProps<{
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .spliter {
+    h2 {
+      font-size: 7rem;
+    }
+  }
+}
+
 @media screen and (max-width: 550px) {
   .spliter {
     padding: 3rem 2rem;

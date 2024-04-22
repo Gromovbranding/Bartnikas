@@ -1,17 +1,31 @@
 <script setup lang="ts">
+import intlTelInput from 'intl-tel-input'
 import type { ITextField } from '~/types/types'
+import 'intl-tel-input/build/css/intlTelInput.css'
 
-defineProps<{
+const props = defineProps<{
   textfield: ITextField
 }>()
 
 const model = defineModel({ type: String })
+const inputEl = ref<HTMLInputElement>()
+
+onMounted(() => {
+  if (inputEl.value && props.textfield.key === 'phone') {
+    intlTelInput(inputEl.value, {
+      initialCountry: 'us',
+      autoPlaceholder: 'aggressive',
+      utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/21.2.5/js/utils.min.js'
+    })
+  }
+})
 </script>
 
 <template>
   <div class="textfield">
     <label class="textfield__label">{{ textfield.label }}</label>
     <input
+      ref="inputEl"
       v-model="model"
       class="textfield__input"
       :type="textfield.inputType"

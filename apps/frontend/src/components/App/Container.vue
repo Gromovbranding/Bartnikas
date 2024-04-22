@@ -6,6 +6,7 @@
 
 <style lang="scss" scoped>
 .container {
+  width: 100%;
   padding: 0 3.385rem;
 }
 

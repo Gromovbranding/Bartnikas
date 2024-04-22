@@ -108,6 +108,7 @@ function handleSubmit () {
   &__container {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5.729rem;
   }
 
@@ -160,6 +161,15 @@ function handleSubmit () {
 
   &__agreement {
     font-size: 0.938rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .popup {
+
+    &__text {
+      max-width: 33rem;
+    }
   }
 }
 
