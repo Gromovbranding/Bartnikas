@@ -74,7 +74,7 @@ function advantagesAppearance () {
       </div>
     </section>
 
-    <AppContentSpliter :font-weight="'normal'">
+    <AppContentSpliter>
       {{ $t('titles.concept') }}
     </AppContentSpliter>
 
@@ -111,7 +111,7 @@ function advantagesAppearance () {
     />
 
     <section class="recognition">
-      <AppContentSpliter class="recognition__title" :color="'#000'" :font-weight="'normal'">
+      <AppContentSpliter class="recognition__title" :color="'#000'">
         {{ $t('recognition.title') }}
       </AppContentSpliter>
 

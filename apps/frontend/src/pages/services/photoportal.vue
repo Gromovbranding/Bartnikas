@@ -95,7 +95,6 @@ onMounted(() => {
       <AppContainer class="peculiarities__container">
         <AppContentSpliter
           class="peculiarities__title"
-          :font-weight="'normal'"
           :color="'#000'"
         >
           {{ $t('photoportal.peculiarities.title') }}
@@ -124,7 +123,7 @@ onMounted(() => {
     </section>
 
     <section class="influence">
-      <AppContentSpliter class="influence__title" :font-weight="'normal'">
+      <AppContentSpliter class="influence__title">
         {{ $t('photoportal.influence.title') }}
       </AppContentSpliter>
       <div class="influence__main">
@@ -162,7 +161,6 @@ onMounted(() => {
       <AppContainer class="for-what__container">
         <AppContentSpliter
           class="for-what__title"
-          :font-weight="'normal'"
           :color="'#000'"
         >
           {{ $t('photoportal.forWhat.title') }}

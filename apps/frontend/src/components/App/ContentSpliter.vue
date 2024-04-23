@@ -23,7 +23,6 @@ defineProps<{
     font-size: 9.5rem;
     text-transform: uppercase;
     color: #fff;
-    font-weight: bold;
     will-change: transform;
   }
 }

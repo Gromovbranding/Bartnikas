@@ -115,7 +115,7 @@ function transformationItemsAppearance () {
     </section>
 
     <section class="transformation">
-      <AppContentSpliter class="transformation__title" :font-weight="'normal'">
+      <AppContentSpliter class="transformation__title">
         {{ $t('placeOfPower.transformation.title') }}
       </AppContentSpliter>
       <div class="transformation__main">
@@ -172,7 +172,7 @@ function transformationItemsAppearance () {
     </section>
 
     <section id="ultra-exclusive" class="exclusive">
-      <AppContentSpliter class="exclusive__title" :font-weight="'normal'">
+      <AppContentSpliter class="exclusive__title">
         {{ $t('placeOfPower.exclusive.title') }}
       </AppContentSpliter>
       <div class="exclusive__head">
