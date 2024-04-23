@@ -3,9 +3,9 @@ const APP_CONFIG = {
   BASE_API_FILES: process.env.BASE_API_FILES,
   AVAILABLE_LOCALES: [
     { code: 'en', label: 'English', icon: 'en' },
-    { code: 'ru', label: 'Русский', icon: 'ru' },
-    { code: 'fr', label: 'Français', icon: 'fr' },
-    { code: 'de', label: 'Deutsche', icon: 'de' }
+    { code: 'ru', label: 'Русский', icon: 'ru' }
+    // { code: 'fr', label: 'Français', icon: 'fr' },
+    // { code: 'de', label: 'Deutsche', icon: 'de' }
   ],
   DOMAIN: process.env.DOMAIN
 }

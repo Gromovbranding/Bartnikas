@@ -3,7 +3,7 @@ const titleBlock = ref()
 
 const links = ref([
   '/services',
-  '/services/photoportal',
+  '/projects',
   '/services/place-of-power'
 ])
 

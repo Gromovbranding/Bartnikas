@@ -111,22 +111,27 @@ function advantagesAppearance () {
     />
 
     <section class="recognition">
-      <AppContentSpliter class="recognition__title" :color="'#000'">
-        {{ $t('recognition.title') }}
-      </AppContentSpliter>
+      <AppContainer>
+        <AppContentSpliter
+          class="recognition__title"
+          :color="'#000'"
+        >
+          {{ $t('recognition.title') }}
+        </AppContentSpliter>
 
-      <p class="recognition__description">
-        {{ $t('recognition.description') }}
-      </p>
+        <p class="recognition__description">
+          {{ $t('recognition.description') }}
+        </p>
 
-      <div class="recognition__tickers">
-        <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
-          <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
-            <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
-            <span class="recognition__city-text">{{ city }}</span>
+        <div class="recognition__tickers">
+          <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
+            <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
+              <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
+              <span class="recognition__city-text">{{ city }}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </AppContainer>
     </section>
 
     <section class="achievements">
@@ -256,14 +261,12 @@ function advantagesAppearance () {
   padding-bottom: 4.167rem;
 
   &__title {
-    padding-top: 4.219rem;
-    padding-bottom: 2.083rem;
+    padding: 4.219rem 0 2.083rem !important;
     background: transparent;
   }
 
   &__description {
     font-size: 1.563rem;
-    padding: 0 3.385rem;
     max-width: 33.854rem;
     margin-bottom: 2.604rem;
   }
@@ -577,7 +580,6 @@ function advantagesAppearance () {
     &__description {
       font-size: 1.425rem;
       margin-bottom: 3.053rem;
-      padding: 0 1.628rem;
     }
 
     &__tickers {
