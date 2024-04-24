@@ -133,10 +133,21 @@ function getGroupVideos (group: string) {
         </p>
 
         <div class="recognition__tickers">
-          <div v-for="(ticker, i) in $tm('recognition.tickers')" :key="i" class="recognition__ticker" :class="{recognition__ticker_reverse: i % 2 === 0}">
-            <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
-              <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
-              <span class="recognition__city-text">{{ city }}</span>
+          <div
+            v-for="(ticker, i) in $tm('recognition.tickers')"
+            :key="i"
+            class="recognition__ticker"
+            :class="{recognition__ticker_reverse: i % 2 === 0}"
+          >
+            <div
+              v-for="part in 2"
+              :key="part"
+              class="recognition__ticker-part"
+            >
+              <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
+                <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
+                <span class="recognition__city-text">{{ city }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -299,16 +310,23 @@ function getGroupVideos (group: string) {
     gap: 2.083rem;
   }
 
+  &__ticker, &__ticker-part {
+    gap: $cityTickerGapDesktop;
+  }
+
   &__ticker {
     display: flex;
-    gap: 7.813rem;
     width: max-content;
-    animation: 25s linear 0 ticker;
+    animation: 10s linear 0 city_ticker_loop;
     animation-iteration-count: infinite;
 
     &_reverse {
       animation-direction: reverse;
     }
+  }
+
+  &__ticker-part {
+    display: flex;
   }
 
   &__city {
@@ -381,6 +399,16 @@ function getGroupVideos (group: string) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3rem;
+  }
+}
+
+@keyframes city_ticker_loop {
+  0% {
+    transform: translateX(calc(-50% - $cityTickerGapDesktop / 2));
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -541,8 +569,8 @@ function getGroupVideos (group: string) {
       gap: 1.018rem;
     }
 
-    &__ticker {
-      gap: 3.053rem;
+    &__ticker, &__ticker-part {
+      gap: $cityTickerGapMobile;
     }
 
     &__city {
@@ -600,6 +628,16 @@ function getGroupVideos (group: string) {
     &__collection {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  @keyframes city_ticker_loop {
+    0% {
+      transform: translateX(calc(-50% - $cityTickerGapMobile / 2));
+    }
+
+    100% {
+      transform: translateX(0);
     }
   }
 }

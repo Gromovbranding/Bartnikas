@@ -97,14 +97,14 @@ strong {
 
 @keyframes ticker {
     0% {
-      transform: translateX(100vw);
-      visibility: visible;
+        transform: translateX(100vw);
+        visibility: visible;
     }
-  
+
     100% {
-      transform: translateX(-100%);
+        transform: translateX(-100%);
     }
-  }
+}
 
 .slide-left-enter-active,
 .slide-left-leave-active {
