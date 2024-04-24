@@ -34,6 +34,7 @@
     "vue-marquee-text-component": "^2.0.1"
   },
   "dependencies": {
+    "@crowdin/crowdin-api-client": "^1.33.1",
     "@nuxt/image": "^1.1.0",
     "@nuxtjs/robots": "^3.0.0",
     "@stripe/stripe-js": "^1.54.0",

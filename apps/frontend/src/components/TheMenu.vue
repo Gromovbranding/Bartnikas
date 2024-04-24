@@ -32,67 +32,30 @@ const { data: emails } = await useAsyncData(
       <div>
         <ul class="menu__item-main">
           <li>
-            <NuxtLinkLocale to="/projects">
-              {{ $t("titles.projects") }}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="1.1"
-                x="0px"
-                y="0px"
-                viewBox="0 0 37 40.3"
-                style="enable-background: new 0 0 37 40.3"
-                xml:space="preserve"
-              >
-                <path
-                  class="st0"
-                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
-                />
-              </svg>
-            </NuxtLinkLocale>
-          </li>
-          <li>
-            <NuxtLinkLocale to="/awards">
-              {{ $t("titles.awards") }} <sup>> 200</sup>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="1.1"
-                x="0px"
-                y="0px"
-                viewBox="0 0 37 40.3"
-                style="enable-background: new 0 0 37 40.3"
-                xml:space="preserve"
-              >
-                <path
-                  class="st0"
-                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
-                />
-              </svg>
-            </NuxtLinkLocale>
-          </li>
-          <li>
             <NuxtLinkLocale to="/about">
               {{ $t("titles.about") }}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="1.1"
-                x="0px"
-                y="0px"
-                viewBox="0 0 37 40.3"
-                style="enable-background: new 0 0 37 40.3"
-                xml:space="preserve"
-              >
-                <path
-                  class="st0"
-                  d="M2,40.3c-1.1,0-2-0.9-2-2c0-0.7,0.4-1.3,1-1.7l28.1-16.4L1,3.7C0,3.2-0.3,2,0.3,1C0.8,0,2-0.3,3,0.3l34,19.9  L3,40C2.7,40.2,2.4,40.3,2,40.3z"
-                />
-              </svg>
+              <IconPointer />
+            </NuxtLinkLocale>
+          </li>
+          <li>
+            <NuxtLinkLocale to="/projects">
+              {{ $t("titles.projects") }}
+              <IconPointer />
+            </NuxtLinkLocale>
+          </li>
+          <li>
+            <NuxtLinkLocale to="/services">
+              {{ $t("titles.services") }}
+              <IconPointer />
             </NuxtLinkLocale>
           </li>
         </ul>
         <ul class="menu__item-sub">
+          <li>
+            <NuxtLinkLocale to="/awards">
+              {{ $t("titles.awards") }} <sup>> 200</sup>
+            </NuxtLinkLocale>
+          </li>
           <li>
             <NuxtLinkLocale to="/media">
               {{ $t("titles.media") }}
@@ -241,7 +204,7 @@ const { data: emails } = await useAsyncData(
       width: auto;
       word-break: break-all;
       color: #fff;
-      font-size: 40px;
+      font-size: 2rem;
       font-weight: bold;
     }
   }
@@ -249,7 +212,7 @@ const { data: emails } = await useAsyncData(
   &__terms-menu {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 1.5rem;
     margin-bottom: 70px;
 
     li {
@@ -294,7 +257,6 @@ const { data: emails } = await useAsyncData(
     &-sub {
       display: flex;
       flex-direction: column;
-      gap: 20px;
 
       a {
         text-transform: uppercase;
@@ -305,11 +267,12 @@ const { data: emails } = await useAsyncData(
     }
 
     &-main {
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
 
       li {
         a {
-          font-size: 9vw;
+          font-size: 7.5vw;
           color: #fff;
           position: relative;
           font-weight: 900;
@@ -330,22 +293,23 @@ const { data: emails } = await useAsyncData(
               opacity: 1;
             }
           }
-
-          sup {
-            font-size: 2vw;
-            vertical-align: top;
-            margin-left: -5%;
-          }
         }
       }
     }
 
     &-sub {
+      gap: .4rem;
       li {
         a {
           color: #fff;
           font-size: 2.2vw;
           line-height: 1.5;
+
+          sup {
+            font-size: .5em;
+            vertical-align: top;
+            margin-left: -2%;
+          }
         }
       }
     }
@@ -448,7 +412,7 @@ const { data: emails } = await useAsyncData(
   .menu {
     &__nav {
       flex-direction: column;
-      padding: 110px 16px 0;
+      padding: 90px 16px 0;
     }
 
     &__cart {
@@ -485,7 +449,7 @@ const { data: emails } = await useAsyncData(
 
     &__terms {
       &-menu {
-        margin-bottom: 25px;
+        margin-bottom: 2rem;
 
         li {
           a {
@@ -517,32 +481,11 @@ const { data: emails } = await useAsyncData(
     }
 
     &__item {
-      &-main {
-        gap: 20px;
-      }
-
-      &-sub {
-        gap: 10px;
-      }
 
       &-main {
         li {
           a {
-            font-size: 15vw;
-
-            svg {
-            }
-
-            &:hover {
-              svg {
-              }
-            }
-
-            sup {
-              font-size: 5vw;
-              letter-spacing: 0;
-              font-weight: 600;
-            }
+            font-size: 14vw;
           }
         }
       }
