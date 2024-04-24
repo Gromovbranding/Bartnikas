@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-defineProps<{
-  titleFontWeight?: string
-}>()
-
 const wrapper = ref<HTMLDivElement>()
 const root = ref<HTMLDivElement>()
 const lastScrollTop = ref(0)
@@ -54,7 +50,7 @@ onBeforeUnmount(() => {
     class="testimonials"
     :class="{ 'active-slider': testimonials!.length > 3 }"
   >
-    <AppSectionHeader :is-link="false" :font-weight="titleFontWeight">
+    <AppSectionHeader :is-link="false">
       {{
         $t("titles.testimonials")
       }}

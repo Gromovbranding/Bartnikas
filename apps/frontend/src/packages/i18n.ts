@@ -73,9 +73,6 @@ export default defineI18nConfig(() => ({
       achievements: {
         items: ['Обладатель Golden Residence Visa в ОАЭ для творческих талантов', 'Коллаборация и публикации в National Geographic']
       },
-      music: {
-        title: 'Музыка'
-      },
       placeOfPower: {
         title: 'Персональное место силы',
         ultraExclusiveAnchor: 'ultra exclusive',
@@ -261,7 +258,8 @@ export default defineI18nConfig(() => ({
         testimonials: 'Testimonials',
         services: 'Services',
         placeOfPower: 'Place of power',
-        photoportal: 'Photoportal'
+        photoportal: 'Photoportal',
+        music: 'Music'
       },
       buttons: {
         viewProject: 'View project',
@@ -426,9 +424,6 @@ export default defineI18nConfig(() => ({
       },
       achievements: {
         items: ['Обладатель Golden Residence Visa в ОАЭ для творческих талантов', 'Коллаборация и публикации в National Geographic']
-      },
-      music: {
-        title: 'Музыка'
       },
       placeOfPower: {
         title: 'Персональное место силы',
@@ -595,7 +590,7 @@ export default defineI18nConfig(() => ({
       welcome: 'Привет',
       titles: {
         news: 'Новости',
-        projects: 'Проекты',
+        projects: 'Галерея',
         project: 'Проект',
         concept: 'Концепция',
         home: 'Главная',
@@ -615,7 +610,8 @@ export default defineI18nConfig(() => ({
         testimonials: 'Отзывы',
         services: 'Услуги',
         placeOfPower: 'Персональное место силы',
-        photoportal: 'Фотопортал'
+        photoportal: 'Фотопортал',
+        music: 'Музыка'
       },
       buttons: {
         viewProject: 'Показать проекты',

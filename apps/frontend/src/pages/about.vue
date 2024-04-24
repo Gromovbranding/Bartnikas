@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IIntroAdvantage } from '~/types/admin-api'
+import type { IIntroAdvantage } from '~/types/types'
 
 const { $anime } = useNuxtApp()
 const advantagesBlock = ref()
@@ -29,6 +29,17 @@ function advantagesAppearance () {
     advantagesAnimation.value.play()
     window.removeEventListener('scroll', advantagesAppearance)
   }
+}
+
+const { getAllVideoCollection } = usePublicData()
+
+const { data: videos } = await useAsyncData(
+  'video-collection',
+  async () => await getAllVideoCollection()
+)
+
+function getGroupVideos (group: string) {
+  return (videos.value ?? []).filter(video => video.group?.toLowerCase?.() === group.toLowerCase?.())
 }
 
 </script>
@@ -104,7 +115,7 @@ function advantagesAppearance () {
 
     <AppChooseFormatSection />
     <AppSpecialSection />
-    <AppAwardsSection :title-font-weight="'normal'" />
+    <AppAwardsSection />
     <AppContentTicker
       :ticker-title="$t('main_page_ticker1.title')"
       :ticker-text="$t('main_page_ticker1.text')"
@@ -112,10 +123,7 @@ function advantagesAppearance () {
 
     <section class="recognition">
       <AppContainer>
-        <AppContentSpliter
-          class="recognition__title"
-          :color="'#000'"
-        >
+        <AppContentSpliter class="recognition__title">
           {{ $t('recognition.title') }}
         </AppContentSpliter>
 
@@ -143,8 +151,17 @@ function advantagesAppearance () {
       </div>
     </section>
 
-    <AppVideoSection />
-    <AppTestimonialsSection :title-font-weight="'normal'" />
+    <section class="music">
+      <AppContainer>
+        <AppSectionHeader :is-link="false">
+          {{ $t('titles.music') }}
+        </AppSectionHeader>
+        <div class="music__collection">
+          <AppVideoItem v-for="item in getGroupVideos('music')" :key="item.id" :item="item" />
+        </div>
+      </AppContainer>
+    </section>
+    <AppTestimonialsSection />
   </main>
 </template>
 
@@ -263,6 +280,10 @@ function advantagesAppearance () {
   &__title {
     padding: 4.219rem 0 2.083rem !important;
     background: transparent;
+
+    &:deep(h2) {
+      color: #000;
+    }
   }
 
   &__description {
@@ -345,73 +366,20 @@ function advantagesAppearance () {
   }
 }
 
-.home-info-project-paralax {
-  height: 250vh;
-  position: relative;
-  border-radius: $borderRadiusMain;
+// SECTION MUSIC
+.music {
+  padding-top: 3.385rem;
+  padding-bottom: 4.688rem;
+  background: $colorBackgroundGreyDarken;
 
-  > div {
-    &:first-child {
-      position: sticky;
-      top: 0;
-
-      img,
-      picture {
-        height: 100vh;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &:last-child {
-      position: absolute;
-      bottom: 10rem;
-      padding: 5rem 2.5rem;
-      max-width: 650px;
-      left: 2rem;
-      border-radius: $borderRadiusMain;
-      background-color: $colorBackgroundGrey;
-
-      h3 {
-        font-size: 5rem;
-        margin-bottom: 20px;
-        font-weight: bold;
-      }
-
-      > div {
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 1.7;
-      }
-
-      a {
-        margin-top: 60px;
-      }
-    }
+  &:deep(.caption) {
+    margin-bottom: 3.385rem;
   }
-}
 
-.header {
-  height: 150vh;
-  &__main {
-    width: 100%;
-    height: 675px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-
-    &:deep(svg) {
-      max-width: 575px;
-      width: 100%;
-    }
+  &__collection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
   }
 }
 
@@ -465,25 +433,11 @@ function advantagesAppearance () {
     }
   }
 
-  .header {
-    &__main {
-      height: calc(100vh + 10px);
-      &:deep(svg) {
-        max-width: 30rem;
-      }
+  .music {
+    &__collection {
+      gap: 3rem;
+      grid-template-columns: repeat(2, 1fr);
     }
-  }
-}
-
-@media screen and (max-width: 825px) {
-  .header {
-    &__main {
-      height: calc(65vh + 10px);
-      &:deep(svg) {
-        max-width: 30rem;
-      }
-    }
-    height: 130vh;
   }
 }
 
@@ -634,43 +588,17 @@ function advantagesAppearance () {
     }
   }
 
-  .header {
-    height: 90vh;
-    &__main {
-      height: 45vh;
-      &:deep(svg) {
-        width: 88%;
-      }
+  .music {
+    padding-top: 4.071rem;
+    padding-bottom: 5.089rem;
+
+    &:deep(.caption) {
+      margin-bottom: 3.053rem;
     }
-  }
 
-  .app-video-greeting {
-    margin-bottom: 80px;
-  }
-
-  .home-info-project-paralax {
-    height: 2000px;
-
-    > div {
-      &:last-child {
-        padding: 60px 16px;
-        left: 16px;
-        right: 16px;
-        h3 {
-          font-size: 50px;
-          word-wrap: break-word;
-          margin-bottom: 12px;
-        }
-
-        p {
-          font-size: 20px;
-          line-height: 1.6;
-        }
-
-        button {
-          font-size: 32px;
-        }
-      }
+    &__collection {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

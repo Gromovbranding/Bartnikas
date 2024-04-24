@@ -381,9 +381,3 @@ export type PartialAdminApiDto<T> = ExcludeAdminApiCreated<{
     ? T[Key]
     : PartialAdminApiDto<T[Key]>;
 }>;
-
-// main page types
-export interface IIntroAdvantage {
-  value: string;
-  text: string;
-}

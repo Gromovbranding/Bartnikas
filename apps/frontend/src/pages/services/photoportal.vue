@@ -93,10 +93,7 @@ onMounted(() => {
 
     <section class="peculiarities">
       <AppContainer class="peculiarities__container">
-        <AppContentSpliter
-          class="peculiarities__title"
-          :color="'#000'"
-        >
+        <AppContentSpliter class="peculiarities__title">
           {{ $t('photoportal.peculiarities.title') }}
         </AppContentSpliter>
         <div class="peculiarities__main">
@@ -159,10 +156,7 @@ onMounted(() => {
 
     <section class="for-what">
       <AppContainer class="for-what__container">
-        <AppContentSpliter
-          class="for-what__title"
-          :color="'#000'"
-        >
+        <AppContentSpliter class="for-what__title">
           {{ $t('photoportal.forWhat.title') }}
         </AppContentSpliter>
         <div class="for-what__list">
@@ -260,6 +254,10 @@ onMounted(() => {
     background: none !important;
     padding: 0 !important;
     margin-bottom: 2.604rem;
+
+    &:deep(h2) {
+      color: #000;
+    }
   }
 
   &__main {
@@ -350,6 +348,10 @@ onMounted(() => {
     background: none !important;
     padding: 0 !important;
     margin-bottom: 3.646rem;
+
+    &:deep(h2) {
+      color: #000;
+    }
   }
 
   &__list {

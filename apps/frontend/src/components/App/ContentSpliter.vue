@@ -1,13 +1,6 @@
-<script setup lang="ts">
-defineProps<{
-  color?: string;
-  fontWeight?: string;
-}>()
-</script>
-
 <template>
   <section class="spliter">
-    <h2 v-scroll-scale-text :style="{color, fontWeight}">
+    <h2 v-scroll-scale-text>
       <slot />
     </h2>
   </section>

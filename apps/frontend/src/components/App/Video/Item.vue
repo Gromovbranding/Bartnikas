@@ -109,15 +109,7 @@ function playVideo () {
       }
     }
 
-    &__play {
-      &:hover {
-      }
-    }
-
     &__info {
-      h4 {
-      }
-
       time {
         font-size: 18px;
       }

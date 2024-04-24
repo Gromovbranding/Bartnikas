@@ -75,7 +75,6 @@ main {
     font-size: 10vw;
     display: flex;
     text-transform: uppercase;
-    font-weight: bold;
     line-height: 1em;
     margin-bottom: 15px;
   }
@@ -133,14 +132,8 @@ main {
 }
 
 @media screen and (max-width: 550px) {
-  main {
-  }
   .collection {
     padding: 80px 16px;
-    &__select {
-      span {
-      }
-    }
   }
 
   .filter {
