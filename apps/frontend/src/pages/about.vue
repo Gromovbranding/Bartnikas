@@ -11,7 +11,7 @@ onMounted(() => {
     targets: '.intro__advantage',
     translateX: ['-100%', 0],
     delay: $anime.stagger(100),
-    duration: 500,
+    duration: 1000,
     autoplay: false,
     easing: 'linear'
   })
@@ -24,8 +24,9 @@ onMounted(() => {
 })
 
 function advantagesAppearance () {
-  const scrollPercent = (window.scrollY - advantagesBlock.value.offsetTop + 200) / advantagesBlock.value.offsetHeight * 100
-  if (scrollPercent > 0) {
+  const triggerOffset = advantagesBlock.value.offsetTop - (window.innerHeight - advantagesBlock.value.offsetHeight)
+  const blockFullVisible = window.scrollY > triggerOffset
+  if (blockFullVisible) {
     advantagesAnimation.value.play()
     window.removeEventListener('scroll', advantagesAppearance)
   }

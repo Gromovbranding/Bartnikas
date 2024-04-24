@@ -57,11 +57,9 @@ onMounted(() => {
 })
 
 function transformationItemsAppearance () {
-  const scrollPercent =
-    ((window.scrollY - transformationListBlock.value.offsetTop + 250) /
-      transformationListBlock.value.offsetHeight) *
-    100
-  if (scrollPercent > 0) {
+  const triggerOffset = transformationListBlock.value.offsetTop - (window.innerHeight - transformationListBlock.value.offsetHeight)
+  const blockFullVisible = window.scrollY > triggerOffset
+  if (blockFullVisible) {
     transformationItemsAnimation.value.play()
     window.removeEventListener('scroll', transformationItemsAppearance)
   }
