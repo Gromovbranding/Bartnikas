@@ -62,6 +62,7 @@ withDefaults(defineProps<Props>(), {
     font-size: 32px;
     margin-top: 30px;
     font-weight: 400;
+    width: auto;
 
     span {
       color: $colorTextGrey;
@@ -83,10 +84,10 @@ withDefaults(defineProps<Props>(), {
     margin-bottom: 40px;
 
     h2 {
-      font-size: 16vw;
+      font-size: 15.5vw;
       letter-spacing: 3px;
       span {
-        font-size: 4.6vw;
+        font-size: 4.4vw;
         letter-spacing: 0;
         padding-left: 6px;
       }
@@ -95,6 +96,16 @@ withDefaults(defineProps<Props>(), {
     a {
       font-size: 20px;
       margin-top: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .caption {
+    h2 {
+      span {
+        display: none;
+      }
     }
   }
 }

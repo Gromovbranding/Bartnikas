@@ -114,7 +114,6 @@ const activeCardTranslate = reactive(
       position: absolute;
       bottom: 10rem;
       padding: 5rem 2.5rem;
-      max-width: 650px;
       left: 2rem;
       border-radius: $borderRadiusMain;
       background-color: $colorBackgroundGrey;
@@ -126,13 +125,14 @@ const activeCardTranslate = reactive(
       }
 
       > div {
-        font-size: 24px;
+        font-size: 2rem;
         font-weight: 400;
-        line-height: 1.7;
+        line-height: 1.4;
+        max-width: 650px;
       }
 
       a {
-        margin-top: 60px;
+        margin-top: 3rem;
       }
     }
   }

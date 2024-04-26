@@ -443,18 +443,19 @@ const { data: emails } = await useAsyncData(
 
     &__email {
       a {
-        font-size: 28px;
+        font-size: 2.3rem;
       }
     }
 
     &__terms {
       &-menu {
         margin-bottom: 2rem;
+        gap: .4rem;
 
         li {
           a {
             width: 100%;
-            font-size: 24px;
+            font-size: 1.9rem;
             line-height: 1.1;
             word-break: break-word;
           }
