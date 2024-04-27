@@ -53,14 +53,14 @@ const { data: emails } = await useAsyncData(
         <p>{{ $t("contacts.locationLive") }}</p>
         <div>
           <p>
-            <span>{{ $t("contacts.pressInquiry") }}</span>
+            <span>{{ $t("contacts.pressInquiry") }}&thinsp;</span>
             <a class="upper-slide" :href="`mailto:${emails?.email_press}`">
               <span>{{ emails?.email_press }}</span>
               <IconArrow is-arrow30-deg />
             </a>
           </p>
           <p>
-            <span>{{ $t("contacts.gallery") }}</span>
+            <span>{{ $t("contacts.gallery") }}&thinsp;</span>
             <a class="upper-slide" :href="`mailto:${emails?.email_gallery}`">
               <span>{{ emails?.email_gallery }}</span>
               <IconArrow is-arrow30-deg />
@@ -151,7 +151,6 @@ const { data: emails } = await useAsyncData(
         line-height: 1.56;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
       }
 
       form {
@@ -174,22 +173,12 @@ const { data: emails } = await useAsyncData(
   .contacts {
     grid-template-columns: 1fr;
     > div {
-      &:first-child {
-        img,
-        picture {
-        }
-      }
-
       &:last-child {
         max-width: 100%;
         margin-left: 0;
         padding: 16px 16px 80px;
         > div {
           margin-bottom: 40px;
-          a {
-            :deep(svg) {
-            }
-          }
         }
 
         h3 {
@@ -198,13 +187,9 @@ const { data: emails } = await useAsyncData(
 
         p {
           font-size: 5vw;
-        }
-
-        form {
-          > div {
-            label {
-            }
-          }
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0;
         }
       }
     }

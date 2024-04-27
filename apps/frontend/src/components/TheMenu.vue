@@ -121,7 +121,6 @@ const { data: emails } = await useAsyncData(
 
 <style lang="scss" scoped>
 @mixin hoverLink {
-  font-weight: bold;
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
   display: block;
 
@@ -205,7 +204,6 @@ const { data: emails } = await useAsyncData(
       word-break: break-all;
       color: #fff;
       font-size: 2rem;
-      font-weight: bold;
     }
   }
 
@@ -220,7 +218,6 @@ const { data: emails } = await useAsyncData(
         @include hoverLink();
         color: #fff;
         font-size: 25px;
-        font-weight: bold;
       }
     }
   }
@@ -262,7 +259,6 @@ const { data: emails } = await useAsyncData(
         text-transform: uppercase;
         @include hoverLink();
         letter-spacing: 3px;
-        font-weight: bold;
       }
     }
 
@@ -275,7 +271,6 @@ const { data: emails } = await useAsyncData(
           font-size: 7.5vw;
           color: #fff;
           position: relative;
-          font-weight: 900;
 
           svg {
             position: absolute;
@@ -424,7 +419,6 @@ const { data: emails } = await useAsyncData(
           width: 28px;
           height: 28px;
           font-size: 14px;
-          font-weight: bold;
           top: -9px;
         }
       }
@@ -450,7 +444,7 @@ const { data: emails } = await useAsyncData(
     &__terms {
       &-menu {
         margin-bottom: 2rem;
-        gap: .4rem;
+        gap: 1rem;
 
         li {
           a {

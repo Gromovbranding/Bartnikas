@@ -139,17 +139,6 @@ useHeadSafe({
       &--acitve {
         .faq__question {
           padding: 30px 16px;
-          > div {
-            &:first-child {
-              h3 {
-              }
-            }
-
-            &:last-child {
-              span {
-              }
-            }
-          }
         }
       }
     }
@@ -169,8 +158,6 @@ useHeadSafe({
           flex: 1 0 auto;
           width: 72px;
           height: 72px;
-          span {
-          }
         }
       }
     }

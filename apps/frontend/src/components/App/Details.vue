@@ -132,6 +132,11 @@ summary {
   font-weight: 600;
   transition-duration: 200ms;
   gap: 2rem;
+
+  &::marker, &::-webkit-details-marker {
+    display: none;
+  }
+
   span {
     display: inline-flex;
     justify-content: center;
