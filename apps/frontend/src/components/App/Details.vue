@@ -154,7 +154,7 @@ summary {
     background-color: #fff;
     color: #000;
     span {
-      background-color: #000;
+      background-color: $colorAccentBlue;
       color: #fff;
     }
   }

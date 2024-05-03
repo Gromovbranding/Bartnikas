@@ -51,6 +51,7 @@ const { data: emails } = await useAsyncData(
       </div>
       <div>
         <p>{{ $t("contacts.locationLive") }}</p>
+        <br>
         <div>
           <p>
             <span>{{ $t("contacts.pressInquiry") }}&thinsp;</span>
@@ -62,7 +63,7 @@ const { data: emails } = await useAsyncData(
           <p>
             <span>{{ $t("contacts.gallery") }}&thinsp;</span>
             <a class="upper-slide" :href="`mailto:${emails?.email_gallery}`">
-              <span>{{ emails?.email_gallery }}</span>
+              <span>{{ emails?.email_gallery || 'someemail@mail' }}</span>
               <IconArrow is-arrow30-deg />
             </a>
           </p>
@@ -121,12 +122,17 @@ const { data: emails } = await useAsyncData(
 
       > div {
         a {
-          color: $colorTextDark;
+          color: $colorAccentBlue;
           display: flex;
           align-items: center;
           gap: 10px;
 
+          span {
+            color: inherit;
+          }
+
           :deep(svg) {
+            fill: currentColor;
             width: 16px;
             height: 16px;
             margin-bottom: 10px;
@@ -163,6 +169,18 @@ const { data: emails } = await useAsyncData(
             margin-bottom: 10px;
             display: block;
           }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .contacts {
+    div {
+      &:last-child {
+        p {
+          font-size: 1.2rem;
         }
       }
     }
