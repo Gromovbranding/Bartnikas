@@ -27,6 +27,11 @@ const sidebarItems: {
     icon: 'ep:tickets'
   },
   {
+    text: 'Services',
+    url: '/admin/services',
+    icon: 'ep:tickets'
+  },
+  {
     text: 'Blogs',
     url: '/admin/blogs',
     icon: 'ep:chat-line-square'
