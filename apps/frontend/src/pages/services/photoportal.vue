@@ -1,7 +1,22 @@
 <script setup lang="ts">
+import type { IServices, IServicesTranslate } from '~/types/admin-api'
 import type { ITextField } from '~/types/types'
 
+const { getServices } = usePublicData()
+
 const { t } = useI18n()
+
+const { data: services } = await useAsyncData<IServices>(
+  'services',
+  async () => await getServices()
+)
+
+const translated = computed(() => {
+  return useTranslateLanguage<IServicesTranslate>(
+    services.translate
+  )
+})
+
 const breadcrumbLinks = ref([
   {
     href: '/',
@@ -67,6 +82,7 @@ onMounted(() => {
 
         <h1 class="intro__title">
           {{ $t('photoportal.intro.title') }}
+          {{ translated.value?.photoportalIntroTitle }}
         </h1>
         <div class="intro__main">
           <NuxtImg
@@ -81,10 +97,10 @@ onMounted(() => {
               :is-weight-normal="true"
               @click="popupIsOpen = true"
             >
-              {{ $t('photoportal.intro.action') }}
+              {{ translated.value?.photoportalIntroAction }}
             </UIButton>
             <p class="intro__subtitle">
-              {{ $t('photoportal.intro.subtitle') }}
+              {{ translated.value?.photoportalIntroSubtitle }}
             </p>
           </div>
         </div>
@@ -94,7 +110,7 @@ onMounted(() => {
     <section class="peculiarities">
       <AppContainer class="peculiarities__container">
         <AppContentSpliter class="peculiarities__title">
-          {{ $t('photoportal.peculiarities.title') }}
+          {{ translated.value?.photoportalPeculiaritiesTitle }}
         </AppContentSpliter>
         <div class="peculiarities__main">
           <NuxtImg
@@ -121,7 +137,7 @@ onMounted(() => {
 
     <section class="influence">
       <AppContentSpliter class="influence__title">
-        {{ $t('photoportal.influence.title') }}
+        {{ translated.value?.photoportalInfluenceTitle }}
       </AppContentSpliter>
       <div class="influence__main">
         <NuxtImg
@@ -148,7 +164,7 @@ onMounted(() => {
             </span>
           </q>
           <span class="influence__quote-author">
-            {{ $t('photoportal.influence.quote.author') }}
+            {{ translated.value?.photoportalInfluenceQuoteAuthor }}
           </span>
         </p>
       </div>
@@ -157,7 +173,7 @@ onMounted(() => {
     <section class="for-what">
       <AppContainer class="for-what__container">
         <AppContentSpliter class="for-what__title">
-          {{ $t('photoportal.forWhat.title') }}
+          {{ translated.value?.photoportalForWhatTitle }}
         </AppContentSpliter>
         <div class="for-what__list">
           <div
@@ -176,11 +192,11 @@ onMounted(() => {
     </section>
 
     <AppPopup
-      :title="$t('photoportal.popup.title')"
-      :subtitle-accent="$t('photoportal.popup.subtitle_accent')"
-      :subtitle="$t('photoportal.popup.subtitle')"
-      :button-text="$t('photoportal.popup.btn')"
-      :agreement="$t('photoportal.popup.agreement')"
+      :title="translated.value?.photoportalPopupTitle"
+      :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
+      :subtitle="translated.value?.photoportalPopupSubtitle"
+      :button-text="translated.value?.photoportalPopupBtn"
+      :agreement="translated.value?.photoportalAgreement"
       :textfields="popupTextFields"
       :is-block="true"
     />
@@ -188,11 +204,11 @@ onMounted(() => {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="$t('photoportal.popup.title')"
-        :subtitle-accent="$t('photoportal.popup.subtitle_accent')"
-        :subtitle="$t('photoportal.popup.subtitle')"
-        :button-text="$t('photoportal.popup.btn')"
-        :agreement="$t('photoportal.popup.agreement')"
+        :title="translated.value?.photoportalPopupTitle"
+        :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
+        :subtitle="translated.value?.photoportalPopupSubtitle"
+        :button-text="translated.value?.photoportalPopupBtn"
+        :agreement="translated.value?.photoportalAgreement"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />

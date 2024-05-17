@@ -23,6 +23,7 @@ import { TermsStaticTranslate } from '../../../terms-static/entities/terms-stati
 import { GreetingIndexTranslate } from '../../../greeting-index/entities/greeting-index-translate.entity';
 import { VideoCollectionTranslate } from '../../../video-collection/entities/video-collection-translate.entity';
 import { TestimonialsTranslate } from '../../../testimonials/entities/testimonials-translate.entity';
+import { ServicesTranslate } from '../../../services/entities/services-translate.entity';
 
 @Entity()
 export class Language {
@@ -167,6 +168,14 @@ export class Language {
     onUpdate: 'NO ACTION',
   })
   terms_static_translate: TermsStaticTranslate[];
+
+  @ApiHideProperty()
+  @OneToMany(() => TermsStaticTranslate, (item) => item.language, {
+    eager: false,
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  services_translate: ServicesTranslate[];
 
   @ApiProperty()
   @CreateDateColumn()

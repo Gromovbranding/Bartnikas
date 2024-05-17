@@ -1,7 +1,21 @@
 <script setup lang="ts">
+import type { IServices, IServicesTranslate } from '~/types/admin-api'
 import type { ITextField, IExclusiveRate } from '~/types/types'
 
 const { t } = useI18n()
+
+const { getServices } = usePublicData()
+
+const { data: services } = await useAsyncData<IServices>(
+  'services',
+  async () => await getServices()
+)
+
+const translated = computed(() => {
+  return useTranslateLanguage<IServicesTranslate>(
+    services.translate
+  )
+})
 
 const popupTextFields: Ref<ITextField[]> = ref([
   {
@@ -77,15 +91,15 @@ function transformationItemsAppearance () {
           :links="breadcrumbLinks"
         />
         <h1 class="intro__title">
-          {{ $t('placeOfPower.title') }}
+          {{ translated.value?.placeOfPowerTitle }}
         </h1>
         <div class="intro__info">
           <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
             <IconSmallArrow class="intro__ultra-anchor-icon" />
-            {{ $t('placeOfPower.ultraExclusiveAnchor') }}
+            {{ translated.value?.placeOfPowerUltraExclusiveAnchor }}
           </NuxtLink>
           <p class="intro__subtitle">
-            {{ $t('placeOfPower.subtitle') }}
+            {{ translated.value?.placeOfPowerSubtitle }}
           </p>
         </div>
       </AppContainer>
@@ -104,22 +118,22 @@ function transformationItemsAppearance () {
       />
       <div class="bartnikas-quote__quote">
         <p class="bartnikas-quote__text">
-          {{ $t('placeOfPower.quote.text') }}
+          {{ translated.value?.placeOfPowerQuoteText }}
         </p>
         <p class="bartnikas-quote__author">
-          {{ $t('placeOfPower.quote.author') }}
+          {{ translated.value?.placeOfPowerQuoteAuthor }}
         </p>
       </div>
     </section>
 
     <section class="transformation">
       <AppContentSpliter class="transformation__title">
-        {{ $t('placeOfPower.transformation.title') }}
+        {{ translated.value?.placeOfPowerTransformationTitle }}
       </AppContentSpliter>
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ $t('placeOfPower.transformation.list.title') }}
+            {{ translated.value?.placeOfPowerListTitle }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li

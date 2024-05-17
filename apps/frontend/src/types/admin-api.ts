@@ -176,6 +176,64 @@ export interface IAwardsTranslate {
   description: string;
 }
 
+export interface IServicesTranslate {
+  placeOfPowerTitle: string;
+
+  placeOfPowerUltraExclusiveAnchor: string;
+
+  placeOfPowerSubtitle: string;
+
+  placeOfPowerQuoteText: string;
+
+  placeOfPowerQuoteAuthor: string;
+
+  placeOfPowerTransformationTitle: string;
+
+  placeOfPowerListTitle: string;
+
+  placeOfPowerListItems: string;
+
+  photoportalIntroTitle: string;
+
+  photoportalIntroSubtitle: string;
+
+  photoportalIntroAction: string;
+
+  photoportalPeculiaritiesTitle: string;
+
+  photoportalPeculiaritiesList: string[];
+
+  photoportalInfluenceTitle: string;
+
+  photoportalInfluenceQuoteText: string[];
+
+  photoportalInfluenceQuoteAccent_text: string[];
+
+  photoportalInfluenceQuoteAuthor: string;
+
+  photoportalForWhatTitle: string;
+
+  photoportalForWhatList: string[];
+
+  photoportalPopupSubtitle: string;
+
+  photoportalPopupSubtitle_accent: string;
+
+  photoportalSubtitle: string;
+
+  photoportalPopupBtn: string;
+
+  photoportalAgreement: string;
+}
+
+
+export interface IServices {
+  id: number;
+  translate: TranslateLang<IAwardsTranslate>[];
+  created_at: string;
+  updated_at: string;
+}
+
 export interface IAwards {
   id: number;
   awards_avatar: IFile;

@@ -28,6 +28,7 @@ import migration from './config/migration';
 import emailSmpt from './config/email-smpt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ServicesModule } from './services/services.module';
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
@@ -55,6 +56,8 @@ if (!process.env.NODE_ENV) {
       useFactory: async (configService: ConfigService) =>
         configService.get('database'),
     }),
+
+    ServicesModule,
     NewsModule,
     BlogsModule,
     ProjectsModule,
