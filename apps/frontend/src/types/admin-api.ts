@@ -181,6 +181,16 @@ interface IAboutAdvantage {
   text: string;
 }
 
+interface IAboutAchievements {
+  text: string;
+  image: IFile
+}
+
+interface IAboutRecognitionTickerCity {
+  name: string;
+  image: IFile
+}
+
 export interface IAboutTranslate {
   title: string;
 
@@ -200,9 +210,9 @@ export interface IAboutTranslate {
 
   recognitionDescription: string;
 
-  recognitionTickers: string[][]
+  recognitionTickers: IAboutRecognitionTickerCity[][]
 
-  achievements: string[];
+  achievements: IAboutAchievements[];
 }
 
 export interface IAbout {
@@ -251,6 +261,8 @@ export interface IServicesTranslate {
 
   photoportalForWhatList: string[];
 
+  photoportalPopupTitle: string;
+
   photoportalPopupSubtitle: string;
 
   photoportalPopupSubtitle_accent: string;
@@ -264,7 +276,7 @@ export interface IServicesTranslate {
 
 export interface IServices {
   id: number;
-  translate: TranslateLang<IAwardsTranslate>[];
+  translate: TranslateLang<IServicesTranslate>[];
   created_at: string;
   updated_at: string;
 }

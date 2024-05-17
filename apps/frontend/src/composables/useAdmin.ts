@@ -557,7 +557,7 @@ export const useAdmin = () => {
           'photoportalPopupSubtitle_accent',
           'photoportalSubtitle',
           'photoportalPopupBtn',
-          'photoportalAgreement',
+          'photoportalAgreement'
         ])
       })
     }
@@ -743,7 +743,7 @@ export const useAdmin = () => {
     footerIndexCard,
     generalInfo,
     services,
-    
+
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,

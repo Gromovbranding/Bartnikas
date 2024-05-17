@@ -13,7 +13,7 @@ const { data: services } = await useAsyncData<IServices>(
 
 const translated = computed(() => {
   return useTranslateLanguage<IServicesTranslate>(
-    services.translate
+    services.value?.translate
   )
 })
 
@@ -191,11 +191,11 @@ onMounted(() => {
     </section>
 
     <AppPopup
-      :title="translated.value?.photoportalPopupTitle"
+      :title="translated.value?.photoportalPopupTitle ?? ''"
       :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
-      :subtitle="translated.value?.photoportalPopupSubtitle"
-      :button-text="translated.value?.photoportalPopupBtn"
-      :agreement="translated.value?.photoportalAgreement"
+      :subtitle="translated.value?.photoportalPopupSubtitle ?? ''"
+      :button-text="translated.value?.photoportalPopupBtn ?? ''"
+      :agreement="translated.value?.photoportalAgreement ?? ''"
       :textfields="popupTextFields"
       :is-block="true"
     />
@@ -203,11 +203,11 @@ onMounted(() => {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.photoportalPopupTitle"
+        :title="translated.value?.photoportalPopupTitle ?? ''"
         :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
-        :subtitle="translated.value?.photoportalPopupSubtitle"
-        :button-text="translated.value?.photoportalPopupBtn"
-        :agreement="translated.value?.photoportalAgreement"
+        :subtitle="translated.value?.photoportalPopupSubtitle ?? ''"
+        :button-text="translated.value?.photoportalPopupBtn ?? ''"
+        :agreement="translated.value?.photoportalAgreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />

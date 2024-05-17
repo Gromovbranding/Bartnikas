@@ -13,7 +13,7 @@ const { data: services } = await useAsyncData<IServices>(
 
 const translated = computed(() => {
   return useTranslateLanguage<IServicesTranslate>(
-    services.translate
+    services.value?.translate
   )
 })
 

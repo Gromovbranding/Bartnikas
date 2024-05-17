@@ -24,7 +24,9 @@ onMounted(() => {
 })
 
 function advantagesAppearance () {
-  const triggerOffset = advantagesBlock.value.offsetTop - (window.innerHeight - advantagesBlock.value.offsetHeight)
+  const triggerOffset =
+    advantagesBlock.value.offsetTop -
+    (window.innerHeight - advantagesBlock.value.offsetHeight)
   const blockFullVisible = window.scrollY > triggerOffset
   if (blockFullVisible) {
     advantagesAnimation.value.play()
@@ -45,15 +47,14 @@ const { data: about } = await useAsyncData<IAbout>(
 )
 
 const translated = computed(() => {
-  return useTranslateLanguage<IAboutTranslate>(
-    about.value?.translate
-  )
+  return useTranslateLanguage<IAboutTranslate>(about.value?.translate)
 })
 
 function getGroupVideos (group: string) {
-  return (videos.value ?? []).filter(video => video.group?.toLowerCase?.() === group.toLowerCase?.())
+  return (videos.value ?? []).filter(
+    video => video.group?.toLowerCase?.() === group.toLowerCase?.()
+  )
 }
-
 </script>
 
 <template>
@@ -146,16 +147,23 @@ function getGroupVideos (group: string) {
             v-for="(ticker, i) in translated.value?.recognitionTickers"
             :key="i"
             class="recognition__ticker"
-            :class="{recognition__ticker_reverse: i % 2 === 0}"
+            :class="{ recognition__ticker_reverse: i % 2 === 0 }"
           >
-            <div
-              v-for="part in 2"
-              :key="part"
-              class="recognition__ticker-part"
-            >
-              <div v-for="(city, index) in ticker" :key="city" class="recognition__city">
-                <NuxtImg class="recognition__city-img" loading="lazy" :src="`/img/city/${i}_${index}.png`" />
-                <span class="recognition__city-text">{{ city }}</span>
+            <div v-for="part in 2" :key="part" class="recognition__ticker-part">
+              <div
+                v-for="(city, index) in ticker"
+                :key="city.name"
+                class="recognition__city"
+              >
+                <NuxtImg
+                  class="recognition__city-img"
+                  loading="lazy"
+                  :src="
+                    `/baseApiFiles/${city.image.name}` ||
+                      `/img/city/${i}_${index}.png`
+                  "
+                />
+                <span class="recognition__city-text">{{ city.name }}</span>
               </div>
             </div>
           </div>
@@ -164,10 +172,19 @@ function getGroupVideos (group: string) {
     </section>
 
     <section class="achievements">
-      <div v-for="(ach, i) in translated.value?.achievements" :key="ach" class="achievements__item" :class="`achievements__item_${i}`">
-        <NuxtImg class="achievements__item-img" loading="lazy" :src="`/img/ach_${i}.png`" />
+      <div
+        v-for="(ach, i) in translated.value?.achievements"
+        :key="ach.text"
+        class="achievements__item"
+        :class="`achievements__item_${i}`"
+      >
+        <NuxtImg
+          class="achievements__item-img"
+          loading="lazy"
+          :src="`/baseApiFiles/${ach.image.name}` || `/img/ach_${i}.png`"
+        />
         <p class="achievements__item-text">
-          {{ ach }}
+          {{ ach.text }}
         </p>
       </div>
     </section>
@@ -178,7 +195,11 @@ function getGroupVideos (group: string) {
           {{ $t('titles.music') }}
         </AppSectionHeader>
         <div class="music__collection">
-          <AppVideoItem v-for="item in getGroupVideos('music')" :key="item.id" :item="item" />
+          <AppVideoItem
+            v-for="item in getGroupVideos('music')"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </AppContainer>
     </section>
@@ -187,7 +208,6 @@ function getGroupVideos (group: string) {
 </template>
 
 <style lang="scss" scoped>
-
 // SECTION INTRO
 .intro {
   padding-top: 1.042rem;
@@ -319,7 +339,8 @@ function getGroupVideos (group: string) {
     gap: 2.083rem;
   }
 
-  &__ticker, &__ticker-part {
+  &__ticker,
+  &__ticker-part {
     gap: $cityTickerGapDesktop;
   }
 
@@ -458,7 +479,6 @@ function getGroupVideos (group: string) {
     min-height: 32rem;
 
     &__item {
-
       &_0 {
         top: 7rem;
         left: 4rem;
@@ -578,7 +598,8 @@ function getGroupVideos (group: string) {
       gap: 1.018rem;
     }
 
-    &__ticker, &__ticker-part {
+    &__ticker,
+    &__ticker-part {
       gap: $cityTickerGapMobile;
     }
 
