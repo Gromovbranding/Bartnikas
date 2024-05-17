@@ -103,6 +103,7 @@ const handleCreate = async () => {
         :prop="`translate.${currentIndexLocale}.${key}`"
       >
         <AdminEditorInput
+          v-if="key !== 'code'"
           v-model="form.translate[currentIndexLocale][key]"
         />
       </ElFormItem>
