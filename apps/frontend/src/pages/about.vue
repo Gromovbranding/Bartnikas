@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IIntroAdvantage } from '~/types/types'
+import type { IAbout, IAboutTranslate } from '~/types/admin-api'
 
 const { $anime } = useNuxtApp()
 const advantagesBlock = ref()
@@ -32,12 +32,23 @@ function advantagesAppearance () {
   }
 }
 
-const { getAllVideoCollection } = usePublicData()
+const { getAbout, getAllVideoCollection } = usePublicData()
 
 const { data: videos } = await useAsyncData(
   'video-collection',
   async () => await getAllVideoCollection()
 )
+
+const { data: about } = await useAsyncData<IAbout>(
+  'about',
+  async () => await getAbout()
+)
+
+const translated = computed(() => {
+  return useTranslateLanguage<IAboutTranslate>(
+    about.value?.translate
+  )
+})
 
 function getGroupVideos (group: string) {
   return (videos.value ?? []).filter(video => video.group?.toLowerCase?.() === group.toLowerCase?.())
@@ -53,24 +64,22 @@ function getGroupVideos (group: string) {
       <IconLogoIcon class="intro__logo" />
 
       <h1 ref="introTitleBlock" class="intro__title">
-        {{ $t('intro.title') }}
+        {{ translated.value?.title }}
       </h1>
       <div class="intro__info">
         <div class="intro__info-text-block">
           <p class="intro__subtitle">
-            {{ $t('intro.subtitle') }}
+            {{ translated.value?.subtitle }}
           </p>
 
           <ul ref="advantagesBlock" class="intro__advantages">
             <li
-              v-for="advantage in ($tm('intro.advantages') as IIntroAdvantage[])"
+              v-for="advantage in translated.value?.advantages"
               :key="advantage.text"
               class="intro__advantage"
             >
-              <span class="intro__advantage-value">>&#8239;{{ $rt(advantage.value) }}</span>
-              <span class="intro__advantage-text">{{
-                $rt(advantage.text)
-              }}</span>
+              <span class="intro__advantage-value">>&#8239;{{ advantage.value }}</span>
+              <span class="intro__advantage-text">{{ advantage.text }}</span>
             </li>
           </ul>
         </div>
@@ -81,24 +90,24 @@ function getGroupVideos (group: string) {
           src="/img/intro_bartnikas.jpg"
         />
         <p class="intro__subtitle intro__subtitle_mobile">
-          {{ $t('intro.subtitle') }}
+          {{ translated.value?.subtitle }}
         </p>
       </div>
     </section>
 
     <AppContentSpliter>
-      {{ $t('titles.concept') }}
+      {{ translated.value?.conceptTitle }}
     </AppContentSpliter>
 
     <section class="concept">
       <div class="concept__main-block">
         <div class="concept__text-block">
           <p
-            v-for="p in $tm('concept.text')"
-            :key="$rt(p)"
+            v-for="p in translated.value?.conceptText"
+            :key="p"
             class="concept__text-p"
           >
-            {{ $rt(p) }}
+            {{ p }}
           </p>
         </div>
         <NuxtImg
@@ -118,23 +127,23 @@ function getGroupVideos (group: string) {
     <AppSpecialSection />
     <AppAwardsSection />
     <AppContentTicker
-      :ticker-title="$t('main_page_ticker1.title')"
-      :ticker-text="$t('main_page_ticker1.text')"
+      :ticker-title="translated.value?.tickerTitle ?? ''"
+      :ticker-text="translated.value?.tickerText ?? ''"
     />
 
     <section class="recognition">
       <AppContainer>
         <AppContentSpliter class="recognition__title">
-          {{ $t('recognition.title') }}
+          {{ translated.value?.recognitionTitle }}
         </AppContentSpliter>
 
         <p class="recognition__description">
-          {{ $t('recognition.description') }}
+          {{ translated.value?.recognitionDescription }}
         </p>
 
         <div class="recognition__tickers">
           <div
-            v-for="(ticker, i) in $tm('recognition.tickers')"
+            v-for="(ticker, i) in translated.value?.recognitionTickers"
             :key="i"
             class="recognition__ticker"
             :class="{recognition__ticker_reverse: i % 2 === 0}"
@@ -155,10 +164,10 @@ function getGroupVideos (group: string) {
     </section>
 
     <section class="achievements">
-      <div v-for="(ach, i) in $tm('achievements.items')" :key="$rt(ach)" class="achievements__item" :class="`achievements__item_${i}`">
+      <div v-for="(ach, i) in translated.value?.achievements" :key="ach" class="achievements__item" :class="`achievements__item_${i}`">
         <NuxtImg class="achievements__item-img" loading="lazy" :src="`/img/ach_${i}.png`" />
         <p class="achievements__item-text">
-          {{ $rt(ach) }}
+          {{ ach }}
         </p>
       </div>
     </section>

@@ -81,7 +81,6 @@ onMounted(() => {
         />
 
         <h1 class="intro__title">
-          {{ $t('photoportal.intro.title') }}
           {{ translated.value?.photoportalIntroTitle }}
         </h1>
         <div class="intro__main">

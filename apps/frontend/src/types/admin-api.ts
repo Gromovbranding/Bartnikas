@@ -176,6 +176,42 @@ export interface IAwardsTranslate {
   description: string;
 }
 
+interface IAboutAdvantage {
+  value: string;
+  text: string;
+}
+
+export interface IAboutTranslate {
+  title: string;
+
+  subtitle: string;
+
+  advantages: IAboutAdvantage[]
+
+  conceptTitle: string;
+
+  conceptText: string[];
+
+  tickerTitle: string;
+
+  tickerText: string;
+
+  recognitionTitle: string;
+
+  recognitionDescription: string;
+
+  recognitionTickers: string[][]
+
+  achievements: string[];
+}
+
+export interface IAbout {
+  id: number;
+  translate: TranslateLang<IAboutTranslate>[];
+  created_at: string;
+  updated_at: string;
+}
+
 export interface IServicesTranslate {
   placeOfPowerTitle: string;
 

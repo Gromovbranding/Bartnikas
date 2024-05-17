@@ -42,8 +42,3 @@ export interface IExclusiveRate {
     text: string
   }
 }
-
-export interface IIntroAdvantage {
-  value: string;
-  text: string;
-}
