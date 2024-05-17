@@ -222,6 +222,20 @@ export interface IAbout {
   updated_at: string;
 }
 
+interface IPhotoportalForWhatItem {
+  text: string;
+  image: IFile;
+}
+
+interface IPlaceOfPowerExclusiveRate {
+  title: string;
+  benefits: string[];
+  footer: {
+    description: string;
+    text: string;
+  }
+}
+
 export interface IServicesTranslate {
   placeOfPowerTitle: string;
 
@@ -235,9 +249,37 @@ export interface IServicesTranslate {
 
   placeOfPowerTransformationTitle: string;
 
-  placeOfPowerListTitle: string;
+  placeOfPowerTransformationListTitle: string;
 
-  placeOfPowerListItems: string;
+  placeOfPowerTransformationListItems: string;
+
+  placeOfPowerTransformationSlides: IFile[];
+
+  placeOfPowerArtefactTitle: string;
+
+  placeOfPowerArtefactParagraphs: string[];
+
+  placeOfPowerExclusiveTitle: string;
+
+  placeOfPowerExclusiveHeadText: string;
+
+  placeOfPowerExclusiveSubtitle: string;
+
+  placeOfPowerExclusiveRates: IPlaceOfPowerExclusiveRate[];
+
+  placeOfPowerExclusiveFooterInfo: string;
+
+  placeOfPowerExclusiveFooterBtn: string;
+
+  placeOfPowerPopupTitle: string;
+
+  placeOfPowerPopupSubtitle: string;
+
+  placeOfPowerPopupNote: string;
+
+  placeOfPowerPopupBtn: string;
+
+  placeOfPowerPopupAgreement: string;
 
   photoportalIntroTitle: string;
 
@@ -259,7 +301,7 @@ export interface IServicesTranslate {
 
   photoportalForWhatTitle: string;
 
-  photoportalForWhatList: string[];
+  photoportalForWhatList: IPhotoportalForWhatItem[];
 
   photoportalPopupTitle: string;
 

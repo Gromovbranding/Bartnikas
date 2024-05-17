@@ -119,13 +119,13 @@ onMounted(() => {
           />
           <ul class="peculiarities__list">
             <li
-              v-for="item in $tm('photoportal.peculiarities.list')"
-              :key="$rt(item)"
+              v-for="item in translated.value?.photoportalPeculiaritiesList"
+              :key="item"
               class="peculiarities__item"
             >
               <div class="peculiarities__item-content">
                 <p class="peculiarities__item-text">
-                  {{ $rt(item) }}
+                  {{ item }}
                 </p>
               </div>
             </li>
@@ -147,18 +147,18 @@ onMounted(() => {
         <p class="influence__quote">
           <q class="influence__quote-text">
             <span
-              v-for="span in $tm('photoportal.influence.quote.text')"
-              :key="$rt(span)"
+              v-for="span in translated.value?.photoportalInfluenceQuoteText"
+              :key="span"
               class="influence__quote-span"
             >
-              {{ $rt(span) }}
+              {{ span }}
             </span>
             <span ref="quoteBlock" class="influence__quote-text-accent">
               <span
-                v-for="span in $tm('photoportal.influence.quote.accent_text')"
-                :key="$rt(span)"
+                v-for="span in translated.value?.photoportalInfluenceQuoteAccent_text"
+                :key="span"
               >
-                {{ $rt(span) }}
+                {{ span }}
               </span>
             </span>
           </q>
@@ -176,15 +176,15 @@ onMounted(() => {
         </AppContentSpliter>
         <div class="for-what__list">
           <div
-            v-for="(item, i) in $tm('photoportal.forWhat.list')"
-            :key="$rt(item)"
+            v-for="(item, i) in translated.value?.photoportalForWhatList"
+            :key="item.text"
             class="for-what__item"
           >
             <IconLogoIcon class="for-what__item-icon" />
             <p class="for-what__item-text">
-              {{ $rt(item) }}
+              {{ item.text }}
             </p>
-            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/img/for-what_${i}.png`" />
+            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/baseApiFiles/${item?.image.name}` || `/img/for-what_${i}.png`" />
           </div>
         </div>
       </AppContainer>

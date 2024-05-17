@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IServices, IServicesTranslate } from '~/types/admin-api'
-import type { ITextField, IExclusiveRate } from '~/types/types'
+import type { ITextField } from '~/types/types'
 
 const { t } = useI18n()
 
@@ -12,9 +12,7 @@ const { data: services } = await useAsyncData<IServices>(
 )
 
 const translated = computed(() => {
-  return useTranslateLanguage<IServicesTranslate>(
-    services.value?.translate
-  )
+  return useTranslateLanguage<IServicesTranslate>(services.value?.translate)
 })
 
 const popupTextFields: Ref<ITextField[]> = ref([
@@ -71,7 +69,9 @@ onMounted(() => {
 })
 
 function transformationItemsAppearance () {
-  const triggerOffset = transformationListBlock.value.offsetTop - (window.innerHeight - transformationListBlock.value.offsetHeight)
+  const triggerOffset =
+    transformationListBlock.value.offsetTop -
+    (window.innerHeight - transformationListBlock.value.offsetHeight)
   const blockFullVisible = window.scrollY > triggerOffset
   if (blockFullVisible) {
     transformationItemsAnimation.value.play()
@@ -133,16 +133,17 @@ function transformationItemsAppearance () {
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ translated.value?.placeOfPowerListTitle }}
+            {{ translated.value?.placeOfPowerTransformationListTitle }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li
-              v-for="item in $tm('placeOfPower.transformation.list.items')"
-              :key="$rt(item)"
+              v-for="item in translated.value
+                ?.placeOfPowerTransformationListItems"
+              :key="item"
               class="transformation__text-item"
             >
               <IconLogoIcon class="transformation__text-item-icon" />
-              {{ $rt(item) }}
+              {{ item }}
             </li>
           </ul>
         </div>
@@ -152,14 +153,17 @@ function transformationItemsAppearance () {
           autoplay
         >
           <SwiperSlide
-            v-for="i in 3"
-            :key="i"
+            v-for="(slide, i) in translated.value
+              ?.placeOfPowerTransformationSlides"
+            :key="slide.name"
             class="transformation__swiper-item"
           >
             <NuxtImg
               class="transformation__swiper-img"
               loading="lazy"
-              :src="`/img/transformation_${i}.png`"
+              :src="
+                `/baseApiFiles/${slide.name}` || `/img/transformation_${i}.png`
+              "
             />
           </SwiperSlide>
         </Swiper>
@@ -169,15 +173,15 @@ function transformationItemsAppearance () {
     <section class="artefact">
       <AppContainer class="artefact__container">
         <h2 ref="artefactTitleBlock" class="artefact__title">
-          {{ $t('placeOfPower.artefact.title') }}
+          {{ translated.value?.placeOfPowerArtefactTitle }}
         </h2>
         <div class="artefact__text">
           <p
-            v-for="p in $tm('placeOfPower.artefact.paragraphs')"
-            :key="$rt(p)"
+            v-for="p in translated.value?.placeOfPowerArtefactParagraphs"
+            :key="p"
             class="artefact__paragraph"
           >
-            {{ $rt(p) }}
+            {{ p }}
           </p>
         </div>
       </AppContainer>
@@ -185,7 +189,7 @@ function transformationItemsAppearance () {
 
     <section id="ultra-exclusive" class="exclusive">
       <AppContentSpliter class="exclusive__title">
-        {{ $t('placeOfPower.exclusive.title') }}
+        {{ translated.value?.placeOfPowerExclusiveTitle }}
       </AppContentSpliter>
       <div class="exclusive__head">
         <NuxtImg
@@ -194,25 +198,23 @@ function transformationItemsAppearance () {
           src="/img/exclusive_head.png"
         />
         <p class="exclusive__head-text">
-          {{ $t('placeOfPower.exclusive.head_text') }}
+          {{ translated.value?.placeOfPowerExclusiveHeadText }}
         </p>
       </div>
 
       <AppContainer class="exclusive__container">
         <h3 class="exclusive__subtitle">
-          {{ $t('placeOfPower.exclusive.subtitle') }}
+          {{ translated.value?.placeOfPowerExclusiveSubtitle }}
         </h3>
 
         <div class="exclusive__rates">
           <div
-            v-for="item in ($tm(
-              'placeOfPower.exclusive.rates'
-            ) as IExclusiveRate[])"
-            :key="$rt(item.title)"
+            v-for="item in translated.value?.placeOfPowerExclusiveRates"
+            :key="item.title"
             class="exclusive__rates-item"
           >
             <h4 class="exclusive__rates-item-title">
-              {{ $rt(item.title) }}
+              {{ item.title }}
             </h4>
             <ul class="exclusive__rates-item-benefits">
               <li
@@ -220,24 +222,24 @@ function transformationItemsAppearance () {
                 :key="benefit"
                 class="exclusive__rates-item-benefit"
               >
-                {{ $rt(benefit) }}
+                {{ benefit }}
               </li>
             </ul>
-            <p v-if="$rt(item.footer.text)" class="exclusive__rates-footer">
+            <p v-if="item.footer.text" class="exclusive__rates-footer">
               <span
-                v-if="$rt(item.footer.description)"
+                v-if="item.footer.description"
                 class="exclusive__rates-footer-description"
               >
-                {{ $rt(item.footer.description) }}
+                {{ item.footer.description }}
               </span>
               <span class="exclusive__rates-footer-text">{{
-                $rt(item.footer.text)
+                item.footer.text
               }}</span>
             </p>
           </div>
         </div>
         <p class="exclusive__footer-info">
-          {{ $t('placeOfPower.exclusive.footer_info') }}
+          {{ translated.value?.placeOfPowerExclusiveFooterInfo }}
         </p>
         <UIButton
           class="exclusive__footer-action"
@@ -245,7 +247,7 @@ function transformationItemsAppearance () {
           :is-weight-normal="true"
           @click="popupIsOpen = true"
         >
-          {{ $t('placeOfPower.exclusive.footer_action') }}
+          {{ translated.value?.placeOfPowerExclusiveFooterBtn }}
         </UIButton>
       </AppContainer>
     </section>
@@ -253,11 +255,11 @@ function transformationItemsAppearance () {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="$t('placeOfPower.popup.title')"
-        :subtitle="$t('placeOfPower.popup.subtitle')"
-        :note="$t('placeOfPower.popup.note')"
-        :button-text="$t('placeOfPower.popup.btn')"
-        :agreement="$t('placeOfPower.popup.agreement')"
+        :title="translated.value?.placeOfPowerPopupTitle ?? ''"
+        :subtitle="translated.value?.placeOfPowerPopupSubtitle ?? ''"
+        :note="translated.value?.placeOfPowerPopupNote ?? ''"
+        :button-text="translated.value?.placeOfPowerPopupBtn ?? ''"
+        :agreement="translated.value?.placeOfPowerPopupAgreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />
