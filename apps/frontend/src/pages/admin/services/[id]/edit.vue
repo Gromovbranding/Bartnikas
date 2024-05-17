@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IFaq, IFaqTranslate } from '@/types/admin-api'
+import type { IFaq, IServicesTranslate } from '@/types/admin-api'
 import { AdminTemplateForm } from '#components'
 
 definePageMeta({
@@ -14,8 +14,8 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 const route = useRoute()
 const id = Number(route.params.id)
 
-const { faq, currentIndexLocale, initTranslateLocale } = useAdmin()
-const { formRules, navigateBack, titles, methods } = faq()
+const { services, currentIndexLocale, initTranslateLocale } = useAdmin()
+const { formRules, navigateBack, titles, methods } = services()
 
 const model = await methods.handleGetModel(id)
 
@@ -25,7 +25,7 @@ useHeadSafe({
 
 const form = reactive<IFaq>({
   ...model,
-  translate: initTranslateLocale<IFaqTranslate>(model.translate)
+  translate: initTranslateLocale<IServicesTranslate>(model.translate)
 })
 
 const handleDelete = async () => {
@@ -55,11 +55,13 @@ const handleUpdate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem
-        label="Description"
-        :prop="`translate.${currentIndexLocale}.description`"
+        v-for="(item) in form.translate[currentIndexLocale]"
+        :key="item"
+        :label="item"
+        :prop="`translate.${currentIndexLocale}.${item}`"
       >
         <AdminEditorInput
-          v-model="form.translate[currentIndexLocale].description"
+          v-model="form.translate[currentIndexLocale][item]"
         />
       </ElFormItem>
       <ElFormItem>

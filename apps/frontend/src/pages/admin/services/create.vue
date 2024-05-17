@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type {
-  IFaq,
-  IFaqTranslate,
+  IServices,
+  IServicesTranslate,
   PartialAdminApiDto
 } from '@/types/admin-api'
 import { AdminTemplateForm } from '#components'
@@ -10,8 +10,8 @@ definePageMeta({
   layout: 'admin'
 })
 
-const { faq, initTranslateLocale, currentIndexLocale } = useAdmin()
-const { titles, formRules, navigateBack, methods } = faq()
+const { services, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { titles, formRules, navigateBack, methods } = services()
 
 useHeadSafe({
   title: titles.create
@@ -19,10 +19,55 @@ useHeadSafe({
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
-const form = reactive<PartialAdminApiDto<IFaq>>({
-  translate: initTranslateLocale<IFaqTranslate>({
-    description: '',
-    title: ''
+const form = reactive<PartialAdminApiDto<IServices>>({
+  translate: initTranslateLocale<IServicesTranslate>({
+    placeOfPowerTitle: '',
+
+    placeOfPowerUltraExclusiveAnchor: '',
+
+    placeOfPowerSubtitle: '',
+
+    placeOfPowerQuoteText: '',
+
+    placeOfPowerQuoteAuthor: '',
+
+    placeOfPowerTransformationTitle: '',
+
+    placeOfPowerListTitle: '',
+
+    placeOfPowerListItems: '',
+
+    photoportalIntroTitle: '',
+
+    photoportalIntroSubtitle: '',
+
+    photoportalIntroAction: '',
+
+    photoportalPeculiaritiesTitle: '',
+
+    photoportalPeculiaritiesList: '',
+
+    photoportalInfluenceTitle: '',
+
+    photoportalInfluenceQuoteText: '',
+
+    photoportalInfluenceQuoteAccent_text: '',
+
+    photoportalInfluenceQuoteAuthor: '',
+
+    photoportalForWhatTitle: '',
+
+    photoportalForWhatList: '',
+
+    photoportalPopupSubtitle: '',
+
+    photoportalPopupSubtitle_accent: '',
+
+    photoportalSubtitle: '',
+
+    photoportalPopupBtn: '',
+
+    photoportalAgreement: ''
   })
 })
 
@@ -55,11 +100,13 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem
-        label="Description"
-        :prop="`translate.${currentIndexLocale}.description`"
+        v-for="(item) in form.translate[currentIndexLocale]"
+        :key="item"
+        :label="item"
+        :prop="`translate.${currentIndexLocale}.${item}`"
       >
         <AdminEditorInput
-          v-model="form.translate[currentIndexLocale].description"
+          v-model="form.translate[currentIndexLocale][item]"
         />
       </ElFormItem>
       <ElFormItem>

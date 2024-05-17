@@ -124,7 +124,6 @@ export const usePublicData = () => {
   const getServices = async () =>
     await fetchGet<IServices>('services/only/active')
 
-
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
 

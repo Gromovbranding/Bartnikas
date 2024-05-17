@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { IFaq } from '~/types/admin-api'
+import type { IServices } from '~/types/admin-api'
 
-const headTitle = ref('Faq')
+const headTitle = ref('Services')
 
 definePageMeta({
   layout: 'admin'
@@ -16,8 +16,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard<IFaq>(headTitle.value)
-const { currentIndexLocale } = useAdmin()
+} = useAdmin().makeFetchersForIndexCard<IServices>(headTitle.value)
 </script>
 
 <template>
@@ -29,7 +28,6 @@ const { currentIndexLocale } = useAdmin()
     @edit="handleEdit"
     @delete="handleDelete"
   >
-    <ElTableColumn label="Title" :prop="`translate.${currentIndexLocale}.title`" />
-    <ElTableColumn label="Description" :prop="`translate.${currentIndexLocale}.description`" />
+    <ElTableColumn label="Is Active" :prop="`is_active`" />
   </AdminTemplateCardIndexPage>
 </template>

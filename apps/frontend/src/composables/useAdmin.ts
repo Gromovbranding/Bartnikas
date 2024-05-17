@@ -21,7 +21,8 @@ import type {
   IndexCardFooter,
   IIndexSlider,
   TranslateLang,
-  IGeneralInfo
+  IGeneralInfo,
+  IServices
 } from '@/types/admin-api'
 
 export const useAdmin = () => {
@@ -517,6 +518,51 @@ export const useAdmin = () => {
     }
   }
 
+  const services = () => {
+    const path = 'services'
+
+    const methods = getModelFetchers<IServices>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'Services'),
+        edit: createTitle('edit', 'Services')
+      }),
+
+      navigateBack: ref('/admin/services'),
+
+      formRules: ref<FormRules>({
+        ...createTranslaterFormRules([
+          'placeOfPowerTitle',
+          'placeOfPowerUltraExclusiveAnchor',
+          'placeOfPowerSubtitle',
+          'placeOfPowerQuoteText',
+          'placeOfPowerQuoteAuthor',
+          'placeOfPowerTransformationTitle',
+          'placeOfPowerListTitle',
+          'placeOfPowerListItems',
+          'photoportalIntroTitle',
+          'photoportalIntroSubtitle',
+          'photoportalIntroAction',
+          'photoportalPeculiaritiesTitle',
+          'photoportalPeculiaritiesList',
+          'photoportalInfluenceTitle',
+          'photoportalInfluenceQuoteAccent_text',
+          'photoportalInfluenceQuoteAuthor',
+          'photoportalForWhatTitle',
+          'photoportalForWhatList',
+          'photoportalPopupSubtitle',
+          'photoportalPopupSubtitle_accent',
+          'photoportalSubtitle',
+          'photoportalPopupBtn',
+          'photoportalAgreement',
+        ])
+      })
+    }
+  }
+
   const bio = () => {
     const path = 'bio'
 
@@ -696,7 +742,8 @@ export const useAdmin = () => {
     footerContacts,
     footerIndexCard,
     generalInfo,
-
+    services,
+    
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,

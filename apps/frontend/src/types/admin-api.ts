@@ -226,7 +226,6 @@ export interface IServicesTranslate {
   photoportalAgreement: string;
 }
 
-
 export interface IServices {
   id: number;
   translate: TranslateLang<IAwardsTranslate>[];
