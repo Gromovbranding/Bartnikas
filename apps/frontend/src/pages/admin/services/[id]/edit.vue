@@ -52,14 +52,13 @@ const handleUpdate = async () => {
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem
-        v-for="(item) in form.translate[currentIndexLocale]"
-        :key="item"
-        :label="item"
-        :prop="`translate.${currentIndexLocale}.${item}`"
+        v-for="(value, key) in form.translate[currentIndexLocale]"
+        :key="key"
+        :label="key"
+        :prop="`translate.${currentIndexLocale}.${key}`"
       >
-        {{ item }}
         <AdminEditorInput
-          v-model="form.translate[currentIndexLocale][item]"
+          v-model="form.translate[currentIndexLocale][key]"
         />
       </ElFormItem>
       <ElFormItem>
