@@ -33,9 +33,37 @@ const form = reactive<PartialAdminApiDto<IServices>>({
 
     placeOfPowerTransformationTitle: '',
 
-    placeOfPowerListTitle: '',
+    placeOfPowerTransformationListTitle: '',
 
-    placeOfPowerListItems: '',
+    placeOfPowerTransformationListItems: '',
+
+    placeOfPowerTransformationSlides: [],
+
+    placeOfPowerArtefactTitle: '',
+
+    placeOfPowerArtefactParagraphs: [],
+
+    placeOfPowerExclusiveTitle: '',
+
+    placeOfPowerExclusiveHeadText: '',
+
+    placeOfPowerExclusiveSubtitle: '',
+
+    placeOfPowerExclusiveRates: [],
+
+    placeOfPowerExclusiveFooterInfo: '',
+
+    placeOfPowerExclusiveFooterBtn: '',
+
+    placeOfPowerPopupTitle: '',
+
+    placeOfPowerPopupSubtitle: '',
+
+    placeOfPowerPopupNote: '',
+
+    placeOfPowerPopupBtn: '',
+
+    placeOfPowerPopupAgreement: '',
 
     photoportalIntroTitle: '',
 
@@ -45,19 +73,21 @@ const form = reactive<PartialAdminApiDto<IServices>>({
 
     photoportalPeculiaritiesTitle: '',
 
-    photoportalPeculiaritiesList: '',
+    photoportalPeculiaritiesList: [],
 
     photoportalInfluenceTitle: '',
 
-    photoportalInfluenceQuoteText: '',
+    photoportalInfluenceQuoteText: [],
 
-    photoportalInfluenceQuoteAccent_text: '',
+    photoportalInfluenceQuoteAccent_text: [],
 
     photoportalInfluenceQuoteAuthor: '',
 
     photoportalForWhatTitle: '',
 
-    photoportalForWhatList: '',
+    photoportalForWhatList: [],
+
+    photoportalPopupTitle: '',
 
     photoportalPopupSubtitle: '',
 
