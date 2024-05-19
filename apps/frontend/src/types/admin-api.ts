@@ -222,11 +222,6 @@ export interface IAbout {
   updated_at: string;
 }
 
-// interface IPhotoportalForWhatItem {
-//   text: string;
-//   image: IFile;
-// }
-
 export interface IServiceTranslate {
   title: string;
   text: string;
@@ -304,10 +299,56 @@ export interface IPlaceOfPowerTranslate {
   popupAgreement: string;
 }
 
+interface IPhotoportalForWhatItem {
+  text: string;
+  image: IFile;
+}
+
 export interface IPlaceOfPower {
   id: number;
   translate: TranslateLang<IPlaceOfPowerTranslate>[];
   transformationSlides: IFile[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IPhotoportalTranslate {
+  introTitle: string;
+
+  introSubtitle: string;
+
+  introBtn: string;
+
+  peculiaritiesTitle: string;
+
+  peculiaritiesList: string[];
+
+  influenceTitle: string;
+
+  influenceQuoteText: string[];
+
+  influenceQuoteText_accent: string[];
+
+  influenceQuoteTextAuthor: string;
+
+  forWhatTitle: string;
+
+  forWhatList: IPhotoportalForWhatItem[];
+
+  popupTitle: string;
+
+  popupSubtitle_accent: string;
+
+  popupSubtitle: string;
+
+  popupBtn: string;
+
+  popupAgreement: string;
+}
+
+export interface IPhotoportal {
+  id: number;
+  translate: TranslateLang<IPhotoportalTranslate>[];
   created_at: string;
   updated_at: string;
 }

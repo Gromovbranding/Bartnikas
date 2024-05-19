@@ -20,7 +20,8 @@ import type {
   IGeneralInfo,
   IServices,
   IService,
-  IPlaceOfPower
+  IPlaceOfPower,
+  IPhotoportal
 } from '~/types/admin-api'
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -131,6 +132,8 @@ export const usePublicData = () => {
 
   const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('place-of-power')
 
+  const getPhotoportal = async () => await fetchGet<IPhotoportal>('photoportal')
+
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
 
@@ -150,6 +153,7 @@ export const usePublicData = () => {
     getServices,
     getAllServices,
     getPlaceOfPower,
+    getPhotoportal,
     // getCountAllAwards,
     getAllAwards,
     getIndexSlider,

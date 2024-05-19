@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { IServices, IServicesTranslate } from '~/types/admin-api'
+import type { IPhotoportal, IPhotoportalTranslate } from '~/types/admin-api'
 import type { ITextField } from '~/types/types'
 
-const { getServices } = usePublicData()
+const { getPhotoportal } = usePublicData()
 
 const { t } = useI18n()
 
-const { data: services } = await useAsyncData<IServices>(
-  'services',
-  async () => await getServices()
+const { data: photoportal } = await useAsyncData<IPhotoportal>(
+  'photoportal',
+  async () => await getPhotoportal()
 )
 
 const translated = computed(() => {
-  return useTranslateLanguage<IServicesTranslate>(
-    services.value?.translate
+  return useTranslateLanguage<IPhotoportalTranslate>(
+    photoportal.value?.translate
   )
 })
 
@@ -81,7 +81,7 @@ onMounted(() => {
         />
 
         <h1 class="intro__title">
-          {{ translated.value?.photoportalIntroTitle }}
+          {{ translated.value?.introTitle }}
         </h1>
         <div class="intro__main">
           <NuxtImg
@@ -96,10 +96,10 @@ onMounted(() => {
               :is-weight-normal="true"
               @click="popupIsOpen = true"
             >
-              {{ translated.value?.photoportalIntroAction }}
+              {{ translated.value?.introBtn }}
             </UIButton>
             <p class="intro__subtitle">
-              {{ translated.value?.photoportalIntroSubtitle }}
+              {{ translated.value?.introSubtitle }}
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@ onMounted(() => {
     <section class="peculiarities">
       <AppContainer class="peculiarities__container">
         <AppContentSpliter class="peculiarities__title">
-          {{ translated.value?.photoportalPeculiaritiesTitle }}
+          {{ translated.value?.peculiaritiesTitle }}
         </AppContentSpliter>
         <div class="peculiarities__main">
           <NuxtImg
@@ -119,7 +119,7 @@ onMounted(() => {
           />
           <ul class="peculiarities__list">
             <li
-              v-for="item in translated.value?.photoportalPeculiaritiesList"
+              v-for="item in translated.value?.peculiaritiesList"
               :key="item"
               class="peculiarities__item"
             >
@@ -136,7 +136,7 @@ onMounted(() => {
 
     <section class="influence">
       <AppContentSpliter class="influence__title">
-        {{ translated.value?.photoportalInfluenceTitle }}
+        {{ translated.value?.influenceTitle }}
       </AppContentSpliter>
       <div class="influence__main">
         <NuxtImg
@@ -147,7 +147,7 @@ onMounted(() => {
         <p class="influence__quote">
           <q class="influence__quote-text">
             <span
-              v-for="span in translated.value?.photoportalInfluenceQuoteText"
+              v-for="span in translated.value?.influenceQuoteText"
               :key="span"
               class="influence__quote-span"
             >
@@ -155,7 +155,7 @@ onMounted(() => {
             </span>
             <span ref="quoteBlock" class="influence__quote-text-accent">
               <span
-                v-for="span in translated.value?.photoportalInfluenceQuoteAccent_text"
+                v-for="span in translated.value?.influenceQuoteText_accent"
                 :key="span"
               >
                 {{ span }}
@@ -163,7 +163,7 @@ onMounted(() => {
             </span>
           </q>
           <span class="influence__quote-author">
-            {{ translated.value?.photoportalInfluenceQuoteAuthor }}
+            {{ translated.value?.influenceQuoteTextAuthor }}
           </span>
         </p>
       </div>
@@ -172,11 +172,11 @@ onMounted(() => {
     <section class="for-what">
       <AppContainer class="for-what__container">
         <AppContentSpliter class="for-what__title">
-          {{ translated.value?.photoportalForWhatTitle }}
+          {{ translated.value?.forWhatTitle }}
         </AppContentSpliter>
         <div class="for-what__list">
           <div
-            v-for="(item, i) in translated.value?.photoportalForWhatList"
+            v-for="item in translated.value?.forWhatList"
             :key="item.text"
             class="for-what__item"
           >
@@ -184,18 +184,18 @@ onMounted(() => {
             <p class="for-what__item-text">
               {{ item.text }}
             </p>
-            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/baseApiFiles/${item?.image.name}` || `/img/for-what_${i}.png`" />
+            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/baseApiFiles/${item?.image.name}`" />
           </div>
         </div>
       </AppContainer>
     </section>
 
     <AppPopup
-      :title="translated.value?.photoportalPopupTitle ?? ''"
-      :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
-      :subtitle="translated.value?.photoportalPopupSubtitle ?? ''"
-      :button-text="translated.value?.photoportalPopupBtn ?? ''"
-      :agreement="translated.value?.photoportalAgreement ?? ''"
+      :title="translated.value?.popupTitle ?? ''"
+      :subtitle-accent="translated.value?.popupSubtitle_accent"
+      :subtitle="translated.value?.popupSubtitle ?? ''"
+      :button-text="translated.value?.popupBtn ?? ''"
+      :agreement="translated.value?.popupAgreement ?? ''"
       :textfields="popupTextFields"
       :is-block="true"
     />
@@ -203,11 +203,11 @@ onMounted(() => {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.photoportalPopupTitle ?? ''"
-        :subtitle-accent="translated.value?.photoportalPopupSubtitle_accent"
-        :subtitle="translated.value?.photoportalPopupSubtitle ?? ''"
-        :button-text="translated.value?.photoportalPopupBtn ?? ''"
-        :agreement="translated.value?.photoportalAgreement ?? ''"
+        :title="translated.value?.popupTitle ?? ''"
+        :subtitle-accent="translated.value?.popupSubtitle_accent"
+        :subtitle="translated.value?.popupSubtitle ?? ''"
+        :button-text="translated.value?.popupBtn ?? ''"
+        :agreement="translated.value?.popupAgreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />
