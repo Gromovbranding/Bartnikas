@@ -1,14 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { ServicesController } from './services.controller';
-import { Services } from './entities/services.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServicesTranslate } from './entities/services-translate.entity';
 import { LanguageModule } from 'src/shared/language/language.module';
+import { PlaceOfPower } from './entities/place-of-power.entity';
+import { PlaceOfPowerTranslate } from './entities/place-of-power-translate.entity';
+import { Photoportal } from './entities/photoportal.entity';
+import { PhotoportalTranslate } from './entities/photoportal-translate.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Services, ServicesTranslate]),
+    TypeOrmModule.forFeature([
+      PlaceOfPower,
+      PlaceOfPowerTranslate,
+      Photoportal,
+      PhotoportalTranslate,
+    ]),
     LanguageModule,
   ],
   controllers: [ServicesController],

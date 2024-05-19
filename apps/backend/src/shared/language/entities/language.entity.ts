@@ -23,7 +23,8 @@ import { TermsStaticTranslate } from '../../../terms-static/entities/terms-stati
 import { GreetingIndexTranslate } from '../../../greeting-index/entities/greeting-index-translate.entity';
 import { VideoCollectionTranslate } from '../../../video-collection/entities/video-collection-translate.entity';
 import { TestimonialsTranslate } from '../../../testimonials/entities/testimonials-translate.entity';
-import { ServicesTranslate } from '../../../services/entities/services-translate.entity';
+import { PlaceOfPowerTranslate } from '../../../services/entities/place-of-power-translate.entity';
+import { PhotoportalTranslate } from '../../../services/entities/photoportal-translate.entity';
 
 @Entity()
 export class Language {
@@ -170,12 +171,20 @@ export class Language {
   terms_static_translate: TermsStaticTranslate[];
 
   @ApiHideProperty()
-  @OneToMany(() => TermsStaticTranslate, (item) => item.language, {
+  @OneToMany(() => PhotoportalTranslate, (item) => item.language, {
     eager: false,
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
   })
-  services_translate: ServicesTranslate[];
+  photoportal_translate: PhotoportalTranslate[];
+
+  @ApiHideProperty()
+  @OneToMany(() => PlaceOfPowerTranslate, (item) => item.language, {
+    eager: false,
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  place_of_power_translate: PlaceOfPowerTranslate[];
 
   @ApiProperty()
   @CreateDateColumn()

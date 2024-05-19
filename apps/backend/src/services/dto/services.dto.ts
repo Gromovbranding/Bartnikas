@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import { IsBoolean, ValidateNested } from 'class-validator';
 import { CreateTranslateLanguageDto } from 'src/shared/language/dto/create-translate.dto';
 
-export class CreateTranslateServicesDto extends IntersectionType(
+export class CreateTranslatePhotoportalDto extends IntersectionType(
   CreateTranslateLanguageDto,
 ) {
   @ApiProperty()
@@ -11,9 +11,24 @@ export class CreateTranslateServicesDto extends IntersectionType(
   is_active?: boolean = false;
 }
 
-export class CreateServicesDto {
-  @ApiProperty({ type: () => [CreateTranslateServicesDto] })
+export class CreatePhotoportalDto {
+  @ApiProperty({ type: () => [CreateTranslatePhotoportalDto] })
   @ValidateNested({ each: true })
-  @Type(() => CreateTranslateServicesDto)
-  translate: CreateTranslateServicesDto[];
+  @Type(() => CreateTranslatePhotoportalDto)
+  translate: CreateTranslatePhotoportalDto[];
+}
+
+export class CreateTranslatePlaceOfPowerDto extends IntersectionType(
+  CreateTranslateLanguageDto,
+) {
+  @ApiProperty()
+  @IsBoolean()
+  is_active?: boolean = false;
+}
+
+export class CreatePlaceOfPowerDto {
+  @ApiProperty({ type: () => [CreateTranslatePlaceOfPowerDto] })
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslatePlaceOfPowerDto)
+  translate: CreateTranslatePlaceOfPowerDto[];
 }

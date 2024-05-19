@@ -1,4 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateServicesDto } from './services.dto';
+import { CreatePhotoportalDto, CreatePlaceOfPowerDto } from './services.dto';
 
-export class UpdateServicesDto extends PartialType(CreateServicesDto) {}
+export class UpdatePhotoportalDto extends PartialType(CreatePhotoportalDto) {}
+export class UpdatePlaceOfPowerDto extends PartialType(CreatePlaceOfPowerDto) {}

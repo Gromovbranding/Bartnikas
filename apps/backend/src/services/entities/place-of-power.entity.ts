@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ServicesTranslate } from './services-translate.entity';
+import { PlaceOfPowerTranslate } from './place-of-power-translate.entity';
 
 @Entity()
-export class Services {
+export class PlaceOfPower {
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,12 +19,16 @@ export class Services {
   @Column({ default: false })
   is_active: boolean;
 
-  @ApiProperty({ type: () => [ServicesTranslate] })
-  @OneToMany(() => ServicesTranslate, (item) => item.services_translate, {
-    cascade: true,
-    eager: true,
-  })
-  translate: ServicesTranslate[];
+  @ApiProperty({ type: () => [PlaceOfPowerTranslate] })
+  @OneToMany(
+    () => PlaceOfPowerTranslate,
+    (item) => item.place_of_power_translate,
+    {
+      cascade: true,
+      eager: true,
+    },
+  )
+  translate: PlaceOfPowerTranslate[];
 
   @ApiProperty()
   @CreateDateColumn()
