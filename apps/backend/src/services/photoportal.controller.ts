@@ -40,7 +40,7 @@ export class PhotoportalController {
   @Public()
   @Get()
   findAll() {
-    return this.photoportalService.findAll();
+    return this.photoportalService.getAll();
   }
 
   @ApiOkResponse({
@@ -58,7 +58,7 @@ export class PhotoportalController {
   @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.photoportalService.findOne(+id);
+    return this.photoportalService.findById(+id);
   }
 
   @ApiCreatedResponse({

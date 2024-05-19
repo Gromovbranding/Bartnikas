@@ -40,7 +40,7 @@ export class PlaceOfPowerController {
   @Public()
   @Get()
   findAll() {
-    return this.placeOfPowerService.findAll();
+    return this.placeOfPowerService.getAll();
   }
 
   @ApiOkResponse({
@@ -58,7 +58,7 @@ export class PlaceOfPowerController {
   @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.placeOfPowerService.findOne(+id);
+    return this.placeOfPowerService.findById(+id);
   }
 
   @ApiCreatedResponse({
