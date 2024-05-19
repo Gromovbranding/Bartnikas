@@ -23,24 +23,52 @@ export class PlaceOfPowerService {
         dto.translate,
       );
 
+    if (dto.is_active === true) {
+      await this.setAllActiveFalse();
+    }
+
     return await this.placeOfPowerRepository.save({
       ...dto,
       translate,
     });
   }
 
-  async findAll() {
+  async getAll() {
     return await this.placeOfPowerRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.placeOfPowerRepository.findOne({
-      where: { id },
+  async setAllActiveFalse() {
+    const data = (
+      await this.placeOfPowerRepository.findBy({
+        is_active: true,
+      })
+    ).map((item) => ({
+      ...item,
+      is_active: false,
+    }));
+
+    await this.placeOfPowerRepository.save(data);
+  }
+
+  async findById(id: number) {
+    return await this.placeOfPowerRepository.findOneBy({
+      id,
+    });
+  }
+
+  async findActive() {
+    return await this.placeOfPowerRepository.findOneBy({
+      is_active: true,
     });
   }
 
   async update(id: number, dto: UpdatePlaceOfPowerDto) {
     const translate = await this.langService.translate(dto.translate);
+
+    if (dto.is_active === true) {
+      await this.setAllActiveFalse();
+    }
+
     return await this.placeOfPowerRepository.save({ ...dto, id, translate });
   }
 

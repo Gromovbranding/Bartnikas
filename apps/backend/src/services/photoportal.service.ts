@@ -23,24 +23,52 @@ export class PhotoportalService {
         dto.translate,
       );
 
+    if (dto.is_active === true) {
+      await this.setAllActiveFalse();
+    }
+
     return await this.photoportalRepository.save({
       ...dto,
       translate,
     });
   }
 
-  async findAll() {
+  async getAll() {
     return await this.photoportalRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.photoportalRepository.findOne({
-      where: { id },
+  async setAllActiveFalse() {
+    const data = (
+      await this.photoportalRepository.findBy({
+        is_active: true,
+      })
+    ).map((item) => ({
+      ...item,
+      is_active: false,
+    }));
+
+    await this.photoportalRepository.save(data);
+  }
+
+  async findById(id: number) {
+    return await this.photoportalRepository.findOneBy({
+      id,
+    });
+  }
+
+  async findActive() {
+    return await this.photoportalRepository.findOneBy({
+      is_active: true,
     });
   }
 
   async update(id: number, dto: UpdatePhotoportalDto) {
     const translate = await this.langService.translate(dto.translate);
+
+    if (dto.is_active === true) {
+      await this.setAllActiveFalse();
+    }
+
     return await this.photoportalRepository.save({ ...dto, id, translate });
   }
 

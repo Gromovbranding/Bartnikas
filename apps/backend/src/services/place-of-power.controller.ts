@@ -47,6 +47,15 @@ export class PlaceOfPowerController {
     type: PlaceOfPower,
   })
   @Public()
+  @Get('/only/active')
+  findActive() {
+    return this.placeOfPowerService.findActive();
+  }
+
+  @ApiOkResponse({
+    type: PlaceOfPower,
+  })
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.placeOfPowerService.findOne(+id);

@@ -47,6 +47,15 @@ export class PhotoportalController {
     type: Photoportal,
   })
   @Public()
+  @Get('/only/active')
+  findActive() {
+    return this.photoportalService.findActive();
+  }
+
+  @ApiOkResponse({
+    type: Photoportal,
+  })
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.photoportalService.findOne(+id);
