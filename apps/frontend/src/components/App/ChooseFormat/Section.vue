@@ -1,11 +1,23 @@
 <script setup lang="ts">
+import type { IService, IServiceTranslate } from '~/types/admin-api'
+
 const titleBlock = ref()
 
-const links = ref([
-  '/services',
-  '/projects',
-  '/services/place-of-power'
-])
+const { getAllServices } = usePublicData()
+
+const { data: services } = await useAsyncData<IService[]>(
+  'services',
+  async () => await getAllServices()
+)
+
+const servicesItems = computed(() => {
+  return services.value?.map((service) => {
+    return {
+      ...service,
+      translated: useTranslateLanguage<IServiceTranslate>(service.translate)
+    }
+  })
+})
 
 onMounted(() => {
   if (titleBlock.value) {
@@ -17,31 +29,36 @@ onMounted(() => {
 <template>
   <section class="choose-format">
     <h2 ref="titleBlock" class="choose-format__title">
-      {{ $t('choose_format.title') }}
+      <!-- {{ translated.value?.title }} -->
     </h2>
 
     <div class="choose-format__cards">
       <article
-        v-for="(link, i) in links"
-        :key="link"
+        v-for="(service, i) in servicesItems"
+        :key="service.translated.value?.title"
         class="choose-format__card"
       >
         <NuxtImg
-          :src="`/img/format_${i + 1}.png`"
+          :src="
+            `/baseApiFiles/${service.image.name}` || `/img/format_${i + 1}.png`
+          "
           loading="lazy"
           class="choose-format__card-img"
         />
         <div class="choose-format__card-info">
           <h3 class="choose-format__card-title">
             <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{
-              $t(`choose_format.cards[${i}].title`)
+              service.translated.value?.title
             }}
           </h3>
           <p class="choose-format__card-text">
-            {{ $t(`choose_format.cards[${i}].text`) }}
+            {{ service.translated.value?.text }}
           </p>
-          <NuxtLink class="choose-format__card-action" :to="`${link}`">
-            {{ $t(`choose_format.cards[${i}].action`) }}
+          <NuxtLink
+            class="choose-format__card-action"
+            :to="`${service.translated.value?.btn.url}`"
+          >
+            {{ service.translated.value?.btn.text }}
           </NuxtLink>
         </div>
       </article>

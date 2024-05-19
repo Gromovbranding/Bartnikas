@@ -22,7 +22,8 @@ import type {
   IIndexSlider,
   TranslateLang,
   IGeneralInfo,
-  IServices
+  IService,
+  IPlaceOfPower
 } from '@/types/admin-api'
 
 export const useAdmin = () => {
@@ -521,44 +522,41 @@ export const useAdmin = () => {
   const services = () => {
     const path = 'services'
 
-    const methods = getModelFetchers<IServices>(path)
+    const methods = getModelFetchers<IService>(path)
 
     return {
       methods,
 
       titles: reactive({
-        create: createTitle('create', 'Services'),
-        edit: createTitle('edit', 'Services')
+        create: createTitle('create', 'Service'),
+        edit: createTitle('edit', 'Service')
       }),
 
       navigateBack: ref('/admin/services'),
 
       formRules: ref<FormRules>({
-        ...createTranslaterFormRules([
-          'placeOfPowerTitle',
-          'placeOfPowerUltraExclusiveAnchor',
-          'placeOfPowerSubtitle',
-          'placeOfPowerQuoteText',
-          'placeOfPowerQuoteAuthor',
-          'placeOfPowerTransformationTitle',
-          'placeOfPowerListTitle',
-          'placeOfPowerListItems',
-          'photoportalIntroTitle',
-          'photoportalIntroSubtitle',
-          'photoportalIntroAction',
-          'photoportalPeculiaritiesTitle',
-          'photoportalPeculiaritiesList',
-          'photoportalInfluenceTitle',
-          'photoportalInfluenceQuoteAccent_text',
-          'photoportalInfluenceQuoteAuthor',
-          'photoportalForWhatTitle',
-          'photoportalForWhatList',
-          'photoportalPopupSubtitle',
-          'photoportalPopupSubtitle_accent',
-          'photoportalSubtitle',
-          'photoportalPopupBtn',
-          'photoportalAgreement'
-        ])
+        ...createTranslaterFormRules(['title', 'text', 'btn.text', 'btn.url'])
+      })
+    }
+  }
+
+  const placeOfPower = () => {
+    const path = 'place-of-power'
+
+    const methods = getModelFetchers<IPlaceOfPower>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'Place Of Power'),
+        edit: createTitle('edit', 'Place Of Power')
+      }),
+
+      navigateBack: ref('/admin/place-of-power/'),
+
+      formRules: ref<FormRules>({
+        ...createTranslaterFormRules([])
       })
     }
   }
@@ -743,7 +741,7 @@ export const useAdmin = () => {
     footerIndexCard,
     generalInfo,
     services,
-
+    placeOfPower,
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,

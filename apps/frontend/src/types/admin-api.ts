@@ -222,9 +222,35 @@ export interface IAbout {
   updated_at: string;
 }
 
-interface IPhotoportalForWhatItem {
+// interface IPhotoportalForWhatItem {
+//   text: string;
+//   image: IFile;
+// }
+
+export interface IServiceTranslate {
+  title: string;
   text: string;
+  btn: { text: string; url: string; };
+}
+
+export interface IService {
+  id: number;
+  translate: TranslateLang<IServiceTranslate>[];
   image: IFile;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IServicesTranslate {
+  title: string;
+  services: IService[];
+}
+
+export interface IServices {
+  id: number;
+  translate: TranslateLang<IServicesTranslate>[];
+  created_at: string;
+  updated_at: string;
 }
 
 interface IPlaceOfPowerExclusiveRate {
@@ -236,89 +262,52 @@ interface IPlaceOfPowerExclusiveRate {
   }
 }
 
-export interface IServicesTranslate {
-  placeOfPowerTitle: string;
+export interface IPlaceOfPowerTranslate {
+  title: string;
 
-  placeOfPowerUltraExclusiveAnchor: string;
+  subtitle: string;
 
-  placeOfPowerSubtitle: string;
+  quoteText: string;
 
-  placeOfPowerQuoteText: string;
+  quoteAuthor: string;
 
-  placeOfPowerQuoteAuthor: string;
+  transformationTitle: string;
 
-  placeOfPowerTransformationTitle: string;
+  transformationListText: string;
 
-  placeOfPowerTransformationListTitle: string;
+  transformationListItems: string;
 
-  placeOfPowerTransformationListItems: string;
+  artefactTitle: string;
 
-  placeOfPowerTransformationSlides: IFile[];
+  artefactText: string;
 
-  placeOfPowerArtefactTitle: string;
+  exclusiveTitle: string;
 
-  placeOfPowerArtefactParagraphs: string[];
+  exclusiveHeadText: string;
 
-  placeOfPowerExclusiveTitle: string;
+  exclusiveSubtitle: string;
 
-  placeOfPowerExclusiveHeadText: string;
+  exclusiveRates: IPlaceOfPowerExclusiveRate[];
 
-  placeOfPowerExclusiveSubtitle: string;
+  exclusiveFooterInfo: string;
 
-  placeOfPowerExclusiveRates: IPlaceOfPowerExclusiveRate[];
+  exclusiveFooterBtn: string;
 
-  placeOfPowerExclusiveFooterInfo: string;
+  popupTitle: string;
 
-  placeOfPowerExclusiveFooterBtn: string;
+  popupSubtitle: string;
 
-  placeOfPowerPopupTitle: string;
+  popupNote: string;
 
-  placeOfPowerPopupSubtitle: string;
+  popupBtn: string;
 
-  placeOfPowerPopupNote: string;
-
-  placeOfPowerPopupBtn: string;
-
-  placeOfPowerPopupAgreement: string;
-
-  photoportalIntroTitle: string;
-
-  photoportalIntroSubtitle: string;
-
-  photoportalIntroAction: string;
-
-  photoportalPeculiaritiesTitle: string;
-
-  photoportalPeculiaritiesList: string[];
-
-  photoportalInfluenceTitle: string;
-
-  photoportalInfluenceQuoteText: string[];
-
-  photoportalInfluenceQuoteAccent_text: string[];
-
-  photoportalInfluenceQuoteAuthor: string;
-
-  photoportalForWhatTitle: string;
-
-  photoportalForWhatList: IPhotoportalForWhatItem[];
-
-  photoportalPopupTitle: string;
-
-  photoportalPopupSubtitle: string;
-
-  photoportalPopupSubtitle_accent: string;
-
-  photoportalSubtitle: string;
-
-  photoportalPopupBtn: string;
-
-  photoportalAgreement: string;
+  popupAgreement: string;
 }
 
-export interface IServices {
+export interface IPlaceOfPower {
   id: number;
-  translate: TranslateLang<IServicesTranslate>[];
+  translate: TranslateLang<IPlaceOfPowerTranslate>[];
+  transformationSlides: IFile[];
   created_at: string;
   updated_at: string;
 }

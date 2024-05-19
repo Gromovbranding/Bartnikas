@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IFaq, IServicesTranslate } from '@/types/admin-api'
+import type { IService, IServiceTranslate } from '@/types/admin-api'
 import { AdminTemplateForm } from '#components'
 
 definePageMeta({
@@ -23,9 +23,9 @@ useHeadSafe({
   title: titles.edit
 })
 
-const form = reactive<IFaq>({
+const form = reactive<IService>({
   ...model,
-  translate: initTranslateLocale<IServicesTranslate>(model.translate)
+  translate: initTranslateLocale<IServiceTranslate>(model.translate)
 })
 
 const handleDelete = async () => {
@@ -52,14 +52,31 @@ const handleUpdate = async () => {
   <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem
-        v-for="(value, key) in form.translate[currentIndexLocale]"
-        :key="key"
-        :label="key"
-        :prop="`translate.${currentIndexLocale}.${key}`"
+        :label="'Title'"
+        :prop="`translate.${currentIndexLocale}.title`"
       >
-        <AdminEditorInput
-          v-model="form.translate[currentIndexLocale][key]"
-        />
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Text'"
+        :prop="`translate.${currentIndexLocale}.text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Button text'"
+        :prop="`translate.${currentIndexLocale}.btn.text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].btn.text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Button url'"
+        :prop="`translate.${currentIndexLocale}.btn.url`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].btn.url" />
+      </ElFormItem>
+      <ElFormItem required label="Image" prop="image">
+        <AdminUploadFile ref="uploadImage" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type {
-  IServices,
-  IServicesTranslate,
+  IService,
+  IServiceTranslate,
   PartialAdminApiDto
 } from '@/types/admin-api'
-import { AdminTemplateForm } from '#components'
+import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
   layout: 'admin'
@@ -17,88 +17,16 @@ useHeadSafe({
   title: titles.create
 })
 
+const uploadImage = ref<InstanceType<typeof AdminUploadFile> | null>(null)
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
-const form = reactive<PartialAdminApiDto<IServices>>({
-  translate: initTranslateLocale<IServicesTranslate>({
-    placeOfPowerTitle: '',
-
-    placeOfPowerUltraExclusiveAnchor: '',
-
-    placeOfPowerSubtitle: '',
-
-    placeOfPowerQuoteText: '',
-
-    placeOfPowerQuoteAuthor: '',
-
-    placeOfPowerTransformationTitle: '',
-
-    placeOfPowerTransformationListTitle: '',
-
-    placeOfPowerTransformationListItems: '',
-
-    placeOfPowerTransformationSlides: [],
-
-    placeOfPowerArtefactTitle: '',
-
-    placeOfPowerArtefactParagraphs: [],
-
-    placeOfPowerExclusiveTitle: '',
-
-    placeOfPowerExclusiveHeadText: '',
-
-    placeOfPowerExclusiveSubtitle: '',
-
-    placeOfPowerExclusiveRates: [],
-
-    placeOfPowerExclusiveFooterInfo: '',
-
-    placeOfPowerExclusiveFooterBtn: '',
-
-    placeOfPowerPopupTitle: '',
-
-    placeOfPowerPopupSubtitle: '',
-
-    placeOfPowerPopupNote: '',
-
-    placeOfPowerPopupBtn: '',
-
-    placeOfPowerPopupAgreement: '',
-
-    photoportalIntroTitle: '',
-
-    photoportalIntroSubtitle: '',
-
-    photoportalIntroAction: '',
-
-    photoportalPeculiaritiesTitle: '',
-
-    photoportalPeculiaritiesList: [],
-
-    photoportalInfluenceTitle: '',
-
-    photoportalInfluenceQuoteText: [],
-
-    photoportalInfluenceQuoteAccent_text: [],
-
-    photoportalInfluenceQuoteAuthor: '',
-
-    photoportalForWhatTitle: '',
-
-    photoportalForWhatList: [],
-
-    photoportalPopupTitle: '',
-
-    photoportalPopupSubtitle: '',
-
-    photoportalPopupSubtitle_accent: '',
-
-    photoportalSubtitle: '',
-
-    photoportalPopupBtn: '',
-
-    photoportalAgreement: ''
-  })
+const form = reactive<PartialAdminApiDto<IService>>({
+  translate: initTranslateLocale<IServiceTranslate>({
+    title: '',
+    text: '',
+    btn: { text: '', url: '' }
+  }),
+  image: null
 })
 
 const handleResetForm = () => {
@@ -127,15 +55,31 @@ const handleCreate = async () => {
   >
     <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
       <ElFormItem
-        v-for="(value, key) in form.translate[currentIndexLocale]"
-        :key="key"
-        :label="key"
-        :prop="`translate.${currentIndexLocale}.${key}`"
+        :label="'Title'"
+        :prop="`translate.${currentIndexLocale}.title`"
       >
-        <AdminEditorInput
-          v-if="key !== 'code'"
-          v-model="form.translate[currentIndexLocale][key]"
-        />
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Text'"
+        :prop="`translate.${currentIndexLocale}.text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Button text'"
+        :prop="`translate.${currentIndexLocale}.btn.text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].btn.text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Button url'"
+        :prop="`translate.${currentIndexLocale}.btn.url`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].btn.url" />
+      </ElFormItem>
+      <ElFormItem required label="Image" prop="image">
+        <AdminUploadFile ref="uploadImage" v-model="form.image" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate">

@@ -18,7 +18,8 @@ import type {
   IFooterContact,
   IIndexSlider,
   IGeneralInfo,
-  IServices
+  IServices,
+  IService
 } from '~/types/admin-api'
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -124,6 +125,11 @@ export const usePublicData = () => {
   const getServices = async () =>
     await fetchGet<IServices>('services/only/active')
 
+  const getAllServices = async () =>
+    await fetchGet<IService[]>('services')
+
+  // const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/1')
+
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
 
@@ -141,6 +147,7 @@ export const usePublicData = () => {
     getAllTestimonials,
     getAwardsById,
     getServices,
+    getAllServices,
     // getCountAllAwards,
     getAllAwards,
     getIndexSlider,
