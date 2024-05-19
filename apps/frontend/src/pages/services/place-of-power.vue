@@ -96,7 +96,7 @@ function transformationItemsAppearance () {
         <div class="intro__info">
           <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
             <IconSmallArrow class="intro__ultra-anchor-icon" />
-            {{ translated.value?.exclusiveTitle }}
+            {{ translated.value?.exclusive_title }}
           </NuxtLink>
           <p class="intro__subtitle">
             {{ translated.value?.subtitle }}
@@ -118,26 +118,26 @@ function transformationItemsAppearance () {
       />
       <div class="bartnikas-quote__quote">
         <p class="bartnikas-quote__text">
-          {{ translated.value?.quoteText }}
+          {{ translated.value?.quote_text }}
         </p>
         <p class="bartnikas-quote__author">
-          {{ translated.value?.quoteAuthor }}
+          {{ translated.value?.quote_author }}
         </p>
       </div>
     </section>
 
     <section class="transformation">
       <AppContentSpliter class="transformation__title">
-        {{ translated.value?.transformationTitle }}
+        {{ translated.value?.transformation_title }}
       </AppContentSpliter>
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ translated.value?.transformationListText }}
+            {{ translated.value?.transformation_list_text }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li
-              v-for="item in translated.value?.transformationListItems"
+              v-for="item in translated.value?.transformation_list_items"
               :key="item"
               class="transformation__text-item"
             >
@@ -171,15 +171,15 @@ function transformationItemsAppearance () {
     <section class="artefact">
       <AppContainer class="artefact__container">
         <h2 ref="artefactTitleBlock" class="artefact__title">
-          {{ translated.value?.artefactTitle }}
+          {{ translated.value?.artefact_title }}
         </h2>
-        <div class="artefact__text" v-html="translated.value?.artefactText" />
+        <div class="artefact__text" v-html="translated.value?.artefact_text" />
       </AppContainer>
     </section>
 
     <section id="ultra-exclusive" class="exclusive">
       <AppContentSpliter class="exclusive__title">
-        {{ translated.value?.exclusiveTitle }}
+        {{ translated.value?.exclusive_title }}
       </AppContentSpliter>
       <div class="exclusive__head">
         <NuxtImg
@@ -188,18 +188,18 @@ function transformationItemsAppearance () {
           src="/img/exclusive_head.png"
         />
         <p class="exclusive__head-text">
-          {{ translated.value?.exclusiveHeadText }}
+          {{ translated.value?.exclusive_head_text }}
         </p>
       </div>
 
       <AppContainer class="exclusive__container">
         <h3 class="exclusive__subtitle">
-          {{ translated.value?.exclusiveSubtitle }}
+          {{ translated.value?.exclusive_subtitle }}
         </h3>
 
         <div class="exclusive__rates">
           <div
-            v-for="item in translated.value?.exclusiveRates"
+            v-for="item in translated.value?.exclusive_rates"
             :key="item.title"
             class="exclusive__rates-item"
           >
@@ -229,7 +229,7 @@ function transformationItemsAppearance () {
           </div>
         </div>
         <p class="exclusive__footer-info">
-          {{ translated.value?.exclusiveFooterInfo }}
+          {{ translated.value?.exclusive_footer_info }}
         </p>
         <UIButton
           class="exclusive__footer-action"
@@ -237,7 +237,7 @@ function transformationItemsAppearance () {
           :is-weight-normal="true"
           @click="popupIsOpen = true"
         >
-          {{ translated.value?.exclusiveFooterBtn }}
+          {{ translated.value?.exclusive_footer_btn }}
         </UIButton>
       </AppContainer>
     </section>
@@ -245,11 +245,11 @@ function transformationItemsAppearance () {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.popupTitle ?? ''"
-        :subtitle="translated.value?.popupSubtitle ?? ''"
-        :note="translated.value?.popupNote ?? ''"
-        :button-text="translated.value?.popupBtn ?? ''"
-        :agreement="translated.value?.popupAgreement ?? ''"
+        :title="translated.value?.popup_title ?? ''"
+        :subtitle="translated.value?.popup_subtitle ?? ''"
+        :note="translated.value?.popup_note ?? ''"
+        :button-text="translated.value?.popup_btn ?? ''"
+        :agreement="translated.value?.agreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />

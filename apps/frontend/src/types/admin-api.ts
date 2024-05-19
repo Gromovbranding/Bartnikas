@@ -262,41 +262,41 @@ export interface IPlaceOfPowerTranslate {
 
   subtitle: string;
 
-  quoteText: string;
+  quote_text: string;
 
-  quoteAuthor: string;
+  quote_author: string;
 
-  transformationTitle: string;
+  transformation_title: string;
 
-  transformationListText: string;
+  transformation_list_text: string;
 
-  transformationListItems: string;
+  transformation_list_items: string;
 
-  artefactTitle: string;
+  artefact_title: string;
 
-  artefactText: string;
+  artefact_text: string;
 
-  exclusiveTitle: string;
+  exclusive_title: string;
 
-  exclusiveHeadText: string;
+  exclusive_head_text: string;
 
-  exclusiveSubtitle: string;
+  exclusive_subtitle: string;
 
-  exclusiveRates: IPlaceOfPowerExclusiveRate[];
+  exclusive_rates: IPlaceOfPowerExclusiveRate[];
 
-  exclusiveFooterInfo: string;
+  exclusive_footer_info: string;
 
-  exclusiveFooterBtn: string;
+  exclusive_footer_btn: string;
 
-  popupTitle: string;
+  popup_title: string;
 
-  popupSubtitle: string;
+  popup_subtitle: string;
 
-  popupNote: string;
+  popup_note: string;
 
-  popupBtn: string;
+  popup_btn: string;
 
-  popupAgreement: string;
+  agreement: string;
 }
 
 interface IPhotoportalForWhatItem {
@@ -313,37 +313,37 @@ export interface IPlaceOfPower {
 }
 
 export interface IPhotoportalTranslate {
-  introTitle: string;
+  intro_title: string;
 
-  introSubtitle: string;
+  intro_subtitle: string;
 
-  introBtn: string;
+  intro_btn: string;
 
-  peculiaritiesTitle: string;
+  peculiarities_title: string;
 
-  peculiaritiesList: string[];
+  peculiarities_list: string[];
 
-  influenceTitle: string;
+  influence_title: string;
 
-  influenceQuoteText: string[];
+  influence_quote_text: string[];
 
-  influenceQuoteText_accent: string[];
+  influence_quote_text_accent: string[];
 
-  influenceQuoteTextAuthor: string;
+  influence_quote_text_author: string;
 
-  forWhatTitle: string;
+  for_what_title: string;
 
-  forWhatList: IPhotoportalForWhatItem[];
+  for_what_list: IPhotoportalForWhatItem[];
 
-  popupTitle: string;
+  popup_title: string;
 
-  popupSubtitle_accent: string;
+  popup_subtitle_accent: string;
 
-  popupSubtitle: string;
+  popup_subtitle: string;
 
-  popupBtn: string;
+  popup_btn: string;
 
-  popupAgreement: string;
+  agreement: string;
 }
 
 export interface IPhotoportal {
