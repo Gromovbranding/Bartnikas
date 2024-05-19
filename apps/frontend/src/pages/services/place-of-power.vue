@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { IServices, IServicesTranslate } from '~/types/admin-api'
+import type { IPlaceOfPower, IPlaceOfPowerTranslate } from '~/types/admin-api'
 import type { ITextField } from '~/types/types'
 
 const { t } = useI18n()
 
-const { getServices } = usePublicData()
+const { getPlaceOfPower } = usePublicData()
 
-const { data: services } = await useAsyncData<IServices>(
-  'services',
-  async () => await getServices()
+const { data: placeOfPower } = await useAsyncData<IPlaceOfPower>(
+  'place-of-power',
+  async () => await getPlaceOfPower()
 )
 
 const translated = computed(() => {
-  return useTranslateLanguage<IServicesTranslate>(services.value?.translate)
+  return useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower.value?.translate)
 })
 
 const popupTextFields: Ref<ITextField[]> = ref([
@@ -91,15 +91,15 @@ function transformationItemsAppearance () {
           :links="breadcrumbLinks"
         />
         <h1 class="intro__title">
-          {{ translated.value?.placeOfPowerTitle }}
+          {{ translated.value?.title }}
         </h1>
         <div class="intro__info">
           <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
             <IconSmallArrow class="intro__ultra-anchor-icon" />
-            {{ translated.value?.placeOfPowerUltraExclusiveAnchor }}
+            {{ translated.value?.exclusiveTitle }}
           </NuxtLink>
           <p class="intro__subtitle">
-            {{ translated.value?.placeOfPowerSubtitle }}
+            {{ translated.value?.subtitle }}
           </p>
         </div>
       </AppContainer>
@@ -118,27 +118,26 @@ function transformationItemsAppearance () {
       />
       <div class="bartnikas-quote__quote">
         <p class="bartnikas-quote__text">
-          {{ translated.value?.placeOfPowerQuoteText }}
+          {{ translated.value?.quoteText }}
         </p>
         <p class="bartnikas-quote__author">
-          {{ translated.value?.placeOfPowerQuoteAuthor }}
+          {{ translated.value?.quoteAuthor }}
         </p>
       </div>
     </section>
 
     <section class="transformation">
       <AppContentSpliter class="transformation__title">
-        {{ translated.value?.placeOfPowerTransformationTitle }}
+        {{ translated.value?.transformationTitle }}
       </AppContentSpliter>
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ translated.value?.placeOfPowerTransformationListTitle }}
+            {{ translated.value?.transformationListText }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li
-              v-for="item in translated.value
-                ?.placeOfPowerTransformationListItems"
+              v-for="item in translated.value?.transformationListItems"
               :key="item"
               class="transformation__text-item"
             >
@@ -153,8 +152,7 @@ function transformationItemsAppearance () {
           autoplay
         >
           <SwiperSlide
-            v-for="(slide, i) in translated.value
-              ?.placeOfPowerTransformationSlides"
+            v-for="(slide, i) in placeOfPower?.transformationSlides"
             :key="slide.name"
             class="transformation__swiper-item"
           >
@@ -173,23 +171,15 @@ function transformationItemsAppearance () {
     <section class="artefact">
       <AppContainer class="artefact__container">
         <h2 ref="artefactTitleBlock" class="artefact__title">
-          {{ translated.value?.placeOfPowerArtefactTitle }}
+          {{ translated.value?.artefactTitle }}
         </h2>
-        <div class="artefact__text">
-          <p
-            v-for="p in translated.value?.placeOfPowerArtefactParagraphs"
-            :key="p"
-            class="artefact__paragraph"
-          >
-            {{ p }}
-          </p>
-        </div>
+        <div class="artefact__text" v-html="translated.value?.artefactText" />
       </AppContainer>
     </section>
 
     <section id="ultra-exclusive" class="exclusive">
       <AppContentSpliter class="exclusive__title">
-        {{ translated.value?.placeOfPowerExclusiveTitle }}
+        {{ translated.value?.exclusiveTitle }}
       </AppContentSpliter>
       <div class="exclusive__head">
         <NuxtImg
@@ -198,18 +188,18 @@ function transformationItemsAppearance () {
           src="/img/exclusive_head.png"
         />
         <p class="exclusive__head-text">
-          {{ translated.value?.placeOfPowerExclusiveHeadText }}
+          {{ translated.value?.exclusiveHeadText }}
         </p>
       </div>
 
       <AppContainer class="exclusive__container">
         <h3 class="exclusive__subtitle">
-          {{ translated.value?.placeOfPowerExclusiveSubtitle }}
+          {{ translated.value?.exclusiveSubtitle }}
         </h3>
 
         <div class="exclusive__rates">
           <div
-            v-for="item in translated.value?.placeOfPowerExclusiveRates"
+            v-for="item in translated.value?.exclusiveRates"
             :key="item.title"
             class="exclusive__rates-item"
           >
@@ -239,7 +229,7 @@ function transformationItemsAppearance () {
           </div>
         </div>
         <p class="exclusive__footer-info">
-          {{ translated.value?.placeOfPowerExclusiveFooterInfo }}
+          {{ translated.value?.exclusiveFooterInfo }}
         </p>
         <UIButton
           class="exclusive__footer-action"
@@ -247,7 +237,7 @@ function transformationItemsAppearance () {
           :is-weight-normal="true"
           @click="popupIsOpen = true"
         >
-          {{ translated.value?.placeOfPowerExclusiveFooterBtn }}
+          {{ translated.value?.exclusiveFooterBtn }}
         </UIButton>
       </AppContainer>
     </section>
@@ -255,11 +245,11 @@ function transformationItemsAppearance () {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.placeOfPowerPopupTitle ?? ''"
-        :subtitle="translated.value?.placeOfPowerPopupSubtitle ?? ''"
-        :note="translated.value?.placeOfPowerPopupNote ?? ''"
-        :button-text="translated.value?.placeOfPowerPopupBtn ?? ''"
-        :agreement="translated.value?.placeOfPowerPopupAgreement ?? ''"
+        :title="translated.value?.popupTitle ?? ''"
+        :subtitle="translated.value?.popupSubtitle ?? ''"
+        :note="translated.value?.popupNote ?? ''"
+        :button-text="translated.value?.popupBtn ?? ''"
+        :agreement="translated.value?.popupAgreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />

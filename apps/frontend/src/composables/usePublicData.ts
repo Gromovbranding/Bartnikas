@@ -19,7 +19,8 @@ import type {
   IIndexSlider,
   IGeneralInfo,
   IServices,
-  IService
+  IService,
+  IPlaceOfPower
 } from '~/types/admin-api'
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -128,7 +129,7 @@ export const usePublicData = () => {
   const getAllServices = async () =>
     await fetchGet<IService[]>('services')
 
-  // const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/1')
+  const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('place-of-power')
 
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
@@ -148,6 +149,7 @@ export const usePublicData = () => {
     getAwardsById,
     getServices,
     getAllServices,
+    getPlaceOfPower,
     // getCountAllAwards,
     getAllAwards,
     getIndexSlider,
