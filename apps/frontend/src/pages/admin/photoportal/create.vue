@@ -31,13 +31,13 @@ const form = reactive({
 
     influence_quote_text: '',
 
+    for_what_list: '',
+
     influence_quote_accent_text: '',
 
     influence_quote_author: '',
 
     for_what_title: '',
-
-    for_what_list: '',
 
     popup_title: '',
 
@@ -98,6 +98,12 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].intro_subtitle" />
       </ElFormItem>
       <ElFormItem
+        :label="'Peculiarities list'"
+        :prop="`translate.${currentIndexLocale}.peculiarities_list`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].peculiarities_list" />
+      </ElFormItem>
+      <ElFormItem
         :label="'Peculiarities title'"
         :prop="`translate.${currentIndexLocale}.peculiarities_title`"
       >
@@ -122,7 +128,7 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].influence_quote_accent_text" />
       </ElFormItem>
       <ElFormItem
-        :label="'Шnfluence quote author'"
+        :label="'Influence quote author'"
         :prop="`translate.${currentIndexLocale}.influence_quote_author`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].influence_quote_author" />
@@ -144,6 +150,18 @@ const handleCreate = async () => {
         :prop="`translate.${currentIndexLocale}.popup_subtitle_accent`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'For what list '"
+        :prop="`translate.${currentIndexLocale}.for_what_list `"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].for_what_list " />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup subtitle'"
+        :prop="`translate.${currentIndexLocale}.popup_subtitle `"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle " />
       </ElFormItem>
       <ElFormItem
         :label="'Popup button text'"

@@ -60,10 +60,22 @@ const handleUpdate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].intro_title" />
       </ElFormItem>
       <ElFormItem
+        :label="'Intro action'"
+        :prop="`translate.${currentIndexLocale}.intro_action`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].intro_action" />
+      </ElFormItem>
+      <ElFormItem
         :label="'Subtitle'"
         :prop="`translate.${currentIndexLocale}.intro_subtitle`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].intro_subtitle" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Peculiarities list'"
+        :prop="`translate.${currentIndexLocale}.peculiarities_list`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].peculiarities_list" />
       </ElFormItem>
       <ElFormItem
         :label="'Peculiarities title'"
@@ -90,7 +102,7 @@ const handleUpdate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].influence_quote_accent_text" />
       </ElFormItem>
       <ElFormItem
-        :label="'Шnfluence quote author'"
+        :label="'Influence quote author'"
         :prop="`translate.${currentIndexLocale}.influence_quote_author`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].influence_quote_author" />
@@ -112,6 +124,18 @@ const handleUpdate = async () => {
         :prop="`translate.${currentIndexLocale}.popup_subtitle_accent`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'For what list '"
+        :prop="`translate.${currentIndexLocale}.for_what_list `"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].for_what_list " />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup subtitle'"
+        :prop="`translate.${currentIndexLocale}.popup_subtitle `"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle " />
       </ElFormItem>
       <ElFormItem
         :label="'Popup button text'"
