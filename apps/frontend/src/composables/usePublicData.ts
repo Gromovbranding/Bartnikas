@@ -142,8 +142,6 @@ export const usePublicData = () => {
     getTestimoinialsById,
     getAllTestimonials,
     getAwardsById,
-    getServices,
-    getAllServices,
     getPlaceOfPower,
     getPhotoportal,
     // getCountAllAwards,
