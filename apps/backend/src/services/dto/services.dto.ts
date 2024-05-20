@@ -12,6 +12,8 @@ export class CreateTranslatePhotoportalDto extends IntersectionType(
   CreateTranslateLanguageDto,
 ) {
   @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
   intro_title: string;
 
   @ApiProperty()
@@ -62,7 +64,7 @@ export class CreateTranslatePhotoportalDto extends IntersectionType(
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  for_what_list: string[];
+  for_what_list: string;
 
   @ApiProperty()
   @IsNotEmpty()
