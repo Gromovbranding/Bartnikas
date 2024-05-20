@@ -86,6 +86,12 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].intro_title" />
       </ElFormItem>
       <ElFormItem
+        :label="'Intro action'"
+        :prop="`translate.${currentIndexLocale}.intro_action`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].intro_action" />
+      </ElFormItem>
+      <ElFormItem
         :label="'Subtitle'"
         :prop="`translate.${currentIndexLocale}.intro_subtitle`"
       >

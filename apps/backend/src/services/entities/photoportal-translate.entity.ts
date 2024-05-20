@@ -40,7 +40,7 @@ export class PhotoportalTranslate {
 
   @ApiProperty()
   @Column({ type: 'text' })
-  peculiarities_list: string[];
+  peculiarities_list: string;
 
   @ApiProperty()
   @Column({ type: 'text' })
@@ -48,11 +48,11 @@ export class PhotoportalTranslate {
 
   @ApiProperty()
   @Column({ type: 'text' })
-  influence_quote_text: string[];
+  influence_quote_text: string;
 
   @ApiProperty()
   @Column({ type: 'text' })
-  influence_quote_accent_text: string[];
+  influence_quote_accent_text: string;
 
   @ApiProperty()
   @Column({ type: 'text' })
@@ -64,7 +64,7 @@ export class PhotoportalTranslate {
 
   @ApiProperty()
   @Column({ type: 'text' })
-  for_what_list: string[];
+  for_what_list: string;
 
   @ApiProperty()
   @Column({ type: 'text' })
