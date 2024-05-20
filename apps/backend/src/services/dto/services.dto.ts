@@ -90,6 +90,26 @@ export class CreateTranslatePhotoportalDto extends IntersectionType(
   @IsNotEmpty()
   @IsString()
   agreement: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  special_title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  special_description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  special_footer_text: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  special_action: string;
 }
 
 export class CreatePhotoportalDto {

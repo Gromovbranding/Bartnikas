@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { AdminTemplateForm } from '#components'
+import type { IPhotoportalTranslate } from '~/types/admin-api'
 
 definePageMeta({
   layout: 'admin'
@@ -16,7 +17,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive({
   is_active: false,
-  translate: initTranslateLocale({
+  translate: initTranslateLocale<IPhotoportalTranslate>({
     intro_title: '',
 
     intro_subtitle: '',
@@ -25,13 +26,13 @@ const form = reactive({
 
     peculiarities_title: '',
 
+    for_what_list: '',
+
     peculiarities_list: '',
 
     influence_title: '',
 
     influence_quote_text: '',
-
-    for_what_list: '',
 
     influence_quote_accent_text: '',
 
@@ -47,7 +48,15 @@ const form = reactive({
 
     popup_btn: '',
 
-    agreement: ''
+    agreement: '',
+
+    special_action: '',
+
+    special_description: '',
+
+    special_footer_text: '',
+
+    special_title: ''
   })
 })
 
@@ -174,6 +183,30 @@ const handleCreate = async () => {
         :prop="`translate.${currentIndexLocale}.agreement`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].agreement" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special title'"
+        :prop="`translate.${currentIndexLocale}.special_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special description'"
+        :prop="`translate.${currentIndexLocale}.special_description`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_description" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special footer text'"
+        :prop="`translate.${currentIndexLocale}.special_footer_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_footer_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special action'"
+        :prop="`translate.${currentIndexLocale}.special_action`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_action" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate">

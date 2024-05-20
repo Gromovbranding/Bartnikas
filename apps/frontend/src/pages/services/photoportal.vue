@@ -176,15 +176,15 @@ onMounted(() => {
         </AppContentSpliter>
         <div class="for-what__list">
           <div
-            v-for="item in translated?.for_what_list"
-            :key="item.text"
+            v-for="(item, i) in translated?.for_what_list.split('<br>')"
+            :key="item"
             class="for-what__item"
           >
             <IconLogoIcon class="for-what__item-icon" />
             <p class="for-what__item-text">
-              {{ item.text }}
+              {{ item }}
             </p>
-            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/baseApiFiles/${item?.image.name}`" />
+            <NuxtImg class="for-what__item-img" loading="lazy" :src="`/img/for-what_${i}.png`" />
           </div>
         </div>
       </AppContainer>

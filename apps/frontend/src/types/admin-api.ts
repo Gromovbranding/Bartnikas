@@ -299,10 +299,6 @@ export interface IPlaceOfPowerTranslate {
   agreement: string;
 }
 
-interface IPhotoportalForWhatItem {
-  text: string;
-  image: IFile;
-}
 
 export interface IPlaceOfPower {
   id: number;
@@ -334,7 +330,7 @@ export interface IPhotoportalTranslate {
 
   for_what_title: string;
 
-  for_what_list: IPhotoportalForWhatItem[];
+  for_what_list: string;
 
   popup_title: string;
 
@@ -345,6 +341,14 @@ export interface IPhotoportalTranslate {
   popup_btn: string;
 
   agreement: string;
+
+  special_title: string;
+
+  special_description: string;
+
+  special_footer_text: string;
+
+  special_action: string;
 }
 
 export interface IPhotoportal {

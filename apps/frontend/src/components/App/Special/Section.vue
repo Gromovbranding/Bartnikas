@@ -1,14 +1,32 @@
+<script setup lang="ts">
+import type { IPhotoportal, IPhotoportalTranslate } from '~/types/admin-api'
+
+const { getPhotoportal } = usePublicData()
+
+const { data: photoportal } = await useAsyncData<IPhotoportal>(
+  'photoportal',
+  async () => await getPhotoportal()
+)
+
+const translated = reactive(
+  useTranslateLanguage<IPhotoportalTranslate>(
+    photoportal.value?.translate ?? []
+  )
+)
+
+</script>
+
 <template>
   <section class="special">
     <div class="special__main">
       <h2 class="special__title">
-        {{ $t('special.title') }}
+        {{ translated?.special_title }}
       </h2>
       <p class="special__description">
-        {{ $t('special.description') }}
+        {{ translated?.special_description }}
       </p>
       <p class="special__footer">
-        {{ $t('special.footer_text') }}
+        {{ translated?.special_footer_text }}
       </p>
       <UIButton
         :to="`/services/photoportal`"
@@ -17,7 +35,7 @@
         :is-weight-normal="true"
         :is-white="true"
       >
-        {{ $t('special.action') }}
+        {{ translated?.special_action }}
       </UIButton>
     </div>
     <NuxtImg loading="lazy" src="/img/special.png" class="special__img" />

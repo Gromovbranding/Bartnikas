@@ -86,6 +86,22 @@ export class PhotoportalTranslate {
   @Column({ type: 'text' })
   agreement: string;
 
+  @ApiProperty()
+  @Column({ type: 'text' })
+  special_title: string;
+
+  @ApiProperty()
+  @Column({ type: 'text' })
+  special_description: string;
+
+  @ApiProperty()
+  @Column({ type: 'text' })
+  special_footer_text: string;
+
+  @ApiProperty()
+  @Column({ type: 'text' })
+  special_action: string;
+
   @ApiProperty({ type: () => Language })
   @ManyToOne(() => Language, (item) => item.photoportal_translate, {
     eager: true,

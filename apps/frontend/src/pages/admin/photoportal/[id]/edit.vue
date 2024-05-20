@@ -126,12 +126,12 @@ const handleUpdate = async () => {
       >
         <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
       </ElFormItem>
-      <!-- <ElFormItem
+      <ElFormItem
         :label="'For what list '"
         :prop="`translate.${currentIndexLocale}.for_what_list `"
       >
         <ElInput v-model="form.translate[currentIndexLocale].for_what_list " />
-      </ElFormItem> -->
+      </ElFormItem>
       <ElFormItem
         :label="'Popup subtitle'"
         :prop="`translate.${currentIndexLocale}.popup_subtitle `"
@@ -149,6 +149,30 @@ const handleUpdate = async () => {
         :prop="`translate.${currentIndexLocale}.agreement`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].agreement" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special title'"
+        :prop="`translate.${currentIndexLocale}.special_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special description'"
+        :prop="`translate.${currentIndexLocale}.special_description`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_description" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special footer text'"
+        :prop="`translate.${currentIndexLocale}.special_footer_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_footer_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Special action'"
+        :prop="`translate.${currentIndexLocale}.special_action`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].special_action" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">
