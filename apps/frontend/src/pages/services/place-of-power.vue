@@ -64,6 +64,7 @@ onMounted(() => {
   if (artefactTitleBlock) {
     useColorChangerOnScroll(artefactTitleBlock.value, 'rgb(66, 136, 193)')
   }
+  console.log(translated)
 })
 
 function transformationItemsAppearance () {
@@ -76,6 +77,8 @@ function transformationItemsAppearance () {
     window.removeEventListener('scroll', transformationItemsAppearance)
   }
 }
+
+console.log(translated)
 </script>
 
 <template>
