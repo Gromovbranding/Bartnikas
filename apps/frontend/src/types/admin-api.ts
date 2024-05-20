@@ -268,9 +268,9 @@ export interface IPlaceOfPowerTranslate {
 
   transformation_title: string;
 
-  transformation_list_text: string;
+  list_title: string;
 
-  transformation_list_items: string;
+  list_items: string;
 
   artefact_title: string;
 
@@ -306,6 +306,7 @@ interface IPhotoportalForWhatItem {
 
 export interface IPlaceOfPower {
   id: number;
+  is_active: boolean;
   translate: TranslateLang<IPlaceOfPowerTranslate>[];
   transformationSlides: IFile[];
   created_at: string;
@@ -317,19 +318,19 @@ export interface IPhotoportalTranslate {
 
   intro_subtitle: string;
 
-  intro_btn: string;
+  intro_action: string;
 
   peculiarities_title: string;
 
-  peculiarities_list: string[];
+  peculiarities_list: string;
 
   influence_title: string;
 
-  influence_quote_text: string[];
+  influence_quote_text: string;
 
-  influence_quote_text_accent: string[];
+  influence_quote_accent_text: string;
 
-  influence_quote_text_author: string;
+  influence_quote_author: string;
 
   for_what_title: string;
 
@@ -348,6 +349,7 @@ export interface IPhotoportalTranslate {
 
 export interface IPhotoportal {
   id: number;
+  is_active: boolean;
   translate: TranslateLang<IPhotoportalTranslate>[];
   created_at: string;
   updated_at: string;

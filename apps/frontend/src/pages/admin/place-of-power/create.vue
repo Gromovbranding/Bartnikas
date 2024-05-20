@@ -18,13 +18,24 @@ const form = reactive({
   is_active: false,
   translate: initTranslateLocale({
     title: '',
-    ultra_exclusive_anchor: '',
     subtitle: '',
     quote_text: '',
     quote_author: '',
     transformation_title: '',
     list_title: '',
-    list_items: ''
+    list_items: '',
+    artefact_title: '',
+    artefact_text: '',
+    exclusive_title: '',
+    exclusive_head_text: '',
+    exclusive_subtitle: '',
+    exclusive_footer_info: '',
+    exclusive_footer_btn: '',
+    popup_title: '',
+    popup_subtitle: '',
+    popup_note: '',
+    popup_btn: '',
+    agreement: ''
   })
 })
 
@@ -63,12 +74,6 @@ const handleCreate = async () => {
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem
-        :label="'Ultra exclusive anchor'"
-        :prop="`translate.${currentIndexLocale}.ultra_exclusive_anchor`"
-      >
-        <ElInput v-model="form.translate[currentIndexLocale].ultra_exclusive_anchor" />
-      </ElFormItem>
-      <ElFormItem
         :label="'Subtitle'"
         :prop="`translate.${currentIndexLocale}.subtitle`"
       >
@@ -103,6 +108,78 @@ const handleCreate = async () => {
         :prop="`translate.${currentIndexLocale}.list_items`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].list_items" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Artefact title'"
+        :prop="`translate.${currentIndexLocale}.artefact_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].artefact_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Artefact text'"
+        :prop="`translate.${currentIndexLocale}.artefact_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].artefact_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Exclusive title'"
+        :prop="`translate.${currentIndexLocale}.exclusive_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].exclusive_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Exclusive head text'"
+        :prop="`translate.${currentIndexLocale}.exclusive_head_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].exclusive_head_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Exclusive subtitle'"
+        :prop="`translate.${currentIndexLocale}.exclusive_subtitle`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].exclusive_subtitle" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Exclusive footer info'"
+        :prop="`translate.${currentIndexLocale}.exclusive_footer_info`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].exclusive_footer_info" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Exclusive footer btn'"
+        :prop="`translate.${currentIndexLocale}.exclusive_footer_btn`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].exclusive_footer_btn" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup title'"
+        :prop="`translate.${currentIndexLocale}.popup_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup subtitle'"
+        :prop="`translate.${currentIndexLocale}.popup_subtitle`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup note'"
+        :prop="`translate.${currentIndexLocale}.popup_note`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_note" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup btn'"
+        :prop="`translate.${currentIndexLocale}.popup_btn`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_btn" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Agreement'"
+        :prop="`translate.${currentIndexLocale}.agreement`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].agreement" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleCreate">

@@ -1,28 +1,29 @@
 import { type FormItemRule, type FormRules } from 'element-plus'
-import type {
-  PartialAdminApiDto,
-  IArticle,
-  IAwards,
-  IBlog,
-  IGreetingIndex,
-  IProject,
-  ITestimonial,
-  IVideoCollection,
-  IMediaKit,
-  IMediaPublication,
-  IMediaExhibition,
-  IMediaCV,
-  IMediaPresentation,
-  IFaq,
-  ITermsStatic,
-  IBio,
-  IBioTestimonials,
-  IFooterContact,
-  IndexCardFooter,
-  IIndexSlider,
-  TranslateLang,
-  IGeneralInfo,
-  IPlaceOfPower
+import {
+  type PartialAdminApiDto,
+  type IArticle,
+  type IAwards,
+  type IBlog,
+  type IGreetingIndex,
+  type IProject,
+  type ITestimonial,
+  type IVideoCollection,
+  type IMediaKit,
+  type IMediaPublication,
+  type IMediaExhibition,
+  type IMediaCV,
+  type IMediaPresentation,
+  type IFaq,
+  type ITermsStatic,
+  type IBio,
+  type IBioTestimonials,
+  type IFooterContact,
+  type IndexCardFooter,
+  type IIndexSlider,
+  type TranslateLang,
+  type IGeneralInfo,
+  type IPlaceOfPower,
+  IPhotoportal
 } from '@/types/admin-api'
 
 export const useAdmin = () => {
@@ -563,7 +564,7 @@ export const useAdmin = () => {
   const servicesPhotoportal = () => {
     const path = 'services/photoportal'
 
-    const methods = getModelFetchers(path)
+    const methods = getModelFetchers<IPhotoportal>(path)
 
     return {
       methods,
@@ -582,7 +583,7 @@ export const useAdmin = () => {
   const servicesPlaceOfPower = () => {
     const path = 'services/place-of-power'
 
-    const methods = getModelFetchers(path)
+    const methods = getModelFetchers<IPlaceOfPower>(path)
 
     return {
       methods,

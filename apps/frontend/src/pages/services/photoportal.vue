@@ -64,7 +64,7 @@ const quoteBlock = ref()
 
 onMounted(() => {
   if (quoteBlock) {
-    useColorChangerOnScroll(quoteBlock, 'rgb(66, 136, 193)')
+    useColorChangerOnScroll(quoteBlock.value, 'rgb(66, 136, 193)')
   }
 })
 </script>
@@ -96,7 +96,7 @@ onMounted(() => {
               :is-weight-normal="true"
               @click="popupIsOpen = true"
             >
-              {{ translated?.intro_btn }}
+              {{ translated?.intro_action }}
             </UIButton>
             <p class="intro__subtitle">
               {{ translated?.intro_subtitle }}
@@ -119,7 +119,7 @@ onMounted(() => {
           />
           <ul class="peculiarities__list">
             <li
-              v-for="item in translated?.peculiarities_list"
+              v-for="item in translated?.peculiarities_list.split('<br>')"
               :key="item"
               class="peculiarities__item"
             >
@@ -147,7 +147,7 @@ onMounted(() => {
         <p class="influence__quote">
           <q class="influence__quote-text">
             <span
-              v-for="span in translated?.influence_quote_text"
+              v-for="span in translated?.influence_quote_text.split('<br>')"
               :key="span"
               class="influence__quote-span"
             >
@@ -155,7 +155,7 @@ onMounted(() => {
             </span>
             <span ref="quoteBlock" class="influence__quote-text-accent">
               <span
-                v-for="span in translated?.influence_quote_text_accent"
+                v-for="span in translated?.influence_quote_accent_text.split('<br>')"
                 :key="span"
               >
                 {{ span }}

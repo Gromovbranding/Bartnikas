@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { AdminTemplateForm } from '#components'
+import type { IPhotoportal, IPhotoportalTranslate } from '~/types/admin-api'
 
 definePageMeta({
   layout: 'admin',
@@ -22,9 +23,9 @@ useHeadSafe({
   title: titles.edit
 })
 
-const form = reactive({
+const form = reactive<IPhotoportal>({
   ...model,
-  translate: initTranslateLocale(model.translate)
+  translate: initTranslateLocale<IPhotoportalTranslate>(model.translate)
 })
 
 const handleDelete = async () => {
@@ -125,12 +126,12 @@ const handleUpdate = async () => {
       >
         <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
       </ElFormItem>
-      <ElFormItem
+      <!-- <ElFormItem
         :label="'For what list '"
         :prop="`translate.${currentIndexLocale}.for_what_list `"
       >
         <ElInput v-model="form.translate[currentIndexLocale].for_what_list " />
-      </ElFormItem>
+      </ElFormItem> -->
       <ElFormItem
         :label="'Popup subtitle'"
         :prop="`translate.${currentIndexLocale}.popup_subtitle `"

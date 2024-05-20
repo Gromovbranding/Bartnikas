@@ -134,11 +134,11 @@ console.log(translated)
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ translated?.transformation_list_text }}
+            {{ translated?.list_title }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li
-              v-for="item in translated?.transformation_list_items"
+              v-for="item in translated?.list_items.split('<br>')"
               :key="item"
               class="transformation__text-item"
             >
@@ -174,7 +174,11 @@ console.log(translated)
         <h2 ref="artefactTitleBlock" class="artefact__title">
           {{ translated?.artefact_title }}
         </h2>
-        <div class="artefact__text" v-html="translated?.artefact_text" />
+        <div class="artefact__text">
+          <p v-for="p in translated?.artefact_text.split('<br>')" :key="p">
+            {{ p }}
+          </p>
+        </div>
       </AppContainer>
     </section>
 

@@ -32,7 +32,7 @@ export class CreateTranslatePhotoportalDto extends IntersectionType(
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  peculiarities_list: string[];
+  peculiarities_list: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -42,12 +42,12 @@ export class CreateTranslatePhotoportalDto extends IntersectionType(
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  influence_quote_text: string[];
+  influence_quote_text: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  influence_quote_accent_text: string[];
+  influence_quote_accent_text: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -112,11 +112,6 @@ export class CreateTranslatePlaceOfPowerDto extends IntersectionType(
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  ultra_exclusive_anchor: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   subtitle: string;
 
   @ApiProperty()
@@ -143,6 +138,66 @@ export class CreateTranslatePlaceOfPowerDto extends IntersectionType(
   @IsNotEmpty()
   @IsString()
   list_items: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  artefact_title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  artefact_text: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  exclusive_title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  exclusive_head_text: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  exclusive_subtitle: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  exclusive_footer_info: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  exclusive_footer_btn: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  popup_title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  popup_subtitle: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  popup_note: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  popup_btn: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  agreement: string;
 }
 
 export class CreatePlaceOfPowerDto {
