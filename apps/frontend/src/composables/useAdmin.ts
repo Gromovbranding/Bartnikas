@@ -518,7 +518,6 @@ export const useAdmin = () => {
     }
   }
 
-
   const placeOfPower = () => {
     const path = 'place-of-power'
 

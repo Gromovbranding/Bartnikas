@@ -11,9 +11,7 @@ const { data: placeOfPower } = await useAsyncData<IPlaceOfPower>(
   async () => await getPlaceOfPower()
 )
 
-const translated = computed(() => {
-  return useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower.value?.translate)
-})
+const translated = useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower?.translate)
 
 const popupTextFields: Ref<ITextField[]> = ref([
   {
@@ -63,7 +61,7 @@ onMounted(() => {
 
   window.addEventListener('scroll', transformationItemsAppearance)
 
-  if (artefactTitleBlock.value) {
+  if (artefactTitleBlock) {
     useColorChangerOnScroll(artefactTitleBlock.value, 'rgb(66, 136, 193)')
   }
 })
@@ -91,15 +89,15 @@ function transformationItemsAppearance () {
           :links="breadcrumbLinks"
         />
         <h1 class="intro__title">
-          {{ translated.value?.title }}
+          {{ translated?.title }}
         </h1>
         <div class="intro__info">
           <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
             <IconSmallArrow class="intro__ultra-anchor-icon" />
-            {{ translated.value?.exclusive_title }}
+            {{ translated?.exclusive_title }}
           </NuxtLink>
           <p class="intro__subtitle">
-            {{ translated.value?.subtitle }}
+            {{ translated?.subtitle }}
           </p>
         </div>
       </AppContainer>
@@ -118,26 +116,26 @@ function transformationItemsAppearance () {
       />
       <div class="bartnikas-quote__quote">
         <p class="bartnikas-quote__text">
-          {{ translated.value?.quote_text }}
+          {{ translated?.quote_text }}
         </p>
         <p class="bartnikas-quote__author">
-          {{ translated.value?.quote_author }}
+          {{ translated?.quote_author }}
         </p>
       </div>
     </section>
 
     <section class="transformation">
       <AppContentSpliter class="transformation__title">
-        {{ translated.value?.transformation_title }}
+        {{ translated?.transformation_title }}
       </AppContentSpliter>
       <div class="transformation__main">
         <div class="transformation__text">
           <p class="transformation__text-description">
-            {{ translated.value?.transformation_list_text }}
+            {{ translated?.transformation_list_text }}
           </p>
           <ul ref="transformationListBlock" class="transformation__text-list">
             <li
-              v-for="item in translated.value?.transformation_list_items"
+              v-for="item in translated?.transformation_list_items"
               :key="item"
               class="transformation__text-item"
             >
@@ -171,15 +169,15 @@ function transformationItemsAppearance () {
     <section class="artefact">
       <AppContainer class="artefact__container">
         <h2 ref="artefactTitleBlock" class="artefact__title">
-          {{ translated.value?.artefact_title }}
+          {{ translated?.artefact_title }}
         </h2>
-        <div class="artefact__text" v-html="translated.value?.artefact_text" />
+        <div class="artefact__text" v-html="translated?.artefact_text" />
       </AppContainer>
     </section>
 
     <section id="ultra-exclusive" class="exclusive">
       <AppContentSpliter class="exclusive__title">
-        {{ translated.value?.exclusive_title }}
+        {{ translated?.exclusive_title }}
       </AppContentSpliter>
       <div class="exclusive__head">
         <NuxtImg
@@ -188,18 +186,18 @@ function transformationItemsAppearance () {
           src="/img/exclusive_head.png"
         />
         <p class="exclusive__head-text">
-          {{ translated.value?.exclusive_head_text }}
+          {{ translated?.exclusive_head_text }}
         </p>
       </div>
 
       <AppContainer class="exclusive__container">
         <h3 class="exclusive__subtitle">
-          {{ translated.value?.exclusive_subtitle }}
+          {{ translated?.exclusive_subtitle }}
         </h3>
 
         <div class="exclusive__rates">
           <div
-            v-for="item in translated.value?.exclusive_rates"
+            v-for="item in translated?.exclusive_rates"
             :key="item.title"
             class="exclusive__rates-item"
           >
@@ -229,7 +227,7 @@ function transformationItemsAppearance () {
           </div>
         </div>
         <p class="exclusive__footer-info">
-          {{ translated.value?.exclusive_footer_info }}
+          {{ translated?.exclusive_footer_info }}
         </p>
         <UIButton
           class="exclusive__footer-action"
@@ -237,7 +235,7 @@ function transformationItemsAppearance () {
           :is-weight-normal="true"
           @click="popupIsOpen = true"
         >
-          {{ translated.value?.exclusive_footer_btn }}
+          {{ translated?.exclusive_footer_btn }}
         </UIButton>
       </AppContainer>
     </section>
@@ -245,11 +243,11 @@ function transformationItemsAppearance () {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.popup_title ?? ''"
-        :subtitle="translated.value?.popup_subtitle ?? ''"
-        :note="translated.value?.popup_note ?? ''"
-        :button-text="translated.value?.popup_btn ?? ''"
-        :agreement="translated.value?.agreement ?? ''"
+        :title="translated?.popup_title ?? ''"
+        :subtitle="translated?.popup_subtitle ?? ''"
+        :note="translated?.popup_note ?? ''"
+        :button-text="translated?.popup_btn ?? ''"
+        :agreement="translated?.agreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />

@@ -1,23 +1,5 @@
 <script setup lang="ts">
-import type { IService, IServiceTranslate } from '~/types/admin-api'
-
 const titleBlock = ref()
-
-const { getAllServices } = usePublicData()
-
-const { data: services } = await useAsyncData<IService[]>(
-  'services',
-  async () => await getAllServices()
-)
-
-const servicesItems = computed(() => {
-  return services.value?.map((service) => {
-    return {
-      ...service,
-      translated: useTranslateLanguage<IServiceTranslate>(service.translate)
-    }
-  })
-})
 
 onMounted(() => {
   if (titleBlock.value) {
@@ -32,7 +14,7 @@ onMounted(() => {
       <!-- {{ translated.value?.title }} -->
     </h2>
 
-    <div class="choose-format__cards">
+    <!-- <div class="choose-format__cards">
       <article
         v-for="(service, i) in servicesItems"
         :key="service.translated.value?.title"
@@ -62,7 +44,7 @@ onMounted(() => {
           </NuxtLink>
         </div>
       </article>
-    </div>
+    </div> -->
   </section>
 </template>
 

@@ -18,8 +18,6 @@ import type {
   IFooterContact,
   IIndexSlider,
   IGeneralInfo,
-  IServices,
-  IService,
   IPlaceOfPower,
   IPhotoportal
 } from '~/types/admin-api'
@@ -123,12 +121,6 @@ export const usePublicData = () => {
 
   const getActiveGeneralInfo = async () =>
     await fetchGet<IGeneralInfo>('general-info/only/active')
-
-  const getServices = async () =>
-    await fetchGet<IServices>('services/only/active')
-
-  const getAllServices = async () =>
-    await fetchGet<IService[]>('services')
 
   const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/place-of-power')
 

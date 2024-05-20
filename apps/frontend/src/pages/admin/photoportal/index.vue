@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { IServices } from '~/types/admin-api'
-
 const headTitle = ref('Photoportal')
 
 definePageMeta({
@@ -16,7 +14,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard<IServices>(headTitle.value, 'services/photoportal')
+} = useAdmin().makeFetchersForIndexCard(headTitle.value, 'services/photoportal')
 </script>
 
 <template>
