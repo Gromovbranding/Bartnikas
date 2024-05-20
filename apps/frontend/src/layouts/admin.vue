@@ -27,8 +27,13 @@ const sidebarItems: {
     icon: 'ep:tickets'
   },
   {
-    text: 'Services',
-    url: '/admin/services',
+    text: 'Service Place of power',
+    url: '/admin/place-of-power',
+    icon: 'ep:tickets'
+  },
+  {
+    text: 'Service Photoportal',
+    url: '/admin/photoportal',
     icon: 'ep:tickets'
   },
   {

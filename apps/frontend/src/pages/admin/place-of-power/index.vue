@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IServices } from '~/types/admin-api'
 
-const headTitle = ref('Services')
+const headTitle = ref('Place of power')
 
 definePageMeta({
   layout: 'admin'
@@ -16,7 +16,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard<IServices>(headTitle.value)
+} = useAdmin().makeFetchersForIndexCard<IServices>(headTitle.value, 'services/place-of-power')
 </script>
 
 <template>

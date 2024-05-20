@@ -1,0 +1,138 @@
+<script lang="ts" setup>
+import { AdminTemplateForm } from '#components'
+
+definePageMeta({
+  layout: 'admin',
+  validate (route) {
+    return /^\d+$/.test(route.params.id as string)
+  }
+})
+
+const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
+
+const route = useRoute()
+const id = Number(route.params.id)
+
+const { servicesPhotoportal, currentIndexLocale, initTranslateLocale } = useAdmin()
+const { formRules, navigateBack, titles, methods } = servicesPhotoportal()
+
+const model = await methods.handleGetModel(id)
+
+useHeadSafe({
+  title: titles.edit
+})
+
+const form = reactive({
+  ...model,
+  translate: initTranslateLocale(model.translate)
+})
+
+const handleDelete = async () => {
+  await methods.handleDelete(id)
+  await navigateTo(navigateBack.value)
+}
+
+const handleUpdate = async () => {
+  if (await formRef.value?.validate()) {
+    try {
+      await methods.handlePatch(id, toValue(form))
+
+      await refreshNuxtData()
+
+      await navigateTo(navigateBack.value)
+    } catch (exc) {
+      console.error(exc)
+    }
+  }
+}
+</script>
+
+<template>
+  <AdminTemplateCardWithForm :title="titles.edit" :navigate-back="navigateBack">
+    <AdminTemplateForm ref="formRef" :model="form" :rules="formRules">
+      <ElFormItem label="Is active" prop="active">
+        <ElSwitch v-model="form.is_active" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Title'"
+        :prop="`translate.${currentIndexLocale}.intro_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].intro_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Subtitle'"
+        :prop="`translate.${currentIndexLocale}.intro_subtitle`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].intro_subtitle" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Peculiarities title'"
+        :prop="`translate.${currentIndexLocale}.peculiarities_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].peculiarities_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Influence title'"
+        :prop="`translate.${currentIndexLocale}.influence_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].influence_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Influence quot text'"
+        :prop="`translate.${currentIndexLocale}.influence_quote_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Influence quote accent text'"
+        :prop="`translate.${currentIndexLocale}.influence_quote_accent_text`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_accent_text" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Шnfluence quote author'"
+        :prop="`translate.${currentIndexLocale}.influence_quote_author`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_author" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'For what title'"
+        :prop="`translate.${currentIndexLocale}.for_what_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].for_what_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup title'"
+        :prop="`translate.${currentIndexLocale}.popup_title`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_title" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup subtitle accent'"
+        :prop="`translate.${currentIndexLocale}.popup_subtitle_accent`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup button text'"
+        :prop="`translate.${currentIndexLocale}.popup_btn`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].popup_btn" />
+      </ElFormItem>
+      <ElFormItem
+        :label="'Popup agreement'"
+        :prop="`translate.${currentIndexLocale}.agreement`"
+      >
+        <ElInput v-model="form.translate[currentIndexLocale].agreement" />
+      </ElFormItem>
+      <ElFormItem>
+        <ElButton type="primary" @click="handleUpdate">
+          Update
+        </ElButton>
+        <ElButton type="danger" @click="handleDelete">
+          Delete
+        </ElButton>
+      </ElFormItem>
+    </AdminTemplateForm>
+  </AdminTemplateCardWithForm>
+</template>

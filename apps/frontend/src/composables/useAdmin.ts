@@ -582,6 +582,44 @@ export const useAdmin = () => {
     }
   }
 
+  const servicesPhotoportal = () => {
+    const path = 'services/photoportal'
+
+    const methods = getModelFetchers<IBioTestimonials>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'Photoportal'),
+        edit: createTitle('edit', 'Photoportal')
+      }),
+
+      navigateBack: ref('/admin/photoportral'),
+
+      formRules: ref<FormRules>({})
+    }
+  }
+
+  const servicesPlaceOfPower = () => {
+    const path = 'services/place-of-power'
+
+    const methods = getModelFetchers<IBioTestimonials>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'Place of power'),
+        edit: createTitle('edit', 'Place of power')
+      }),
+
+      navigateBack: ref('/admin/place-of-power'),
+
+      formRules: ref<FormRules>({})
+    }
+  }
+
   const bioTestimonials = () => {
     const path = 'bio-testimonials'
 
@@ -745,6 +783,8 @@ export const useAdmin = () => {
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,
+    servicesPhotoportal,
+    servicesPlaceOfPower,
     initTranslateLocale
   }
 }
