@@ -299,7 +299,6 @@ export interface IPlaceOfPowerTranslate {
   agreement: string;
 }
 
-
 export interface IPlaceOfPower {
   id: number;
   is_active: boolean;

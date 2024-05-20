@@ -574,7 +574,7 @@ export const useAdmin = () => {
         edit: createTitle('edit', 'Photoportal')
       }),
 
-      navigateBack: ref('/admin/photoportral'),
+      navigateBack: ref('/admin/photoportal'),
 
       formRules: ref<FormRules>({})
     }
