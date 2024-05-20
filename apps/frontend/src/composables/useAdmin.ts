@@ -22,7 +22,6 @@ import type {
   IIndexSlider,
   TranslateLang,
   IGeneralInfo,
-  IService,
   IPlaceOfPower
 } from '@/types/admin-api'
 
@@ -519,26 +518,6 @@ export const useAdmin = () => {
     }
   }
 
-  const services = () => {
-    const path = 'services'
-
-    const methods = getModelFetchers<IService>(path)
-
-    return {
-      methods,
-
-      titles: reactive({
-        create: createTitle('create', 'Service'),
-        edit: createTitle('edit', 'Service')
-      }),
-
-      navigateBack: ref('/admin/services'),
-
-      formRules: ref<FormRules>({
-        ...createTranslaterFormRules(['title', 'text', 'btn.text', 'btn.url'])
-      })
-    }
-  }
 
   const placeOfPower = () => {
     const path = 'place-of-power'
@@ -585,7 +564,7 @@ export const useAdmin = () => {
   const servicesPhotoportal = () => {
     const path = 'services/photoportal'
 
-    const methods = getModelFetchers<IBioTestimonials>(path)
+    const methods = getModelFetchers(path)
 
     return {
       methods,
@@ -604,7 +583,7 @@ export const useAdmin = () => {
   const servicesPlaceOfPower = () => {
     const path = 'services/place-of-power'
 
-    const methods = getModelFetchers<IBioTestimonials>(path)
+    const methods = getModelFetchers(path)
 
     return {
       methods,
@@ -778,7 +757,6 @@ export const useAdmin = () => {
     footerContacts,
     footerIndexCard,
     generalInfo,
-    services,
     placeOfPower,
     currentLocale,
     currentIndexLocale,
