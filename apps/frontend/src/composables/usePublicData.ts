@@ -122,9 +122,9 @@ export const usePublicData = () => {
   const getActiveGeneralInfo = async () =>
     await fetchGet<IGeneralInfo>('general-info/only/active')
 
-  const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/place-of-power')
+  const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/place-of-power/only/active')
 
-  const getPhotoportal = async () => await fetchGet<IPhotoportal>('services/photoportal')
+  const getPhotoportal = async () => await fetchGet<IPhotoportal>('services/photoportal/only/active')
 
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");

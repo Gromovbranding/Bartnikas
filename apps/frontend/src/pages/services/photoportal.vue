@@ -11,9 +11,9 @@ const { data: photoportal } = await useAsyncData<IPhotoportal>(
   async () => await getPhotoportal()
 )
 
-const translated = reactive(useTranslateLanguage<IPhotoportalTranslate>(
+const translated = useTranslateLanguage<IPhotoportalTranslate>(
   photoportal.value?.translate
-))
+)
 
 const breadcrumbLinks = ref([
   {

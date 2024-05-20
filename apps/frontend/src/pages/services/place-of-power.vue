@@ -11,7 +11,7 @@ const { data: placeOfPower } = await useAsyncData<IPlaceOfPower>(
   async () => await getPlaceOfPower()
 )
 
-const translated = reactive(useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower?.translate))
+const translated = useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower?.translate)
 
 const popupTextFields: Ref<ITextField[]> = ref([
   {
