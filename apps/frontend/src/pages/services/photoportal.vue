@@ -13,7 +13,7 @@ const { data: photoportal } = await useAsyncData<IPhotoportal>(
 
 const translated = reactive(
   useTranslateLanguage<IPhotoportalTranslate>(
-    photoportal.value?.translate
+    photoportal.value?.translate ?? []
   )
 )
 
@@ -163,7 +163,7 @@ onMounted(() => {
             </span>
           </q>
           <span class="influence__quote-author">
-            {{ translated?.influence_quote_text_author }}
+            {{ translated?.influence_quote_author }}
           </span>
         </p>
       </div>
