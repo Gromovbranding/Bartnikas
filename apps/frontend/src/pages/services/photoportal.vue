@@ -63,8 +63,8 @@ const popupTextFields: Ref<ITextField[]> = ref([
 const quoteBlock = ref()
 
 onMounted(() => {
-  if (quoteBlock.value) {
-    useColorChangerOnScroll(quoteBlock.value, 'rgb(66, 136, 193)')
+  if (quoteBlock) {
+    useColorChangerOnScroll(quoteBlock, 'rgb(66, 136, 193)')
   }
 })
 </script>
@@ -81,7 +81,7 @@ onMounted(() => {
         />
 
         <h1 class="intro__title">
-          {{ translated.value?.intro_title }}
+          {{ translated?.intro_title }}
         </h1>
         <div class="intro__main">
           <NuxtImg
@@ -96,10 +96,10 @@ onMounted(() => {
               :is-weight-normal="true"
               @click="popupIsOpen = true"
             >
-              {{ translated.value?.intro_btn }}
+              {{ translated?.intro_btn }}
             </UIButton>
             <p class="intro__subtitle">
-              {{ translated.value?.intro_subtitle }}
+              {{ translated?.intro_subtitle }}
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@ onMounted(() => {
     <section class="peculiarities">
       <AppContainer class="peculiarities__container">
         <AppContentSpliter class="peculiarities__title">
-          {{ translated.value?.peculiarities_title }}
+          {{ translated?.peculiarities_title }}
         </AppContentSpliter>
         <div class="peculiarities__main">
           <NuxtImg
@@ -119,7 +119,7 @@ onMounted(() => {
           />
           <ul class="peculiarities__list">
             <li
-              v-for="item in translated.value?.peculiarities_list"
+              v-for="item in translated?.peculiarities_list"
               :key="item"
               class="peculiarities__item"
             >
@@ -136,7 +136,7 @@ onMounted(() => {
 
     <section class="influence">
       <AppContentSpliter class="influence__title">
-        {{ translated.value?.influence_title }}
+        {{ translated?.influence_title }}
       </AppContentSpliter>
       <div class="influence__main">
         <NuxtImg
@@ -147,7 +147,7 @@ onMounted(() => {
         <p class="influence__quote">
           <q class="influence__quote-text">
             <span
-              v-for="span in translated.value?.influence_quote_text"
+              v-for="span in translated?.influence_quote_text"
               :key="span"
               class="influence__quote-span"
             >
@@ -155,7 +155,7 @@ onMounted(() => {
             </span>
             <span ref="quoteBlock" class="influence__quote-text-accent">
               <span
-                v-for="span in translated.value?.influence_quote_text_accent"
+                v-for="span in translated?.influence_quote_text_accent"
                 :key="span"
               >
                 {{ span }}
@@ -163,7 +163,7 @@ onMounted(() => {
             </span>
           </q>
           <span class="influence__quote-author">
-            {{ translated.value?.influence_quote_text_author }}
+            {{ translated?.influence_quote_text_author }}
           </span>
         </p>
       </div>
@@ -172,11 +172,11 @@ onMounted(() => {
     <section class="for-what">
       <AppContainer class="for-what__container">
         <AppContentSpliter class="for-what__title">
-          {{ translated.value?.for_what_title }}
+          {{ translated?.for_what_title }}
         </AppContentSpliter>
         <div class="for-what__list">
           <div
-            v-for="item in translated.value?.for_what_list"
+            v-for="item in translated?.for_what_list"
             :key="item.text"
             class="for-what__item"
           >
@@ -191,11 +191,11 @@ onMounted(() => {
     </section>
 
     <AppPopup
-      :title="translated.value?.popup_title ?? ''"
-      :subtitle-accent="translated.value?.popup_subtitle_accent"
-      :subtitle="translated.value?.popup_subtitle ?? ''"
-      :button-text="translated.value?.popup_btn ?? ''"
-      :agreement="translated.value?.agreement ?? ''"
+      :title="translated?.popup_title ?? ''"
+      :subtitle-accent="translated?.popup_subtitle_accent"
+      :subtitle="translated?.popup_subtitle ?? ''"
+      :button-text="translated?.popup_btn ?? ''"
+      :agreement="translated?.agreement ?? ''"
       :textfields="popupTextFields"
       :is-block="true"
     />
@@ -203,11 +203,11 @@ onMounted(() => {
     <Transition name="slide-left">
       <AppPopup
         v-if="popupIsOpen"
-        :title="translated.value?.popup_title ?? ''"
-        :subtitle-accent="translated.value?.popup_subtitle_accent"
-        :subtitle="translated.value?.popup_subtitle ?? ''"
-        :button-text="translated.value?.popup_btn ?? ''"
-        :agreement="translated.value?.agreement ?? ''"
+        :title="translated?.popup_title ?? ''"
+        :subtitle-accent="translated?.popup_subtitle_accent"
+        :subtitle="translated?.popup_subtitle ?? ''"
+        :button-text="translated?.popup_btn ?? ''"
+        :agreement="translated?.agreement ?? ''"
         :textfields="popupTextFields"
         @close="popupIsOpen = false"
       />
