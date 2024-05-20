@@ -16,7 +16,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard<IServices>(headTitle.value, 'services/place-of-power')
+} = useAdmin().makeFetchersForIndexCard<IServices>('place-of-power', 'services/place-of-power')
 </script>
 
 <template>
