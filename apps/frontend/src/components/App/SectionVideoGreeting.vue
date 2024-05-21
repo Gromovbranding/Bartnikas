@@ -13,7 +13,7 @@ const { data: greeting } = await useAsyncData<IGreetingIndex>(
 
 const translate = reactive(
   useTranslateLanguage<IGreetingIndexTranslate>(
-    greeting.value!.translate
+    greeting.value?.translate
   )
 )
 
