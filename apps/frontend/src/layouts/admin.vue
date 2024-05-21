@@ -27,6 +27,11 @@ const sidebarItems: {
     icon: 'ep:tickets'
   },
   {
+    text: 'About',
+    url: '/admin/about',
+    icon: 'ep:tickets'
+  },
+  {
     text: 'Service Place of power',
     url: '/admin/place-of-power',
     icon: 'ep:tickets'

@@ -46,9 +46,9 @@ const { data: about } = await useAsyncData<IAbout>(
   async () => await getAbout()
 )
 
-const translated = computed(() => {
-  return useTranslateLanguage<IAboutTranslate>(about.value?.translate)
-})
+const translated = reactive(
+  useTranslateLanguage<IAboutTranslate>(about.value?.translate ?? [])
+)
 
 function getGroupVideos (group: string) {
   return (videos.value ?? []).filter(
@@ -65,17 +65,17 @@ function getGroupVideos (group: string) {
       <IconLogoIcon class="intro__logo" />
 
       <h1 ref="introTitleBlock" class="intro__title">
-        {{ translated.value?.title }}
+        {{ translated?.title }}
       </h1>
       <div class="intro__info">
         <div class="intro__info-text-block">
           <p class="intro__subtitle">
-            {{ translated.value?.subtitle }}
+            {{ translated?.subtitle }}
           </p>
 
           <ul ref="advantagesBlock" class="intro__advantages">
             <li
-              v-for="advantage in translated.value?.advantages"
+              v-for="advantage in translated?.advantages"
               :key="advantage.text"
               class="intro__advantage"
             >
@@ -91,20 +91,20 @@ function getGroupVideos (group: string) {
           src="/img/intro_bartnikas.jpg"
         />
         <p class="intro__subtitle intro__subtitle_mobile">
-          {{ translated.value?.subtitle }}
+          {{ translated?.subtitle }}
         </p>
       </div>
     </section>
 
     <AppContentSpliter>
-      {{ translated.value?.conceptTitle }}
+      {{ translated?.concept_title }}
     </AppContentSpliter>
 
     <section class="concept">
       <div class="concept__main-block">
         <div class="concept__text-block">
           <p
-            v-for="p in translated.value?.conceptText"
+            v-for="p in translated?.concept_text.split('<br>')"
             :key="p"
             class="concept__text-p"
           >
@@ -128,23 +128,23 @@ function getGroupVideos (group: string) {
     <AppSpecialSection />
     <AppAwardsSection />
     <AppContentTicker
-      :ticker-title="translated.value?.tickerTitle ?? ''"
-      :ticker-text="translated.value?.tickerText ?? ''"
+      :ticker-title="translated?.ticker_title ?? ''"
+      :ticker-text="translated?.ticker_text ?? ''"
     />
 
     <section class="recognition">
       <AppContainer>
         <AppContentSpliter class="recognition__title">
-          {{ translated.value?.recognitionTitle }}
+          {{ translated?.recognition_title }}
         </AppContentSpliter>
 
         <p class="recognition__description">
-          {{ translated.value?.recognitionDescription }}
+          {{ translated?.recognition_text }}
         </p>
 
         <div class="recognition__tickers">
           <div
-            v-for="(ticker, i) in translated.value?.recognitionTickers"
+            v-for="(ticker, i) in translated?.recognition_tickers"
             :key="i"
             class="recognition__ticker"
             :class="{ recognition__ticker_reverse: i % 2 === 0 }"
@@ -173,7 +173,7 @@ function getGroupVideos (group: string) {
 
     <section class="achievements">
       <div
-        v-for="(ach, i) in translated.value?.achievements"
+        v-for="(ach, i) in translated?.achievements"
         :key="ach.text"
         class="achievements__item"
         :class="`achievements__item_${i}`"

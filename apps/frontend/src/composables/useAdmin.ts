@@ -23,7 +23,8 @@ import {
   type TranslateLang,
   type IGeneralInfo,
   type IPlaceOfPower,
-  IPhotoportal
+  type IPhotoportal,
+  type IAbout
 } from '@/types/admin-api'
 
 export const useAdmin = () => {
@@ -519,27 +520,6 @@ export const useAdmin = () => {
     }
   }
 
-  const placeOfPower = () => {
-    const path = 'place-of-power'
-
-    const methods = getModelFetchers<IPlaceOfPower>(path)
-
-    return {
-      methods,
-
-      titles: reactive({
-        create: createTitle('create', 'Place Of Power'),
-        edit: createTitle('edit', 'Place Of Power')
-      }),
-
-      navigateBack: ref('/admin/place-of-power/'),
-
-      formRules: ref<FormRules>({
-        ...createTranslaterFormRules([])
-      })
-    }
-  }
-
   const bio = () => {
     const path = 'bio'
 
@@ -558,6 +538,25 @@ export const useAdmin = () => {
       formRules: ref<FormRules>({
         ...createTranslaterFormRules(['sub_description', 'description'])
       })
+    }
+  }
+
+  const about = () => {
+    const path = 'about'
+
+    const methods = getModelFetchers<IAbout>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'About'),
+        edit: createTitle('edit', 'About')
+      }),
+
+      navigateBack: ref('/admin/about'),
+
+      formRules: ref<FormRules>({})
     }
   }
 
@@ -757,12 +756,12 @@ export const useAdmin = () => {
     footerContacts,
     footerIndexCard,
     generalInfo,
-    placeOfPower,
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,
     servicesPhotoportal,
     servicesPlaceOfPower,
+    about,
     initTranslateLocale
   }
 }

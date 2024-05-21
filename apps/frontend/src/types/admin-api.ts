@@ -196,27 +196,28 @@ export interface IAboutTranslate {
 
   subtitle: string;
 
-  advantages: IAboutAdvantage[]
+  advantages: IAboutAdvantage[];
 
-  conceptTitle: string;
+  concept_title: string;
 
-  conceptText: string[];
+  concept_text: string;
 
-  tickerTitle: string;
+  ticker_title: string;
 
-  tickerText: string;
+  ticker_text: string;
 
-  recognitionTitle: string;
+  recognition_title: string;
 
-  recognitionDescription: string;
+  recognition_text: string;
 
-  recognitionTickers: IAboutRecognitionTickerCity[][]
+  recognition_tickers: IAboutRecognitionTickerCity[][];
 
   achievements: IAboutAchievements[];
 }
 
 export interface IAbout {
   id: number;
+  is_active: boolean;
   translate: TranslateLang<IAboutTranslate>[];
   created_at: string;
   updated_at: string;

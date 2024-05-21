@@ -19,7 +19,8 @@ import type {
   IIndexSlider,
   IGeneralInfo,
   IPlaceOfPower,
-  IPhotoportal
+  IPhotoportal,
+  IAbout
 } from '~/types/admin-api'
 
 type INextPrevWrapper<T> = T & { next: T | null; prev: T | null };
@@ -126,6 +127,8 @@ export const usePublicData = () => {
 
   const getPhotoportal = async () => await fetchGet<IPhotoportal>('services/photoportal/only/active')
 
+  const getAbout = async () => await fetchGet<IAbout>('about/only/active')
+
   // const getActiveIndexCardFooter = async () =>
   //   await fetchGet<IndexCardFooter>("index-card-footer/only/active");
 
@@ -144,6 +147,7 @@ export const usePublicData = () => {
     getAwardsById,
     getPlaceOfPower,
     getPhotoportal,
+    getAbout,
     // getCountAllAwards,
     getAllAwards,
     getIndexSlider,

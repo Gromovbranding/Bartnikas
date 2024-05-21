@@ -60,10 +60,10 @@ const popupTextFields: Ref<ITextField[]> = ref([
   }
 ])
 
-const quoteBlock = ref()
+const quoteBlock = ref<HTMLElement>()
 
 onMounted(() => {
-  if (quoteBlock) {
+  if (quoteBlock.value) {
     useColorChangerOnScroll(quoteBlock.value, 'rgb(66, 136, 193)')
   }
 })
