@@ -24,7 +24,8 @@ import {
   type IGeneralInfo,
   type IPlaceOfPower,
   type IPhotoportal,
-  type IAbout
+  type IAbout,
+  type IServices
 } from '@/types/admin-api'
 
 export const useAdmin = () => {
@@ -560,6 +561,25 @@ export const useAdmin = () => {
     }
   }
 
+  const services = () => {
+    const path = 'services'
+
+    const methods = getModelFetchers<IServices>(path)
+
+    return {
+      methods,
+
+      titles: reactive({
+        create: createTitle('create', 'Services'),
+        edit: createTitle('edit', 'Services')
+      }),
+
+      navigateBack: ref('/admin/services'),
+
+      formRules: ref<FormRules>({})
+    }
+  }
+
   const servicesPhotoportal = () => {
     const path = 'services/photoportal'
 
@@ -759,6 +779,7 @@ export const useAdmin = () => {
     currentLocale,
     currentIndexLocale,
     handleChangeLocale,
+    services,
     servicesPhotoportal,
     servicesPlaceOfPower,
     about,

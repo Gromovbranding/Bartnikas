@@ -26,6 +26,7 @@ import { TestimonialsTranslate } from '../../../testimonials/entities/testimonia
 import { PlaceOfPowerTranslate } from '../../../services/entities/place-of-power-translate.entity';
 import { PhotoportalTranslate } from '../../../services/entities/photoportal-translate.entity';
 import { AboutTranslate } from 'src/about/entities/about-translate.entity';
+import { ServicesTranslate } from 'src/services/entities/services-translate.entity';
 
 @Entity()
 export class Language {
@@ -170,6 +171,14 @@ export class Language {
     onUpdate: 'NO ACTION',
   })
   terms_static_translate: TermsStaticTranslate[];
+
+  @ApiHideProperty()
+  @OneToMany(() => ServicesTranslate, (item) => item.language, {
+    eager: false,
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  services_translate: ServicesTranslate[];
 
   @ApiHideProperty()
   @OneToMany(() => PhotoportalTranslate, (item) => item.language, {

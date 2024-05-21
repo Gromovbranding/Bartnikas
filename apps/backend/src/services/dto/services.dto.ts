@@ -10,6 +10,49 @@ import {
 } from 'class-validator';
 import { CreateTranslateLanguageDto } from 'src/shared/language/dto/create-translate.dto';
 
+class CreateTranslateServiceDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  text: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsObject()
+  btn: { text: string; url: string };
+}
+
+export class CreateTranslateServicesDto extends IntersectionType(
+  CreateTranslateLanguageDto,
+) {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @ApiProperty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslateServiceDto)
+  services: CreateTranslateServiceDto[];
+}
+
+export class CreateServicesDto {
+  @ApiProperty({ default: false })
+  @IsBoolean()
+  is_active = false;
+
+  @ApiProperty({ type: () => [CreateTranslateServicesDto] })
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslateServicesDto)
+  translate: CreateTranslateServicesDto[];
+}
+
 export class CreateTranslatePhotoportalDto extends IntersectionType(
   CreateTranslateLanguageDto,
 ) {

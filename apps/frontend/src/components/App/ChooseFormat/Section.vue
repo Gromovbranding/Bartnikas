@@ -1,4 +1,19 @@
 <script setup lang="ts">
+import type { IServices, IServicesTranslate } from '~/types/admin-api'
+
+const { getServices } = usePublicData()
+
+const { data: services } = await useAsyncData<IServices>(
+  'services',
+  async () => await getServices()
+)
+
+const translated = reactive(
+  useTranslateLanguage<IServicesTranslate>(
+    services.value?.translate ?? []
+  )
+)
+
 const titleBlock = ref()
 
 onMounted(() => {
@@ -11,18 +26,18 @@ onMounted(() => {
 <template>
   <section class="choose-format">
     <h2 ref="titleBlock" class="choose-format__title">
-      <!-- {{ translated.value?.title }} -->
+      {{ translated?.title }}
     </h2>
 
-    <!-- <div class="choose-format__cards">
+    <div class="choose-format__cards">
       <article
-        v-for="(service, i) in servicesItems"
-        :key="service.translated.value?.title"
+        v-for="(service, i) in translated?.services"
+        :key="service.title"
         class="choose-format__card"
       >
         <NuxtImg
           :src="
-            `/baseApiFiles/${service.image.name}` || `/img/format_${i + 1}.png`
+            /* `/baseApiFiles/${service.image.name}` || */ `/img/format_${i + 1}.png`
           "
           loading="lazy"
           class="choose-format__card-img"
@@ -30,21 +45,21 @@ onMounted(() => {
         <div class="choose-format__card-info">
           <h3 class="choose-format__card-title">
             <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{
-              service.translated.value?.title
+              service.title
             }}
           </h3>
           <p class="choose-format__card-text">
-            {{ service.translated.value?.text }}
+            {{ service.text }}
           </p>
           <NuxtLink
             class="choose-format__card-action"
-            :to="`${service.translated.value?.btn.url}`"
+            :to="`${service.btn.url}`"
           >
-            {{ service.translated.value?.btn.text }}
+            {{ service.btn.text }}
           </NuxtLink>
         </div>
       </article>
-    </div> -->
+    </div>
   </section>
 </template>
 

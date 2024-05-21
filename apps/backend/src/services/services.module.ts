@@ -9,10 +9,16 @@ import { PlaceOfPowerService } from './place-of-power.service';
 import { PhotoportalService } from './photoportal.service';
 import { PlaceOfPowerController } from './place-of-power.controller';
 import { PhotoportalController } from './photoportal.controller';
+import { Services } from './entities/services.entity';
+import { ServicesTranslate } from './entities/services-translate.entity';
+import { ServicesController } from './services.controller';
+import { ServicesService } from './services.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      Services,
+      ServicesTranslate,
       PlaceOfPower,
       PlaceOfPowerTranslate,
       Photoportal,
@@ -20,7 +26,11 @@ import { PhotoportalController } from './photoportal.controller';
     ]),
     LanguageModule,
   ],
-  controllers: [PlaceOfPowerController, PhotoportalController],
-  providers: [PlaceOfPowerService, PhotoportalService],
+  controllers: [
+    ServicesController,
+    PlaceOfPowerController,
+    PhotoportalController,
+  ],
+  providers: [ServicesService, PlaceOfPowerService, PhotoportalService],
 })
 export class ServicesModule {}
