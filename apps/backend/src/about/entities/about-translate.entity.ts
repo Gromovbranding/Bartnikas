@@ -60,7 +60,11 @@ export class AboutTranslate {
 
   @ApiProperty()
   @Column({ array: true, type: 'jsonb' })
-  achievements: { name: string }[];
+  recognition_cities: { name: string }[];
+
+  @ApiProperty()
+  @Column({ array: true, type: 'jsonb' })
+  achievements: { text: string }[];
 
   @ApiProperty({ type: () => Language })
   @ManyToOne(() => Language, (item) => item.about_translate, {

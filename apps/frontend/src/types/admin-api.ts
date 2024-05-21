@@ -183,12 +183,12 @@ interface IAboutAdvantage {
 
 interface IAboutAchievements {
   text: string;
-  image: IFile
+  // image: IFile
 }
 
 interface IAboutRecognitionTickerCity {
   name: string;
-  image: IFile
+  // image: IFile
 }
 
 export interface IAboutTranslate {
@@ -210,7 +210,7 @@ export interface IAboutTranslate {
 
   recognition_text: string;
 
-  recognition_tickers: IAboutRecognitionTickerCity[][];
+  recognition_cities: IAboutRecognitionTickerCity[];
 
   achievements: IAboutAchievements[];
 }

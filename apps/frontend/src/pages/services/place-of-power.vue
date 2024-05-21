@@ -155,15 +155,15 @@ console.log(translated)
           autoplay
         >
           <SwiperSlide
-            v-for="(slide, i) in placeOfPower?.transformationSlides"
-            :key="slide.name"
+            v-for="i in 3"
+            :key="i"
             class="transformation__swiper-item"
           >
             <NuxtImg
               class="transformation__swiper-img"
               loading="lazy"
               :src="
-                `/baseApiFiles/${slide.name}` || `/img/transformation_${i}.png`
+                `/img/transformation_${i}.png`
               "
             />
           </SwiperSlide>

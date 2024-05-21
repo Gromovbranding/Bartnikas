@@ -144,14 +144,11 @@ function getGroupVideos (group: string) {
 
         <div class="recognition__tickers">
           <div
-            v-for="(ticker, i) in translated?.recognition_tickers"
-            :key="i"
             class="recognition__ticker"
-            :class="{ recognition__ticker_reverse: i % 2 === 0 }"
           >
             <div v-for="part in 2" :key="part" class="recognition__ticker-part">
               <div
-                v-for="(city, index) in ticker"
+                v-for="(city, index) in translated?.recognition_cities.slice(0, 3)"
                 :key="city.name"
                 class="recognition__city"
               >
@@ -159,8 +156,30 @@ function getGroupVideos (group: string) {
                   class="recognition__city-img"
                   loading="lazy"
                   :src="
-                    `/baseApiFiles/${city.image.name}` ||
-                      `/img/city/${i}_${index}.png`
+                    /* `/baseApiFiles/${city.image.name}` || */
+                    `/img/city/${0}_${index}.png`
+                  "
+                />
+                <span class="recognition__city-text">{{ city.name }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="recognition__ticker recognition__ticker_reverse"
+          >
+            <div v-for="part in 2" :key="part" class="recognition__ticker-part">
+              <div
+                v-for="(city, index) in translated?.recognition_cities.slice(3)"
+                :key="city.name"
+                class="recognition__city"
+              >
+                <NuxtImg
+                  class="recognition__city-img"
+                  loading="lazy"
+                  :src="
+                    /* `/baseApiFiles/${city.image.name}` || */
+                    `/img/city/${1}_${index}.png`
                   "
                 />
                 <span class="recognition__city-text">{{ city.name }}</span>
@@ -181,7 +200,7 @@ function getGroupVideos (group: string) {
         <NuxtImg
           class="achievements__item-img"
           loading="lazy"
-          :src="`/baseApiFiles/${ach.image.name}` || `/img/ach_${i}.png`"
+          :src="/* `/baseApiFiles/${ach.image.name}` || */ `/img/ach_${i}.png`"
         />
         <p class="achievements__item-text">
           {{ ach.text }}

@@ -21,11 +21,18 @@ class CreateTranslateAboutAdvantagesDto {
   text: string;
 }
 
-class CreateTranslateAboutAchievementsDto {
+class CreateTranslateAboutRecognitionCitiesDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
   name: string;
+}
+
+class CreateTranslateAboutAchievementsDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  text: string;
 }
 
 export class CreateTranslateAboutDto extends IntersectionType(
@@ -76,6 +83,12 @@ export class CreateTranslateAboutDto extends IntersectionType(
   @IsNotEmpty()
   @IsString()
   recognition_text: string;
+
+  @ApiProperty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslateAboutRecognitionCitiesDto)
+  recognition_cities: CreateTranslateAboutRecognitionCitiesDto[];
 
   @ApiProperty()
   @IsArray()

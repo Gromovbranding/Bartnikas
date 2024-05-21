@@ -75,7 +75,7 @@ const handleUpdate = async () => {
       <template v-for="(item, idx) in form.translate[currentIndexLocale].advantages" :key="`ml-${idx}`">
         <ElFormItem
           label="Advantage value"
-          :prop="`translate.advantages.${idx}.value`"
+          :prop="`translate.${currentIndexLocale}.advantages.${idx}.value`"
           :rules="{
             required: true,
             message: 'field is required',
@@ -86,7 +86,7 @@ const handleUpdate = async () => {
         </ElFormItem>
         <ElFormItem
           label="Advantage text"
-          :prop="`translate.advantages.${idx}.text`"
+          :prop="`translate.${currentIndexLocale}.advantages.${idx}.text`"
           :rules="{
             required: true,
             message: 'field is required',
@@ -157,6 +157,92 @@ const handleUpdate = async () => {
         :prop="`translate.${currentIndexLocale}.recognition_text`"
       >
         <ElInput v-model="form.translate[currentIndexLocale].recognition_text" />
+      </ElFormItem>
+
+      <ElFormItem>
+        <h2 style="font-size: 24px">
+          Recognition cities
+        </h2>
+      </ElFormItem>
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].recognition_cities" :key="`ml-${idx}`">
+        <ElFormItem
+          label="Recognition city name"
+          :prop="`translate.${currentIndexLocale}.recognition_cities.${idx}.name`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].recognition_cities[idx].name" />
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElButton
+            type="danger"
+            @click="form.translate[currentIndexLocale].recognition_cities = removeItemByIdx(form.translate[currentIndexLocale].recognition_cities, idx)"
+          >
+            <ElIcon>
+              <ElIconDelete />
+            </ElIcon>
+          </ElButton>
+        </ElFormItem>
+      </template>
+
+      <ElFormItem>
+        <ElButton
+          type="default"
+          @click="
+            form.translate[currentIndexLocale].recognition_cities.push({
+              name: '',
+            })
+          "
+        >
+          Add city
+        </ElButton>
+      </ElFormItem>
+
+      <ElFormItem>
+        <h2 style="font-size: 24px">
+          Achievements
+        </h2>
+      </ElFormItem>
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].achievements" :key="`ml-${idx}`">
+        <ElFormItem
+          label="Achievement text"
+          :prop="`translate.${currentIndexLocale}.achievements.${idx}.text`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].achievements[idx].text" />
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElButton
+            type="danger"
+            @click="form.translate[currentIndexLocale].achievements = removeItemByIdx(form.translate[currentIndexLocale].achievements, idx)"
+          >
+            <ElIcon>
+              <ElIconDelete />
+            </ElIcon>
+          </ElButton>
+        </ElFormItem>
+      </template>
+
+      <ElFormItem>
+        <ElButton
+          type="default"
+          @click="
+            form.translate[currentIndexLocale].achievements.push({
+              text: '',
+            })
+          "
+        >
+          Add achievement
+        </ElButton>
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">
