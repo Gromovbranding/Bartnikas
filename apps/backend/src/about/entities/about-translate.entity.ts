@@ -59,7 +59,7 @@ export class AboutTranslate {
   recognition_text: string;
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb' })
+  @Column({ array: true, type: 'jsonb', default: () => "'[]'" })
   recognition_cities: { name: string }[];
 
   @ApiProperty()

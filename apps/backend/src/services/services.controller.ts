@@ -20,8 +20,8 @@ import { DeleteAnyResponseDto } from 'src/shared/dto/delete-any-response.dto';
 import { UpdateServicesDto } from './dto/update-services.dto';
 import { Services } from './entities/services.entity';
 
-@ApiTags('Place of power')
-@Controller('services/services')
+@ApiTags('services')
+@Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 

@@ -71,7 +71,7 @@ export class PlaceOfPowerTranslate {
   exclusive_subtitle: string;
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb' })
+  @Column({ array: true, type: 'jsonb', default: () => "'[]'" })
   exclusive_rates: {
     title: string;
     benefits: string;
