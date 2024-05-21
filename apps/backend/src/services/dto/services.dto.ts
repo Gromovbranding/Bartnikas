@@ -1,9 +1,11 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsNotEmpty,
   IsString,
+  IsObject,
   ValidateNested,
 } from 'class-validator';
 import { CreateTranslateLanguageDto } from 'src/shared/language/dto/create-translate.dto';
@@ -123,6 +125,23 @@ export class CreatePhotoportalDto {
   translate: CreateTranslatePhotoportalDto[];
 }
 
+class CreateTranslateExclusiveRateDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  benefits: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsObject()
+  footer: { description: string; text: string };
+}
+
 export class CreateTranslatePlaceOfPowerDto extends IntersectionType(
   CreateTranslateLanguageDto,
 ) {
@@ -185,6 +204,12 @@ export class CreateTranslatePlaceOfPowerDto extends IntersectionType(
   @IsNotEmpty()
   @IsString()
   exclusive_subtitle: string;
+
+  @ApiProperty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslateExclusiveRateDto)
+  exclusive_rates: CreateTranslateExclusiveRateDto[];
 
   @ApiProperty()
   @IsNotEmpty()

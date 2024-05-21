@@ -251,7 +251,7 @@ export interface IServices {
 
 interface IPlaceOfPowerExclusiveRate {
   title: string;
-  benefits: string[];
+  benefits: string;
   footer: {
     description: string;
     text: string;
@@ -304,7 +304,7 @@ export interface IPlaceOfPower {
   id: number;
   is_active: boolean;
   translate: TranslateLang<IPlaceOfPowerTranslate>[];
-  transformationSlides: IFile[];
+  // transformationSlides: IFile[];
   created_at: string;
   updated_at: string;
 }

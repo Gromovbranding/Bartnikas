@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { AdminTemplateForm } from '#components'
+import type { IPlaceOfPowerTranslate } from '~/types/admin-api'
 
 definePageMeta({
   layout: 'admin'
@@ -16,7 +17,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive({
   is_active: false,
-  translate: initTranslateLocale({
+  translate: initTranslateLocale<IPlaceOfPowerTranslate>({
     title: '',
     subtitle: '',
     quote_text: '',
@@ -29,6 +30,7 @@ const form = reactive({
     exclusive_title: '',
     exclusive_head_text: '',
     exclusive_subtitle: '',
+    exclusive_rates: [],
     exclusive_footer_info: '',
     exclusive_footer_btn: '',
     popup_title: '',
@@ -139,6 +141,89 @@ const handleCreate = async () => {
       >
         <ElInput v-model="form.translate[currentIndexLocale].exclusive_subtitle" />
       </ElFormItem>
+
+      <ElFormItem>
+        <h2 style="font-size: 24px">
+          Exclusive rates
+        </h2>
+      </ElFormItem>
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].exclusive_rates" :key="`ml-${idx}`">
+        <ElFormItem
+          label="Rate title"
+          :prop="`translate.${currentIndexLocale}.exclusive_rates.${idx}.title`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].exclusive_rates[idx].title" />
+        </ElFormItem>
+
+        <ElFormItem
+          label="Rate benefits"
+          :prop="`translate.${currentIndexLocale}.exclusive_rates.${idx}.benefits`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].exclusive_rates[idx].benefits" />
+        </ElFormItem>
+
+        <ElFormItem
+          label="Rate footer description"
+          :prop="`translate.${currentIndexLocale}.exclusive_rates.${idx}.footer.description`"
+          :rules="{
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].exclusive_rates[idx].footer.description" />
+        </ElFormItem>
+
+        <ElFormItem
+          label="Rate footer text"
+          :prop="`translate.${currentIndexLocale}.exclusive_rates.${idx}.footer.text`"
+          :rules="{
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].exclusive_rates[idx].footer.text" />
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElButton
+            type="danger"
+            @click="form.translate[currentIndexLocale].exclusive_rates = removeItemByIdx(form.translate[currentIndexLocale].exclusive_rates, idx)"
+          >
+            <ElIcon>
+              <ElIconDelete />
+            </ElIcon>
+          </ElButton>
+        </ElFormItem>
+      </template>
+
+      <ElFormItem>
+        <ElButton
+          type="default"
+          @click="
+            form.translate[currentIndexLocale].exclusive_rates.push({
+              title: '',
+              benefits: '',
+              footer: {
+                description: '',
+                text: ''
+              }
+            })
+          "
+        >
+          Add exclusive rate
+        </ElButton>
+      </ElFormItem>
+
       <ElFormItem
         :label="'Exclusive footer info'"
         :prop="`translate.${currentIndexLocale}.exclusive_footer_info`"

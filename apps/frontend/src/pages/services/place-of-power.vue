@@ -215,7 +215,7 @@ console.log(translated)
             </h4>
             <ul class="exclusive__rates-item-benefits">
               <li
-                v-for="benefit in item.benefits"
+                v-for="benefit in item.benefits.split('<br>')"
                 :key="benefit"
                 class="exclusive__rates-item-benefit"
               >
