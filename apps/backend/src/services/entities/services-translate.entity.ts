@@ -27,7 +27,7 @@ export class ServicesTranslate {
   title: string;
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb' })
+  @Column({ array: false, type: 'jsonb' })
   services: {
     title: string;
     text: string;

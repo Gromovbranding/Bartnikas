@@ -31,7 +31,7 @@ export class AboutTranslate {
   subtitle: string;
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb' })
+  @Column({ array: false, type: 'jsonb' })
   advantages: { value: string; text: string }[];
 
   @ApiProperty()
@@ -59,11 +59,11 @@ export class AboutTranslate {
   recognition_text: string;
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb', default: () => "'[]'" })
+  @Column({ array: false, type: 'jsonb', default: () => "'[]'" })
   recognition_cities: { name: string }[];
 
   @ApiProperty()
-  @Column({ array: true, type: 'jsonb' })
+  @Column({ array: false, type: 'jsonb' })
   achievements: { text: string }[];
 
   @ApiProperty({ type: () => Language })
