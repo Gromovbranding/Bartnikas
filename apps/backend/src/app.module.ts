@@ -29,6 +29,7 @@ import emailSmpt from './config/email-smpt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ServicesModule } from './services/services.module';
+import { AboutModule } from './about/about.module';
 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
@@ -57,6 +58,7 @@ if (!process.env.NODE_ENV) {
         configService.get('database'),
     }),
 
+    AboutModule,
     ServicesModule,
     NewsModule,
     BlogsModule,
