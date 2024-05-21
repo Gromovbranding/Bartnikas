@@ -66,6 +66,62 @@ const handleUpdate = async () => {
       >
         <ElInput v-model="form.translate[currentIndexLocale].subtitle" />
       </ElFormItem>
+
+      <ElFormItem>
+        <h2 style="font-size: 24px">
+          Advantages
+        </h2>
+      </ElFormItem>
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].advantages" :key="`ml-${idx}`">
+        <ElFormItem
+          label="Advantage value"
+          :prop="`translate.advantages.${idx}.value`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].advantages[idx].value" />
+        </ElFormItem>
+        <ElFormItem
+          label="Advantage text"
+          :prop="`translate.advantages.${idx}.text`"
+          :rules="{
+            required: true,
+            message: 'field is required',
+            trigger: 'blur',
+          }"
+        >
+          <ElInput v-model="form.translate[currentIndexLocale].advantages[idx].text" />
+        </ElFormItem>
+
+        <ElFormItem>
+          <ElButton
+            type="danger"
+            @click="form.translate[currentIndexLocale].advantages = removeItemByIdx(form.translate[currentIndexLocale].advantages, idx)"
+          >
+            <ElIcon>
+              <ElIconDelete />
+            </ElIcon>
+          </ElButton>
+        </ElFormItem>
+      </template>
+
+      <ElFormItem>
+        <ElButton
+          type="default"
+          @click="
+            form.translate[currentIndexLocale].advantages.push({
+              value: '',
+              text: '',
+            })
+          "
+        >
+          Add advantage
+        </ElButton>
+      </ElFormItem>
+
       <ElFormItem
         :label="'Concept title'"
         :prop="`translate.${currentIndexLocale}.concept_title`"
