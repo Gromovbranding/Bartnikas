@@ -223,18 +223,11 @@ export interface IAbout {
   updated_at: string;
 }
 
-export interface IServiceTranslate {
+export interface IService {
   title: string;
   text: string;
   btn: { text: string; url: string; };
-}
-
-export interface IService {
-  id: number;
-  translate: TranslateLang<IServiceTranslate>[];
-  image: IFile;
-  created_at: string;
-  updated_at: string;
+  // image: IFile;
 }
 
 export interface IServicesTranslate {
@@ -244,6 +237,7 @@ export interface IServicesTranslate {
 
 export interface IServices {
   id: number;
+  is_active: boolean;
   translate: TranslateLang<IServicesTranslate>[];
   created_at: string;
   updated_at: string;
