@@ -581,7 +581,7 @@ export const useAdmin = () => {
   }
 
   const servicesPhotoportal = () => {
-    const path = 'services/photoportal'
+    const path = 'photoportal'
 
     const methods = getModelFetchers<IPhotoportal>(path)
 
@@ -600,7 +600,7 @@ export const useAdmin = () => {
   }
 
   const servicesPlaceOfPower = () => {
-    const path = 'services/place-of-power'
+    const path = 'place-of-power'
 
     const methods = getModelFetchers<IPlaceOfPower>(path)
 
