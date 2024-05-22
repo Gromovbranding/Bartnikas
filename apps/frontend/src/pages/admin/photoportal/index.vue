@@ -14,7 +14,7 @@ const {
   handleEdit,
   handleDelete,
   data: { entities, pending }
-} = useAdmin().makeFetchersForIndexCard(headTitle.value, 'services/photoportal')
+} = useAdmin().makeFetchersForIndexCard(headTitle.value, 'photoportal')
 </script>
 
 <template>

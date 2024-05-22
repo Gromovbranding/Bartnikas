@@ -126,9 +126,9 @@ export const usePublicData = () => {
 
   const getServices = async () => await fetchGet<IServices>('services/only/active')
 
-  const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('services/place-of-power/only/active')
+  const getPlaceOfPower = async () => await fetchGet<IPlaceOfPower>('place-of-power/only/active')
 
-  const getPhotoportal = async () => await fetchGet<IPhotoportal>('services/photoportal/only/active')
+  const getPhotoportal = async () => await fetchGet<IPhotoportal>('photoportal/only/active')
 
   const getAbout = async () => await fetchGet<IAbout>('about/only/active')
 

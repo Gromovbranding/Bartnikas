@@ -21,7 +21,7 @@ import { CreatePhotoportalDto } from './dto/services.dto';
 import { UpdatePhotoportalDto } from './dto/update-services.dto';
 
 @ApiTags('Services Photoportal')
-@Controller('services/photoportal')
+@Controller('photoportal')
 export class PhotoportalController {
   constructor(private readonly photoportalService: PhotoportalService) {}
 

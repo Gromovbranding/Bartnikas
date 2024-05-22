@@ -21,7 +21,7 @@ import { UpdatePlaceOfPowerDto } from './dto/update-services.dto';
 import { PlaceOfPower } from './entities/place-of-power.entity';
 
 @ApiTags('Place of power')
-@Controller('services/place-of-power')
+@Controller('place-of-power')
 export class PlaceOfPowerController {
   constructor(private readonly placeOfPowerService: PlaceOfPowerService) {}
 
