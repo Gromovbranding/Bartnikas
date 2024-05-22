@@ -106,11 +106,14 @@ console.log(translated)
           </p>
         </div>
       </AppContainer>
-      <NuxtImg
-        class="intro__img"
-        loading="lazy"
-        src="/img/place_of_power_intro.png"
-      />
+      <div class="intro__img-container">
+        <NuxtImg
+          class="intro__img"
+          loading="lazy"
+          src="/img/place_of_power_intro.png"
+        />
+        <IconLogoIcon class="intro__logo-icon" />
+      </div>
     </section>
 
     <section class="bartnikas-quote">
@@ -305,9 +308,22 @@ console.log(translated)
     max-width: 38.802rem;
   }
 
+  &__img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
   &__img {
     width: 100%;
     display: flex;
+  }
+
+  &__logo-icon {
+    color: #fff;
+    position: absolute;
+    width: 7.823rem;
   }
 }
 
@@ -364,6 +380,7 @@ console.log(translated)
   }
 
   &__text-item-icon {
+    color: $colorAccentBlue;
     width: 1.146rem;
     height: 1.146rem;
   }
@@ -604,6 +621,10 @@ console.log(translated)
     &__img {
       height: 61.069rem;
       object-fit: cover;
+    }
+
+    &__logo-icon {
+      width: 9.244rem;
     }
   }
 
