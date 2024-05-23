@@ -216,19 +216,19 @@ export default defineI18nConfig(() => ({
           btn: 'Оплатить',
           textfields: {
             name: {
-              label: 'Ваше имя',
-              placeholder: 'Ваше имя'
+              label: 'Your name',
+              placeholder: 'Your name'
             },
             mail: {
-              label: 'Почта',
+              label: 'Email',
               placeholder: "mail{'@'}example.com"
             },
             phone: {
-              label: 'Телефон',
+              label: 'Phone',
               placeholder: '+7 (999) 999-99-99'
             },
             address: {
-              label: 'Адрес',
+              label: 'Address',
               placeholder: '111111, Moscow, Lenina street'
             }
           },
