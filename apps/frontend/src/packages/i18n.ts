@@ -164,11 +164,11 @@ export default defineI18nConfig(() => ({
           btn: 'Оставить заявку',
           textfields: {
             name: {
-              label: 'Ваше имя',
-              placeholder: 'Ваше имя'
+              label: 'Your name',
+              placeholder: 'Your name'
             },
             mail: {
-              label: 'Почта',
+              label: 'Email',
               placeholder: "mail{'@'}example.com"
             }
           },
