@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AdminTemplateForm } from '#components'
-import type { IAboutTranslate } from '~/types/admin-api'
+import type { IAbout, IAboutTranslate, PartialAdminApiDto } from '~/types/admin-api'
 
 definePageMeta({
   layout: 'admin'
@@ -15,7 +15,7 @@ useHeadSafe({
 
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
-const form = reactive({
+const form = reactive<PartialAdminApiDto<IAbout>>({
   is_active: false,
   translate: initTranslateLocale<IAboutTranslate>({
     title: '',
@@ -172,7 +172,7 @@ const handleCreate = async () => {
       </ElFormItem>
       <template v-for="(item, idx) in form.translate[currentIndexLocale].recognition_cities" :key="`ml-${idx}`">
         <ElFormItem
-          label="Recognition city name"
+          label="City name"
           :prop="`translate.${currentIndexLocale}.recognition_cities.${idx}.name`"
           :rules="{
             required: true,
