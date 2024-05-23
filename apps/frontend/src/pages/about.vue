@@ -148,7 +148,7 @@ function getGroupVideos (group: string) {
           >
             <div v-for="part in 2" :key="part" class="recognition__ticker-part">
               <div
-                v-for="(city, index) in translated?.recognition_cities.slice(0, 3)"
+                v-for="(city, index) in translated?.recognition_cities.slice(0, 4)"
                 :key="city.name"
                 class="recognition__city"
               >
@@ -170,7 +170,7 @@ function getGroupVideos (group: string) {
           >
             <div v-for="part in 2" :key="part" class="recognition__ticker-part">
               <div
-                v-for="(city, index) in translated?.recognition_cities.slice(3)"
+                v-for="(city, index) in translated?.recognition_cities.slice(4)"
                 :key="city.name"
                 class="recognition__city"
               >

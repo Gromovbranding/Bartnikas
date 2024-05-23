@@ -117,19 +117,22 @@ onMounted(() => {
             loading="lazy"
             src="/img/photoportal_intro.png"
           />
-          <ul class="peculiarities__list">
-            <li
-              v-for="item in translated?.peculiarities_list.split('<br>')"
-              :key="item"
-              class="peculiarities__item"
-            >
-              <div class="peculiarities__item-content">
+          <div class="peculiarities__list">
+            <ul class="peculiarities__items">
+              <li v-for="item in translated?.peculiarities_list.split('<br>').slice(0, 4)" :key="item" class="peculiarities__item">
                 <p class="peculiarities__item-text">
                   {{ item }}
                 </p>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+            <ul class="peculiarities__items">
+              <li v-for="item in translated?.peculiarities_list.split('<br>').slice(4)" :key="item" class="peculiarities__item">
+                <p class="peculiarities__item-text">
+                  {{ item }}
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
       </AppContainer>
     </section>
@@ -235,6 +238,9 @@ onMounted(() => {
 
   &__title {
     font-size: 6.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
 
   &__main {
@@ -242,6 +248,10 @@ onMounted(() => {
     align-items: center;
     gap: 2.083rem;
     align-self: center;
+  }
+
+  &__img {
+    width: 32.604rem;
   }
 
   &__main-action {
@@ -290,24 +300,20 @@ onMounted(() => {
   &__list {
     font-size: 1.25rem;
     display: flex;
-    flex-wrap: wrap;
-    row-gap: 2.969rem;
+    justify-content: space-between;
     padding-top: 4.323rem;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 2.969rem;
+    width: 20rem;
   }
 
   &__item {
     display: flex;
-    min-width: 50%;
-
-    &:nth-child(even) {
-      justify-content: flex-end;
-    }
-  }
-
-  &__item-content {
-    display: flex;
     gap: 0.365rem;
-    width: 20rem;
 
     &::before {
       content: '•';
@@ -435,6 +441,26 @@ onMounted(() => {
     padding-top: 5rem;
   }
 
+  .peculiarities {
+    &__img {
+      position: static;
+      transform: translate(0);
+      width: 100%;
+      margin-bottom: 2.036rem;
+    }
+
+    &__list {
+      flex-direction: column;
+      gap: 0.7rem;
+      padding-top: 0;
+    }
+
+    &__items {
+      width: 100%;
+      gap: 0.7rem;
+    }
+  }
+
   .influence {
     &__img {
       width: 50%;
@@ -520,6 +546,11 @@ onMounted(() => {
       flex-direction: column;
       gap: 0.7rem;
       padding-top: 0;
+    }
+
+    &__items {
+      width: 100%;
+      gap: 0.7rem;
     }
 
     &__item {
