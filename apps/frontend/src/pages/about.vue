@@ -62,7 +62,9 @@ function getGroupVideos (group: string) {
     <Title>{{ $t('titles.about') }}</Title>
 
     <section class="intro">
-      <IconLogoIcon class="intro__logo" />
+      <NuxtLink to="/" class="intro__logo-container">
+        <IconLogoIcon class="intro__logo" />
+      </NuxtLink>
 
       <h1 ref="introTitleBlock" class="intro__title">
         {{ translated?.title }}
@@ -234,12 +236,15 @@ function getGroupVideos (group: string) {
   display: flex;
   flex-direction: column;
 
+  &__logo-container {
+    align-self: center;
+    margin-bottom: 1.094rem;
+  }
+
   &__logo {
     color: $colorAccentBlue;
-    align-self: center;
     width: 6.458rem;
     height: 6.458rem;
-    margin-bottom: 1.094rem;
   }
 
   &__title {
@@ -426,6 +431,7 @@ function getGroupVideos (group: string) {
 
   &__item-img {
     max-width: 100%;
+    border-radius: 0;
   }
 
   &__item-text {
@@ -523,10 +529,13 @@ function getGroupVideos (group: string) {
     padding-top: 1.018rem;
     padding-bottom: 4.071rem;
 
+    &__logo-container {
+      margin-bottom: 1.018rem;
+    }
+
     &__logo {
       width: 6.107rem;
       height: 6.107rem;
-      margin-bottom: 1.018rem;
     }
 
     &__title {

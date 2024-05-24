@@ -15,35 +15,39 @@ const translated = reactive(
   useTranslateLanguage<IPlaceOfPowerTranslate>(placeOfPower.value?.translate ?? [])
 )
 
-const popupTextFields: Ref<ITextField[]> = ref([
-  {
-    label: t('placeOfPower.popup.textfields.name.label'),
-    placeholder: t('placeOfPower.popup.textfields.name.placeholder'),
-    key: 'name',
-    inputType: 'text'
-  },
-  {
-    label: t('placeOfPower.popup.textfields.mail.label'),
-    placeholder: t('placeOfPower.popup.textfields.mail.placeholder'),
-    key: 'mail',
-    inputType: 'email'
-  }
-])
+const popupTextFields: ComputedRef<ITextField[]> = computed(() => {
+  return [
+    {
+      label: t('placeOfPower.popup.textfields.name.label'),
+      placeholder: t('placeOfPower.popup.textfields.name.placeholder'),
+      key: 'name',
+      inputType: 'text'
+    },
+    {
+      label: t('placeOfPower.popup.textfields.mail.label'),
+      placeholder: t('placeOfPower.popup.textfields.mail.placeholder'),
+      key: 'mail',
+      inputType: 'email'
+    }
+  ]
+})
 
-const breadcrumbLinks = ref([
-  {
-    href: '/',
-    text: t('titles.home')
-  },
-  {
-    href: '/services',
-    text: t('titles.services')
-  },
-  {
-    href: '/services/place-of-power',
-    text: t('titles.placeOfPower')
-  }
-])
+const breadcrumbLinks = computed(() => {
+  return [
+    {
+      href: '/',
+      text: t('titles.home')
+    },
+    {
+      href: '/services',
+      text: t('titles.services')
+    },
+    {
+      href: '/services/place-of-power',
+      text: t('titles.placeOfPower')
+    }
+  ]
+})
 
 const artefactTitleBlock = ref()
 const { $anime } = useNuxtApp()
@@ -197,9 +201,7 @@ console.log(translated)
           loading="lazy"
           src="/img/exclusive_head.png"
         />
-        <p class="exclusive__head-text">
-          {{ translated?.exclusive_head_text }}
-        </p>
+        <p class="exclusive__head-text" v-html="translated?.exclusive_head_text" />
       </div>
 
       <AppContainer class="exclusive__container">

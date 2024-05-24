@@ -42,3 +42,5 @@ export interface IExclusiveRate {
     text: string
   }
 }
+
+export type IBlockType = Element | ComponentPublicInstance | null

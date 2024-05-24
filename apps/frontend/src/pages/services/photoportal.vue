@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IPhotoportal, IPhotoportalTranslate } from '~/types/admin-api'
-import type { ITextField } from '~/types/types'
+import type { IBlockType, ITextField } from '~/types/types'
 
 const { getPhotoportal } = usePublicData()
 
@@ -17,54 +17,70 @@ const translated = reactive(
   )
 )
 
-const breadcrumbLinks = ref([
-  {
-    href: '/',
-    text: t('titles.home')
-  },
-  {
-    href: '/services',
-    text: t('titles.services')
-  },
-  {
-    href: '/services/photoportal',
-    text: t('titles.photoportal')
-  }
-])
+const breadcrumbLinks = computed(() => {
+  return [
+    {
+      href: '/',
+      text: t('titles.home')
+    },
+    {
+      href: '/services',
+      text: t('titles.services')
+    },
+    {
+      href: '/services/photoportal',
+      text: t('titles.photoportal')
+    }
+  ]
+})
 
 const popupIsOpen = ref(false)
-const popupTextFields: Ref<ITextField[]> = ref([
-  {
-    label: t('photoportal.popup.textfields.name.label'),
-    placeholder: t('photoportal.popup.textfields.name.placeholder'),
-    key: 'name',
-    inputType: 'text'
-  },
-  {
-    label: t('photoportal.popup.textfields.mail.label'),
-    placeholder: t('photoportal.popup.textfields.mail.placeholder'),
-    key: 'mail',
-    inputType: 'email'
-  },
-  {
-    label: t('photoportal.popup.textfields.phone.label'),
-    placeholder: t('photoportal.popup.textfields.phone.placeholder'),
-    key: 'phone',
-    inputType: 'tel'
-  },
-  {
-    label: t('photoportal.popup.textfields.address.label'),
-    placeholder: t('photoportal.popup.textfields.address.placeholder'),
-    key: 'address',
-    inputType: 'text'
-  }
-])
+const popupTextFields: ComputedRef<ITextField[]> = computed(() => {
+  return [
+    {
+      label: t('photoportal.popup.textfields.name.label'),
+      placeholder: t('photoportal.popup.textfields.name.placeholder'),
+      key: 'name',
+      inputType: 'text'
+    },
+    {
+      label: t('photoportal.popup.textfields.mail.label'),
+      placeholder: t('photoportal.popup.textfields.mail.placeholder'),
+      key: 'mail',
+      inputType: 'email'
+    },
+    {
+      label: t('photoportal.popup.textfields.phone.label'),
+      placeholder: t('photoportal.popup.textfields.phone.placeholder'),
+      key: 'phone',
+      inputType: 'tel'
+    },
+    {
+      label: t('photoportal.popup.textfields.address.label'),
+      placeholder: t('photoportal.popup.textfields.address.placeholder'),
+      key: 'address',
+      inputType: 'text'
+    }
+  ]
+})
 
-const quoteBlock = ref<HTMLElement>()
+const quoteBlockRef = ref<IBlockType[]>([])
+
+function setQuoteBlockRef (el: IBlockType) {
+  if (el) {
+    quoteBlockRef.value.push(el)
+  }
+}
+
+onBeforeUpdate(() => {
+  quoteBlockRef.value = []
+})
 
 onMounted(() => {
-  if (quoteBlock.value) {
-    useColorChangerOnScroll(quoteBlock.value, 'rgb(66, 136, 193)')
+  if (quoteBlockRef.value) {
+    for (const item of quoteBlockRef.value) {
+      useColorChangerOnScroll(item as HTMLElement, 'rgb(66, 136, 193)')
+    }
   }
 })
 </script>
@@ -147,7 +163,7 @@ onMounted(() => {
           loading="lazy"
           src="/img/influence.png"
         />
-        <p class="influence__quote">
+        <div class="influence__quote">
           <q class="influence__quote-text">
             <span
               v-for="span in translated?.influence_quote_text.split('<br>')"
@@ -156,10 +172,11 @@ onMounted(() => {
             >
               {{ span }}
             </span>
-            <span ref="quoteBlock" class="influence__quote-text-accent">
+            <span class="influence__quote-text-accent">
               <span
                 v-for="span in translated?.influence_quote_accent_text.split('<br>')"
                 :key="span"
+                :ref="el => setQuoteBlockRef(el)"
               >
                 {{ span }}
               </span>
@@ -168,7 +185,7 @@ onMounted(() => {
           <span class="influence__quote-author">
             {{ translated?.influence_quote_author }}
           </span>
-        </p>
+        </div>
       </div>
     </section>
 

@@ -2,16 +2,18 @@
 
 const { t } = useI18n()
 
-const breadcrumbLinks = ref([
-  {
-    href: '/',
-    text: t('titles.home')
-  },
-  {
-    href: '/services',
-    text: t('titles.services')
-  }
-])
+const breadcrumbLinks = computed(() => {
+  return [
+    {
+      href: '/',
+      text: t('titles.home')
+    },
+    {
+      href: '/services',
+      text: t('titles.services')
+    }
+  ]
+})
 </script>
 
 <template>
