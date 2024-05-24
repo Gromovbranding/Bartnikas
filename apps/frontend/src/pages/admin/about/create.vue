@@ -64,13 +64,13 @@ const handleCreate = async () => {
         :label="'Title'"
         :prop="`translate.${currentIndexLocale}.title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
       <ElFormItem
         :label="'Subtitle'"
         :prop="`translate.${currentIndexLocale}.subtitle`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].subtitle" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].subtitle" />
       </ElFormItem>
 
       <ElFormItem>
@@ -88,7 +88,7 @@ const handleCreate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].advantages[idx].value" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].advantages[idx].value" />
         </ElFormItem>
         <ElFormItem
           label="Advantage text"
@@ -99,7 +99,7 @@ const handleCreate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].advantages[idx].text" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].advantages[idx].text" />
         </ElFormItem>
 
         <ElFormItem>
@@ -132,37 +132,37 @@ const handleCreate = async () => {
         :label="'Concept title'"
         :prop="`translate.${currentIndexLocale}.concept_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].concept_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].concept_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Concept text'"
         :prop="`translate.${currentIndexLocale}.concept_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].concept_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].concept_text" />
       </ElFormItem>
       <ElFormItem
         :label="'Ticker title'"
         :prop="`translate.${currentIndexLocale}.ticker_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].ticker_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].ticker_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Ticker text'"
         :prop="`translate.${currentIndexLocale}.ticker_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].ticker_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].ticker_text" />
       </ElFormItem>
       <ElFormItem
         :label="'Recognition title'"
         :prop="`translate.${currentIndexLocale}.recognition_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].recognition_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].recognition_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Recognition text'"
         :prop="`translate.${currentIndexLocale}.recognition_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].recognition_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].recognition_text" />
       </ElFormItem>
 
       <ElFormItem>
@@ -180,7 +180,7 @@ const handleCreate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].recognition_cities[idx].name" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].recognition_cities[idx].name" />
         </ElFormItem>
 
         <ElFormItem>
@@ -223,7 +223,7 @@ const handleCreate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].achievements[idx].text" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].achievements[idx].text" />
         </ElFormItem>
 
         <ElFormItem>

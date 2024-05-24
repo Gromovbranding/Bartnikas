@@ -58,7 +58,7 @@ const handleUpdate = async () => {
         :label="'Title'"
         :prop="`translate.${currentIndexLocale}.title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
 
       <ElFormItem>
@@ -76,7 +76,7 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].services[idx].title" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].services[idx].title" />
         </ElFormItem>
 
         <ElFormItem
@@ -88,7 +88,7 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].services[idx].text" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].services[idx].text" />
         </ElFormItem>
 
         <ElFormItem
@@ -100,7 +100,7 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].services[idx].btn.text" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].services[idx].btn.text" />
         </ElFormItem>
 
         <ElFormItem
@@ -112,7 +112,7 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].services[idx].btn.url" />
+          <AdminEditorInput v-model="form.translate[currentIndexLocale].services[idx].btn.url" />
         </ElFormItem>
 
         <ElFormItem>

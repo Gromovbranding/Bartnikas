@@ -58,121 +58,121 @@ const handleUpdate = async () => {
         :label="'Title'"
         :prop="`translate.${currentIndexLocale}.intro_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].intro_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].intro_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Intro action'"
         :prop="`translate.${currentIndexLocale}.intro_action`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].intro_action" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].intro_action" />
       </ElFormItem>
       <ElFormItem
         :label="'Subtitle'"
         :prop="`translate.${currentIndexLocale}.intro_subtitle`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].intro_subtitle" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].intro_subtitle" />
       </ElFormItem>
       <ElFormItem
         :label="'Peculiarities list'"
         :prop="`translate.${currentIndexLocale}.peculiarities_list`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].peculiarities_list" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].peculiarities_list" />
       </ElFormItem>
       <ElFormItem
         :label="'Peculiarities title'"
         :prop="`translate.${currentIndexLocale}.peculiarities_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].peculiarities_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].peculiarities_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Influence title'"
         :prop="`translate.${currentIndexLocale}.influence_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].influence_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].influence_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Influence quot text'"
         :prop="`translate.${currentIndexLocale}.influence_quote_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].influence_quote_text" />
       </ElFormItem>
       <ElFormItem
         :label="'Influence quote accent text'"
         :prop="`translate.${currentIndexLocale}.influence_quote_accent_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_accent_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].influence_quote_accent_text" />
       </ElFormItem>
       <ElFormItem
         :label="'Influence quote author'"
         :prop="`translate.${currentIndexLocale}.influence_quote_author`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].influence_quote_author" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].influence_quote_author" />
       </ElFormItem>
       <ElFormItem
         :label="'For what title'"
         :prop="`translate.${currentIndexLocale}.for_what_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].for_what_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].for_what_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Popup title'"
         :prop="`translate.${currentIndexLocale}.popup_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].popup_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].popup_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Popup subtitle accent'"
         :prop="`translate.${currentIndexLocale}.popup_subtitle_accent`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].popup_subtitle_accent" />
       </ElFormItem>
       <ElFormItem
         :label="'For what list '"
         :prop="`translate.${currentIndexLocale}.for_what_list `"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].for_what_list " />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].for_what_list " />
       </ElFormItem>
       <ElFormItem
         :label="'Popup subtitle'"
         :prop="`translate.${currentIndexLocale}.popup_subtitle `"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].popup_subtitle " />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].popup_subtitle " />
       </ElFormItem>
       <ElFormItem
         :label="'Popup button text'"
         :prop="`translate.${currentIndexLocale}.popup_btn`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].popup_btn" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].popup_btn" />
       </ElFormItem>
       <ElFormItem
         :label="'Popup agreement'"
         :prop="`translate.${currentIndexLocale}.agreement`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].agreement" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].agreement" />
       </ElFormItem>
       <ElFormItem
         :label="'Special title'"
         :prop="`translate.${currentIndexLocale}.special_title`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].special_title" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].special_title" />
       </ElFormItem>
       <ElFormItem
         :label="'Special description'"
         :prop="`translate.${currentIndexLocale}.special_description`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].special_description" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].special_description" />
       </ElFormItem>
       <ElFormItem
         :label="'Special footer text'"
         :prop="`translate.${currentIndexLocale}.special_footer_text`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].special_footer_text" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].special_footer_text" />
       </ElFormItem>
       <ElFormItem
         :label="'Special action'"
         :prop="`translate.${currentIndexLocale}.special_action`"
       >
-        <ElInput v-model="form.translate[currentIndexLocale].special_action" />
+        <AdminEditorInput v-model="form.translate[currentIndexLocale].special_action" />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">
