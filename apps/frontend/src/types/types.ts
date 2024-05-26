@@ -21,7 +21,7 @@ type IInputTypes =
   | 'time'
   | 'url'
   | 'week'
-export type ITextFieldKeys = 'name' | 'mail' | 'address' | 'phone'
+export type ITextFieldKeys = 'name' | 'email' | 'address' | 'phone'
 
 export interface ITextField {
   label: string

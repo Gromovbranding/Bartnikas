@@ -46,7 +46,7 @@ const popupTextFields: ComputedRef<ITextField[]> = computed(() => {
     {
       label: t('photoportal.popup.textfields.mail.label'),
       placeholder: t('photoportal.popup.textfields.mail.placeholder'),
-      key: 'mail',
+      key: 'email',
       inputType: 'email'
     },
     {

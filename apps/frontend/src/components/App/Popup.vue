@@ -16,15 +16,20 @@ defineEmits<{
   close: []
 }>()
 
+const { fetchPost } = useApi()
+const route = useRoute()
+
+console.log(route)
+
 const formData: IFormData = reactive({
   name: '',
-  mail: '',
+  email: '',
   address: '',
   phone: ''
 })
 
-function handleSubmit () {
-  console.log(formData)
+async function handleSubmit () {
+  await fetchPost(`${route.fullPath}/request/order`, { ...formData })
 }
 </script>
 
