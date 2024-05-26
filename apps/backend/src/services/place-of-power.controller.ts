@@ -19,6 +19,7 @@ import { Public } from 'src/auth/constants';
 import { DeleteAnyResponseDto } from 'src/shared/dto/delete-any-response.dto';
 import { UpdatePlaceOfPowerDto } from './dto/update-services.dto';
 import { PlaceOfPower } from './entities/place-of-power.entity';
+import { OrderPlaceOfPowerDto } from './dto/order-place-of-power.dto';
 
 @ApiTags('Place of power')
 @Controller('place-of-power')
@@ -77,5 +78,12 @@ export class PlaceOfPowerController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.placeOfPowerService.remove(+id);
+  }
+
+  @ApiOkResponse()
+  @Public()
+  @Post('/request/order')
+  orderPlaceOfPower(@Body() dto: OrderPlaceOfPowerDto) {
+    return this.placeOfPowerService.orderByEmail(dto);
   }
 }

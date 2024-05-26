@@ -70,7 +70,8 @@ export default defineNuxtConfig({
       apiBaseUrl: APP_CONFIG.BASE_API_URL,
       apiFilesUrl: APP_CONFIG.BASE_API_FILES,
       avaiableLocales: APP_CONFIG.AVAILABLE_LOCALES,
-      DOMAIN: APP_CONFIG.DOMAIN
+      DOMAIN: APP_CONFIG.DOMAIN,
+      STRIPE_PUB_KEY: process.env.STRIPE_PUB_KEY
     }
   },
 

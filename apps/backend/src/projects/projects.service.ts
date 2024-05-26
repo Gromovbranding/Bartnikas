@@ -235,6 +235,6 @@ export class ProjectsService {
   }
 
   async orderByPayment(dto: OrderByPaymentDto) {
-    return await this.paymentsService.createPayment(dto);
+    return (await this.paymentsService.createPaymentStripe(dto))?.client_secret;
   }
 }

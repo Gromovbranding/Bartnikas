@@ -13,6 +13,9 @@ import { Services } from './entities/services.entity';
 import { ServicesTranslate } from './entities/services-translate.entity';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
+import { EmailSender } from 'src/shared/services/email-sender.service';
+import { PaymentsService } from 'src/shared/services/payments.service';
+import { PhotoportalOrder } from './entities/photoportal-order.entity';
 
 @Module({
   imports: [
@@ -23,6 +26,7 @@ import { ServicesService } from './services.service';
       PlaceOfPowerTranslate,
       Photoportal,
       PhotoportalTranslate,
+      PhotoportalOrder,
     ]),
     LanguageModule,
   ],
@@ -31,6 +35,12 @@ import { ServicesService } from './services.service';
     PlaceOfPowerController,
     PhotoportalController,
   ],
-  providers: [ServicesService, PlaceOfPowerService, PhotoportalService],
+  providers: [
+    ServicesService,
+    PlaceOfPowerService,
+    PhotoportalService,
+    EmailSender,
+    PaymentsService,
+  ],
 })
 export class ServicesModule {}
