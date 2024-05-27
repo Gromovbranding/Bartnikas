@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { IFormData, ITextField } from '~/types/types'
 
-defineProps<{
+const props = defineProps<{
   title: string
   subtitle: string
   textfields: ITextField[]
   buttonText: string
   agreement: string
+  requestPath: string
   subtitleAccent?: string
   note?: string
   isBlock?: boolean
@@ -17,9 +18,6 @@ defineEmits<{
 }>()
 
 const { fetchPost } = useApi()
-const route = useRoute()
-
-console.log(route)
 
 const formData: IFormData = reactive({
   name: '',
@@ -29,7 +27,7 @@ const formData: IFormData = reactive({
 })
 
 async function handleSubmit () {
-  await fetchPost(`${route.fullPath}/request/order`, { ...formData })
+  await fetchPost(`${props.requestPath}/request/order`, { ...formData })
 }
 </script>
 

@@ -260,6 +260,7 @@ function transformationItemsAppearance () {
         :button-text="translated?.popup_btn ?? ''"
         :agreement="translated?.agreement ?? ''"
         :textfields="popupTextFields"
+        :request-path="'place-of-power'"
         @close="popupIsOpen = false"
       />
     </Transition>

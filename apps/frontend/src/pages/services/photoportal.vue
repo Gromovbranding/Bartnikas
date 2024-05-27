@@ -218,6 +218,7 @@ onMounted(() => {
       :agreement="translated?.agreement ?? ''"
       :textfields="popupTextFields"
       :is-block="true"
+      :request-path="'photoportal'"
     />
 
     <Transition name="slide-left">
@@ -229,6 +230,7 @@ onMounted(() => {
         :button-text="translated?.popup_btn ?? ''"
         :agreement="translated?.agreement ?? ''"
         :textfields="popupTextFields"
+        :request-path="'photoportal'"
         @close="popupIsOpen = false"
       />
     </Transition>
