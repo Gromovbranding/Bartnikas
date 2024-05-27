@@ -48,7 +48,7 @@ onMounted(async () => {
 
   const response = await fetchGet(`/photoportal/stripe/get/${orderId}`)
 
-  clientSecret = response!.uuid
+  clientSecret = response!.uuid as string
 
   elements = stripe.elements({
     appearance: {
