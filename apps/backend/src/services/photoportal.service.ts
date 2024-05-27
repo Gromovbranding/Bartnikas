@@ -19,14 +19,17 @@ import { PaymentStatuses } from 'src/shared/enum/payment-statuses.enum';
 import { PhotoportalOrder } from './entities/photoportal-order.entity';
 import ShortUniqueId from 'short-unique-id';
 import { EmailSender } from 'src/shared/services/email-sender.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PhotoportalService {
   constructor(
     @InjectRepository(Photoportal)
     private readonly photoportalRepository: Repository<Photoportal>,
+    @InjectRepository(PhotoportalOrder)
     private readonly photoportalOrderRepository: Repository<PhotoportalOrder>,
     private readonly langService: LanguageService,
+    private readonly configService: ConfigService,
     private readonly paymentsService: PaymentsService,
     private readonly emailSender: EmailSender,
   ) {}
@@ -152,7 +155,7 @@ export class PhotoportalService {
       const event = this.paymentsService.validateSignatureStripe(
         stripeSignature,
         body,
-        '',
+        this.configService.get('STRIPE_API_KEY_IPN'),
       );
 
       if (

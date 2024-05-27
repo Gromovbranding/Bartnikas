@@ -63,10 +63,6 @@ export class PaymentsService {
       return false;
     }
 
-    const webhookSignatrue = data.SignatureValue;
-
-    delete data.SignatureValue;
-
     const signature = this.#signRobokassa([
       data.OutSum,
       data.InvId,
@@ -74,7 +70,7 @@ export class PaymentsService {
       `Shp_uuid=${data.Shp_uuid}`,
     ]);
 
-    return signature === webhookSignatrue;
+    return signature === data.SignatureValue;
   }
 
   #signRobokassa(data: string[]): string {
