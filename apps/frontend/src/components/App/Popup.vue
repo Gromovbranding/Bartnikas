@@ -39,7 +39,7 @@ async function handleSubmit () {
     if (response.type === 'robokassa' && response?.url) {
       window.location.href = response.url
     } else if (response.type === 'stripe' && response?.invoiceId) {
-      navigateTo(useLocaleRoute()(`/services/payment-stripe/${response?.invoiceId}`))
+      navigateTo(useLocaleRoute()(`/services/payment-stripe?orderId=${response?.invoiceId}`))
     }
   }
 }
