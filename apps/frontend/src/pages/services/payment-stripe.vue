@@ -67,7 +67,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UIWhiteBgContainer>
+  <main>
+    <AppPageHead :title="'Purchase'" />
     <form id="payment-form" @submit="handleSubmit">
       <div id="payment-element" />
       <button id="submit" :disabled="isLoading">
@@ -76,7 +77,7 @@ onMounted(async () => {
       </button>
       <div id="payment-message" class="hidden" />
     </form>
-  </UIWhiteBgContainer>
+  </main>
 </template>
 
 <style lang="scss" scoped>
