@@ -3,7 +3,6 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsPhoneNumber,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -25,7 +24,7 @@ export class OrderPhotoportalDto {
   @IsNotEmpty()
   email: string;
 
-  @IsPhoneNumber()
+  @IsString()
   @IsNotEmpty()
   phone: string;
 
