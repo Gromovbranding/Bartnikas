@@ -19,11 +19,15 @@ defineEmits<{
 
 const { fetchPost } = useApi()
 
+const { locale } = useI18n()
+const type = computed(() => locale.value === 'ru' ? 'robokassa' : 'stripe')
+
 const formData: IFormData = reactive({
   name: '',
   email: '',
   address: '',
-  phone: ''
+  phone: '',
+  type
 })
 
 async function handleSubmit () {

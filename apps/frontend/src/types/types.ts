@@ -30,8 +30,14 @@ export interface ITextField {
   inputType: IInputTypes
 }
 
-export type IFormData = {
+export type IPaymentType = 'stripe' | 'robokassa'
+
+type TextFieldData = {
   [key in ITextFieldKeys]: string
+}
+
+export type IFormData = TextFieldData & {
+  type: IPaymentType
 }
 
 export interface IExclusiveRate {
