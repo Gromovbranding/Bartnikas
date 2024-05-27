@@ -39,19 +39,16 @@ async function handleSubmit (e: Event) {
 const { fetchGet } = useApi()
 
 onMounted(async () => {
-  const orderId = route.query.order_id
+  const orderId = route.query.orderId
 
   if (!orderId) {
     await router.push('/services')
     return
   }
 
-  const { data: payment } = await useAsyncData<{ uuid: string }>(
-    'purchase-stripe-photoportal',
-    async () => await fetchGet(`/photoportal/stripe/get/${orderId}`)
-  )
+  const response = await fetchGet(`/photoportal/stripe/get/${orderId}`)
 
-  clientSecret = payment.value!.uuid
+  clientSecret = response!.uuid
 
   elements = stripe.elements({
     appearance: {
