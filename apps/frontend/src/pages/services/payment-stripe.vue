@@ -46,12 +46,12 @@ onMounted(async () => {
     return
   }
 
-  const { data: payment } = await useAsyncData<{ clientSecret: string }>(
+  const { data: payment } = await useAsyncData<{ uuid: string }>(
     'purchase-stripe-photoportal',
     async () => await fetchGet(`/photoportal/stripe/get/${orderId}`)
   )
 
-  clientSecret = payment.value!.clientSecret
+  clientSecret = payment.value!.uuid
 
   elements = stripe.elements({
     appearance: {
