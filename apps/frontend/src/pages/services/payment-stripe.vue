@@ -39,19 +39,16 @@ async function handleSubmit (e: Event) {
 const { fetchGet } = useApi()
 
 onMounted(async () => {
-  const orderId = route.query.order_id
+  const orderId = route.query.orderId
 
   if (!orderId) {
     await router.push('/services')
     return
   }
 
-  const { data: payment } = await useAsyncData<{ clientSecret: string }>(
-    'purchase-stripe-photoportal',
-    async () => await fetchGet(`/photoportal/stripe/get/${orderId}`)
-  )
+  const response = await fetchGet(`/photoportal/stripe/get/${orderId}`)
 
-  clientSecret = payment.value!.clientSecret
+  clientSecret = response!.uuid as string
 
   elements = stripe.elements({
     appearance: {
@@ -70,7 +67,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UIWhiteBgContainer>
+  <main>
+    <AppPageHead :title="'Purchase'" />
     <form id="payment-form" @submit="handleSubmit">
       <div id="payment-element" />
       <button id="submit" :disabled="isLoading">
@@ -79,7 +77,7 @@ onMounted(async () => {
       </button>
       <div id="payment-message" class="hidden" />
     </form>
-  </UIWhiteBgContainer>
+  </main>
 </template>
 
 <style lang="scss" scoped>

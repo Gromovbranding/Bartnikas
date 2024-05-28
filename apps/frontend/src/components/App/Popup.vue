@@ -31,7 +31,17 @@ const formData: IFormData = reactive({
 })
 
 async function handleSubmit () {
-  await fetchPost(`${props.requestPath}/request/order`, { ...formData })
+  const response = await fetchPost(`${props.requestPath}/request/order`, { ...formData })
+
+  if (typeof response === 'boolean' && response) {
+    // toast
+  } else if (response?.type) {
+    if (response.type === 'robokassa' && response?.url) {
+      window.location.href = response.url
+    } else if (response.type === 'stripe' && response?.invoiceId) {
+      navigateTo(useLocaleRoute()(`/services/payment-stripe?orderId=${response?.invoiceId}`))
+    }
+  }
 }
 </script>
 

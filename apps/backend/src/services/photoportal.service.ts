@@ -17,7 +17,6 @@ import { PaymentsService } from 'src/shared/services/payments.service';
 import Stripe from 'stripe';
 import { PaymentStatuses } from 'src/shared/enum/payment-statuses.enum';
 import { PhotoportalOrder } from './entities/photoportal-order.entity';
-import ShortUniqueId from 'short-unique-id';
 import { EmailSender } from 'src/shared/services/email-sender.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -142,10 +141,10 @@ export class PhotoportalService {
     await this.orderByEmail(updatedOrder);
   }
 
-  async getStripeData(orderId: string) {
+  async getStripeData(invoiceId: string) {
     return await this.photoportalOrderRepository.findOne({
       where: {
-        invoice_id: orderId,
+        invoice_id: invoiceId,
       },
     });
   }
@@ -214,6 +213,9 @@ export class PhotoportalService {
         // without * 100 will equal 8.00 price
         amount: 888 * 100,
         currency: 'eur',
+        automatic_payment_methods: {
+          enabled: true,
+        },
       });
 
       await this.photoportalOrderRepository.save({
@@ -221,14 +223,14 @@ export class PhotoportalService {
         phone: dto.phone,
         address: dto.address,
         email: dto.email,
-        uuid: new ShortUniqueId({ length: 14 }).randomUUID(),
+        uuid: responseStripe.client_secret,
         amount: '888',
         currency: 'eur',
         invoice_id: responseStripe.id,
       });
 
       return {
-        clientSecret: responseStripe.client_secret,
+        invoiceId: responseStripe.id,
         type: dto.type,
       };
     } else if (dto.type === PaymentType.Robokassa) {
