@@ -19,7 +19,7 @@ onMounted(() => {
   window.addEventListener('scroll', advantagesAppearance)
 
   if (introTitleBlock.value) {
-    useColorChangerOnScroll(introTitleBlock.value, 'rgb(66, 136, 193)')
+    useColorChangerOnScroll(introTitleBlock.value, 'rgb(66, 136, 193)', true, 3)
   }
 })
 

@@ -198,7 +198,11 @@ function transformationItemsAppearance () {
           loading="lazy"
           src="/img/exclusive_head.png"
         />
-        <p class="exclusive__head-text" v-html="translated?.exclusive_head_text" />
+        <div class="exclusive__head-text">
+          <p v-for="p in translated?.exclusive_head_text.split('<br>')" :key="p">
+            {{ p }}
+          </p>
+        </div>
       </div>
 
       <AppContainer class="exclusive__container">

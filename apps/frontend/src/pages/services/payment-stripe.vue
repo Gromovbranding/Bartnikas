@@ -87,6 +87,10 @@ onMounted(async () => {
   display: none;
 }
 
+#payment-form {
+  overflow: hidden;
+}
+
 #payment-message {
   color: rgb(105, 115, 134);
   font-size: 16px;
@@ -121,6 +125,10 @@ button:hover {
 button:disabled {
   opacity: 0.5;
   cursor: default;
+}
+
+.button-text {
+  color: inherit;
 }
 
 /* spinner/processing state, errors */

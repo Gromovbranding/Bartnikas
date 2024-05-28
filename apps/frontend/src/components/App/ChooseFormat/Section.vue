@@ -16,9 +16,12 @@ const translated = reactive(
 
 const titleBlock = ref()
 
+const route = useRoute()
+console.log(route.fullPath)
+
 onMounted(() => {
   if (titleBlock.value) {
-    useColorChangerOnScroll(titleBlock.value, 'rgb(66, 136, 193)')
+    route.fullPath.includes('services') ? useColorChangerOnScroll(titleBlock.value, 'rgb(66, 136, 193)', true, 3) : useColorChangerOnScroll(titleBlock.value, 'rgb(66, 136, 193)')
   }
 })
 </script>

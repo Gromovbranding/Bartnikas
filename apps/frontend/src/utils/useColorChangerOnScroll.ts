@@ -1,10 +1,17 @@
 export default function (
   el: HTMLElement,
-  accentColor: string
+  accentColor: string,
+  upperElement?: boolean,
+  paintSpeed = 1,
+  negativeOffset = 0
 ): void {
   const p = document.createElement('p')
   const text = el.textContent?.split('')
-  const startChangerOffset = el.offsetTop - (window.innerHeight - el.offsetHeight)
+  const startChangerOffset = upperElement
+    ? 0
+    : el.offsetTop -
+      (window.innerHeight - el.offsetHeight) +
+      window.innerHeight / 100
 
   if (text) {
     for (const symbol of text) {
@@ -15,12 +22,26 @@ export default function (
     }
   }
 
+  el.textContent = ''
+  el.append(p)
+
+  paint()
+
   window.addEventListener('scroll', () => {
-    const scrollPercent = (window.scrollY - startChangerOffset) / el.offsetHeight * 100
+    paint()
+  })
+
+  function paint () {
+    const scrollPercent =
+      ((window.scrollY - startChangerOffset) /
+        (window.innerHeight / 2)) *
+      100 *
+      paintSpeed - negativeOffset
+    console.log(scrollPercent)
     const changingTextRange =
-        (p.children.length / 100) * scrollPercent < 0
-          ? 0
-          : (p.children.length / 100) * scrollPercent
+      (p.children.length / 100) * scrollPercent < 0
+        ? 0
+        : (p.children.length / 100) * scrollPercent
 
     for (let i = 0; i < p.children.length; i++) {
       const span = p.children[i] as HTMLElement
@@ -30,8 +51,5 @@ export default function (
         span.style.color = ''
       }
     }
-  })
-
-  el.textContent = ''
-  el.append(p)
+  }
 }

@@ -78,8 +78,9 @@ onBeforeUpdate(() => {
 
 onMounted(() => {
   if (quoteBlockRef.value) {
-    for (const item of quoteBlockRef.value) {
-      useColorChangerOnScroll(item as HTMLElement, 'rgb(66, 136, 193)')
+    for (let i = 0; i < quoteBlockRef.value.length; i++) {
+      const negativeOffset = i * 100
+      useColorChangerOnScroll(quoteBlockRef.value[i] as HTMLElement, 'rgb(66, 136, 193)', false, 2, negativeOffset)
     }
   }
 })
@@ -352,8 +353,8 @@ onMounted(() => {
 
   &__img {
     display: flex;
-    flex: 1;
     align-self: flex-start;
+    width: 54%;
   }
 
   &__quote {
@@ -364,7 +365,7 @@ onMounted(() => {
     justify-content: space-between;
     gap: 1.5rem;
     padding: 2.604rem 3.385rem 2.604rem 1.979rem;
-    max-width: 45.573rem;
+    width: 46%;
   }
 
   &__quote-text {
