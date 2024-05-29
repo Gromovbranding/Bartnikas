@@ -37,7 +37,6 @@ export default function (
         (window.innerHeight / 2)) *
       100 *
       paintSpeed - negativeOffset
-    console.log(scrollPercent)
     const changingTextRange =
       (p.children.length / 100) * scrollPercent < 0
         ? 0

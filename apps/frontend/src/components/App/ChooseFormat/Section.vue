@@ -17,7 +17,6 @@ const translated = reactive(
 const titleBlock = ref()
 
 const route = useRoute()
-console.log(route.fullPath)
 
 onMounted(() => {
   if (titleBlock.value) {
