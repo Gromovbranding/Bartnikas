@@ -9,7 +9,8 @@ defineEmits<{
 }>()
 
 const tinymceInit = {
-  forced_root_block: false
+  plugins: 'paste',
+  paste_as_text: true
 }
 </script>
 
