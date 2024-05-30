@@ -162,7 +162,7 @@ function getGroupVideos (group: string) {
                     `/img/city/${0}_${index}.png`
                   "
                 />
-                <span class="recognition__city-text">{{ city.name }}</span>
+                <span class="recognition__city-text" v-html="city.name" />
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@ function getGroupVideos (group: string) {
                     `/img/city/${1}_${index}.png`
                   "
                 />
-                <span class="recognition__city-text">{{ city.name }}</span>
+                <span class="recognition__city-text" v-html="city.name" />
               </div>
             </div>
           </div>

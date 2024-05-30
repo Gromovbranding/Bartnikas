@@ -10,6 +10,7 @@ import {
 import { GeneralInfoService } from './general-info.service';
 import { CreateGeneralInfoDto } from './dto/create-general-info.dto';
 import { UpdateGeneralInfoDto } from './dto/update-general-info.dto';
+import { Public } from 'src/auth/constants';
 
 @Controller('general-info')
 export class GeneralInfoController {
@@ -21,15 +22,18 @@ export class GeneralInfoController {
   }
 
   @Get()
+  @Public()
   findAll() {
     return this.generalInfoService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.generalInfoService.findOne(+id);
   }
 
+  @Public()
   @Get('/only/active')
   findActive() {
     return this.generalInfoService.findActive();
