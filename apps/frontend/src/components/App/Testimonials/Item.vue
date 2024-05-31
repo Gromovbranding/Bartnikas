@@ -14,6 +14,10 @@ const translated = reactive(
   )
 )
 
+const isVideo = computed(() => {
+  return props.testimonial.url || (props.testimonial.file?.name ?? '').match(/.(mp4|m4p|m4v|mov|ogg|f4m|flv|webm|mpg)/)
+})
+
 function playVideo () {
   showVideo.value = true
   if (video.value) { video.value.play() }
@@ -30,28 +34,31 @@ function getYTLink (url: string) {
 <template>
   <div class="testimonial">
     <div class="testimonial__img">
-      <iframe
-        v-if="testimonial.url"
-        :src="getYTLink(testimonial.url)"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      />
-      <video
-        v-else
-        ref="video"
-        :src="useGetFileByUrl(testimonial.file?.name)"
-        preload="metadata"
-        :controls="showVideo"
-      />
-      <div
-        v-if="!showVideo && !testimonial.url"
-        class="testimonial__play"
-        @click="playVideo"
-      >
-        <IconPlay />
-      </div>
+      <template v-if="isVideo">
+        <iframe
+          v-if="testimonial.url"
+          :src="getYTLink(testimonial.url)"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+        <video
+          v-else
+          ref="video"
+          :src="useGetFileByUrl(testimonial.file?.name)"
+          preload="metadata"
+          :controls="showVideo"
+        />
+        <div
+          v-if="!showVideo && !testimonial.url"
+          class="testimonial__play"
+          @click="playVideo"
+        >
+          <IconPlay />
+        </div>
+      </template>
+      <img :src="useGetFileByUrl(testimonial.file?.name)">
     </div>
     <div class="testimonial__info">
       <h4>{{ translated?.title }}</h4>
@@ -115,6 +122,7 @@ function getYTLink (url: string) {
     &__img {
       width: 100%;
       video,
+      img,
       iframe {
         height: 44rem;
       }
