@@ -199,7 +199,9 @@ function transformationItemsAppearance () {
           src="/img/exclusive_head.png"
         />
         <div class="exclusive__head-text">
-          <p v-for="p in translated?.exclusive_head_text.split('<br>')" :key="p" v-html="p" />
+          <p v-for="p in translated?.exclusive_head_text.split('<br>')" :key="p">
+            {{ p }}
+          </p>
         </div>
       </div>
 
