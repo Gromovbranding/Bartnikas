@@ -58,7 +58,7 @@ function getYTLink (url: string) {
           <IconPlay />
         </div>
       </template>
-      <img :src="useGetFileByUrl(testimonial.file?.name)">
+      <img v-else :src="useGetFileByUrl(testimonial.file?.name)">
     </div>
     <div class="testimonial__info">
       <h4>{{ translated?.title }}</h4>
