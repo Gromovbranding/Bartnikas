@@ -80,9 +80,9 @@ async function handleSubmit () {
         >
           {{ buttonText }}
         </UIButton>
-        <p class="popup__agreement">
+        <NuxtLink :to="useLocaleRoute()('/faq')" class="popup__agreement">
           {{ agreement }}
-        </p>
+        </NuxtLink>
       </form>
     </AppContainer>
   </div>

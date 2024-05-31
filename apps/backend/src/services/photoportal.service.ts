@@ -213,9 +213,6 @@ export class PhotoportalService {
         // without * 100 will equal 8.00 price
         amount: 888 * 100,
         currency: 'eur',
-        automatic_payment_methods: {
-          enabled: true,
-        },
       });
 
       await this.photoportalOrderRepository.save({

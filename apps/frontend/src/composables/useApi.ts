@@ -40,6 +40,7 @@ export const useApi = () => {
 
         if (response.status === 401) {
           accessToken.value = ''
+
           if (!~response.url.indexOf('admin-login')) { await navigateTo('/admin/login') }
         }
       },
