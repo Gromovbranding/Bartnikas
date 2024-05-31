@@ -18,6 +18,7 @@ const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin()
 const { formRules, navigateBack, titles, methods } = testimonials()
 
 const model = await methods.handleGetModel(id)
+const isVideo = ref(true)
 
 useHeadSafe({
   title: titles.edit
@@ -56,7 +57,10 @@ const handleUpdate = async () => {
       <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="Url for video from Youtube" prop="url">
+      <ElFormItem label="Add Video/Image (Active = Video)">
+        <ElSwitch v-model="isVideo" />
+      </ElFormItem>
+      <ElFormItem v-if="isVideo" label="URL Youtube" prop="url">
         <ElInput v-model="form.url" />
       </ElFormItem>
       <ElFormItem
@@ -69,8 +73,19 @@ const handleUpdate = async () => {
           type="textarea"
         />
       </ElFormItem>
-      <ElFormItem required label="Testimonial video" prop="file">
-        <AdminUploadFile ref="uploadRef" v-model="form.file" file-type="video" />
+      <ElFormItem v-if="isVideo" label="Testimonial video" prop="file">
+        <AdminUploadFile
+          ref="uploadRef"
+          v-model="form.file"
+          file-type="video"
+        />
+      </ElFormItem>
+      <ElFormItem v-else label="Testimonial video" prop="file">
+        <AdminUploadFile
+          ref="uploadRef"
+          v-model="form.file"
+          file-type="image"
+        />
       </ElFormItem>
       <ElFormItem>
         <ElButton type="primary" @click="handleUpdate">

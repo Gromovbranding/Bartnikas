@@ -25,6 +25,8 @@ const form = reactive<PartialAdminApiDto<ITestimonial>>({
   file: null
 })
 
+const isVideo = ref(true)
+
 const handleResetForm = () => {
   formRef.value?.resetForm()
 }
@@ -64,7 +66,10 @@ const handleCreate = async () => {
       <ElFormItem label="Title" :prop="`translate.${currentIndexLocale}.title`">
         <ElInput v-model="form.translate[currentIndexLocale].title" />
       </ElFormItem>
-      <ElFormItem label="URL Youtube" prop="url">
+      <ElFormItem label="Add Video/Image (Active = Video)">
+        <ElSwitch v-model="isVideo" />
+      </ElFormItem>
+      <ElFormItem v-if="isVideo" label="URL Youtube" prop="url">
         <ElInput v-model="form.url" />
       </ElFormItem>
       <ElFormItem
@@ -77,11 +82,18 @@ const handleCreate = async () => {
           type="textarea"
         />
       </ElFormItem>
-      <ElFormItem label="Testimonial video" prop="file">
+      <ElFormItem v-if="isVideo" label="Testimonial video" prop="file">
         <AdminUploadFile
           ref="uploadRef"
           v-model="form.file"
           file-type="video"
+        />
+      </ElFormItem>
+      <ElFormItem v-else label="Testimonial video" prop="file">
+        <AdminUploadFile
+          ref="uploadRef"
+          v-model="form.file"
+          file-type="image"
         />
       </ElFormItem>
       <ElFormItem>
