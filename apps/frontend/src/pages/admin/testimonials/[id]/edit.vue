@@ -18,7 +18,7 @@ const { testimonials, initTranslateLocale, currentIndexLocale } = useAdmin()
 const { formRules, navigateBack, titles, methods } = testimonials()
 
 const model = await methods.handleGetModel(id)
-const isVideo = ref(true)
+const isVideo = ref(!!model.url || (model.file?.name ?? '').match(/.(mp4|m4p|m4v|mov|ogg|f4m|flv|webm|mpg)/))
 
 useHeadSafe({
   title: titles.edit
