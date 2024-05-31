@@ -89,7 +89,7 @@ const handleCreate = async () => {
           file-type="video"
         />
       </ElFormItem>
-      <ElFormItem v-else label="Testimonial video" prop="file">
+      <ElFormItem v-else label="Testimonial Image" prop="file">
         <AdminUploadFile
           ref="uploadRef"
           v-model="form.file"
