@@ -15,7 +15,7 @@ const translated = reactive(
 )
 
 const isVideo = computed(() => {
-  return props.testimonial.url || (props.testimonial.file?.name ?? '').match(/.(mp4|m4p|m4v|mov|ogg|f4m|flv|webm|mpg)/)
+  return props.testimonial.url || /.(mp4|m4p|m4v|mov|ogg|f4m|flv|webm|mpg)/.test(props.testimonial.file?.name ?? '')
 })
 
 function playVideo () {
