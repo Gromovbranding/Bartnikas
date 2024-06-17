@@ -232,7 +232,7 @@ export class PhotoportalService {
       };
     } else if (dto.type === PaymentType.Robokassa) {
       const payment = this.paymentsService.createRobokassaPayment({
-        amount: 88888,
+        amount: 100,
         description: 'Purchase photoportal',
       });
 
