@@ -221,7 +221,7 @@ export class PhotoportalService {
         address: dto.address,
         email: dto.email,
         uuid: responseStripe.client_secret,
-        amount: '888',
+        amount: '1',
         currency: 'eur',
         invoice_id: responseStripe.id,
       });
