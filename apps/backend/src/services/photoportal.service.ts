@@ -157,6 +157,7 @@ export class PhotoportalService {
         this.configService.get('STRIPE_API_KEY_IPN'),
       );
 
+      console.log(event);
       if (
         !!~event.type.indexOf('payment_intent') &&
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -198,7 +199,9 @@ export class PhotoportalService {
           invoice_id: paymentIntent.id,
         });
 
-        await this.orderByEmail(updatedOrder);
+        const isSent = await this.orderByEmail(updatedOrder);
+
+        console.log(isSent);
       }
     } catch (err) {
       console.log(err);
