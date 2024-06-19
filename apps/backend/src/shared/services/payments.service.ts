@@ -70,7 +70,7 @@ export class PaymentsService {
       `Shp_uuid=${data.Shp_uuid}`,
     ]);
 
-    return signature === data.SignatureValue;
+    return signature.toLowerCase() === data.SignatureValue.toLowerCase();
   }
 
   #signRobokassa(data: string[]): string {
