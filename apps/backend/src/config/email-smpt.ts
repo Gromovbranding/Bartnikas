@@ -9,7 +9,6 @@ export default registerAs('email-smtp', () => ({
   transport: {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: true,
     requireTLS: true,
     tls: {
       ciphers: 'SSLv3',
