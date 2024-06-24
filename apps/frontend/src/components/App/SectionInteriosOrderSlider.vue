@@ -28,10 +28,10 @@ const { data: projects } = await useAsyncData<IProject[]>(
 )
 
 const options = computed(() =>
-  (projects.value ?? []).map((item, idx) => ({
+  [...(projects.value ?? [])].map((item, idx) => ({
     label: item.title,
     value: idx
-  }))
+  })).sort((a, b) => +b.label.split('x')[0] - a.label.split('x')[0])
 )
 
 const project = computed(
@@ -47,19 +47,6 @@ const orderImgLink = computed(() => {
   const imgId = project.value.details[mainSwiper.value.activeIndex].id
   return `/projects/${project.value.id}/order/${imgId}`
 })
-
-const colors = [
-  '#1a1c28',
-  '#353736',
-  '#545c20',
-  '#a66456',
-  '#a49484',
-  '#8a88a0'
-]
-
-function copyColor (idx: number) {
-  navigator.clipboard.writeText(colors[idx])
-}
 </script>
 
 <template>
@@ -78,29 +65,6 @@ function copyColor (idx: number) {
             <h3>
               {{ project.details[mainSwiper?.realIndex ?? 0]?.image_name }}
             </h3>
-          </div>
-          <div class="interios-order__project-colors">
-            <h4>{{ $t("secrionInteriosOrder.bestColorsOfInterior") }}</h4>
-            <div>
-              <div
-                v-for="(color, idx) in colors"
-                :key="color"
-                :style="{ 'background-color': color }"
-                title="copy HEX code to clipboard"
-                @click="copyColor(idx)"
-              />
-            </div>
-            <div class="controls">
-              <UIButton @click="handleSlideChange('slidePrev')">
-                ←
-              </UIButton>
-              <UIButton @click="handleSlideChange('slideNext')">
-                →
-              </UIButton>
-              <UIButton :to="orderImgLink">
-                {{ $t("secrionInteriosOrder.request") }}
-              </UIButton>
-            </div>
           </div>
           <div class="interios-order__project-order">
             <UIButton style="width: 100%" :to="orderImgLink">

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElNotification } from 'element-plus'
 import type { IFormData, ITextField } from '~/types/types'
 
 const props = defineProps<{
@@ -11,10 +12,6 @@ const props = defineProps<{
   subtitleAccent?: string
   note?: string
   isBlock?: boolean
-}>()
-
-defineEmits<{
-  close: []
 }>()
 
 const { fetchPost } = useApi()
@@ -30,11 +27,21 @@ const formData: IFormData = reactive({
   type
 })
 
+const emits = defineEmits<{
+  (e: 'close'): void
+}>()
+
 async function handleSubmit () {
   const response = await fetchPost(`${props.requestPath}/request/order`, { ...formData })
 
   if (typeof response === 'boolean' && response) {
-    // toast
+    ElNotification({
+      title: 'Success',
+      message: 'Request was sent',
+      type: 'success'
+    })
+
+    emits('close')
   } else if (response?.type) {
     if (response.type === 'robokassa' && response?.url) {
       window.location.href = response.url
@@ -47,7 +54,7 @@ async function handleSubmit () {
 
 <template>
   <div class="popup" :class="{ popup_block: isBlock }">
-    <IconClose v-if="!isBlock" class="popup__close" @click="$emit('close')" />
+    <IconClose v-if="!isBlock" class="popup__close" @click="emits('close')" />
     <AppContainer class="popup__container">
       <div class="popup__text">
         <h2 class="popup__title">
