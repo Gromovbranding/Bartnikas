@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ElNotification } from 'element-plus'
 import type { IFormData, ITextField } from '~/types/types'
 
 const props = defineProps<{
@@ -34,7 +33,9 @@ const emits = defineEmits<{
 async function handleSubmit () {
   const response = await fetchPost(`${props.requestPath}/request/order`, { ...formData })
 
-  if (typeof response === 'boolean' && response) {
+  console.log(response)
+
+  if (response === 'true') {
     ElNotification({
       title: 'Success',
       message: 'Request was sent',
