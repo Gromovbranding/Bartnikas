@@ -156,8 +156,6 @@ export class PhotoportalService {
         body,
         this.configService.get('STRIPE_API_KEY_IPN'),
       );
-
-      console.log(event);
       if (
         !!~event.type.indexOf('payment_intent') &&
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -224,7 +222,7 @@ export class PhotoportalService {
         address: dto.address,
         email: dto.email,
         uuid: responseStripe.client_secret,
-        amount: '1',
+        amount: '888',
         currency: 'eur',
         invoice_id: responseStripe.id,
       });
@@ -235,7 +233,7 @@ export class PhotoportalService {
       };
     } else if (dto.type === PaymentType.Robokassa) {
       const payment = this.paymentsService.createRobokassaPayment({
-        amount: 100,
+        amount: 88888,
         description: 'Purchase photoportal',
       });
 

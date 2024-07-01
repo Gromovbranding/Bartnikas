@@ -61,7 +61,7 @@ const moreProjectImages = computed(() =>
 )
 
 const sizes = computed(() => {
-  return (projectImage.value?.sizes ?? []).map(item => ({
+  return [...(projectImage.value?.sizes ?? [])].sort((a, b) => b.width - a.width).map(item => ({
     label: `${item.width}x${item.height} ${item.unit}`,
     value: item.id
   }))
@@ -134,20 +134,6 @@ function toOrder () {
             <small> {{ $t("projects.order.dilivery.print") }} </small>
           </li>
         </ul>
-        <div class="order__info-control">
-          <div class="order__info-colorlist">
-            <b> {{ $t("projects.order.bestColors") }} </b>
-            <div class="order__info-color-interior">
-              <ul class="order__info-colors">
-                <li style="background-color: #07343d" />
-                <li style="background-color: #63aebd" />
-                <li style="background-color: #b99766" />
-                <li style="background-color: #ffd73e" />
-              </ul>
-              <!-- <div class="order__info-interior upper-slide">In Interior</div> -->
-            </div>
-          </div>
-        </div>
         <UIButton @click="toOrder">
           {{ $t("projects.request") }}
         </UIButton>

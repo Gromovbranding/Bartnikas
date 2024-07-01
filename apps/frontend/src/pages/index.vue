@@ -227,4 +227,13 @@ const activeCardTranslate = reactive(
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .header {
+    height: 70vh;
+    &__main {
+      height: 35vh;
+    }
+  }
+}
 </style>

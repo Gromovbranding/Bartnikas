@@ -102,10 +102,6 @@ export class PhotoportalController {
   @Public()
   @Post('robokassa/ipn')
   async updateRobokassaPayment(@Body() body: any) {
-    console.log(
-      'robokassa',
-      this.paymentsService.verifySignatureRobokassa(body),
-    );
     if (this.paymentsService.verifySignatureRobokassa(body)) {
       const { Shp_uuid } = body as { Shp_uuid: string };
 
