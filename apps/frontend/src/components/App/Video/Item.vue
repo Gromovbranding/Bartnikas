@@ -31,9 +31,15 @@ function playVideo () {
     <div class="video-collection__img">
       <video
         ref="video"
-        :src="useGetFileByUrl(item.video.name)"
         :controls="showControls"
-      />
+        preload="metadata"
+        playsinline
+      >
+        <source
+          :src="useGetFileByUrl(item.video.name)"
+          type="video/mp4"
+        >
+      </video>
       <div
         v-if="!activeVideo"
         class="video-collection__play"
