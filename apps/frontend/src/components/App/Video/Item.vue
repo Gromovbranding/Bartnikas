@@ -36,7 +36,7 @@ function playVideo () {
         playsinline
       >
         <source
-          :src="useGetFileByUrl(item.video.name)"
+          :src="useGetFileByUrl(item.video.name) + '#t=0.1'"
           type="video/mp4"
         >
       </video>
