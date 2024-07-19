@@ -39,16 +39,12 @@ const title = computed(() => {
         </div>
       </NuxtLinkLocale>
     </div>
-    <div class="hot-news__ticker hot-news__ticker--bottom">
-      <UIMarquee>
-        <span>{{ title }}</span>
-      </UIMarquee>
-    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .hot-news {
+  margin-bottom: 12px;
   &__wrapper {
     padding: 3rem 3rem 5rem;
     overflow-x: hidden;

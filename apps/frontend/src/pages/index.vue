@@ -139,7 +139,7 @@ const activeCardTranslate = reactive(
 }
 
 .header {
-  height: 150vh;
+  height: 160vh;
   &__main {
     width: 100%;
     height: 675px;
