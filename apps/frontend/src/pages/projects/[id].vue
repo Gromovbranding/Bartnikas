@@ -367,8 +367,8 @@ const changeDetailOrder = (
 
     &-close {
       z-index: 199;
-      right: 50px;
-      top: 9px;
+      right: 0;
+      top: 0;
       height: 60px;
       width: 60px;
       position: absolute;
@@ -389,7 +389,6 @@ const changeDetailOrder = (
     }
 
     &-main {
-      flex: 5;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -400,7 +399,6 @@ const changeDetailOrder = (
 
     &-bottom {
       position: relative;
-      flex: 2;
       display: flex;
       padding-top: 16px;
       flex-direction: column;
@@ -480,14 +478,13 @@ const changeDetailOrder = (
 
     &-arrow {
       position: relative;
-      flex: 2;
       display: flex;
       justify-content: center;
+      align-items: center;
       > :deep(svg) {
         transition: 0.4s;
         position: relative;
-        top: 33%;
-        width: 120px;
+        width: 60px;
         fill: rgba(255, 255, 255, 0.1);
         cursor: pointer;
       }
@@ -514,11 +511,11 @@ const changeDetailOrder = (
     }
 
     &-content {
-      flex: 9;
       overflow: hidden;
       border-radius: $borderRadiusMain;
       display: flex;
       justify-content: center;
+      width: 100%;
 
       > :deep(picture) {
         object-fit: cover;
@@ -530,6 +527,7 @@ const changeDetailOrder = (
     &-nuxtimg{
       width: 100%;
       height: auto;
+      object-fit: cover;
     }
   }
 }
@@ -538,20 +536,9 @@ const changeDetailOrder = (
   .zoom__modal-arrow {
     flex: 1;
     > :deep(svg) {
-      top: 19%;
       width: 40px;
+      height: 65px;
     }
-  }
-  .zoom__modal-main {
-    padding-top: 100px;
-    flex: 10;
-  }
-  .zoom__modal-close {
-    right: 24px;
-    top: 30px;
-  }
-  .zoom__modal-bottom {
-    flex: 11;
   }
   .zoom__modal-bottom-info {
     > div {

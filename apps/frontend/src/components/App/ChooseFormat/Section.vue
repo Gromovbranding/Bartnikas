@@ -45,11 +45,13 @@ onMounted(() => {
           class="choose-format__card-img"
         />
         <div class="choose-format__card-info">
-          <h3 class="choose-format__card-title">
-            <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{
-              service.title
-            }}
-          </h3>
+          <NuxtLink :to="`${service.btn.url}`">
+            <h3 class="choose-format__card-title">
+              <IconArrow class="choose-format__card-arrow" is-arrow30-deg />{{
+                service.title
+              }}
+            </h3>
+          </NuxtLink>
           <p class="choose-format__card-text">
             {{ service.text }}
           </p>

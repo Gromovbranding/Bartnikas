@@ -68,7 +68,7 @@ const handleCreate = async () => {
         label="Subtitle"
         :prop="`translate.${currentIndexLocale}.subtitle`"
       >
-        <AdminEditorInput
+        <ElInput
           v-model="form.translate[currentIndexLocale].subtitle"
         />
       </ElFormItem>

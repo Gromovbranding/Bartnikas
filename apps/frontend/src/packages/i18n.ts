@@ -267,7 +267,7 @@ export default defineI18nConfig(() => ({
         pay: 'Pay'
       },
       contacts: {
-        locationLive: 'Stas Bartnikas resides in Moscow, Russia',
+        locationLive: 'Stanislav Bartnikas resides in Dubai, UAE',
         pressInquiry: 'Press inquiry',
         gallery: 'Gallery',
         formDescript: `For corporate or personal purchase of prints please contact us through
@@ -619,7 +619,7 @@ export default defineI18nConfig(() => ({
         pay: 'Оплатить'
       },
       contacts: {
-        locationLive: 'Стас Бартникас проживает в Москве, Россия.',
+        locationLive: 'Станислав Бартникас проживает в Дубае, ОАЭ.',
         pressInquiry: 'Пресс-запрос',
         gallery: 'Галерея',
         formDescript: 'Для корпоративной или личной покупки принтов, пожалуйста, свяжитесь с нами через форму',

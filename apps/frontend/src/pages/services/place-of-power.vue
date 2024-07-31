@@ -247,7 +247,6 @@ function transformationItemsAppearance () {
         <UIButton
           class="exclusive__footer-action"
           :is-text-uppercase="false"
-          :is-weight-normal="true"
           @click="popupIsOpen = true"
         >
           {{ translated?.exclusive_footer_btn }}

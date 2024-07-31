@@ -61,6 +61,7 @@ const handleCreate = async () => {
       </ElFormItem>
 
       <ElFormItem
+        :required="false"
         label="Awards"
         :prop="`translate.${currentIndexLocale}.awards`"
       >

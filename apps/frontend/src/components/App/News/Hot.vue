@@ -24,11 +24,6 @@ const title = computed(() => {
       <AppSectionHeader :is-link="false" white style="margin-bottom: 0">
         {{ $t("titles.news") }}
       </AppSectionHeader>
-      <div class="hot-news__ticker">
-        <UIMarquee>
-          <span>{{ title }}</span>
-        </UIMarquee>
-      </div>
       <NuxtLinkLocale
         :to="`/news/${article.id}`"
         class="upper-slide hot-news__content"
@@ -38,6 +33,11 @@ const title = computed(() => {
           <IconArrow is-arrow30-deg />
         </div>
       </NuxtLinkLocale>
+      <div class="hot-news__ticker">
+        <UIMarquee>
+          <span>{{ title }}</span>
+        </UIMarquee>
+      </div>
     </div>
   </section>
 </template>
@@ -52,7 +52,7 @@ const title = computed(() => {
     background: $colorAccentBlue;
   }
   &__ticker {
-    margin-bottom: 3rem;
+    margin-top: 3rem;
     overflow-x: hidden;
     &--bottom {
       border-radius: 10px;
@@ -96,6 +96,10 @@ const title = computed(() => {
     position: relative;
     left: -40px;
     width: calc(100% + 80px);
+  }
+
+  :deep(.marquee-text) {
+    font-weight: normal;
   }
 }
 

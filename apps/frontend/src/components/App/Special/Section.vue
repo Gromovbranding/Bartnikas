@@ -32,7 +32,6 @@ const translated = reactive(
         :to="`/services/photoportal`"
         class="special__action-btn"
         :is-text-uppercase="false"
-        :is-weight-normal="true"
         :is-white="true"
       >
         {{ translated?.special_action }}

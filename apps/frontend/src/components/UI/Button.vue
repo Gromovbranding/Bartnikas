@@ -5,7 +5,6 @@ interface Props {
   isGrey?: boolean;
   isWhite?: boolean;
   isTextUppercase?: boolean;
-  isWeightNormal?: boolean;
   to?: RouteLocationRaw;
 }
 
@@ -13,7 +12,6 @@ const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
   isTextUppercase: true,
   isWhite: false,
-  isWeightNormal: false,
   to: ''
 })
 
@@ -23,8 +21,7 @@ const classes = computed(() => {
     {
       'btn-default--grey': props.isGrey,
       'btn-default--white': props.isWhite,
-      'btn-default--uppercase': props.isTextUppercase,
-      'btn-default--normal': props.isWeightNormal
+      'btn-default--uppercase': props.isTextUppercase
     }
   ]
 })
@@ -53,7 +50,6 @@ const classes = computed(() => {
   background-color: $colorAccentBlue;
   transform: translateY(0);
   transition: transform 0.2s ease-in-out;
-  font-weight: bold;
   text-align: center;
 
   &:hover {

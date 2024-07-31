@@ -13,7 +13,7 @@
   padding: 3rem 3rem;
 
   h2 {
-    font-size: 9.5rem;
+    font-size: 9rem;
     text-transform: uppercase;
     color: #fff;
     will-change: transform;

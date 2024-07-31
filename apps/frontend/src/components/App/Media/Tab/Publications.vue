@@ -104,7 +104,8 @@ const translated = reactive((publication.value ?? []).map((item) => {
         picture {
           width: 100%;
           border-radius: $borderRadiusMain;
-          object-fit: cover;
+          object-fit: contain;
+          object-position: top center;
           height: 310px;
         }
       }
@@ -223,8 +224,6 @@ const translated = reactive((publication.value ?? []).map((item) => {
       margin-top: 80px;
       flex-direction: column;
       padding: 0 12vw;
-      &-item {
-      }
       p {
         font-size: 22px;
       }

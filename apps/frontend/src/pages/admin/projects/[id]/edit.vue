@@ -383,7 +383,7 @@ watch(
                       Is Show poster:
                       <input v-model="file.is_show_poster" type="checkbox">
                     </label>
-                    <ElFormItem required label="Name" label-width="60">
+                    <ElFormItem :required="false" label="Name" label-width="60">
                       <ElInput v-model="file.image_name" size="small" />
                     </ElFormItem>
                     <ElFormItem required label="Price, €" label-width="70">
