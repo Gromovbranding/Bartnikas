@@ -54,7 +54,7 @@ const activeCardTranslate = reactive(
             v-scroll-scale-image
             loading="lazy"
             :src="`/baseApiFiles/${item?.image?.name}`"
-            style="width: 100%; height: 100%; transition-duration: 100ms"
+            style="width: 100%; height: 100%; transition-duration: 100ms; object-fit: cover; object-position: center;"
           />
         </SwiperSlide>
       </Swiper>
