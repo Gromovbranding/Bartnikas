@@ -98,10 +98,10 @@ function transformationItemsAppearance () {
           {{ translated?.title }}
         </h1>
         <div class="intro__info">
-          <NuxtLink class="intro__ultra-anchor" to="#ultra-exclusive">
+          <span class="intro__ultra-anchor">
             <IconSmallArrow class="intro__ultra-anchor-icon" />
             {{ translated?.exclusive_title }}
-          </NuxtLink>
+          </span>
           <p class="intro__subtitle">
             {{ translated?.subtitle }}
           </p>

@@ -21,11 +21,11 @@ const mediaTabs = computed(() => [
   {
     component: shallowRef(resolveComponent('AppMediaTabPresentation')),
     label: t('media.presentation')
+  },
+  {
+    component: shallowRef(resolveComponent('AppMediaTabCV')),
+    label: 'CV'
   }
-  // {
-  //   component: shallowRef(resolveComponent("AppMediaTabCV")),
-  //   label: "CV",
-  // },
 ])
 
 const selectedTab = ref(mediaTabs.value[0])
@@ -131,9 +131,6 @@ useHeadSafe({
         font-size: 5.6vw;
         padding: 20px 0;
       }
-    }
-
-    &__content {
     }
   }
 }

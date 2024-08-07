@@ -142,9 +142,9 @@ function toOrder () {
 
     <!-- Раздел "More Abstract" -->
     <section v-if="moreProjectImages?.length" class="more">
-      <h2 class="more__title">
+      <!-- <h2 class="more__title">
         {{ $t("projects.more") }} {{ translatedProject?.title }}
-      </h2>
+      </h2> -->
       <p
         class="more__subtitle"
         @click="navigateTo(useLocalePath()(`/projects/${projectId}`))"
@@ -335,7 +335,8 @@ dialog {
   &__subtitle {
     color: #999999;
     font-size: 33px;
-    margin-top: 23px;
+    // margin-top: 23px;
+    cursor: pointer;
   }
 
   &__slider {
@@ -436,7 +437,7 @@ dialog {
     }
     &__subtitle {
       font-size: 26px;
-      margin-top: 10px;
+      // margin-top: 10px;
     }
     &__slider {
       :deep(.swiper-wrapper) {

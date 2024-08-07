@@ -524,10 +524,10 @@ const changeDetailOrder = (
         border-radius: 0;
       }
     }
-    &-nuxtimg{
+    &-nuxtimg {
       width: 100%;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 }
@@ -571,7 +571,8 @@ const changeDetailOrder = (
     img,
     picture {
       width: 100%;
-      height: 700px;
+      min-height: 556px;
+      max-height: 556px;
       object-fit: cover;
       border-radius: 7px;
     }
@@ -626,23 +627,13 @@ const changeDetailOrder = (
   }
 }
 
-@media screen and (max-width: 1200px) {
-  .port-order {
-    &__img {
-      img,
-      picture {
-        height: 550px;
-      }
-    }
-  }
-}
-
 @media screen and (max-width: 550px) {
   .port-order {
     &__img {
       img,
       picture {
-        height: 222px;
+        min-height: 222px;
+        max-height: 222px;
       }
     }
     &__info {

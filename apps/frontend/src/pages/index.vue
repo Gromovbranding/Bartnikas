@@ -62,7 +62,7 @@ const activeCardTranslate = reactive(
     <AppNewsHot />
     <AppContentSpliter> {{ $t("titles.concept") }} </AppContentSpliter>
     <AppSectionVideoGreeting class="app-video-greeting" />
-    <AppContentSpliter> {{ $t("titles.projects") }} </AppContentSpliter>
+    <AppContentSpliter> {{ $t("titles.photo_portals") }} </AppContentSpliter>
     <AppPortSection />
     <AppAwardsSection />
     <AppNewsSection />
@@ -176,19 +176,19 @@ const activeCardTranslate = reactive(
 
 @media screen and (max-width: 825px) {
   .header {
+    height: 130vh;
     &__main {
       height: calc(65vh + 10px);
       &:deep(svg) {
         max-width: 30rem;
       }
     }
-    height: 130vh;
   }
 }
 
 @media screen and (max-width: 600px) {
   .header {
-    height: 90vh;
+    height: 145vh;
     &__main {
       height: 45vh;
       &:deep(svg) {
@@ -230,7 +230,7 @@ const activeCardTranslate = reactive(
 
 @media screen and (max-width: 480px) {
   .header {
-    height: 70vh;
+    height: 135vh;
     &__main {
       height: 35vh;
     }

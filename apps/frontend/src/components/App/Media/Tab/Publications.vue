@@ -37,7 +37,7 @@ const translated = reactive((publication.value ?? []).map((item) => {
         <div>
           <h3>
             {{
-              new Date(item.created_at).toLocaleDateString("en-US", {
+              new Date(item.date).toLocaleDateString("en-US", {
                 dateStyle: "medium",
               })
             }}

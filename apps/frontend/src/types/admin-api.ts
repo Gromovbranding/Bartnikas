@@ -153,6 +153,12 @@ export enum ListDegree {
   Gold = 'Gold',
   Silver = 'Silver',
   Bronze = 'Bronze',
+  PeopleChoice = "People's choice Awards",
+  Honorable = 'Honorable mention',
+  Remarkable = 'Remarkable artwork',
+  First = '1 place',
+  Second = '2 place',
+  Third = '3 place',
 }
 
 export interface IAwardsDegreeGroup {
