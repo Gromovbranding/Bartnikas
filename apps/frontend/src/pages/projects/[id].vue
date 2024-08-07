@@ -571,8 +571,8 @@ const changeDetailOrder = (
     img,
     picture {
       width: 100%;
-      min-height: 556px;
-      max-height: 556px;
+      min-height: 800px;
+      max-height: 800px;
       object-fit: cover;
       border-radius: 7px;
     }
@@ -632,9 +632,8 @@ const changeDetailOrder = (
     &__img {
       img,
       picture {
-        min-height: 222px;
-        max-height: 222px;
-      }
+      min-height: 320px;
+      max-height: 320px;      }
     }
     &__info {
       margin-top: 16px;
