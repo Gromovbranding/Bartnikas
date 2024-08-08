@@ -78,12 +78,12 @@ const imagesToDegress = (arr: any[]) => {
       if (yearItem.data.groups === 'Gold') { return goldImgs.push({ name: yearItem.item.name }) }
       if (yearItem.data.groups === 'Silver') { return silvImgs.push({ name: yearItem.item.name }) }
       if (yearItem.data.groups === 'Bronze') { return bronzeImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'PeopleChoice') { return peopleChoiceImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'Honorable') { return honorableImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'Remarkable') { return remarkableImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'First') { return firstImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'Second') { return secondImgs.push({ name: yearItem.item.name }) }
-      if (yearItem.data.groups === 'Third') { return thirdImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === "People's choice Awards") { return peopleChoiceImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === 'Honorable mention') { return honorableImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === 'Remarkable artwork') { return remarkableImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === '1 place') { return firstImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === '2 place') { return secondImgs.push({ name: yearItem.item.name }) }
+      if (yearItem.data.groups === '3 place') { return thirdImgs.push({ name: yearItem.item.name }) }
     })
     const res = {
       year: +i,
@@ -92,12 +92,12 @@ const imagesToDegress = (arr: any[]) => {
     if (goldImgs.length) { res.groups.push({ type: 'Gold', images: goldImgs }) }
     if (silvImgs.length) { res.groups.push({ type: 'Silver', images: silvImgs }) }
     if (bronzeImgs.length) { res.groups.push({ type: 'Bronze', images: bronzeImgs }) }
-    if (peopleChoiceImgs.length) { res.groups.push({ type: 'PeopleChoice', images: peopleChoiceImgs }) }
-    if (honorableImgs.length) { res.groups.push({ type: 'Honorable', images: honorableImgs }) }
-    if (remarkableImgs.length) { res.groups.push({ type: 'Remarkable', images: remarkableImgs }) }
-    if (firstImgs.length) { res.groups.push({ type: 'First', images: firstImgs }) }
-    if (secondImgs.length) { res.groups.push({ type: 'Second', images: secondImgs }) }
-    if (thirdImgs.length) { res.groups.push({ type: 'Third', images: thirdImgs }) }
+    if (peopleChoiceImgs.length) { res.groups.push({ type: "People's choice Awards", images: peopleChoiceImgs }) }
+    if (honorableImgs.length) { res.groups.push({ type: 'Honorable mention', images: honorableImgs }) }
+    if (remarkableImgs.length) { res.groups.push({ type: 'Remarkable artwork', images: remarkableImgs }) }
+    if (firstImgs.length) { res.groups.push({ type: '1 place', images: firstImgs }) }
+    if (secondImgs.length) { res.groups.push({ type: '2 place', images: secondImgs }) }
+    if (thirdImgs.length) { res.groups.push({ type: '3 place', images: thirdImgs }) }
     form.degress.push(res)
   }
 }
@@ -127,12 +127,12 @@ const selectOptions = [
   { value: 'Gold', label: 'Gold' },
   { value: 'Silver', label: 'Silver' },
   { value: 'Bronze', label: 'Bronze' },
-  { value: 'PeopleChoice', label: "People's choice Awards" },
-  { value: 'Honorable', label: 'Honorable mention' },
-  { value: 'Remarkable', label: 'Remarkable artwork' },
-  { value: 'First', label: '1 place' },
-  { value: 'Second', label: '2 place' },
-  { value: 'Third', label: '3 place' }
+  { value: "People's choice Awards", label: "People's choice Awards" },
+  { value: 'Honorable mention', label: 'Honorable mention' },
+  { value: 'Remarkable artwork', label: 'Remarkable artwork' },
+  { value: '1 place', label: '1 place' },
+  { value: '2 place', label: '2 place' },
+  { value: '3 place', label: '3 place' }
 ]
 
 const onClickDelete = (e: Event) => {
