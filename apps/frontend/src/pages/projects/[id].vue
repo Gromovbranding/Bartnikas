@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import type { Swiper } from 'swiper/types'
 import type {
   IProject,
   IProjectCollabTranslate,
-  IProjectImageDetail,
+  // IProjectImageDetail,
   IProjectTranslate
 } from '~/types/admin-api'
 
@@ -95,42 +96,31 @@ const details = computed(() =>
   (project.value?.details ?? []).filter(item => item.is_active)
 )
 
+const swiperInstance = ref<Swiper | null>(null)
+
+const onSwiper = (swiper: Swiper) => {
+  swiperInstance.value = swiper
+}
+
+const zoomIsOpen = ref(false)
+
+const openZoom = (slideId: number) => {
+  zoomIsOpen.value = true
+  const index = details.value.findIndex(detail => detail.id === slideId)
+  console.log(index, swiperInstance.value)
+  swiperInstance.value?.slideTo(index, 500)
+}
+
+watch(zoomIsOpen, (val) => {
+  if (val) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'initial'
+  }
+})
+
 const collab = computed(() => project.value?.collab)
 
-const activeOrderDetail = ref<IProjectImageDetail | null>(null)
-
-const changeDetailOrder = (
-  detail: IProjectImageDetail,
-  slide?: 'next' | 'prev'
-) => {
-  let changeDetail = detail
-
-  if (slide) {
-    const findIndexItem = details.value.findIndex(
-      item => item.id === detail.id
-    )
-
-    let nextIndex = 0
-
-    if (slide === 'next') {
-      if (findIndexItem >= details.value.length - 1) {
-        nextIndex = 0
-      } else {
-        nextIndex = findIndexItem + 1
-      }
-    } else if (slide === 'prev') {
-      if (findIndexItem > 0) {
-        nextIndex = findIndexItem - 1
-      } else {
-        nextIndex = details.value.length - 1
-      }
-    }
-
-    changeDetail = details.value.find((_, idx) => idx === nextIndex)!
-  }
-
-  activeOrderDetail.value = changeDetail
-}
 </script>
 
 <template>
@@ -205,30 +195,26 @@ const changeDetailOrder = (
       <section class="port-list">
         <Teleport to="body">
           <Transition name="fade">
-            <div v-if="activeOrderDetail" class="zoom__modal">
-              <div
-                class="zoom__modal-arrow zoom__modal-arrow_left"
-                @click="changeDetailOrder(activeOrderDetail, 'prev')"
-              >
-                <IconCornerWide left />
-              </div>
+            <div v-show="zoomIsOpen" class="zoom__modal">
               <div class="zoom__modal-main">
-                <div class="zoom__modal-content">
-                  <NuxtImg
-                    loading="lazy"
-                    :src="`/baseApiFiles/${activeOrderDetail.image.name}`"
-                    class="zoom__modal-nuxtimg"
-                  />
-                </div>
-                <div class="zoom__modal-bottom">
+                <Swiper class="zoom__modal-content" :space-between="20" @swiper="onSwiper">
+                  <SwiperSlide v-for="detail in details" :key="detail.id">
+                    <NuxtImg
+                      loading="lazy"
+                      :src="`/baseApiFiles/${detail.image.name}`"
+                      class="zoom__modal-nuxtimg"
+                    />
+                  </SwiperSlide>
+                </Swiper>
+                <div v-if="swiperInstance" class="zoom__modal-bottom">
                   <IconCorner />
                   <div class="zoom__modal-bottom-info">
                     <div>
-                      <h3>{{ activeOrderDetail?.image_name }}</h3>
+                      <h3>{{ details[swiperInstance.activeIndex].image_name }}</h3>
                     </div>
                     <div>
                       <NuxtLinkLocale
-                        :to="`/projects/${project.id}/order/${activeOrderDetail.id}`"
+                        :to="`/projects/${project.id}/order/${details[swiperInstance.activeIndex].id}`"
                       >
                         <span>{{ $t("projects.request") }}</span>
                         <IconArrow is-arrow30-deg />
@@ -238,14 +224,8 @@ const changeDetailOrder = (
                 </div>
               </div>
               <div
-                class="zoom__modal-arrow"
-                @click="changeDetailOrder(activeOrderDetail, 'next')"
-              >
-                <IconCornerWide />
-              </div>
-              <div
                 class="zoom__modal-close"
-                @click.stop="activeOrderDetail = null"
+                @click="zoomIsOpen = false"
               >
                 <IconClose />
               </div>
@@ -259,7 +239,7 @@ const changeDetailOrder = (
           class="port-order"
         >
           <div class="port-order__img">
-            <div class="zoom__container" @click="changeDetailOrder(detail)">
+            <div class="zoom__container" @click="openZoom(detail.id)">
               <div class="zoom__container-icon">
                 <IconZoom :style="{ fill: '#fff' }" />
               </div>
@@ -360,8 +340,8 @@ const changeDetailOrder = (
     position: fixed;
     inset: 0;
     z-index: 12;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     background-color: #000;
 
@@ -394,7 +374,9 @@ const changeDetailOrder = (
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding-top: 15px;
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     &-bottom {
@@ -524,11 +506,18 @@ const changeDetailOrder = (
         border-radius: 0;
       }
     }
-    &-nuxtimg {
+
+    &:deep(.zoom__modal-nuxtimg) {
       width: 100%;
       height: auto;
       object-fit: contain;
     }
+
+    // &-nuxtimg {
+    //   width: 100%;
+    //   height: auto;
+    //   object-fit: contain;
+    // }
   }
 }
 
@@ -632,8 +621,9 @@ const changeDetailOrder = (
     &__img {
       img,
       picture {
-      min-height: 320px;
-      max-height: 320px;      }
+        min-height: 320px;
+        max-height: 320px;
+      }
     }
     &__info {
       margin-top: 16px;
