@@ -107,7 +107,6 @@ const zoomIsOpen = ref(false)
 const openZoom = (slideId: number) => {
   zoomIsOpen.value = true
   const index = details.value.findIndex(detail => detail.id === slideId)
-  console.log(index, swiperInstance.value)
   swiperInstance.value?.slideTo(index, 500)
 }
 
@@ -201,7 +200,7 @@ const collab = computed(() => project.value?.collab)
           <Transition name="fade">
             <div v-show="zoomIsOpen" class="zoom__modal">
               <div class="zoom__modal-main">
-                <Swiper class="zoom__modal-content" :space-between="20" @swiper="onSwiper">
+                <Swiper class="zoom__modal-content" :space-between="20" :auto-height="true" @swiper="onSwiper">
                   <SwiperSlide v-for="detail in details" :key="detail.id">
                     <NuxtImg
                       loading="lazy"
