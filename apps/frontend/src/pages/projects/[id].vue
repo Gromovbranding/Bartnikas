@@ -119,6 +119,10 @@ watch(zoomIsOpen, (val) => {
   }
 })
 
+onBeforeRouteLeave(() => {
+  document.body.style.overflow = 'initial'
+})
+
 const collab = computed(() => project.value?.collab)
 
 </script>
