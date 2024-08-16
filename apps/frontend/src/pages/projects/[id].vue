@@ -800,6 +800,23 @@ const collab = computed(() => project.value?.collab)
   background-color: #eceae8;
 }
 
+@media screen and (max-width: 1023px) {
+  .port-list {
+    grid-template-columns: 1fr;
+  }
+
+  .port-order {
+    &__img {
+      img,
+      picture {
+        max-height: unset;
+        min-height: unset;
+        height: auto;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 550px) {
   .project {
     padding: 80px 12px;
