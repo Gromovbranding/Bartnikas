@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Swiper } from 'swiper/types'
+import { Navigation } from 'swiper/modules'
 import type {
   IProject,
   IProjectCollabTranslate,
@@ -200,7 +201,13 @@ const collab = computed(() => project.value?.collab)
           <Transition name="fade">
             <div v-show="zoomIsOpen" class="zoom__modal">
               <div class="zoom__modal-main">
-                <Swiper class="zoom__modal-content" :space-between="20" :auto-height="true" @swiper="onSwiper">
+                <Swiper
+                  class="zoom__modal-content"
+                  :space-between="20"
+                  :auto-height="true"
+                  :modules="[Navigation]"
+                  @swiper="onSwiper"
+                >
                   <SwiperSlide v-for="detail in details" :key="detail.id">
                     <NuxtImg
                       loading="lazy"
@@ -316,6 +323,7 @@ const collab = computed(() => project.value?.collab)
   &__container {
     position: relative;
     cursor: pointer;
+    height: 100%;
     &:hover {
       .zoom__container-icon {
         opacity: 1;
@@ -336,6 +344,10 @@ const collab = computed(() => project.value?.collab)
         height: 42px;
         fill: #000;
       }
+    }
+
+    &-content {
+      height: 100%;
     }
   }
 
@@ -559,13 +571,16 @@ const collab = computed(() => project.value?.collab)
   }
 }
 .port-order {
+  display: flex;
+  flex-direction: column;
   &__img {
+    flex-grow: 1;
     img,
     picture {
       width: 100%;
-      min-height: 800px;
-      max-height: 800px;
+      height: 100%;
       object-fit: cover;
+      object-position: 50% 50%;
       border-radius: 7px;
     }
   }
@@ -621,13 +636,6 @@ const collab = computed(() => project.value?.collab)
 
 @media screen and (max-width: 550px) {
   .port-order {
-    &__img {
-      img,
-      picture {
-        min-height: 320px;
-        max-height: 320px;
-      }
-    }
     &__info {
       margin-top: 16px;
       > div {
@@ -803,17 +811,6 @@ const collab = computed(() => project.value?.collab)
 @media screen and (max-width: 1023px) {
   .port-list {
     grid-template-columns: 1fr;
-  }
-
-  .port-order {
-    &__img {
-      img,
-      picture {
-        max-height: unset;
-        min-height: unset;
-        height: auto;
-      }
-    }
   }
 }
 
