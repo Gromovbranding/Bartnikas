@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     [
       'nuxt-swiper', {
         modules: [
+          'navigation',
           'thumbs',
           'autoplay',
           'effect-fade',

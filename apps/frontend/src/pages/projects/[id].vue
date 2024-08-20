@@ -60,16 +60,28 @@ const translatedMoreProjects = reactive((moreProjects.value ?? []).map((item) =>
 }))
 
 const onScroll = () => {
-  if (!wrapper.value || !sticky.value) { return }
+  if (!wrapper.value || !sticky.value) {
+    return
+  }
   const rem = window.innerWidth / 100
   const diff2 = window.scrollY - (section.value?.offsetTop || 0)
-  if (diff2 > wrapper.value.offsetWidth - sticky.value.offsetWidth) { return }
-  if (diff2 > 0) { return (scrollProgress.value = diff2 + 2 * rem) }
+  if (diff2 > wrapper.value.offsetWidth - sticky.value.offsetWidth) {
+    return
+  }
+  if (diff2 > 0) {
+    return (scrollProgress.value = diff2 + 2 * rem)
+  }
   scrollProgress.value = 0
 }
 
 onMounted(() => {
-  if (!wrapper.value || projects.value?.length < 3 || breakpoint.value !== 'lg') { return }
+  if (
+    !wrapper.value ||
+    projects.value?.length < 3 ||
+    breakpoint.value !== 'lg'
+  ) {
+    return
+  }
   const diff = wrapper.value.offsetWidth - sticky.value.offsetWidth
   wsHeight.value = diff + 'px'
   // wrapperHeight.value = wrapper.value.scrollWidth + "px";
@@ -124,7 +136,6 @@ onBeforeRouteLeave(() => {
 })
 
 const collab = computed(() => project.value?.collab)
-
 </script>
 
 <template>
@@ -150,8 +161,7 @@ const collab = computed(() => project.value?.collab)
           </div>
           <div>
             <h3>
-              {{ $t("name.first") }} <br>
-              {{ $t("name.second") }}
+              {{ $t('name.first') }}<br>{{ $t('name.second') }}
             </h3>
           </div>
         </div>
@@ -203,9 +213,10 @@ const collab = computed(() => project.value?.collab)
               <div class="zoom__modal-main">
                 <Swiper
                   class="zoom__modal-content"
-                  :space-between="20"
+                  :space-between="35"
                   :auto-height="true"
                   :modules="[Navigation]"
+                  :navigation="true"
                   @swiper="onSwiper"
                 >
                   <SwiperSlide v-for="detail in details" :key="detail.id">
@@ -233,10 +244,7 @@ const collab = computed(() => project.value?.collab)
                   </div>
                 </div>
               </div>
-              <div
-                class="zoom__modal-close"
-                @click="zoomIsOpen = false"
-              >
+              <div class="zoom__modal-close" @click="zoomIsOpen = false">
                 <IconClose />
               </div>
             </div>
@@ -279,7 +287,7 @@ const collab = computed(() => project.value?.collab)
     </div>
     <section v-if="moreProjects?.length" ref="section" class="more">
       <div ref="sticky" class="sticky-wrapper">
-        <h2>{{ $t("projects.moreProjects") }}</h2>
+        <h2>{{ $t('projects.moreProjects') }}</h2>
         <div ref="wrapper" class="more__projects">
           <div
             v-for="item in translatedMoreProjects"
@@ -513,12 +521,26 @@ const collab = computed(() => project.value?.collab)
       display: flex;
       justify-content: center;
       width: 100%;
+      padding: 0 35px;
 
       > :deep(picture) {
         object-fit: cover;
         width: 100%;
         height: 100%;
         border-radius: 0;
+      }
+
+      &:deep(.swiper-button-next),
+      &:deep(.swiper-button-prev) {
+        color: #fff;
+      }
+
+      &:deep(.swiper-button-prev) {
+        left: 0;
+      }
+
+      &:deep(.swiper-button-next) {
+        right: 0;
       }
     }
 
@@ -537,6 +559,14 @@ const collab = computed(() => project.value?.collab)
 }
 
 @media screen and (max-width: 550px) {
+  .zoom__modal-content {
+    padding: 0;
+    &:deep(.swiper-button-next),
+    &:deep(.swiper-button-prev) {
+      display: none;
+    }
+  }
+
   .zoom__modal-arrow {
     flex: 1;
     > :deep(svg) {
