@@ -20,6 +20,8 @@ const { data: emails } = await useAsyncData(
   'generalInfoEmailss',
   async () => await getActiveGeneralInfo()
 )
+
+const closeMenu = () => { isMenuVisible.value = false }
 </script>
 
 <template>
@@ -32,19 +34,19 @@ const { data: emails } = await useAsyncData(
       <div>
         <ul class="menu__item-main">
           <li>
-            <NuxtLinkLocale to="/about">
+            <NuxtLinkLocale to="/about" @click="closeMenu">
               {{ $t("titles.about") }}
               <IconPointer />
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/projects">
+            <NuxtLinkLocale to="/projects" @click="closeMenu">
               {{ $t("titles.projects") }}
               <IconPointer />
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/services">
+            <NuxtLinkLocale to="/services" @click="closeMenu">
               {{ $t("titles.services") }}
               <IconPointer />
             </NuxtLinkLocale>
@@ -52,27 +54,27 @@ const { data: emails } = await useAsyncData(
         </ul>
         <ul class="menu__item-sub">
           <li>
-            <NuxtLinkLocale to="/awards">
+            <NuxtLinkLocale to="/awards" @click="closeMenu">
               {{ $t("titles.awards") }} <sup>> 200</sup>
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/media">
+            <NuxtLinkLocale to="/media" @click="closeMenu">
               {{ $t("titles.media") }}
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/video-collection">
+            <NuxtLinkLocale to="/video-collection" @click="closeMenu">
               {{ $t("titles.videoCollection") }}
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/faq">
+            <NuxtLinkLocale to="/faq" @click="closeMenu">
               {{ $t("titles.faq") }}
             </NuxtLinkLocale>
           </li>
           <li>
-            <NuxtLinkLocale to="/contacts">
+            <NuxtLinkLocale to="/contacts" @click="closeMenu">
               {{ $t("titles.contacts") }}
             </NuxtLinkLocale>
           </li>
@@ -88,12 +90,12 @@ const { data: emails } = await useAsyncData(
         <div class="menu__terms">
           <ul class="menu__terms-menu">
             <li>
-              <NuxtLinkLocale to="/terms">
+              <NuxtLinkLocale to="/terms" @click="closeMenu">
                 {{ $t("titles.termsConditions") }}
               </NuxtLinkLocale>
             </li>
             <li>
-              <NuxtLinkLocale to="/blog">
+              <NuxtLinkLocale to="/blog" @click="closeMenu">
                 {{ $t("titles.blog") }}
               </NuxtLinkLocale>
             </li>

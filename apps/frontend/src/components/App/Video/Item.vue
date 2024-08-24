@@ -24,11 +24,27 @@ function playVideo () {
   video.value.play()
   activeVideo.value = true
 }
+
+const copyIcon = ref(false)
+
+function copyVideoLink () {
+  navigator.clipboard.writeText(useGetFileByUrl(props.item.video.name) + '#t=0.1')
+  showCheckMark()
+}
+
+function showCheckMark () {
+  copyIcon.value = true
+  setTimeout(() => (copyIcon.value = false), 3000)
+}
 </script>
 
 <template>
   <article class="video-collection">
     <div class="video-collection__img">
+      <div v-if="activeVideo" class="video-collection__copy-link" @click="copyVideoLink">
+        <IconCopy v-if="copyIcon" :title="'Link copied'" />
+        <IconLink v-else :title="'Copy link'" />
+      </div>
       <video
         ref="video"
         :controls="showControls"
@@ -65,6 +81,23 @@ function playVideo () {
       height: 20vw;
       object-fit: cover;
       border-radius: $borderRadiusMain;
+    }
+  }
+
+  &__copy-link {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(rgba(0,0,0, .3), rgba(0,0,0, .3));
+    border-radius: 0 10px;
+    padding: 3px;
+    cursor: pointer;
+    z-index: 1;
+
+    svg {
+      width: 30px;
+      height: 30px;
     }
   }
 

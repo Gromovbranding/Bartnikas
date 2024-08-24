@@ -221,7 +221,6 @@ const collab = computed(() => project.value?.collab)
                 >
                   <SwiperSlide v-for="detail in details" :key="detail.id">
                     <NuxtImg
-                      loading="lazy"
                       :src="`/baseApiFiles/${detail.image.name}`"
                       class="zoom__modal-nuxtimg"
                     />

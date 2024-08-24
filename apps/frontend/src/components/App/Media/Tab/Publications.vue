@@ -177,11 +177,13 @@ const translated = reactive((publication.value ?? []).map((item) => {
     display: flex;
     flex-direction: column;
     grid-gap: 50px;
-    padding: 30px 12vw 0;
+    padding: 30px 8vw 0;
   }
 
   .media {
     &__publications {
+      padding-bottom: 30px;
+      border-bottom: 1px solid $colorTextDark;
       > div {
         &:first-child {
           img,
