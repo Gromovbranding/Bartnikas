@@ -564,7 +564,7 @@ const collab = computed(() => project.value?.collab)
 }
 
 .showmore-btn {
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 
 @media screen and (max-width: 550px) {
