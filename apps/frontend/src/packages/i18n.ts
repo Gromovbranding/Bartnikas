@@ -265,7 +265,8 @@ export default defineI18nConfig(() => ({
       buttons: {
         viewProject: 'View gallery',
         back: 'back',
-        pay: 'Pay'
+        pay: 'Pay',
+        seeMore: 'See more'
       },
       contacts: {
         locationLive: 'Stanislav Bartnikas resides in Dubai, UAE',
@@ -618,7 +619,8 @@ export default defineI18nConfig(() => ({
       buttons: {
         viewProject: 'Показать проекты',
         back: 'Назад',
-        pay: 'Оплатить'
+        pay: 'Оплатить',
+        seeMore: 'Смотреть еще'
       },
       contacts: {
         locationLive: 'Станислав Бартникас проживает в Дубае, ОАЭ.',

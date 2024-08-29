@@ -287,7 +287,7 @@ const collab = computed(() => project.value?.collab)
         </div>
       </section>
       <UIButton v-if="showedDetails.length !== details.length" class="showmore-btn" @click="addMoreProjectsToList">
-        {{ t('projects.moreProjects') }}
+        {{ t('buttons.seeMore') }}
       </UIButton>
     </div>
     <section v-if="moreProjects?.length" ref="section" class="more">
