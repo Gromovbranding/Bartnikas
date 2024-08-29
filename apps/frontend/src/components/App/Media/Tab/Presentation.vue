@@ -34,7 +34,6 @@ const translated = reactive((presentation.value ?? []).map((item) => {
         <h3>{{ item.translate?.title }}</h3>
         <UIButton
           class="media__presentation__btn"
-          :is-text-uppercase="false"
           :to="useGetFileByUrl(item.pdf.name)"
           download
         >

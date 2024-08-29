@@ -50,7 +50,6 @@ useHeadSafe({
           v-for="tab in mediaTabs"
           :key="`media-tab-${tab.label}`"
           style="transform: translate(0) !important"
-          :is-text-uppercase="false"
           :is-grey="tab.label !== selectedTab.label"
           @click="selectedTab = tab"
         >

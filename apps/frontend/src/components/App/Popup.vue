@@ -83,7 +83,6 @@ async function handleSubmit () {
         <UIButton
           class="popup__btn"
           type="submit"
-          :is-text-uppercase="false"
         >
           {{ buttonText }}
         </UIButton>

@@ -109,7 +109,6 @@ onMounted(() => {
           <div class="intro__main-action">
             <UIButton
               class="intro__action-btn"
-              :is-text-uppercase="false"
               @click="popupIsOpen = true"
             >
               {{ translated?.intro_action }}

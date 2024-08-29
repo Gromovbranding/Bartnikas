@@ -10,7 +10,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   isGrey: false,
-  isTextUppercase: true,
+  isTextUppercase: false,
   isWhite: false,
   to: ''
 })

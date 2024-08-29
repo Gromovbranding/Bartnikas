@@ -109,12 +109,15 @@ const details = computed(() =>
   (project.value?.details ?? []).filter(item => item.is_active)
 )
 
-const swiperInstance = ref<Swiper | null>(null)
+const indexFactor = ref(1)
+const endListIndex = computed(() => 10 * indexFactor.value)
+const showedDetails = computed(() => details.value.slice(0, endListIndex.value))
+const addMoreProjectsToList = () => indexFactor.value++
 
+const swiperInstance = ref<Swiper | null>(null)
 const onSwiper = (swiper: Swiper) => {
   swiperInstance.value = swiper
 }
-
 const zoomIsOpen = ref(false)
 
 const openZoom = (slideId: number) => {
@@ -219,7 +222,7 @@ const collab = computed(() => project.value?.collab)
                   :navigation="true"
                   @swiper="onSwiper"
                 >
-                  <SwiperSlide v-for="detail in details" :key="detail.id">
+                  <SwiperSlide v-for="detail in showedDetails" :key="detail.id">
                     <NuxtImg
                       :src="`/baseApiFiles/${detail.image.name}`"
                       class="zoom__modal-nuxtimg"
@@ -251,7 +254,7 @@ const collab = computed(() => project.value?.collab)
         </Teleport>
 
         <div
-          v-for="detail in details"
+          v-for="detail in showedDetails"
           :key="`port-item-${detail.id}`"
           class="port-order"
         >
@@ -283,6 +286,9 @@ const collab = computed(() => project.value?.collab)
           </div>
         </div>
       </section>
+      <UIButton v-if="showedDetails.length !== details.length" class="showmore-btn" @click="addMoreProjectsToList">
+        {{ t('projects.moreProjects') }}
+      </UIButton>
     </div>
     <section v-if="moreProjects?.length" ref="section" class="more">
       <div ref="sticky" class="sticky-wrapper">
@@ -555,6 +561,10 @@ const collab = computed(() => project.value?.collab)
     //   object-fit: contain;
     // }
   }
+}
+
+.showmore-btn {
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 550px) {
