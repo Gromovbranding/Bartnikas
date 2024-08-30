@@ -86,6 +86,10 @@ const classes = computed(() => {
   .btn-default {
     padding: 1.74rem 2rem;
     font-size: 7vw;
+
+    &:hover {
+      transform: none;
+    }
   }
 }
 </style>
