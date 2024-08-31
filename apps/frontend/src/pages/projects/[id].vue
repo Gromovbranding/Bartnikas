@@ -118,6 +118,19 @@ const swiperInstance = ref<Swiper | null>(null)
 const onSwiper = (swiper: Swiper) => {
   swiperInstance.value = swiper
 }
+
+const onSlideChange = () => {
+  swiperInstance.value?.update()
+  console.log('Slide changed to:', swiperInstance.value?.activeIndex)
+}
+
+watch(
+  () => swiperInstance.value?.activeIndex,
+  (newIndex) => {
+    console.log('Active index changed to:', newIndex)
+  }
+)
+
 const zoomIsOpen = ref(false)
 
 const openZoom = (slideId: number) => {
@@ -221,6 +234,7 @@ const collab = computed(() => project.value?.collab)
                   :modules="[Navigation]"
                   :navigation="true"
                   @swiper="onSwiper"
+                  @on-slide-change="onSlideChange"
                 >
                   <SwiperSlide v-for="detail in showedDetails" :key="detail.id">
                     <NuxtImg
@@ -386,7 +400,7 @@ const collab = computed(() => project.value?.collab)
       > :deep(svg) {
         width: 32px;
         height: 32px;
-        fill: rgba(255, 255, 255, 0.1);
+        fill: rgba(255, 255, 255, 0.8);
       }
 
       &:hover {
