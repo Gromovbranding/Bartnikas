@@ -234,7 +234,7 @@ const collab = computed(() => project.value?.collab)
                   :modules="[Navigation]"
                   :navigation="true"
                   @swiper="onSwiper"
-                  @on-slide-change="onSlideChange"
+                  @slide-change="onSlideChange"
                 >
                   <SwiperSlide v-for="detail in showedDetails" :key="detail.id">
                     <NuxtImg

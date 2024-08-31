@@ -529,10 +529,14 @@ export interface IProjectOrderByEmail {
   updated_at: string;
 }
 
+export interface IFooterContactTranslate {
+  menu_links: { link: string; name: string }[];
+}
+
 export interface IFooterContact {
   id: number;
+  translate: TranslateLang<IFooterContactTranslate>[];
   socials: { link: string; icon: string }[];
-  menu_links: { link: string; name: string }[];
   active: boolean;
   logo: IFile;
   created_at: string;

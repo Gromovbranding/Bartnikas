@@ -109,8 +109,8 @@ const { data: contacts } = await useAsyncData(
 
     > div {
       &:first-child {
-        width: 470px;
-        height: 370px;
+        width: 350px;
+        height: auto;
 
         picture,
         img {

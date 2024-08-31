@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IFooterContact, PartialFileAdminApiDto } from '@/types/admin-api'
+import type { IFooterContact, IFooterContactTranslate, PartialFileAdminApiDto } from '@/types/admin-api'
 import { AdminTemplateForm, AdminUploadFile } from '#components'
 
 definePageMeta({
@@ -14,7 +14,7 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 const route = useRoute()
 const id = Number(route.params.id)
 
-const { footerContacts } = useAdmin()
+const { footerContacts, currentIndexLocale, initTranslateLocale } = useAdmin()
 const { formRules, navigateBack, titles, methods } = footerContacts()
 
 const model = await methods.handleGetModel(id)
@@ -23,7 +23,10 @@ useHeadSafe({
   title: titles.edit
 })
 
-const form = reactive<IFooterContact>(model)
+const form = reactive<IFooterContact>({
+  ...model,
+  translate: initTranslateLocale<IFooterContactTranslate>(model.translate)
+})
 
 const handleDelete = async () => {
   await methods.handleDelete(id)
@@ -55,7 +58,7 @@ const handleUpdate = async () => {
           Menu Links
         </h2>
       </ElFormItem>
-      <template v-for="(item, idx) in form.menu_links" :key="`ml-${idx}`">
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].menu_links" :key="`ml-${idx}`">
         <ElFormItem
           label="Menu item name"
           :prop="`menu_links.${idx}.name`"
@@ -65,7 +68,7 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.menu_links[idx].name" />
+          <ElInput v-model="form.translate[currentIndexLocale].menu_links[idx].name" />
         </ElFormItem>
         <ElFormItem
           label="Menu item link"
@@ -76,13 +79,13 @@ const handleUpdate = async () => {
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.menu_links[idx].link" />
+          <ElInput v-model="form.translate[currentIndexLocale].menu_links[idx].link" />
         </ElFormItem>
 
         <ElFormItem>
           <ElButton
             type="danger"
-            @click="form.menu_links = removeItemByIdx(form.menu_links, idx)"
+            @click="form.translate[currentIndexLocale].menu_links = removeItemByIdx(form.translate[currentIndexLocale].menu_links, idx)"
           >
             <ElIcon>
               <ElIconDelete />
@@ -95,7 +98,7 @@ const handleUpdate = async () => {
         <ElButton
           type="default"
           @click="
-            form.menu_links.push({
+            form.translate[currentIndexLocale].menu_links.push({
               name: '',
               link: '',
             })
