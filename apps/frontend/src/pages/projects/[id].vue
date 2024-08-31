@@ -565,7 +565,7 @@ const collab = computed(() => project.value?.collab)
 
     &:deep(.zoom__modal-nuxtimg) {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
     }
 
