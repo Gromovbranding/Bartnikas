@@ -61,7 +61,7 @@ const handleUpdate = async () => {
       <template v-for="(item, idx) in form.translate[currentIndexLocale].menu_links" :key="`ml-${idx}`">
         <ElFormItem
           label="Menu item name"
-          :prop="`menu_links.${idx}.name`"
+          :prop="`translate.${currentIndexLocale}.menu_links.${idx}.name`"
           :rules="{
             required: true,
             message: 'field is required',
@@ -72,7 +72,7 @@ const handleUpdate = async () => {
         </ElFormItem>
         <ElFormItem
           label="Menu item link"
-          :prop="`menu_links.${idx}.link`"
+          :prop="`translate.${currentIndexLocale}.menu_links.${idx}.link`"
           :rules="{
             required: true,
             message: 'field is required',

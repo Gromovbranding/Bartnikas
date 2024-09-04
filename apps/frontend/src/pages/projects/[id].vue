@@ -121,13 +121,14 @@ const onSwiper = (swiper: Swiper) => {
 
 const onSlideChange = () => {
   swiperInstance.value?.update()
-  console.log('Slide changed to:', swiperInstance.value?.activeIndex)
 }
 
 watch(
   () => swiperInstance.value?.activeIndex,
   (newIndex) => {
-    console.log('Active index changed to:', newIndex)
+    if (newIndex && newIndex + 1 === showedDetails.value.length) {
+      addMoreProjectsToList()
+    }
   }
 )
 
@@ -230,7 +231,6 @@ const collab = computed(() => project.value?.collab)
                 <Swiper
                   class="zoom__modal-content"
                   :space-between="35"
-                  :auto-height="true"
                   :modules="[Navigation]"
                   :navigation="true"
                   @swiper="onSwiper"
