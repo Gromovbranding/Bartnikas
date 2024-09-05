@@ -121,16 +121,10 @@ const onSwiper = (swiper: Swiper) => {
 
 const onSlideChange = () => {
   swiperInstance.value?.update()
-}
-
-watch(
-  () => swiperInstance.value?.activeIndex,
-  (newIndex) => {
-    if (newIndex && newIndex + 1 === showedDetails.value.length) {
-      addMoreProjectsToList()
-    }
+  if (swiperInstance.value?.activeIndex + 1 === showedDetails.value.length) {
+    addMoreProjectsToList()
   }
-)
+}
 
 const zoomIsOpen = ref(false)
 
