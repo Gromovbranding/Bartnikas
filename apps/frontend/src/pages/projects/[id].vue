@@ -119,10 +119,14 @@ const onSwiper = (swiper: Swiper) => {
   swiperInstance.value = swiper
 }
 
+const activeSlideIndex = ref(0)
+
 const onSlideChange = () => {
-  swiperInstance.value?.update()
-  if (swiperInstance.value?.activeIndex + 1 === showedDetails.value.length) {
-    addMoreProjectsToList()
+  if (swiperInstance.value?.activeIndex) {
+    activeSlideIndex.value = swiperInstance.value.activeIndex
+    if (swiperInstance.value.activeIndex + 1 === showedDetails.value.length) {
+      addMoreProjectsToList()
+    }
   }
 }
 
@@ -241,11 +245,11 @@ const collab = computed(() => project.value?.collab)
                   <IconCorner />
                   <div class="zoom__modal-bottom-info">
                     <div>
-                      <h3>{{ details[swiperInstance.activeIndex].image_name }}</h3>
+                      <h3>{{ details[activeSlideIndex].image_name }}</h3>
                     </div>
                     <div>
                       <NuxtLinkLocale
-                        :to="`/projects/${project.id}/order/${details[swiperInstance.activeIndex].id}`"
+                        :to="`/projects/${project.id}/order/${details[activeSlideIndex].id}`"
                       >
                         <span>{{ $t("projects.request") }}</span>
                         <IconArrow is-arrow30-deg />
