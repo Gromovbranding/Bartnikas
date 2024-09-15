@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type {
   IFooterContact,
-  IFooterContactTranslate,
+  // IFooterContactTranslate,
   PartialAdminApiDto,
   PartialFileAdminApiDto
 } from '@/types/admin-api'
@@ -11,7 +11,7 @@ definePageMeta({
   layout: 'admin'
 })
 
-const { footerContacts, initTranslateLocale, currentIndexLocale } = useAdmin()
+const { footerContacts /* initTranslateLocale, currentIndexLocale */ } = useAdmin()
 const { titles, formRules, navigateBack, methods } = footerContacts()
 
 useHeadSafe({
@@ -22,9 +22,10 @@ const uploadRef = ref<InstanceType<typeof AdminUploadFile> | null>(null)
 const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<IFooterContact>>({
-  translate: initTranslateLocale<IFooterContactTranslate>({
-    menu_links: []
-  }),
+  // translate: initTranslateLocale<IFooterContactTranslate>({
+  //   menu_links: []
+  // }),
+  menu_links: [],
   socials: [],
   active: false,
   logo: null
@@ -60,34 +61,34 @@ const handleCreate = async () => {
           Menu Links
         </h2>
       </ElFormItem>
-      <template v-for="(item, idx) in form.translate[currentIndexLocale].menu_links" :key="`ml-${idx}`">
+      <template v-for="(item, idx) in form.menu_links" :key="`ml-${idx}`">
         <ElFormItem
           label="Menu item name"
-          :prop="`translate.${currentIndexLocale}.menu_links.${idx}.name`"
+          :prop="`menu_links.${idx}.name`"
           :rules="{
             required: true,
             message: 'field is required',
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].menu_links[idx].name" />
+          <ElInput v-model="form.menu_links[idx].name" />
         </ElFormItem>
         <ElFormItem
           label="Menu item link"
-          :prop="`translate.${currentIndexLocale}.menu_links.${idx}.link`"
+          :prop="`menu_links.${idx}.link`"
           :rules="{
             required: true,
             message: 'field is required',
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.translate[currentIndexLocale].menu_links[idx].link" />
+          <ElInput v-model="form.menu_links[idx].link" />
         </ElFormItem>
 
         <ElFormItem>
           <ElButton
             type="danger"
-            @click="form.translate[currentIndexLocale].menu_links = removeItemByIdx(form.translate[currentIndexLocale].menu_links, idx)"
+            @click="form.menu_links = removeItemByIdx(form.menu_links, idx)"
           >
             <ElIcon>
               <ElIconDelete />
@@ -100,7 +101,7 @@ const handleCreate = async () => {
         <ElButton
           type="default"
           @click="
-            form.translate[currentIndexLocale].menu_links.push({
+            form.menu_links.push({
               name: '',
               link: '',
             })

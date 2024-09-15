@@ -535,7 +535,8 @@ export interface IFooterContactTranslate {
 
 export interface IFooterContact {
   id: number;
-  translate: TranslateLang<IFooterContactTranslate>[];
+  // translate: TranslateLang<IFooterContactTranslate>[];
+  menu_links: { link: string; name: string }[];
   socials: { link: string; icon: string }[];
   active: boolean;
   logo: IFile;
