@@ -1,15 +1,17 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { CreateFooterContactDto } from './dto/create-footer-contact.dto';
 import { UpdateFooterContactDto } from './dto/update-footer-contact.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { FooterContact } from './entities/footer-contact.entity';
+import { LanguageService } from 'src/shared/language/language.service';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class FooterContactsService {
   constructor(
     @InjectRepository(FooterContact)
     private readonly footerContactRepository: Repository<FooterContact>,
+    private readonly langService: LanguageService,
   ) {}
 
   async create(dto: CreateFooterContactDto) {
@@ -17,9 +19,12 @@ export class FooterContactsService {
       await this.setAllActiveFalse();
     }
 
-    return await this.footerContactRepository.save(
-      this.footerContactRepository.create(dto),
-    );
+    const translate = await this.langService.translate(dto.translate);
+
+    return await this.footerContactRepository.save({
+      ...dto,
+      translate,
+    });
   }
 
   async findAll() {
@@ -56,12 +61,13 @@ export class FooterContactsService {
       await this.setAllActiveFalse();
     }
 
-    return await this.footerContactRepository.save(
-      this.footerContactRepository.create({
-        ...dto,
-        id,
-      }),
-    );
+    const translate = await this.langService.translate(dto.translate);
+
+    return await this.footerContactRepository.save({
+      ...dto,
+      id,
+      translate,
+    });
   }
 
   async remove(id: number) {

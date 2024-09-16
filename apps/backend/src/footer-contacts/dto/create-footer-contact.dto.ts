@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   ArrayNotEmpty,
@@ -10,8 +10,9 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { CreateFileDbDto } from '../../files/dto/create-file-db.dto';
+import { CreateTranslateLanguageDto } from 'src/shared/language/dto/create-translate.dto';
 
-class ParamSocials {
+class CreateTranslateParamItemSocials {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -23,7 +24,7 @@ class ParamSocials {
   icon: string;
 }
 
-class ParamMenuLinks {
+class CreateTranslateParamMenuItemLinkDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -35,20 +36,29 @@ class ParamMenuLinks {
   name: string;
 }
 
-export class CreateFooterContactDto {
+class CreateTranslateFooterContactDto extends IntersectionType(
+  CreateTranslateLanguageDto,
+) {
   @ApiProperty()
   @ArrayNotEmpty()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ParamSocials)
-  socials: ParamSocials[];
+  @Type(() => CreateTranslateParamItemSocials)
+  socials: CreateTranslateParamItemSocials[];
 
   @ApiProperty()
   @ArrayNotEmpty()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ParamMenuLinks)
-  menu_links: ParamMenuLinks[];
+  @Type(() => CreateTranslateParamMenuItemLinkDto)
+  menu_links: CreateTranslateParamMenuItemLinkDto[];
+}
+
+export class CreateFooterContactDto {
+  @ApiProperty({ type: () => [CreateTranslateFooterContactDto] })
+  @ValidateNested({ each: true })
+  @Type(() => CreateTranslateFooterContactDto)
+  translate: CreateTranslateFooterContactDto[];
 
   @ApiProperty({ type: Boolean, default: false })
   @IsBoolean()

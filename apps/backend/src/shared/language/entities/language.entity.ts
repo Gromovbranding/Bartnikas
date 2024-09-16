@@ -25,8 +25,9 @@ import { VideoCollectionTranslate } from '../../../video-collection/entities/vid
 import { TestimonialsTranslate } from '../../../testimonials/entities/testimonials-translate.entity';
 import { PlaceOfPowerTranslate } from '../../../services/entities/place-of-power-translate.entity';
 import { PhotoportalTranslate } from '../../../services/entities/photoportal-translate.entity';
-import { AboutTranslate } from 'src/about/entities/about-translate.entity';
-import { ServicesTranslate } from 'src/services/entities/services-translate.entity';
+import { AboutTranslate } from '../../../about/entities/about-translate.entity';
+import { ServicesTranslate } from '../../../services/entities/services-translate.entity';
+import { FooterContactTranslate } from '../../../footer-contacts/entities/footer-contact-translate.entity';
 
 @Entity()
 export class Language {
@@ -203,6 +204,14 @@ export class Language {
     onUpdate: 'NO ACTION',
   })
   about_translate: AboutTranslate[];
+
+  @ApiHideProperty()
+  @OneToMany(() => AboutTranslate, (item) => item.language, {
+    eager: false,
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  footer_contact_translate: FooterContactTranslate[];
 
   @ApiProperty()
   @CreateDateColumn()

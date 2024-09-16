@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { FooterContactTranslate } from './footer-contact-translate.entity';
 
 @Entity()
 export class FooterContact {
@@ -16,23 +18,12 @@ export class FooterContact {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
-  @Column({
-    type: 'jsonb',
-    array: false,
-    default: () => "'[]'",
-    nullable: false,
+  @ApiProperty({ type: () => [FooterContactTranslate] })
+  @OneToMany(() => FooterContactTranslate, (item) => item.footer_contact, {
+    cascade: true,
+    eager: true,
   })
-  socials: { link: string; icon: string }[];
-
-  @ApiProperty()
-  @Column({
-    type: 'jsonb',
-    array: false,
-    default: () => "'[]'",
-    nullable: false,
-  })
-  menu_links: { link: string; name: string }[];
+  translate: FooterContactTranslate[];
 
   @ApiProperty()
   @Column({ default: false })
