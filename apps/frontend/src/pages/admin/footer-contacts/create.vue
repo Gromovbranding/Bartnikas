@@ -23,9 +23,9 @@ const formRef = ref<InstanceType<typeof AdminTemplateForm> | null>(null)
 
 const form = reactive<PartialAdminApiDto<IFooterContact>>({
   translate: initTranslateLocale<IFooterContactTranslate>({
-    menu_links: []
+    menu_links: [],
+    socials: []
   }),
-  socials: [],
   active: false,
   logo: null
 })
@@ -115,35 +115,35 @@ const handleCreate = async () => {
           Socials Links
         </h2>
       </ElFormItem>
-      <template v-for="(item, idx) in form.socials" :key="`sl-${idx}`">
+      <template v-for="(item, idx) in form.translate[currentIndexLocale].socials" :key="`sl-${idx}`">
         <ElFormItem
           label="Social item icon"
-          :prop="`socials.${idx}.icon`"
+          :prop="`translate.${currentIndexLocale}.socials.${idx}.icon`"
           :rules="{
             required: true,
             message: 'field is required',
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.socials[idx].icon" />
+          <ElInput v-model="form.translate[currentIndexLocale].socials[idx].icon" />
         </ElFormItem>
 
         <ElFormItem
           label="Social item link"
-          :prop="`socials.${idx}.link`"
+          :prop="`translate.${currentIndexLocale}.socials.${idx}.link`"
           :rules="{
             required: true,
             message: 'field is required',
             trigger: 'blur',
           }"
         >
-          <ElInput v-model="form.socials[idx].link" />
+          <ElInput v-model="form.translate[currentIndexLocale].socials[idx].link" />
         </ElFormItem>
 
         <ElFormItem>
           <ElButton
             type="danger"
-            @click="form.socials = removeItemByIdx(form.socials, idx)"
+            @click="form.translate[currentIndexLocale].socials = removeItemByIdx(form.translate[currentIndexLocale].socials, idx)"
           >
             <ElIcon>
               <ElIconDelete />
@@ -156,7 +156,7 @@ const handleCreate = async () => {
         <ElButton
           type="default"
           @click="
-            form.socials.push({
+            form.translate[currentIndexLocale].socials.push({
               icon: '',
               link: '',
             })

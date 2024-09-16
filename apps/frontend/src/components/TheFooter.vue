@@ -1,9 +1,17 @@
 <script lang="ts" setup>
+import type { IFooterContactTranslate } from '~/types/admin-api'
+
 const { getActiveFooterContact } = usePublicData()
 
 const { data: contacts } = await useAsyncData(
   'generalInfoContactss',
   async () => await getActiveFooterContact()
+)
+
+const translated = reactive(
+  useTranslateLanguage<IFooterContactTranslate>(
+    contacts.value?.translate ?? []
+  )
 )
 </script>
 
@@ -12,7 +20,7 @@ const { data: contacts } = await useAsyncData(
     <div class="footer__content">
       <div class="footer__info">
         <ul>
-          <li v-for="link in contacts?.menu_links" :key="link.name">
+          <li v-for="link in translated?.menu_links" :key="link.name">
             <NuxtLinkLocale :to="link.link">
               {{ link.name }}
             </NuxtLinkLocale>
@@ -39,7 +47,7 @@ const { data: contacts } = await useAsyncData(
         </div>
         <div>
           <a
-            v-for="link in contacts?.socials"
+            v-for="link in translated?.socials"
             :key="link.link"
             :href="link.link"
           >
