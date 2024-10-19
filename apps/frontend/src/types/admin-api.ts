@@ -531,13 +531,12 @@ export interface IProjectOrderByEmail {
 
 export interface IFooterContactTranslate {
   menu_links: { link: string; name: string }[];
+  socials: { link: string; icon: string }[];
 }
 
 export interface IFooterContact {
   id: number;
-  // translate: TranslateLang<IFooterContactTranslate>[];
-  menu_links: { link: string; name: string }[];
-  socials: { link: string; icon: string }[];
+  translate: TranslateLang<IFooterContactTranslate>[];
   active: boolean;
   logo: IFile;
   created_at: string;
