@@ -10,7 +10,10 @@ defineEmits<{
 
 const tinymceInit = {
   plugins: 'paste',
-  paste_as_text: true
+  paste_as_text: true,
+  relative_urls: false,
+  remove_script_host: true,
+  allow_script_urls: true
 }
 </script>
 
