@@ -613,7 +613,7 @@ export default defineI18nConfig(() => ({
         services: 'Услуги',
         placeOfPower: 'Персональное место силы',
         photoportal: 'Фотопортал',
-        photo_portals: 'Фото порталы',
+        photo_portals: 'Фотопорталы',
         music: 'Музыка'
       },
       buttons: {
