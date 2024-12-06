@@ -91,7 +91,7 @@ export default defineNuxtConfig({
     '/payment': { redirect: '/', ssr: false },
     '/admin/delivery-static': { redirect: '/admin/projects', ssr: false },
     '/admin/media/cv': { redirect: '/admin/projects', ssr: false },
-    '/news/3': { redirect: 'https://stanislavbartnikas.com/services/photoportal' }
+    '/news/3': { redirect: '/services/photoportal' }
   },
 
   devServer: {
